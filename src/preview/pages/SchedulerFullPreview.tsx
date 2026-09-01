@@ -168,7 +168,7 @@ const CODE = `// Tela cheia: dê altura real ao pai e deixe o Scheduler em flex-
       defaultFilterPanelOpen
       onEventClick={(ev) => setSelecionado(ev)}
       onSlotClick={(inicio) => abrirFormulario(inicio)}
-      primaryAction={<Button variant="filled" size="sm" iconLeft={<Plus />}>Novo evento</Button>}
+      primaryAction={<Button variant="filled" size="sm" iconLeft={<Plus />} aria-label="Novo evento" className="max-lg:size-form-xl max-lg:p-0"><span className="hidden lg:inline">Novo evento</span></Button>}
     />
   </main>
 </div>
@@ -230,8 +230,8 @@ export function SchedulerFullPreview() {
           window.alert(`onSlotClick → ${format(start, "PPP p", { locale: ptBR })}`)
         }
         primaryAction={
-          <Button variant="filled" size="sm" iconLeft={<Plus />}>
-            Novo evento
+          <Button variant="filled" size="sm" iconLeft={<Plus />} aria-label="Novo evento" className="max-lg:size-form-xl max-lg:p-0">
+            <span className="hidden lg:inline">Novo evento</span>
           </Button>
         }
       />

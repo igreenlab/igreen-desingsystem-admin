@@ -221,14 +221,24 @@ Três consequências práticas:
   mais alto que a grade e passava a mandar na altura das duas, vazando pra fora
   do container. Se você vir o calendário cortado, o pai é que está sem altura
   (gotcha nº 1).
-- **Abaixo de 1024px o painel não existe.** A coluna extra não cabe junto de
-  uma semana legível, então nessa faixa o botão fica **desabilitado** com
-  `title` explicando. Não é bug: é a alternativa a alternar um estado que o CSS
-  esconde.
+- **Abaixo de 1024px o painel vira DRAWER**, não some. A coluna não cabe junto
+  de uma semana legível, então nessa faixa o mesmo painel abre num
+  `FloatingPanel side="right"` por cima — o veículo que `DataTable` e
+  `DataList` já usam pro filtro deles (`ToolbarSimpleFilterDrawer`). Mesmo
+  conteúdo, mesmo estado, mesmo botão: só o invólucro muda.
 
-O breakpoint vive em dois lugares — o `lg:flex` de `schedulerFilterAside` e o
-`useMediaQuery("(min-width: 1024px)")` em `scheduler.tsx`. CSS resolve layout,
-JS resolve o estado do botão; se mudar, mude os dois.
+  No drawer, escolher uma data no mini-calendário **fecha** o painel — ele
+  cobre a grade, e manter aberto esconderia justamente o resultado. Como
+  coluna isso não acontece.
+
+⚠️ **O breakpoint vive em UM lugar só:** `useMediaQuery("(min-width: 1024px)")`
+em `scheduler.tsx`. Não acrescente media query no `schedulerFilterAside`.
+
+> Até 2026-09-01 este parágrafo mandava mudar **dois** lugares — o `lg:flex` do
+> style *mais* o hook. O `lg:flex` foi removido justamente porque a duplicação
+> produzia um estado em que o botão se dizia aberto e o painel estava
+> `display: none`; o `scheduler.tsx` diz isso em maiúsculas desde então. A doc
+> continuou mandando reintroduzir o defeito — L-060: comentário é load-bearing.
 
 ### 4c. "Nada marcado" = sem filtro, não "esconde tudo"
 

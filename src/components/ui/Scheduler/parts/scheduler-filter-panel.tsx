@@ -55,6 +55,20 @@ export type SchedulerFilterPanelProps = {
   appliedCount: number;
   onClose: () => void;
 
+  /**
+   * O painel vive DENTRO de outro contêiner que já é a superfície e já traz
+   * cabeçalho — hoje o `FloatingPanel` do modo drawer (<1024px).
+   *
+   * Muda duas coisas de uma vez, porque são a mesma decisão: o cabeçalho
+   * próprio (título + Limpar + X) não é renderizado — senão são dois títulos
+   * "Filtros" e dois X empilhados — e a moldura de card (largura fixa, borda,
+   * radius, fundo) sai, senão vira card dentro de card com uma faixa morta à
+   * direita.
+   *
+   * Default `false`: como coluna, o painel É o card.
+   */
+  embedded?: boolean;
+
   /** Contagem por opção — vem dos eventos ANTES do filtro daquele campo. */
   counts: Record<string, Record<string, number>>;
 
@@ -74,6 +88,7 @@ export function SchedulerFilterPanel({
   onClearAll,
   appliedCount,
   onClose,
+  embedded = false,
   counts,
   date,
   now,
@@ -98,7 +113,8 @@ export function SchedulerFilterPanel({
     });
 
   return (
-    <aside className={schedulerFilterAside()} aria-label="Filtros do calendário">
+    <aside className={schedulerFilterAside({ embedded })} aria-label="Filtros do calendário">
+      {embedded ? null : (
       <div className={schedulerAsideSection({ compact: true, sticky: true })}>
         <div className={schedulerAsideHead()}>
           <span className={schedulerAsideTitle()}>Filtros</span>
@@ -120,6 +136,7 @@ export function SchedulerFilterPanel({
           </div>
         </div>
       </div>
+      )}
 
       <div className={schedulerAsideSection()}>
         <MiniMonth

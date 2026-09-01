@@ -51,14 +51,41 @@ export const schedulerRoot = tv({
  * conteúdo (o título muda de tamanho por mês e por view), e grid obrigaria a
  * fixar uma fração que sobra ou falta.
  */
+/**
+ * Toolbar — DUAS LINHAS abaixo de `lg`, uma só a partir dele.
+ *
+ * Empilhado (<1024px): linha 1 é `[título] ······ [‹ Hoje ›]`, com a navegação
+ * empurrada pro fim; linha 2 é `[busca ·····] [📅] [⚙] [+]`, a busca comendo a
+ * sobra e os três controles como ícone puro.
+ *
+ * Antes era `flex-wrap` puro, e a quebra ficava a cargo do espaço disponível:
+ * em 375px saía título e navegação grudados à esquerda com um vão à direita, e
+ * os 4 controles da segunda linha disputando largura com os rótulos por
+ * extenso — "Mês", "Filtro" e "Novo evento" custam ~210px que a busca não
+ * tinha. Wrap resolve transbordo, não hierarquia.
+ */
 export const schedulerToolbar = tv({
   base: [
-    "flex flex-wrap items-center justify-between gap-gp-xl",
+    "flex flex-col gap-gp-xl",
+    "lg:flex-row lg:flex-wrap lg:items-center lg:justify-between",
   ],
 });
 
 export const schedulerToolbarSide = tv({
-  base: "flex min-w-0 flex-wrap items-center gap-gp-md",
+  base: "flex min-w-0 items-center gap-gp-md",
+  variants: {
+    /**
+     * `leading` = título + navegação. Empilhado, ocupa a linha inteira e
+     * separa os dois extremos — é o que joga `‹ Hoje ›` pro fim.
+     * `trailing` = busca + controles. A busca é quem estica (`flex-1` nela),
+     * então aqui basta ocupar a linha.
+     */
+    slot: {
+      leading: "w-full justify-between lg:w-auto lg:flex-wrap lg:justify-start",
+      trailing: "w-full lg:w-auto lg:flex-wrap",
+    },
+  },
+  defaultVariants: { slot: "trailing" },
 });
 
 /**
@@ -145,15 +172,15 @@ export const schedulerSearch = tv({
     "border border-border-subtle dark:border-border-input",
     "shadow-sh-sm dark:shadow-sh-none",
     "text-fg-default",
-    "min-w-0 flex-1 md:flex-initial",
-    "md:w-[200px] md:focus-within:w-[300px]",
+    "min-w-0 flex-1 lg:flex-initial",
+    "lg:w-[200px] lg:focus-within:w-[300px]",
     "transition-[width,border-color,background-color,box-shadow] duration-200",
     "focus-within:border-border-brand focus-within:shadow-sh-ring",
     "[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-muted",
   ],
   variants: {
     /** Mantém expandido mesmo sem foco quando já há termo digitado. */
-    expanded: { true: "md:w-[300px]", false: "" },
+    expanded: { true: "lg:w-[300px]", false: "" },
   },
   defaultVariants: { expanded: false },
 });
@@ -270,13 +297,32 @@ export const schedulerMain = tv({
  */
 export const schedulerFilterAside = tv({
   base: [
-    "flex w-[280px] min-h-0 shrink-0 flex-col overflow-y-auto",
+    "flex min-h-0 flex-col overflow-y-auto",
     // `scrollbar-thin` é a barra do DS (26 usos no repo contra 2 do
     // `scrollbar-default`) — trilho transparente + thumb tokenizado.
     // ⚠️ É `@utility` do tema GERADO, não do globals.css: existe nos 4 canais.
     "scrollbar-thin",
-    "rounded-radius-xl border border-border-default bg-bg-surface",
   ],
+  variants: {
+    /**
+     * `embedded` = o painel vive DENTRO de outro contêiner que já é a
+     * superfície — hoje o `FloatingPanel` do modo drawer (<1024px).
+     *
+     * Como coluna (`false`, o default) ele É o card: largura própria, borda,
+     * radius e fundo. Embutido, os quatro viram defeito — largura fixa deixa
+     * uma faixa morta à direita do drawer, e borda+radius+fundo repetem a
+     * superfície do painel que já o embrulha (card dentro de card, a mesma
+     * classe de erro da L-050).
+     */
+    embedded: {
+      false: [
+        "w-[280px] shrink-0",
+        "rounded-radius-xl border border-border-default bg-bg-surface",
+      ],
+      true: "w-full",
+    },
+  },
+  defaultVariants: { embedded: false },
 });
 
 /**

@@ -405,8 +405,8 @@ export function SchedulerDoc() {
             }
             defaultFilterPanelOpen
             primaryAction={
-              <Button variant="filled" size="sm" iconLeft={<Plus />}>
-                Novo evento
+              <Button variant="filled" size="sm" iconLeft={<Plus />} aria-label="Novo evento" className="max-lg:size-form-xl max-lg:p-0">
+                <span className="hidden lg:inline">Novo evento</span>
               </Button>
             }
           />

@@ -8,9 +8,12 @@ import {
 } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { format } from "date-fns";
+import { ListFilter } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { schedulerBody, schedulerMain, schedulerRoot } from "./scheduler.styles";
 import { SchedulerToolbar } from "./parts/scheduler-toolbar";
+import { Button } from "@/components/ui/Button";
+import { FloatingPanel } from "@/components/ui/FloatingPanel";
 import { SchedulerFilterPanel } from "./parts/scheduler-filter-panel";
 import { SchedulerMonthView } from "./views/month";
 import { HOUR_HEIGHT_PX, SchedulerTimeGrid } from "./views/time-grid";
@@ -211,10 +214,27 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       ? filter.filteredEvents.find((e) => e.id === dnd.dragAtivo?.eventId) ?? null
       : null;
 
-    const filterPanelAvailable = useMediaQuery("(min-width: 1024px)");
+    /**
+     * ⚠️ Este breakpoint decide o INVÓLUCRO, não a existência do filtro.
+     *
+     * Até 2026-09-01 ele decidia existência: abaixo de 1024px o painel não era
+     * montado e o botão ficava DESABILITADO com `title` explicando. Era a saída
+     * possível enquanto o único formato era coluna — mas o resultado prático é
+     * que filtrar no celular simplesmente não dava, e um botão cinza permanente
+     * na toolbar não comunica "use outra largura", comunica "quebrado".
+     *
+     * Agora a coluna vira drawer, que é como `DataTable` e `DataList` já
+     * resolvem o mesmo problema (`ToolbarSimpleFilterDrawer` num
+     * `FloatingPanel`). Mesmo conteúdo, mesmo estado, invólucro diferente.
+     */
+    const wideLayout = useMediaQuery("(min-width: 1024px)");
     const [filterPanelOpen, setFilterPanelOpen] = useState(defaultFilterPanelOpen);
-    const showFilterPanel =
-      filterPanelOpen && filterPanelAvailable && (filterFields?.length ?? 0) > 0;
+    const hasFilterFields = (filterFields?.length ?? 0) > 0;
+
+    /** Coluna à direita da grade — só onde ela cabe sem espremer os 7 dias. */
+    const showFilterPanel = filterPanelOpen && wideLayout && hasFilterFields;
+    /** Drawer por cima — abaixo de 1024px. Mutuamente exclusivo com a coluna. */
+    const showFilterDrawer = filterPanelOpen && !wideLayout && hasFilterFields;
 
     useImperativeHandle(
       ref,
@@ -300,9 +320,8 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
           onClearField={filter.clearField}
           onClearAll={filter.clearAll}
           appliedCount={filter.appliedCount}
-          filterPanelOpen={showFilterPanel}
+          filterPanelOpen={showFilterPanel || showFilterDrawer}
           onToggleFilterPanel={() => setFilterPanelOpen((o) => !o)}
-          filterPanelAvailable={filterPanelAvailable}
           toolbarActions={toolbarActions}
           primaryAction={primaryAction}
         />
@@ -376,6 +395,67 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             />
           ) : null}
         </div>
+
+        {/* Mesmo painel, invólucro de drawer. Renderizado FORA do
+            `schedulerBody` porque o `FloatingPanel` se posiciona sozinho (fixed
+            + portal) — dentro do body ele herdaria o `flex` e o `min-h-0` do
+            contêiner da grade.
+
+            `embedded`: o FloatingPanel já é a superfície e já desenha título,
+            ícone e X. Sem isto seriam dois "Filtros", dois botões de fechar,
+            e o card de 280px dentro de um body de 375 deixando faixa morta.
+            "Limpar tudo" migra pro footer, que é onde o
+            `ToolbarSimpleFilterDrawer` da tabela também o põe. */}
+        {showFilterDrawer && filterFields ? (
+          <FloatingPanel
+            open
+            onOpenChange={(aberto) => setFilterPanelOpen(aberto)}
+            side="right"
+            size="sm"
+            bodyPadded={false}
+            title="Filtros"
+            titleIcon={ListFilter}
+            description={
+              filter.appliedCount === 1
+                ? "1 filtro ativo"
+                : `${filter.appliedCount} filtros ativos`
+            }
+            footer={
+              <Button
+                variant="ghost"
+                color="secondary"
+                size="sm"
+                onClick={filter.clearAll}
+                disabled={filter.appliedCount === 0}
+              >
+                Limpar tudo
+              </Button>
+            }
+          >
+            <SchedulerFilterPanel
+              embedded
+              filterFields={filterFields}
+              filterModel={filter.filterModel}
+              onToggleValue={filter.toggleValue}
+              onClearAll={filter.clearAll}
+              appliedCount={filter.appliedCount}
+              onClose={() => setFilterPanelOpen(false)}
+              counts={filter.optionCounts}
+              date={state.date}
+              now={now}
+              locale={locale}
+              weekStartsOn={weekStartsOn}
+              events={filter.filteredEvents}
+              onDateSelect={(d) => {
+                state.goToDate(d);
+                // No drawer, escolher data é escolher o que ver: manter aberto
+                // por cima da grade esconde justamente o resultado. Como coluna
+                // isso não acontece, então o fechamento é só deste modo.
+                setFilterPanelOpen(false);
+              }}
+            />
+          </FloatingPanel>
+        ) : null}
 
         {/* O bloco que segue o cursor. Vive num PORTAL, fora da árvore da grade
             — é o que impede o `overflow-hidden` do frame e da célula de recortá-lo

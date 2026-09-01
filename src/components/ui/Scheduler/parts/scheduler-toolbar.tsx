@@ -97,12 +97,6 @@ export type SchedulerToolbarProps = {
   /** Estado do painel-coluna de filtro. */
   filterPanelOpen: boolean;
   onToggleFilterPanel: () => void;
-  /**
-   * `false` abaixo de `lg`: a coluna extra não cabe junto de uma grade de 7
-   * dias legível, então o botão fica desabilitado com `title` explicando — em
-   * vez de abrir um painel que o CSS esconde.
-   */
-  filterPanelAvailable: boolean;
 
   toolbarActions?: ReactNode;
   primaryAction?: ReactNode;
@@ -125,7 +119,6 @@ export function SchedulerToolbar({
   appliedCount,
   filterPanelOpen,
   onToggleFilterPanel,
-  filterPanelAvailable,
   toolbarActions,
   primaryAction,
 }: SchedulerToolbarProps) {
@@ -144,7 +137,7 @@ export function SchedulerToolbar({
     <div className="flex flex-col gap-gp-xl">
       <div className={schedulerToolbar()}>
         {/* ── Esquerda: período e navegação ─────────────────────────── */}
-        <div className={schedulerToolbarSide()}>
+        <div className={schedulerToolbarSide({ slot: "leading" })}>
           {/* `<span>`, não `<h2>`. O título do período NÃO é um heading de
               documento: ele rotula a toolbar. Como `h2` ele entrava no índice
               da página no mesmo nível das seções — medido na doc page, onde 6
@@ -183,7 +176,7 @@ export function SchedulerToolbar({
         </div>
 
         {/* ── Direita: busca, filtro, custom, view, ação ────────────── */}
-        <div className={schedulerToolbarSide()}>
+        <div className={schedulerToolbarSide({ slot: "trailing" })}>
           {searchable ? (
             <label className={schedulerSearch({ expanded: search !== "" })}>
               <Search aria-hidden="true" />
@@ -214,11 +207,20 @@ export function SchedulerToolbar({
                 color="secondary"
                 size="sm"
                 iconLeft={activeView.icon}
-                iconRight={<ChevronDown />}
+                iconRight={<ChevronDown className="hidden lg:block" />}
                 aria-label={`Visualização: ${activeView.label}`}
-                className="shrink-0"
+                /* Abaixo de `lg` o botão é só o ícone: o rótulo sai do fluxo
+                   com `hidden`, então o `gap` do Button não reserva espaço pra
+                   ele. O `aria-label` já dizia a view por extenso, então nada
+                   se perde pra leitor de tela.
+
+                   ⚠️ `size-form-xl` (44×44) e não o padding do `size="sm"`:
+                   sem isto o botão fica 32×36, e este layout existe justamente
+                   pra tela de toque — 44px é o alvo WCAG que o DS adota
+                   (`min-h-form-xl`). Medido: era 32 antes desta linha. */
+                className="shrink-0 max-lg:size-form-xl max-lg:p-0"
               >
-                {activeView.label}
+                <span className="hidden lg:inline">{activeView.label}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-[168px]">
@@ -265,19 +267,15 @@ export function SchedulerToolbar({
                 size="sm"
                 iconLeft={<ListFilter />}
                 onClick={onToggleFilterPanel}
-                disabled={!filterPanelAvailable}
                 aria-expanded={filterPanelOpen}
                 className={cn(
+                  "max-lg:size-form-xl max-lg:p-0",
                   filterEngaged &&
                     "border-border-brand hover:border-border-brand",
                 )}
-                title={
-                  filterPanelAvailable
-                    ? undefined
-                    : "O painel de filtros precisa de uma tela mais larga (1024px+)"
-                }
+                aria-label="Filtro"
               >
-                Filtro
+                <span className="hidden lg:inline">Filtro</span>
               </Button>
               {appliedCount > 0 ? (
                 <span className={schedulerFilterDot()} aria-hidden="true" />
