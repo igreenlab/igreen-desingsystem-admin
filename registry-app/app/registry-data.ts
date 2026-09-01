@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · accordion · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · alert-dialog · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · alert-modal · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · alert · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · app-shell · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · aspect-ratio · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · avatar-ig · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · avatar · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · badge · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · breadcrumb · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · button-group · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · button · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · calendar · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · card-checkbox · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · card-option · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · card · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · carousel · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · chart · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · checkbox · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · chip · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · choropleth-map · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · collapsible · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · color-picker · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · combobox · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · command · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · context-menu · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · data-list · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · data-table · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · date-picker · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · dialog · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · drawer · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · dropdown-menu · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · empty-state · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-app-shell · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-chat · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-clientes · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-dashboard · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-edit-page · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-finance · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2756,7 +2756,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-login · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2813,7 +2813,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-mapa-rede · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2894,7 +2894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · example-order-detail · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2944,7 +2944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · file-upload-field · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3012,7 +3012,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · floating-panel · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3054,7 +3054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · footer-table · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3140,7 +3140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · form-field · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3232,7 +3232,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · header · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3256,7 +3256,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · hover-card · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3309,7 +3309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · icon · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3333,7 +3333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · input-group · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3358,7 +3358,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · input-otp · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3382,7 +3382,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · input · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · kanban · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3503,7 +3503,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · kpi · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3528,7 +3528,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · label · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3635,7 +3635,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · list · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3681,7 +3681,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · markdown-text · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3791,7 +3791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · menu-sidebar · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3816,7 +3816,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · menubar · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · modal · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3909,7 +3909,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · month-year-picker · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3935,7 +3935,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · navigation-menu · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3982,7 +3982,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · page-header · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4007,7 +4007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · pagination · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4082,7 +4082,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · panel · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4106,7 +4106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · popover · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4130,7 +4130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · progress · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4154,7 +4154,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · radio-group · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4252,13 +4252,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Scheduler/parts/scheduler-toolbar.tsx",
-        "content": "import type { ReactNode } from \"react\";\r\nimport {\r\n  CalendarDays,\r\n  ChevronDown,\r\n  ChevronLeft,\r\n  ChevronRight,\r\n  Columns3,\r\n  List,\r\n  ListFilter,\r\n  Search,\r\n  Square,\r\n  X,\r\n} from \"lucide-react\";\r\nimport {\r\n  DropdownMenu,\r\n  DropdownMenuContent,\r\n  DropdownMenuRadioGroup,\r\n  DropdownMenuRadioItem,\r\n  DropdownMenuTrigger,\r\n} from \"@/components/shadcn/dropdown-menu\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport {\r\n  schedulerClearLink,\r\n  schedulerFilterChip,\r\n  schedulerFilterChipName,\r\n  schedulerFilterChipValue,\r\n  schedulerFilterDot,\r\n  schedulerFilterRow,\r\n  schedulerNavGroup,\r\n  schedulerSearch,\r\n  schedulerSearchInput,\r\n  schedulerTitle,\r\n  schedulerToolbar,\r\n  schedulerToolbarSide,\r\n  schedulerViewMenuItem,\r\n} from \"../scheduler.styles\";\r\nimport type {\r\n  SchedulerFilterField,\r\n  SchedulerFilterModel,\r\n  SchedulerView,\r\n} from \"../scheduler.types\";\r\n\r\n/**\r\n * Toolbar do `Scheduler`.\r\n *\r\n * Layout: `[título] [‹ Hoje ›]` à esquerda · `[busca] [filtro] {custom}\r\n * [view ▾] [ação]` à direita.\r\n *\r\n * ## Duas mudanças de desenho, e o porquê\r\n *\r\n * **1. `‹ Hoje ›` é um grupo, não três controles soltos.** As três ações são o\r\n * mesmo assunto — \"onde estou no tempo\" — e \"Hoje\" é a posição de origem entre\r\n * voltar e avançar. Colado, o alvo de clique fica contíguo e a leitura é de um\r\n * controle só. Soltos, \"Hoje\" competia visualmente com o título ao lado.\r\n *\r\n * **2. A view virou dropdown, não segmented.** O segmented mostrava as 4\r\n * opções de uma vez, o que é uma vantagem real — mas custava ~230px numa\r\n * toolbar que agora também carrega o botão de filtro, e em 1280px empurrava a\r\n * ação primária pra segunda linha. O dropdown custa ~110px e o rótulo do\r\n * gatilho diz qual view está ativa, então a informação não se perde: o que se\r\n * perde é ver as 3 inativas sem clicar.\r\n *\r\n * ⛔ Nada aqui é importado do `TableToolbar` — só a gramática visual foi\r\n * copiada (ver nota no topo de `scheduler.styles.ts`, L-049).\r\n */\r\n\r\nconst VIEW_ITEMS: {\r\n  value: SchedulerView;\r\n  label: string;\r\n  icon: ReactNode;\r\n}[] = [\r\n  { value: \"month\", label: \"Mês\", icon: <CalendarDays /> },\r\n  { value: \"week\", label: \"Semana\", icon: <Columns3 /> },\r\n  { value: \"day\", label: \"Dia\", icon: <Square /> },\r\n  { value: \"list\", label: \"Lista\", icon: <List /> },\r\n];\r\n\r\nexport type SchedulerToolbarProps = {\r\n  title: ReactNode;\r\n  view: SchedulerView;\r\n  onViewChange: (view: SchedulerView) => void;\r\n  onPrev: () => void;\r\n  onNext: () => void;\r\n  onToday: () => void;\r\n\r\n  searchable: boolean;\r\n  search: string;\r\n  onSearchChange: (search: string) => void;\r\n\r\n  filterFields?: SchedulerFilterField[];\r\n  filterModel: SchedulerFilterModel;\r\n  onClearField: (fieldId: string) => void;\r\n  onClearAll: () => void;\r\n  appliedCount: number;\r\n\r\n  /** Estado do painel-coluna de filtro. */\r\n  filterPanelOpen: boolean;\r\n  onToggleFilterPanel: () => void;\r\n\r\n  toolbarActions?: ReactNode;\r\n  primaryAction?: ReactNode;\r\n};\r\n\r\nexport function SchedulerToolbar({\r\n  title,\r\n  view,\r\n  onViewChange,\r\n  onPrev,\r\n  onNext,\r\n  onToday,\r\n  searchable,\r\n  search,\r\n  onSearchChange,\r\n  filterFields,\r\n  filterModel,\r\n  onClearField,\r\n  onClearAll,\r\n  appliedCount,\r\n  filterPanelOpen,\r\n  onToggleFilterPanel,\r\n  toolbarActions,\r\n  primaryAction,\r\n}: SchedulerToolbarProps) {\r\n  const hasFilters = (filterFields?.length ?? 0) > 0;\r\n  const activeView = VIEW_ITEMS.find((v) => v.value === view) ?? VIEW_ITEMS[0];\r\n\r\n  /** \"A ferramenta de filtro está engajada\" — painel aberto OU filtro aplicado. */\r\n  const filterEngaged = filterPanelOpen || appliedCount > 0;\r\n\r\n  /** Só os campos COM valor aplicado viram chip — o painel é onde se escolhe. */\r\n  const appliedFields = (filterFields ?? []).filter(\r\n    (field) => (filterModel[field.id] ?? []).length > 0,\r\n  );\r\n\r\n  return (\r\n    <div className=\"flex flex-col gap-gp-xl\">\r\n      <div className={schedulerToolbar()}>\r\n        {/* ── Esquerda: período e navegação ─────────────────────────── */}\r\n        <div className={schedulerToolbarSide()}>\r\n          {/* `<span>`, não `<h2>`. O título do período NÃO é um heading de\r\n              documento: ele rotula a toolbar. Como `h2` ele entrava no índice\r\n              da página no mesmo nível das seções — medido na doc page, onde 6\r\n              instâncias produziam \"Preview → setembro 2026 → View semana →\r\n              6–12 de setembro…\", um outline que descreve uma hierarquia que não\r\n              existe.\r\n\r\n              Quem dá o ponto de navegação pro leitor de tela é o\r\n              `role=\"region\"` + `aria-label` na raiz (ver `scheduler.tsx`), que\r\n              anuncia o período sem inventar nível de heading. */}\r\n          <span className={schedulerTitle()}>{title}</span>\r\n\r\n          <div role=\"group\" aria-label=\"Navegação de período\" className={schedulerNavGroup()}>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"icon-sm\"\r\n              onClick={onPrev}\r\n              aria-label=\"Período anterior\"\r\n            >\r\n              <ChevronLeft />\r\n            </Button>\r\n            <Button variant=\"outline\" color=\"secondary\" size=\"sm\" onClick={onToday}>\r\n              Hoje\r\n            </Button>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"icon-sm\"\r\n              onClick={onNext}\r\n              aria-label=\"Próximo período\"\r\n            >\r\n              <ChevronRight />\r\n            </Button>\r\n          </div>\r\n        </div>\r\n\r\n        {/* ── Direita: busca, filtro, custom, view, ação ────────────── */}\r\n        <div className={schedulerToolbarSide()}>\r\n          {searchable ? (\r\n            <label className={schedulerSearch({ expanded: search !== \"\" })}>\r\n              <Search aria-hidden=\"true\" />\r\n              <input\r\n                type=\"search\"\r\n                value={search}\r\n                onChange={(e) => onSearchChange(e.target.value)}\r\n                placeholder=\"Buscar evento…\"\r\n                aria-label=\"Buscar evento\"\r\n                className={schedulerSearchInput()}\r\n              />\r\n            </label>\r\n          ) : null}\r\n\r\n          {toolbarActions}\r\n\r\n          {/* View ANTES do filtro: os dois são controles de \"como estou vendo\",\r\n              e a ordem segue do mais amplo (qual recorte de tempo) pro mais\r\n              específico (o que dentro dele). Ambos `outline` e `size=\"sm\"` — são\r\n              pares, e variantes diferentes fariam um parecer mais importante.\r\n\r\n              Dropdown de escolha ÚNICA → RadioGroup, não Item solto: `Item` não\r\n              anuncia qual está ativa, `RadioItem` sim. */}\r\n          <DropdownMenu>\r\n            <DropdownMenuTrigger asChild>\r\n              <Button\r\n                variant=\"outline\"\r\n                color=\"secondary\"\r\n                size=\"sm\"\r\n                iconLeft={activeView.icon}\r\n                iconRight={<ChevronDown />}\r\n                aria-label={`Visualização: ${activeView.label}`}\r\n                className=\"shrink-0\"\r\n              >\r\n                {activeView.label}\r\n              </Button>\r\n            </DropdownMenuTrigger>\r\n            <DropdownMenuContent align=\"end\" className=\"min-w-[168px]\">\r\n              <DropdownMenuRadioGroup\r\n                value={view}\r\n                onValueChange={(v) => onViewChange(v as SchedulerView)}\r\n              >\r\n                {VIEW_ITEMS.map((item) => (\r\n                  <DropdownMenuRadioItem key={item.value} value={item.value}>\r\n                    <span className={schedulerViewMenuItem()}>{item.label}</span>\r\n                  </DropdownMenuRadioItem>\r\n                ))}\r\n              </DropdownMenuRadioGroup>\r\n            </DropdownMenuContent>\r\n          </DropdownMenu>\r\n\r\n          {hasFilters ? (\r\n            /* `relative` no wrapper e não no Button: o ponto é posicionado\r\n               contra a caixa do botão, e o Button não expõe `position`. */\r\n            <span className=\"relative shrink-0\">\r\n              <Button\r\n                /* Dois sinais INDEPENDENTES, e é isso que os torna legíveis:\r\n                 *\r\n                 * **Verde** (`primary soft` + `border-border-brand`) = a\r\n                 * ferramenta está engajada — painel aberto OU filtro aplicado.\r\n                 * **Ponto** no canto = existe filtro aplicado, e só isso.\r\n                 *\r\n                 * As 3 combinações que aparecem na prática:\r\n                 *   painel aberto, sem filtro   → verde, SEM ponto\r\n                 *   filtro aplicado, fechado    → verde, COM ponto\r\n                 *   filtro aplicado, aberto     → verde, COM ponto\r\n                 *\r\n                 * Cor é a mesma receita do `ToolbarToolButton` do\r\n                 * `TableToolbar` — o precedente do DS pra \"esta ferramenta tem\r\n                 * algo ligado\". O `soft` do Button não traz borda, então o\r\n                 * brand entra por className.\r\n                 *\r\n                 * O ponto NÃO é redundante com a cor: ele é o que distingue\r\n                 * \"abri pra olhar\" de \"tem filtro mexendo no que eu vejo\" — e é\r\n                 * o portador não-cromático da informação, pra quem não\r\n                 * distingue o verde. */\r\n                variant={filterEngaged ? \"soft\" : \"outline\"}\r\n                color={filterEngaged ? \"primary\" : \"secondary\"}\r\n                size=\"sm\"\r\n                iconLeft={<ListFilter />}\r\n                onClick={onToggleFilterPanel}\r\n                aria-expanded={filterPanelOpen}\r\n                className={cn(\r\n                  filterEngaged &&\r\n                    \"border-border-brand hover:border-border-brand\",\r\n                )}\r\n              >\r\n                Filtro\r\n              </Button>\r\n              {appliedCount > 0 ? (\r\n                <span className={schedulerFilterDot()} aria-hidden=\"true\" />\r\n              ) : null}\r\n            </span>\r\n          ) : null}\r\n\r\n          {primaryAction}\r\n        </div>\r\n      </div>\r\n\r\n      {/* ── Resumo do que está aplicado ───────────────────────────────\r\n          Linha própria e só com o que está LIGADO. Some inteira quando não há\r\n          filtro aplicado — antes ela mostrava chips vazios de borda tracejada,\r\n          que agora seriam um segundo lugar de escolher a mesma coisa que o\r\n          painel. Continua servindo pra desligar sem reabrir o painel (L-051). */}\r\n      {appliedFields.length > 0 ? (\r\n        <div className={schedulerFilterRow()}>\r\n          {appliedFields.map((field) => {\r\n            const selected = filterModel[field.id] ?? [];\r\n            const selectedLabels = field.options\r\n              .filter((o) => selected.includes(o.value))\r\n              .map((o) => o.label);\r\n\r\n            return (\r\n              <span key={field.id} className={schedulerFilterChip({ applied: true })}>\r\n                <span className={schedulerFilterChipName()}>{field.label}</span>\r\n                <span className={schedulerFilterChipValue()}>\r\n                  {selectedLabels.length === 1\r\n                    ? selectedLabels[0]\r\n                    : `${selectedLabels.length} selecionados`}\r\n                </span>\r\n                <button\r\n                  type=\"button\"\r\n                  aria-label={`Limpar filtro ${field.label}`}\r\n                  onClick={() => onClearField(field.id)}\r\n                  className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full text-fg-subtle transition-colors duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\"\r\n                >\r\n                  <X aria-hidden=\"true\" />\r\n                </button>\r\n              </span>\r\n            );\r\n          })}\r\n\r\n          <button\r\n            type=\"button\"\r\n            onClick={onClearAll}\r\n            className={cn(schedulerClearLink(), \"shrink-0\")}\r\n          >\r\n            Limpar tudo\r\n          </button>\r\n        </div>\r\n      ) : null}\r\n    </div>\r\n  );\r\n}\r\n",
+        "content": "import type { ReactNode } from \"react\";\r\nimport {\r\n  CalendarDays,\r\n  ChevronDown,\r\n  ChevronLeft,\r\n  ChevronRight,\r\n  Columns3,\r\n  List,\r\n  ListFilter,\r\n  Search,\r\n  Square,\r\n  X,\r\n} from \"lucide-react\";\r\nimport {\r\n  DropdownMenu,\r\n  DropdownMenuContent,\r\n  DropdownMenuRadioGroup,\r\n  DropdownMenuRadioItem,\r\n  DropdownMenuTrigger,\r\n} from \"@/components/shadcn/dropdown-menu\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport {\r\n  schedulerClearLink,\r\n  schedulerFilterChip,\r\n  schedulerFilterChipName,\r\n  schedulerFilterChipValue,\r\n  schedulerFilterDot,\r\n  schedulerFilterRow,\r\n  schedulerNavGroup,\r\n  schedulerSearch,\r\n  schedulerSearchInput,\r\n  schedulerTitle,\r\n  schedulerToolbar,\r\n  schedulerToolbarSide,\r\n  schedulerViewMenuItem,\r\n} from \"../scheduler.styles\";\r\nimport type {\r\n  SchedulerFilterField,\r\n  SchedulerFilterModel,\r\n  SchedulerView,\r\n} from \"../scheduler.types\";\r\n\r\n/**\r\n * Toolbar do `Scheduler`.\r\n *\r\n * Layout: `[título] [‹ Hoje ›]` à esquerda · `[busca] [filtro] {custom}\r\n * [view ▾] [ação]` à direita.\r\n *\r\n * ## Duas mudanças de desenho, e o porquê\r\n *\r\n * **1. `‹ Hoje ›` é um grupo, não três controles soltos.** As três ações são o\r\n * mesmo assunto — \"onde estou no tempo\" — e \"Hoje\" é a posição de origem entre\r\n * voltar e avançar. Colado, o alvo de clique fica contíguo e a leitura é de um\r\n * controle só. Soltos, \"Hoje\" competia visualmente com o título ao lado.\r\n *\r\n * **2. A view virou dropdown, não segmented.** O segmented mostrava as 4\r\n * opções de uma vez, o que é uma vantagem real — mas custava ~230px numa\r\n * toolbar que agora também carrega o botão de filtro, e em 1280px empurrava a\r\n * ação primária pra segunda linha. O dropdown custa ~110px e o rótulo do\r\n * gatilho diz qual view está ativa, então a informação não se perde: o que se\r\n * perde é ver as 3 inativas sem clicar.\r\n *\r\n * ⛔ Nada aqui é importado do `TableToolbar` — só a gramática visual foi\r\n * copiada (ver nota no topo de `scheduler.styles.ts`, L-049).\r\n */\r\n\r\nconst VIEW_ITEMS: {\r\n  value: SchedulerView;\r\n  label: string;\r\n  icon: ReactNode;\r\n}[] = [\r\n  { value: \"month\", label: \"Mês\", icon: <CalendarDays /> },\r\n  { value: \"week\", label: \"Semana\", icon: <Columns3 /> },\r\n  { value: \"day\", label: \"Dia\", icon: <Square /> },\r\n  { value: \"list\", label: \"Lista\", icon: <List /> },\r\n];\r\n\r\nexport type SchedulerToolbarProps = {\r\n  title: ReactNode;\r\n  view: SchedulerView;\r\n  onViewChange: (view: SchedulerView) => void;\r\n  onPrev: () => void;\r\n  onNext: () => void;\r\n  onToday: () => void;\r\n\r\n  searchable: boolean;\r\n  search: string;\r\n  onSearchChange: (search: string) => void;\r\n\r\n  filterFields?: SchedulerFilterField[];\r\n  filterModel: SchedulerFilterModel;\r\n  onClearField: (fieldId: string) => void;\r\n  onClearAll: () => void;\r\n  appliedCount: number;\r\n\r\n  /** Estado do painel-coluna de filtro. */\r\n  filterPanelOpen: boolean;\r\n  onToggleFilterPanel: () => void;\r\n\r\n  toolbarActions?: ReactNode;\r\n  primaryAction?: ReactNode;\r\n};\r\n\r\nexport function SchedulerToolbar({\r\n  title,\r\n  view,\r\n  onViewChange,\r\n  onPrev,\r\n  onNext,\r\n  onToday,\r\n  searchable,\r\n  search,\r\n  onSearchChange,\r\n  filterFields,\r\n  filterModel,\r\n  onClearField,\r\n  onClearAll,\r\n  appliedCount,\r\n  filterPanelOpen,\r\n  onToggleFilterPanel,\r\n  toolbarActions,\r\n  primaryAction,\r\n}: SchedulerToolbarProps) {\r\n  const hasFilters = (filterFields?.length ?? 0) > 0;\r\n  const activeView = VIEW_ITEMS.find((v) => v.value === view) ?? VIEW_ITEMS[0];\r\n\r\n  /** \"A ferramenta de filtro está engajada\" — painel aberto OU filtro aplicado. */\r\n  const filterEngaged = filterPanelOpen || appliedCount > 0;\r\n\r\n  /** Só os campos COM valor aplicado viram chip — o painel é onde se escolhe. */\r\n  const appliedFields = (filterFields ?? []).filter(\r\n    (field) => (filterModel[field.id] ?? []).length > 0,\r\n  );\r\n\r\n  return (\r\n    <div className=\"flex flex-col gap-gp-xl\">\r\n      <div className={schedulerToolbar()}>\r\n        {/* ── Esquerda: período e navegação ─────────────────────────── */}\r\n        <div className={schedulerToolbarSide({ slot: \"leading\" })}>\r\n          {/* `<span>`, não `<h2>`. O título do período NÃO é um heading de\r\n              documento: ele rotula a toolbar. Como `h2` ele entrava no índice\r\n              da página no mesmo nível das seções — medido na doc page, onde 6\r\n              instâncias produziam \"Preview → setembro 2026 → View semana →\r\n              6–12 de setembro…\", um outline que descreve uma hierarquia que não\r\n              existe.\r\n\r\n              Quem dá o ponto de navegação pro leitor de tela é o\r\n              `role=\"region\"` + `aria-label` na raiz (ver `scheduler.tsx`), que\r\n              anuncia o período sem inventar nível de heading. */}\r\n          <span className={schedulerTitle()}>{title}</span>\r\n\r\n          <div role=\"group\" aria-label=\"Navegação de período\" className={schedulerNavGroup()}>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"icon-sm\"\r\n              onClick={onPrev}\r\n              aria-label=\"Período anterior\"\r\n            >\r\n              <ChevronLeft />\r\n            </Button>\r\n            <Button variant=\"outline\" color=\"secondary\" size=\"sm\" onClick={onToday}>\r\n              Hoje\r\n            </Button>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"icon-sm\"\r\n              onClick={onNext}\r\n              aria-label=\"Próximo período\"\r\n            >\r\n              <ChevronRight />\r\n            </Button>\r\n          </div>\r\n        </div>\r\n\r\n        {/* ── Direita: busca, filtro, custom, view, ação ────────────── */}\r\n        <div className={schedulerToolbarSide({ slot: \"trailing\" })}>\r\n          {searchable ? (\r\n            <label className={schedulerSearch({ expanded: search !== \"\" })}>\r\n              <Search aria-hidden=\"true\" />\r\n              <input\r\n                type=\"search\"\r\n                value={search}\r\n                onChange={(e) => onSearchChange(e.target.value)}\r\n                placeholder=\"Buscar evento…\"\r\n                aria-label=\"Buscar evento\"\r\n                className={schedulerSearchInput()}\r\n              />\r\n            </label>\r\n          ) : null}\r\n\r\n          {toolbarActions}\r\n\r\n          {/* View ANTES do filtro: os dois são controles de \"como estou vendo\",\r\n              e a ordem segue do mais amplo (qual recorte de tempo) pro mais\r\n              específico (o que dentro dele). Ambos `outline` e `size=\"sm\"` — são\r\n              pares, e variantes diferentes fariam um parecer mais importante.\r\n\r\n              Dropdown de escolha ÚNICA → RadioGroup, não Item solto: `Item` não\r\n              anuncia qual está ativa, `RadioItem` sim. */}\r\n          <DropdownMenu>\r\n            <DropdownMenuTrigger asChild>\r\n              <Button\r\n                variant=\"outline\"\r\n                color=\"secondary\"\r\n                size=\"sm\"\r\n                iconLeft={activeView.icon}\r\n                iconRight={<ChevronDown className=\"hidden lg:block\" />}\r\n                aria-label={`Visualização: ${activeView.label}`}\r\n                /* Abaixo de `lg` o botão é só o ícone: o rótulo sai do fluxo\r\n                   com `hidden`, então o `gap` do Button não reserva espaço pra\r\n                   ele. O `aria-label` já dizia a view por extenso, então nada\r\n                   se perde pra leitor de tela.\r\n\r\n                   ⚠️ `size-form-xl` (44×44) e não o padding do `size=\"sm\"`:\r\n                   sem isto o botão fica 32×36, e este layout existe justamente\r\n                   pra tela de toque — 44px é o alvo WCAG que o DS adota\r\n                   (`min-h-form-xl`). Medido: era 32 antes desta linha. */\r\n                className=\"shrink-0 max-lg:size-form-xl max-lg:p-0\"\r\n              >\r\n                <span className=\"hidden lg:inline\">{activeView.label}</span>\r\n              </Button>\r\n            </DropdownMenuTrigger>\r\n            <DropdownMenuContent align=\"end\" className=\"min-w-[168px]\">\r\n              <DropdownMenuRadioGroup\r\n                value={view}\r\n                onValueChange={(v) => onViewChange(v as SchedulerView)}\r\n              >\r\n                {VIEW_ITEMS.map((item) => (\r\n                  <DropdownMenuRadioItem key={item.value} value={item.value}>\r\n                    <span className={schedulerViewMenuItem()}>{item.label}</span>\r\n                  </DropdownMenuRadioItem>\r\n                ))}\r\n              </DropdownMenuRadioGroup>\r\n            </DropdownMenuContent>\r\n          </DropdownMenu>\r\n\r\n          {hasFilters ? (\r\n            /* `relative` no wrapper e não no Button: o ponto é posicionado\r\n               contra a caixa do botão, e o Button não expõe `position`. */\r\n            <span className=\"relative shrink-0\">\r\n              <Button\r\n                /* Dois sinais INDEPENDENTES, e é isso que os torna legíveis:\r\n                 *\r\n                 * **Verde** (`primary soft` + `border-border-brand`) = a\r\n                 * ferramenta está engajada — painel aberto OU filtro aplicado.\r\n                 * **Ponto** no canto = existe filtro aplicado, e só isso.\r\n                 *\r\n                 * As 3 combinações que aparecem na prática:\r\n                 *   painel aberto, sem filtro   → verde, SEM ponto\r\n                 *   filtro aplicado, fechado    → verde, COM ponto\r\n                 *   filtro aplicado, aberto     → verde, COM ponto\r\n                 *\r\n                 * Cor é a mesma receita do `ToolbarToolButton` do\r\n                 * `TableToolbar` — o precedente do DS pra \"esta ferramenta tem\r\n                 * algo ligado\". O `soft` do Button não traz borda, então o\r\n                 * brand entra por className.\r\n                 *\r\n                 * O ponto NÃO é redundante com a cor: ele é o que distingue\r\n                 * \"abri pra olhar\" de \"tem filtro mexendo no que eu vejo\" — e é\r\n                 * o portador não-cromático da informação, pra quem não\r\n                 * distingue o verde. */\r\n                variant={filterEngaged ? \"soft\" : \"outline\"}\r\n                color={filterEngaged ? \"primary\" : \"secondary\"}\r\n                size=\"sm\"\r\n                iconLeft={<ListFilter />}\r\n                onClick={onToggleFilterPanel}\r\n                aria-expanded={filterPanelOpen}\r\n                className={cn(\r\n                  \"max-lg:size-form-xl max-lg:p-0\",\r\n                  filterEngaged &&\r\n                    \"border-border-brand hover:border-border-brand\",\r\n                )}\r\n                aria-label=\"Filtro\"\r\n              >\r\n                <span className=\"hidden lg:inline\">Filtro</span>\r\n              </Button>\r\n              {appliedCount > 0 ? (\r\n                <span className={schedulerFilterDot()} aria-hidden=\"true\" />\r\n              ) : null}\r\n            </span>\r\n          ) : null}\r\n\r\n          {primaryAction}\r\n        </div>\r\n      </div>\r\n\r\n      {/* ── Resumo do que está aplicado ───────────────────────────────\r\n          Linha própria e só com o que está LIGADO. Some inteira quando não há\r\n          filtro aplicado — antes ela mostrava chips vazios de borda tracejada,\r\n          que agora seriam um segundo lugar de escolher a mesma coisa que o\r\n          painel. Continua servindo pra desligar sem reabrir o painel (L-051). */}\r\n      {appliedFields.length > 0 ? (\r\n        <div className={schedulerFilterRow()}>\r\n          {appliedFields.map((field) => {\r\n            const selected = filterModel[field.id] ?? [];\r\n            const selectedLabels = field.options\r\n              .filter((o) => selected.includes(o.value))\r\n              .map((o) => o.label);\r\n\r\n            return (\r\n              <span key={field.id} className={schedulerFilterChip({ applied: true })}>\r\n                <span className={schedulerFilterChipName()}>{field.label}</span>\r\n                <span className={schedulerFilterChipValue()}>\r\n                  {selectedLabels.length === 1\r\n                    ? selectedLabels[0]\r\n                    : `${selectedLabels.length} selecionados`}\r\n                </span>\r\n                <button\r\n                  type=\"button\"\r\n                  aria-label={`Limpar filtro ${field.label}`}\r\n                  onClick={() => onClearField(field.id)}\r\n                  className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full text-fg-subtle transition-colors duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\"\r\n                >\r\n                  <X aria-hidden=\"true\" />\r\n                </button>\r\n              </span>\r\n            );\r\n          })}\r\n\r\n          <button\r\n            type=\"button\"\r\n            onClick={onClearAll}\r\n            className={cn(schedulerClearLink(), \"shrink-0\")}\r\n          >\r\n            Limpar tudo\r\n          </button>\r\n        </div>\r\n      ) : null}\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/Scheduler/parts/scheduler-toolbar.tsx"
       },
       {
         "path": "src/components/ui/Scheduler/scheduler.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Fonte única do visual do `Scheduler`. Nenhum componente da pasta escreve\r\n * classe de estilo inline — quem quiser mudar a pele muda AQUI (regra de ouro\r\n * do DS).\r\n *\r\n * ⛔ Nada aqui importa de `../TableToolbar`. A gramática visual da toolbar\r\n * (segmented, busca, chip aplicado) é **copiada** de\r\n * `TableToolbar/table-toolbar.styles.ts`, não importada — cross-import entre\r\n * pastas de `ui/` é o que gerou o `registryDependency` dangling da L-049 no\r\n * `DataList`: `@igreen/table-toolbar` não existe como item de registry, então\r\n * `igreen:add scheduler` estrearia quebrado no consumidor de copy-in enquanto\r\n * `tsc` e showcase ficam verdes. O custo aceito é manter as duas cópias em\r\n * sync na mão; a alternativa era um defeito invisível justamente onde a gente\r\n * não olha (spec §4.1).\r\n */\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Root\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * `h-full` (não só `min-h-0`) é o que impede o painel de filtro de esticar a\r\n * altura da linha inteira.\r\n *\r\n * Sem ele o root dimensionava por CONTEÚDO: a coluna do painel, que é uma pilha\r\n * de mini-calendário + grupos, ficava mais alta que a grade e passava a mandar\r\n * na altura das duas — no exemplo do showcase isso vazava pra fora do\r\n * `h-[720px]` e cortava. Com `h-full`, o root ocupa o pai, `schedulerBody` é\r\n * `flex-1 min-h-0`, e o painel rola por dentro em vez de crescer.\r\n *\r\n * Em pai de altura automática, `height: 100%` resolve contra `auto` e se\r\n * comporta como `auto` — ou seja, não piora o caso \"esqueci de dar altura\", que\r\n * segue documentado como gotcha nº 1 do USAGE.\r\n */\r\nexport const schedulerRoot = tv({\r\n  base: [\r\n    \"flex h-full min-h-0 w-full flex-col gap-gp-2xl\",\r\n    \"text-fg-default\",\r\n  ],\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Toolbar — spec §4\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Uma linha em desktop, quebra em duas abaixo de ~1024px. `flex-wrap` +\r\n * `justify-between` em vez de grid de 2 colunas: os dois lados têm largura de\r\n * conteúdo (o título muda de tamanho por mês e por view), e grid obrigaria a\r\n * fixar uma fração que sobra ou falta.\r\n */\r\nexport const schedulerToolbar = tv({\r\n  base: [\r\n    \"flex flex-wrap items-center justify-between gap-gp-xl\",\r\n  ],\r\n});\r\n\r\nexport const schedulerToolbarSide = tv({\r\n  base: \"flex min-w-0 flex-wrap items-center gap-gp-md\",\r\n});\r\n\r\n/**\r\n * Título do período (\"setembro 2026\"). `text-title-sm` e não `heading`: o\r\n * calendário mora dentro de uma página que já tem `PageHeader` com o H1 — um\r\n * heading aqui competiria com ele.\r\n *\r\n * `first-letter:uppercase` porque o date-fns com locale ptBR devolve o mês em\r\n * minúscula (\"setembro\"), e no topo de um bloco isso lê como texto cortado.\r\n * Capitalizar no CSS e não no JS mantém a string original acessível a quem\r\n * usa `title` como override.\r\n */\r\nexport const schedulerTitle = tv({\r\n  base: [\r\n    \"min-w-0 truncate text-title-sm font-semibold text-fg-default\",\r\n    \"first-letter:uppercase\",\r\n  ],\r\n});\r\n\r\n/* ── Grupo de navegação: ‹ | Hoje | › ──────────────────────────────── */\r\n\r\n/**\r\n * Três segmentos colados num controle só. Não usa o `ButtonGroup` do DS de\r\n * propósito: ele resolve o **split button** (2 slots, `Primary` + `Chevron`,\r\n * com os cantos já decididos em `!rounded-r-none` / `!rounded-l-none`) e não\r\n * tem como expressar um segmento do MEIO sem canto nenhum. Forçá-lo aqui\r\n * exigiria brigar com os `!` dele.\r\n *\r\n * O que este grupo faz é só a junta: os três filhos continuam sendo `Button`\r\n * do DS, então cor, foco, altura e estados vêm de lá.\r\n *\r\n * `-ml-px` no 2º em diante colapsa a borda dupla entre segmentos vizinhos.\r\n */\r\nexport const schedulerNavGroup = tv({\r\n  base: [\r\n    \"inline-flex shrink-0 items-center\",\r\n    \"[&>*:not(:first-child)]:-ml-px\",\r\n    // O segmento com foco sobe pra que o anel não seja cortado pelo vizinho.\r\n    \"[&>*:focus-visible]:relative [&>*:focus-visible]:z-[1]\",\r\n    \"[&>*:first-child]:!rounded-r-none\",\r\n    \"[&>*:last-child]:!rounded-l-none\",\r\n    \"[&>*:not(:first-child):not(:last-child)]:!rounded-none\",\r\n  ],\r\n});\r\n\r\n/* ── Dropdown de view (Mês · Semana · Dia · Lista) ─────────────────── */\r\n\r\n/**\r\n * Substituiu o segmented de 4 posições. O segmented mostrava as 4 opções de\r\n * uma vez, o que é bom, mas custava ~230px numa toolbar que agora também tem\r\n * botão de filtro — em 1280px ele empurrava a ação primária pra segunda linha.\r\n * O dropdown custa ~110px e diz qual view está ativa no próprio rótulo.\r\n */\r\nexport const schedulerViewTriggerLabel = tv({\r\n  base: \"tabular-nums\",\r\n});\r\n\r\nexport const schedulerViewMenuItem = tv({\r\n  base: \"flex items-center justify-between gap-gp-xl\",\r\n});\r\n\r\n/* ── Botão de filtro ───────────────────────────────────────────────── */\r\n\r\n/**\r\n * Ponto de \"tem filtro aplicado\" no canto do botão — mesma convenção do\r\n * `toolbarToolDot` do `TableToolbar`. `border-2 border-bg-canvas` recorta o\r\n * ponto do botão embaixo, senão ele parece um pixel sujo na borda.\r\n */\r\nexport const schedulerFilterDot = tv({\r\n  base: [\r\n    \"pointer-events-none absolute -right-[4px] -top-[4px] z-[2]\",\r\n    \"size-[13px] rounded-radius-full\",\r\n    \"bg-bg-brand border-2 border-bg-canvas\",\r\n  ],\r\n});\r\n\r\n/* ── Busca (cópia da gramática do `toolbarSearch`) ─────────────────── */\r\n\r\nexport const schedulerSearch = tv({\r\n  base: [\r\n    \"relative flex cursor-text items-center gap-gp-md\",\r\n    \"h-form-lg rounded-radius-lg px-pad-lg\",\r\n    \"bg-bg-surface dark:bg-bg-muted\",\r\n    \"border border-border-subtle dark:border-border-input\",\r\n    \"shadow-sh-sm dark:shadow-sh-none\",\r\n    \"text-fg-default\",\r\n    \"min-w-0 flex-1 md:flex-initial\",\r\n    \"md:w-[200px] md:focus-within:w-[300px]\",\r\n    \"transition-[width,border-color,background-color,box-shadow] duration-200\",\r\n    \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n    \"[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n  ],\r\n  variants: {\r\n    /** Mantém expandido mesmo sem foco quando já há termo digitado. */\r\n    expanded: { true: \"md:w-[300px]\", false: \"\" },\r\n  },\r\n  defaultVariants: { expanded: false },\r\n});\r\n\r\nexport const schedulerSearchInput = tv({\r\n  base: [\r\n    \"min-w-0 flex-1 border-0 bg-transparent outline-none\",\r\n    \"text-body-sm font-normal text-fg-default\",\r\n    \"placeholder:text-fg-muted\",\r\n  ],\r\n});\r\n\r\n/* ── Chips de filtro (cópia da gramática do `toolbarAppliedChip`) ──── */\r\n\r\nexport const schedulerFilterRow = tv({\r\n  base: [\r\n    \"flex items-center gap-gp-md\",\r\n    \"flex-nowrap overflow-x-auto sm:flex-wrap sm:overflow-x-visible\",\r\n    \"[scrollbar-width:none] [&::-webkit-scrollbar]:hidden\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Chip de filtro **aplicado**. Desde que o painel lateral passou a ser o lugar\r\n * de escolher, esta linha não mostra mais chip vazio de borda tracejada: ela é\r\n * só o resumo do que está ligado, com o `×` pra desligar sem reabrir o painel\r\n * — que é o que a L-051 pede (o estado filtrado tem que ser visível e\r\n * desfazível sem procurar o controle que o produziu).\r\n *\r\n * A variante `applied` continua no tv() porque o `false` ainda serve pro caso\r\n * de um chip renderizado durante a animação de saída.\r\n */\r\nexport const schedulerFilterChip = tv({\r\n  base: [\r\n    \"inline-flex shrink-0 cursor-pointer items-center gap-gp-sm\",\r\n    \"h-form-md rounded-radius-lg pl-pad-lg pr-pad-md\",\r\n    \"bg-bg-surface dark:bg-bg-muted\",\r\n    \"border text-body-xs font-normal text-fg-default\",\r\n    \"transition-[background-color,border-color] duration-150\",\r\n    \"hover:bg-bg-muted-hover hover:border-border-default dark:hover:bg-bg-accent\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"[&_svg]:size-icon-xs [&_svg]:shrink-0 [&_svg]:text-fg-subtle\",\r\n  ],\r\n  variants: {\r\n    applied: {\r\n      true: \"border-solid border-border-brand bg-bg-brand-subtle dark:bg-bg-brand-subtle\",\r\n      false: \"border-dashed border-border-input\",\r\n    },\r\n  },\r\n  defaultVariants: { applied: false },\r\n});\r\n\r\nexport const schedulerFilterChipName = tv({\r\n  base: \"font-semibold text-fg-default\",\r\n});\r\n\r\nexport const schedulerFilterChipValue = tv({\r\n  base: [\r\n    \"inline-flex h-comp-2xs items-center px-pad-md\",\r\n    \"rounded-radius-sm bg-bg-muted dark:bg-bg-accent\",\r\n    \"text-body-xs font-medium text-fg-default\",\r\n  ],\r\n});\r\n\r\nexport const schedulerClearLink = tv({\r\n  base: [\r\n    \"ml-pad-sm cursor-pointer border-0 bg-transparent p-0\",\r\n    \"text-body-xs font-medium text-fg-brand outline-none\",\r\n    \"underline-offset-2 transition-opacity duration-150\",\r\n    \"hover:underline focus-visible:underline\",\r\n  ],\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Layout de duas colunas — grade + painel de filtro\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * A área abaixo da toolbar. O painel de filtro é uma **coluna de verdade**, não\r\n * um overlay: ele empurra a grade em vez de cobri-la.\r\n *\r\n * É a diferença que importa aqui. Um `Popover`/`Sheet` por cima obriga a\r\n * fechar pra ver o efeito do filtro — e filtro é exatamente o controle cujo\r\n * resultado você quer olhar enquanto mexe. Como coluna, marcar uma caixa e ver\r\n * a grade reagir acontece no mesmo gesto.\r\n *\r\n * O custo é largura: a grade encolhe ~296px. Por isso o painel é fechado por\r\n * default e some abaixo de `lg` (ver `schedulerFilterAside`).\r\n */\r\nexport const schedulerBody = tv({\r\n  base: \"flex min-h-0 flex-1 gap-gp-2xl\",\r\n});\r\n\r\nexport const schedulerMain = tv({\r\n  base: \"flex min-h-0 min-w-0 flex-1 flex-col\",\r\n});\r\n\r\n/**\r\n * `w-[280px] shrink-0` — largura fixa, não fração: o mini-calendário tem 7\r\n * colunas de largura mínima e uma fração de viewport o quebraria em telas\r\n * médias.\r\n *\r\n * ⚠️ **Não há media query aqui, de propósito.** A primeira versão tinha\r\n * `hidden lg:flex`, e o `scheduler.tsx` gateava o botão de filtro com um\r\n * `matchMedia(\"(min-width: 1024px)\")` — o MESMO breakpoint escrito em dois\r\n * lugares, com dois mecanismos diferentes. Medido no browser: dá pra chegar num\r\n * estado em que o botão se diz aberto e o painel está `display: none`, ou seja\r\n * um controle que não faz nada visível.\r\n *\r\n * Agora o breakpoint vive **só** no `useMediaQuery` do `scheduler.tsx`, que\r\n * decide se o painel é montado. Uma fonte de verdade: painel no DOM ⟺ botão\r\n * diz aberto. Se o hook estiver defasado, os dois estão defasados juntos —\r\n * consistente, em vez de contraditório.\r\n */\r\nexport const schedulerFilterAside = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-col overflow-y-auto\",\r\n    // `scrollbar-thin` é a barra do DS (26 usos no repo contra 2 do\r\n    // `scrollbar-default`) — trilho transparente + thumb tokenizado.\r\n    // ⚠️ É `@utility` do tema GERADO, não do globals.css: existe nos 4 canais.\r\n    \"scrollbar-thin\",\r\n  ],\r\n  variants: {\r\n    /**\r\n     * `embedded` = o painel vive DENTRO de outro contêiner que já é a\r\n     * superfície — hoje o `FloatingPanel` do modo drawer (<1024px).\r\n     *\r\n     * Como coluna (`false`, o default) ele É o card: largura própria, borda,\r\n     * radius e fundo. Embutido, os quatro viram defeito — largura fixa deixa\r\n     * uma faixa morta à direita do drawer, e borda+radius+fundo repetem a\r\n     * superfície do painel que já o embrulha (card dentro de card, a mesma\r\n     * classe de erro da L-050).\r\n     */\r\n    embedded: {\r\n      false: [\r\n        \"w-[280px] shrink-0\",\r\n        \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n      ],\r\n      true: \"w-full\",\r\n    },\r\n  },\r\n  defaultVariants: { embedded: false },\r\n});\r\n\r\n/**\r\n * Seção do painel — **inteiriça**, com padding próprio, e a divisória de ponta\r\n * a ponta entre uma e outra.\r\n *\r\n * O painel não tem padding nem gap: quem paga o respiro é a seção. É o que faz\r\n * a linha divisória chegar até as bordas do card, do jeito que se espera de uma\r\n * pilha de blocos. Com padding no container e `gap`, a divisória ficaria\r\n * recuada dos dois lados e leria como sublinhado de um item, não como separação\r\n * entre blocos.\r\n *\r\n * `last:border-b-0` fecha a última: a borda do card já encerra a pilha, e uma\r\n * divisória imediatamente antes dela vira duas linhas paralelas a 1px.\r\n */\r\nexport const schedulerAsideSection = tv({\r\n  base: [\r\n    \"flex shrink-0 flex-col gap-gp-md\",\r\n    \"border-b border-border-default p-sp-xl last:border-b-0\",\r\n  ],\r\n  variants: {\r\n    /** O cabeçalho é mais raso: só uma linha de título + ações. */\r\n    compact: { true: \"py-pad-lg\", false: \"\" },\r\n    /**\r\n     * Cabeçalho fixo no topo enquanto o resto rola.\r\n     *\r\n     * `bg-bg-surface` é **obrigatório** e não decoração: `sticky` não cria\r\n     * fundo, então sem ele o mini-calendário passaria por baixo do título. E\r\n     * `z-[1]` porque as caixas e o `Checkbox` do Radix criam contexto próprio\r\n     * de empilhamento — sem o z, o conteúdo que rola sobrepõe o cabeçalho.\r\n     */\r\n    sticky: { true: \"sticky top-0 z-[1] bg-bg-surface\", false: \"\" },\r\n  },\r\n  defaultVariants: { compact: false, sticky: false },\r\n});\r\n\r\nexport const schedulerAsideHead = tv({\r\n  base: \"flex items-center justify-between gap-gp-md\",\r\n});\r\n\r\nexport const schedulerAsideTitle = tv({\r\n  base: \"text-body-sm font-semibold text-fg-default\",\r\n});\r\n\r\n/* ── Mini-calendário do painel ─────────────────────────────────────── */\r\n\r\nexport const schedulerMiniHead = tv({\r\n  base: \"flex items-center justify-between gap-gp-sm\",\r\n});\r\n\r\nexport const schedulerMiniTitle = tv({\r\n  base: \"min-w-0 truncate text-body-sm font-semibold text-fg-default first-letter:uppercase\",\r\n});\r\n\r\nexport const schedulerMiniGrid = tv({\r\n  base: \"grid grid-cols-7 gap-gp-2xs\",\r\n});\r\n\r\nexport const schedulerMiniWeekday = tv({\r\n  base: [\r\n    \"grid size-comp-xs place-items-center\",\r\n    \"text-caption-xs font-medium uppercase text-fg-subtle\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Célula do mini-calendário. `today` é o anel; `selected` é o preenchido — os\r\n * dois podem coexistir, e é por isso que são variantes separadas em vez de um\r\n * único `state`. Quando coincidem, o preenchido vence e o anel some (senão\r\n * viram dois círculos concêntricos de 24px, ilegíveis).\r\n */\r\nexport const schedulerMiniDay = tv({\r\n  base: [\r\n    \"grid size-comp-xs cursor-pointer place-items-center rounded-radius-full\",\r\n    \"border-0 bg-transparent outline-none\",\r\n    \"text-caption-md tabular-nums\",\r\n    \"transition-[background-color,color,box-shadow] duration-150\",\r\n    \"hover:bg-bg-muted\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n  variants: {\r\n    outside: { true: \"text-fg-subtle\", false: \"text-fg-default\" },\r\n    hasEvents: { true: \"font-semibold\", false: \"\" },\r\n    today: { true: \"ring-1 ring-border-brand\", false: \"\" },\r\n    selected: {\r\n      true: \"bg-bg-brand font-semibold text-fg-on-brand hover:bg-bg-brand-hover\",\r\n      false: \"\",\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    // Selecionado vence \"hoje\": um anel em volta do disco cheio não informa\r\n    // nada e adiciona 2px de ruído.\r\n    { selected: true, today: true, class: \"ring-0\" },\r\n    { selected: true, outside: true, class: \"text-fg-on-brand\" },\r\n  ],\r\n  defaultVariants: {\r\n    outside: false,\r\n    hasEvents: false,\r\n    today: false,\r\n    selected: false,\r\n  },\r\n});\r\n\r\n/* ── Grupos de filtro do painel (caixas coloridas, como no print) ──── */\r\n\r\nexport const schedulerGroup = tv({\r\n  base: \"flex flex-col gap-gp-sm\",\r\n});\r\n\r\n/**\r\n * `-mx-pad-sm px-pad-sm`: o fundo do hover sangra 6px pra fora, mas o TEXTO\r\n * fica alinhado com o padding da seção. Sem o `-mx`, o rótulo do grupo ficaria\r\n * 6px mais dentro que o título \"Filtros\" do cabeçalho — desalinho visível numa\r\n * coluna estreita.\r\n */\r\nexport const schedulerGroupHead = tv({\r\n  base: [\r\n    \"flex w-full cursor-pointer items-center justify-between gap-gp-md\",\r\n    \"min-h-form-sm rounded-radius-sm border-0 bg-transparent -mx-pad-sm px-pad-sm outline-none\",\r\n    \"text-body-sm font-semibold text-fg-default\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-muted\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-subtle\",\r\n  ],\r\n});\r\n\r\nexport const schedulerGroupChevron = tv({\r\n  base: \"transition-transform duration-150\",\r\n  variants: { open: { true: \"\", false: \"-rotate-90\" } },\r\n  defaultVariants: { open: true },\r\n});\r\n\r\n/**\r\n * Linha de opção: `<label>` nativo embrulhando o `Checkbox`, **não**\r\n * `<button>`. O label propaga o clique pro checkbox real, mantém a semântica\r\n * de checkbox no leitor de tela e faz a linha inteira ser alvo de clique —\r\n * é a mesma lição do `CardCheckbox` (L-025).\r\n */\r\nexport const schedulerOption = tv({\r\n  base: [\r\n    \"flex cursor-pointer items-center gap-gp-md\",\r\n    \"min-h-form-sm rounded-radius-sm -mx-pad-sm px-pad-sm\",\r\n    \"text-body-sm text-fg-default\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-muted\",\r\n    \"has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand\",\r\n  ],\r\n});\r\n\r\nexport const schedulerOptionLabel = tv({\r\n  base: \"min-w-0 flex-1 truncate\",\r\n});\r\n\r\nexport const schedulerOptionCount = tv({\r\n  base: \"shrink-0 text-caption-sm tabular-nums text-fg-subtle\",\r\n});\r\n\r\n/**\r\n * Cor da caixa quando marcada. Sobrescreve o `data-[state=checked]:bg-bg-brand`\r\n * do `Checkbox` via `className` — `tailwind-merge` resolve o par (mesmo\r\n * modificador, mesmo grupo de utilitário) mantendo o último.\r\n *\r\n * O `[&_svg]` é necessário porque o tique mora no `Indicator`, que é filho e\r\n * não alcançável por className na raiz.\r\n */\r\nexport const schedulerOptionBox = tv({\r\n  base: \"shrink-0\",\r\n  variants: {\r\n    color: {\r\n      brand:\r\n        \"data-[state=checked]:bg-bg-brand data-[state=checked]:border-border-brand [&_svg]:text-fg-on-brand\",\r\n      info: \"data-[state=checked]:bg-bg-info data-[state=checked]:border-bg-info [&_svg]:text-fg-on-info\",\r\n      success:\r\n        \"data-[state=checked]:bg-bg-success data-[state=checked]:border-bg-success [&_svg]:text-fg-on-success\",\r\n      warning:\r\n        \"data-[state=checked]:bg-bg-warning data-[state=checked]:border-bg-warning [&_svg]:text-fg-on-warning\",\r\n      danger:\r\n        \"data-[state=checked]:bg-bg-danger data-[state=checked]:border-bg-danger [&_svg]:text-fg-on-danger\",\r\n      neutral:\r\n        \"data-[state=checked]:bg-fg-subtle data-[state=checked]:border-fg-subtle [&_svg]:text-bg-surface\",\r\n    },\r\n  },\r\n  defaultVariants: { color: \"brand\" },\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Grade do mês — spec §5.1\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * `overflow-hidden` + `rounded` no wrapper, e as células desenham só borda\r\n * direita/inferior: é o que produz a régua interna sem borda dupla e sem\r\n * precisar de `:last-child` em 42 células.\r\n */\r\nexport const schedulerMonthFrame = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-1 flex-col overflow-hidden\",\r\n    \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n  ],\r\n});\r\n\r\nexport const schedulerWeekdayRow = tv({\r\n  base: [\r\n    \"grid grid-cols-7 border-b border-border-default bg-bg-subtle dark:bg-bg-canvas\",\r\n  ],\r\n});\r\n\r\nexport const schedulerWeekdayCell = tv({\r\n  base: [\r\n    \"flex min-h-form-md items-center justify-center\",\r\n    \"text-caption-md font-medium text-fg-muted\",\r\n    \"first-letter:uppercase\",\r\n  ],\r\n});\r\n\r\nexport const schedulerMonthGrid = tv({\r\n  base: \"grid min-h-0 flex-1 grid-cols-7 grid-rows-6\",\r\n});\r\n\r\n/**\r\n * `[&:nth-child(7n)]:border-r-0` zera a borda direita da última coluna sem\r\n * precisar passar índice pro componente da célula.\r\n */\r\nexport const schedulerMonthCell = tv({\r\n  base: [\r\n    \"group/cell relative flex min-h-comp-4xl min-w-0 flex-col gap-gp-2xs\",\r\n    \"border-b border-r border-border-subtle p-sp-2xs\",\r\n    \"[&:nth-child(7n)]:border-r-0\",\r\n    \"transition-colors duration-150\",\r\n  ],\r\n  variants: {\r\n    /** Dia de mês vizinho — recuado, não escondido: a grade é sempre 6×7. */\r\n    outside: {\r\n      true: \"bg-bg-subtle/40 dark:bg-bg-canvas\",\r\n      false: \"bg-bg-surface\",\r\n    },\r\n    /** Última linha da grade não desenha borda inferior (o frame já fecha). */\r\n    lastRow: { true: \"border-b-0\", false: \"\" },\r\n    interactive: { true: \"hover:bg-bg-table-row-hover\", false: \"\" },\r\n  },\r\n  defaultVariants: { outside: false, lastRow: false, interactive: false },\r\n});\r\n\r\nexport const schedulerDayHead = tv({\r\n  base: \"flex shrink-0 items-center justify-between gap-gp-sm\",\r\n});\r\n\r\n/**\r\n * Número do dia. `tabular-nums` pra 1 e 11 ocuparem a mesma largura — sem\r\n * isso a coluna de números \"dança\" entre as linhas.\r\n */\r\nexport const schedulerDayNumber = tv({\r\n  base: [\r\n    \"grid size-comp-xs shrink-0 place-items-center rounded-radius-full\",\r\n    \"text-body-xs font-medium tabular-nums\",\r\n    \"transition-colors duration-150\",\r\n  ],\r\n  variants: {\r\n    today: {\r\n      true: \"bg-bg-brand font-semibold text-fg-on-brand\",\r\n      false: \"text-fg-default\",\r\n    },\r\n    outside: { true: \"text-fg-subtle\", false: \"\" },\r\n  },\r\n  compoundVariants: [\r\n    // `today` vence `outside`: o dia de hoje continua marcado mesmo quando\r\n    // aparece como dia vizinho na grade de outro mês.\r\n    { today: true, outside: true, class: \"text-fg-on-brand\" },\r\n  ],\r\n  defaultVariants: { today: false, outside: false },\r\n});\r\n\r\n/**\r\n * O `+` de criar evento, revelado no hover ou no foco da célula. Fica em\r\n * `opacity-0` e não em `hidden` pra manter o alvo de foco no fluxo do\r\n * teclado — `hidden` o tiraria da ordem de tabulação (spec §6.2).\r\n */\r\nexport const schedulerSlotAdd = tv({\r\n  base: [\r\n    \"grid size-comp-3xs shrink-0 place-items-center rounded-radius-sm\",\r\n    \"cursor-pointer border-0 bg-transparent text-fg-subtle outline-none\",\r\n    \"opacity-0 transition-[opacity,background-color,color] duration-150\",\r\n    \"group-hover/cell:opacity-100 focus-visible:opacity-100\",\r\n    \"hover:bg-bg-muted hover:text-fg-default\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"[&_svg]:size-icon-xs\",\r\n  ],\r\n});\r\n\r\nexport const schedulerCellEvents = tv({\r\n  base: \"flex min-h-0 flex-col gap-gp-2xs overflow-hidden\",\r\n});\r\n\r\nexport const schedulerOverflowButton = tv({\r\n  base: [\r\n    \"flex min-h-comp-2xs w-full cursor-pointer items-center\",\r\n    \"rounded-radius-sm border-0 bg-transparent px-pad-md\",\r\n    \"text-caption-sm font-medium text-fg-muted outline-none\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-muted hover:text-fg-default\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n});\r\n\r\nexport const schedulerOverflowPanel = tv({\r\n  base: \"flex max-h-[320px] min-w-[240px] flex-col gap-gp-2xs overflow-y-auto p-sp-xs\",\r\n});\r\n\r\nexport const schedulerOverflowPanelTitle = tv({\r\n  base: \"px-pad-md pb-pad-sm text-caption-sm font-semibold text-fg-muted first-letter:uppercase\",\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Grade de horas — week e day (a MESMA view, 7 ou 1 coluna) — spec §5.2\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * ⚠️ **`HOUR_HEIGHT_PX` em `views/time-grid.tsx` espelha `h-comp-3xl` (48px).**\r\n * A altura da hora precisa existir como número em JS porque\r\n * `minutesToOffset()` posiciona os eventos em px. Se este valor mudar aqui,\r\n * mude lá — é o acoplamento inevitável de posicionamento absoluto sobre grade\r\n * tokenizada, e está declarado dos dois lados.\r\n */\r\nexport const schedulerTimeFrame = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-1 flex-col overflow-hidden\",\r\n    \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n  ],\r\n});\r\n\r\n/** Cabeçalho de dias: o vão da esquerda alinha com o gutter de horas. */\r\nexport const schedulerTimeHead = tv({\r\n  base: \"flex shrink-0 border-b border-border-default bg-bg-subtle dark:bg-bg-canvas\",\r\n});\r\n\r\n/**\r\n * Largura do gutter de horas. `w-comp-4xl` (56px) cabe \"12:00 AM\" no formato\r\n * 12h — o 24h caberia em menos, mas variar a largura por formato faria a grade\r\n * \"pular\" ao trocar de idioma.\r\n */\r\nexport const schedulerTimeGutter = tv({\r\n  base: \"w-comp-4xl shrink-0\",\r\n});\r\n\r\nexport const schedulerTimeHeadDay = tv({\r\n  base: [\r\n    \"flex min-w-0 flex-1 flex-col items-center justify-center gap-gp-2xs\",\r\n    \"border-l border-border-subtle py-pad-md\",\r\n  ],\r\n  variants: {\r\n    /** Sábado/domingo recuados — mesma leitura da grade do mês. */\r\n    weekend: { true: \"bg-bg-subtle/40 dark:bg-bg-canvas\", false: \"\" },\r\n  },\r\n  defaultVariants: { weekend: false },\r\n});\r\n\r\nexport const schedulerTimeHeadWeekday = tv({\r\n  base: \"text-caption-md font-medium uppercase text-fg-muted\",\r\n});\r\n\r\n/** Banda de dia inteiro, entre o cabeçalho e a grade rolável. */\r\nexport const schedulerAllDayRow = tv({\r\n  base: \"flex shrink-0 border-b border-border-default\",\r\n});\r\n\r\nexport const schedulerAllDayLabel = tv({\r\n  base: [\r\n    \"flex w-comp-4xl shrink-0 items-start justify-end\",\r\n    \"px-pad-md py-pad-sm text-caption-sm text-fg-subtle\",\r\n  ],\r\n});\r\n\r\nexport const schedulerAllDayCell = tv({\r\n  base: [\r\n    \"flex min-w-0 flex-1 flex-col gap-gp-2xs\",\r\n    \"border-l border-border-subtle p-sp-2xs\",\r\n  ],\r\n});\r\n\r\n/**\r\n * O corpo rolável. `scrollbar-thin` é a barra do DS; `overscroll-contain` evita\r\n * que rolar até o fim da grade continue rolando a página atrás.\r\n */\r\nexport const schedulerTimeBody = tv({\r\n  base: \"min-h-0 flex-1 overflow-y-auto overscroll-contain scrollbar-thin\",\r\n});\r\n\r\nexport const schedulerTimeCanvas = tv({\r\n  base: \"relative flex\",\r\n});\r\n\r\n/**\r\n * Rótulo da hora. Fica no TOPO da própria faixa, deslocado meia-linha pra cima\r\n * (`-translate-y-1/2`), que é a convenção de calendário: o rótulo marca a linha,\r\n * não a faixa. Sem o deslocamento, \"09:00\" aparece centralizado no bloco das 9h\r\n * e o usuário lê a linha errada.\r\n *\r\n * O primeiro rótulo é ocultado (`first:opacity-0`) porque metade dele sairia\r\n * acima da área visível.\r\n */\r\nexport const schedulerHourLabel = tv({\r\n  base: [\r\n    \"relative flex h-comp-3xl items-start justify-end pr-pad-md\",\r\n    \"text-caption-sm tabular-nums text-fg-subtle\",\r\n    \"first:opacity-0\",\r\n  ],\r\n});\r\n\r\nexport const schedulerHourLabelText = tv({\r\n  base: \"-translate-y-1/2\",\r\n});\r\n\r\nexport const schedulerTimeColumn = tv({\r\n  base: \"relative min-w-0 flex-1 border-l border-border-subtle\",\r\n  variants: {\r\n    weekend: { true: \"bg-bg-subtle/40 dark:bg-bg-canvas\", false: \"\" },\r\n  },\r\n  defaultVariants: { weekend: false },\r\n});\r\n\r\n/**\r\n * Uma faixa de hora dentro da coluna. É `button` porque é alvo de clique\r\n * (criar evento naquela hora) — um `div` com `onClick` não é alcançável por\r\n * teclado nem anunciado como acionável.\r\n */\r\nexport const schedulerHourSlot = tv({\r\n  base: [\r\n    \"block h-comp-3xl w-full cursor-pointer\",\r\n    \"border-b border-border-subtle bg-transparent p-0 outline-none\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-table-row-hover\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"last:border-b-0\",\r\n  ],\r\n});\r\n\r\n/** Linha do \"agora\". `pointer-events-none` pra não roubar clique da faixa. */\r\nexport const schedulerNowLine = tv({\r\n  base: \"pointer-events-none absolute left-0 right-0 z-[2] flex items-center\",\r\n});\r\n\r\nexport const schedulerNowDot = tv({\r\n  base: \"-ml-[4px] size-[8px] shrink-0 rounded-radius-full bg-bg-brand\",\r\n});\r\n\r\nexport const schedulerNowStroke = tv({\r\n  base: \"h-px flex-1 bg-bg-brand\",\r\n});\r\n\r\n/** Rótulo \"agora\" no gutter, alinhado com a linha. */\r\nexport const schedulerNowLabel = tv({\r\n  base: [\r\n    \"pointer-events-none absolute right-pad-md z-[2] -translate-y-1/2\",\r\n    \"rounded-radius-xs bg-bg-brand px-pad-sm\",\r\n    \"text-caption-xs font-semibold tabular-nums text-fg-on-brand\",\r\n  ],\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Agenda (view `list`) — spec §5.3\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\nexport const schedulerListFrame = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain scrollbar-thin\",\r\n    \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n  ],\r\n});\r\n\r\nexport const schedulerListDay = tv({\r\n  base: \"flex flex-col gap-gp-md border-b border-border-subtle p-sp-xl last:border-b-0\",\r\n});\r\n\r\n/**\r\n * Cabeçalho do dia. `sticky` com fundo opaco: numa agenda longa, saber \"que dia\r\n * é este que estou lendo\" é justamente o que se perde ao rolar.\r\n */\r\nexport const schedulerListDayHead = tv({\r\n  base: [\r\n    \"sticky top-0 z-[1] -mx-sp-xl -mt-sp-xl px-sp-xl pb-pad-md pt-sp-xl\",\r\n    \"flex items-baseline gap-gp-md bg-bg-surface\",\r\n  ],\r\n});\r\n\r\nexport const schedulerListDayNumber = tv({\r\n  base: \"text-title-sm font-semibold tabular-nums\",\r\n  variants: {\r\n    today: { true: \"text-fg-brand\", false: \"text-fg-default\" },\r\n  },\r\n  defaultVariants: { today: false },\r\n});\r\n\r\nexport const schedulerListDayName = tv({\r\n  base: \"text-body-sm text-fg-muted first-letter:uppercase\",\r\n});\r\n\r\nexport const schedulerListEvents = tv({\r\n  base: \"flex flex-col gap-gp-sm\",\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Evento — spec §2.4 e §5\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * ⚠️ **A cor NUNCA vai no texto.** Medido em WCAG antes de decidir (spec\r\n * §2.1): `text-fg-{cor}` sobre a pílula tingida dá 1.72–4.49 no claro e\r\n * 2.97–4.31 no escuro — nenhuma das 6 famílias passa AA, e `warning` chega a\r\n * 1.72:1. O texto é sempre `fg-default` (17.46–18.42 / 7.45–10.95, AAA nos\r\n * dois modos) e a cor mora no **tint de fundo, na borda e no dot/barra de\r\n * acento**. Hierarquia dentro do pill se faz por peso e tamanho, não por cor.\r\n *\r\n * Corolário de acessibilidade: cor é reforço, nunca o único portador da\r\n * informação — o título sempre diz o que o evento é.\r\n */\r\nexport const schedulerEvent = tv({\r\n  base: [\r\n    \"group/event relative flex min-w-0 cursor-pointer items-center gap-gp-sm\",\r\n    \"border text-left outline-none\",\r\n    \"transition-[background-color,border-color,box-shadow] duration-150\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n  variants: {\r\n    color: {\r\n      brand: \"border-border-brand-subtle bg-bg-brand-subtle hover:bg-bg-brand-subtle-hover\",\r\n      info: \"border-border-info-muted bg-bg-info-muted hover:bg-bg-info-muted-hover\",\r\n      success:\r\n        \"border-border-success-muted bg-bg-success-muted hover:bg-bg-success-muted-hover\",\r\n      warning:\r\n        \"border-border-warning-muted bg-bg-warning-muted hover:bg-bg-warning-muted-hover\",\r\n      danger:\r\n        \"border-border-danger-muted bg-bg-danger-muted hover:bg-bg-danger-muted-hover\",\r\n      neutral: \"border-border-default bg-bg-muted hover:bg-bg-muted-hover\",\r\n    },\r\n    variant: {\r\n      /** Mês: linha de 20px, uma só, sem quebra. */\r\n      pill: \"min-h-comp-2xs rounded-radius-sm px-pad-md text-caption-sm\",\r\n      /** Week/day: bloco absoluto que ocupa a duração. */\r\n      block:\r\n        \"absolute min-h-comp-3xs flex-col items-start gap-0 rounded-radius-md px-pad-md py-pad-sm text-caption-sm\",\r\n      /** List/agenda: linha larga com descrição. */\r\n      row: \"min-h-form-lg w-full rounded-radius-lg px-pad-xl py-pad-md text-body-sm\",\r\n    },\r\n    /** Continuação de evento multi-dia: perde o canto do lado truncado. */\r\n    truncateStart: { true: \"rounded-l-none border-l-0\", false: \"\" },\r\n    truncateEnd: { true: \"rounded-r-none border-r-0\", false: \"\" },\r\n    /**\r\n     * Enquanto arrasta: sombra alta pra o bloco \"sair da superfície\", z acima\r\n     * dos vizinhos, e `cursor-grabbing`.\r\n     *\r\n     * ⚠️ **Sem `transition` neste estado.** O `transform` do dnd-kit é atualizado\r\n     * a cada movimento do ponteiro; uma transição em cima dele faz o bloco\r\n     * perseguir o cursor com atraso — o gesto fica elástico e impreciso. A\r\n     * transição vive no estado NÃO-arrastando (`movable`), que é onde ela serve:\r\n     * o assentamento depois do soltar.\r\n     */\r\n    dragging: {\r\n      true: \"z-[3] cursor-grabbing shadow-sh-lg opacity-90 transition-none\",\r\n      false: \"\",\r\n    },\r\n    /** Arrastável e em repouso: mão aberta + transição de assentamento. */\r\n    movable: {\r\n      true: \"cursor-grab transition-[top,left,height,width,background-color,border-color,box-shadow] duration-200 ease-out\",\r\n      false: \"\",\r\n    },\r\n    disabled: { true: \"pointer-events-none opacity-50\", false: \"\" },\r\n  },\r\n  defaultVariants: {\r\n    color: \"brand\",\r\n    variant: \"pill\",\r\n    truncateStart: false,\r\n    truncateEnd: false,\r\n    dragging: false,\r\n    movable: false,\r\n    disabled: false,\r\n  },\r\n});\r\n\r\n/**\r\n * Alça de resize — 6px na borda do bloco, revelada no hover/foco.\r\n *\r\n * `h-[6px]` e não um token: é área de AGARRE, não espaçamento. Não existe token\r\n * de \"alvo de arraste\" no DS, e reusar `sp-2xs` (2px) aqui seria emprestar um\r\n * nome de espaçamento pra dizer outra coisa — a L-060 avisa exatamente sobre\r\n * isso. 6px é o mesmo threshold do sensor, então o alvo nunca é menor que o\r\n * gesto que o ativa.\r\n *\r\n * `absolute inset-x-0` cobre a largura toda do bloco: alça estreita no meio\r\n * seria um alvo que o usuário precisa procurar.\r\n */\r\nexport const schedulerResizeHandle = tv({\r\n  base: [\r\n    \"absolute inset-x-0 z-[1] h-[6px] cursor-ns-resize\",\r\n    \"opacity-0 transition-opacity duration-150\",\r\n    \"group-hover/event:opacity-100 focus-visible:opacity-100\",\r\n    \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-brand\",\r\n    // A barrinha só aparece no hover; o alvo de 6px existe sempre.\r\n    \"after:absolute after:inset-x-[25%] after:top-[2px] after:h-[2px]\",\r\n    \"after:rounded-radius-full after:bg-fg-default/40\",\r\n  ],\r\n  variants: {\r\n    edge: {\r\n      start: \"-top-[3px]\",\r\n      end: \"-bottom-[3px]\",\r\n    },\r\n  },\r\n  defaultVariants: { edge: \"end\" },\r\n});\r\n\r\n/**\r\n * Célula/coluna sob o cursor durante o arraste. Fundo de marca sutil + borda\r\n * interna — é o \"vai cair aqui\" que o gesto precisa pra não ser adivinhação.\r\n *\r\n * `inset` em vez de `ring`: a célula do mês já tem borda de grade, e um ring por\r\n * fora vazaria pra célula vizinha.\r\n */\r\nexport const schedulerDropTarget = tv({\r\n  base: \"bg-bg-brand-subtle shadow-[inset_0_0_0_2px_var(--color-border-brand)]\",\r\n});\r\n\r\n/** Dot/barra de acento — é aqui que a cor da categoria realmente aparece. */\r\nexport const schedulerEventDot = tv({\r\n  base: \"shrink-0 rounded-radius-full\",\r\n  variants: {\r\n    color: {\r\n      brand: \"bg-bg-brand\",\r\n      info: \"bg-bg-info\",\r\n      success: \"bg-bg-success\",\r\n      warning: \"bg-bg-warning\",\r\n      danger: \"bg-bg-danger\",\r\n      neutral: \"bg-fg-subtle\",\r\n    },\r\n    size: {\r\n      sm: \"size-icon-2xs\",\r\n      md: \"size-icon-xs\",\r\n    },\r\n  },\r\n  defaultVariants: { color: \"brand\", size: \"sm\" },\r\n});\r\n\r\nexport const schedulerEventTitle = tv({\r\n  base: \"min-w-0 flex-1 truncate font-medium text-fg-default\",\r\n});\r\n\r\nexport const schedulerEventTime = tv({\r\n  base: \"shrink-0 tabular-nums text-fg-muted\",\r\n});\r\n\r\nexport const schedulerEventDescription = tv({\r\n  base: \"min-w-0 truncate text-caption-sm text-fg-muted\",\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Placeholder das views ainda não implementadas\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Existe de propósito e é temporário: `week`, `day` e `list` chegam nas\r\n * fatias seguintes. Mostrar um aviso honesto é melhor do que esconder a\r\n * opção no segmented (o usuário não descobriria que a view vai existir) ou\r\n * do que renderizar uma grade vazia que parece defeito.\r\n */\r\nexport const schedulerPlaceholder = tv({\r\n  base: [\r\n    \"flex min-h-[320px] flex-1 flex-col items-center justify-center gap-gp-md\",\r\n    \"rounded-radius-xl border border-dashed border-border-input bg-bg-subtle dark:bg-bg-canvas\",\r\n    \"p-sp-3xl text-center\",\r\n  ],\r\n});\r\n\r\nexport type SchedulerEventVariants = VariantProps<typeof schedulerEvent>;\r\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Fonte única do visual do `Scheduler`. Nenhum componente da pasta escreve\r\n * classe de estilo inline — quem quiser mudar a pele muda AQUI (regra de ouro\r\n * do DS).\r\n *\r\n * ⛔ Nada aqui importa de `../TableToolbar`. A gramática visual da toolbar\r\n * (segmented, busca, chip aplicado) é **copiada** de\r\n * `TableToolbar/table-toolbar.styles.ts`, não importada — cross-import entre\r\n * pastas de `ui/` é o que gerou o `registryDependency` dangling da L-049 no\r\n * `DataList`: `@igreen/table-toolbar` não existe como item de registry, então\r\n * `igreen:add scheduler` estrearia quebrado no consumidor de copy-in enquanto\r\n * `tsc` e showcase ficam verdes. O custo aceito é manter as duas cópias em\r\n * sync na mão; a alternativa era um defeito invisível justamente onde a gente\r\n * não olha (spec §4.1).\r\n */\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Root\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * `h-full` (não só `min-h-0`) é o que impede o painel de filtro de esticar a\r\n * altura da linha inteira.\r\n *\r\n * Sem ele o root dimensionava por CONTEÚDO: a coluna do painel, que é uma pilha\r\n * de mini-calendário + grupos, ficava mais alta que a grade e passava a mandar\r\n * na altura das duas — no exemplo do showcase isso vazava pra fora do\r\n * `h-[720px]` e cortava. Com `h-full`, o root ocupa o pai, `schedulerBody` é\r\n * `flex-1 min-h-0`, e o painel rola por dentro em vez de crescer.\r\n *\r\n * Em pai de altura automática, `height: 100%` resolve contra `auto` e se\r\n * comporta como `auto` — ou seja, não piora o caso \"esqueci de dar altura\", que\r\n * segue documentado como gotcha nº 1 do USAGE.\r\n */\r\nexport const schedulerRoot = tv({\r\n  base: [\r\n    \"flex h-full min-h-0 w-full flex-col gap-gp-2xl\",\r\n    \"text-fg-default\",\r\n  ],\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Toolbar — spec §4\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Uma linha em desktop, quebra em duas abaixo de ~1024px. `flex-wrap` +\r\n * `justify-between` em vez de grid de 2 colunas: os dois lados têm largura de\r\n * conteúdo (o título muda de tamanho por mês e por view), e grid obrigaria a\r\n * fixar uma fração que sobra ou falta.\r\n */\r\n/**\r\n * Toolbar — DUAS LINHAS abaixo de `lg`, uma só a partir dele.\r\n *\r\n * Empilhado (<1024px): linha 1 é `[título] ······ [‹ Hoje ›]`, com a navegação\r\n * empurrada pro fim; linha 2 é `[busca ·····] [📅] [⚙] [+]`, a busca comendo a\r\n * sobra e os três controles como ícone puro.\r\n *\r\n * Antes era `flex-wrap` puro, e a quebra ficava a cargo do espaço disponível:\r\n * em 375px saía título e navegação grudados à esquerda com um vão à direita, e\r\n * os 4 controles da segunda linha disputando largura com os rótulos por\r\n * extenso — \"Mês\", \"Filtro\" e \"Novo evento\" custam ~210px que a busca não\r\n * tinha. Wrap resolve transbordo, não hierarquia.\r\n */\r\nexport const schedulerToolbar = tv({\r\n  base: [\r\n    \"flex flex-col gap-gp-xl\",\r\n    \"lg:flex-row lg:flex-wrap lg:items-center lg:justify-between\",\r\n  ],\r\n});\r\n\r\nexport const schedulerToolbarSide = tv({\r\n  base: \"flex min-w-0 items-center gap-gp-md\",\r\n  variants: {\r\n    /**\r\n     * `leading` = título + navegação. Empilhado, ocupa a linha inteira e\r\n     * separa os dois extremos — é o que joga `‹ Hoje ›` pro fim.\r\n     * `trailing` = busca + controles. A busca é quem estica (`flex-1` nela),\r\n     * então aqui basta ocupar a linha.\r\n     */\r\n    slot: {\r\n      leading: \"w-full justify-between lg:w-auto lg:flex-wrap lg:justify-start\",\r\n      trailing: \"w-full lg:w-auto lg:flex-wrap\",\r\n    },\r\n  },\r\n  defaultVariants: { slot: \"trailing\" },\r\n});\r\n\r\n/**\r\n * Título do período (\"setembro 2026\"). `text-title-sm` e não `heading`: o\r\n * calendário mora dentro de uma página que já tem `PageHeader` com o H1 — um\r\n * heading aqui competiria com ele.\r\n *\r\n * `first-letter:uppercase` porque o date-fns com locale ptBR devolve o mês em\r\n * minúscula (\"setembro\"), e no topo de um bloco isso lê como texto cortado.\r\n * Capitalizar no CSS e não no JS mantém a string original acessível a quem\r\n * usa `title` como override.\r\n */\r\nexport const schedulerTitle = tv({\r\n  base: [\r\n    \"min-w-0 truncate text-title-sm font-semibold text-fg-default\",\r\n    \"first-letter:uppercase\",\r\n  ],\r\n});\r\n\r\n/* ── Grupo de navegação: ‹ | Hoje | › ──────────────────────────────── */\r\n\r\n/**\r\n * Três segmentos colados num controle só. Não usa o `ButtonGroup` do DS de\r\n * propósito: ele resolve o **split button** (2 slots, `Primary` + `Chevron`,\r\n * com os cantos já decididos em `!rounded-r-none` / `!rounded-l-none`) e não\r\n * tem como expressar um segmento do MEIO sem canto nenhum. Forçá-lo aqui\r\n * exigiria brigar com os `!` dele.\r\n *\r\n * O que este grupo faz é só a junta: os três filhos continuam sendo `Button`\r\n * do DS, então cor, foco, altura e estados vêm de lá.\r\n *\r\n * `-ml-px` no 2º em diante colapsa a borda dupla entre segmentos vizinhos.\r\n */\r\nexport const schedulerNavGroup = tv({\r\n  base: [\r\n    \"inline-flex shrink-0 items-center\",\r\n    \"[&>*:not(:first-child)]:-ml-px\",\r\n    // O segmento com foco sobe pra que o anel não seja cortado pelo vizinho.\r\n    \"[&>*:focus-visible]:relative [&>*:focus-visible]:z-[1]\",\r\n    \"[&>*:first-child]:!rounded-r-none\",\r\n    \"[&>*:last-child]:!rounded-l-none\",\r\n    \"[&>*:not(:first-child):not(:last-child)]:!rounded-none\",\r\n  ],\r\n});\r\n\r\n/* ── Dropdown de view (Mês · Semana · Dia · Lista) ─────────────────── */\r\n\r\n/**\r\n * Substituiu o segmented de 4 posições. O segmented mostrava as 4 opções de\r\n * uma vez, o que é bom, mas custava ~230px numa toolbar que agora também tem\r\n * botão de filtro — em 1280px ele empurrava a ação primária pra segunda linha.\r\n * O dropdown custa ~110px e diz qual view está ativa no próprio rótulo.\r\n */\r\nexport const schedulerViewTriggerLabel = tv({\r\n  base: \"tabular-nums\",\r\n});\r\n\r\nexport const schedulerViewMenuItem = tv({\r\n  base: \"flex items-center justify-between gap-gp-xl\",\r\n});\r\n\r\n/* ── Botão de filtro ───────────────────────────────────────────────── */\r\n\r\n/**\r\n * Ponto de \"tem filtro aplicado\" no canto do botão — mesma convenção do\r\n * `toolbarToolDot` do `TableToolbar`. `border-2 border-bg-canvas` recorta o\r\n * ponto do botão embaixo, senão ele parece um pixel sujo na borda.\r\n */\r\nexport const schedulerFilterDot = tv({\r\n  base: [\r\n    \"pointer-events-none absolute -right-[4px] -top-[4px] z-[2]\",\r\n    \"size-[13px] rounded-radius-full\",\r\n    \"bg-bg-brand border-2 border-bg-canvas\",\r\n  ],\r\n});\r\n\r\n/* ── Busca (cópia da gramática do `toolbarSearch`) ─────────────────── */\r\n\r\nexport const schedulerSearch = tv({\r\n  base: [\r\n    \"relative flex cursor-text items-center gap-gp-md\",\r\n    \"h-form-lg rounded-radius-lg px-pad-lg\",\r\n    \"bg-bg-surface dark:bg-bg-muted\",\r\n    \"border border-border-subtle dark:border-border-input\",\r\n    \"shadow-sh-sm dark:shadow-sh-none\",\r\n    \"text-fg-default\",\r\n    \"min-w-0 flex-1 lg:flex-initial\",\r\n    \"lg:w-[200px] lg:focus-within:w-[300px]\",\r\n    \"transition-[width,border-color,background-color,box-shadow] duration-200\",\r\n    \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n    \"[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n  ],\r\n  variants: {\r\n    /** Mantém expandido mesmo sem foco quando já há termo digitado. */\r\n    expanded: { true: \"lg:w-[300px]\", false: \"\" },\r\n  },\r\n  defaultVariants: { expanded: false },\r\n});\r\n\r\nexport const schedulerSearchInput = tv({\r\n  base: [\r\n    \"min-w-0 flex-1 border-0 bg-transparent outline-none\",\r\n    \"text-body-sm font-normal text-fg-default\",\r\n    \"placeholder:text-fg-muted\",\r\n  ],\r\n});\r\n\r\n/* ── Chips de filtro (cópia da gramática do `toolbarAppliedChip`) ──── */\r\n\r\nexport const schedulerFilterRow = tv({\r\n  base: [\r\n    \"flex items-center gap-gp-md\",\r\n    \"flex-nowrap overflow-x-auto sm:flex-wrap sm:overflow-x-visible\",\r\n    \"[scrollbar-width:none] [&::-webkit-scrollbar]:hidden\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Chip de filtro **aplicado**. Desde que o painel lateral passou a ser o lugar\r\n * de escolher, esta linha não mostra mais chip vazio de borda tracejada: ela é\r\n * só o resumo do que está ligado, com o `×` pra desligar sem reabrir o painel\r\n * — que é o que a L-051 pede (o estado filtrado tem que ser visível e\r\n * desfazível sem procurar o controle que o produziu).\r\n *\r\n * A variante `applied` continua no tv() porque o `false` ainda serve pro caso\r\n * de um chip renderizado durante a animação de saída.\r\n */\r\nexport const schedulerFilterChip = tv({\r\n  base: [\r\n    \"inline-flex shrink-0 cursor-pointer items-center gap-gp-sm\",\r\n    \"h-form-md rounded-radius-lg pl-pad-lg pr-pad-md\",\r\n    \"bg-bg-surface dark:bg-bg-muted\",\r\n    \"border text-body-xs font-normal text-fg-default\",\r\n    \"transition-[background-color,border-color] duration-150\",\r\n    \"hover:bg-bg-muted-hover hover:border-border-default dark:hover:bg-bg-accent\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"[&_svg]:size-icon-xs [&_svg]:shrink-0 [&_svg]:text-fg-subtle\",\r\n  ],\r\n  variants: {\r\n    applied: {\r\n      true: \"border-solid border-border-brand bg-bg-brand-subtle dark:bg-bg-brand-subtle\",\r\n      false: \"border-dashed border-border-input\",\r\n    },\r\n  },\r\n  defaultVariants: { applied: false },\r\n});\r\n\r\nexport const schedulerFilterChipName = tv({\r\n  base: \"font-semibold text-fg-default\",\r\n});\r\n\r\nexport const schedulerFilterChipValue = tv({\r\n  base: [\r\n    \"inline-flex h-comp-2xs items-center px-pad-md\",\r\n    \"rounded-radius-sm bg-bg-muted dark:bg-bg-accent\",\r\n    \"text-body-xs font-medium text-fg-default\",\r\n  ],\r\n});\r\n\r\nexport const schedulerClearLink = tv({\r\n  base: [\r\n    \"ml-pad-sm cursor-pointer border-0 bg-transparent p-0\",\r\n    \"text-body-xs font-medium text-fg-brand outline-none\",\r\n    \"underline-offset-2 transition-opacity duration-150\",\r\n    \"hover:underline focus-visible:underline\",\r\n  ],\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Layout de duas colunas — grade + painel de filtro\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * A área abaixo da toolbar. O painel de filtro é uma **coluna de verdade**, não\r\n * um overlay: ele empurra a grade em vez de cobri-la.\r\n *\r\n * É a diferença que importa aqui. Um `Popover`/`Sheet` por cima obriga a\r\n * fechar pra ver o efeito do filtro — e filtro é exatamente o controle cujo\r\n * resultado você quer olhar enquanto mexe. Como coluna, marcar uma caixa e ver\r\n * a grade reagir acontece no mesmo gesto.\r\n *\r\n * O custo é largura: a grade encolhe ~296px. Por isso o painel é fechado por\r\n * default e some abaixo de `lg` (ver `schedulerFilterAside`).\r\n */\r\nexport const schedulerBody = tv({\r\n  base: \"flex min-h-0 flex-1 gap-gp-2xl\",\r\n});\r\n\r\nexport const schedulerMain = tv({\r\n  base: \"flex min-h-0 min-w-0 flex-1 flex-col\",\r\n});\r\n\r\n/**\r\n * `w-[280px] shrink-0` — largura fixa, não fração: o mini-calendário tem 7\r\n * colunas de largura mínima e uma fração de viewport o quebraria em telas\r\n * médias.\r\n *\r\n * ⚠️ **Não há media query aqui, de propósito.** A primeira versão tinha\r\n * `hidden lg:flex`, e o `scheduler.tsx` gateava o botão de filtro com um\r\n * `matchMedia(\"(min-width: 1024px)\")` — o MESMO breakpoint escrito em dois\r\n * lugares, com dois mecanismos diferentes. Medido no browser: dá pra chegar num\r\n * estado em que o botão se diz aberto e o painel está `display: none`, ou seja\r\n * um controle que não faz nada visível.\r\n *\r\n * Agora o breakpoint vive **só** no `useMediaQuery` do `scheduler.tsx`, que\r\n * decide se o painel é montado. Uma fonte de verdade: painel no DOM ⟺ botão\r\n * diz aberto. Se o hook estiver defasado, os dois estão defasados juntos —\r\n * consistente, em vez de contraditório.\r\n */\r\nexport const schedulerFilterAside = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-col overflow-y-auto\",\r\n    // `scrollbar-thin` é a barra do DS (26 usos no repo contra 2 do\r\n    // `scrollbar-default`) — trilho transparente + thumb tokenizado.\r\n    // ⚠️ É `@utility` do tema GERADO, não do globals.css: existe nos 4 canais.\r\n    \"scrollbar-thin\",\r\n  ],\r\n  variants: {\r\n    /**\r\n     * `embedded` = o painel vive DENTRO de outro contêiner que já é a\r\n     * superfície — hoje o `FloatingPanel` do modo drawer (<1024px).\r\n     *\r\n     * Como coluna (`false`, o default) ele É o card: largura própria, borda,\r\n     * radius e fundo. Embutido, os quatro viram defeito — largura fixa deixa\r\n     * uma faixa morta à direita do drawer, e borda+radius+fundo repetem a\r\n     * superfície do painel que já o embrulha (card dentro de card, a mesma\r\n     * classe de erro da L-050).\r\n     */\r\n    embedded: {\r\n      false: [\r\n        \"w-[280px] shrink-0\",\r\n        \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n      ],\r\n      true: \"w-full\",\r\n    },\r\n  },\r\n  defaultVariants: { embedded: false },\r\n});\r\n\r\n/**\r\n * Seção do painel — **inteiriça**, com padding próprio, e a divisória de ponta\r\n * a ponta entre uma e outra.\r\n *\r\n * O painel não tem padding nem gap: quem paga o respiro é a seção. É o que faz\r\n * a linha divisória chegar até as bordas do card, do jeito que se espera de uma\r\n * pilha de blocos. Com padding no container e `gap`, a divisória ficaria\r\n * recuada dos dois lados e leria como sublinhado de um item, não como separação\r\n * entre blocos.\r\n *\r\n * `last:border-b-0` fecha a última: a borda do card já encerra a pilha, e uma\r\n * divisória imediatamente antes dela vira duas linhas paralelas a 1px.\r\n */\r\nexport const schedulerAsideSection = tv({\r\n  base: [\r\n    \"flex shrink-0 flex-col gap-gp-md\",\r\n    \"border-b border-border-default p-sp-xl last:border-b-0\",\r\n  ],\r\n  variants: {\r\n    /** O cabeçalho é mais raso: só uma linha de título + ações. */\r\n    compact: { true: \"py-pad-lg\", false: \"\" },\r\n    /**\r\n     * Cabeçalho fixo no topo enquanto o resto rola.\r\n     *\r\n     * `bg-bg-surface` é **obrigatório** e não decoração: `sticky` não cria\r\n     * fundo, então sem ele o mini-calendário passaria por baixo do título. E\r\n     * `z-[1]` porque as caixas e o `Checkbox` do Radix criam contexto próprio\r\n     * de empilhamento — sem o z, o conteúdo que rola sobrepõe o cabeçalho.\r\n     */\r\n    sticky: { true: \"sticky top-0 z-[1] bg-bg-surface\", false: \"\" },\r\n  },\r\n  defaultVariants: { compact: false, sticky: false },\r\n});\r\n\r\nexport const schedulerAsideHead = tv({\r\n  base: \"flex items-center justify-between gap-gp-md\",\r\n});\r\n\r\nexport const schedulerAsideTitle = tv({\r\n  base: \"text-body-sm font-semibold text-fg-default\",\r\n});\r\n\r\n/* ── Mini-calendário do painel ─────────────────────────────────────── */\r\n\r\nexport const schedulerMiniHead = tv({\r\n  base: \"flex items-center justify-between gap-gp-sm\",\r\n});\r\n\r\nexport const schedulerMiniTitle = tv({\r\n  base: \"min-w-0 truncate text-body-sm font-semibold text-fg-default first-letter:uppercase\",\r\n});\r\n\r\nexport const schedulerMiniGrid = tv({\r\n  base: \"grid grid-cols-7 gap-gp-2xs\",\r\n});\r\n\r\nexport const schedulerMiniWeekday = tv({\r\n  base: [\r\n    \"grid size-comp-xs place-items-center\",\r\n    \"text-caption-xs font-medium uppercase text-fg-subtle\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Célula do mini-calendário. `today` é o anel; `selected` é o preenchido — os\r\n * dois podem coexistir, e é por isso que são variantes separadas em vez de um\r\n * único `state`. Quando coincidem, o preenchido vence e o anel some (senão\r\n * viram dois círculos concêntricos de 24px, ilegíveis).\r\n */\r\nexport const schedulerMiniDay = tv({\r\n  base: [\r\n    \"grid size-comp-xs cursor-pointer place-items-center rounded-radius-full\",\r\n    \"border-0 bg-transparent outline-none\",\r\n    \"text-caption-md tabular-nums\",\r\n    \"transition-[background-color,color,box-shadow] duration-150\",\r\n    \"hover:bg-bg-muted\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n  variants: {\r\n    outside: { true: \"text-fg-subtle\", false: \"text-fg-default\" },\r\n    hasEvents: { true: \"font-semibold\", false: \"\" },\r\n    today: { true: \"ring-1 ring-border-brand\", false: \"\" },\r\n    selected: {\r\n      true: \"bg-bg-brand font-semibold text-fg-on-brand hover:bg-bg-brand-hover\",\r\n      false: \"\",\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    // Selecionado vence \"hoje\": um anel em volta do disco cheio não informa\r\n    // nada e adiciona 2px de ruído.\r\n    { selected: true, today: true, class: \"ring-0\" },\r\n    { selected: true, outside: true, class: \"text-fg-on-brand\" },\r\n  ],\r\n  defaultVariants: {\r\n    outside: false,\r\n    hasEvents: false,\r\n    today: false,\r\n    selected: false,\r\n  },\r\n});\r\n\r\n/* ── Grupos de filtro do painel (caixas coloridas, como no print) ──── */\r\n\r\nexport const schedulerGroup = tv({\r\n  base: \"flex flex-col gap-gp-sm\",\r\n});\r\n\r\n/**\r\n * `-mx-pad-sm px-pad-sm`: o fundo do hover sangra 6px pra fora, mas o TEXTO\r\n * fica alinhado com o padding da seção. Sem o `-mx`, o rótulo do grupo ficaria\r\n * 6px mais dentro que o título \"Filtros\" do cabeçalho — desalinho visível numa\r\n * coluna estreita.\r\n */\r\nexport const schedulerGroupHead = tv({\r\n  base: [\r\n    \"flex w-full cursor-pointer items-center justify-between gap-gp-md\",\r\n    \"min-h-form-sm rounded-radius-sm border-0 bg-transparent -mx-pad-sm px-pad-sm outline-none\",\r\n    \"text-body-sm font-semibold text-fg-default\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-muted\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-subtle\",\r\n  ],\r\n});\r\n\r\nexport const schedulerGroupChevron = tv({\r\n  base: \"transition-transform duration-150\",\r\n  variants: { open: { true: \"\", false: \"-rotate-90\" } },\r\n  defaultVariants: { open: true },\r\n});\r\n\r\n/**\r\n * Linha de opção: `<label>` nativo embrulhando o `Checkbox`, **não**\r\n * `<button>`. O label propaga o clique pro checkbox real, mantém a semântica\r\n * de checkbox no leitor de tela e faz a linha inteira ser alvo de clique —\r\n * é a mesma lição do `CardCheckbox` (L-025).\r\n */\r\nexport const schedulerOption = tv({\r\n  base: [\r\n    \"flex cursor-pointer items-center gap-gp-md\",\r\n    \"min-h-form-sm rounded-radius-sm -mx-pad-sm px-pad-sm\",\r\n    \"text-body-sm text-fg-default\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-muted\",\r\n    \"has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand\",\r\n  ],\r\n});\r\n\r\nexport const schedulerOptionLabel = tv({\r\n  base: \"min-w-0 flex-1 truncate\",\r\n});\r\n\r\nexport const schedulerOptionCount = tv({\r\n  base: \"shrink-0 text-caption-sm tabular-nums text-fg-subtle\",\r\n});\r\n\r\n/**\r\n * Cor da caixa quando marcada. Sobrescreve o `data-[state=checked]:bg-bg-brand`\r\n * do `Checkbox` via `className` — `tailwind-merge` resolve o par (mesmo\r\n * modificador, mesmo grupo de utilitário) mantendo o último.\r\n *\r\n * O `[&_svg]` é necessário porque o tique mora no `Indicator`, que é filho e\r\n * não alcançável por className na raiz.\r\n */\r\nexport const schedulerOptionBox = tv({\r\n  base: \"shrink-0\",\r\n  variants: {\r\n    color: {\r\n      brand:\r\n        \"data-[state=checked]:bg-bg-brand data-[state=checked]:border-border-brand [&_svg]:text-fg-on-brand\",\r\n      info: \"data-[state=checked]:bg-bg-info data-[state=checked]:border-bg-info [&_svg]:text-fg-on-info\",\r\n      success:\r\n        \"data-[state=checked]:bg-bg-success data-[state=checked]:border-bg-success [&_svg]:text-fg-on-success\",\r\n      warning:\r\n        \"data-[state=checked]:bg-bg-warning data-[state=checked]:border-bg-warning [&_svg]:text-fg-on-warning\",\r\n      danger:\r\n        \"data-[state=checked]:bg-bg-danger data-[state=checked]:border-bg-danger [&_svg]:text-fg-on-danger\",\r\n      neutral:\r\n        \"data-[state=checked]:bg-fg-subtle data-[state=checked]:border-fg-subtle [&_svg]:text-bg-surface\",\r\n    },\r\n  },\r\n  defaultVariants: { color: \"brand\" },\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Grade do mês — spec §5.1\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * `overflow-hidden` + `rounded` no wrapper, e as células desenham só borda\r\n * direita/inferior: é o que produz a régua interna sem borda dupla e sem\r\n * precisar de `:last-child` em 42 células.\r\n */\r\nexport const schedulerMonthFrame = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-1 flex-col overflow-hidden\",\r\n    \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n  ],\r\n});\r\n\r\nexport const schedulerWeekdayRow = tv({\r\n  base: [\r\n    \"grid grid-cols-7 border-b border-border-default bg-bg-subtle dark:bg-bg-canvas\",\r\n  ],\r\n});\r\n\r\nexport const schedulerWeekdayCell = tv({\r\n  base: [\r\n    \"flex min-h-form-md items-center justify-center\",\r\n    \"text-caption-md font-medium text-fg-muted\",\r\n    \"first-letter:uppercase\",\r\n  ],\r\n});\r\n\r\nexport const schedulerMonthGrid = tv({\r\n  base: \"grid min-h-0 flex-1 grid-cols-7 grid-rows-6\",\r\n});\r\n\r\n/**\r\n * `[&:nth-child(7n)]:border-r-0` zera a borda direita da última coluna sem\r\n * precisar passar índice pro componente da célula.\r\n */\r\nexport const schedulerMonthCell = tv({\r\n  base: [\r\n    \"group/cell relative flex min-h-comp-4xl min-w-0 flex-col gap-gp-2xs\",\r\n    \"border-b border-r border-border-subtle p-sp-2xs\",\r\n    \"[&:nth-child(7n)]:border-r-0\",\r\n    \"transition-colors duration-150\",\r\n  ],\r\n  variants: {\r\n    /** Dia de mês vizinho — recuado, não escondido: a grade é sempre 6×7. */\r\n    outside: {\r\n      true: \"bg-bg-subtle/40 dark:bg-bg-canvas\",\r\n      false: \"bg-bg-surface\",\r\n    },\r\n    /** Última linha da grade não desenha borda inferior (o frame já fecha). */\r\n    lastRow: { true: \"border-b-0\", false: \"\" },\r\n    interactive: { true: \"hover:bg-bg-table-row-hover\", false: \"\" },\r\n  },\r\n  defaultVariants: { outside: false, lastRow: false, interactive: false },\r\n});\r\n\r\nexport const schedulerDayHead = tv({\r\n  base: \"flex shrink-0 items-center justify-between gap-gp-sm\",\r\n});\r\n\r\n/**\r\n * Número do dia. `tabular-nums` pra 1 e 11 ocuparem a mesma largura — sem\r\n * isso a coluna de números \"dança\" entre as linhas.\r\n */\r\nexport const schedulerDayNumber = tv({\r\n  base: [\r\n    \"grid size-comp-xs shrink-0 place-items-center rounded-radius-full\",\r\n    \"text-body-xs font-medium tabular-nums\",\r\n    \"transition-colors duration-150\",\r\n  ],\r\n  variants: {\r\n    today: {\r\n      true: \"bg-bg-brand font-semibold text-fg-on-brand\",\r\n      false: \"text-fg-default\",\r\n    },\r\n    outside: { true: \"text-fg-subtle\", false: \"\" },\r\n  },\r\n  compoundVariants: [\r\n    // `today` vence `outside`: o dia de hoje continua marcado mesmo quando\r\n    // aparece como dia vizinho na grade de outro mês.\r\n    { today: true, outside: true, class: \"text-fg-on-brand\" },\r\n  ],\r\n  defaultVariants: { today: false, outside: false },\r\n});\r\n\r\n/**\r\n * O `+` de criar evento, revelado no hover ou no foco da célula. Fica em\r\n * `opacity-0` e não em `hidden` pra manter o alvo de foco no fluxo do\r\n * teclado — `hidden` o tiraria da ordem de tabulação (spec §6.2).\r\n */\r\nexport const schedulerSlotAdd = tv({\r\n  base: [\r\n    \"grid size-comp-3xs shrink-0 place-items-center rounded-radius-sm\",\r\n    \"cursor-pointer border-0 bg-transparent text-fg-subtle outline-none\",\r\n    \"opacity-0 transition-[opacity,background-color,color] duration-150\",\r\n    \"group-hover/cell:opacity-100 focus-visible:opacity-100\",\r\n    \"hover:bg-bg-muted hover:text-fg-default\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"[&_svg]:size-icon-xs\",\r\n  ],\r\n});\r\n\r\nexport const schedulerCellEvents = tv({\r\n  base: \"flex min-h-0 flex-col gap-gp-2xs overflow-hidden\",\r\n});\r\n\r\nexport const schedulerOverflowButton = tv({\r\n  base: [\r\n    \"flex min-h-comp-2xs w-full cursor-pointer items-center\",\r\n    \"rounded-radius-sm border-0 bg-transparent px-pad-md\",\r\n    \"text-caption-sm font-medium text-fg-muted outline-none\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-muted hover:text-fg-default\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n});\r\n\r\nexport const schedulerOverflowPanel = tv({\r\n  base: \"flex max-h-[320px] min-w-[240px] flex-col gap-gp-2xs overflow-y-auto p-sp-xs\",\r\n});\r\n\r\nexport const schedulerOverflowPanelTitle = tv({\r\n  base: \"px-pad-md pb-pad-sm text-caption-sm font-semibold text-fg-muted first-letter:uppercase\",\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Grade de horas — week e day (a MESMA view, 7 ou 1 coluna) — spec §5.2\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * ⚠️ **`HOUR_HEIGHT_PX` em `views/time-grid.tsx` espelha `h-comp-3xl` (48px).**\r\n * A altura da hora precisa existir como número em JS porque\r\n * `minutesToOffset()` posiciona os eventos em px. Se este valor mudar aqui,\r\n * mude lá — é o acoplamento inevitável de posicionamento absoluto sobre grade\r\n * tokenizada, e está declarado dos dois lados.\r\n */\r\nexport const schedulerTimeFrame = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-1 flex-col overflow-hidden\",\r\n    \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n  ],\r\n});\r\n\r\n/** Cabeçalho de dias: o vão da esquerda alinha com o gutter de horas. */\r\nexport const schedulerTimeHead = tv({\r\n  base: \"flex shrink-0 border-b border-border-default bg-bg-subtle dark:bg-bg-canvas\",\r\n});\r\n\r\n/**\r\n * Largura do gutter de horas. `w-comp-4xl` (56px) cabe \"12:00 AM\" no formato\r\n * 12h — o 24h caberia em menos, mas variar a largura por formato faria a grade\r\n * \"pular\" ao trocar de idioma.\r\n */\r\nexport const schedulerTimeGutter = tv({\r\n  base: \"w-comp-4xl shrink-0\",\r\n});\r\n\r\nexport const schedulerTimeHeadDay = tv({\r\n  base: [\r\n    \"flex min-w-0 flex-1 flex-col items-center justify-center gap-gp-2xs\",\r\n    \"border-l border-border-subtle py-pad-md\",\r\n  ],\r\n  variants: {\r\n    /** Sábado/domingo recuados — mesma leitura da grade do mês. */\r\n    weekend: { true: \"bg-bg-subtle/40 dark:bg-bg-canvas\", false: \"\" },\r\n  },\r\n  defaultVariants: { weekend: false },\r\n});\r\n\r\nexport const schedulerTimeHeadWeekday = tv({\r\n  base: \"text-caption-md font-medium uppercase text-fg-muted\",\r\n});\r\n\r\n/** Banda de dia inteiro, entre o cabeçalho e a grade rolável. */\r\nexport const schedulerAllDayRow = tv({\r\n  base: \"flex shrink-0 border-b border-border-default\",\r\n});\r\n\r\nexport const schedulerAllDayLabel = tv({\r\n  base: [\r\n    \"flex w-comp-4xl shrink-0 items-start justify-end\",\r\n    \"px-pad-md py-pad-sm text-caption-sm text-fg-subtle\",\r\n  ],\r\n});\r\n\r\nexport const schedulerAllDayCell = tv({\r\n  base: [\r\n    \"flex min-w-0 flex-1 flex-col gap-gp-2xs\",\r\n    \"border-l border-border-subtle p-sp-2xs\",\r\n  ],\r\n});\r\n\r\n/**\r\n * O corpo rolável. `scrollbar-thin` é a barra do DS; `overscroll-contain` evita\r\n * que rolar até o fim da grade continue rolando a página atrás.\r\n */\r\nexport const schedulerTimeBody = tv({\r\n  base: \"min-h-0 flex-1 overflow-y-auto overscroll-contain scrollbar-thin\",\r\n});\r\n\r\nexport const schedulerTimeCanvas = tv({\r\n  base: \"relative flex\",\r\n});\r\n\r\n/**\r\n * Rótulo da hora. Fica no TOPO da própria faixa, deslocado meia-linha pra cima\r\n * (`-translate-y-1/2`), que é a convenção de calendário: o rótulo marca a linha,\r\n * não a faixa. Sem o deslocamento, \"09:00\" aparece centralizado no bloco das 9h\r\n * e o usuário lê a linha errada.\r\n *\r\n * O primeiro rótulo é ocultado (`first:opacity-0`) porque metade dele sairia\r\n * acima da área visível.\r\n */\r\nexport const schedulerHourLabel = tv({\r\n  base: [\r\n    \"relative flex h-comp-3xl items-start justify-end pr-pad-md\",\r\n    \"text-caption-sm tabular-nums text-fg-subtle\",\r\n    \"first:opacity-0\",\r\n  ],\r\n});\r\n\r\nexport const schedulerHourLabelText = tv({\r\n  base: \"-translate-y-1/2\",\r\n});\r\n\r\nexport const schedulerTimeColumn = tv({\r\n  base: \"relative min-w-0 flex-1 border-l border-border-subtle\",\r\n  variants: {\r\n    weekend: { true: \"bg-bg-subtle/40 dark:bg-bg-canvas\", false: \"\" },\r\n  },\r\n  defaultVariants: { weekend: false },\r\n});\r\n\r\n/**\r\n * Uma faixa de hora dentro da coluna. É `button` porque é alvo de clique\r\n * (criar evento naquela hora) — um `div` com `onClick` não é alcançável por\r\n * teclado nem anunciado como acionável.\r\n */\r\nexport const schedulerHourSlot = tv({\r\n  base: [\r\n    \"block h-comp-3xl w-full cursor-pointer\",\r\n    \"border-b border-border-subtle bg-transparent p-0 outline-none\",\r\n    \"transition-colors duration-150\",\r\n    \"hover:bg-bg-table-row-hover\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"last:border-b-0\",\r\n  ],\r\n});\r\n\r\n/** Linha do \"agora\". `pointer-events-none` pra não roubar clique da faixa. */\r\nexport const schedulerNowLine = tv({\r\n  base: \"pointer-events-none absolute left-0 right-0 z-[2] flex items-center\",\r\n});\r\n\r\nexport const schedulerNowDot = tv({\r\n  base: \"-ml-[4px] size-[8px] shrink-0 rounded-radius-full bg-bg-brand\",\r\n});\r\n\r\nexport const schedulerNowStroke = tv({\r\n  base: \"h-px flex-1 bg-bg-brand\",\r\n});\r\n\r\n/** Rótulo \"agora\" no gutter, alinhado com a linha. */\r\nexport const schedulerNowLabel = tv({\r\n  base: [\r\n    \"pointer-events-none absolute right-pad-md z-[2] -translate-y-1/2\",\r\n    \"rounded-radius-xs bg-bg-brand px-pad-sm\",\r\n    \"text-caption-xs font-semibold tabular-nums text-fg-on-brand\",\r\n  ],\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Agenda (view `list`) — spec §5.3\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\nexport const schedulerListFrame = tv({\r\n  base: [\r\n    \"flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain scrollbar-thin\",\r\n    \"rounded-radius-xl border border-border-default bg-bg-surface\",\r\n  ],\r\n});\r\n\r\nexport const schedulerListDay = tv({\r\n  base: \"flex flex-col gap-gp-md border-b border-border-subtle p-sp-xl last:border-b-0\",\r\n});\r\n\r\n/**\r\n * Cabeçalho do dia. `sticky` com fundo opaco: numa agenda longa, saber \"que dia\r\n * é este que estou lendo\" é justamente o que se perde ao rolar.\r\n */\r\nexport const schedulerListDayHead = tv({\r\n  base: [\r\n    \"sticky top-0 z-[1] -mx-sp-xl -mt-sp-xl px-sp-xl pb-pad-md pt-sp-xl\",\r\n    \"flex items-baseline gap-gp-md bg-bg-surface\",\r\n  ],\r\n});\r\n\r\nexport const schedulerListDayNumber = tv({\r\n  base: \"text-title-sm font-semibold tabular-nums\",\r\n  variants: {\r\n    today: { true: \"text-fg-brand\", false: \"text-fg-default\" },\r\n  },\r\n  defaultVariants: { today: false },\r\n});\r\n\r\nexport const schedulerListDayName = tv({\r\n  base: \"text-body-sm text-fg-muted first-letter:uppercase\",\r\n});\r\n\r\nexport const schedulerListEvents = tv({\r\n  base: \"flex flex-col gap-gp-sm\",\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Evento — spec §2.4 e §5\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * ⚠️ **A cor NUNCA vai no texto.** Medido em WCAG antes de decidir (spec\r\n * §2.1): `text-fg-{cor}` sobre a pílula tingida dá 1.72–4.49 no claro e\r\n * 2.97–4.31 no escuro — nenhuma das 6 famílias passa AA, e `warning` chega a\r\n * 1.72:1. O texto é sempre `fg-default` (17.46–18.42 / 7.45–10.95, AAA nos\r\n * dois modos) e a cor mora no **tint de fundo, na borda e no dot/barra de\r\n * acento**. Hierarquia dentro do pill se faz por peso e tamanho, não por cor.\r\n *\r\n * Corolário de acessibilidade: cor é reforço, nunca o único portador da\r\n * informação — o título sempre diz o que o evento é.\r\n */\r\nexport const schedulerEvent = tv({\r\n  base: [\r\n    \"group/event relative flex min-w-0 cursor-pointer items-center gap-gp-sm\",\r\n    \"border text-left outline-none\",\r\n    \"transition-[background-color,border-color,box-shadow] duration-150\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n  variants: {\r\n    color: {\r\n      brand: \"border-border-brand-subtle bg-bg-brand-subtle hover:bg-bg-brand-subtle-hover\",\r\n      info: \"border-border-info-muted bg-bg-info-muted hover:bg-bg-info-muted-hover\",\r\n      success:\r\n        \"border-border-success-muted bg-bg-success-muted hover:bg-bg-success-muted-hover\",\r\n      warning:\r\n        \"border-border-warning-muted bg-bg-warning-muted hover:bg-bg-warning-muted-hover\",\r\n      danger:\r\n        \"border-border-danger-muted bg-bg-danger-muted hover:bg-bg-danger-muted-hover\",\r\n      neutral: \"border-border-default bg-bg-muted hover:bg-bg-muted-hover\",\r\n    },\r\n    variant: {\r\n      /** Mês: linha de 20px, uma só, sem quebra. */\r\n      pill: \"min-h-comp-2xs rounded-radius-sm px-pad-md text-caption-sm\",\r\n      /** Week/day: bloco absoluto que ocupa a duração. */\r\n      block:\r\n        \"absolute min-h-comp-3xs flex-col items-start gap-0 rounded-radius-md px-pad-md py-pad-sm text-caption-sm\",\r\n      /** List/agenda: linha larga com descrição. */\r\n      row: \"min-h-form-lg w-full rounded-radius-lg px-pad-xl py-pad-md text-body-sm\",\r\n    },\r\n    /** Continuação de evento multi-dia: perde o canto do lado truncado. */\r\n    truncateStart: { true: \"rounded-l-none border-l-0\", false: \"\" },\r\n    truncateEnd: { true: \"rounded-r-none border-r-0\", false: \"\" },\r\n    /**\r\n     * Enquanto arrasta: sombra alta pra o bloco \"sair da superfície\", z acima\r\n     * dos vizinhos, e `cursor-grabbing`.\r\n     *\r\n     * ⚠️ **Sem `transition` neste estado.** O `transform` do dnd-kit é atualizado\r\n     * a cada movimento do ponteiro; uma transição em cima dele faz o bloco\r\n     * perseguir o cursor com atraso — o gesto fica elástico e impreciso. A\r\n     * transição vive no estado NÃO-arrastando (`movable`), que é onde ela serve:\r\n     * o assentamento depois do soltar.\r\n     */\r\n    dragging: {\r\n      true: \"z-[3] cursor-grabbing shadow-sh-lg opacity-90 transition-none\",\r\n      false: \"\",\r\n    },\r\n    /** Arrastável e em repouso: mão aberta + transição de assentamento. */\r\n    movable: {\r\n      true: \"cursor-grab transition-[top,left,height,width,background-color,border-color,box-shadow] duration-200 ease-out\",\r\n      false: \"\",\r\n    },\r\n    disabled: { true: \"pointer-events-none opacity-50\", false: \"\" },\r\n  },\r\n  defaultVariants: {\r\n    color: \"brand\",\r\n    variant: \"pill\",\r\n    truncateStart: false,\r\n    truncateEnd: false,\r\n    dragging: false,\r\n    movable: false,\r\n    disabled: false,\r\n  },\r\n});\r\n\r\n/**\r\n * Alça de resize — 6px na borda do bloco, revelada no hover/foco.\r\n *\r\n * `h-[6px]` e não um token: é área de AGARRE, não espaçamento. Não existe token\r\n * de \"alvo de arraste\" no DS, e reusar `sp-2xs` (2px) aqui seria emprestar um\r\n * nome de espaçamento pra dizer outra coisa — a L-060 avisa exatamente sobre\r\n * isso. 6px é o mesmo threshold do sensor, então o alvo nunca é menor que o\r\n * gesto que o ativa.\r\n *\r\n * `absolute inset-x-0` cobre a largura toda do bloco: alça estreita no meio\r\n * seria um alvo que o usuário precisa procurar.\r\n */\r\nexport const schedulerResizeHandle = tv({\r\n  base: [\r\n    \"absolute inset-x-0 z-[1] h-[6px] cursor-ns-resize\",\r\n    \"opacity-0 transition-opacity duration-150\",\r\n    \"group-hover/event:opacity-100 focus-visible:opacity-100\",\r\n    \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-brand\",\r\n    // A barrinha só aparece no hover; o alvo de 6px existe sempre.\r\n    \"after:absolute after:inset-x-[25%] after:top-[2px] after:h-[2px]\",\r\n    \"after:rounded-radius-full after:bg-fg-default/40\",\r\n  ],\r\n  variants: {\r\n    edge: {\r\n      start: \"-top-[3px]\",\r\n      end: \"-bottom-[3px]\",\r\n    },\r\n  },\r\n  defaultVariants: { edge: \"end\" },\r\n});\r\n\r\n/**\r\n * Célula/coluna sob o cursor durante o arraste. Fundo de marca sutil + borda\r\n * interna — é o \"vai cair aqui\" que o gesto precisa pra não ser adivinhação.\r\n *\r\n * `inset` em vez de `ring`: a célula do mês já tem borda de grade, e um ring por\r\n * fora vazaria pra célula vizinha.\r\n */\r\nexport const schedulerDropTarget = tv({\r\n  base: \"bg-bg-brand-subtle shadow-[inset_0_0_0_2px_var(--color-border-brand)]\",\r\n});\r\n\r\n/** Dot/barra de acento — é aqui que a cor da categoria realmente aparece. */\r\nexport const schedulerEventDot = tv({\r\n  base: \"shrink-0 rounded-radius-full\",\r\n  variants: {\r\n    color: {\r\n      brand: \"bg-bg-brand\",\r\n      info: \"bg-bg-info\",\r\n      success: \"bg-bg-success\",\r\n      warning: \"bg-bg-warning\",\r\n      danger: \"bg-bg-danger\",\r\n      neutral: \"bg-fg-subtle\",\r\n    },\r\n    size: {\r\n      sm: \"size-icon-2xs\",\r\n      md: \"size-icon-xs\",\r\n    },\r\n  },\r\n  defaultVariants: { color: \"brand\", size: \"sm\" },\r\n});\r\n\r\nexport const schedulerEventTitle = tv({\r\n  base: \"min-w-0 flex-1 truncate font-medium text-fg-default\",\r\n});\r\n\r\nexport const schedulerEventTime = tv({\r\n  base: \"shrink-0 tabular-nums text-fg-muted\",\r\n});\r\n\r\nexport const schedulerEventDescription = tv({\r\n  base: \"min-w-0 truncate text-caption-sm text-fg-muted\",\r\n});\r\n\r\n/* ────────────────────────────────────────────────────────────────────────\r\n * Placeholder das views ainda não implementadas\r\n * ──────────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Existe de propósito e é temporário: `week`, `day` e `list` chegam nas\r\n * fatias seguintes. Mostrar um aviso honesto é melhor do que esconder a\r\n * opção no segmented (o usuário não descobriria que a view vai existir) ou\r\n * do que renderizar uma grade vazia que parece defeito.\r\n */\r\nexport const schedulerPlaceholder = tv({\r\n  base: [\r\n    \"flex min-h-[320px] flex-1 flex-col items-center justify-center gap-gp-md\",\r\n    \"rounded-radius-xl border border-dashed border-border-input bg-bg-subtle dark:bg-bg-canvas\",\r\n    \"p-sp-3xl text-center\",\r\n  ],\r\n});\r\n\r\nexport type SchedulerEventVariants = VariantProps<typeof schedulerEvent>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/Scheduler/scheduler.styles.ts"
       },
@@ -4294,7 +4294,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · scheduler · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4342,7 +4342,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · screen-loader · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4366,7 +4366,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · scroll-area · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4391,7 +4391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · select · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4415,7 +4415,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · separator · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4441,7 +4441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · sheet · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4554,7 +4554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · skeleton · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · slider · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4623,7 +4623,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · sonner · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4669,7 +4669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · spinner · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4693,7 +4693,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · switch · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4772,7 +4772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · table · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4835,7 +4835,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · tabs-navigation · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4859,7 +4859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · tabs · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4883,7 +4883,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · textarea · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4901,7 +4901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · theme-blue · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4919,7 +4919,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · theme-green · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4937,7 +4937,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · theme-pay · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4955,7 +4955,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · theme-vibrant · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4977,7 +4977,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · theme · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -5028,7 +5028,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · toast · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5054,7 +5054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · toggle-group · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5079,7 +5079,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · toggle · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5103,7 +5103,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · tooltip · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5124,7 +5124,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · tv · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -5146,7 +5146,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.56.0 · f785295 · 2026-09-01"
+      "stamp": "igreen-ds · utils · v0.56.0 · b0f5fb9 · 2026-09-01"
     },
     "type": "registry:file"
   }

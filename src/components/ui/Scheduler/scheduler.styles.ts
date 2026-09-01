@@ -51,14 +51,41 @@ export const schedulerRoot = tv({
  * conteúdo (o título muda de tamanho por mês e por view), e grid obrigaria a
  * fixar uma fração que sobra ou falta.
  */
+/**
+ * Toolbar — DUAS LINHAS abaixo de `lg`, uma só a partir dele.
+ *
+ * Empilhado (<1024px): linha 1 é `[título] ······ [‹ Hoje ›]`, com a navegação
+ * empurrada pro fim; linha 2 é `[busca ·····] [📅] [⚙] [+]`, a busca comendo a
+ * sobra e os três controles como ícone puro.
+ *
+ * Antes era `flex-wrap` puro, e a quebra ficava a cargo do espaço disponível:
+ * em 375px saía título e navegação grudados à esquerda com um vão à direita, e
+ * os 4 controles da segunda linha disputando largura com os rótulos por
+ * extenso — "Mês", "Filtro" e "Novo evento" custam ~210px que a busca não
+ * tinha. Wrap resolve transbordo, não hierarquia.
+ */
 export const schedulerToolbar = tv({
   base: [
-    "flex flex-wrap items-center justify-between gap-gp-xl",
+    "flex flex-col gap-gp-xl",
+    "lg:flex-row lg:flex-wrap lg:items-center lg:justify-between",
   ],
 });
 
 export const schedulerToolbarSide = tv({
-  base: "flex min-w-0 flex-wrap items-center gap-gp-md",
+  base: "flex min-w-0 items-center gap-gp-md",
+  variants: {
+    /**
+     * `leading` = título + navegação. Empilhado, ocupa a linha inteira e
+     * separa os dois extremos — é o que joga `‹ Hoje ›` pro fim.
+     * `trailing` = busca + controles. A busca é quem estica (`flex-1` nela),
+     * então aqui basta ocupar a linha.
+     */
+    slot: {
+      leading: "w-full justify-between lg:w-auto lg:flex-wrap lg:justify-start",
+      trailing: "w-full lg:w-auto lg:flex-wrap",
+    },
+  },
+  defaultVariants: { slot: "trailing" },
 });
 
 /**
@@ -145,15 +172,15 @@ export const schedulerSearch = tv({
     "border border-border-subtle dark:border-border-input",
     "shadow-sh-sm dark:shadow-sh-none",
     "text-fg-default",
-    "min-w-0 flex-1 md:flex-initial",
-    "md:w-[200px] md:focus-within:w-[300px]",
+    "min-w-0 flex-1 lg:flex-initial",
+    "lg:w-[200px] lg:focus-within:w-[300px]",
     "transition-[width,border-color,background-color,box-shadow] duration-200",
     "focus-within:border-border-brand focus-within:shadow-sh-ring",
     "[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-muted",
   ],
   variants: {
     /** Mantém expandido mesmo sem foco quando já há termo digitado. */
-    expanded: { true: "md:w-[300px]", false: "" },
+    expanded: { true: "lg:w-[300px]", false: "" },
   },
   defaultVariants: { expanded: false },
 });
