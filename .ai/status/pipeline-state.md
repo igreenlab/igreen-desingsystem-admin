@@ -26,6 +26,7 @@
 - [A análise dele estava certa, com duas correções](#a-análise-dele-estava-certa-com-duas-correções)
 - [O achado que muda a conclusão: não era a IA que errou, era o DS](#o-achado-que-muda-a-conclusão-não-era-a-ia-que-errou-era-o-ds)
 - [O que ficou](#o-que-ficou)
+- [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 
 <!-- doc-index:fim -->
 
