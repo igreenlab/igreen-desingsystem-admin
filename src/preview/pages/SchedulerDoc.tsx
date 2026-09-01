@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { addDays, format, startOfDay, startOfMonth } from "date-fns";
 import { CalendarDays, Clock, Link2, MapPin, Pencil, Plus, Tag, Users } from "lucide-react";
-import { Scheduler } from "../../components/ui/Scheduler";
+import { Scheduler, SchedulerFilterPanel } from "../../components/ui/Scheduler";
 import type {
   SchedulerEvent,
   SchedulerFilterField,
@@ -28,6 +28,7 @@ const TOC = [
   { id: "dia", label: "View dia" },
   { id: "lista", label: "View lista" },
   { id: "detalhe", label: "Painel de detalhe" },
+  { id: "anatomia-filtro", label: "Anatomia do filtro" },
   { id: "filtros", label: "Busca e filtros" },
   { id: "controlado", label: "Modo controlado" },
   { id: "tela-cheia", label: "Tela cheia" },
@@ -165,6 +166,13 @@ const EVENTS: SchedulerEvent[] = [
   },
 ];
 
+/**
+ * "Agora" capturado uma vez no módulo — o painel isolado recebe `now` por prop,
+ * e um `new Date()` no corpo do render mudaria de identidade a cada render,
+ * invalidando os `useMemo` do mini-calendário.
+ */
+const AGORA = new Date();
+
 /** Semana que contém o offsite (dias 9–11) — é onde a banda "Dia inteiro" aparece. */
 const SEMANA_DO_OFFSITE = addDays(MONTH_START, 9);
 /** Dia com 4 eventos, pra a view de dia não abrir vazia. */
@@ -211,6 +219,27 @@ const FILTER_FIELDS: SchedulerFilterField[] = [
     ],
   },
 ];
+
+/**
+ * Contagem por opção pro painel isolado. Derivada de `EVENTS` de verdade, não
+ * chumbada: número inventado numa doc page é a mentira que alguém copia.
+ */
+const CONTAGENS_ISOLADAS: Record<string, Record<string, number>> = (() => {
+  const out: Record<string, Record<string, number>> = {};
+  for (const campo of FILTER_FIELDS) {
+    out[campo.id] = {};
+    for (const opcao of campo.options) {
+      out[campo.id][opcao.value] = EVENTS.filter((e) =>
+        campo.id === "categoryId"
+          ? e.categoryId === opcao.value
+          : campo.id === "tagIds"
+            ? (e.tagIds ?? []).includes(opcao.value)
+            : (e.color ?? "brand") === opcao.value,
+      ).length;
+    }
+  }
+  return out;
+})();
 
 /* ────────────────────────────────────────────────────────────────────────
  * Props tables
@@ -286,6 +315,12 @@ export function SchedulerDoc() {
   const [filtroPreAplicado, setFiltroPreAplicado] = useState<SchedulerFilterModel>(
     { categoryId: ["cliente"] },
   );
+
+  /** Exemplo da anatomia: o painel isolado precisa do próprio estado. */
+  const [filtroIsolado, setFiltroIsolado] = useState<SchedulerFilterModel>({
+    tagIds: ["time"],
+  });
+  const [dataIsolada, setDataIsolada] = useState<Date>(() => new Date());
 
   /** Exemplo do modo controlado — período e view vivem AQUI, não no componente. */
   const [dataControlada, setDataControlada] = useState<Date>(() => new Date());
@@ -439,14 +474,59 @@ export function SchedulerDoc() {
       </ExampleSection>
 
       <SectionH2 id="detalhe" title="Painel de detalhe — padrão dsgreen-paneldetail-2" />
+      <p className="mb-14 text-body-md text-fg-muted">
+        Sem exemplo próprio de propósito: o painel já está ligado em{" "}
+        <strong>todas</strong> as grades desta página — clique num evento de
+        qualquer uma. O <code className="text-code-sm">Scheduler</code> não
+        importa <code className="text-code-sm">FloatingPanel</code>: ele só emite{" "}
+        <code className="text-code-sm">onEventClick(event, evt)</code> e devolve{" "}
+        <code className="text-code-sm">event.meta</code> intacto — o payload cru
+        do domínio. Quem monta o painel é a tela, no padrão do bloco{" "}
+        <strong>dsgreen-paneldetail-2</strong> (side right, size lg,{" "}
+        <code className="text-code-sm">titleSlot</code> com o contexto, lista
+        plana de propriedades). É o que mantém o detalhe adaptável ao domínio de
+        quem consome sem arrastar o <code className="text-code-sm">FloatingPanel</code>{" "}
+        pras dependências do item de registry.
+      </p>
+
+      <SectionH2 id="anatomia-filtro" title="Anatomia do painel de filtro" />
       <ExampleSection
-        id="detalhe-panel"
-        title="O Scheduler não conhece FloatingPanel"
-        description="O componente só emite onEventClick(event, evt) e devolve event.meta intacto — o payload cru do domínio. Quem monta o painel é a tela, no padrão do bloco dsgreen-paneldetail-2 (side right, size lg, titleSlot com o contexto, lista plana de propriedades). É o que mantém o detalhe adaptável ao domínio de quem consome sem arrastar FloatingPanel pras deps do item de registry. Todos os exemplos desta página compartilham o mesmo painel — clicar num evento de qualquer grade acima o abre."
+        id="filtro-isolado"
+        title="O card sozinho, sem a grade"
+        description="O mesmo SchedulerFilterPanel que o Scheduler monta como coluna, aqui isolado pra a estrutura ficar visível: cabeçalho sticky (Filtros / Limpar / ×), mini-calendário pra saltar de data, e um grupo por campo de filtro com caixas coloridas na mesma cor que o evento tem na grade — o que dispensa legenda. Cada seção é inteiriça, com padding próprio e divisória de ponta a ponta; o painel em si não tem padding, é a seção que paga o respiro. Ele é exportado pelo barrel (mesmo padrão do TableToolbar, que expõe ToolbarSearch e as outras partes) pra uma tela poder posicioná-lo em outro lugar do próprio layout — em uso normal você não precisa dele."
+        plain
       >
-        <p className="text-body-sm text-fg-muted">
-          Clique em qualquer evento — de qualquer uma das grades desta página.
-        </p>
+        <div className="flex h-[560px] justify-start">
+          <SchedulerFilterPanel
+            filterFields={FILTER_FIELDS}
+            filterModel={filtroIsolado}
+            onToggleValue={(campo, valor) =>
+              setFiltroIsolado((atual) => {
+                const atuais = atual[campo] ?? [];
+                const proximos = atuais.includes(valor)
+                  ? atuais.filter((v) => v !== valor)
+                  : [...atuais, valor];
+                const proximo = { ...atual };
+                if (proximos.length === 0) delete proximo[campo];
+                else proximo[campo] = proximos;
+                return proximo;
+              })
+            }
+            onClearAll={() => setFiltroIsolado({})}
+            appliedCount={Object.values(filtroIsolado).reduce(
+              (t, v) => t + v.length,
+              0,
+            )}
+            onClose={() => undefined}
+            counts={CONTAGENS_ISOLADAS}
+            date={dataIsolada}
+            now={AGORA}
+            locale={ptBR}
+            weekStartsOn={0}
+            events={EVENTS}
+            onDateSelect={setDataIsolada}
+          />
+        </div>
       </ExampleSection>
 
       <SectionH2 id="filtros" title="Busca e filtros" />
@@ -531,29 +611,51 @@ export function SchedulerDoc() {
       </ExampleSection>
 
       <SectionH2 id="tela-cheia" title="Tela cheia" />
-      <ExampleSection
-        id="tela-cheia-nota"
-        title="Não existe prop de fullscreen — a altura do pai é que manda"
-        description="O componente já é h-full. Pra usar como página inteira, dê h-screen ao container e deixe o Scheduler em flex-1. E isso não é só esticar: o corte do “+N mais” da célula do mês é derivado da altura MEDIDA da linha, como as linhas da tabela. Medido no browser com o mesmo dataset — viewport 800px dá linha de 76px e 2 pills por célula; viewport 1400px dá linha de 176px e 6 pills. Pra travar num número fixo, a view de mês aceita maxPerCell, mas o default adaptativo é o que aproveita a tela."
-      >
-        <p className="text-body-sm text-fg-muted">
-          Exemplo dedicado no menu:{" "}
-          <strong>Example: Scheduler tela cheia</strong> (
-          <code className="text-code-sm">#/scheduler-full</code>).
-        </p>
-      </ExampleSection>
+      <p className="mb-14 text-body-md text-fg-muted">
+        <strong>Não existe prop de fullscreen</strong> — o componente já é{" "}
+        <code className="text-code-sm">h-full</code>, e a altura do pai é que
+        manda: dê <code className="text-code-sm">h-screen</code> ao container e
+        deixe o <code className="text-code-sm">Scheduler</code> em{" "}
+        <code className="text-code-sm">flex-1</code>. E isso não é só esticar: o
+        corte do “+N mais” da célula do mês é derivado da altura{" "}
+        <strong>medida</strong> da linha, como as linhas da tabela. Medido no
+        browser com o mesmo dataset — viewport de 800px dá linha de 76px e{" "}
+        <strong>2 pills</strong> por célula; viewport de 1400px dá linha de 176px
+        e <strong>6 pills</strong>. Pra travar num número fixo, a view de mês
+        aceita <code className="text-code-sm">maxPerCell</code>, mas o default
+        adaptativo é o que aproveita a tela. Exemplo dedicado no menu:{" "}
+        <strong>Example: Scheduler tela cheia</strong> (
+        <code className="text-code-sm">#/scheduler-full</code>).
+      </p>
 
       <SectionH2 id="falta" title="O que ainda não está pronto" />
-      <ExampleSection
-        id="falta-wip"
-        title="Drag & drop e navegação por teclado"
-        description="onEventMove e onEventResize existem na API e ainda NÃO são chamadas — draggable e resizable nascem false justamente por isso: dnd ligado sem handler conectado deixa o usuário arrastar e ver o evento voltar sozinho, que lê como bug do app. O núcleo puro que o dnd vai consumir (snapToGrid e resolveResize em hooks/layout.ts) já está implementado e coberto por 36 testes de borda, incluindo os clamps que impedem start > end. Distribuição também falta: o componente ainda não está no registry.json, então o consumidor não o recebe via igreen:add — fecha no /ds-release, junto com date-fns declarado como dependência do item."
-      >
-        <p className="text-body-sm text-fg-muted">
-          A navegação por <strong>Tab</strong> funciona; o que falta é o roving
-          tabindex pra andar pela grade com as setas.
-        </p>
-      </ExampleSection>
+      <p className="mb-14 text-body-md text-fg-muted">
+        <strong>Drag &amp; drop:</strong>{" "}
+        <code className="text-code-sm">onEventMove</code> e{" "}
+        <code className="text-code-sm">onEventResize</code> existem na API e ainda{" "}
+        <strong>não são chamadas</strong> —{" "}
+        <code className="text-code-sm">draggable</code> e{" "}
+        <code className="text-code-sm">resizable</code> nascem{" "}
+        <code className="text-code-sm">false</code> justamente por isso: dnd
+        ligado sem handler conectado deixa o usuário arrastar e ver o evento
+        voltar sozinho, que lê como bug do app. O núcleo puro que o dnd vai
+        consumir (<code className="text-code-sm">snapToGrid</code> e{" "}
+        <code className="text-code-sm">resolveResize</code>) já está implementado
+        e coberto por 36 testes de borda, incluindo os clamps que impedem{" "}
+        <code className="text-code-sm">start &gt; end</code>.
+        <br />
+        <br />
+        <strong>Teclado:</strong> a navegação por <strong>Tab</strong> funciona; o
+        que falta é o roving tabindex pra andar pela grade com as setas.
+        <br />
+        <br />
+        <strong>Distribuição:</strong> o componente ainda não está no{" "}
+        <code className="text-code-sm">registry.json</code>, então o consumidor
+        não o recebe via <code className="text-code-sm">igreen:add</code> — fecha
+        no <code className="text-code-sm">/ds-release</code>, junto com{" "}
+        <code className="text-code-sm">date-fns</code> declarado como dependência
+        do item.
+      </p>
 
       <SectionH2 id="api" title="API Reference" />
       <PropsTable items={SCHEDULER_PROPS} />

@@ -265,6 +265,17 @@ Deliberado (mesmo default do `enableDnD` do `Kanban`): dnd ligado sem
 — o pior estado possível, porque parece bug do app. **Nesta versão o dnd ainda
 não está implementado**, então ligar as props não faz nada.
 
+### 6b. `SchedulerFilterPanel` também é exportado solto
+
+Mesmo padrão do `TableToolbar`, que expõe `ToolbarSearch`, `ToolbarSegmented` e
+as outras partes pelo barrel. Serve pra tela que queira posicionar o painel em
+outro lugar do próprio layout — e pra doc page, que o renderiza isolado pra
+mostrar a anatomia (cabeçalho sticky · mini-calendário · um grupo por campo).
+
+**Em uso normal você não precisa dele:** o `Scheduler` monta e controla o seu.
+Usando solto, todo o estado é seu — `filterModel`, `counts`, `date`, `now` e os
+callbacks vêm por prop, e nada é derivado sozinho.
+
 ### 7. O painel de detalhe é seu, não do componente
 
 O `Scheduler` não importa `FloatingPanel`. Ele emite
