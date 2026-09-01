@@ -8,9 +8,21 @@ Calendário de **eventos ao longo do tempo**, com 4 modos de visualização
 A toolbar traz: título do período + grupo `‹ Hoje ›` à esquerda; e à direita
 busca, área custom, **seletor de view** (dropdown), **Filtro** e ação primária —
 nessa ordem, do recorte mais amplo (qual período) pro mais específico (o que
-dentro dele). View e Filtro são pares: mesmo `variant="outline"`, mesmo
-`size="sm"`, e o Filtro **não** muda de variante quando o painel abre (quem
-sinaliza isso é o painel na tela, mais o `aria-expanded`).
+dentro dele).
+
+**Os dois estados do botão Filtro, e por que são diferentes:**
+
+| Estado | Aparência |
+|---|---|
+| painel **aberto** | nada muda — segue `secondary outline`, par do botão de view |
+| **tem filtro aplicado** | `primary soft` + `border-border-brand` → verde de marca a **14%** de opacidade, texto e borda em brand, mais o ponto no canto |
+
+É a mesma receita do `ToolbarToolButton` do `TableToolbar`, que é o precedente do
+DS pra "esta ferramenta tem algo ligado". A distinção é deliberada: filtro
+aplicado é estado do **dado** (persiste, muda o que você vê) e merece cor; painel
+aberto é estado da **UI** (transitório) e quem o sinaliza é o próprio painel na
+tela, mais o `aria-expanded`. O ponto continua junto da cor porque cor sozinha
+não pode ser o único portador da informação.
 
 O botão Filtro abre um **painel-coluna à direita da grade** — não um overlay.
 
@@ -167,6 +179,11 @@ Três consequências práticas:
 
 - **A grade encolhe.** Se a sua tela é estreita, prefira deixar
   `defaultFilterPanelOpen` em `false` (o default).
+- **O cabeçalho do painel é `sticky` e a barra é a do DS.** O bloco "Filtros /
+  Limpar / ×" fica fixo no topo enquanto o resto rola, com `bg-bg-surface`
+  opaco — `sticky` não cria fundo, e sem ele o mini-calendário passaria por
+  baixo do título. A rolagem usa `scrollbar-thin`, a `@utility` do tema gerado
+  (trilho transparente + thumb tokenizado), que é o padrão do repo com 26 usos.
 - **O painel nunca estica a altura da linha.** Ele acompanha a altura da grade e
   **rola por dentro** (medido: 664px de caixa com 958px de conteúdo). É por isso
   que o root é `h-full` — sem isso ele dimensionava por conteúdo, o painel ficava

@@ -227,18 +227,34 @@ export function SchedulerToolbar({
                contra a caixa do botão, e o Button não expõe `position`. */
             <span className="relative shrink-0">
               <Button
-                /* `outline` SEMPRE, inclusive com o painel aberto. Antes virava
-                   `soft` nesse estado e ficava visivelmente diferente do botão
-                   de view ao lado — dois controles pares com pesos diferentes.
-                   Quem sinaliza que o painel está aberto é o próprio painel, que
-                   está na tela; e `aria-expanded` cobre quem não o vê. */
-                variant="outline"
-                color="secondary"
+                /* Dois estados, e a distinção importa:
+                 *
+                 * **Painel aberto** NÃO muda a variante — segue `secondary
+                 * outline`, par do botão de view ao lado. Quem sinaliza que o
+                 * painel está aberto é o painel, que está na tela.
+                 *
+                 * **Tem filtro aplicado** muda: `primary soft` (verde
+                 * translúcido — `bg-bg-brand-subtle` + `text-fg-brand`) mais
+                 * `border-border-brand`. É a MESMA receita do
+                 * `ToolbarToolButton` do `TableToolbar`, que é o precedente do
+                 * DS pra "esta ferramenta tem algo ligado" — o `soft` do Button
+                 * não traz borda, então o brand entra por className.
+                 *
+                 * Filtro aplicado é estado do DADO (persiste, muda o que você
+                 * vê) e merece cor; painel aberto é estado da UI (transitório)
+                 * e não. O ponto no canto continua, porque cor sozinha não pode
+                 * ser o único portador da informação. */
+                variant={appliedCount > 0 ? "soft" : "outline"}
+                color={appliedCount > 0 ? "primary" : "secondary"}
                 size="sm"
                 iconLeft={<ListFilter />}
                 onClick={onToggleFilterPanel}
                 disabled={!filterPanelAvailable}
                 aria-expanded={filterPanelOpen}
+                className={cn(
+                  appliedCount > 0 &&
+                    "border-border-brand hover:border-border-brand",
+                )}
                 title={
                   filterPanelAvailable
                     ? undefined

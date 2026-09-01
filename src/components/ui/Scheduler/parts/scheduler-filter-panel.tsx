@@ -99,7 +99,7 @@ export function SchedulerFilterPanel({
 
   return (
     <aside className={schedulerFilterAside()} aria-label="Filtros do calendário">
-      <div className={schedulerAsideSection({ compact: true })}>
+      <div className={schedulerAsideSection({ compact: true, sticky: true })}>
         <div className={schedulerAsideHead()}>
           <span className={schedulerAsideTitle()}>Filtros</span>
           <div className="flex shrink-0 items-center gap-gp-sm">

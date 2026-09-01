@@ -271,6 +271,10 @@ export const schedulerMain = tv({
 export const schedulerFilterAside = tv({
   base: [
     "flex w-[280px] min-h-0 shrink-0 flex-col overflow-y-auto",
+    // `scrollbar-thin` é a barra do DS (26 usos no repo contra 2 do
+    // `scrollbar-default`) — trilho transparente + thumb tokenizado.
+    // ⚠️ É `@utility` do tema GERADO, não do globals.css: existe nos 4 canais.
+    "scrollbar-thin",
     "rounded-radius-xl border border-border-default bg-bg-surface",
   ],
 });
@@ -296,8 +300,17 @@ export const schedulerAsideSection = tv({
   variants: {
     /** O cabeçalho é mais raso: só uma linha de título + ações. */
     compact: { true: "py-pad-lg", false: "" },
+    /**
+     * Cabeçalho fixo no topo enquanto o resto rola.
+     *
+     * `bg-bg-surface` é **obrigatório** e não decoração: `sticky` não cria
+     * fundo, então sem ele o mini-calendário passaria por baixo do título. E
+     * `z-[1]` porque as caixas e o `Checkbox` do Radix criam contexto próprio
+     * de empilhamento — sem o z, o conteúdo que rola sobrepõe o cabeçalho.
+     */
+    sticky: { true: "sticky top-0 z-[1] bg-bg-surface", false: "" },
   },
-  defaultVariants: { compact: false },
+  defaultVariants: { compact: false, sticky: false },
 });
 
 export const schedulerAsideHead = tv({
