@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · accordion · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · alert-dialog · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · alert-modal · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · alert · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · app-shell · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · aspect-ratio · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · avatar-ig · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · avatar · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · badge · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · breadcrumb · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · button-group · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · button · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · calendar · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · card-checkbox · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · card-option · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · card · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · carousel · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · chart · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · checkbox · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · chip · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · choropleth-map · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · collapsible · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · color-picker · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · combobox · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · command · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · context-menu · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · data-list · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · data-table · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · date-picker · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · dialog · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · drawer · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · dropdown-menu · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · empty-state · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-app-shell · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-chat · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-clientes · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-dashboard · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-edit-page · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-finance · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2756,7 +2756,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-login · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2813,7 +2813,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-mapa-rede · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2894,7 +2894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · example-order-detail · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -2944,7 +2944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · file-upload-field · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3012,7 +3012,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · floating-panel · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3054,7 +3054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · footer-table · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3140,7 +3140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · form-field · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3232,7 +3232,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · header · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3256,7 +3256,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · hover-card · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3309,7 +3309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · icon · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3333,7 +3333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · input-group · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3358,7 +3358,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · input-otp · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3382,7 +3382,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · input · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · kanban · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3503,7 +3503,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · kpi · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3528,7 +3528,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · label · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3635,7 +3635,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · list · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3681,7 +3681,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · markdown-text · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3791,7 +3791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · menu-sidebar · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3816,7 +3816,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · menubar · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · modal · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3909,7 +3909,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · month-year-picker · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3935,7 +3935,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · navigation-menu · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -3982,7 +3982,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · page-header · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4007,7 +4007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · pagination · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4082,7 +4082,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · panel · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4106,7 +4106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · popover · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4130,7 +4130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · progress · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4154,7 +4154,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · radio-group · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4180,7 +4180,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Scheduler/USAGE.md",
-        "content": "# Scheduler\r\n\r\n**Categoria:** Data Display · **Dep:** `date-fns`\r\n\r\nCalendário de **eventos ao longo do tempo**, com 4 modos de visualização\r\n(mês · semana · dia · lista), toolbar embutida e detalhe por callback.\r\n\r\nA toolbar traz: título do período + grupo `‹ Hoje ›` à esquerda; e à direita\r\nbusca, área custom, **seletor de view** (dropdown), **Filtro** e ação primária —\r\nnessa ordem, do recorte mais amplo (qual período) pro mais específico (o que\r\ndentro dele).\r\n\r\n**O botão Filtro carrega dois sinais independentes:**\r\n\r\n- **Verde** (`primary soft` + `border-border-brand` → brand a **14%** de\r\n  opacidade, texto e borda em brand) = a ferramenta está **engajada**: painel\r\n  aberto **ou** filtro aplicado.\r\n- **Ponto** no canto = existe **filtro aplicado**, e só isso.\r\n\r\n| Situação | Verde? | Ponto? |\r\n|---|---|---|\r\n| nada aberto, nada filtrado | não | não |\r\n| painel aberto, sem filtro | **sim** | não |\r\n| filtro aplicado, painel fechado | **sim** | **sim** |\r\n| filtro aplicado, painel aberto | **sim** | **sim** |\r\n\r\nA cor é a mesma receita do `ToolbarToolButton` do `TableToolbar` — o precedente\r\ndo DS pra \"esta ferramenta tem algo ligado\". O ponto **não** é redundante com\r\nela: é o que separa \"abri pra olhar\" de \"tem filtro mexendo no que eu vejo\", e é\r\no portador não-cromático da informação pra quem não distingue o verde.\r\n\r\nO botão Filtro abre um **painel-coluna à direita da grade** — não um overlay.\r\n\r\n> ⚠️ **Não confunda com `Calendar`.** `Calendar` é o primitivo\r\n> shadcn/react-day-picker: **seletor de data** dentro de um form. O `Scheduler`\r\n> exibe **eventos**. As intenções são opostas, por isso os nomes são distintos.\r\n\r\n---\r\n\r\n## Quando usar\r\n\r\n| Precisa de | Use |\r\n|---|---|\r\n| escolher uma data num campo | `Calendar` / `DatePicker` |\r\n| escolher mês+ano | `MonthYearPicker` |\r\n| **ver compromissos numa grade de tempo** | **`Scheduler`** |\r\n| grade de registros com colunas | `DataTable` |\r\n| lista de cards | `DataList` |\r\n| quadro por estágio de workflow | `Kanban` |\r\n\r\n---\r\n\r\n## Estado atual — o que está e o que NÃO está pronto\r\n\r\nLeia antes de planejar uma tela em cima disto:\r\n\r\n| | Status |\r\n|---|---|\r\n| view `month` | ✅ grade 6×7, multi-dia com pontas truncadas, `+N mais` em popover, `+` de criar no hover |\r\n| views `week` / `day` | ✅ a MESMA view (`views/time-grid.tsx`) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro, lane-packing, linha do \"agora\", faixa de hora clicável |\r\n| view `list` | ✅ agenda agrupada por dia, **só os dias que têm evento** |\r\n| drag & drop | ✅ **por ponteiro** — mover no mês (muda a data, preserva hora e duração), mover em week/day (coluna + minutos snapados), **redimensionar** pela borda do bloco em week/day |\r\n| navegação por teclado | ✅ roving tabindex — cada grade é **uma** parada de `Tab`, setas movem dentro, `Home`/`End` vão às pontas da linha, `Enter` cria no slot focado. ⛔ **Arrastar por teclado não existe** — ver o gotcha do dnd |\r\n\r\nO núcleo é puro e testado: `hooks/layout.test.ts` (51 casos de borda) mais\r\n`hooks/use-scheduler-dnd.test.ts` (19 casos da resolução do drop).\r\n\r\n---\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Nota |\r\n|---|---|---|---|\r\n| `events` | `SchedulerEvent[]` | — | nunca é mutado pelo componente |\r\n| `view` / `defaultView` | `\"month\" \\| \"week\" \\| \"day\" \\| \"list\"` | `\"month\"` | controlado / não-controlado |\r\n| `date` / `defaultDate` | `Date` | hoje | idem |\r\n| `onDateChange` · `onViewChange` | `(v) => void` | — | **obrigatórios no modo controlado** |\r\n| `locale` | `Locale` (date-fns) | en-US | passe `ptBR` |\r\n| `weekStartsOn` | `0`–`6` | `0` (domingo) | |\r\n| `hourFormat` | `\"12h\" \\| \"24h\"` | `\"24h\"` | |\r\n| `onEventClick` | `(event, evt) => void` | — | é assim que o detalhe abre |\r\n| `onSlotClick` | `(start, end) => void` | — | o `+` revelado no hover da célula |\r\n| `searchable` | `boolean` | `true` | |\r\n| `filterFields` | `SchedulerFilterField[]` | — | declarativo; o componente filtra sozinho |\r\n| `filterModel` | `Record<string, string[]>` | — | controlado / **pré-aplicado** |\r\n| `filterMode` | `\"client\" \\| \"server\"` | `\"client\"` | `server` só emite |\r\n| `toolbarActions` | `ReactNode` | — | área custom, entre o filtro e o seletor de view |\r\n| `defaultFilterPanelOpen` | `boolean` | `false` | o painel-coluna de filtro já vem aberto |\r\n| `primaryAction` | `ReactNode` | — | botão primário à direita |\r\n| `renderEvent` | `({event, view, selected}) => ReactNode` | — | troca só o miolo |\r\n\r\n### `SchedulerEvent`\r\n\r\n| Campo | Tipo | Nota |\r\n|---|---|---|\r\n| `id` | `string` | |\r\n| `title` | `ReactNode` | |\r\n| `start` · `end` | `Date` | **`end` é obrigatório**; duração zero se diz `end === start` |\r\n| `allDay` | `boolean` | |\r\n| `color` | `\"brand\" \\| \"info\" \\| \"success\" \\| \"warning\" \\| \"danger\" \\| \"neutral\"` | default `\"brand\"` |\r\n| `categoryId` · `tagIds` | `string` · `string[]` | filtráveis |\r\n| `description` | `ReactNode` | aparece na view `list` |\r\n| `searchText` | `string` | **necessário quando `title` não é string** |\r\n| `meta` | `unknown` | payload cru, devolvido em `onEventClick` |\r\n\r\n---\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ptBR } from \"date-fns/locale\";\r\nimport { Scheduler } from \"@/components/ui/Scheduler\";\r\n\r\n<div className=\"h-[720px]\">\r\n  <Scheduler\r\n    events={eventos}\r\n    locale={ptBR}\r\n    filterFields={[\r\n      { id: \"categoryId\", label: \"Categoria\", options: [\r\n        { value: \"interna\", label: \"Interna\" },\r\n        { value: \"cliente\", label: \"Cliente\" },\r\n      ]},\r\n    ]}\r\n    onEventClick={(evento) => setSelecionado(evento)}\r\n    primaryAction={<Button variant=\"filled\" size=\"sm\">Novo evento</Button>}\r\n  />\r\n</div>\r\n```\r\n\r\n---\r\n\r\n## Gotchas\r\n\r\n### 1. O pai precisa ter altura — e é a altura dele que dimensiona tudo\r\n\r\nA grade é `flex-1` dentro de um `flex-col`. Num pai sem altura definida ela\r\ncolapsa pra altura mínima das células. Embrulhe em algo com altura\r\n(`h-[720px]`, ou `flex-1 min-h-0` numa página que já tem altura).\r\n\r\n**Não existe prop de \"tela cheia\".** O componente já é `h-full`: pra usá-lo como\r\npágina inteira, dê `h-screen` ao container e deixe o `Scheduler` em `flex-1`.\r\n\r\nE isso não é só esticar — **a célula do mês passa a caber mais eventos**. O corte\r\ndo `+N mais` é derivado da altura MEDIDA da linha, como as linhas da tabela.\r\nMedido no browser, mesmo dataset:\r\n\r\n| viewport | altura da linha | pills por célula | células com \"+N mais\" |\r\n|---|---|---|---|\r\n| 800px | 76px | **2** | 13 |\r\n| 1400px | 176px | **6** | 2 |\r\n\r\nPra travar num número fixo (quando a tela precisa de altura de linha previsível\r\nindependentemente do conteúdo), a view de mês aceita `maxPerCell` — mas o\r\ndefault adaptativo é o que aproveita a tela.\r\n\r\nExemplo vivo: **Scheduler Full Screen**, na categoria Examples do showcase\r\n(`#/scheduler-full`).\r\n\r\n> ⚠️ A re-medição pós-montagem depende de `ResizeObserver`. Ela **não pôde ser\r\n> verificada** no browser de teste: a emulação de viewport por CDP não dispara\r\n> `ResizeObserver`, nem `window.resize`, nem `MediaQueryList.change` — medido,\r\n> zero callbacks nos três. O que foi verificado é a montagem correta em cada\r\n> altura (a tabela acima veio de reloads reais). Em browser de verdade o\r\n> `ResizeObserver` é o mesmo mecanismo que o resto do DS usa.\r\n\r\n### 2. A cor **nunca** vai no texto — e nunca é o único portador da informação\r\n\r\nMedido em WCAG antes de decidir: `text-fg-{cor}` sobre a pílula tingida dá\r\n**1.72–4.49** no claro e **2.97–4.31** no escuro. Nenhuma das 6 famílias passa\r\nAA, e `warning` chega a 1.72:1.\r\n\r\nPor isso o texto é sempre `fg-default` (medido no browser: **16.2–18.2** no\r\nclaro, **16.4–17.8** no escuro — AAA nos dois modos) e a cor mora no **dot, na\r\nborda e no tint de fundo**.\r\n\r\nCorolário pra quem monta a tela: **cor é reforço**. O título tem que dizer o\r\nque o evento é — quem não distingue as cores precisa continuar entendendo a\r\nagenda.\r\n\r\n### 3. O teto real é ~5 categorias, não 6\r\n\r\n`brand` (matiz 151) e `success` (161) estão a **10°** de distância. Como tint a\r\n14% os dois viram praticamente o mesmo off-white — **não use os dois como\r\ncategorias distintas no mesmo calendário**.\r\n\r\n`info` é matiz 280, ou seja **violeta**: se você precisa de \"roxo\", ele já\r\nexiste.\r\n\r\nPrecisa de 6+ categorias simultâneas e distinguíveis? Isso é o gatilho pra\r\nabrir uma paleta categórica própria (`event-*`) via cascata de token — não\r\nforce a união atual.\r\n\r\n### 4. Busca não lê `title` rico\r\n\r\nO motor casa **só string**: `searchText`, `title` (se for string),\r\n`description` (idem) e `tagIds`. Varrer a árvore de um `ReactNode` é caro e\r\nfrágil, então não é feito.\r\n\r\nConsequência: `title={<b>Reunião</b> — Cliente X}` **não é encontrável** —\r\nfalha em silêncio. Declare `searchText` nesses casos.\r\n\r\n### 4b. O painel de filtro é uma COLUNA, e some abaixo de 1024px\r\n\r\nO botão **Filtro** não abre popover nem sheet: abre uma coluna à direita que\r\n**empurra** a grade (~296px). É deliberado — filtro é o controle cujo resultado\r\nvocê quer ver *enquanto* mexe, e por cima da grade isso viraria\r\nmarcar → fechar → olhar → reabrir.\r\n\r\nTrês consequências práticas:\r\n\r\n- **A grade encolhe.** Se a sua tela é estreita, prefira deixar\r\n  `defaultFilterPanelOpen` em `false` (o default).\r\n- **O cabeçalho do painel é `sticky` e a barra é a do DS.** O bloco \"Filtros /\r\n  Limpar / ×\" fica fixo no topo enquanto o resto rola, com `bg-bg-surface`\r\n  opaco — `sticky` não cria fundo, e sem ele o mini-calendário passaria por\r\n  baixo do título. A rolagem usa `scrollbar-thin`, a `@utility` do tema gerado\r\n  (trilho transparente + thumb tokenizado), que é o padrão do repo com 26 usos.\r\n- **O painel nunca estica a altura da linha.** Ele acompanha a altura da grade e\r\n  **rola por dentro** (medido: 664px de caixa com 958px de conteúdo). É por isso\r\n  que o root é `h-full` — sem isso ele dimensionava por conteúdo, o painel ficava\r\n  mais alto que a grade e passava a mandar na altura das duas, vazando pra fora\r\n  do container. Se você vir o calendário cortado, o pai é que está sem altura\r\n  (gotcha nº 1).\r\n- **Abaixo de 1024px o painel vira DRAWER**, não some. A coluna não cabe junto\r\n  de uma semana legível, então nessa faixa o mesmo painel abre num\r\n  `FloatingPanel side=\"right\"` por cima — o veículo que `DataTable` e\r\n  `DataList` já usam pro filtro deles (`ToolbarSimpleFilterDrawer`). Mesmo\r\n  conteúdo, mesmo estado, mesmo botão: só o invólucro muda.\r\n\r\n  No drawer, escolher uma data no mini-calendário **fecha** o painel — ele\r\n  cobre a grade, e manter aberto esconderia justamente o resultado. Como\r\n  coluna isso não acontece.\r\n\r\n⚠️ **O breakpoint vive em UM lugar só:** `useMediaQuery(\"(min-width: 1024px)\")`\r\nem `scheduler.tsx`. Não acrescente media query no `schedulerFilterAside`.\r\n\r\n> Até 2026-09-01 este parágrafo mandava mudar **dois** lugares — o `lg:flex` do\r\n> style *mais* o hook. O `lg:flex` foi removido justamente porque a duplicação\r\n> produzia um estado em que o botão se dizia aberto e o painel estava\r\n> `display: none`; o `scheduler.tsx` diz isso em maiúsculas desde então. A doc\r\n> continuou mandando reintroduzir o defeito — L-060: comentário é load-bearing.\r\n\r\n### 4c. \"Nada marcado\" = sem filtro, não \"esconde tudo\"\r\n\r\nNum app de calendário de verdade, desmarcar todas as agendas esconde tudo.\r\n**Aqui não**: campo sem opção marcada significa *sem restrição* — a convenção do\r\n`filterModel` do DS, a mesma do `DataTable` e do `DataList`. O cabeçalho do\r\ngrupo mostra **\"Todas\"** nesse estado, pra não parecer que a seleção se perdeu.\r\n\r\nInverter isso só neste componente faria o mesmo `filterModel` significar coisas\r\nopostas em telas diferentes.\r\n\r\n### 4d. A contagem ao lado da opção ignora os filtros de campo\r\n\r\nO número é \"quantos eventos casam com a **busca** e têm esta opção\" — **não**\r\n\"quantos vou ver se marcar\".\r\n\r\nA base exclui de propósito todos os filtros de campo, inclusive o do próprio\r\ncampo, pra que os números fiquem **estáveis enquanto você marca e desmarca**.\r\nCom a facet count clássica (base = os outros campos já aplicados), cada clique\r\nmexeria nos números das outras listas, e a leitura vira alvo móvel exatamente na\r\nhora de decidir. As duas leituras são defensáveis; confundi-las é que engana.\r\n\r\n### 5. `filterFields` no modo `client` só filtra 3 ids\r\n\r\n`categoryId`, `tagIds` e `color`. Qualquer outro `id` **renderiza o chip e não\r\nfiltra nada** — o componente emite `console.warn` em DEV nomeando o campo.\r\nPara filtrar por campo próprio, use `filterMode=\"server\"` e filtre fora.\r\n\r\n### 5b. Drag & drop: você PRECISA aplicar a mudança\r\n\r\nO componente é dumb sobre mutação — ele emite e para:\r\n\r\n```tsx\r\nconst [eventos, setEventos] = useState(EVENTOS);\r\nconst aplicar = ({ id, start, end }) =>\r\n  setEventos((a) => a.map((e) => (e.id === id ? { ...e, start, end } : e)));\r\n\r\n<Scheduler\r\n  events={eventos}\r\n  draggable\r\n  resizable\r\n  onEventMove={aplicar}\r\n  onEventResize={aplicar}\r\n/>\r\n```\r\n\r\nO que cada gesto significa:\r\n\r\n| gesto | resultado |\r\n|---|---|\r\n| arrastar no **mês** | muda a **data**; hora e duração preservadas |\r\n| arrastar em **week/day** | combina coluna (dia) + `delta.y` (minutos, snapado por `snapMinutes`) |\r\n| arrastar a **borda** do bloco (week/day) | muda a **duração**, uma ponta só |\r\n\r\nDetalhes que evitam surpresa:\r\n\r\n- **A duração nunca é snapada separadamente.** Um evento de 50min movido continua\r\n  com 50min — snapar as duas pontas o encurtaria pra 45 a cada arrasto.\r\n- **Resize não existe no mês** (a altura da pílula não representa duração) nem em\r\n  evento `allDay`.\r\n- **All-day em week/day ignora o `delta.y`** e só troca de dia: ele mora na banda,\r\n  não na grade de horas.\r\n- **Arrastar pra baixo perto do fim da grade encosta no limite** em vez de vazar\r\n  pro dia seguinte. Mudar de dia se faz atravessando a coluna — o gesto explícito.\r\n- **O bloco que segue o cursor é um `DragOverlay`, em `position: fixed`.** É\r\n  obrigatório: três ancestrais cortam (o frame da grade, a pilha de eventos da\r\n  célula e o corpo rolável de week/day), e elemento transformado continua sujeito\r\n  ao clipping do ancestral — a primeira versão movia o próprio bloco e ele\r\n  **desaparecia** ao sair da célula. Se você embrulhar o `Scheduler` num\r\n  container com `transform`, `filter` ou `contain: paint`, esse container passa\r\n  a ser o containing block do `fixed` e o defeito volta.\r\n- **Só dá pra mover pra um dia VISÍVEL na grade.** No mês isso inclui as células\r\n  cinzas dos meses vizinhos (a grade de setembro/2026 vai de 30/ago a 10/out, e\r\n  as duas pontas são alvo válido). Pra um mês fora da tela, navegue primeiro —\r\n  não há auto-avanço ao arrastar sobre as setas.\r\n\r\n- **O dnd é por PONTEIRO.** O `KeyboardSensor` do dnd-kit não está registrado,\r\n  de propósito: ele reivindica `Space`/`Enter`, que num `<button>` de evento já\r\n  significam \"abrir o detalhe\" — as duas coisas brigavam e o arraste era\r\n  cancelado (medido na live region do dnd-kit). `Space`/`Enter` abrem o detalhe,\r\n  que é onde data e hora se editam em campo de formulário: a rota acessível pra\r\n  reagendar. O raciocínio completo está no topo de `use-scheduler-dnd.ts`.\r\n\r\n> ⚠️ O gesto de ponteiro **não pôde ser verificado no browser de teste**: o\r\n> `PointerSensor` usa `setPointerCapture` com `pointerId` real, e nem\r\n> `left_click_drag` nem `PointerEvent` sintéticos o ativam — medido, o evento não\r\n> sai do lugar. A resolução do drop é coberta por\r\n> `hooks/use-scheduler-dnd.test.ts` (20 casos), e no DOM foi medido: 12 blocos\r\n> com 24 alças na semana, e o droppable respondendo (a live region do dnd-kit\r\n> nomeou `day:<ms>` ao passar por cima).\r\n\r\n### 5c. Teclado: a grade é UMA parada de `Tab`\r\n\r\nRoving tabindex (padrão WAI-ARIA de `grid`): a célula ativa tem `tabIndex=0`, as\r\noutras `-1`.\r\n\r\n| tecla | ação |\r\n|---|---|\r\n| `←` `→` | dia anterior / seguinte |\r\n| `↑` `↓` | mesma coluna, linha acima / abaixo (mês: semana; week/day: hora) |\r\n| `Home` / `End` | início / fim da **linha** — não da grade |\r\n| `PageUp` / `PageDown` | primeira / última célula |\r\n| `Enter` ou `Space` | cria no slot focado (dispara `onSlotClick`) |\r\n\r\nSem isso a grade do mês custava **42 `Tab`** e a da semana **168**. O `+` de\r\ncriar tem `tabIndex={-1}` de propósito: ele é alcançado pelo `Enter` na célula,\r\ne deixá-lo tabbável reintroduziria as 42 paradas.\r\n\r\nMedido no browser: `→` levou de 0 pra 1, `↓` de 1 pra 8 (+7), `Home` de 8 pra 7\r\n(início da linha), com sempre exatamente 1 célula em `tabIndex=0`.\r\n\r\n### 6. `draggable` e `resizable` nascem `false`\r\n\r\nDeliberado (mesmo default do `enableDnD` do `Kanban`): dnd ligado sem\r\n`onEventMove` conectado deixa o usuário arrastar e ver o evento voltar sozinho\r\n— o pior estado possível, porque parece bug do app.\r\n\r\nO componente **não liga o dnd** se não houver `onEventMove`/`onEventResize`\r\nconectado, e em DEV avisa por `console.warn` nomeando qual falta. `event.draggable`\r\ne `event.resizable` sobrepõem por evento — é como se diz \"esta reunião é fixa\"\r\nsem desligar o board todo.\r\n\r\n### 6b. `SchedulerFilterPanel` também é exportado solto\r\n\r\nMesmo padrão do `TableToolbar`, que expõe `ToolbarSearch`, `ToolbarSegmented` e\r\nas outras partes pelo barrel. Serve pra tela que queira posicionar o painel em\r\noutro lugar do próprio layout — e pra doc page, que o renderiza isolado pra\r\nmostrar a anatomia (cabeçalho sticky · mini-calendário · um grupo por campo).\r\n\r\n**Em uso normal você não precisa dele:** o `Scheduler` monta e controla o seu.\r\nUsando solto, todo o estado é seu — `filterModel`, `counts`, `date`, `now` e os\r\ncallbacks vêm por prop, e nada é derivado sozinho.\r\n\r\n### 7. O painel de detalhe é seu, não do componente\r\n\r\nO `Scheduler` não importa `FloatingPanel`. Ele emite\r\n`onEventClick(event, evt)` e devolve `event.meta` intacto; quem monta o painel\r\né a tela. O padrão de referência é o bloco **`dsgreen-paneldetail-2`**\r\n(`side=\"right\"`, `size=\"lg\"`, `titleSlot` com o contexto, lista plana de\r\npropriedades) — há um exemplo completo em `src/preview/pages/SchedulerDoc.tsx`.\r\n\r\n⚠️ O body do `FloatingPanel` **não tem gap entre filhos**. Sem um wrapper\r\n`flex flex-col gap-gp-2xl`, título e lista ficam colados.\r\n\r\n### 8. No mês, evento multi-dia aparece por dia, não como barra contínua\r\n\r\n`hooks/layout.ts` já calcula `colStart`/`colSpan` por linha, mas a view desenha\r\no evento em **cada dia que ocupa**, com as pontas truncadas marcando a\r\ncontinuação. A barra única atravessando as colunas exige reservar a mesma faixa\r\nvertical em todas as células (lane-packing por linha da grade) e vem com o dnd.\r\nA extensão do evento é lida corretamente — o que falta é refinamento visual.\r\n\r\n### 9. `filterModel` pré-aplicado é o caminho certo pra \"já vem filtrado\"\r\n\r\nNunca monte um form de filtro acima da grade (L-051). Passe `filterModel` e o\r\nchip aparece já aplicado, com o `×` pra desfazer.\r\n\r\n### 10. Nada aqui importa de `TableToolbar`\r\n\r\nA gramática visual do segmented, da busca e dos chips é **copiada** em\r\n`scheduler.styles.ts`, não importada. Cross-import entre pastas de `ui/` é o\r\nque gerou o `registryDependency` dangling da L-049 (`@igreen/table-toolbar` não\r\nexiste como item de registry). Se você editar o visual da toolbar do\r\n`TableToolbar`, considere se esta cópia deve acompanhar.\r\n",
+        "content": "# Scheduler\r\n\r\n**Categoria:** Data Display · **Dep:** `date-fns`\r\n\r\nCalendário de **eventos ao longo do tempo**, com 4 modos de visualização\r\n(mês · semana · dia · lista), toolbar embutida e detalhe por callback.\r\n\r\nA toolbar traz: título do período + grupo `‹ Hoje ›` à esquerda; e à direita\r\nbusca, área custom, **seletor de view** (dropdown), **Filtro** e ação primária —\r\nnessa ordem, do recorte mais amplo (qual período) pro mais específico (o que\r\ndentro dele).\r\n\r\n**O botão Filtro carrega dois sinais independentes:**\r\n\r\n- **Verde** (`primary soft` + `border-border-brand` → brand a **14%** de\r\n  opacidade, texto e borda em brand) = a ferramenta está **engajada**: painel\r\n  aberto **ou** filtro aplicado.\r\n- **Ponto** no canto = existe **filtro aplicado**, e só isso.\r\n\r\n| Situação | Verde? | Ponto? |\r\n|---|---|---|\r\n| nada aberto, nada filtrado | não | não |\r\n| painel aberto, sem filtro | **sim** | não |\r\n| filtro aplicado, painel fechado | **sim** | **sim** |\r\n| filtro aplicado, painel aberto | **sim** | **sim** |\r\n\r\nA cor é a mesma receita do `ToolbarToolButton` do `TableToolbar` — o precedente\r\ndo DS pra \"esta ferramenta tem algo ligado\". O ponto **não** é redundante com\r\nela: é o que separa \"abri pra olhar\" de \"tem filtro mexendo no que eu vejo\", e é\r\no portador não-cromático da informação pra quem não distingue o verde.\r\n\r\nO botão Filtro abre um **painel-coluna à direita da grade** — não um overlay.\r\n\r\n> ⚠️ **Não confunda com `Calendar`.** `Calendar` é o primitivo\r\n> shadcn/react-day-picker: **seletor de data** dentro de um form. O `Scheduler`\r\n> exibe **eventos**. As intenções são opostas, por isso os nomes são distintos.\r\n\r\n---\r\n\r\n## Quando usar\r\n\r\n| Precisa de | Use |\r\n|---|---|\r\n| escolher uma data num campo | `Calendar` / `DatePicker` |\r\n| escolher mês+ano | `MonthYearPicker` |\r\n| **ver compromissos numa grade de tempo** | **`Scheduler`** |\r\n| grade de registros com colunas | `DataTable` |\r\n| lista de cards | `DataList` |\r\n| quadro por estágio de workflow | `Kanban` |\r\n\r\n---\r\n\r\n## Estado atual — o que está e o que NÃO está pronto\r\n\r\nLeia antes de planejar uma tela em cima disto:\r\n\r\n| | Status |\r\n|---|---|\r\n| view `month` | ✅ grade 6×7, multi-dia com pontas truncadas, `+N mais` em popover, `+` de criar no hover |\r\n| views `week` / `day` | ✅ a MESMA view (`views/time-grid.tsx`) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro, lane-packing, linha do \"agora\", faixa de hora clicável |\r\n| view `list` | ✅ agenda agrupada por dia, **só os dias que têm evento** |\r\n| drag & drop | ✅ **por ponteiro** — mover no mês (muda a data, preserva hora e duração), mover em week/day (coluna + minutos snapados), **redimensionar** pela borda do bloco em week/day |\r\n| navegação por teclado | ✅ roving tabindex — cada grade é **uma** parada de `Tab`, setas movem dentro, `Home`/`End` vão às pontas da linha, `Enter` cria no slot focado. ⛔ **Arrastar por teclado não existe** — ver o gotcha do dnd |\r\n\r\nO núcleo é puro e testado: `hooks/layout.test.ts` (51 casos de borda) mais\r\n`hooks/use-scheduler-dnd.test.ts` (19 casos da resolução do drop).\r\n\r\n---\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Nota |\r\n|---|---|---|---|\r\n| `events` | `SchedulerEvent[]` | — | nunca é mutado pelo componente |\r\n| `view` / `defaultView` | `\"month\" \\| \"week\" \\| \"day\" \\| \"list\"` | `\"month\"` | controlado / não-controlado |\r\n| `date` / `defaultDate` | `Date` | hoje | idem |\r\n| `onDateChange` · `onViewChange` | `(v) => void` | — | **obrigatórios no modo controlado** |\r\n| `locale` | `Locale` (date-fns) | en-US | passe `ptBR` |\r\n| `weekStartsOn` | `0`–`6` | `0` (domingo) | |\r\n| `hourFormat` | `\"12h\" \\| \"24h\"` | `\"24h\"` | |\r\n| `onEventClick` | `(event, evt) => void` | — | é assim que o detalhe abre |\r\n| `onSlotClick` | `(start, end) => void` | — | o `+` revelado no hover da célula |\r\n| `searchable` | `boolean` | `true` | |\r\n| `filterFields` | `SchedulerFilterField[]` | — | declarativo; o componente filtra sozinho |\r\n| `filterModel` | `Record<string, string[]>` | — | controlado / **pré-aplicado** |\r\n| `filterMode` | `\"client\" \\| \"server\"` | `\"client\"` | `server` só emite |\r\n| `toolbarActions` | `ReactNode` | — | área custom, entre o filtro e o seletor de view |\r\n| `defaultFilterPanelOpen` | `boolean` | `false` | o painel-coluna de filtro já vem aberto |\r\n| `primaryAction` | `ReactNode` | — | botão primário à direita |\r\n| `renderEvent` | `({event, view, selected}) => ReactNode` | — | troca só o miolo |\r\n\r\n### `SchedulerEvent`\r\n\r\n| Campo | Tipo | Nota |\r\n|---|---|---|\r\n| `id` | `string` | |\r\n| `title` | `ReactNode` | |\r\n| `start` · `end` | `Date` | **`end` é obrigatório**; duração zero se diz `end === start` |\r\n| `allDay` | `boolean` | |\r\n| `color` | `\"brand\" \\| \"info\" \\| \"success\" \\| \"warning\" \\| \"danger\" \\| \"neutral\"` | default `\"brand\"` |\r\n| `categoryId` · `tagIds` | `string` · `string[]` | filtráveis |\r\n| `description` | `ReactNode` | aparece na view `list` |\r\n| `searchText` | `string` | **necessário quando `title` não é string** |\r\n| `meta` | `unknown` | payload cru, devolvido em `onEventClick` |\r\n\r\n---\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ptBR } from \"date-fns/locale\";\r\nimport { Scheduler } from \"@/components/ui/Scheduler\";\r\n\r\n<div className=\"h-[720px]\">\r\n  <Scheduler\r\n    events={eventos}\r\n    locale={ptBR}\r\n    filterFields={[\r\n      { id: \"categoryId\", label: \"Categoria\", options: [\r\n        { value: \"interna\", label: \"Interna\" },\r\n        { value: \"cliente\", label: \"Cliente\" },\r\n      ]},\r\n    ]}\r\n    onEventClick={(evento) => setSelecionado(evento)}\r\n    primaryAction={<Button variant=\"filled\" size=\"sm\">Novo evento</Button>}\r\n  />\r\n</div>\r\n```\r\n\r\n---\r\n\r\n## Gotchas\r\n\r\n### 1. O pai precisa ter altura — e é a altura dele que dimensiona tudo\r\n\r\nA grade é `flex-1` dentro de um `flex-col`. Num pai sem altura definida ela\r\ncolapsa pra altura mínima das células. Embrulhe em algo com altura\r\n(`h-[720px]`, ou `flex-1 min-h-0` numa página que já tem altura).\r\n\r\n**Não existe prop de \"tela cheia\".** O componente já é `h-full`: pra usá-lo como\r\npágina inteira, dê `h-screen` ao container e deixe o `Scheduler` em `flex-1`.\r\n\r\nE isso não é só esticar — **a célula do mês passa a caber mais eventos**. O corte\r\ndo `+N mais` é derivado da altura MEDIDA da linha, como as linhas da tabela.\r\nMedido no browser, mesmo dataset:\r\n\r\n| viewport | altura da linha | pills por célula | células com \"+N mais\" |\r\n|---|---|---|---|\r\n| 800px | 76px | **2** | 13 |\r\n| 1400px | 176px | **6** | 2 |\r\n\r\nPra travar num número fixo (quando a tela precisa de altura de linha previsível\r\nindependentemente do conteúdo), a view de mês aceita `maxPerCell` — mas o\r\ndefault adaptativo é o que aproveita a tela.\r\n\r\nExemplo vivo: **Scheduler Full Screen**, na categoria Examples do showcase\r\n(`#/scheduler-full`).\r\n\r\n> ⚠️ A re-medição pós-montagem depende de `ResizeObserver`. Ela **não pôde ser\r\n> verificada** no browser de teste: a emulação de viewport por CDP não dispara\r\n> `ResizeObserver`, nem `window.resize`, nem `MediaQueryList.change` — medido,\r\n> zero callbacks nos três. O que foi verificado é a montagem correta em cada\r\n> altura (a tabela acima veio de reloads reais). Em browser de verdade o\r\n> `ResizeObserver` é o mesmo mecanismo que o resto do DS usa.\r\n\r\n### 2. A cor **nunca** vai no texto — e nunca é o único portador da informação\r\n\r\nMedido em WCAG antes de decidir: `text-fg-{cor}` sobre a pílula tingida dá\r\n**1.72–4.49** no claro e **2.97–4.31** no escuro. Nenhuma das 6 famílias passa\r\nAA, e `warning` chega a 1.72:1.\r\n\r\nPor isso o texto é sempre `fg-default` (medido no browser: **16.2–18.2** no\r\nclaro, **16.4–17.8** no escuro — AAA nos dois modos) e a cor mora no **dot, na\r\nborda e no tint de fundo**.\r\n\r\nCorolário pra quem monta a tela: **cor é reforço**. O título tem que dizer o\r\nque o evento é — quem não distingue as cores precisa continuar entendendo a\r\nagenda.\r\n\r\n### 3. O teto real é ~5 categorias, não 6\r\n\r\n`brand` (matiz 151) e `success` (161) estão a **10°** de distância. Como tint a\r\n14% os dois viram praticamente o mesmo off-white — **não use os dois como\r\ncategorias distintas no mesmo calendário**.\r\n\r\n`info` é matiz 280, ou seja **violeta**: se você precisa de \"roxo\", ele já\r\nexiste.\r\n\r\nPrecisa de 6+ categorias simultâneas e distinguíveis? Isso é o gatilho pra\r\nabrir uma paleta categórica própria (`event-*`) via cascata de token — não\r\nforce a união atual.\r\n\r\n### 4. Busca não lê `title` rico\r\n\r\nO motor casa **só string**: `searchText`, `title` (se for string),\r\n`description` (idem) e `tagIds`. Varrer a árvore de um `ReactNode` é caro e\r\nfrágil, então não é feito.\r\n\r\nConsequência: `title={<b>Reunião</b> — Cliente X}` **não é encontrável** —\r\nfalha em silêncio. Declare `searchText` nesses casos.\r\n\r\n### 4b. O painel de filtro é uma COLUNA, e some abaixo de 1024px\r\n\r\nO botão **Filtro** não abre popover nem sheet: abre uma coluna à direita que\r\n**empurra** a grade (~296px). É deliberado — filtro é o controle cujo resultado\r\nvocê quer ver *enquanto* mexe, e por cima da grade isso viraria\r\nmarcar → fechar → olhar → reabrir.\r\n\r\nTrês consequências práticas:\r\n\r\n- **A grade encolhe.** Se a sua tela é estreita, prefira deixar\r\n  `defaultFilterPanelOpen` em `false` (o default).\r\n- **O cabeçalho do painel é `sticky` e a barra é a do DS.** O bloco \"Filtros /\r\n  Limpar / ×\" fica fixo no topo enquanto o resto rola, com `bg-bg-surface`\r\n  opaco — `sticky` não cria fundo, e sem ele o mini-calendário passaria por\r\n  baixo do título. A rolagem usa `scrollbar-thin`, a `@utility` do tema gerado\r\n  (trilho transparente + thumb tokenizado), que é o padrão do repo com 26 usos.\r\n- **O painel nunca estica a altura da linha.** Ele acompanha a altura da grade e\r\n  **rola por dentro** (medido: 664px de caixa com 958px de conteúdo). É por isso\r\n  que o root é `h-full` — sem isso ele dimensionava por conteúdo, o painel ficava\r\n  mais alto que a grade e passava a mandar na altura das duas, vazando pra fora\r\n  do container. Se você vir o calendário cortado, o pai é que está sem altura\r\n  (gotcha nº 1).\r\n- **Abaixo de 1024px o painel vira DRAWER**, não some. A coluna não cabe junto\r\n  de uma semana legível, então nessa faixa o mesmo painel abre num\r\n  `FloatingPanel side=\"right\"` por cima — o veículo que `DataTable` e\r\n  `DataList` já usam pro filtro deles (`ToolbarSimpleFilterDrawer`). Mesmo\r\n  conteúdo, mesmo estado, mesmo botão: só o invólucro muda.\r\n\r\n  No drawer, escolher uma data no mini-calendário **fecha** o painel — ele\r\n  cobre a grade, e manter aberto esconderia justamente o resultado. Como\r\n  coluna isso não acontece.\r\n\r\n⚠️ **O breakpoint vive em UM lugar só:** `useMediaQuery(\"(min-width: 1024px)\")`\r\nem `scheduler.tsx`. Não acrescente media query no `schedulerFilterAside`.\r\n\r\n> Até 2026-09-01 este parágrafo mandava mudar **dois** lugares — o `lg:flex` do\r\n> style *mais* o hook. O `lg:flex` foi removido justamente porque a duplicação\r\n> produzia um estado em que o botão se dizia aberto e o painel estava\r\n> `display: none`; o `scheduler.tsx` diz isso em maiúsculas desde então. A doc\r\n> continuou mandando reintroduzir o defeito — L-060: comentário é load-bearing.\r\n\r\n### 4c. \"Nada marcado\" = sem filtro, não \"esconde tudo\"\r\n\r\nNum app de calendário de verdade, desmarcar todas as agendas esconde tudo.\r\n**Aqui não**: campo sem opção marcada significa *sem restrição* — a convenção do\r\n`filterModel` do DS, a mesma do `DataTable` e do `DataList`. O cabeçalho do\r\ngrupo mostra **\"Todas\"** nesse estado, pra não parecer que a seleção se perdeu.\r\n\r\nInverter isso só neste componente faria o mesmo `filterModel` significar coisas\r\nopostas em telas diferentes.\r\n\r\n### 4d. A contagem ao lado da opção ignora os filtros de campo\r\n\r\nO número é \"quantos eventos casam com a **busca** e têm esta opção\" — **não**\r\n\"quantos vou ver se marcar\".\r\n\r\nA base exclui de propósito todos os filtros de campo, inclusive o do próprio\r\ncampo, pra que os números fiquem **estáveis enquanto você marca e desmarca**.\r\nCom a facet count clássica (base = os outros campos já aplicados), cada clique\r\nmexeria nos números das outras listas, e a leitura vira alvo móvel exatamente na\r\nhora de decidir. As duas leituras são defensáveis; confundi-las é que engana.\r\n\r\n### 5. `filterFields` no modo `client` só filtra 3 ids\r\n\r\n`categoryId`, `tagIds` e `color`. Qualquer outro `id` **renderiza o chip e não\r\nfiltra nada** — o componente emite `console.warn` em DEV nomeando o campo.\r\nPara filtrar por campo próprio, use `filterMode=\"server\"` e filtre fora.\r\n\r\n### 5b. Drag & drop: você PRECISA aplicar a mudança\r\n\r\nO componente é dumb sobre mutação — ele emite e para:\r\n\r\n```tsx\r\nconst [eventos, setEventos] = useState(EVENTOS);\r\nconst aplicar = ({ id, start, end }) =>\r\n  setEventos((a) => a.map((e) => (e.id === id ? { ...e, start, end } : e)));\r\n\r\n<Scheduler\r\n  events={eventos}\r\n  draggable\r\n  resizable\r\n  onEventMove={aplicar}\r\n  onEventResize={aplicar}\r\n/>\r\n```\r\n\r\nO que cada gesto significa:\r\n\r\n| gesto | resultado |\r\n|---|---|\r\n| arrastar no **mês** | muda a **data**; hora e duração preservadas |\r\n| arrastar em **week/day** | combina coluna (dia) + `delta.y` (minutos, snapado por `snapMinutes`) |\r\n| arrastar a **borda** do bloco (week/day) | muda a **duração**, uma ponta só |\r\n\r\nDetalhes que evitam surpresa:\r\n\r\n- **A duração nunca é snapada separadamente.** Um evento de 50min movido continua\r\n  com 50min — snapar as duas pontas o encurtaria pra 45 a cada arrasto.\r\n- **Resize não existe no mês** (a altura da pílula não representa duração) nem em\r\n  evento `allDay`.\r\n- **All-day em week/day ignora o `delta.y`** e só troca de dia: ele mora na banda,\r\n  não na grade de horas.\r\n- **Arrastar pra baixo perto do fim da grade encosta no limite** em vez de vazar\r\n  pro dia seguinte. Mudar de dia se faz atravessando a coluna — o gesto explícito.\r\n- **O bloco que segue o cursor é um `DragOverlay`, em `position: fixed`.** É\r\n  obrigatório: três ancestrais cortam (o frame da grade, a pilha de eventos da\r\n  célula e o corpo rolável de week/day), e elemento transformado continua sujeito\r\n  ao clipping do ancestral — a primeira versão movia o próprio bloco e ele\r\n  **desaparecia** ao sair da célula. Se você embrulhar o `Scheduler` num\r\n  container com `transform`, `filter` ou `contain: paint`, esse container passa\r\n  a ser o containing block do `fixed` e o defeito volta.\r\n- **Só dá pra mover pra um dia VISÍVEL na grade.** No mês isso inclui as células\r\n  cinzas dos meses vizinhos (a grade de setembro/2026 vai de 30/ago a 10/out, e\r\n  as duas pontas são alvo válido). Pra um mês fora da tela, navegue primeiro —\r\n  não há auto-avanço ao arrastar sobre as setas.\r\n\r\n- **O dnd é por PONTEIRO.** O `KeyboardSensor` do dnd-kit não está registrado,\r\n  de propósito: ele reivindica `Space`/`Enter`, que num `<button>` de evento já\r\n  significam \"abrir o detalhe\" — as duas coisas brigavam e o arraste era\r\n  cancelado (medido na live region do dnd-kit). `Space`/`Enter` abrem o detalhe,\r\n  que é onde data e hora se editam em campo de formulário: a rota acessível pra\r\n  reagendar. O raciocínio completo está no topo de `use-scheduler-dnd.ts`.\r\n\r\n> ⚠️ O gesto de ponteiro **não pôde ser verificado no browser de teste**: o\r\n> `PointerSensor` usa `setPointerCapture` com `pointerId` real, e nem\r\n> `left_click_drag` nem `PointerEvent` sintéticos o ativam — medido, o evento não\r\n> sai do lugar. A resolução do drop é coberta por\r\n> `hooks/use-scheduler-dnd.test.ts` (20 casos), e no DOM foi medido: 12 blocos\r\n> com 24 alças na semana, e o droppable respondendo (a live region do dnd-kit\r\n> nomeou `day:<ms>` ao passar por cima).\r\n\r\n### 5c. Teclado: a grade é UMA parada de `Tab`\r\n\r\nRoving tabindex (padrão WAI-ARIA de `grid`): a célula ativa tem `tabIndex=0`, as\r\noutras `-1`.\r\n\r\n| tecla | ação |\r\n|---|---|\r\n| `←` `→` | dia anterior / seguinte |\r\n| `↑` `↓` | mesma coluna, linha acima / abaixo (mês: semana; week/day: hora) |\r\n| `Home` / `End` | início / fim da **linha** — não da grade |\r\n| `PageUp` / `PageDown` | primeira / última célula |\r\n| `Enter` ou `Space` | cria no slot focado (dispara `onSlotClick`) |\r\n\r\nSem isso a grade do mês custava **42 `Tab`** e a da semana **168**. O `+` de\r\ncriar tem `tabIndex={-1}` de propósito: ele é alcançado pelo `Enter` na célula,\r\ne deixá-lo tabbável reintroduziria as 42 paradas.\r\n\r\nMedido no browser: `→` levou de 0 pra 1, `↓` de 1 pra 8 (+7), `Home` de 8 pra 7\r\n(início da linha), com sempre exatamente 1 célula em `tabIndex=0`.\r\n\r\n### 6. `draggable` e `resizable` nascem `false`\r\n\r\nDeliberado (mesmo default do `enableDnD` do `Kanban`): dnd ligado sem\r\n`onEventMove` conectado deixa o usuário arrastar e ver o evento voltar sozinho\r\n— o pior estado possível, porque parece bug do app.\r\n\r\nO componente **não liga o dnd** se não houver `onEventMove`/`onEventResize`\r\nconectado, e em DEV avisa por `console.warn` nomeando qual falta. `event.draggable`\r\ne `event.resizable` sobrepõem por evento — é como se diz \"esta reunião é fixa\"\r\nsem desligar o board todo.\r\n\r\n### 6b. `SchedulerFilterPanel` também é exportado solto\r\n\r\nMesmo padrão do `TableToolbar`, que expõe `ToolbarSearch`, `ToolbarSegmented` e\r\nas outras partes pelo barrel. Serve pra tela que queira posicionar o painel em\r\noutro lugar do próprio layout — e pra doc page, que o renderiza isolado pra\r\nmostrar a anatomia (cabeçalho sticky · mini-calendário · um grupo por campo).\r\n\r\n**Em uso normal você não precisa dele:** o `Scheduler` monta e controla o seu.\r\nUsando solto, todo o estado é seu — `filterModel`, `counts`, `date`, `now` e os\r\ncallbacks vêm por prop, e nada é derivado sozinho.\r\n\r\n#### `embedded` — quando o painel NÃO é a superfície\r\n\r\n| | `embedded={false}` (default) | `embedded` |\r\n|---|---|---|\r\n| Largura | `w-[280px]` fixa | `w-full` |\r\n| Moldura | borda + radius + `bg-bg-surface` | nenhuma |\r\n| Cabeçalho próprio | título + Limpar + × | não renderiza |\r\n\r\nLigue quando ele viver **dentro** de outro contêiner que já é a superfície e já\r\ntraz cabeçalho — é o que o próprio `Scheduler` faz no modo drawer (<1024px),\r\ndentro de um `FloatingPanel`.\r\n\r\nSão duas mudanças numa prop só porque é uma decisão só: *\"existe outro contêiner\r\nem volta?\"*. Separadas, dava pra combinar metade de cada e obter um card de 280px\r\nsem cabeçalho dentro de um painel de 375 — que é exatamente o defeito.\r\n\r\n### 7. O painel de detalhe é seu, não do componente\r\n\r\nO `Scheduler` não importa `FloatingPanel`. Ele emite\r\n`onEventClick(event, evt)` e devolve `event.meta` intacto; quem monta o painel\r\né a tela. O padrão de referência é o bloco **`dsgreen-paneldetail-2`**\r\n(`side=\"right\"`, `size=\"lg\"`, `titleSlot` com o contexto, lista plana de\r\npropriedades) — há um exemplo completo em `src/preview/pages/SchedulerDoc.tsx`.\r\n\r\n⚠️ O body do `FloatingPanel` **não tem gap entre filhos**. Sem um wrapper\r\n`flex flex-col gap-gp-2xl`, título e lista ficam colados.\r\n\r\n### 8. No mês, evento multi-dia aparece por dia, não como barra contínua\r\n\r\n`hooks/layout.ts` já calcula `colStart`/`colSpan` por linha, mas a view desenha\r\no evento em **cada dia que ocupa**, com as pontas truncadas marcando a\r\ncontinuação. A barra única atravessando as colunas exige reservar a mesma faixa\r\nvertical em todas as células (lane-packing por linha da grade) e vem com o dnd.\r\nA extensão do evento é lida corretamente — o que falta é refinamento visual.\r\n\r\n### 9. `filterModel` pré-aplicado é o caminho certo pra \"já vem filtrado\"\r\n\r\nNunca monte um form de filtro acima da grade (L-051). Passe `filterModel` e o\r\nchip aparece já aplicado, com o `×` pra desfazer.\r\n\r\n### 10. Nada aqui importa de `TableToolbar`\r\n\r\nA gramática visual do segmented, da busca e dos chips é **copiada** em\r\n`scheduler.styles.ts`, não importada. Cross-import entre pastas de `ui/` é o\r\nque gerou o `registryDependency` dangling da L-049 (`@igreen/table-toolbar` não\r\nexiste como item de registry). Se você editar o visual da toolbar do\r\n`TableToolbar`, considere se esta cópia deve acompanhar.\r\n",
         "type": "registry:file",
         "target": "components/ui/Scheduler/USAGE.md"
       },
@@ -4294,7 +4294,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · scheduler · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4342,7 +4342,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · screen-loader · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4366,7 +4366,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · scroll-area · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4391,7 +4391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · select · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4415,7 +4415,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · separator · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4441,7 +4441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · sheet · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4554,7 +4554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · skeleton · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · slider · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4623,7 +4623,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · sonner · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4669,7 +4669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · spinner · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4693,7 +4693,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · switch · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4772,7 +4772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · table · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4835,7 +4835,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · tabs-navigation · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4859,7 +4859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · tabs · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4883,7 +4883,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · textarea · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -4901,7 +4901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · theme-blue · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4919,7 +4919,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · theme-green · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4937,7 +4937,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · theme-pay · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4955,7 +4955,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · theme-vibrant · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -4977,7 +4977,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · theme · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -5028,7 +5028,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · toast · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5054,7 +5054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · toggle-group · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5079,7 +5079,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · toggle · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5103,7 +5103,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · tooltip · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:ui"
   },
@@ -5124,7 +5124,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · tv · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   },
@@ -5146,7 +5146,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.56.0 · b0f5fb9 · 2026-09-01"
+      "stamp": "igreen-ds · utils · v0.57.0 · 787ba02 · 2026-09-01"
     },
     "type": "registry:file"
   }

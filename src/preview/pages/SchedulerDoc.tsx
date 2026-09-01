@@ -487,6 +487,15 @@ export function SchedulerDoc() {
       </p>
 
       <SectionH2 id="anatomia-filtro" title="Anatomia do painel de filtro" />
+
+      <p className="mb-10 max-w-[68ch] text-body-sm text-fg-muted">
+        Abaixo de 1024px o <code>Scheduler</code> monta este mesmo painel dentro
+        de um <code>FloatingPanel</code>, passando <code>embedded</code> — que
+        tira a moldura de card (largura fixa, borda, radius, fundo) e o cabeçalho
+        próprio, porque quem os desenha ali é o painel flutuante. O exemplo
+        abaixo é o modo default (<code>embedded={"{false}"}</code>), em que ele é
+        a superfície.
+      </p>
       <ExampleSection
         id="filtro-isolado"
         title="O card sozinho, sem a grade"
