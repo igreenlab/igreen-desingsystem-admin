@@ -109,6 +109,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Popover", href: "popover" },
       { label: "Progress", href: "progress" },
       { label: "Radio Group", href: "radio-group" },
+      { label: "Scheduler", href: "scheduler" },
       { label: "Screen Loader", href: "screen-loader" },
       { label: "Scroll Area", href: "scroll-area" },
       { label: "Select", href: "select" },
@@ -208,6 +209,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Mapa de Rede", href: "mapa-rede" },
       { label: "Chat", href: "chat-v2" },
       { label: "Dashboard", href: "dashboard-showcase" },
+      { label: "Scheduler Full Screen", href: "scheduler-full" },
       // Apps standalone (fullscreen via ?app=) — abrem fora do chrome de docs.
       { label: "App (esqueleto)", href: "app-shell-example", url: "?app=app-shell" },
       { label: "Login", href: "login", url: "?app=login" },
