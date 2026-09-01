@@ -94,6 +94,28 @@ type LucideIcon = ComponentType<{ className?: string; strokeWidth?: number; "ari
 type CompItem = { name: string; href: string; desc: string; icon: LucideIcon };
 type CompGroup = { category: string; items: CompItem[] };
 
+/**
+ * Catálogo do showcase — lista mantida à mão.
+ *
+ * ⚠️ NÃO tem gate, e é de propósito: o `showcase-registration.mjs` declara a
+ * exclusão no cabeçalho dele. Um gate aqui cobraria entrada pra tudo que existe
+ * em `src/components/ui/`, e nem tudo que existe é coisa que o consumidor
+ * escolhe de um catálogo.
+ *
+ * ## Ausências DELIBERADAS — não são lacunas, não reabra
+ *
+ * **`MessageComposer`** — decisão do mantenedor, reafirmada mais de uma vez: não
+ * entra. Ele nem está no `registry.json`, então não é distribuído; catálogo
+ * lista o que dá pra usar, e listar o que não se pode instalar é pior que
+ * omitir.
+ *
+ * **`AvatarGroup`** — não precisa de linha própria: mora em `ui/avatar-ig/` e a
+ * entrada **Avatar** (`href: "avatar"`) já o cobre, com a `AvatarDoc` documentando
+ * os dois. Componente que é parte da API de outro não vira card separado.
+ *
+ * Antes de "consertar" uma ausência aqui, verifique se ela está nesta lista ou
+ * se o componente sequer está no registry.
+ */
 const CATALOG: CompGroup[] = [
   {
     category: "Ações",
