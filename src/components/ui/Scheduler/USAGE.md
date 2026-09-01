@@ -372,6 +372,22 @@ mostrar a anatomia (cabeçalho sticky · mini-calendário · um grupo por campo)
 Usando solto, todo o estado é seu — `filterModel`, `counts`, `date`, `now` e os
 callbacks vêm por prop, e nada é derivado sozinho.
 
+#### `embedded` — quando o painel NÃO é a superfície
+
+| | `embedded={false}` (default) | `embedded` |
+|---|---|---|
+| Largura | `w-[280px]` fixa | `w-full` |
+| Moldura | borda + radius + `bg-bg-surface` | nenhuma |
+| Cabeçalho próprio | título + Limpar + × | não renderiza |
+
+Ligue quando ele viver **dentro** de outro contêiner que já é a superfície e já
+traz cabeçalho — é o que o próprio `Scheduler` faz no modo drawer (<1024px),
+dentro de um `FloatingPanel`.
+
+São duas mudanças numa prop só porque é uma decisão só: *"existe outro contêiner
+em volta?"*. Separadas, dava pra combinar metade de cada e obter um card de 280px
+sem cabeçalho dentro de um painel de 375 — que é exatamente o defeito.
+
 ### 7. O painel de detalhe é seu, não do componente
 
 O `Scheduler` não importa `FloatingPanel`. Ele emite

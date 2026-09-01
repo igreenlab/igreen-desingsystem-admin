@@ -46,6 +46,40 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.57.0",
+    date: "2026-09-01",
+    tag: "preview",
+    title: "Scheduler em tela de toque: o filtro deixa de ser inalcançável",
+    summary:
+      "A v0.56.0 entregou o `Scheduler` desenhado pro desktop. Abaixo de 1024px o botão **Filtro** ficava permanentemente cinza, com um `title` explicando que o painel precisa de tela mais larga — o que na prática significa que filtrar no celular não dava, e um botão cinza fixo na toolbar não comunica “use outra largura”: comunica “quebrado”. Agora a coluna vira **drawer**, reusando o mesmo veículo que `DataTable` e `DataList` já usam pro filtro deles. Junto, a toolbar passa a se organizar em duas linhas em vez de disputar largura.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Filtro do `Scheduler` em drawer abaixo de 1024px** — o mesmo `SchedulerFilterPanel`, com o mesmo estado e o mesmo botão, dentro de um `FloatingPanel side=\"right\"`. É o veículo do `ToolbarSimpleFilterDrawer` do `DataTable`/`DataList`, não uma peça nova. O breakpoint deixou de decidir **se** o filtro existe e passou a decidir **qual invólucro**: ≥1024px coluna, abaixo disso drawer. No drawer, escolher data no mini-calendário fecha o painel — ele cobre a grade, e manter aberto esconderia justamente o resultado.",
+          "**`embedded` no `SchedulerFilterPanel`** (aditivo — ele é público pelo barrel). Ligado, tira a moldura de card (largura fixa, borda, radius, fundo) **e** o cabeçalho próprio. É uma prop só porque é uma decisão só — *“existe outro contêiner em volta?”*. Separadas em duas, dava pra combinar metade de cada e obter um card de 280px sem cabeçalho dentro de um painel de 375, que é exatamente o defeito.",
+          "**Toolbar em duas linhas abaixo de 1024px** — `[título] ······ [‹ Hoje ›]` na primeira, `[busca ·····] [📅] [⚙] [+]` na segunda, com a busca em `flex-1` e os três controles como ícone puro. Os alvos de toque são **44×44** (`size-form-xl`), não os 32×36 que sairiam de só esconder o rótulo: este layout existe pra dedo, e 44px é o alvo que o DS adota.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Botão Filtro permanentemente desabilitado no mobile.** Era a saída possível enquanto o único formato era coluna; com o drawer, o estado cinza deixa de existir.",
+          "**`Scheduler/USAGE.md` mandava reintroduzir um bug.** Dizia que o breakpoint “vive em dois lugares — o `lg:flex` do style e o `useMediaQuery`; se mudar, mude os dois”. O `lg:flex` não existe desde que foi removido por produzir um estado em que o botão se dizia aberto e o painel estava `display: none`. O código afirma “esta linha é a ÚNICA fonte” em maiúsculas; a doc seguia contradizendo (L-060).",
+          "**Índice do `pipeline-state.md` defasado** — heading novo entrou sem regenerar o índice, e o gate `doc-index` reprovou no CI.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**`Scheduler` no catálogo de componentes** (`ComponentsOverviewDoc`). Ele estava distribuído nos 4 canais e navegável pelo menu, mas não aparecia na página que lista todos — quem procurava navegando concluía que não existia. Ícone `CalendarClock`, porque `CalendarDays`, `Calendar` e `CalendarRange` já são de `Date Picker`, `Calendar` e `Month Year Picker`, e repetir ícone traria pela imagem a confusão que a descrição desfaz.",
+          "**L-071 registrada** — `ref` que chega dentro de um spread sobrescreve o `ref=` escrito antes, e o TS não avisa: `ref` não pertence a `HTMLAttributes`, então `Omit<HTMLAttributes, …>` nem o menciona. Foi o bug do drop que não persistia no dnd do `Scheduler`.",
+          "**`@igreen/floating-panel` declarado** nas `registryDependencies` do `scheduler`, e o import do `FloatingPanel` por alias em vez de relativo cross-dir — que é a L-065, a mesma armadilha que reprovou 3 arquivos na v0.56.0.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.56.0",
     date: "2026-09-01",
     tag: "preview",
