@@ -386,8 +386,9 @@ export function SchedulerDoc() {
         id="view-semana"
         title="Grade de horas com banda de dia inteiro"
         description="Ancorada na semana do offsite de propósito, pra a banda “Dia inteiro” aparecer. Ela só renderiza quando HÁ evento all-day na janela — uma faixa vazia permanente roubaria altura da grade sem informar nada. Cada faixa de hora é um <button>, não um <div onClick>: é alcançável por teclado e anunciada como acionável. O rótulo da hora fica deslocado meia-linha pra cima porque ele marca a LINHA, não a faixa — centralizado, você leria a hora errada."
+        plain
       >
-        <div className="h-[560px]">
+        <div className="h-[720px]">
           <Scheduler
             events={EVENTS}
             locale={ptBR}
@@ -404,8 +405,9 @@ export function SchedulerDoc() {
         id="view-dia"
         title="A MESMA view da semana, com 1 coluna"
         description="week e day rodam o mesmo arquivo (views/time-grid.tsx). O gutter de horas, o lane-packing de sobreposição, a linha do “agora” e o alvo de clique por faixa são idênticos — o que muda é quantas colunas o map produz. Dois arquivos duplicariam cinco mecanismos pra ganhar zero. Aqui o dayRange é [7, 20]: a grade não renderiza madrugada, e o scrollToHour abre já nas 8h."
+        plain
       >
-        <div className="h-[560px]">
+        <div className="h-[720px]">
           <Scheduler
             events={EVENTS}
             locale={ptBR}
@@ -423,8 +425,9 @@ export function SchedulerDoc() {
         id="view-lista"
         title="Só os dias que têm evento"
         description="A grade do mês mostra os 42 dias porque ali a grade É a informação — um dia vazio diz “nada marcado nesta terça”. Numa agenda, não: rolar por 22 blocos vazios pra achar 8 eventos é o oposto do que ela serve, e o salto entre datas já diz que não há nada no meio. Evento multi-dia entra em CADA dia que ocupa (quem abre no dia 10 espera ver o offsite que começou no 8), dia inteiro vem antes dos cronometrados, e marco (start === end) mostra um horário só em vez de “14:00 – 14:00”, que leria como erro de dado. O cabeçalho do dia é sticky."
+        plain
       >
-        <div className="h-[560px]">
+        <div className="h-[640px]">
           <Scheduler
             events={EVENTS}
             locale={ptBR}
@@ -451,8 +454,9 @@ export function SchedulerDoc() {
         id="filtros-preaplicado"
         title="filterModel pré-aplicado + painel-coluna"
         description="Este exemplo abre JÁ FILTRADO por Cliente, via filterModel — é o caminho certo pra “a tela já vem filtrada” (L-051: nunca monte um form de filtro acima da grade; passe o model e o chip aparece aplicado, com o × pra desfazer). O botão Filtro abre uma COLUNA à direita, não um overlay: marcar uma caixa e ver a grade reagir acontece no mesmo gesto, sem fechar nada. Verde no botão = ferramenta engajada (painel aberto ou filtro aplicado); o ponto = existe filtro. AND entre campos, OR dentro do campo. Abaixo de 1024px a coluna não cabe e o botão fica desabilitado explicando por quê."
+        plain
       >
-        <div className="h-[560px]">
+        <div className="h-[720px]">
           <Scheduler
             events={EVENTS}
             locale={ptBR}
@@ -474,6 +478,7 @@ export function SchedulerDoc() {
         id="controlado-externo"
         title="Período e view dirigidos de fora"
         description="Passar date + onDateChange (e view + onViewChange) transfere o estado pro consumidor — mesma gramática do viewMode do DataTable. Passar date SEM onDateChange é erro de uso: a navegação não anda, e o componente emite console.warn em DEV dizendo exatamente isso, porque o sintoma é indistinguível de um bug do componente. Há também um ref imperativo (goToDate, goToToday, next, prev, getVisibleRange) — o getVisibleRange existe pro filterMode=&quot;server&quot;, que precisa saber qual intervalo buscar sem duplicar a regra de alinhamento de semana."
+        plain
       >
         <div className="flex flex-col gap-gp-xl">
           <div className="flex flex-wrap items-center gap-gp-md">
@@ -510,7 +515,7 @@ export function SchedulerDoc() {
             </span>
           </div>
 
-          <div className="h-[480px]">
+          <div className="h-[640px]">
             <Scheduler
               events={EVENTS}
               locale={ptBR}
