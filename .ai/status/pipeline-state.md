@@ -26,6 +26,7 @@
 - [A análise dele estava certa, com duas correções](#a-análise-dele-estava-certa-com-duas-correções)
 - [O achado que muda a conclusão: não era a IA que errou, era o DS](#o-achado-que-muda-a-conclusão-não-era-a-ia-que-errou-era-o-ds)
 - [O que ficou](#o-que-ficou)
+- [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 
 <!-- doc-index:fim -->
 
@@ -4587,3 +4588,49 @@ derivada de `chart-*`) passa a ser o certo, e a união fechada torna a ampliaç�
 **Dívida:** `date-fns` precisa ser declarado no item do registry — nenhum componente de
 `src/components/` o importa hoje, e herdá-lo transitivamente do `react-day-picker` é a receita
 da L-037. Fecha no `/ds-release`.
+
+---
+
+## 2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado
+
+**Escopo:** componente `Scheduler` (calendário de eventos) — spec → gate → implementação →
+showcase → distribuição → release. Mergeado na `main`; npm `latest` = **0.56.0**;
+CLI 0.25.28 → 0.25.29.
+
+**As 8 superfícies da L-042 fechadas:** código (19 arquivos) · USAGE · inventory · showcase
+(`SchedulerDoc` em Components + "Scheduler Full Screen" em Examples) · `registry.json`
+(99 itens) · vocabulário do consumidor · changelog · barrel.
+
+**Dívida do gate anterior — QUITADA:** `date-fns` está declarado no item do registry, junto de
+`@dnd-kit/core@^6.3.1` e `lucide-react@^1.7.0`.
+
+**Três gates reprovaram no `/ds-release`, e o primeiro é o que importa:**
+
+1. `registry-imports` — três `parts/` importavam `../../Button`, relativo cross-dir. **L-065
+   exata:** o rewrite do copy-in não alcança esse caminho, então o consumidor receberia import
+   quebrado. `tsc`, 917 testes e o showcase estavam TODOS verdes com o defeito presente — ele
+   só existe no canal distribuído. Trocado por `@/components/ui/Button` + `@igreen/button`
+   declarado.
+2. `showcase-doc-facts` — `DistributionDoc` afirmava "98 itens".
+3. `vocab-surface` — o gate lê token em backtick de 3+ chars como nome de componente;
+   `day`/`week`/`month`/`draggable`/`resizable`/`false`/`h-full` viraram "inexistente".
+   Acrescentados à lista `NAO_NOME`, que é onde o JSDoc do módulo manda pôr.
+
+**Decisões que sobreviveram à implementação:** um componente com prop `view` (não 4) · cor no
+dot/acento/tint e nunca no texto (medido: `text-fg-{cor}` sobre pílula tingida dá 1.72–4.49 no
+light) · segmented reimplementado em `scheduler.styles.ts` em vez de importado do
+`TableToolbar` (L-049) · `draggable`/`resizable` default `false`.
+
+**Assumption (inalterada):** o consumidor nomeia seus eventos com ≤5 categorias visualmente
+separáveis, e a cor é reforço, nunca o único portador. Falsificável por uma tela real que
+precise de 6+ lado a lado — aí a opção B (paleta `event-*` derivada de `chart-*`) passa a ser o
+certo, e a união fechada de `SchedulerEventColor` torna a ampliação aditiva.
+
+**Três limitações do ambiente de verificação, medidas — não presumidas:** o viewport emulado por
+CDP não dispara `ResizeObserver`, `window.resize` nem `MediaQueryList.change` · `PointerSensor`
+não ativa por evento sintético (`setPointerCapture` exige `pointerId` real) · `.click()` não
+troca aba do Radix (ativa por `mousedown`/`focus`). Os três pontos foram conferidos à mão no
+browser; sem isso teriam virado "verificado" falso.
+
+**Fora da v1 (YAGNI, inalterado):** recorrência/RRULE · múltiplos calendários / visão por
+recurso · fuso por evento · export ICS · impressão · virtualização.
