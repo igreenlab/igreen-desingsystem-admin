@@ -2,9 +2,11 @@ import { useMemo, useState } from "react";
 import type { Locale } from "date-fns";
 import { ChevronDown, X } from "lucide-react";
 import { Checkbox } from "@/components/shadcn/checkbox";
+import { cn } from "@/lib/utils";
 import { Button } from "../../Button";
 import {
   schedulerAsideHead,
+  schedulerAsideSection,
   schedulerAsideTitle,
   schedulerClearLink,
   schedulerFilterAside,
@@ -97,34 +99,38 @@ export function SchedulerFilterPanel({
 
   return (
     <aside className={schedulerFilterAside()} aria-label="Filtros do calendário">
-      <div className={schedulerAsideHead()}>
-        <span className={schedulerAsideTitle()}>Filtros</span>
-        <div className="flex shrink-0 items-center gap-gp-sm">
-          {appliedCount > 0 ? (
-            <button type="button" onClick={onClearAll} className={schedulerClearLink()}>
-              Limpar
-            </button>
-          ) : null}
-          <Button
-            variant="ghost"
-            color="secondary"
-            size="icon-2xs"
-            aria-label="Fechar painel de filtros"
-            onClick={onClose}
-          >
-            <X />
-          </Button>
+      <div className={schedulerAsideSection({ compact: true })}>
+        <div className={schedulerAsideHead()}>
+          <span className={schedulerAsideTitle()}>Filtros</span>
+          <div className="flex shrink-0 items-center gap-gp-sm">
+            {appliedCount > 0 ? (
+              <button type="button" onClick={onClearAll} className={schedulerClearLink()}>
+                Limpar
+              </button>
+            ) : null}
+            <Button
+              variant="ghost"
+              color="secondary"
+              size="icon-2xs"
+              aria-label="Fechar painel de filtros"
+              onClick={onClose}
+            >
+              <X />
+            </Button>
+          </div>
         </div>
       </div>
 
-      <MiniMonth
-        selected={date}
-        now={now}
-        locale={locale}
-        weekStartsOn={weekStartsOn}
-        events={events}
-        onSelect={onDateSelect}
-      />
+      <div className={schedulerAsideSection()}>
+        <MiniMonth
+          selected={date}
+          now={now}
+          locale={locale}
+          weekStartsOn={weekStartsOn}
+          events={events}
+          onSelect={onDateSelect}
+        />
+      </div>
 
       {filterFields.map((field) => {
         const selected = filterModel[field.id] ?? [];
@@ -132,7 +138,10 @@ export function SchedulerFilterPanel({
         const fieldCounts = counts[field.id] ?? {};
 
         return (
-          <div key={field.id} className={schedulerGroup()}>
+          <div
+            key={field.id}
+            className={cn(schedulerAsideSection(), schedulerGroup())}
+          >
             <button
               type="button"
               aria-expanded={isOpen}

@@ -5,8 +5,13 @@
 Calendário de **eventos ao longo do tempo**, com 4 modos de visualização
 (mês · semana · dia · lista), toolbar embutida e detalhe por callback.
 
-A toolbar traz: título do período + grupo `‹ Hoje ›` à esquerda; busca, botão
-**Filtro**, área custom, seletor de view (dropdown) e ação primária à direita.
+A toolbar traz: título do período + grupo `‹ Hoje ›` à esquerda; e à direita
+busca, área custom, **seletor de view** (dropdown), **Filtro** e ação primária —
+nessa ordem, do recorte mais amplo (qual período) pro mais específico (o que
+dentro dele). View e Filtro são pares: mesmo `variant="outline"`, mesmo
+`size="sm"`, e o Filtro **não** muda de variante quando o painel abre (quem
+sinaliza isso é o painel na tela, mais o `aria-expanded`).
+
 O botão Filtro abre um **painel-coluna à direita da grade** — não um overlay.
 
 > ⚠️ **Não confunda com `Calendar`.** `Calendar` é o primitivo
@@ -158,10 +163,16 @@ O botão **Filtro** não abre popover nem sheet: abre uma coluna à direita que
 você quer ver *enquanto* mexe, e por cima da grade isso viraria
 marcar → fechar → olhar → reabrir.
 
-Duas consequências práticas:
+Três consequências práticas:
 
 - **A grade encolhe.** Se a sua tela é estreita, prefira deixar
   `defaultFilterPanelOpen` em `false` (o default).
+- **O painel nunca estica a altura da linha.** Ele acompanha a altura da grade e
+  **rola por dentro** (medido: 664px de caixa com 958px de conteúdo). É por isso
+  que o root é `h-full` — sem isso ele dimensionava por conteúdo, o painel ficava
+  mais alto que a grade e passava a mandar na altura das duas, vazando pra fora
+  do container. Se você vir o calendário cortado, o pai é que está sem altura
+  (gotcha nº 1).
 - **Abaixo de 1024px o painel não existe.** A coluna extra não cabe junto de
   uma semana legível, então nessa faixa o botão fica **desabilitado** com
   `title` explicando. Não é bug: é a alternativa a alternar um estado que o CSS

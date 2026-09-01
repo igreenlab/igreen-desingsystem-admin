@@ -185,36 +185,15 @@ export function SchedulerToolbar({
             </label>
           ) : null}
 
-          {hasFilters ? (
-            /* `relative` no wrapper e não no Button: o ponto é posicionado
-               contra a caixa do botão, e o Button não expõe `position`. */
-            <span className="relative shrink-0">
-              <Button
-                variant={filterPanelOpen ? "soft" : "outline"}
-                color="secondary"
-                size="sm"
-                iconLeft={<ListFilter />}
-                onClick={onToggleFilterPanel}
-                disabled={!filterPanelAvailable}
-                aria-expanded={filterPanelOpen}
-                title={
-                  filterPanelAvailable
-                    ? undefined
-                    : "O painel de filtros precisa de uma tela mais larga (1024px+)"
-                }
-              >
-                Filtro
-              </Button>
-              {appliedCount > 0 ? (
-                <span className={schedulerFilterDot()} aria-hidden="true" />
-              ) : null}
-            </span>
-          ) : null}
-
           {toolbarActions}
 
-          {/* View: dropdown de escolha ÚNICA → RadioGroup, não Item solto.
-              `Item` não anuncia qual está ativa; `RadioItem` sim. */}
+          {/* View ANTES do filtro: os dois são controles de "como estou vendo",
+              e a ordem segue do mais amplo (qual recorte de tempo) pro mais
+              específico (o que dentro dele). Ambos `outline` e `size="sm"` — são
+              pares, e variantes diferentes fariam um parecer mais importante.
+
+              Dropdown de escolha ÚNICA → RadioGroup, não Item solto: `Item` não
+              anuncia qual está ativa, `RadioItem` sim. */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -242,6 +221,37 @@ export function SchedulerToolbar({
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {hasFilters ? (
+            /* `relative` no wrapper e não no Button: o ponto é posicionado
+               contra a caixa do botão, e o Button não expõe `position`. */
+            <span className="relative shrink-0">
+              <Button
+                /* `outline` SEMPRE, inclusive com o painel aberto. Antes virava
+                   `soft` nesse estado e ficava visivelmente diferente do botão
+                   de view ao lado — dois controles pares com pesos diferentes.
+                   Quem sinaliza que o painel está aberto é o próprio painel, que
+                   está na tela; e `aria-expanded` cobre quem não o vê. */
+                variant="outline"
+                color="secondary"
+                size="sm"
+                iconLeft={<ListFilter />}
+                onClick={onToggleFilterPanel}
+                disabled={!filterPanelAvailable}
+                aria-expanded={filterPanelOpen}
+                title={
+                  filterPanelAvailable
+                    ? undefined
+                    : "O painel de filtros precisa de uma tela mais larga (1024px+)"
+                }
+              >
+                Filtro
+              </Button>
+              {appliedCount > 0 ? (
+                <span className={schedulerFilterDot()} aria-hidden="true" />
+              ) : null}
+            </span>
+          ) : null}
 
           {primaryAction}
         </div>

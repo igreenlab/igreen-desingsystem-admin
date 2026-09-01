@@ -20,9 +20,23 @@ import { tv, type VariantProps } from "@/utils/tv";
  * Root
  * ──────────────────────────────────────────────────────────────────────── */
 
+/**
+ * `h-full` (não só `min-h-0`) é o que impede o painel de filtro de esticar a
+ * altura da linha inteira.
+ *
+ * Sem ele o root dimensionava por CONTEÚDO: a coluna do painel, que é uma pilha
+ * de mini-calendário + grupos, ficava mais alta que a grade e passava a mandar
+ * na altura das duas — no exemplo do showcase isso vazava pra fora do
+ * `h-[720px]` e cortava. Com `h-full`, o root ocupa o pai, `schedulerBody` é
+ * `flex-1 min-h-0`, e o painel rola por dentro em vez de crescer.
+ *
+ * Em pai de altura automática, `height: 100%` resolve contra `auto` e se
+ * comporta como `auto` — ou seja, não piora o caso "esqueci de dar altura", que
+ * segue documentado como gotcha nº 1 do USAGE.
+ */
 export const schedulerRoot = tv({
   base: [
-    "flex min-h-0 w-full flex-col gap-gp-2xl",
+    "flex h-full min-h-0 w-full flex-col gap-gp-2xl",
     "text-fg-default",
   ],
 });
@@ -256,9 +270,34 @@ export const schedulerMain = tv({
  */
 export const schedulerFilterAside = tv({
   base: [
-    "flex w-[280px] shrink-0 flex-col gap-gp-2xl overflow-y-auto",
-    "rounded-radius-xl border border-border-default bg-bg-surface p-sp-xl",
+    "flex w-[280px] min-h-0 shrink-0 flex-col overflow-y-auto",
+    "rounded-radius-xl border border-border-default bg-bg-surface",
   ],
+});
+
+/**
+ * Seção do painel — **inteiriça**, com padding próprio, e a divisória de ponta
+ * a ponta entre uma e outra.
+ *
+ * O painel não tem padding nem gap: quem paga o respiro é a seção. É o que faz
+ * a linha divisória chegar até as bordas do card, do jeito que se espera de uma
+ * pilha de blocos. Com padding no container e `gap`, a divisória ficaria
+ * recuada dos dois lados e leria como sublinhado de um item, não como separação
+ * entre blocos.
+ *
+ * `last:border-b-0` fecha a última: a borda do card já encerra a pilha, e uma
+ * divisória imediatamente antes dela vira duas linhas paralelas a 1px.
+ */
+export const schedulerAsideSection = tv({
+  base: [
+    "flex shrink-0 flex-col gap-gp-md",
+    "border-b border-border-default p-sp-xl last:border-b-0",
+  ],
+  variants: {
+    /** O cabeçalho é mais raso: só uma linha de título + ações. */
+    compact: { true: "py-pad-lg", false: "" },
+  },
+  defaultVariants: { compact: false },
 });
 
 export const schedulerAsideHead = tv({
@@ -334,10 +373,16 @@ export const schedulerGroup = tv({
   base: "flex flex-col gap-gp-sm",
 });
 
+/**
+ * `-mx-pad-sm px-pad-sm`: o fundo do hover sangra 6px pra fora, mas o TEXTO
+ * fica alinhado com o padding da seção. Sem o `-mx`, o rótulo do grupo ficaria
+ * 6px mais dentro que o título "Filtros" do cabeçalho — desalinho visível numa
+ * coluna estreita.
+ */
 export const schedulerGroupHead = tv({
   base: [
     "flex w-full cursor-pointer items-center justify-between gap-gp-md",
-    "min-h-form-sm rounded-radius-sm border-0 bg-transparent px-pad-sm outline-none",
+    "min-h-form-sm rounded-radius-sm border-0 bg-transparent -mx-pad-sm px-pad-sm outline-none",
     "text-body-sm font-semibold text-fg-default",
     "transition-colors duration-150",
     "hover:bg-bg-muted",
@@ -361,7 +406,7 @@ export const schedulerGroupChevron = tv({
 export const schedulerOption = tv({
   base: [
     "flex cursor-pointer items-center gap-gp-md",
-    "min-h-form-sm rounded-radius-sm px-pad-sm",
+    "min-h-form-sm rounded-radius-sm -mx-pad-sm px-pad-sm",
     "text-body-sm text-fg-default",
     "transition-colors duration-150",
     "hover:bg-bg-muted",
