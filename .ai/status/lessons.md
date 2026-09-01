@@ -1665,6 +1665,42 @@ errado.
 
 ---
 
+## [L-071] `ref` dentro de um spread sobrescreve o `ref=` escrito antes — e o TS não vê
+
+**Erro cometido:** o `DroppableDay` do `Scheduler` era
+`<div ref={setNodeRef} {...rest}>`, e `rest` vinha do `getCellProps` do roving tabindex,
+que devolvia um `ref` próprio. Em JSX o spread é aplicado na ordem em que aparece, então o
+`ref` de dentro do `rest` **substituía** o `setNodeRef` do dnd-kit. O droppable nunca se
+registrava, `over` era sempre `null`, e arrastar um evento pra outro dia devolvia o card pro
+lugar de origem — o `onEventMove` jamais disparava.
+
+O que fez isso durar: `tsc` ficou verde. As props eram tipadas como
+`Omit<HTMLAttributes<HTMLDivElement>, "onDrag">`, e **`ref` não faz parte de**
+**`HTMLAttributes`** — é uma prop especial do React, injetada por `ClassAttributes`. Um
+`Omit` sobre `HTMLAttributes` não a menciona nem a proíbe, então passar `ref` no meio de um
+objeto de props não é erro de tipo. O bug também não aparecia no drag: o overlay seguia o
+cursor normalmente, porque `DragOverlay` não depende do droppable. Só o **drop** falhava, o
+que lê como "a animação voltou", não como "o alvo não existe".
+
+**Regra derivada:** quando dois hooks querem o MESMO nó, nenhum dos dois pode chegar por
+spread. Receba o segundo como prop explícita e componha os dois num callback ref:
+
+```tsx
+<div ref={(el) => { setNodeRef(el); cellRef?.(el); }} {...rest} />
+```
+
+E ao expor um componente que faz spread de props do consumidor, tipe o que sobra com
+`Omit<..., "ref">` explícito, ou extraia `ref` do objeto antes do spread — o tipo não vai
+te avisar. Vale pra qualquer par de hooks com ref: dnd-kit + roving tabindex, react-hook-form
++ measure, virtualizer + intersection observer.
+
+**Contexto:** `Scheduler/parts/draggable-event.tsx` + `hooks/use-scheduler-keyboard.ts`
+(v0.56.0). O conserto tem duas camadas: `getCellProps` deixou de devolver `ref`, e
+`getCellRef(index)` passou a ser função separada. Parente de [[L-021]] — lá o wrapper sem
+`forwardRef` impedia o Radix de obter o nó; aqui dois donos disputam o mesmo nó e um vence
+em silêncio.
+
+---
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

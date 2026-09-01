@@ -402,7 +402,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 70 Lições (L-001 a L-070) — resumo
+## 71 Lições (L-001 a L-071) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
 `scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
@@ -564,6 +564,14 @@ presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.
   apagava e inertizava o botão "Reabrir com template" — a única saída do estado — e o
   atendente clicava sem efeito. Antes de pôr `pointer-events-none` num container: existe lá
   dentro alguma ação cuja função é encerrar este estado?
+
+### Composição de refs (lição 2026-09-01)
+- **L-071** `ref` que chega dentro de um spread **sobrescreve** o `ref=` escrito antes dele,
+  e o TS não avisa: `ref` não pertence a `HTMLAttributes`, então `Omit<HTMLAttributes, …>`
+  nem o menciona. No `Scheduler`, o `ref` do roving tabindex vindo por `{...rest}` matava o
+  `setNodeRef` do dnd-kit — droppable nunca registrado, `over` sempre `null`, drop sem
+  efeito, com `tsc` verde e o drag funcionando. Dois hooks no MESMO nó: receba o segundo
+  como prop explícita e componha num callback ref.
 
 ### Padrão de chart (resumo)
 
