@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { format, isSameDay, isSameMonth, startOfDay, type Locale } from "date-fns";
 import { Plus } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/shadcn/popover";
@@ -17,7 +17,7 @@ import {
   schedulerWeekdayRow,
 } from "../scheduler.styles";
 import { SchedulerEventItem } from "../parts/scheduler-event";
-import { buildMonthMatrix, segmentMultiDay } from "../hooks/layout";
+import { buildMonthMatrix, computeOverflow, segmentMultiDay } from "../hooks/layout";
 import type {
   SchedulerEvent,
   SchedulerHourFormat,
@@ -50,7 +50,15 @@ export type SchedulerMonthViewProps = {
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   hourFormat: SchedulerHourFormat;
   now: Date;
-  /** Quantos pills cabem por célula antes do "+N". Fixo nesta fatia — ver nota. */
+  /**
+   * Trava quantos pills aparecem por célula. **Omita** no caso normal: sem ela,
+   * o corte é DERIVADO da altura real da linha, que é o que faz o calendário
+   * aproveitar a tela quando usado como página inteira — célula alta mostra 8
+   * eventos, célula baixa mostra 2, sem ninguém configurar nada.
+   *
+   * Use só quando a tela precisa de altura de linha previsível
+   * independentemente do conteúdo.
+   */
   maxPerCell?: number;
   onEventClick?: (
     event: SchedulerEvent,
@@ -61,27 +69,25 @@ export type SchedulerMonthViewProps = {
 };
 
 /**
- * `computeOverflow` de `hooks/layout.ts` deriva o corte da altura REAL
- * disponível, que é a resposta certa — mas exige medir a célula no DOM
- * (`ResizeObserver`), e medir antes do primeiro paint produz um flash de "3
- * eventos → 2 eventos". Nesta fatia o corte é um número fixo, com o mesmo
- * comportamento de reservar 1 slot pro "+N"; a medição entra junto com a
- * grade de horas, que já vai precisar de `ResizeObserver` de qualquer jeito.
+ * Cromo da célula que NÃO é evento, em px — o que precisa sair da altura da
+ * linha antes de perguntar quantos pills cabem:
+ *
+ *   `size-comp-xs`  24px  número do dia
+ *   `p-sp-2xs` ×2    4px  padding vertical da célula
+ *   `gap-gp-2xs`     2px  entre o cabeçalho do dia e a pilha de eventos
+ *
+ * Espelha `schedulerMonthCell` e `schedulerDayHead`. Se aqueles mudarem, este
+ * número muda — é o mesmo acoplamento declarado do `HOUR_HEIGHT_PX` da
+ * `time-grid`, e pela mesma razão: `computeOverflow` recebe px.
  */
-const DEFAULT_MAX_PER_CELL = 3;
+const CELL_CHROME_PX = 24 + 4 + 2;
 
-function splitVisible(
-  dayEvents: SchedulerEvent[],
-  maxPerCell: number,
-): { visible: SchedulerEvent[]; overflow: SchedulerEvent[] } {
-  if (dayEvents.length <= maxPerCell) {
-    return { visible: dayEvents, overflow: [] };
-  }
-  // Reserva 1 posição pro próprio "+N mais" — célula que cabe 3 mostra 2 + "+2",
-  // nunca 3 + "+1" (que estouraria a altura pela própria linha de overflow).
-  const cut = Math.max(0, maxPerCell - 1);
-  return { visible: dayEvents.slice(0, cut), overflow: dayEvents.slice(cut) };
-}
+/**
+ * Palpite usado só no PRIMEIRO render, antes da medição. `useLayoutEffect` mede
+ * e re-renderiza antes do paint, então na prática ninguém vê este valor — ele
+ * existe pra SSR e pro caso de `ResizeObserver` indisponível.
+ */
+const FALLBACK_ROW_HEIGHT_PX = 96;
 
 export function SchedulerMonthView({
   date,
@@ -90,7 +96,7 @@ export function SchedulerMonthView({
   weekStartsOn,
   hourFormat,
   now,
-  maxPerCell = DEFAULT_MAX_PER_CELL,
+  maxPerCell,
   onEventClick,
   onSlotClick,
   renderEvent,
@@ -99,6 +105,41 @@ export function SchedulerMonthView({
     () => buildMonthMatrix(date, weekStartsOn, locale),
     [date, weekStartsOn, locale],
   );
+
+  /**
+   * Mede a altura REAL da linha pra derivar quantos eventos cabem por célula.
+   *
+   * É isto que faz o calendário aproveitar a tela: num container de 720px a
+   * linha tem ~110px e cabem 3 pills; numa página inteira de 1080px ela tem
+   * ~170px e cabem 6. Antes o corte era a constante 3, então a versão de tela
+   * cheia mostrava "+5 mais" com metade da célula vazia.
+   *
+   * `useLayoutEffect` + `ResizeObserver`: a medição acontece ANTES do paint, o
+   * que evita o flash de "3 eventos → 6 eventos" que um `useEffect` produziria.
+   * Todas as 6 linhas têm a mesma altura (`grid-rows-6`), então medir a grade
+   * inteira e dividir é suficiente — e é uma observação só, não 42.
+   */
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [rowHeight, setRowHeight] = useState(FALLBACK_ROW_HEIGHT_PX);
+
+  useLayoutEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+
+    const medir = () => {
+      const altura = el.getBoundingClientRect().height;
+      if (altura > 0) setRowHeight(altura / weeks.length);
+    };
+    medir();
+
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [weeks.length]);
+
+  /** Altura livre pra pilha de eventos, depois de descontar o cromo da célula. */
+  const alturaDisponivel = Math.max(0, rowHeight - CELL_CHROME_PX);
 
   const segments = useMemo(
     () => segmentMultiDay(events, weeks),
@@ -167,14 +208,28 @@ export function SchedulerMonthView({
         ))}
       </div>
 
-      <div className={schedulerMonthGrid()}>
+      <div ref={gridRef} className={schedulerMonthGrid()}>
         {weeks.map((week, weekIndex) =>
           week.map((day) => {
             const dayEvents = byDay.get(day.getTime()) ?? [];
-            const { visible, overflow } = splitVisible(
-              dayEvents.map((d) => d.event),
-              maxPerCell,
-            );
+            const todos = dayEvents.map((d) => d.event);
+
+            /* `maxPerCell` trava; sem ele, `computeOverflow` deriva o corte da
+               altura medida — incluindo a regra de reservar 1 slot pro próprio
+               "+N mais", que já é testada em `layout.test.ts`. */
+            const { visible, overflowCount } =
+              maxPerCell !== undefined
+                ? {
+                    visible: todos.slice(
+                      0,
+                      todos.length <= maxPerCell ? maxPerCell : Math.max(0, maxPerCell - 1),
+                    ),
+                    overflowCount:
+                      todos.length <= maxPerCell
+                        ? 0
+                        : todos.length - Math.max(0, maxPerCell - 1),
+                  }
+                : computeOverflow(todos, alturaDisponivel);
             const outside = !isSameMonth(day, date);
             const today = isSameDay(day, now);
 
@@ -236,11 +291,11 @@ export function SchedulerMonthView({
                     );
                   })}
 
-                  {overflow.length > 0 ? (
+                  {overflowCount > 0 ? (
                     <Popover>
                       <PopoverTrigger asChild>
                         <button type="button" className={schedulerOverflowButton()}>
-                          +{overflow.length} mais
+                          +{overflowCount} mais
                         </button>
                       </PopoverTrigger>
                       <PopoverContent align="start" className="p-0">

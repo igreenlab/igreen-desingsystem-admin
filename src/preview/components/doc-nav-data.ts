@@ -110,6 +110,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Progress", href: "progress" },
       { label: "Radio Group", href: "radio-group" },
       { label: "Scheduler", href: "scheduler" },
+      { label: "Example: Scheduler tela cheia", href: "scheduler-full" },
       { label: "Screen Loader", href: "screen-loader" },
       { label: "Scroll Area", href: "scroll-area" },
       { label: "Select", href: "select" },

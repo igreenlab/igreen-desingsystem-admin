@@ -132,11 +132,37 @@ import { Scheduler } from "@/components/ui/Scheduler";
 
 ## Gotchas
 
-### 1. O pai precisa ter altura
+### 1. O pai precisa ter altura — e é a altura dele que dimensiona tudo
 
 A grade é `flex-1` dentro de um `flex-col`. Num pai sem altura definida ela
 colapsa pra altura mínima das células. Embrulhe em algo com altura
 (`h-[720px]`, ou `flex-1 min-h-0` numa página que já tem altura).
+
+**Não existe prop de "tela cheia".** O componente já é `h-full`: pra usá-lo como
+página inteira, dê `h-screen` ao container e deixe o `Scheduler` em `flex-1`.
+
+E isso não é só esticar — **a célula do mês passa a caber mais eventos**. O corte
+do `+N mais` é derivado da altura MEDIDA da linha, como as linhas da tabela.
+Medido no browser, mesmo dataset:
+
+| viewport | altura da linha | pills por célula | células com "+N mais" |
+|---|---|---|---|
+| 800px | 76px | **2** | 13 |
+| 1400px | 176px | **6** | 2 |
+
+Pra travar num número fixo (quando a tela precisa de altura de linha previsível
+independentemente do conteúdo), a view de mês aceita `maxPerCell` — mas o
+default adaptativo é o que aproveita a tela.
+
+Exemplo vivo: **Example: Scheduler tela cheia** no menu do showcase
+(`#/scheduler-full`).
+
+> ⚠️ A re-medição pós-montagem depende de `ResizeObserver`. Ela **não pôde ser
+> verificada** no browser de teste: a emulação de viewport por CDP não dispara
+> `ResizeObserver`, nem `window.resize`, nem `MediaQueryList.change` — medido,
+> zero callbacks nos três. O que foi verificado é a montagem correta em cada
+> altura (a tabela acima veio de reloads reais). Em browser de verdade o
+> `ResizeObserver` é o mesmo mecanismo que o resto do DS usa.
 
 ### 2. A cor **nunca** vai no texto — e nunca é o único portador da informação
 
