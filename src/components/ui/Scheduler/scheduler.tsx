@@ -1,16 +1,12 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { format } from "date-fns";
-import { CalendarClock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  schedulerBody,
-  schedulerMain,
-  schedulerPlaceholder,
-  schedulerRoot,
-} from "./scheduler.styles";
+import { schedulerBody, schedulerMain, schedulerRoot } from "./scheduler.styles";
 import { SchedulerToolbar } from "./parts/scheduler-toolbar";
 import { SchedulerFilterPanel } from "./parts/scheduler-filter-panel";
 import { SchedulerMonthView } from "./views/month";
+import { SchedulerTimeGrid } from "./views/time-grid";
+import { SchedulerListView } from "./views/list";
 import { useSchedulerFilter } from "./hooks/use-scheduler-filter";
 import { useSchedulerState } from "./hooks/use-scheduler-state";
 import { useMediaQuery } from "./hooks/use-media-query";
@@ -32,21 +28,18 @@ import type { SchedulerProps, SchedulerRef } from "./scheduler.types";
  * escolha do `onCardMove` do `Kanban`, pela mesma razão: só a tela sabe se a
  * mudança precisa de confirmação, de otimismo ou de rollback.
  *
- * ## Estado do que está pronto
+ * ## As 4 views
  *
- * A view `month` está completa (grade, navegação, busca, filtros, overflow,
- * clique no evento e `+` de criar). `week`, `day` e `list` renderizam um aviso
- * explícito de "em construção" — o segmented mostra as 4 opções de propósito,
- * pra que a existência delas seja descoberta, mas nenhuma finge funcionar.
- * Drag & drop e navegação por teclado também não estão nesta fatia.
+ * - `month`: grade 6×7 fixa, evento multi-dia com pontas truncadas, "+N mais"
+ *   em popover, `+` de criar no hover da célula.
+ * - `week` / `day`: a MESMA view (`views/time-grid.tsx`) com 7 ou 1 coluna —
+ *   gutter de horas, banda de dia inteiro, lane-packing de sobreposição, linha
+ *   do "agora" e faixa de hora clicável.
+ * - `list`: agenda agrupada por dia, só os dias QUE TÊM evento.
+ *
+ * Ainda fora: drag & drop (as props `onEventMove`/`onEventResize` existem e não
+ * são chamadas) e navegação por teclado na grade.
  */
-
-const VIEW_LABEL = {
-  month: "Mês",
-  week: "Semana",
-  day: "Dia",
-  list: "Lista",
-} as const;
 
 export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
   function Scheduler(
@@ -55,9 +48,10 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       locale,
       weekStartsOn = 0,
       hourFormat = "24h",
-      nowIndicator: _nowIndicator = true,
-      dayRange: _dayRange = [0, 24],
-      scrollToHour: _scrollToHour = 8,
+      nowIndicator = true,
+      dayRange = [0, 24],
+      scrollToHour = 8,
+      snapMinutes = 15,
       defaultDate,
       date,
       onDateChange,
@@ -78,6 +72,7 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       primaryAction,
       title,
       renderEvent,
+      emptyState,
       className,
       ...rest
     },
@@ -217,24 +212,35 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
                 onSlotClick={onSlotClick}
                 renderEvent={renderEvent}
               />
+            ) : state.view === "list" ? (
+              <SchedulerListView
+                date={state.date}
+                events={filter.filteredEvents}
+                locale={locale}
+                hourFormat={hourFormat}
+                now={now}
+                onEventClick={onEventClick}
+                renderEvent={renderEvent}
+                emptyState={emptyState}
+              />
             ) : (
-              /* Aviso honesto, não grade vazia: uma grade sem nada parece
-                 defeito, e esconder a opção no dropdown impediria descobrir que
-                 a view vai existir. */
-              <div className={schedulerPlaceholder()}>
-                <CalendarClock
-                  className="size-icon-xl text-fg-subtle"
-                  aria-hidden="true"
-                />
-                <span className="text-body-md font-semibold text-fg-default">
-                  Visualização “{VIEW_LABEL[state.view]}” em construção
-                </span>
-                <span className="max-w-[42ch] text-body-sm text-fg-muted">
-                  A view de mês está completa. Semana, dia e lista — além de drag
-                  & drop e navegação por teclado — chegam nas próximas entregas
-                  deste componente.
-                </span>
-              </div>
+              /* `week` e `day` são a MESMA view, com 7 ou 1 coluna. */
+              <SchedulerTimeGrid
+                date={state.date}
+                view={state.view}
+                events={filter.filteredEvents}
+                locale={locale}
+                weekStartsOn={weekStartsOn}
+                hourFormat={hourFormat}
+                dayRange={dayRange}
+                scrollToHour={scrollToHour}
+                nowIndicator={nowIndicator}
+                now={now}
+                snapMinutes={snapMinutes}
+                onEventClick={onEventClick}
+                onSlotClick={onSlotClick}
+                renderEvent={renderEvent}
+              />
             )}
           </div>
 

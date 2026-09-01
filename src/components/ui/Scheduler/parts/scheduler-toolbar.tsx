@@ -132,6 +132,9 @@ export function SchedulerToolbar({
   const hasFilters = (filterFields?.length ?? 0) > 0;
   const activeView = VIEW_ITEMS.find((v) => v.value === view) ?? VIEW_ITEMS[0];
 
+  /** "A ferramenta de filtro está engajada" — painel aberto OU filtro aplicado. */
+  const filterEngaged = filterPanelOpen || appliedCount > 0;
+
   /** Só os campos COM valor aplicado viram chip — o painel é onde se escolhe. */
   const appliedFields = (filterFields ?? []).filter(
     (field) => (filterModel[field.id] ?? []).length > 0,
@@ -227,32 +230,35 @@ export function SchedulerToolbar({
                contra a caixa do botão, e o Button não expõe `position`. */
             <span className="relative shrink-0">
               <Button
-                /* Dois estados, e a distinção importa:
+                /* Dois sinais INDEPENDENTES, e é isso que os torna legíveis:
                  *
-                 * **Painel aberto** NÃO muda a variante — segue `secondary
-                 * outline`, par do botão de view ao lado. Quem sinaliza que o
-                 * painel está aberto é o painel, que está na tela.
+                 * **Verde** (`primary soft` + `border-border-brand`) = a
+                 * ferramenta está engajada — painel aberto OU filtro aplicado.
+                 * **Ponto** no canto = existe filtro aplicado, e só isso.
                  *
-                 * **Tem filtro aplicado** muda: `primary soft` (verde
-                 * translúcido — `bg-bg-brand-subtle` + `text-fg-brand`) mais
-                 * `border-border-brand`. É a MESMA receita do
-                 * `ToolbarToolButton` do `TableToolbar`, que é o precedente do
-                 * DS pra "esta ferramenta tem algo ligado" — o `soft` do Button
-                 * não traz borda, então o brand entra por className.
+                 * As 3 combinações que aparecem na prática:
+                 *   painel aberto, sem filtro   → verde, SEM ponto
+                 *   filtro aplicado, fechado    → verde, COM ponto
+                 *   filtro aplicado, aberto     → verde, COM ponto
                  *
-                 * Filtro aplicado é estado do DADO (persiste, muda o que você
-                 * vê) e merece cor; painel aberto é estado da UI (transitório)
-                 * e não. O ponto no canto continua, porque cor sozinha não pode
-                 * ser o único portador da informação. */
-                variant={appliedCount > 0 ? "soft" : "outline"}
-                color={appliedCount > 0 ? "primary" : "secondary"}
+                 * Cor é a mesma receita do `ToolbarToolButton` do
+                 * `TableToolbar` — o precedente do DS pra "esta ferramenta tem
+                 * algo ligado". O `soft` do Button não traz borda, então o
+                 * brand entra por className.
+                 *
+                 * O ponto NÃO é redundante com a cor: ele é o que distingue
+                 * "abri pra olhar" de "tem filtro mexendo no que eu vejo" — e é
+                 * o portador não-cromático da informação, pra quem não
+                 * distingue o verde. */
+                variant={filterEngaged ? "soft" : "outline"}
+                color={filterEngaged ? "primary" : "secondary"}
                 size="sm"
                 iconLeft={<ListFilter />}
                 onClick={onToggleFilterPanel}
                 disabled={!filterPanelAvailable}
                 aria-expanded={filterPanelOpen}
                 className={cn(
-                  appliedCount > 0 &&
+                  filterEngaged &&
                     "border-border-brand hover:border-border-brand",
                 )}
                 title={

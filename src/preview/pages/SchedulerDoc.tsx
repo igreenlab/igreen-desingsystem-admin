@@ -24,7 +24,8 @@ const TOC = [
   { id: "preview", label: "Preview" },
   { id: "detalhe", label: "Painel de detalhe" },
   { id: "filtros", label: "Busca e filtros" },
-  { id: "estado", label: "Views em construção" },
+  { id: "estado", label: "As 4 views" },
+  { id: "falta", label: "O que falta" },
   { id: "api", label: "API Reference" },
 ];
 
@@ -373,16 +374,28 @@ export function SchedulerDoc() {
         </p>
       </ExampleSection>
 
-      <SectionH2 id="estado" title="O que ainda não está pronto" />
+      <SectionH2 id="estado" title="As 4 views" />
       <ExampleSection
-        id="estado-wip"
-        title="Semana, dia, lista, drag & drop e teclado"
-        description="O dropdown lista as 4 views de propósito — esconder as opções impediria descobrir que elas vão existir —, mas semana, dia e lista renderizam um aviso explícito de “em construção” em vez de uma grade vazia que pareceria defeito. Drag & drop e navegação por teclado também não entraram nesta entrega. O núcleo puro que essas views consomem (hooks/layout.ts: lane-packing, spans multi-dia, snap, resize) já está implementado e testado."
+        id="estado-views"
+        title="Semana e dia são a MESMA view; lista é uma agenda"
+        description="week e day rodam o mesmo arquivo (views/time-grid.tsx) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro que só aparece quando há evento all-day na janela, lane-packing pra sobreposição, linha do “agora” e cada faixa de hora clicável pra criar. Evento que atravessa a meia-noite é recortado no dia visível, senão renderizaria altura pra fora da coluna. Já a list não mostra os dias vazios: numa agenda, rolar por 22 blocos sem nada pra achar 8 eventos é o oposto do que ela serve — o salto entre datas já diz que não há nada no meio."
       >
         <p className="text-body-sm text-fg-muted">
-          Abra o seletor de view e escolha <strong>Semana</strong>,{" "}
-          <strong>Dia</strong> ou{" "}
-          <strong>Lista</strong> na grade acima pra ver o aviso.
+          Troque a view no seletor da grade acima. Em <strong>Semana</strong>,
+          navegue até a semana do dia 9 pra ver a banda{" "}
+          <strong>Dia inteiro</strong> com o offsite de 3 dias.
+        </p>
+      </ExampleSection>
+
+      <SectionH2 id="falta" title="O que ainda não está pronto" />
+      <ExampleSection
+        id="falta-wip"
+        title="Drag & drop e navegação por teclado"
+        description="As props onEventMove e onEventResize existem na API e ainda NÃO são chamadas — draggable e resizable nascem false justamente por isso: dnd ligado sem handler conectado deixa o usuário arrastar e ver o evento voltar sozinho, que lê como bug do app. O núcleo puro que o dnd vai consumir (snapToGrid e resolveResize em hooks/layout.ts) já está implementado e coberto por testes de borda, incluindo os clamps que impedem start > end."
+      >
+        <p className="text-body-sm text-fg-muted">
+          A navegação por <strong>Tab</strong> funciona; o que falta é o roving
+          tabindex pra andar pela grade com as setas.
         </p>
       </ExampleSection>
 

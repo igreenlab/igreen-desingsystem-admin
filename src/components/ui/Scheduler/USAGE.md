@@ -10,19 +10,24 @@ busca, área custom, **seletor de view** (dropdown), **Filtro** e ação primár
 nessa ordem, do recorte mais amplo (qual período) pro mais específico (o que
 dentro dele).
 
-**Os dois estados do botão Filtro, e por que são diferentes:**
+**O botão Filtro carrega dois sinais independentes:**
 
-| Estado | Aparência |
-|---|---|
-| painel **aberto** | nada muda — segue `secondary outline`, par do botão de view |
-| **tem filtro aplicado** | `primary soft` + `border-border-brand` → verde de marca a **14%** de opacidade, texto e borda em brand, mais o ponto no canto |
+- **Verde** (`primary soft` + `border-border-brand` → brand a **14%** de
+  opacidade, texto e borda em brand) = a ferramenta está **engajada**: painel
+  aberto **ou** filtro aplicado.
+- **Ponto** no canto = existe **filtro aplicado**, e só isso.
 
-É a mesma receita do `ToolbarToolButton` do `TableToolbar`, que é o precedente do
-DS pra "esta ferramenta tem algo ligado". A distinção é deliberada: filtro
-aplicado é estado do **dado** (persiste, muda o que você vê) e merece cor; painel
-aberto é estado da **UI** (transitório) e quem o sinaliza é o próprio painel na
-tela, mais o `aria-expanded`. O ponto continua junto da cor porque cor sozinha
-não pode ser o único portador da informação.
+| Situação | Verde? | Ponto? |
+|---|---|---|
+| nada aberto, nada filtrado | não | não |
+| painel aberto, sem filtro | **sim** | não |
+| filtro aplicado, painel fechado | **sim** | **sim** |
+| filtro aplicado, painel aberto | **sim** | **sim** |
+
+A cor é a mesma receita do `ToolbarToolButton` do `TableToolbar` — o precedente
+do DS pra "esta ferramenta tem algo ligado". O ponto **não** é redundante com
+ela: é o que separa "abri pra olhar" de "tem filtro mexendo no que eu vejo", e é
+o portador não-cromático da informação pra quem não distingue o verde.
 
 O botão Filtro abre um **painel-coluna à direita da grade** — não um overlay.
 
@@ -45,20 +50,21 @@ O botão Filtro abre um **painel-coluna à direita da grade** — não um overla
 
 ---
 
-## ⛔ Estado atual — o que NÃO está pronto
+## Estado atual — o que está e o que NÃO está pronto
 
 Leia antes de planejar uma tela em cima disto:
 
 | | Status |
 |---|---|
-| view `month` | ✅ completa — grade, navegação, busca, filtros, `+N mais`, clique no evento, `+` de criar |
-| views `week` · `day` · `list` | ⛔ **placeholder** — renderizam um aviso "em construção" |
+| view `month` | ✅ grade 6×7, multi-dia com pontas truncadas, `+N mais` em popover, `+` de criar no hover |
+| views `week` / `day` | ✅ a MESMA view (`views/time-grid.tsx`) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro, lane-packing, linha do "agora", faixa de hora clicável |
+| view `list` | ✅ agenda agrupada por dia, **só os dias que têm evento** |
 | drag & drop (mover / redimensionar) | ⛔ não implementado; `onEventMove`/`onEventResize` existem na API e **não são chamados** ainda |
-| navegação por teclado na grade | ⛔ não implementada (o foco por `Tab` funciona) |
+| navegação por teclado na grade | ⛔ não implementada (o foco por `Tab` funciona; falta o roving tabindex das setas) |
 
-O núcleo puro que as views faltantes vão consumir (`hooks/layout.ts`:
-lane-packing, spans multi-dia, snap, resize) **já está implementado e testado**
-— 36 testes unitários em `hooks/layout.test.ts`.
+O núcleo puro que o dnd vai consumir (`snapToGrid` e `resolveResize` em
+`hooks/layout.ts`) **já está implementado e testado** — 36 testes de borda em
+`hooks/layout.test.ts`, incluindo os clamps que impedem `start > end`.
 
 ---
 

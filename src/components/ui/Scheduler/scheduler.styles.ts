@@ -591,6 +591,194 @@ export const schedulerOverflowPanelTitle = tv({
 });
 
 /* ────────────────────────────────────────────────────────────────────────
+ * Grade de horas — week e day (a MESMA view, 7 ou 1 coluna) — spec §5.2
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/**
+ * ⚠️ **`HOUR_HEIGHT_PX` em `views/time-grid.tsx` espelha `h-comp-3xl` (48px).**
+ * A altura da hora precisa existir como número em JS porque
+ * `minutesToOffset()` posiciona os eventos em px. Se este valor mudar aqui,
+ * mude lá — é o acoplamento inevitável de posicionamento absoluto sobre grade
+ * tokenizada, e está declarado dos dois lados.
+ */
+export const schedulerTimeFrame = tv({
+  base: [
+    "flex min-h-0 flex-1 flex-col overflow-hidden",
+    "rounded-radius-xl border border-border-default bg-bg-surface",
+  ],
+});
+
+/** Cabeçalho de dias: o vão da esquerda alinha com o gutter de horas. */
+export const schedulerTimeHead = tv({
+  base: "flex shrink-0 border-b border-border-default bg-bg-subtle dark:bg-bg-canvas",
+});
+
+/**
+ * Largura do gutter de horas. `w-comp-4xl` (56px) cabe "12:00 AM" no formato
+ * 12h — o 24h caberia em menos, mas variar a largura por formato faria a grade
+ * "pular" ao trocar de idioma.
+ */
+export const schedulerTimeGutter = tv({
+  base: "w-comp-4xl shrink-0",
+});
+
+export const schedulerTimeHeadDay = tv({
+  base: [
+    "flex min-w-0 flex-1 flex-col items-center justify-center gap-gp-2xs",
+    "border-l border-border-subtle py-pad-md",
+  ],
+  variants: {
+    /** Sábado/domingo recuados — mesma leitura da grade do mês. */
+    weekend: { true: "bg-bg-subtle/40 dark:bg-bg-canvas", false: "" },
+  },
+  defaultVariants: { weekend: false },
+});
+
+export const schedulerTimeHeadWeekday = tv({
+  base: "text-caption-md font-medium uppercase text-fg-muted",
+});
+
+/** Banda de dia inteiro, entre o cabeçalho e a grade rolável. */
+export const schedulerAllDayRow = tv({
+  base: "flex shrink-0 border-b border-border-default",
+});
+
+export const schedulerAllDayLabel = tv({
+  base: [
+    "flex w-comp-4xl shrink-0 items-start justify-end",
+    "px-pad-md py-pad-sm text-caption-sm text-fg-subtle",
+  ],
+});
+
+export const schedulerAllDayCell = tv({
+  base: [
+    "flex min-w-0 flex-1 flex-col gap-gp-2xs",
+    "border-l border-border-subtle p-sp-2xs",
+  ],
+});
+
+/**
+ * O corpo rolável. `scrollbar-thin` é a barra do DS; `overscroll-contain` evita
+ * que rolar até o fim da grade continue rolando a página atrás.
+ */
+export const schedulerTimeBody = tv({
+  base: "min-h-0 flex-1 overflow-y-auto overscroll-contain scrollbar-thin",
+});
+
+export const schedulerTimeCanvas = tv({
+  base: "relative flex",
+});
+
+/**
+ * Rótulo da hora. Fica no TOPO da própria faixa, deslocado meia-linha pra cima
+ * (`-translate-y-1/2`), que é a convenção de calendário: o rótulo marca a linha,
+ * não a faixa. Sem o deslocamento, "09:00" aparece centralizado no bloco das 9h
+ * e o usuário lê a linha errada.
+ *
+ * O primeiro rótulo é ocultado (`first:opacity-0`) porque metade dele sairia
+ * acima da área visível.
+ */
+export const schedulerHourLabel = tv({
+  base: [
+    "relative flex h-comp-3xl items-start justify-end pr-pad-md",
+    "text-caption-sm tabular-nums text-fg-subtle",
+    "first:opacity-0",
+  ],
+});
+
+export const schedulerHourLabelText = tv({
+  base: "-translate-y-1/2",
+});
+
+export const schedulerTimeColumn = tv({
+  base: "relative min-w-0 flex-1 border-l border-border-subtle",
+  variants: {
+    weekend: { true: "bg-bg-subtle/40 dark:bg-bg-canvas", false: "" },
+  },
+  defaultVariants: { weekend: false },
+});
+
+/**
+ * Uma faixa de hora dentro da coluna. É `button` porque é alvo de clique
+ * (criar evento naquela hora) — um `div` com `onClick` não é alcançável por
+ * teclado nem anunciado como acionável.
+ */
+export const schedulerHourSlot = tv({
+  base: [
+    "block h-comp-3xl w-full cursor-pointer",
+    "border-b border-border-subtle bg-transparent p-0 outline-none",
+    "transition-colors duration-150",
+    "hover:bg-bg-table-row-hover",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    "last:border-b-0",
+  ],
+});
+
+/** Linha do "agora". `pointer-events-none` pra não roubar clique da faixa. */
+export const schedulerNowLine = tv({
+  base: "pointer-events-none absolute left-0 right-0 z-[2] flex items-center",
+});
+
+export const schedulerNowDot = tv({
+  base: "-ml-[4px] size-[8px] shrink-0 rounded-radius-full bg-bg-brand",
+});
+
+export const schedulerNowStroke = tv({
+  base: "h-px flex-1 bg-bg-brand",
+});
+
+/** Rótulo "agora" no gutter, alinhado com a linha. */
+export const schedulerNowLabel = tv({
+  base: [
+    "pointer-events-none absolute right-pad-md z-[2] -translate-y-1/2",
+    "rounded-radius-xs bg-bg-brand px-pad-sm",
+    "text-caption-xs font-semibold tabular-nums text-fg-on-brand",
+  ],
+});
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Agenda (view `list`) — spec §5.3
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const schedulerListFrame = tv({
+  base: [
+    "flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain scrollbar-thin",
+    "rounded-radius-xl border border-border-default bg-bg-surface",
+  ],
+});
+
+export const schedulerListDay = tv({
+  base: "flex flex-col gap-gp-md border-b border-border-subtle p-sp-xl last:border-b-0",
+});
+
+/**
+ * Cabeçalho do dia. `sticky` com fundo opaco: numa agenda longa, saber "que dia
+ * é este que estou lendo" é justamente o que se perde ao rolar.
+ */
+export const schedulerListDayHead = tv({
+  base: [
+    "sticky top-0 z-[1] -mx-sp-xl -mt-sp-xl px-sp-xl pb-pad-md pt-sp-xl",
+    "flex items-baseline gap-gp-md bg-bg-surface",
+  ],
+});
+
+export const schedulerListDayNumber = tv({
+  base: "text-title-sm font-semibold tabular-nums",
+  variants: {
+    today: { true: "text-fg-brand", false: "text-fg-default" },
+  },
+  defaultVariants: { today: false },
+});
+
+export const schedulerListDayName = tv({
+  base: "text-body-sm text-fg-muted first-letter:uppercase",
+});
+
+export const schedulerListEvents = tv({
+  base: "flex flex-col gap-gp-sm",
+});
+
+/* ────────────────────────────────────────────────────────────────────────
  * Evento — spec §2.4 e §5
  * ──────────────────────────────────────────────────────────────────────── */
 
