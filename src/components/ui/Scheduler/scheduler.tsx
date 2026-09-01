@@ -175,7 +175,21 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     }, [title, state.view, state.date, state.visibleRange, locale]);
 
     return (
-      <div className={cn(schedulerRoot(), className)} {...rest}>
+      /* `role="region"` + `aria-label` com o período: é o que dá ao leitor de
+         tela um ponto de navegação ("Calendário, setembro 2026") sem que o
+         título do período precise se declarar `<h2>` e entrar no outline da
+         página. O rótulo só é montado quando o título é string — com um
+         `ReactNode` custom não dá pra derivar texto sem varrer a árvore. */
+      <div
+        role="region"
+        aria-label={
+          typeof periodTitle === "string"
+            ? `Calendário, ${periodTitle}`
+            : "Calendário"
+        }
+        className={cn(schedulerRoot(), className)}
+        {...rest}
+      >
         <SchedulerToolbar
           title={periodTitle}
           view={state.view}

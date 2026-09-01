@@ -145,7 +145,17 @@ export function SchedulerToolbar({
       <div className={schedulerToolbar()}>
         {/* ── Esquerda: período e navegação ─────────────────────────── */}
         <div className={schedulerToolbarSide()}>
-          <h2 className={schedulerTitle()}>{title}</h2>
+          {/* `<span>`, não `<h2>`. O título do período NÃO é um heading de
+              documento: ele rotula a toolbar. Como `h2` ele entrava no índice
+              da página no mesmo nível das seções — medido na doc page, onde 6
+              instâncias produziam "Preview → setembro 2026 → View semana →
+              6–12 de setembro…", um outline que descreve uma hierarquia que não
+              existe.
+
+              Quem dá o ponto de navegação pro leitor de tela é o
+              `role="region"` + `aria-label` na raiz (ver `scheduler.tsx`), que
+              anuncia o período sem inventar nível de heading. */}
+          <span className={schedulerTitle()}>{title}</span>
 
           <div role="group" aria-label="Navegação de período" className={schedulerNavGroup()}>
             <Button

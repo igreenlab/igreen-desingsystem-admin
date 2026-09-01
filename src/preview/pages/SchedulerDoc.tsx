@@ -6,6 +6,8 @@ import { Scheduler } from "../../components/ui/Scheduler";
 import type {
   SchedulerEvent,
   SchedulerFilterField,
+  SchedulerFilterModel,
+  SchedulerView,
 } from "../../components/ui/Scheduler";
 import { Button } from "../../components/ui/Button";
 import { Chip } from "../../components/ui/Chip";
@@ -21,10 +23,14 @@ import {
 } from "../components";
 
 const TOC = [
-  { id: "preview", label: "Preview" },
+  { id: "preview", label: "Preview — mês" },
+  { id: "semana", label: "View semana" },
+  { id: "dia", label: "View dia" },
+  { id: "lista", label: "View lista" },
   { id: "detalhe", label: "Painel de detalhe" },
   { id: "filtros", label: "Busca e filtros" },
-  { id: "estado", label: "As 4 views" },
+  { id: "controlado", label: "Modo controlado" },
+  { id: "tela-cheia", label: "Tela cheia" },
   { id: "falta", label: "O que falta" },
   { id: "api", label: "API Reference" },
 ];
@@ -159,6 +165,11 @@ const EVENTS: SchedulerEvent[] = [
   },
 ];
 
+/** Semana que contém o offsite (dias 9–11) — é onde a banda "Dia inteiro" aparece. */
+const SEMANA_DO_OFFSITE = addDays(MONTH_START, 9);
+/** Dia com 4 eventos, pra a view de dia não abrir vazia. */
+const DIA_CHEIO = addDays(MONTH_START, 14);
+
 /**
  * Os `id` dos campos são `categoryId`, `tagIds` e `color` porque são os três
  * que o motor `client` do `Scheduler` sabe casar. Um `id` fora dessa lista
@@ -218,11 +229,15 @@ const SCHEDULER_PROPS = [
   { name: "hourFormat", type: '"12h" | "24h"', defaultVal: '"24h"' },
   { name: "onEventClick", type: "(event, evt) => void", defaultVal: "—" },
   { name: "onSlotClick", type: "(start: Date, end: Date) => void — o + no hover da célula", defaultVal: "—" },
-  { name: "onEventMove", type: "(change: SchedulerEventChange) => void", defaultVal: "— (fatia futura)" },
-  { name: "onEventResize", type: "(change: SchedulerEventChange) => void", defaultVal: "— (fatia futura)" },
-  { name: "draggable", type: "boolean — global; event.draggable sobrepõe", defaultVal: "false" },
-  { name: "resizable", type: "boolean — global; event.resizable sobrepõe", defaultVal: "false" },
-  { name: "snapMinutes", type: "15 | 30 | 60", defaultVal: "15" },
+  { name: "onEventMove", type: "(change: SchedulerEventChange) => void — ⛔ ainda NÃO é chamado (dnd não implementado)", defaultVal: "—" },
+  { name: "onEventResize", type: "(change: SchedulerEventChange) => void — ⛔ ainda NÃO é chamado", defaultVal: "—" },
+  { name: "draggable", type: "boolean — global; event.draggable sobrepõe. Sem efeito enquanto o dnd não existe", defaultVal: "false" },
+  { name: "resizable", type: "boolean — global; event.resizable sobrepõe. Idem", defaultVal: "false" },
+  { name: "snapMinutes", type: "15 | 30 | 60 — usado no lane-packing de week/day; será o snap do dnd", defaultVal: "15" },
+  { name: "dayRange", type: "[number, number] — recorte de horas da grade week/day (ex: [8, 18])", defaultVal: "[0, 24]" },
+  { name: "scrollToHour", type: "number — hora em que a grade week/day abre rolada", defaultVal: "8" },
+  { name: "nowIndicator", type: "boolean — linha do “agora” em week/day", defaultVal: "true" },
+  { name: "emptyState", type: "ReactNode — só a view list tem (mês vazio é grade vazia legítima)", defaultVal: "—" },
   { name: "searchable", type: "boolean", defaultVal: "true" },
   { name: "search", type: "string (controlado)", defaultVal: "—" },
   { name: "onSearchChange", type: "(search: string) => void", defaultVal: "—" },
@@ -235,6 +250,13 @@ const SCHEDULER_PROPS = [
   { name: "primaryAction", type: "ReactNode — botão primário à direita", defaultVal: "—" },
   { name: "title", type: "ReactNode — override do título do período", defaultVal: "derivado" },
   { name: "renderEvent", type: "({ event, view, selected }) => ReactNode", defaultVal: "—" },
+];
+
+const REF_PROPS = [
+  { name: "goToDate", type: "(date: Date) => void — move a âncora sem trocar de view", defaultVal: "—" },
+  { name: "goToToday", type: "() => void", defaultVal: "—" },
+  { name: "next / prev", type: "() => void — anda 1 período (mês, semana, ou dia em day/list)", defaultVal: "—" },
+  { name: "getVisibleRange", type: "() => { start, end } — o que a view mostra AGORA", defaultVal: "—" },
 ];
 
 const EVENT_PROPS = [
@@ -259,6 +281,15 @@ type EventMeta = { local: string; responsavel: string };
 
 export function SchedulerDoc() {
   const [selected, setSelected] = useState<SchedulerEvent | null>(null);
+
+  /** Exemplo "já vem filtrado": model pré-aplicado, controlado pela página. */
+  const [filtroPreAplicado, setFiltroPreAplicado] = useState<SchedulerFilterModel>(
+    { categoryId: ["cliente"] },
+  );
+
+  /** Exemplo do modo controlado — período e view vivem AQUI, não no componente. */
+  const [dataControlada, setDataControlada] = useState<Date>(() => new Date());
+  const [viewControlada, setViewControlada] = useState<SchedulerView>("month");
 
   const meta = (selected?.meta ?? null) as EventMeta | null;
 
@@ -350,40 +381,160 @@ export function SchedulerDoc() {
         </div>
       </ExampleSection>
 
+      <SectionH2 id="semana" title="View semana" />
+      <ExampleSection
+        id="view-semana"
+        title="Grade de horas com banda de dia inteiro"
+        description="Ancorada na semana do offsite de propósito, pra a banda “Dia inteiro” aparecer. Ela só renderiza quando HÁ evento all-day na janela — uma faixa vazia permanente roubaria altura da grade sem informar nada. Cada faixa de hora é um <button>, não um <div onClick>: é alcançável por teclado e anunciada como acionável. O rótulo da hora fica deslocado meia-linha pra cima porque ele marca a LINHA, não a faixa — centralizado, você leria a hora errada."
+      >
+        <div className="h-[560px]">
+          <Scheduler
+            events={EVENTS}
+            locale={ptBR}
+            defaultView="week"
+            defaultDate={SEMANA_DO_OFFSITE}
+            searchable={false}
+            onEventClick={(event) => setSelected(event)}
+          />
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="dia" title="View dia" />
+      <ExampleSection
+        id="view-dia"
+        title="A MESMA view da semana, com 1 coluna"
+        description="week e day rodam o mesmo arquivo (views/time-grid.tsx). O gutter de horas, o lane-packing de sobreposição, a linha do “agora” e o alvo de clique por faixa são idênticos — o que muda é quantas colunas o map produz. Dois arquivos duplicariam cinco mecanismos pra ganhar zero. Aqui o dayRange é [7, 20]: a grade não renderiza madrugada, e o scrollToHour abre já nas 8h."
+      >
+        <div className="h-[560px]">
+          <Scheduler
+            events={EVENTS}
+            locale={ptBR}
+            defaultView="day"
+            defaultDate={DIA_CHEIO}
+            dayRange={[7, 20]}
+            searchable={false}
+            onEventClick={(event) => setSelected(event)}
+          />
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="lista" title="View lista (agenda)" />
+      <ExampleSection
+        id="view-lista"
+        title="Só os dias que têm evento"
+        description="A grade do mês mostra os 42 dias porque ali a grade É a informação — um dia vazio diz “nada marcado nesta terça”. Numa agenda, não: rolar por 22 blocos vazios pra achar 8 eventos é o oposto do que ela serve, e o salto entre datas já diz que não há nada no meio. Evento multi-dia entra em CADA dia que ocupa (quem abre no dia 10 espera ver o offsite que começou no 8), dia inteiro vem antes dos cronometrados, e marco (start === end) mostra um horário só em vez de “14:00 – 14:00”, que leria como erro de dado. O cabeçalho do dia é sticky."
+      >
+        <div className="h-[560px]">
+          <Scheduler
+            events={EVENTS}
+            locale={ptBR}
+            defaultView="list"
+            searchable={false}
+            onEventClick={(event) => setSelected(event)}
+          />
+        </div>
+      </ExampleSection>
+
       <SectionH2 id="detalhe" title="Painel de detalhe — padrão dsgreen-paneldetail-2" />
       <ExampleSection
         id="detalhe-panel"
         title="O Scheduler não conhece FloatingPanel"
-        description="O componente só emite onEventClick(event, evt) e devolve event.meta intacto — o payload cru do domínio. Quem monta o painel é a tela, no padrão do bloco dsgreen-paneldetail-2 (side right, size lg, titleSlot com o contexto, lista plana de propriedades). É o que mantém o detalhe adaptável ao domínio de quem consome sem arrastar FloatingPanel pras deps do item de registry."
+        description="O componente só emite onEventClick(event, evt) e devolve event.meta intacto — o payload cru do domínio. Quem monta o painel é a tela, no padrão do bloco dsgreen-paneldetail-2 (side right, size lg, titleSlot com o contexto, lista plana de propriedades). É o que mantém o detalhe adaptável ao domínio de quem consome sem arrastar FloatingPanel pras deps do item de registry. Todos os exemplos desta página compartilham o mesmo painel — clicar num evento de qualquer grade acima o abre."
       >
         <p className="text-body-sm text-fg-muted">
-          Clique em qualquer evento da grade acima — o painel abre à direita.
+          Clique em qualquer evento — de qualquer uma das grades desta página.
         </p>
       </ExampleSection>
 
       <SectionH2 id="filtros" title="Busca e filtros" />
       <ExampleSection
-        id="filtros-decl"
-        title="Declarativo, com área custom"
-        description="O botão Filtro abre um painel que é uma COLUNA à direita da grade, não um overlay: ele empurra o calendário em vez de cobri-lo. É a diferença que importa num filtro — marcar uma caixa e ver a grade reagir acontece no mesmo gesto, sem fechar nada. Dentro dele: mini-calendário pra saltar de data e um grupo de caixas por campo, coloridas com a mesma cor que o evento tem na grade (o que dispensa legenda). Os chips acima da grade são só o resumo do que está aplicado, com o × pra desligar sem reabrir o painel (L-051). AND entre campos, OR dentro do campo. Abaixo de 1024px a coluna não cabe e o botão fica desabilitado explicando por quê."
+        id="filtros-preaplicado"
+        title="filterModel pré-aplicado + painel-coluna"
+        description="Este exemplo abre JÁ FILTRADO por Cliente, via filterModel — é o caminho certo pra “a tela já vem filtrada” (L-051: nunca monte um form de filtro acima da grade; passe o model e o chip aparece aplicado, com o × pra desfazer). O botão Filtro abre uma COLUNA à direita, não um overlay: marcar uma caixa e ver a grade reagir acontece no mesmo gesto, sem fechar nada. Verde no botão = ferramenta engajada (painel aberto ou filtro aplicado); o ponto = existe filtro. AND entre campos, OR dentro do campo. Abaixo de 1024px a coluna não cabe e o botão fica desabilitado explicando por quê."
       >
-        <p className="text-body-sm text-fg-muted">
-          Use os chips <strong>Categoria</strong>, <strong>Tags</strong> e{" "}
-          <strong>Cor</strong> na grade acima. Borda tracejada = disponível;
-          sólida com fundo de marca = aplicado.
-        </p>
+        <div className="h-[560px]">
+          <Scheduler
+            events={EVENTS}
+            locale={ptBR}
+            filterFields={FILTER_FIELDS}
+            filterModel={filtroPreAplicado}
+            onFilterModelChange={setFiltroPreAplicado}
+            toolbarActions={
+              <Button variant="outline" color="secondary" size="sm">
+                Ação custom
+              </Button>
+            }
+            onEventClick={(event) => setSelected(event)}
+          />
+        </div>
       </ExampleSection>
 
-      <SectionH2 id="estado" title="As 4 views" />
+      <SectionH2 id="controlado" title="Modo controlado" />
       <ExampleSection
-        id="estado-views"
-        title="Semana e dia são a MESMA view; lista é uma agenda"
-        description="week e day rodam o mesmo arquivo (views/time-grid.tsx) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro que só aparece quando há evento all-day na janela, lane-packing pra sobreposição, linha do “agora” e cada faixa de hora clicável pra criar. Evento que atravessa a meia-noite é recortado no dia visível, senão renderizaria altura pra fora da coluna. Já a list não mostra os dias vazios: numa agenda, rolar por 22 blocos sem nada pra achar 8 eventos é o oposto do que ela serve — o salto entre datas já diz que não há nada no meio."
+        id="controlado-externo"
+        title="Período e view dirigidos de fora"
+        description="Passar date + onDateChange (e view + onViewChange) transfere o estado pro consumidor — mesma gramática do viewMode do DataTable. Passar date SEM onDateChange é erro de uso: a navegação não anda, e o componente emite console.warn em DEV dizendo exatamente isso, porque o sintoma é indistinguível de um bug do componente. Há também um ref imperativo (goToDate, goToToday, next, prev, getVisibleRange) — o getVisibleRange existe pro filterMode=&quot;server&quot;, que precisa saber qual intervalo buscar sem duplicar a regra de alinhamento de semana."
+      >
+        <div className="flex flex-col gap-gp-xl">
+          <div className="flex flex-wrap items-center gap-gp-md">
+            <span className="text-body-sm text-fg-muted">
+              Controlado de fora:
+            </span>
+            <Button
+              variant="outline"
+              color="secondary"
+              size="sm"
+              onClick={() => setDataControlada(startOfMonth(new Date()))}
+            >
+              Ir pro início do mês
+            </Button>
+            <Button
+              variant="outline"
+              color="secondary"
+              size="sm"
+              onClick={() => setViewControlada("week")}
+            >
+              Forçar semana
+            </Button>
+            <Button
+              variant="outline"
+              color="secondary"
+              size="sm"
+              onClick={() => setViewControlada("month")}
+            >
+              Forçar mês
+            </Button>
+            <span className="text-caption-sm tabular-nums text-fg-subtle">
+              view = {viewControlada} · date ={" "}
+              {format(dataControlada, "dd/MM/yyyy", { locale: ptBR })}
+            </span>
+          </div>
+
+          <div className="h-[480px]">
+            <Scheduler
+              events={EVENTS}
+              locale={ptBR}
+              date={dataControlada}
+              onDateChange={setDataControlada}
+              view={viewControlada}
+              onViewChange={setViewControlada}
+              searchable={false}
+              onEventClick={(event) => setSelected(event)}
+            />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="tela-cheia" title="Tela cheia" />
+      <ExampleSection
+        id="tela-cheia-nota"
+        title="Não existe prop de fullscreen — a altura do pai é que manda"
+        description="O componente já é h-full. Pra usar como página inteira, dê h-screen ao container e deixe o Scheduler em flex-1. E isso não é só esticar: o corte do “+N mais” da célula do mês é derivado da altura MEDIDA da linha, como as linhas da tabela. Medido no browser com o mesmo dataset — viewport 800px dá linha de 76px e 2 pills por célula; viewport 1400px dá linha de 176px e 6 pills. Pra travar num número fixo, a view de mês aceita maxPerCell, mas o default adaptativo é o que aproveita a tela."
       >
         <p className="text-body-sm text-fg-muted">
-          Troque a view no seletor da grade acima. Em <strong>Semana</strong>,
-          navegue até a semana do dia 9 pra ver a banda{" "}
-          <strong>Dia inteiro</strong> com o offsite de 3 dias.
+          Exemplo dedicado no menu:{" "}
+          <strong>Example: Scheduler tela cheia</strong> (
+          <code className="text-code-sm">#/scheduler-full</code>).
         </p>
       </ExampleSection>
 
@@ -391,7 +542,7 @@ export function SchedulerDoc() {
       <ExampleSection
         id="falta-wip"
         title="Drag & drop e navegação por teclado"
-        description="As props onEventMove e onEventResize existem na API e ainda NÃO são chamadas — draggable e resizable nascem false justamente por isso: dnd ligado sem handler conectado deixa o usuário arrastar e ver o evento voltar sozinho, que lê como bug do app. O núcleo puro que o dnd vai consumir (snapToGrid e resolveResize em hooks/layout.ts) já está implementado e coberto por testes de borda, incluindo os clamps que impedem start > end."
+        description="onEventMove e onEventResize existem na API e ainda NÃO são chamadas — draggable e resizable nascem false justamente por isso: dnd ligado sem handler conectado deixa o usuário arrastar e ver o evento voltar sozinho, que lê como bug do app. O núcleo puro que o dnd vai consumir (snapToGrid e resolveResize em hooks/layout.ts) já está implementado e coberto por 36 testes de borda, incluindo os clamps que impedem start > end. Distribuição também falta: o componente ainda não está no registry.json, então o consumidor não o recebe via igreen:add — fecha no /ds-release, junto com date-fns declarado como dependência do item."
       >
         <p className="text-body-sm text-fg-muted">
           A navegação por <strong>Tab</strong> funciona; o que falta é o roving
@@ -404,6 +555,9 @@ export function SchedulerDoc() {
 
       <SectionH2 id="api-event" title="SchedulerEvent" />
       <PropsTable items={EVENT_PROPS} />
+
+      <SectionH2 id="api-ref" title="SchedulerRef (imperativo)" />
+      <PropsTable items={REF_PROPS} />
 
       {/* ── Painel de detalhe (padrão dsgreen-paneldetail-2) ────────── */}
       <FloatingPanel
