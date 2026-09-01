@@ -229,7 +229,8 @@ const SCHEDULER_PROPS = [
   { name: "filterModel", type: "Record<string, string[]> (controlado / pré-aplicado)", defaultVal: "—" },
   { name: "onFilterModelChange", type: "(model) => void", defaultVal: "—" },
   { name: "filterMode", type: '"client" | "server"', defaultVal: '"client"' },
-  { name: "toolbarActions", type: "ReactNode — área custom da toolbar", defaultVal: "—" },
+  { name: "toolbarActions", type: "ReactNode — área custom, entre o filtro e o seletor de view", defaultVal: "—" },
+  { name: "defaultFilterPanelOpen", type: "boolean — o painel-coluna de filtro já vem aberto", defaultVal: "false" },
   { name: "primaryAction", type: "ReactNode — botão primário à direita", defaultVal: "—" },
   { name: "title", type: "ReactNode — override do título do período", defaultVal: "derivado" },
   { name: "renderEvent", type: "({ event, view, selected }) => ReactNode", defaultVal: "—" },
@@ -338,11 +339,7 @@ export function SchedulerDoc() {
                 `onSlotClick → ${format(start, "PPP", { locale: ptBR })}`,
               )
             }
-            toolbarActions={
-              <Button variant="outline" color="secondary" size="sm">
-                Exportar
-              </Button>
-            }
+            defaultFilterPanelOpen
             primaryAction={
               <Button variant="filled" size="sm" iconLeft={<Plus />}>
                 Novo evento
@@ -367,7 +364,7 @@ export function SchedulerDoc() {
       <ExampleSection
         id="filtros-decl"
         title="Declarativo, com área custom"
-        description="filterFields declara os campos e o componente renderiza os chips E aplica o filtro (L-051: chip aplicado, nunca form solto acima da grade). AND entre campos, OR dentro do campo. No modo client o motor casa categoryId, tagIds e color; qualquer outro id renderiza chip e não filtra — e o componente avisa por console.warn em DEV. Para campo próprio, filterMode=&quot;server&quot; e o filtro fica fora. A área custom é toolbarActions (o botão Exportar acima)."
+        description="O botão Filtro abre um painel que é uma COLUNA à direita da grade, não um overlay: ele empurra o calendário em vez de cobri-lo. É a diferença que importa num filtro — marcar uma caixa e ver a grade reagir acontece no mesmo gesto, sem fechar nada. Dentro dele: mini-calendário pra saltar de data e um grupo de caixas por campo, coloridas com a mesma cor que o evento tem na grade (o que dispensa legenda). Os chips acima da grade são só o resumo do que está aplicado, com o × pra desligar sem reabrir o painel (L-051). AND entre campos, OR dentro do campo. Abaixo de 1024px a coluna não cabe e o botão fica desabilitado explicando por quê."
       >
         <p className="text-body-sm text-fg-muted">
           Use os chips <strong>Categoria</strong>, <strong>Tags</strong> e{" "}
@@ -380,10 +377,11 @@ export function SchedulerDoc() {
       <ExampleSection
         id="estado-wip"
         title="Semana, dia, lista, drag & drop e teclado"
-        description="O segmented mostra as 4 views de propósito — esconder as opções impediria descobrir que elas vão existir —, mas semana, dia e lista renderizam um aviso explícito de “em construção” em vez de uma grade vazia que pareceria defeito. Drag & drop e navegação por teclado também não entraram nesta entrega. O núcleo puro que essas views consomem (hooks/layout.ts: lane-packing, spans multi-dia, snap, resize) já está implementado e testado."
+        description="O dropdown lista as 4 views de propósito — esconder as opções impediria descobrir que elas vão existir —, mas semana, dia e lista renderizam um aviso explícito de “em construção” em vez de uma grade vazia que pareceria defeito. Drag & drop e navegação por teclado também não entraram nesta entrega. O núcleo puro que essas views consomem (hooks/layout.ts: lane-packing, spans multi-dia, snap, resize) já está implementado e testado."
       >
         <p className="text-body-sm text-fg-muted">
-          Troque pra <strong>Semana</strong>, <strong>Dia</strong> ou{" "}
+          Abra o seletor de view e escolha <strong>Semana</strong>,{" "}
+          <strong>Dia</strong> ou{" "}
           <strong>Lista</strong> na grade acima pra ver o aviso.
         </p>
       </ExampleSection>

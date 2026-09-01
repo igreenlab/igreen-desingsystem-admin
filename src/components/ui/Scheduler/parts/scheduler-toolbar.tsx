@@ -1,6 +1,23 @@
 import type { ReactNode } from "react";
-import { CalendarDays, ChevronLeft, ChevronRight, Columns3, List, Search, Square, X } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/shadcn/popover";
+import {
+  CalendarDays,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Columns3,
+  List,
+  ListFilter,
+  Search,
+  Square,
+  X,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/shadcn/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Button } from "../../Button";
 import {
@@ -8,42 +25,51 @@ import {
   schedulerFilterChip,
   schedulerFilterChipName,
   schedulerFilterChipValue,
-  schedulerFilterOption,
-  schedulerFilterPanel,
+  schedulerFilterDot,
   schedulerFilterRow,
+  schedulerNavGroup,
   schedulerSearch,
   schedulerSearchInput,
-  schedulerSegmented,
-  schedulerSegmentedButton,
   schedulerTitle,
   schedulerToolbar,
   schedulerToolbarSide,
+  schedulerViewMenuItem,
 } from "../scheduler.styles";
 import type {
-  SchedulerEventColor,
   SchedulerFilterField,
   SchedulerFilterModel,
   SchedulerView,
 } from "../scheduler.types";
-import { schedulerEventDot } from "../scheduler.styles";
 
 /**
- * Toolbar do `Scheduler` — uma linha em desktop, duas abaixo de ~1024px.
+ * Toolbar do `Scheduler`.
  *
- * Layout: `[título] [Hoje] [‹][›]` à esquerda · `[busca] [chips] {custom}
- * [segmented] [ação]` à direita.
+ * Layout: `[título] [‹ Hoje ›]` à esquerda · `[busca] [filtro] {custom}
+ * [view ▾] [ação]` à direita.
  *
- * O **segmented** (e não um dropdown "Month view") pra trocar de view: são 4
- * opções, e segmented mostra as 4 de uma vez com 1 clique cada, enquanto o
- * dropdown esconde todas atrás de um clique. É também o que o `viewMode` do
- * `DataTable` já faz — divergir aqui criaria duas gramáticas pra mesma
- * decisão dentro do mesmo DS.
+ * ## Duas mudanças de desenho, e o porquê
+ *
+ * **1. `‹ Hoje ›` é um grupo, não três controles soltos.** As três ações são o
+ * mesmo assunto — "onde estou no tempo" — e "Hoje" é a posição de origem entre
+ * voltar e avançar. Colado, o alvo de clique fica contíguo e a leitura é de um
+ * controle só. Soltos, "Hoje" competia visualmente com o título ao lado.
+ *
+ * **2. A view virou dropdown, não segmented.** O segmented mostrava as 4
+ * opções de uma vez, o que é uma vantagem real — mas custava ~230px numa
+ * toolbar que agora também carrega o botão de filtro, e em 1280px empurrava a
+ * ação primária pra segunda linha. O dropdown custa ~110px e o rótulo do
+ * gatilho diz qual view está ativa, então a informação não se perde: o que se
+ * perde é ver as 3 inativas sem clicar.
  *
  * ⛔ Nada aqui é importado do `TableToolbar` — só a gramática visual foi
- * copiada (ver nota no topo de `scheduler.styles.ts`, spec §4.1, L-049).
+ * copiada (ver nota no topo de `scheduler.styles.ts`, L-049).
  */
 
-const VIEW_ITEMS: { value: SchedulerView; label: string; icon: ReactNode }[] = [
+const VIEW_ITEMS: {
+  value: SchedulerView;
+  label: string;
+  icon: ReactNode;
+}[] = [
   { value: "month", label: "Mês", icon: <CalendarDays /> },
   { value: "week", label: "Semana", icon: <Columns3 /> },
   { value: "day", label: "Dia", icon: <Square /> },
@@ -64,10 +90,19 @@ export type SchedulerToolbarProps = {
 
   filterFields?: SchedulerFilterField[];
   filterModel: SchedulerFilterModel;
-  onToggleValue: (fieldId: string, value: string) => void;
   onClearField: (fieldId: string) => void;
   onClearAll: () => void;
   appliedCount: number;
+
+  /** Estado do painel-coluna de filtro. */
+  filterPanelOpen: boolean;
+  onToggleFilterPanel: () => void;
+  /**
+   * `false` abaixo de `lg`: a coluna extra não cabe junto de uma grade de 7
+   * dias legível, então o botão fica desabilitado com `title` explicando — em
+   * vez de abrir um painel que o CSS esconde.
+   */
+  filterPanelAvailable: boolean;
 
   toolbarActions?: ReactNode;
   primaryAction?: ReactNode;
@@ -85,14 +120,22 @@ export function SchedulerToolbar({
   onSearchChange,
   filterFields,
   filterModel,
-  onToggleValue,
   onClearField,
   onClearAll,
   appliedCount,
+  filterPanelOpen,
+  onToggleFilterPanel,
+  filterPanelAvailable,
   toolbarActions,
   primaryAction,
 }: SchedulerToolbarProps) {
   const hasFilters = (filterFields?.length ?? 0) > 0;
+  const activeView = VIEW_ITEMS.find((v) => v.value === view) ?? VIEW_ITEMS[0];
+
+  /** Só os campos COM valor aplicado viram chip — o painel é onde se escolhe. */
+  const appliedFields = (filterFields ?? []).filter(
+    (field) => (filterModel[field.id] ?? []).length > 0,
+  );
 
   return (
     <div className="flex flex-col gap-gp-xl">
@@ -101,14 +144,7 @@ export function SchedulerToolbar({
         <div className={schedulerToolbarSide()}>
           <h2 className={schedulerTitle()}>{title}</h2>
 
-          <Button variant="outline" color="secondary" size="sm" onClick={onToday}>
-            Hoje
-          </Button>
-
-          {/* Dois botões de ícone separados, não um ButtonGroup: o grupo daria
-              a leitura de "uma ação com opções", e aqui são duas ações
-              simétricas e independentes. */}
-          <div className="flex shrink-0 items-center gap-gp-2xs">
+          <div role="group" aria-label="Navegação de período" className={schedulerNavGroup()}>
             <Button
               variant="outline"
               color="secondary"
@@ -117,6 +153,9 @@ export function SchedulerToolbar({
               aria-label="Período anterior"
             >
               <ChevronLeft />
+            </Button>
+            <Button variant="outline" color="secondary" size="sm" onClick={onToday}>
+              Hoje
             </Button>
             <Button
               variant="outline"
@@ -130,7 +169,7 @@ export function SchedulerToolbar({
           </div>
         </div>
 
-        {/* ── Direita: busca, filtros, custom, views, ação ──────────── */}
+        {/* ── Direita: busca, filtro, custom, view, ação ────────────── */}
         <div className={schedulerToolbarSide()}>
           {searchable ? (
             <label className={schedulerSearch({ expanded: search !== "" })}>
@@ -146,134 +185,108 @@ export function SchedulerToolbar({
             </label>
           ) : null}
 
+          {hasFilters ? (
+            /* `relative` no wrapper e não no Button: o ponto é posicionado
+               contra a caixa do botão, e o Button não expõe `position`. */
+            <span className="relative shrink-0">
+              <Button
+                variant={filterPanelOpen ? "soft" : "outline"}
+                color="secondary"
+                size="sm"
+                iconLeft={<ListFilter />}
+                onClick={onToggleFilterPanel}
+                disabled={!filterPanelAvailable}
+                aria-expanded={filterPanelOpen}
+                title={
+                  filterPanelAvailable
+                    ? undefined
+                    : "O painel de filtros precisa de uma tela mais larga (1024px+)"
+                }
+              >
+                Filtro
+              </Button>
+              {appliedCount > 0 ? (
+                <span className={schedulerFilterDot()} aria-hidden="true" />
+              ) : null}
+            </span>
+          ) : null}
+
           {toolbarActions}
 
-          {/* `role="radiogroup"` e não `tablist`: o segmented escolhe UM valor
-              entre alternativas e não hospeda painéis — `tab` prometeria ao
-              leitor de tela uma relação com `tabpanel` que não existe. */}
-          <div
-            role="radiogroup"
-            aria-label="Modo de visualização"
-            className={schedulerSegmented()}
-          >
-            {VIEW_ITEMS.map((item) => {
-              const isActive = item.value === view;
-              return (
-                <button
-                  key={item.value}
-                  type="button"
-                  role="radio"
-                  aria-checked={isActive}
-                  title={item.label}
-                  onClick={() => onViewChange(item.value)}
-                  className={schedulerSegmentedButton({ isActive })}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </div>
+          {/* View: dropdown de escolha ÚNICA → RadioGroup, não Item solto.
+              `Item` não anuncia qual está ativa; `RadioItem` sim. */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                color="secondary"
+                size="sm"
+                iconLeft={activeView.icon}
+                iconRight={<ChevronDown />}
+                aria-label={`Visualização: ${activeView.label}`}
+                className="shrink-0"
+              >
+                {activeView.label}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[168px]">
+              <DropdownMenuRadioGroup
+                value={view}
+                onValueChange={(v) => onViewChange(v as SchedulerView)}
+              >
+                {VIEW_ITEMS.map((item) => (
+                  <DropdownMenuRadioItem key={item.value} value={item.value}>
+                    <span className={schedulerViewMenuItem()}>{item.label}</span>
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {primaryAction}
         </div>
       </div>
 
-      {/* ── Linha de chips de filtro ──────────────────────────────────
-          Fica em linha PRÓPRIA, abaixo da toolbar, e não junto da busca: com
-          3 campos aplicados os chips crescem e empurrariam o segmento de
-          views pra fora da tela em 1280px. */}
-      {hasFilters ? (
+      {/* ── Resumo do que está aplicado ───────────────────────────────
+          Linha própria e só com o que está LIGADO. Some inteira quando não há
+          filtro aplicado — antes ela mostrava chips vazios de borda tracejada,
+          que agora seriam um segundo lugar de escolher a mesma coisa que o
+          painel. Continua servindo pra desligar sem reabrir o painel (L-051). */}
+      {appliedFields.length > 0 ? (
         <div className={schedulerFilterRow()}>
-          {filterFields?.map((field) => {
+          {appliedFields.map((field) => {
             const selected = filterModel[field.id] ?? [];
-            const applied = selected.length > 0;
             const selectedLabels = field.options
               .filter((o) => selected.includes(o.value))
               .map((o) => o.label);
 
             return (
-              <Popover key={field.id}>
-                <PopoverTrigger asChild>
-                  <button type="button" className={schedulerFilterChip({ applied })}>
-                    <span className={schedulerFilterChipName()}>{field.label}</span>
-                    {applied ? (
-                      <>
-                        <span className={schedulerFilterChipValue()}>
-                          {/* 1 valor mostra o rótulo; 2+ mostra a contagem —
-                              listar 4 rótulos faria o chip virar a linha
-                              inteira. */}
-                          {selectedLabels.length === 1
-                            ? selectedLabels[0]
-                            : `${selectedLabels.length} selecionados`}
-                        </span>
-                        {/* `<span role="button">` e não `<button>`: botão
-                            dentro de botão é HTML inválido e o Radix já
-                            transformou o chip num trigger clicável. */}
-                        <span
-                          role="button"
-                          tabIndex={0}
-                          aria-label={`Limpar filtro ${field.label}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onClearField(field.id);
-                          }}
-                          onKeyDown={(e) => {
-                            if (e.key !== "Enter" && e.key !== " ") return;
-                            e.stopPropagation();
-                            e.preventDefault();
-                            onClearField(field.id);
-                          }}
-                          className="grid size-icon-sm shrink-0 place-items-center rounded-radius-full text-fg-subtle transition-colors duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
-                        >
-                          <X aria-hidden="true" />
-                        </span>
-                      </>
-                    ) : null}
-                  </button>
-                </PopoverTrigger>
-
-                <PopoverContent align="start" className="p-0">
-                  <div className={schedulerFilterPanel()}>
-                    {field.options.map((option) => {
-                      const isOn = selected.includes(option.value);
-                      return (
-                        <button
-                          key={option.value}
-                          type="button"
-                          aria-pressed={isOn}
-                          onClick={() => onToggleValue(field.id, option.value)}
-                          className={schedulerFilterOption({ selected: isOn })}
-                        >
-                          {option.color ? (
-                            <span
-                              className={schedulerEventDot({
-                                color: option.color as SchedulerEventColor,
-                                size: "md",
-                              })}
-                              aria-hidden="true"
-                            />
-                          ) : null}
-                          <span className="min-w-0 flex-1 truncate">
-                            {option.label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <span key={field.id} className={schedulerFilterChip({ applied: true })}>
+                <span className={schedulerFilterChipName()}>{field.label}</span>
+                <span className={schedulerFilterChipValue()}>
+                  {selectedLabels.length === 1
+                    ? selectedLabels[0]
+                    : `${selectedLabels.length} selecionados`}
+                </span>
+                <button
+                  type="button"
+                  aria-label={`Limpar filtro ${field.label}`}
+                  onClick={() => onClearField(field.id)}
+                  className="grid size-icon-sm shrink-0 place-items-center rounded-radius-full text-fg-subtle transition-colors duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+                >
+                  <X aria-hidden="true" />
+                </button>
+              </span>
             );
           })}
 
-          {appliedCount > 0 || search !== "" ? (
-            <button
-              type="button"
-              onClick={onClearAll}
-              className={cn(schedulerClearLink(), "shrink-0")}
-            >
-              Limpar tudo
-            </button>
-          ) : null}
+          <button
+            type="button"
+            onClick={onClearAll}
+            className={cn(schedulerClearLink(), "shrink-0")}
+          >
+            Limpar tudo
+          </button>
         </div>
       ) : null}
     </div>

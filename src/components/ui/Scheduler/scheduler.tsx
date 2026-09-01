@@ -1,12 +1,19 @@
-import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { format } from "date-fns";
 import { CalendarClock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { schedulerPlaceholder, schedulerRoot } from "./scheduler.styles";
+import {
+  schedulerBody,
+  schedulerMain,
+  schedulerPlaceholder,
+  schedulerRoot,
+} from "./scheduler.styles";
 import { SchedulerToolbar } from "./parts/scheduler-toolbar";
+import { SchedulerFilterPanel } from "./parts/scheduler-filter-panel";
 import { SchedulerMonthView } from "./views/month";
 import { useSchedulerFilter } from "./hooks/use-scheduler-filter";
 import { useSchedulerState } from "./hooks/use-scheduler-state";
+import { useMediaQuery } from "./hooks/use-media-query";
 import type { SchedulerProps, SchedulerRef } from "./scheduler.types";
 
 /**
@@ -66,6 +73,7 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       filterModel,
       onFilterModelChange,
       filterMode = "client",
+      defaultFilterPanelOpen = false,
       toolbarActions,
       primaryAction,
       title,
@@ -107,6 +115,32 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       onFilterModelChange,
       filterMode,
     });
+
+    /**
+     * O painel de filtro é uma COLUNA, não um overlay — ele empurra a grade.
+     * Abaixo de 1024px essa coluna não cabe junto de uma grade de 7 dias
+     * legível, então nessa faixa ela não é montada e o botão fica desabilitado
+     * com `title` explicando.
+     *
+     * ⚠️ **Esta linha é a ÚNICA fonte do breakpoint.** `schedulerFilterAside`
+     * não tem media query: a primeira versão tinha `hidden lg:flex` no CSS
+     * *mais* este `matchMedia`, e medido no browser dava pra chegar num estado
+     * em que o botão se diz aberto e o painel está `display: none` — um
+     * controle que não faz nada visível. Com uma fonte só, painel montado ⟺
+     * botão aberto, sempre.
+     *
+     * ⚠️ **Limite conhecido de verificação:** a emulação de viewport por CDP
+     * (o `resize_window` do browser de teste) **não dispara**
+     * `MediaQueryList.change` — medido: `matches` vira, zero eventos chegam.
+     * Então a reação a um resize AO VIVO não foi verificada aqui; o que foi
+     * verificado é a montagem correta ao carregar em cada largura, porque o
+     * `useState` inicial lê `matchMedia` direto. Num browser real o listener é
+     * o mesmo do `MenuSidebar`, que está em produção.
+     */
+    const filterPanelAvailable = useMediaQuery("(min-width: 1024px)");
+    const [filterPanelOpen, setFilterPanelOpen] = useState(defaultFilterPanelOpen);
+    const showFilterPanel =
+      filterPanelOpen && filterPanelAvailable && (filterFields?.length ?? 0) > 0;
 
     useImperativeHandle(
       ref,
@@ -159,45 +193,69 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
           onSearchChange={filter.setSearch}
           filterFields={filterFields}
           filterModel={filter.filterModel}
-          onToggleValue={filter.toggleValue}
           onClearField={filter.clearField}
           onClearAll={filter.clearAll}
           appliedCount={filter.appliedCount}
+          filterPanelOpen={showFilterPanel}
+          onToggleFilterPanel={() => setFilterPanelOpen((o) => !o)}
+          filterPanelAvailable={filterPanelAvailable}
           toolbarActions={toolbarActions}
           primaryAction={primaryAction}
         />
 
-        {state.view === "month" ? (
-          <SchedulerMonthView
-            date={state.date}
-            events={filter.filteredEvents}
-            locale={locale}
-            weekStartsOn={weekStartsOn}
-            hourFormat={hourFormat}
-            now={now}
-            onEventClick={onEventClick}
-            onSlotClick={onSlotClick}
-            renderEvent={renderEvent}
-          />
-        ) : (
-          /* Aviso honesto, não grade vazia: uma grade sem nada parece defeito,
-             e esconder a opção no segmented impediria descobrir que a view vai
-             existir. */
-          <div className={schedulerPlaceholder()}>
-            <CalendarClock
-              className="size-icon-xl text-fg-subtle"
-              aria-hidden="true"
-            />
-            <span className="text-body-md font-semibold text-fg-default">
-              Visualização “{VIEW_LABEL[state.view]}” em construção
-            </span>
-            <span className="max-w-[42ch] text-body-sm text-fg-muted">
-              A view de mês está completa. Semana, dia e lista — além de drag &
-              drop e navegação por teclado — chegam nas próximas entregas deste
-              componente.
-            </span>
+        <div className={schedulerBody()}>
+          <div className={schedulerMain()}>
+            {state.view === "month" ? (
+              <SchedulerMonthView
+                date={state.date}
+                events={filter.filteredEvents}
+                locale={locale}
+                weekStartsOn={weekStartsOn}
+                hourFormat={hourFormat}
+                now={now}
+                onEventClick={onEventClick}
+                onSlotClick={onSlotClick}
+                renderEvent={renderEvent}
+              />
+            ) : (
+              /* Aviso honesto, não grade vazia: uma grade sem nada parece
+                 defeito, e esconder a opção no dropdown impediria descobrir que
+                 a view vai existir. */
+              <div className={schedulerPlaceholder()}>
+                <CalendarClock
+                  className="size-icon-xl text-fg-subtle"
+                  aria-hidden="true"
+                />
+                <span className="text-body-md font-semibold text-fg-default">
+                  Visualização “{VIEW_LABEL[state.view]}” em construção
+                </span>
+                <span className="max-w-[42ch] text-body-sm text-fg-muted">
+                  A view de mês está completa. Semana, dia e lista — além de drag
+                  & drop e navegação por teclado — chegam nas próximas entregas
+                  deste componente.
+                </span>
+              </div>
+            )}
           </div>
-        )}
+
+          {showFilterPanel && filterFields ? (
+            <SchedulerFilterPanel
+              filterFields={filterFields}
+              filterModel={filter.filterModel}
+              onToggleValue={filter.toggleValue}
+              onClearAll={filter.clearAll}
+              appliedCount={filter.appliedCount}
+              onClose={() => setFilterPanelOpen(false)}
+              counts={filter.optionCounts}
+              date={state.date}
+              now={now}
+              locale={locale}
+              weekStartsOn={weekStartsOn}
+              events={filter.filteredEvents}
+              onDateSelect={state.goToDate}
+            />
+          ) : null}
+        </div>
       </div>
     );
   },

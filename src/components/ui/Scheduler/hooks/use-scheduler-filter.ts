@@ -178,6 +178,37 @@ export function useSchedulerFilter({
     [filterModel],
   );
 
+  /**
+   * Contagem por opção, pro painel lateral: `{ fieldId: { value: n } }`.
+   *
+   * A base é o conjunto filtrado **só pela busca**, ignorando todos os filtros
+   * de campo — inclusive o do próprio campo. Escolha deliberada: o número fica
+   * **estável enquanto o usuário marca e desmarca caixas**. Se a base fosse "os
+   * outros campos já aplicados" (a facet count clássica), cada clique mudaria
+   * os números das outras listas, e a leitura vira alvo móvel justamente no
+   * momento de decidir.
+   *
+   * O que o número significa, então: "quantos eventos deste período casam com a
+   * busca e têm esta opção" — não "quantos vou ver se marcar". Está dito assim
+   * no USAGE, porque os dois são defensáveis e confundi-los é que engana.
+   */
+  const optionCounts = useMemo(() => {
+    const term = searchable ? search.trim().toLowerCase() : "";
+    const base = events.filter((e) => matchesSearch(e, term));
+    const out: Record<string, Record<string, number>> = {};
+
+    for (const field of filterFields ?? []) {
+      const perValue: Record<string, number> = {};
+      for (const option of field.options) {
+        perValue[option.value] = base.filter((e) =>
+          matchesField(e, field.id, [option.value]),
+        ).length;
+      }
+      out[field.id] = perValue;
+    }
+    return out;
+  }, [events, filterFields, search, searchable]);
+
   const filteredEvents = useMemo(() => {
     if (filterMode === "server") return events;
 
@@ -206,6 +237,7 @@ export function useSchedulerFilter({
     clearField,
     clearAll,
     appliedCount,
+    optionCounts,
     filteredEvents,
   };
 }

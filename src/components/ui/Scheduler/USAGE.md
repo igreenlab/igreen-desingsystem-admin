@@ -3,8 +3,11 @@
 **Categoria:** Data Display · **Dep:** `date-fns`
 
 Calendário de **eventos ao longo do tempo**, com 4 modos de visualização
-(mês · semana · dia · lista), toolbar embutida (navegação de período, busca,
-filtros declarativos, seletor de view), e detalhe por callback.
+(mês · semana · dia · lista), toolbar embutida e detalhe por callback.
+
+A toolbar traz: título do período + grupo `‹ Hoje ›` à esquerda; busca, botão
+**Filtro**, área custom, seletor de view (dropdown) e ação primária à direita.
+O botão Filtro abre um **painel-coluna à direita da grade** — não um overlay.
 
 > ⚠️ **Não confunda com `Calendar`.** `Calendar` é o primitivo
 > shadcn/react-day-picker: **seletor de data** dentro de um form. O `Scheduler`
@@ -59,7 +62,8 @@ lane-packing, spans multi-dia, snap, resize) **já está implementado e testado*
 | `filterFields` | `SchedulerFilterField[]` | — | declarativo; o componente filtra sozinho |
 | `filterModel` | `Record<string, string[]>` | — | controlado / **pré-aplicado** |
 | `filterMode` | `"client" \| "server"` | `"client"` | `server` só emite |
-| `toolbarActions` | `ReactNode` | — | a área custom da toolbar |
+| `toolbarActions` | `ReactNode` | — | área custom, entre o filtro e o seletor de view |
+| `defaultFilterPanelOpen` | `boolean` | `false` | o painel-coluna de filtro já vem aberto |
 | `primaryAction` | `ReactNode` | — | botão primário à direita |
 | `renderEvent` | `({event, view, selected}) => ReactNode` | — | troca só o miolo |
 
@@ -146,6 +150,47 @@ frágil, então não é feito.
 
 Consequência: `title={<b>Reunião</b> — Cliente X}` **não é encontrável** —
 falha em silêncio. Declare `searchText` nesses casos.
+
+### 4b. O painel de filtro é uma COLUNA, e some abaixo de 1024px
+
+O botão **Filtro** não abre popover nem sheet: abre uma coluna à direita que
+**empurra** a grade (~296px). É deliberado — filtro é o controle cujo resultado
+você quer ver *enquanto* mexe, e por cima da grade isso viraria
+marcar → fechar → olhar → reabrir.
+
+Duas consequências práticas:
+
+- **A grade encolhe.** Se a sua tela é estreita, prefira deixar
+  `defaultFilterPanelOpen` em `false` (o default).
+- **Abaixo de 1024px o painel não existe.** A coluna extra não cabe junto de
+  uma semana legível, então nessa faixa o botão fica **desabilitado** com
+  `title` explicando. Não é bug: é a alternativa a alternar um estado que o CSS
+  esconde.
+
+O breakpoint vive em dois lugares — o `lg:flex` de `schedulerFilterAside` e o
+`useMediaQuery("(min-width: 1024px)")` em `scheduler.tsx`. CSS resolve layout,
+JS resolve o estado do botão; se mudar, mude os dois.
+
+### 4c. "Nada marcado" = sem filtro, não "esconde tudo"
+
+Num app de calendário de verdade, desmarcar todas as agendas esconde tudo.
+**Aqui não**: campo sem opção marcada significa *sem restrição* — a convenção do
+`filterModel` do DS, a mesma do `DataTable` e do `DataList`. O cabeçalho do
+grupo mostra **"Todas"** nesse estado, pra não parecer que a seleção se perdeu.
+
+Inverter isso só neste componente faria o mesmo `filterModel` significar coisas
+opostas em telas diferentes.
+
+### 4d. A contagem ao lado da opção ignora os filtros de campo
+
+O número é "quantos eventos casam com a **busca** e têm esta opção" — **não**
+"quantos vou ver se marcar".
+
+A base exclui de propósito todos os filtros de campo, inclusive o do próprio
+campo, pra que os números fiquem **estáveis enquanto você marca e desmarca**.
+Com a facet count clássica (base = os outros campos já aplicados), cada clique
+mexeria nos números das outras listas, e a leitura vira alvo móvel exatamente na
+hora de decidir. As duas leituras são defensáveis; confundi-las é que engana.
 
 ### 5. `filterFields` no modo `client` só filtra 3 ids
 

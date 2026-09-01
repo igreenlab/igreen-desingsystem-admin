@@ -270,7 +270,20 @@ export type SchedulerProps = {
   onFilterModelChange?: (model: SchedulerFilterModel) => void;
   /** Default `"client"`. */
   filterMode?: SchedulerFilterMode;
-  /** Área custom, entre os chips e o segmented Mês/Semana/Dia/Lista. */
+  /**
+   * O painel de filtro já vem aberto. Default `false`.
+   *
+   * Ele é uma **coluna** à direita da grade, não um overlay: abrir encolhe a
+   * grade em ~296px. Por isso nasce fechado — e por isso não existe abaixo de
+   * 1024px, onde a coluna extra não caberia junto de uma semana legível.
+   *
+   * Só o estado INICIAL é prop: depois é o usuário que abre e fecha. Um par
+   * controlado (`filterPanelOpen` + `onFilterPanelOpenChange`) entraria se
+   * alguma tela precisasse dirigir isso de fora — nenhuma precisa hoje, e
+   * `defaultX` sem `x` é a metade que não mente sobre o que existe.
+   */
+  defaultFilterPanelOpen?: boolean;
+  /** Área custom, entre o botão de filtro e o seletor de view. */
   toolbarActions?: ReactNode;
   /**
    * Slot do botão primário à direita. `ReactNode`, não `{ label, onClick }`,

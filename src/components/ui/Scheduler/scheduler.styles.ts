@@ -64,36 +64,61 @@ export const schedulerTitle = tv({
   ],
 });
 
-/* ── Segmented (cópia da gramática do `toolbarSegmented`) ──────────── */
+/* ── Grupo de navegação: ‹ | Hoje | › ──────────────────────────────── */
 
-export const schedulerSegmented = tv({
+/**
+ * Três segmentos colados num controle só. Não usa o `ButtonGroup` do DS de
+ * propósito: ele resolve o **split button** (2 slots, `Primary` + `Chevron`,
+ * com os cantos já decididos em `!rounded-r-none` / `!rounded-l-none`) e não
+ * tem como expressar um segmento do MEIO sem canto nenhum. Forçá-lo aqui
+ * exigiria brigar com os `!` dele.
+ *
+ * O que este grupo faz é só a junta: os três filhos continuam sendo `Button`
+ * do DS, então cor, foco, altura e estados vêm de lá.
+ *
+ * `-ml-px` no 2º em diante colapsa a borda dupla entre segmentos vizinhos.
+ */
+export const schedulerNavGroup = tv({
   base: [
-    "inline-flex shrink-0 items-center gap-gp-2xs p-sp-2xs",
-    "h-form-lg rounded-radius-lg bg-bg-muted",
+    "inline-flex shrink-0 items-center",
+    "[&>*:not(:first-child)]:-ml-px",
+    // O segmento com foco sobe pra que o anel não seja cortado pelo vizinho.
+    "[&>*:focus-visible]:relative [&>*:focus-visible]:z-[1]",
+    "[&>*:first-child]:!rounded-r-none",
+    "[&>*:last-child]:!rounded-l-none",
+    "[&>*:not(:first-child):not(:last-child)]:!rounded-none",
   ],
 });
 
-export const schedulerSegmentedButton = tv({
+/* ── Dropdown de view (Mês · Semana · Dia · Lista) ─────────────────── */
+
+/**
+ * Substituiu o segmented de 4 posições. O segmented mostrava as 4 opções de
+ * uma vez, o que é bom, mas custava ~230px numa toolbar que agora também tem
+ * botão de filtro — em 1280px ele empurrava a ação primária pra segunda linha.
+ * O dropdown custa ~110px e diz qual view está ativa no próprio rótulo.
+ */
+export const schedulerViewTriggerLabel = tv({
+  base: "tabular-nums",
+});
+
+export const schedulerViewMenuItem = tv({
+  base: "flex items-center justify-between gap-gp-xl",
+});
+
+/* ── Botão de filtro ───────────────────────────────────────────────── */
+
+/**
+ * Ponto de "tem filtro aplicado" no canto do botão — mesma convenção do
+ * `toolbarToolDot` do `TableToolbar`. `border-2 border-bg-canvas` recorta o
+ * ponto do botão embaixo, senão ele parece um pixel sujo na borda.
+ */
+export const schedulerFilterDot = tv({
   base: [
-    "grid place-items-center",
-    "h-comp-lg min-w-comp-lg px-pad-md",
-    "cursor-pointer rounded-radius-md border-0 bg-transparent outline-none",
-    "text-body-sm font-normal text-fg-muted",
-    "transition-[background-color,color,box-shadow] duration-150",
-    "hover:text-fg-default",
-    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    "pointer-events-none absolute -right-[4px] -top-[4px] z-[2]",
+    "size-[13px] rounded-radius-full",
+    "bg-bg-brand border-2 border-bg-canvas",
   ],
-  variants: {
-    isActive: {
-      true: "bg-bg-accent font-semibold text-fg-default shadow-sh-sm",
-      false: "",
-    },
-    disabled: {
-      true: "pointer-events-none opacity-50",
-      false: "",
-    },
-  },
-  defaultVariants: { isActive: false, disabled: false },
 });
 
 /* ── Busca (cópia da gramática do `toolbarSearch`) ─────────────────── */
@@ -138,9 +163,14 @@ export const schedulerFilterRow = tv({
 });
 
 /**
- * Borda **tracejada** quando o filtro está disponível mas vazio, **sólida**
- * quando tem valor aplicado. É o que faz "tem filtro ligado" ser legível sem
- * ler o texto — mesma convenção do `TableToolbar`.
+ * Chip de filtro **aplicado**. Desde que o painel lateral passou a ser o lugar
+ * de escolher, esta linha não mostra mais chip vazio de borda tracejada: ela é
+ * só o resumo do que está ligado, com o `×` pra desligar sem reabrir o painel
+ * — que é o que a L-051 pede (o estado filtrado tem que ser visível e
+ * desfazível sem procurar o controle que o produziu).
+ *
+ * A variante `applied` continua no tv() porque o `false` ainda serve pro caso
+ * de um chip renderizado durante a animação de saída.
  */
 export const schedulerFilterChip = tv({
   base: [
@@ -183,26 +213,196 @@ export const schedulerClearLink = tv({
   ],
 });
 
-/* ── Popover de opções de um filtro ────────────────────────────────── */
+/* ────────────────────────────────────────────────────────────────────────
+ * Layout de duas colunas — grade + painel de filtro
+ * ──────────────────────────────────────────────────────────────────────── */
 
-export const schedulerFilterPanel = tv({
-  base: "flex max-h-[280px] min-w-[200px] flex-col gap-gp-2xs overflow-y-auto p-sp-xs",
+/**
+ * A área abaixo da toolbar. O painel de filtro é uma **coluna de verdade**, não
+ * um overlay: ele empurra a grade em vez de cobri-la.
+ *
+ * É a diferença que importa aqui. Um `Popover`/`Sheet` por cima obriga a
+ * fechar pra ver o efeito do filtro — e filtro é exatamente o controle cujo
+ * resultado você quer olhar enquanto mexe. Como coluna, marcar uma caixa e ver
+ * a grade reagir acontece no mesmo gesto.
+ *
+ * O custo é largura: a grade encolhe ~296px. Por isso o painel é fechado por
+ * default e some abaixo de `lg` (ver `schedulerFilterAside`).
+ */
+export const schedulerBody = tv({
+  base: "flex min-h-0 flex-1 gap-gp-2xl",
 });
 
-export const schedulerFilterOption = tv({
+export const schedulerMain = tv({
+  base: "flex min-h-0 min-w-0 flex-1 flex-col",
+});
+
+/**
+ * `w-[280px] shrink-0` — largura fixa, não fração: o mini-calendário tem 7
+ * colunas de largura mínima e uma fração de viewport o quebraria em telas
+ * médias.
+ *
+ * ⚠️ **Não há media query aqui, de propósito.** A primeira versão tinha
+ * `hidden lg:flex`, e o `scheduler.tsx` gateava o botão de filtro com um
+ * `matchMedia("(min-width: 1024px)")` — o MESMO breakpoint escrito em dois
+ * lugares, com dois mecanismos diferentes. Medido no browser: dá pra chegar num
+ * estado em que o botão se diz aberto e o painel está `display: none`, ou seja
+ * um controle que não faz nada visível.
+ *
+ * Agora o breakpoint vive **só** no `useMediaQuery` do `scheduler.tsx`, que
+ * decide se o painel é montado. Uma fonte de verdade: painel no DOM ⟺ botão
+ * diz aberto. Se o hook estiver defasado, os dois estão defasados juntos —
+ * consistente, em vez de contraditório.
+ */
+export const schedulerFilterAside = tv({
   base: [
-    "flex w-full cursor-pointer items-center gap-gp-md",
-    "min-h-form-md rounded-radius-sm px-pad-lg py-pad-md",
-    "border-0 bg-transparent text-left outline-none",
-    "text-body-sm text-fg-muted",
-    "transition-colors duration-150",
-    "hover:bg-bg-muted hover:text-fg-default",
+    "flex w-[280px] shrink-0 flex-col gap-gp-2xl overflow-y-auto",
+    "rounded-radius-xl border border-border-default bg-bg-surface p-sp-xl",
+  ],
+});
+
+export const schedulerAsideHead = tv({
+  base: "flex items-center justify-between gap-gp-md",
+});
+
+export const schedulerAsideTitle = tv({
+  base: "text-body-sm font-semibold text-fg-default",
+});
+
+/* ── Mini-calendário do painel ─────────────────────────────────────── */
+
+export const schedulerMiniHead = tv({
+  base: "flex items-center justify-between gap-gp-sm",
+});
+
+export const schedulerMiniTitle = tv({
+  base: "min-w-0 truncate text-body-sm font-semibold text-fg-default first-letter:uppercase",
+});
+
+export const schedulerMiniGrid = tv({
+  base: "grid grid-cols-7 gap-gp-2xs",
+});
+
+export const schedulerMiniWeekday = tv({
+  base: [
+    "grid size-comp-xs place-items-center",
+    "text-caption-xs font-medium uppercase text-fg-subtle",
+  ],
+});
+
+/**
+ * Célula do mini-calendário. `today` é o anel; `selected` é o preenchido — os
+ * dois podem coexistir, e é por isso que são variantes separadas em vez de um
+ * único `state`. Quando coincidem, o preenchido vence e o anel some (senão
+ * viram dois círculos concêntricos de 24px, ilegíveis).
+ */
+export const schedulerMiniDay = tv({
+  base: [
+    "grid size-comp-xs cursor-pointer place-items-center rounded-radius-full",
+    "border-0 bg-transparent outline-none",
+    "text-caption-md tabular-nums",
+    "transition-[background-color,color,box-shadow] duration-150",
+    "hover:bg-bg-muted",
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
   ],
   variants: {
-    selected: { true: "bg-bg-brand-subtle text-fg-brand", false: "" },
+    outside: { true: "text-fg-subtle", false: "text-fg-default" },
+    hasEvents: { true: "font-semibold", false: "" },
+    today: { true: "ring-1 ring-border-brand", false: "" },
+    selected: {
+      true: "bg-bg-brand font-semibold text-fg-on-brand hover:bg-bg-brand-hover",
+      false: "",
+    },
   },
-  defaultVariants: { selected: false },
+  compoundVariants: [
+    // Selecionado vence "hoje": um anel em volta do disco cheio não informa
+    // nada e adiciona 2px de ruído.
+    { selected: true, today: true, class: "ring-0" },
+    { selected: true, outside: true, class: "text-fg-on-brand" },
+  ],
+  defaultVariants: {
+    outside: false,
+    hasEvents: false,
+    today: false,
+    selected: false,
+  },
+});
+
+/* ── Grupos de filtro do painel (caixas coloridas, como no print) ──── */
+
+export const schedulerGroup = tv({
+  base: "flex flex-col gap-gp-sm",
+});
+
+export const schedulerGroupHead = tv({
+  base: [
+    "flex w-full cursor-pointer items-center justify-between gap-gp-md",
+    "min-h-form-sm rounded-radius-sm border-0 bg-transparent px-pad-sm outline-none",
+    "text-body-sm font-semibold text-fg-default",
+    "transition-colors duration-150",
+    "hover:bg-bg-muted",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    "[&_svg]:size-icon-sm [&_svg]:shrink-0 [&_svg]:text-fg-subtle",
+  ],
+});
+
+export const schedulerGroupChevron = tv({
+  base: "transition-transform duration-150",
+  variants: { open: { true: "", false: "-rotate-90" } },
+  defaultVariants: { open: true },
+});
+
+/**
+ * Linha de opção: `<label>` nativo embrulhando o `Checkbox`, **não**
+ * `<button>`. O label propaga o clique pro checkbox real, mantém a semântica
+ * de checkbox no leitor de tela e faz a linha inteira ser alvo de clique —
+ * é a mesma lição do `CardCheckbox` (L-025).
+ */
+export const schedulerOption = tv({
+  base: [
+    "flex cursor-pointer items-center gap-gp-md",
+    "min-h-form-sm rounded-radius-sm px-pad-sm",
+    "text-body-sm text-fg-default",
+    "transition-colors duration-150",
+    "hover:bg-bg-muted",
+    "has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand",
+  ],
+});
+
+export const schedulerOptionLabel = tv({
+  base: "min-w-0 flex-1 truncate",
+});
+
+export const schedulerOptionCount = tv({
+  base: "shrink-0 text-caption-sm tabular-nums text-fg-subtle",
+});
+
+/**
+ * Cor da caixa quando marcada. Sobrescreve o `data-[state=checked]:bg-bg-brand`
+ * do `Checkbox` via `className` — `tailwind-merge` resolve o par (mesmo
+ * modificador, mesmo grupo de utilitário) mantendo o último.
+ *
+ * O `[&_svg]` é necessário porque o tique mora no `Indicator`, que é filho e
+ * não alcançável por className na raiz.
+ */
+export const schedulerOptionBox = tv({
+  base: "shrink-0",
+  variants: {
+    color: {
+      brand:
+        "data-[state=checked]:bg-bg-brand data-[state=checked]:border-border-brand [&_svg]:text-fg-on-brand",
+      info: "data-[state=checked]:bg-bg-info data-[state=checked]:border-bg-info [&_svg]:text-fg-on-info",
+      success:
+        "data-[state=checked]:bg-bg-success data-[state=checked]:border-bg-success [&_svg]:text-fg-on-success",
+      warning:
+        "data-[state=checked]:bg-bg-warning data-[state=checked]:border-bg-warning [&_svg]:text-fg-on-warning",
+      danger:
+        "data-[state=checked]:bg-bg-danger data-[state=checked]:border-bg-danger [&_svg]:text-fg-on-danger",
+      neutral:
+        "data-[state=checked]:bg-fg-subtle data-[state=checked]:border-fg-subtle [&_svg]:text-bg-surface",
+    },
+  },
+  defaultVariants: { color: "brand" },
 });
 
 /* ────────────────────────────────────────────────────────────────────────
