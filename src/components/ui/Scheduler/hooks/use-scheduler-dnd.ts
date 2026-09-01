@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 import {
-  KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
@@ -119,9 +118,34 @@ export function useSchedulerDnd({
   const [ativo, setAtivo] = useState<DragKind | null>(null);
   const [diaSobreposto, setDiaSobreposto] = useState<number | null>(null);
 
+  /**
+   * **Só `PointerSensor`. O `KeyboardSensor` foi deliberadamente NÃO registrado.**
+   *
+   * O evento é um `<button>` cuja ação primária é abrir o detalhe, e o
+   * `KeyboardSensor` do dnd-kit reivindica `Space`/`Enter` pra iniciar arraste.
+   * As duas coisas brigam: com o default, o arraste começava, o `click` nativo
+   * do botão disparava junto, o painel abria, o foco saía e o dnd-kit cancelava
+   * — medido na live region dele, *"Dragging was cancelled."*
+   *
+   * Tentei separar (`Space` arrasta, `Enter` abre, com `preventDefault` no
+   * Space). O arraste passava a iniciar e o droppable era detectado, mas eu
+   * **não consegui completar o gesto** neste ambiente: a segunda seta cancelava.
+   * E este browser de teste já provou não simular entrada de forma confiável
+   * (sem `ResizeObserver`, sem `MediaQueryList.change`, sem `window.resize`, sem
+   * pointer capture), então não sei dizer se o defeito é meu ou do harness.
+   *
+   * Enviar arraste-por-teclado meio funcionando é pior que não ter: o usuário
+   * entra num estado de arraste que não consegue terminar, e perde o `Space`
+   * como "ativar". Então: **dnd é por ponteiro**, e `Space`/`Enter` abrem o
+   * detalhe, que é onde a data e a hora podem ser editadas em campo de
+   * formulário — a rota acessível pra reagendar.
+   *
+   * Pra reabrir: precisa de um browser onde o gesto de teclado seja verificável
+   * ponta a ponta. ⚠️ O `Kanban` registra `useSensor(KeyboardSensor)` e tem
+   * `onOpenCard` no clique do card — o mesmo conflito latente, não verificado.
+   */
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
-    useSensor(KeyboardSensor),
   );
 
   const porId = useMemo(() => {

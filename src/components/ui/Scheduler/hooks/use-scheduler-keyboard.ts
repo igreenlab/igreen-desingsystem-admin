@@ -115,16 +115,32 @@ export function useSchedulerKeyboard({
    * Espalhe em cada célula. O `onFocus` sincroniza o `ativo` quando o foco chega
    * por clique ou por `Tab` de fora — sem ele, a primeira seta depois de um
    * clique saltaria a partir da célula errada.
+   *
+   * ⚠️ **NÃO devolve `ref`** — de propósito. A primeira versão devolvia, e
+   * espalhar `{...getCellProps(i)}` numa célula que também é droppable do
+   * dnd-kit **sobrescrevia** o `setNodeRef` dele (spread depois de `ref=` ganha).
+   * O resultado: o droppable nunca recebia o nó, `over` era sempre `null`, e o
+   * arraste seguia o cursor mas o drop não persistia. `Omit<HTMLAttributes>` não
+   * inclui `ref`, então o TypeScript não pegava.
+   *
+   * O `ref` vem separado por `getCellRef`, e quem monta a célula é obrigado a
+   * decidir onde ele entra — que é o que torna o erro impossível de repetir por
+   * distração.
    */
   const getCellProps = useCallback(
     (index: number) => ({
-      ref: registrarRef(index),
       tabIndex: enabled && index === ativo ? 0 : -1,
       onKeyDown: handleKeyDown(index),
       onFocus: () => setAtivo(index),
     }),
-    [registrarRef, enabled, ativo, handleKeyDown],
+    [enabled, ativo, handleKeyDown],
   );
 
-  return { activeIndex: ativo, getCellProps };
+  /** O `ref` da célula, separado — ver a nota em `getCellProps`. */
+  const getCellRef = useCallback(
+    (index: number) => registrarRef(index),
+    [registrarRef],
+  );
+
+  return { activeIndex: ativo, getCellProps, getCellRef };
 }

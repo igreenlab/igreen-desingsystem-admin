@@ -59,8 +59,8 @@ Leia antes de planejar uma tela em cima disto:
 | view `month` | ✅ grade 6×7, multi-dia com pontas truncadas, `+N mais` em popover, `+` de criar no hover |
 | views `week` / `day` | ✅ a MESMA view (`views/time-grid.tsx`) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro, lane-packing, linha do "agora", faixa de hora clicável |
 | view `list` | ✅ agenda agrupada por dia, **só os dias que têm evento** |
-| drag & drop | ✅ mover no mês (muda a data, preserva hora e duração), mover em week/day (coluna + minutos snapados), **redimensionar** pela borda do bloco em week/day |
-| navegação por teclado | ✅ roving tabindex — cada grade é **uma** parada de `Tab`, setas movem dentro, `Home`/`End` vão às pontas da linha, `Enter` cria no slot focado |
+| drag & drop | ✅ **por ponteiro** — mover no mês (muda a data, preserva hora e duração), mover em week/day (coluna + minutos snapados), **redimensionar** pela borda do bloco em week/day |
+| navegação por teclado | ✅ roving tabindex — cada grade é **uma** parada de `Tab`, setas movem dentro, `Home`/`End` vão às pontas da linha, `Enter` cria no slot focado. ⛔ **Arrastar por teclado não existe** — ver o gotcha do dnd |
 
 O núcleo é puro e testado: `hooks/layout.test.ts` (51 casos de borda) mais
 `hooks/use-scheduler-dnd.test.ts` (19 casos da resolução do drop).
@@ -305,12 +305,20 @@ Detalhes que evitam surpresa:
   as duas pontas são alvo válido). Pra um mês fora da tela, navegue primeiro —
   não há auto-avanço ao arrastar sobre as setas.
 
-> ⚠️ O gesto real **não pôde ser verificado no browser de teste**: o
-> `PointerSensor` do dnd-kit usa `setPointerCapture` com `pointerId` real, e nem
-> `left_click_drag` nem `PointerEvent` sintéticos ativam o arraste — medido, o
-> evento não sai do lugar. A resolução do drop é coberta por
-> `hooks/use-scheduler-dnd.test.ts` (19 casos), e a presença dos alvos foi
-> medida no DOM: 12 blocos e 24 alças na view de semana.
+- **O dnd é por PONTEIRO.** O `KeyboardSensor` do dnd-kit não está registrado,
+  de propósito: ele reivindica `Space`/`Enter`, que num `<button>` de evento já
+  significam "abrir o detalhe" — as duas coisas brigavam e o arraste era
+  cancelado (medido na live region do dnd-kit). `Space`/`Enter` abrem o detalhe,
+  que é onde data e hora se editam em campo de formulário: a rota acessível pra
+  reagendar. O raciocínio completo está no topo de `use-scheduler-dnd.ts`.
+
+> ⚠️ O gesto de ponteiro **não pôde ser verificado no browser de teste**: o
+> `PointerSensor` usa `setPointerCapture` com `pointerId` real, e nem
+> `left_click_drag` nem `PointerEvent` sintéticos o ativam — medido, o evento não
+> sai do lugar. A resolução do drop é coberta por
+> `hooks/use-scheduler-dnd.test.ts` (20 casos), e no DOM foi medido: 12 blocos
+> com 24 alças na semana, e o droppable respondendo (a live region do dnd-kit
+> nomeou `day:<ms>` ao passar por cima).
 
 ### 5c. Teclado: a grade é UMA parada de `Tab`
 

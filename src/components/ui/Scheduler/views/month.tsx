@@ -284,7 +284,12 @@ export function SchedulerMonthView({
                    UMA parada de Tab em vez de 42. */
                 role="gridcell"
                 aria-label={format(day, "PPPP", { locale })}
+                /* O `ref` vai por prop EXPLÍCITA (`cellRef`), separado do
+                   spread: espalhado junto ele sobrescrevia o `setNodeRef` do
+                   droppable e o drop parava de resolver. Ver as notas em
+                   `DroppableDay` e `use-scheduler-keyboard`. */
                 {...teclado.getCellProps(indiceDaCelula)}
+                cellRef={teclado.getCellRef(indiceDaCelula)}
               >
                 <div className={schedulerDayHead()}>
                   <span className={schedulerDayNumber({ today, outside })}>

@@ -149,6 +149,7 @@ export function DroppableDay({
   className,
   overClassName,
   children,
+  cellRef,
   ...rest
 }: {
   day: Date;
@@ -157,7 +158,19 @@ export function DroppableDay({
   /** Classe aplicada só quando o cursor está sobre este dia. */
   overClassName: string;
   children: ReactNode;
-} & Omit<React.HTMLAttributes<HTMLDivElement>, "className" | "children">) {
+  /**
+   * `ref` do roving tabindex, que precisa do MESMO nó que o droppable.
+   *
+   * ⚠️ Prop **explícita**, e não via spread: a primeira versão espalhava
+   * `{...getCellProps(i)}` no `<div>`, e o `ref` que vem ali **sobrescrevia** o
+   * `setNodeRef` do dnd-kit — spread depois de `ref=` ganha. O resultado era o
+   * droppable nunca receber o nó, `over` sempre `null`, e o drop não persistir:
+   * o overlay seguia o cursor, o usuário soltava, e nada acontecia.
+   *
+   * `Omit<HTMLAttributes>` não inclui `ref`, então o TypeScript não pegou.
+   */
+  cellRef?: (el: HTMLElement | null) => void;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, "className" | "children" | "ref">) {
   const { setNodeRef, isOver } = useDroppable({
     id: droppableIdForDay(day),
     disabled,
@@ -165,7 +178,10 @@ export function DroppableDay({
 
   return (
     <div
-      ref={setNodeRef}
+      ref={(el) => {
+        setNodeRef(el);
+        cellRef?.(el);
+      }}
       className={cn(className, isOver && !disabled && overClassName)}
       {...rest}
     >

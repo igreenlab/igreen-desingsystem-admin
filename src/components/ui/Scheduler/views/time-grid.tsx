@@ -386,6 +386,9 @@ export function SchedulerTimeGrid({
                      hook assume pra ←/→ trocar de dia e ↑/↓ trocar de hora. O
                      DOM percorre coluna-a-coluna, então este índice não é a
                      ordem de montagem — é a ordem espacial, de propósito. */
+                  ref={teclado.getCellRef(
+                    indiceHora * days.length + indiceDaColuna,
+                  )}
                   {...teclado.getCellProps(
                     indiceHora * days.length + indiceDaColuna,
                   )}
