@@ -172,6 +172,28 @@ export function SchedulerFullPreview() {
   const [selected, setSelected] = useState<SchedulerEvent | null>(null);
   const meta = (selected?.meta ?? null) as EventMeta | null;
 
+  /**
+   * `events` em estado, porque o dnd está LIGADO nesta tela e o componente é
+   * dumb sobre mutação: ele emite `onEventMove`/`onEventResize` e quem aplica é
+   * aqui. Sem este estado, arrastar não teria efeito nenhum — que é justamente
+   * o que o `console.warn` de DEV do componente avisa.
+   */
+  const [eventos, setEventos] = useState<SchedulerEvent[]>(EVENTS);
+
+  /** Aplica a mudança emitida. Um app real trocaria isto por um PATCH. */
+  const aplicarMudanca = ({
+    id,
+    start,
+    end,
+  }: {
+    id: string;
+    start: Date;
+    end: Date;
+  }) =>
+    setEventos((atual) =>
+      atual.map((e) => (e.id === id ? { ...e, start, end } : e)),
+    );
+
   const detailFields = useMemo(() => {
     if (!selected) return [];
     const mesmoDia = selected.start.toDateString() === selected.end.toDateString();
@@ -227,15 +249,21 @@ export function SchedulerFullPreview() {
     <ExamplePageLayout
       category="Scheduler"
       title="Tela cheia"
-      description="O mesmo Scheduler ocupando a janela inteira. Não há prop de fullscreen: o componente já é h-full, e é a altura do pai que manda. O que muda de verdade é a célula do mês — o corte do “+N mais” é derivado da altura medida da linha, então aqui cabem 6+ eventos onde num card de 720px cabiam 3. Mesmo comportamento adaptativo das linhas da tabela."
+      description="O mesmo Scheduler ocupando a janela inteira, e com drag & drop LIGADO. Não há prop de fullscreen: o componente já é h-full, e é a altura do pai que manda. O que muda de verdade é a célula do mês — o corte do “+N mais” é derivado da altura medida da linha, então aqui cabem 6+ eventos onde num card de 720px cabiam 3, como as linhas da tabela. Arraste um evento pra outro dia (no mês) ou pra outra hora/coluna (na semana); arraste a BORDA do bloco em semana/dia pra mudar a duração. O componente não muta nada — ele emite onEventMove/onEventResize e esta página aplica no próprio estado."
       code={CODE}
     >
       <Scheduler
-        events={EVENTS}
+        events={eventos}
         locale={ptBR}
         weekStartsOn={0}
         filterFields={FILTER_FIELDS}
         defaultFilterPanelOpen
+        /* dnd LIGADO — arraste um evento pra outro dia no mês, ou pra outra
+           hora/coluna na semana; arraste a BORDA do bloco pra redimensionar. */
+        draggable
+        resizable
+        onEventMove={aplicarMudanca}
+        onEventResize={aplicarMudanca}
         onEventClick={(event) => setSelected(event)}
         onSlotClick={(start) =>
           window.alert(`onSlotClick → ${format(start, "PPP p", { locale: ptBR })}`)

@@ -345,6 +345,93 @@ export function resolveResize(
 }
 
 /* ────────────────────────────────────────────────────────────────────────
+ * pixelsToMinutes — o inverso de minutesToOffset
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/**
+ * Converte um deslocamento vertical em px (o `delta.y` do dnd) em minutos.
+ *
+ * Não arredonda: quem chama aplica o snap depois, via `snapToGrid` ou
+ * `resolveResize`. Arredondar aqui perderia a informação de qual lado do meio o
+ * ponteiro está, e o snap ficaria enviesado pra baixo.
+ */
+export function pixelsToMinutes(px: number, hourHeight: number): number {
+  if (hourHeight <= 0) return 0;
+  return (px / hourHeight) * 60;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+ * resolveMonthDrop
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/**
+ * Novo `start`/`end` de um evento solto numa célula do mês.
+ *
+ * **Preserva a HORA e a DURAÇÃO** — arrastar no mês muda a data, não o horário:
+ * um evento de 14:00–15:30 largado 3 dias à frente continua 14:00–15:30. Zerar
+ * a hora aqui apagaria informação que o usuário não pediu pra mudar.
+ *
+ * A conta é em DIAS de calendário (`differenceInCalendarDays`), não em
+ * milissegundos: num dia de virada de horário de verão a diferença em ms entre
+ * dois "mesmos horários" não é múltiplo de 24h, e somar ms deslocaria o evento
+ * em 1 hora. Somar dias mantém a hora local.
+ *
+ * `allDay` cai no mesmo caminho: a duração em dias é preservada.
+ */
+export function resolveMonthDrop(
+  event: SchedulerEvent,
+  targetDay: Date,
+): { start: Date; end: Date } {
+  const diasDeslocados = differenceInCalendarDays(
+    startOfDay(targetDay),
+    startOfDay(event.start),
+  );
+  if (diasDeslocados === 0) {
+    return { start: event.start, end: event.end };
+  }
+  return {
+    start: addDays(event.start, diasDeslocados),
+    end: addDays(event.end, diasDeslocados),
+  };
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+ * resolveTimeGridMove
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/**
+ * Novo `start`/`end` de um evento movido na grade de horas.
+ *
+ * Combina os dois eixos do gesto: `dayDelta` (quantas colunas de dia o
+ * ponteiro atravessou, resolvido pelo droppable) e `minuteDelta` (o `delta.y`
+ * já convertido por `pixelsToMinutes`).
+ *
+ * **A duração é preservada** e o `end` é derivado do `start` — nunca snapado
+ * separadamente. Snapar as duas pontas de forma independente encurtaria ou
+ * esticaria o evento a cada arrasto: um evento de 50min podia virar 45 ou 60
+ * só por ser movido, o que é mudança de dado que o usuário não pediu.
+ *
+ * O snap é aplicado ao `start` e clampado no `dayRange` do dia de destino, pelo
+ * mesmo `snapToGrid` que o resto usa. Consequência aceita: arrastar pra baixo
+ * perto do fim da grade "encosta" no limite em vez de vazar pro dia seguinte —
+ * mover pro dia seguinte se faz atravessando a coluna, que é o gesto explícito.
+ */
+export function resolveTimeGridMove(
+  event: SchedulerEvent,
+  dayDelta: number,
+  minuteDelta: number,
+  snapMinutes: SchedulerSnapMinutes,
+  dayRange: [number, number],
+): { start: Date; end: Date } {
+  const duracaoMs = event.end.getTime() - event.start.getTime();
+
+  const bruto = addMinutes(addDays(event.start, dayDelta), minuteDelta);
+  const start = snapToGrid(bruto, snapMinutes, dayRange);
+
+  return { start, end: new Date(start.getTime() + duracaoMs) };
+}
+
+/* ────────────────────────────────────────────────────────────────────────
  * minutesToOffset
  * ──────────────────────────────────────────────────────────────────────── */
 

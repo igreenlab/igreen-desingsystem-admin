@@ -28,8 +28,11 @@ import {
   schedulerTimeHeadDay,
   schedulerTimeHeadWeekday,
   schedulerDayNumber,
+  schedulerDropTarget,
 } from "../scheduler.styles";
+import { DraggableEvent, DroppableDay } from "../parts/draggable-event";
 import { SchedulerEventItem } from "../parts/scheduler-event";
+import { useSchedulerKeyboard } from "../hooks/use-scheduler-keyboard";
 import { minutesToOffset, packLanes } from "../hooks/layout";
 import type {
   SchedulerEvent,
@@ -56,8 +59,14 @@ import type {
  * `schedulerTimeFrame`.
  */
 
-/** Espelha `h-comp-3xl` — ver nota acima. */
-const HOUR_HEIGHT_PX = 48;
+/**
+ * Espelha `h-comp-3xl` — ver nota acima.
+ *
+ * Exportado porque o `use-scheduler-dnd` precisa do MESMO número pra converter
+ * `delta.y` em minutos. Duas constantes iguais em arquivos diferentes é como o
+ * arraste passa a mover o evento pra uma hora que não é a que o cursor aponta.
+ */
+export const HOUR_HEIGHT_PX = 48;
 
 /**
  * Altura mínima do bloco de evento. Um evento de 10min a 48px/hora renderiza
@@ -84,6 +93,10 @@ export type SchedulerTimeGridProps = {
   ) => void;
   onSlotClick?: (start: Date, end: Date) => void;
   renderEvent?: (params: SchedulerRenderEventParams) => React.ReactNode;
+  /** Liga os droppables das colunas. */
+  dndAtivo?: boolean;
+  podeMover?: (event: SchedulerEvent) => boolean;
+  podeRedimensionar?: (event: SchedulerEvent) => boolean;
 };
 
 export function SchedulerTimeGrid({
@@ -101,6 +114,9 @@ export function SchedulerTimeGrid({
   onEventClick,
   onSlotClick,
   renderEvent,
+  dndAtivo = false,
+  podeMover,
+  podeRedimensionar,
 }: SchedulerTimeGridProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -117,6 +133,31 @@ export function SchedulerTimeGrid({
       Array.from({ length: Math.max(1, rangeEnd - rangeStart) }, (_, i) => rangeStart + i),
     [rangeStart, rangeEnd],
   );
+
+  /**
+   * Roving tabindex nas faixas de hora. `columns` é a quantidade de **dias**,
+   * então ↑/↓ anda uma hora no mesmo dia e ←/→ troca de dia na mesma hora — o
+   * mapeamento espacial da grade, não o da ordem do DOM.
+   *
+   * Sem isso a semana custa **168 `Tab`**. O `enabled` segue `onSlotClick`: sem
+   * handler as faixas já vêm `disabled`, e dar foco a elas seria oferecer uma
+   * ação que não existe.
+   */
+  const teclado = useSchedulerKeyboard({
+    count: hours.length * days.length,
+    columns: days.length,
+    onActivate: (index) => {
+      const hora = hours[Math.floor(index / days.length)];
+      const dia = days[index % days.length];
+      if (hora === undefined || !dia) return;
+      const start = new Date(dia);
+      start.setHours(hora, 0, 0, 0);
+      const end = new Date(start);
+      end.setHours(hora + 1, 0, 0, 0);
+      onSlotClick?.(start, end);
+    },
+    enabled: Boolean(onSlotClick),
+  });
 
   /**
    * Ancora o scroll em `scrollToHour` na montagem e quando a hora-âncora muda —
@@ -276,11 +317,12 @@ export function SchedulerTimeGrid({
           {days.map((day) => (
             <div key={day.getTime()} className={schedulerAllDayCell()}>
               {(allDayByDay.get(day.getTime()) ?? []).map((ev) => (
-                <SchedulerEventItem
+                <DraggableEvent
                   key={`${ev.id}-${day.getTime()}`}
                   event={ev}
                   view={view}
                   variant="pill"
+                  movable={podeMover?.(ev) ?? false}
                   truncateStart={
                     startOfDay(ev.start).getTime() < day.getTime()
                   }
@@ -316,12 +358,15 @@ export function SchedulerTimeGrid({
           </div>
 
           {/* Colunas de dia */}
-          {days.map((day) => (
-            <div
+          {days.map((day, indiceDaColuna) => (
+            <DroppableDay
               key={day.getTime()}
+              day={day}
+              disabled={!dndAtivo}
               className={schedulerTimeColumn({ weekend: isWeekend(day) })}
+              overClassName={schedulerDropTarget()}
             >
-              {hours.map((h) => (
+              {hours.map((h, indiceHora) => (
                 <button
                   key={h}
                   type="button"
@@ -337,15 +382,24 @@ export function SchedulerTimeGrid({
                   // Sem `onSlotClick` a faixa não é acionável — `disabled` em vez
                   // de `pointer-events-none` pra sair também da ordem de foco.
                   disabled={!onSlotClick}
+                  /* Índice em ordem de LINHA (hora × dias + dia), que é o que o
+                     hook assume pra ←/→ trocar de dia e ↑/↓ trocar de hora. O
+                     DOM percorre coluna-a-coluna, então este índice não é a
+                     ordem de montagem — é a ordem espacial, de propósito. */
+                  {...teclado.getCellProps(
+                    indiceHora * days.length + indiceDaColuna,
+                  )}
                 />
               ))}
 
               {(blocksByDay.get(day.getTime()) ?? []).map((b) => (
-                <SchedulerEventItem
+                <DraggableEvent
                   key={b.event.id}
                   event={b.event}
                   view={view}
                   variant="block"
+                  movable={podeMover?.(b.event) ?? false}
+                  resizable={podeRedimensionar?.(b.event) ?? false}
                   timeLabel={b.label}
                   style={{
                     top: b.top,
@@ -373,7 +427,7 @@ export function SchedulerTimeGrid({
                   <span className={schedulerNowStroke()} aria-hidden="true" />
                 </span>
               ) : null}
-            </div>
+            </DroppableDay>
           ))}
         </div>
       </div>

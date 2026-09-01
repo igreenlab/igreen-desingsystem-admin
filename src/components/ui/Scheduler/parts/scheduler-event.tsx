@@ -39,6 +39,24 @@ export type SchedulerEventItemProps = {
   renderContent?: () => ReactNode;
   onClick?: (evt: React.MouseEvent | React.KeyboardEvent) => void;
   className?: string;
+
+  /* ── Drag & drop (opcional; a view liga quando o gesto existe) ──────── */
+  /**
+   * `attributes` + `listeners` do `useDraggable`. Vêm juntos de propósito: o
+   * `role`/`aria-*` de `attributes` descreve o que os `listeners` fazem, e
+   * aplicar um sem o outro produz um elemento que arrasta sem se anunciar — ou
+   * que se anuncia arrastável e não arrasta.
+   */
+  dragAttributes?: Record<string, unknown>;
+  dragListeners?: Record<string, unknown>;
+  /** `setNodeRef` do dnd-kit — combinado com o `ref` externo. */
+  setDragNodeRef?: (el: HTMLElement | null) => void;
+  /** `transform` do dnd-kit; vira `translate3d` enquanto o gesto acontece. */
+  dragTransform?: { x: number; y: number } | null;
+  /** Marca "arrastável e em repouso" — cursor de mão + transição de assentamento. */
+  movable?: boolean;
+  /** Alças de resize, já ligadas ao `useDraggable` pela view. */
+  resizeHandles?: ReactNode;
 };
 
 export const SchedulerEventItem = forwardRef<
@@ -58,10 +76,45 @@ export const SchedulerEventItem = forwardRef<
     renderContent,
     onClick,
     className,
+    dragAttributes,
+    dragListeners,
+    setDragNodeRef,
+    dragTransform,
+    movable = false,
+    resizeHandles,
   },
   ref,
 ) {
   const color = event.color ?? "brand";
+
+  /**
+   * Combina o ref externo (âncora de popover/painel) com o `setNodeRef` do
+   * dnd-kit. Os dois precisam do MESMO nó: sem isso, ou o dnd não mede o
+   * elemento, ou o popover ancora em lugar nenhum — a armadilha da L-021.
+   */
+  const mergeRefs = (el: HTMLButtonElement | null) => {
+    setDragNodeRef?.(el);
+    if (typeof ref === "function") ref(el);
+    else if (ref) {
+      (ref as React.MutableRefObject<HTMLButtonElement | null>).current = el;
+    }
+  };
+
+  /**
+   * O transform do dnd-kit entra como `translate3d` — composto na GPU, sem
+   * recalcular layout a cada movimento do ponteiro.
+   *
+   * Ele SOMA ao `style` posicional (o top/left/height do bloco), que continua
+   * sendo a verdade de onde o evento está: o transform é só o deslocamento
+   * visual do gesto em andamento. Trocar `top` durante o arraste, em vez de
+   * transformar, forçaria reflow a cada frame.
+   */
+  const estilo: CSSProperties = {
+    ...style,
+    ...(dragTransform
+      ? { transform: `translate3d(${dragTransform.x}px, ${dragTransform.y}px, 0)` }
+      : null),
+  };
 
   /**
    * `aria-label` explícito e não só o texto visível: o pill do mês trunca com
@@ -77,12 +130,14 @@ export const SchedulerEventItem = forwardRef<
 
   return (
     <button
-      ref={ref}
+      ref={mergeRefs}
       type="button"
       disabled={disabled}
-      style={style}
+      style={estilo}
       aria-label={ariaLabel || undefined}
       onClick={(evt) => onClick?.(evt)}
+      {...dragAttributes}
+      {...dragListeners}
       className={cn(
         schedulerEvent({
           color,
@@ -90,6 +145,9 @@ export const SchedulerEventItem = forwardRef<
           truncateStart,
           truncateEnd,
           dragging,
+          // `movable` só pinta em REPOUSO: durante o arraste o `dragging` manda,
+          // e ele desliga a transição de propósito (ver nota no styles).
+          movable: movable && !dragging,
           disabled,
         }),
         className,
@@ -148,6 +206,11 @@ export const SchedulerEventItem = forwardRef<
           ) : null}
         </>
       )}
+
+      {/* Alças de resize por último, pra ficarem por cima do miolo na ordem de
+          pintura. Vêm prontas da view (já ligadas ao `useDraggable`) — este
+          componente não sabe redimensionar, só onde a alça mora. */}
+      {resizeHandles}
     </button>
   );
 });

@@ -824,7 +824,25 @@ export const schedulerEvent = tv({
     /** Continuação de evento multi-dia: perde o canto do lado truncado. */
     truncateStart: { true: "rounded-l-none border-l-0", false: "" },
     truncateEnd: { true: "rounded-r-none border-r-0", false: "" },
-    dragging: { true: "opacity-60 shadow-sh-lg", false: "" },
+    /**
+     * Enquanto arrasta: sombra alta pra o bloco "sair da superfície", z acima
+     * dos vizinhos, e `cursor-grabbing`.
+     *
+     * ⚠️ **Sem `transition` neste estado.** O `transform` do dnd-kit é atualizado
+     * a cada movimento do ponteiro; uma transição em cima dele faz o bloco
+     * perseguir o cursor com atraso — o gesto fica elástico e impreciso. A
+     * transição vive no estado NÃO-arrastando (`movable`), que é onde ela serve:
+     * o assentamento depois do soltar.
+     */
+    dragging: {
+      true: "z-[3] cursor-grabbing shadow-sh-lg opacity-90 transition-none",
+      false: "",
+    },
+    /** Arrastável e em repouso: mão aberta + transição de assentamento. */
+    movable: {
+      true: "cursor-grab transition-[top,left,height,width,background-color,border-color,box-shadow] duration-200 ease-out",
+      false: "",
+    },
     disabled: { true: "pointer-events-none opacity-50", false: "" },
   },
   defaultVariants: {
@@ -833,8 +851,51 @@ export const schedulerEvent = tv({
     truncateStart: false,
     truncateEnd: false,
     dragging: false,
+    movable: false,
     disabled: false,
   },
+});
+
+/**
+ * Alça de resize — 6px na borda do bloco, revelada no hover/foco.
+ *
+ * `h-[6px]` e não um token: é área de AGARRE, não espaçamento. Não existe token
+ * de "alvo de arraste" no DS, e reusar `sp-2xs` (2px) aqui seria emprestar um
+ * nome de espaçamento pra dizer outra coisa — a L-060 avisa exatamente sobre
+ * isso. 6px é o mesmo threshold do sensor, então o alvo nunca é menor que o
+ * gesto que o ativa.
+ *
+ * `absolute inset-x-0` cobre a largura toda do bloco: alça estreita no meio
+ * seria um alvo que o usuário precisa procurar.
+ */
+export const schedulerResizeHandle = tv({
+  base: [
+    "absolute inset-x-0 z-[1] h-[6px] cursor-ns-resize",
+    "opacity-0 transition-opacity duration-150",
+    "group-hover/event:opacity-100 focus-visible:opacity-100",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-brand",
+    // A barrinha só aparece no hover; o alvo de 6px existe sempre.
+    "after:absolute after:inset-x-[25%] after:top-[2px] after:h-[2px]",
+    "after:rounded-radius-full after:bg-fg-default/40",
+  ],
+  variants: {
+    edge: {
+      start: "-top-[3px]",
+      end: "-bottom-[3px]",
+    },
+  },
+  defaultVariants: { edge: "end" },
+});
+
+/**
+ * Célula/coluna sob o cursor durante o arraste. Fundo de marca sutil + borda
+ * interna — é o "vai cair aqui" que o gesto precisa pra não ser adivinhação.
+ *
+ * `inset` em vez de `ring`: a célula do mês já tem borda de grade, e um ring por
+ * fora vazaria pra célula vizinha.
+ */
+export const schedulerDropTarget = tv({
+  base: "bg-bg-brand-subtle shadow-[inset_0_0_0_2px_var(--color-border-brand)]",
 });
 
 /** Dot/barra de acento — é aqui que a cor da categoria realmente aparece. */

@@ -4,7 +4,10 @@ import {
   computeOverflow,
   minutesToOffset,
   packLanes,
+  pixelsToMinutes,
+  resolveMonthDrop,
   resolveResize,
+  resolveTimeGridMove,
   segmentMultiDay,
   snapToGrid,
 } from "./layout";
@@ -409,6 +412,131 @@ describe("resolveResize", () => {
     expect(r.end.getTime()).toBeGreaterThan(r.start.getTime());
     expect(r.end.getHours()).toBe(10);
     expect(r.end.getMinutes()).toBe(15);
+  });
+});
+
+/* ────────────────────────────────────────────────────────────────────────
+ * pixelsToMinutes
+ * ──────────────────────────────────────────────────────────────────────── */
+
+describe("pixelsToMinutes", () => {
+  it("é o inverso exato de minutesToOffset", () => {
+    // 48px/hora: 24px = 30min.
+    expect(pixelsToMinutes(24, 48)).toBe(30);
+    expect(pixelsToMinutes(48, 48)).toBe(60);
+    expect(pixelsToMinutes(-48, 48)).toBe(-60);
+  });
+
+  it("NÃO arredonda — o snap é de quem chama", () => {
+    // 7px a 48px/hora = 8.75min. Arredondar aqui enviesaria o snap pra baixo.
+    expect(pixelsToMinutes(7, 48)).toBeCloseTo(8.75, 5);
+  });
+
+  it("altura zero não divide por zero", () => {
+    expect(pixelsToMinutes(100, 0)).toBe(0);
+  });
+});
+
+/* ────────────────────────────────────────────────────────────────────────
+ * resolveMonthDrop
+ * ──────────────────────────────────────────────────────────────────────── */
+
+describe("resolveMonthDrop", () => {
+  it("preserva a HORA e a duração ao mudar de dia", () => {
+    const e = ev("m", at(2026, 8, 2, 14, 0), at(2026, 8, 2, 15, 30));
+    const r = resolveMonthDrop(e, at(2026, 8, 5));
+
+    expect(r.start.getDate()).toBe(5);
+    expect(r.start.getHours()).toBe(14);
+    expect(r.start.getMinutes()).toBe(0);
+    expect(r.end.getDate()).toBe(5);
+    expect(r.end.getHours()).toBe(15);
+    expect(r.end.getMinutes()).toBe(30);
+  });
+
+  it("soltar no MESMO dia não muda nada (identidade preservada)", () => {
+    const e = ev("m", at(2026, 8, 2, 14, 0), at(2026, 8, 2, 15, 30));
+    const r = resolveMonthDrop(e, at(2026, 8, 2, 23, 59));
+    expect(r.start).toBe(e.start);
+    expect(r.end).toBe(e.end);
+  });
+
+  it("mover pra trás desloca negativo", () => {
+    const e = ev("m", at(2026, 8, 10, 9, 0), at(2026, 8, 10, 10, 0));
+    const r = resolveMonthDrop(e, at(2026, 8, 3));
+    expect(r.start.getDate()).toBe(3);
+    expect(r.start.getHours()).toBe(9);
+  });
+
+  it("evento multi-dia mantém a duração em dias", () => {
+    // 3 dias (9→11) largado no dia 20 → 20→22.
+    const e = ev("multi", at(2026, 8, 9), at(2026, 8, 11), { allDay: true });
+    const r = resolveMonthDrop(e, at(2026, 8, 20));
+    expect(r.start.getDate()).toBe(20);
+    expect(r.end.getDate()).toBe(22);
+  });
+
+  it("atravessa a virada de mês", () => {
+    const e = ev("m", at(2026, 8, 28, 8, 0), at(2026, 8, 28, 9, 0));
+    const r = resolveMonthDrop(e, at(2026, 9, 2));
+    expect(r.start.getMonth()).toBe(9); // outubro
+    expect(r.start.getDate()).toBe(2);
+    expect(r.start.getHours()).toBe(8);
+  });
+});
+
+/* ────────────────────────────────────────────────────────────────────────
+ * resolveTimeGridMove
+ * ──────────────────────────────────────────────────────────────────────── */
+
+describe("resolveTimeGridMove", () => {
+  const base = ev("t", at(2026, 8, 2, 10, 0), at(2026, 8, 2, 10, 50));
+
+  it("move só na vertical, com snap no start e duração preservada", () => {
+    // +30min exatos.
+    const r = resolveTimeGridMove(base, 0, 30, 15, [0, 24]);
+    expect(r.start.getHours()).toBe(10);
+    expect(r.start.getMinutes()).toBe(30);
+    // duração de 50min PRESERVADA — não snapada pra 45 nem 60.
+    expect(r.end.getTime() - r.start.getTime()).toBe(50 * 60_000);
+  });
+
+  it("a duração sobrevive a delta não-múltiplo do snap", () => {
+    // 37min de delta → start snapa, mas os 50min de duração continuam 50.
+    const r = resolveTimeGridMove(base, 0, 37, 15, [0, 24]);
+    expect(r.end.getTime() - r.start.getTime()).toBe(50 * 60_000);
+  });
+
+  it("move só na horizontal preserva o horário", () => {
+    const r = resolveTimeGridMove(base, 2, 0, 15, [0, 24]);
+    expect(r.start.getDate()).toBe(4);
+    expect(r.start.getHours()).toBe(10);
+    expect(r.start.getMinutes()).toBe(0);
+  });
+
+  it("combina os dois eixos", () => {
+    const r = resolveTimeGridMove(base, -1, -60, 15, [0, 24]);
+    expect(r.start.getDate()).toBe(1);
+    expect(r.start.getHours()).toBe(9);
+  });
+
+  it("clampa no dayRange em vez de vazar pro dia seguinte", () => {
+    // dayRange [8, 18]: arrastar +10h de 10:00 daria 20:00, fora da grade.
+    const r = resolveTimeGridMove(base, 0, 600, 15, [8, 18]);
+    expect(r.start.getHours()).toBe(18);
+    expect(r.start.getDate()).toBe(2); // mesmo dia — não escorregou
+  });
+
+  it("clampa no início do dayRange", () => {
+    const r = resolveTimeGridMove(base, 0, -600, 15, [8, 18]);
+    expect(r.start.getHours()).toBe(8);
+  });
+
+  it("snap de 60 arredonda pra hora cheia", () => {
+    const r = resolveTimeGridMove(base, 0, 25, 60, [0, 24]);
+    // 10:00 + 25min = 10:25 → snap 60 → 10:00.
+    expect(r.start.getHours()).toBe(10);
+    expect(r.start.getMinutes()).toBe(0);
   });
 });
 

@@ -1,15 +1,24 @@
-import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { DndContext } from "@dnd-kit/core";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { schedulerBody, schedulerMain, schedulerRoot } from "./scheduler.styles";
 import { SchedulerToolbar } from "./parts/scheduler-toolbar";
 import { SchedulerFilterPanel } from "./parts/scheduler-filter-panel";
 import { SchedulerMonthView } from "./views/month";
-import { SchedulerTimeGrid } from "./views/time-grid";
+import { HOUR_HEIGHT_PX, SchedulerTimeGrid } from "./views/time-grid";
 import { SchedulerListView } from "./views/list";
 import { useSchedulerFilter } from "./hooks/use-scheduler-filter";
 import { useSchedulerState } from "./hooks/use-scheduler-state";
 import { useMediaQuery } from "./hooks/use-media-query";
+import { useSchedulerDnd } from "./hooks/use-scheduler-dnd";
 import type { SchedulerProps, SchedulerRef } from "./scheduler.types";
 
 /**
@@ -37,8 +46,21 @@ import type { SchedulerProps, SchedulerRef } from "./scheduler.types";
  *   do "agora" e faixa de hora clicável.
  * - `list`: agenda agrupada por dia, só os dias QUE TÊM evento.
  *
- * Ainda fora: drag & drop (as props `onEventMove`/`onEventResize` existem e não
- * são chamadas) e navegação por teclado na grade.
+ * ## Drag & drop e teclado
+ *
+ * **Arrastar** move o evento: no mês muda a data preservando hora e duração; em
+ * week/day combina a coluna (dia) com o `delta.y` (minutos, snapado). **A borda
+ * do bloco** redimensiona em week/day — alça separada, pra agarrar a borda não
+ * virar movimento. `@dnd-kit/core`, mesma base do `Kanban`.
+ *
+ * O dnd só liga quando há `onEventMove`/`onEventResize` conectado: arrastar e
+ * ver o evento voltar sozinho lê como bug do app, e é o que `draggable: false`
+ * por default protege. Em DEV, ligar sem handler avisa por `console.warn`.
+ *
+ * **Teclado:** cada grade é uma ÚNICA parada de `Tab` (roving tabindex) —
+ * as setas movem dentro dela, `Home`/`End` vão às pontas da linha, `Enter`
+ * cria no slot focado. Sem isso a grade do mês custava 42 `Tab` e a da semana
+ * 168.
  */
 
 export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
@@ -60,6 +82,10 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       onViewChange,
       onEventClick,
       onSlotClick,
+      onEventMove,
+      onEventResize,
+      draggable = false,
+      resizable = false,
       searchable = true,
       search,
       onSearchChange,
@@ -131,7 +157,54 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
      * verificado é a montagem correta ao carregar em cada largura, porque o
      * `useState` inicial lê `matchMedia` direto. Num browser real o listener é
      * o mesmo do `MenuSidebar`, que está em produção.
+     *
+     * (Este bloco documenta o `useMediaQuery` algumas linhas abaixo — o dnd, que
+     * vem primeiro, tem a sua própria nota.)
      */
+
+    /**
+     * O dnd só existe onde há gesto pra fazer: sem `onEventMove` nem
+     * `onEventResize` conectado, arrastar não teria efeito nenhum — e é
+     * exatamente o estado que o default `draggable: false` protege (arrastar e
+     * ver o evento voltar sozinho lê como bug do app).
+     *
+     * Em DEV, ligar `draggable` sem `onEventMove` avisa por `console.warn`.
+     */
+    const dndAtivo = Boolean(
+      (draggable || resizable || events.some((e) => e.draggable || e.resizable)) &&
+        (onEventMove || onEventResize),
+    );
+
+    const dnd = useSchedulerDnd({
+      enabled: dndAtivo,
+      view: state.view,
+      events: filter.filteredEvents,
+      snapMinutes,
+      dayRange,
+      hourHeight: HOUR_HEIGHT_PX,
+      draggable,
+      resizable,
+      onEventMove,
+      onEventResize,
+    });
+
+    const avisouDnd = useRef(false);
+    useEffect(() => {
+      if (!import.meta.env?.DEV || avisouDnd.current) return;
+      if (draggable && !onEventMove) {
+        avisouDnd.current = true;
+        console.warn(
+          "[Scheduler] `draggable` está ligado sem `onEventMove`: o usuário vai arrastar e o evento vai voltar pro lugar, o que lê como bug do app. Conecte `onEventMove` ou deixe `draggable` desligado.",
+        );
+      }
+      if (resizable && !onEventResize) {
+        avisouDnd.current = true;
+        console.warn(
+          "[Scheduler] `resizable` está ligado sem `onEventResize`: o resize não vai persistir. Conecte `onEventResize` ou deixe `resizable` desligado.",
+        );
+      }
+    }, [draggable, resizable, onEventMove, onEventResize]);
+
     const filterPanelAvailable = useMediaQuery("(min-width: 1024px)");
     const [filterPanelOpen, setFilterPanelOpen] = useState(defaultFilterPanelOpen);
     const showFilterPanel =
@@ -190,6 +263,22 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
         className={cn(schedulerRoot(), className)}
         {...rest}
       >
+        {/* O `DndContext` embrulha a TOOLBAR também, e não só a grade: o
+            `KeyboardSensor` precisa que o foco esteja dentro do contexto pra
+            cancelar um arraste com Esc, e o foco pode estar na toolbar quando o
+            usuário desiste do gesto.
+
+            `dndAtivo === false` monta o contexto sem sensores úteis em vez de
+            desmontá-lo: alternar a árvore entre com/sem contexto remontaria
+            todas as células a cada vez que o consumidor ligasse o dnd, e o
+            custo de um contexto inerte é uma closure. */}
+        <DndContext
+          sensors={dnd.sensors}
+          onDragStart={dnd.handleDragStart}
+          onDragOver={dnd.handleDragOver}
+          onDragEnd={dnd.handleDragEnd}
+          onDragCancel={dnd.handleDragCancel}
+        >
         <SchedulerToolbar
           title={periodTitle}
           view={state.view}
@@ -225,6 +314,8 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
                 onEventClick={onEventClick}
                 onSlotClick={onSlotClick}
                 renderEvent={renderEvent}
+                dndAtivo={dndAtivo}
+                podeMover={dnd.podeMover}
               />
             ) : state.view === "list" ? (
               <SchedulerListView
@@ -254,6 +345,9 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
                 onEventClick={onEventClick}
                 onSlotClick={onSlotClick}
                 renderEvent={renderEvent}
+                dndAtivo={dndAtivo}
+                podeMover={dnd.podeMover}
+                podeRedimensionar={dnd.podeRedimensionar}
               />
             )}
           </div>
@@ -276,6 +370,7 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             />
           ) : null}
         </div>
+        </DndContext>
       </div>
     );
   },

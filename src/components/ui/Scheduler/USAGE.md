@@ -59,12 +59,11 @@ Leia antes de planejar uma tela em cima disto:
 | view `month` | ✅ grade 6×7, multi-dia com pontas truncadas, `+N mais` em popover, `+` de criar no hover |
 | views `week` / `day` | ✅ a MESMA view (`views/time-grid.tsx`) com 7 ou 1 coluna — gutter de horas, banda de dia inteiro, lane-packing, linha do "agora", faixa de hora clicável |
 | view `list` | ✅ agenda agrupada por dia, **só os dias que têm evento** |
-| drag & drop (mover / redimensionar) | ⛔ não implementado; `onEventMove`/`onEventResize` existem na API e **não são chamados** ainda |
-| navegação por teclado na grade | ⛔ não implementada (o foco por `Tab` funciona; falta o roving tabindex das setas) |
+| drag & drop | ✅ mover no mês (muda a data, preserva hora e duração), mover em week/day (coluna + minutos snapados), **redimensionar** pela borda do bloco em week/day |
+| navegação por teclado | ✅ roving tabindex — cada grade é **uma** parada de `Tab`, setas movem dentro, `Home`/`End` vão às pontas da linha, `Enter` cria no slot focado |
 
-O núcleo puro que o dnd vai consumir (`snapToGrid` e `resolveResize` em
-`hooks/layout.ts`) **já está implementado e testado** — 36 testes de borda em
-`hooks/layout.test.ts`, incluindo os clamps que impedem `start > end`.
+O núcleo é puro e testado: `hooks/layout.test.ts` (51 casos de borda) mais
+`hooks/use-scheduler-dnd.test.ts` (19 casos da resolução do drop).
 
 ---
 
@@ -258,12 +257,80 @@ hora de decidir. As duas leituras são defensáveis; confundi-las é que engana.
 filtra nada** — o componente emite `console.warn` em DEV nomeando o campo.
 Para filtrar por campo próprio, use `filterMode="server"` e filtre fora.
 
+### 5b. Drag & drop: você PRECISA aplicar a mudança
+
+O componente é dumb sobre mutação — ele emite e para:
+
+```tsx
+const [eventos, setEventos] = useState(EVENTOS);
+const aplicar = ({ id, start, end }) =>
+  setEventos((a) => a.map((e) => (e.id === id ? { ...e, start, end } : e)));
+
+<Scheduler
+  events={eventos}
+  draggable
+  resizable
+  onEventMove={aplicar}
+  onEventResize={aplicar}
+/>
+```
+
+O que cada gesto significa:
+
+| gesto | resultado |
+|---|---|
+| arrastar no **mês** | muda a **data**; hora e duração preservadas |
+| arrastar em **week/day** | combina coluna (dia) + `delta.y` (minutos, snapado por `snapMinutes`) |
+| arrastar a **borda** do bloco (week/day) | muda a **duração**, uma ponta só |
+
+Detalhes que evitam surpresa:
+
+- **A duração nunca é snapada separadamente.** Um evento de 50min movido continua
+  com 50min — snapar as duas pontas o encurtaria pra 45 a cada arrasto.
+- **Resize não existe no mês** (a altura da pílula não representa duração) nem em
+  evento `allDay`.
+- **All-day em week/day ignora o `delta.y`** e só troca de dia: ele mora na banda,
+  não na grade de horas.
+- **Arrastar pra baixo perto do fim da grade encosta no limite** em vez de vazar
+  pro dia seguinte. Mudar de dia se faz atravessando a coluna — o gesto explícito.
+
+> ⚠️ O gesto real **não pôde ser verificado no browser de teste**: o
+> `PointerSensor` do dnd-kit usa `setPointerCapture` com `pointerId` real, e nem
+> `left_click_drag` nem `PointerEvent` sintéticos ativam o arraste — medido, o
+> evento não sai do lugar. A resolução do drop é coberta por
+> `hooks/use-scheduler-dnd.test.ts` (19 casos), e a presença dos alvos foi
+> medida no DOM: 12 blocos e 24 alças na view de semana.
+
+### 5c. Teclado: a grade é UMA parada de `Tab`
+
+Roving tabindex (padrão WAI-ARIA de `grid`): a célula ativa tem `tabIndex=0`, as
+outras `-1`.
+
+| tecla | ação |
+|---|---|
+| `←` `→` | dia anterior / seguinte |
+| `↑` `↓` | mesma coluna, linha acima / abaixo (mês: semana; week/day: hora) |
+| `Home` / `End` | início / fim da **linha** — não da grade |
+| `PageUp` / `PageDown` | primeira / última célula |
+| `Enter` ou `Space` | cria no slot focado (dispara `onSlotClick`) |
+
+Sem isso a grade do mês custava **42 `Tab`** e a da semana **168**. O `+` de
+criar tem `tabIndex={-1}` de propósito: ele é alcançado pelo `Enter` na célula,
+e deixá-lo tabbável reintroduziria as 42 paradas.
+
+Medido no browser: `→` levou de 0 pra 1, `↓` de 1 pra 8 (+7), `Home` de 8 pra 7
+(início da linha), com sempre exatamente 1 célula em `tabIndex=0`.
+
 ### 6. `draggable` e `resizable` nascem `false`
 
 Deliberado (mesmo default do `enableDnD` do `Kanban`): dnd ligado sem
 `onEventMove` conectado deixa o usuário arrastar e ver o evento voltar sozinho
-— o pior estado possível, porque parece bug do app. **Nesta versão o dnd ainda
-não está implementado**, então ligar as props não faz nada.
+— o pior estado possível, porque parece bug do app.
+
+O componente **não liga o dnd** se não houver `onEventMove`/`onEventResize`
+conectado, e em DEV avisa por `console.warn` nomeando qual falta. `event.draggable`
+e `event.resizable` sobrepõem por evento — é como se diz "esta reunião é fixa"
+sem desligar o board todo.
 
 ### 6b. `SchedulerFilterPanel` também é exportado solto
 

@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/shadcn/pop
 import {
   schedulerCellEvents,
   schedulerDayHead,
+  schedulerDropTarget,
   schedulerDayNumber,
   schedulerMonthCell,
   schedulerMonthFrame,
@@ -16,7 +17,9 @@ import {
   schedulerWeekdayCell,
   schedulerWeekdayRow,
 } from "../scheduler.styles";
+import { DraggableEvent, DroppableDay } from "../parts/draggable-event";
 import { SchedulerEventItem } from "../parts/scheduler-event";
+import { useSchedulerKeyboard } from "../hooks/use-scheduler-keyboard";
 import { buildMonthMatrix, computeOverflow, segmentMultiDay } from "../hooks/layout";
 import type {
   SchedulerEvent,
@@ -66,6 +69,10 @@ export type SchedulerMonthViewProps = {
   ) => void;
   onSlotClick?: (start: Date, end: Date) => void;
   renderEvent?: (params: SchedulerRenderEventParams) => React.ReactNode;
+  /** Liga os droppables. `false` deixa o dnd inerte sem desmontar nada. */
+  dndAtivo?: boolean;
+  /** Decide por evento se ele pode ser arrastado — vem do hook de dnd. */
+  podeMover?: (event: SchedulerEvent) => boolean;
 };
 
 /**
@@ -100,11 +107,37 @@ export function SchedulerMonthView({
   onEventClick,
   onSlotClick,
   renderEvent,
+  dndAtivo = false,
+  podeMover,
 }: SchedulerMonthViewProps) {
   const weeks = useMemo(
     () => buildMonthMatrix(date, weekStartsOn, locale),
     [date, weekStartsOn, locale],
   );
+
+  /**
+   * Roving tabindex nas 42 células. `onActivate` (Enter/Space) dispara o mesmo
+   * `onSlotClick` do `+` — quem navega por teclado cria evento no dia focado
+   * sem precisar alcançar um botão que só aparece no hover do mouse.
+   *
+   * ⚠️ **Sempre ligado, mesmo sem `onSlotClick`.** A primeira versão amarrava o
+   * `enabled` ao handler, e isso confundia "pode criar" com "pode navegar":
+   * medido na doc page, as grades sem `onSlotClick` ficavam com ZERO células em
+   * `tabIndex=0`, ou seja inalcançáveis por `Tab`. Varrer o mês com as setas é
+   * útil por si — sem handler, só o `Enter` é que não faz nada.
+   *
+   * A `time-grid` faz o oposto e está certa: lá a faixa de hora é um `<button>`
+   * que vem `disabled` sem handler, e elemento desabilitado não recebe foco —
+   * gerir roving sobre ele seria mover um foco que não chega.
+   */
+  const teclado = useSchedulerKeyboard({
+    count: weeks.length * 7,
+    columns: 7,
+    onActivate: (index) => {
+      const dia = weeks[Math.floor(index / 7)]?.[index % 7];
+      if (dia) onSlotClick?.(startOfDay(dia), startOfDay(dia));
+    },
+  });
 
   /**
    * Mede a altura REAL da linha pra derivar quantos eventos cabem por célula.
@@ -208,7 +241,7 @@ export function SchedulerMonthView({
         ))}
       </div>
 
-      <div ref={gridRef} className={schedulerMonthGrid()}>
+      <div ref={gridRef} role="grid" className={schedulerMonthGrid()}>
         {weeks.map((week, weekIndex) =>
           week.map((day) => {
             const dayEvents = byDay.get(day.getTime()) ?? [];
@@ -233,14 +266,25 @@ export function SchedulerMonthView({
             const outside = !isSameMonth(day, date);
             const today = isSameDay(day, now);
 
+            const indiceDaCelula = weekIndex * 7 + week.indexOf(day);
+
             return (
-              <div
+              <DroppableDay
                 key={day.getTime()}
+                day={day}
+                disabled={!dndAtivo}
                 className={schedulerMonthCell({
                   outside,
                   lastRow: weekIndex === weeks.length - 1,
                   interactive: Boolean(onSlotClick),
                 })}
+                overClassName={schedulerDropTarget()}
+                /* A célula é o alvo do roving tabindex: `role="gridcell"` +
+                   `tabIndex` gerido pelo hook. É o que faz a grade inteira ser
+                   UMA parada de Tab em vez de 42. */
+                role="gridcell"
+                aria-label={format(day, "PPPP", { locale })}
+                {...teclado.getCellProps(indiceDaCelula)}
               >
                 <div className={schedulerDayHead()}>
                   <span className={schedulerDayNumber({ today, outside })}>
@@ -252,6 +296,10 @@ export function SchedulerMonthView({
                       type="button"
                       className={schedulerSlotAdd()}
                       aria-label={`Criar evento em ${format(day, "PPP", { locale })}`}
+                      /* `tabIndex={-1}`: o `+` é alcançado pelo Enter na célula
+                         (roving tabindex), não por Tab. Sem isso ele reintroduz
+                         42 paradas de Tab — exatamente o que o roving resolve. */
+                      tabIndex={-1}
                       onClick={() =>
                         // Dia inteiro: quem cria decide a hora no formulário.
                         // Emitir 00:00–23:59 seria inventar uma duração que o
@@ -268,11 +316,12 @@ export function SchedulerMonthView({
                   {visible.map((event) => {
                     const meta = dayEvents.find((d) => d.event.id === event.id);
                     return (
-                      <SchedulerEventItem
+                      <DraggableEvent
                         key={`${event.id}-${day.getTime()}`}
                         event={event}
                         view="month"
                         variant="pill"
+                        movable={podeMover?.(event) ?? false}
                         truncateStart={meta?.truncateStart}
                         truncateEnd={meta?.truncateEnd}
                         timeLabel={timeLabelOf(event)}
@@ -322,7 +371,7 @@ export function SchedulerMonthView({
                     </Popover>
                   ) : null}
                 </div>
-              </div>
+              </DroppableDay>
             );
           }),
         )}

@@ -32,6 +32,7 @@ const TOC = [
   { id: "filtros", label: "Busca e filtros" },
   { id: "controlado", label: "Modo controlado" },
   { id: "tela-cheia", label: "Tela cheia" },
+  { id: "dnd", label: "Drag & drop e teclado" },
   { id: "falta", label: "O que falta" },
   { id: "api", label: "API Reference" },
 ];
@@ -631,27 +632,47 @@ export function SchedulerDoc() {
         <code className="text-code-sm">#/scheduler-full</code>).
       </p>
 
+      <SectionH2 id="dnd" title="Drag & drop e teclado" />
+      <p className="mb-14 text-body-md text-fg-muted">
+        <strong>Arrastar</strong> move o evento: no <strong>mês</strong> muda a
+        data preservando hora e duração; em <strong>semana/dia</strong> combina a
+        coluna (dia) com o deslocamento vertical (minutos, snapados por{" "}
+        <code className="text-code-sm">snapMinutes</code>). Arrastar a{" "}
+        <strong>borda</strong> do bloco em semana/dia muda a{" "}
+        <strong>duração</strong> — alça separada, pra agarrar a borda não virar
+        movimento. Base: <code className="text-code-sm">@dnd-kit/core</code>, a
+        mesma do <code className="text-code-sm">Kanban</code>.
+        <br />
+        <br />
+        O componente <strong>não muta nada</strong>: ele emite{" "}
+        <code className="text-code-sm">onEventMove</code> /{" "}
+        <code className="text-code-sm">onEventResize</code> e quem aplica é a
+        tela. E o dnd só liga quando há handler conectado — arrastar e ver o
+        evento voltar sozinho lê como bug do app, que é o que{" "}
+        <code className="text-code-sm">draggable: false</code> por default
+        protege; em DEV, ligar sem handler avisa por{" "}
+        <code className="text-code-sm">console.warn</code>.
+        <br />
+        <br />
+        <strong>Teclado:</strong> cada grade é <strong>uma única</strong> parada
+        de <code className="text-code-sm">Tab</code> (roving tabindex). As setas
+        movem dentro dela, <code className="text-code-sm">Home</code>/
+        <code className="text-code-sm">End</code> vão às pontas da{" "}
+        <em>linha</em>, e <code className="text-code-sm">Enter</code> cria no slot
+        focado. Sem isso o mês custava <strong>42</strong>{" "}
+        <code className="text-code-sm">Tab</code> e a semana{" "}
+        <strong>168</strong>.
+        <br />
+        <br />
+        Demonstração com o dnd LIGADO:{" "}
+        <strong>Example: Tela cheia</strong> (
+        <code className="text-code-sm">#/scheduler-full</code>) — os exemplos
+        desta página deixam o dnd desligado de propósito, pra o clique no evento
+        continuar sendo o gesto que abre o painel.
+      </p>
+
       <SectionH2 id="falta" title="O que ainda não está pronto" />
       <p className="mb-14 text-body-md text-fg-muted">
-        <strong>Drag &amp; drop:</strong>{" "}
-        <code className="text-code-sm">onEventMove</code> e{" "}
-        <code className="text-code-sm">onEventResize</code> existem na API e ainda{" "}
-        <strong>não são chamadas</strong> —{" "}
-        <code className="text-code-sm">draggable</code> e{" "}
-        <code className="text-code-sm">resizable</code> nascem{" "}
-        <code className="text-code-sm">false</code> justamente por isso: dnd
-        ligado sem handler conectado deixa o usuário arrastar e ver o evento
-        voltar sozinho, que lê como bug do app. O núcleo puro que o dnd vai
-        consumir (<code className="text-code-sm">snapToGrid</code> e{" "}
-        <code className="text-code-sm">resolveResize</code>) já está implementado
-        e coberto por 36 testes de borda, incluindo os clamps que impedem{" "}
-        <code className="text-code-sm">start &gt; end</code>.
-        <br />
-        <br />
-        <strong>Teclado:</strong> a navegação por <strong>Tab</strong> funciona; o
-        que falta é o roving tabindex pra andar pela grade com as setas.
-        <br />
-        <br />
         <strong>Distribuição:</strong> o componente ainda não está no{" "}
         <code className="text-code-sm">registry.json</code>, então o consumidor
         não o recebe via <code className="text-code-sm">igreen:add</code> — fecha
