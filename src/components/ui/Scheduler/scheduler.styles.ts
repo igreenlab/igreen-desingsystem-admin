@@ -270,13 +270,32 @@ export const schedulerMain = tv({
  */
 export const schedulerFilterAside = tv({
   base: [
-    "flex w-[280px] min-h-0 shrink-0 flex-col overflow-y-auto",
+    "flex min-h-0 flex-col overflow-y-auto",
     // `scrollbar-thin` é a barra do DS (26 usos no repo contra 2 do
     // `scrollbar-default`) — trilho transparente + thumb tokenizado.
     // ⚠️ É `@utility` do tema GERADO, não do globals.css: existe nos 4 canais.
     "scrollbar-thin",
-    "rounded-radius-xl border border-border-default bg-bg-surface",
   ],
+  variants: {
+    /**
+     * `embedded` = o painel vive DENTRO de outro contêiner que já é a
+     * superfície — hoje o `FloatingPanel` do modo drawer (<1024px).
+     *
+     * Como coluna (`false`, o default) ele É o card: largura própria, borda,
+     * radius e fundo. Embutido, os quatro viram defeito — largura fixa deixa
+     * uma faixa morta à direita do drawer, e borda+radius+fundo repetem a
+     * superfície do painel que já o embrulha (card dentro de card, a mesma
+     * classe de erro da L-050).
+     */
+    embedded: {
+      false: [
+        "w-[280px] shrink-0",
+        "rounded-radius-xl border border-border-default bg-bg-surface",
+      ],
+      true: "w-full",
+    },
+  },
+  defaultVariants: { embedded: false },
 });
 
 /**

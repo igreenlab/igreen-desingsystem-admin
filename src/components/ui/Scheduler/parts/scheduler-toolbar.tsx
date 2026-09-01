@@ -97,12 +97,6 @@ export type SchedulerToolbarProps = {
   /** Estado do painel-coluna de filtro. */
   filterPanelOpen: boolean;
   onToggleFilterPanel: () => void;
-  /**
-   * `false` abaixo de `lg`: a coluna extra não cabe junto de uma grade de 7
-   * dias legível, então o botão fica desabilitado com `title` explicando — em
-   * vez de abrir um painel que o CSS esconde.
-   */
-  filterPanelAvailable: boolean;
 
   toolbarActions?: ReactNode;
   primaryAction?: ReactNode;
@@ -125,7 +119,6 @@ export function SchedulerToolbar({
   appliedCount,
   filterPanelOpen,
   onToggleFilterPanel,
-  filterPanelAvailable,
   toolbarActions,
   primaryAction,
 }: SchedulerToolbarProps) {
@@ -265,17 +258,11 @@ export function SchedulerToolbar({
                 size="sm"
                 iconLeft={<ListFilter />}
                 onClick={onToggleFilterPanel}
-                disabled={!filterPanelAvailable}
                 aria-expanded={filterPanelOpen}
                 className={cn(
                   filterEngaged &&
                     "border-border-brand hover:border-border-brand",
                 )}
-                title={
-                  filterPanelAvailable
-                    ? undefined
-                    : "O painel de filtros precisa de uma tela mais larga (1024px+)"
-                }
               >
                 Filtro
               </Button>
