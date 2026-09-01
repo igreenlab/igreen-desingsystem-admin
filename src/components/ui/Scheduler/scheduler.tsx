@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { schedulerBody, schedulerMain, schedulerRoot } from "./scheduler.styles";
@@ -15,6 +15,7 @@ import { SchedulerFilterPanel } from "./parts/scheduler-filter-panel";
 import { SchedulerMonthView } from "./views/month";
 import { HOUR_HEIGHT_PX, SchedulerTimeGrid } from "./views/time-grid";
 import { SchedulerListView } from "./views/list";
+import { SchedulerEventItem } from "./parts/scheduler-event";
 import { useSchedulerFilter } from "./hooks/use-scheduler-filter";
 import { useSchedulerState } from "./hooks/use-scheduler-state";
 import { useMediaQuery } from "./hooks/use-media-query";
@@ -205,6 +206,11 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       }
     }, [draggable, resizable, onEventMove, onEventResize]);
 
+    /** O evento sob arraste, pro `DragOverlay` desenhar a cópia flutuante. */
+    const eventoArrastado = dnd.dragAtivo?.kind === "move"
+      ? filter.filteredEvents.find((e) => e.id === dnd.dragAtivo?.eventId) ?? null
+      : null;
+
     const filterPanelAvailable = useMediaQuery("(min-width: 1024px)");
     const [filterPanelOpen, setFilterPanelOpen] = useState(defaultFilterPanelOpen);
     const showFilterPanel =
@@ -370,6 +376,37 @@ export const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             />
           ) : null}
         </div>
+
+        {/* O bloco que segue o cursor. Vive num PORTAL, fora da árvore da grade
+            — é o que impede o `overflow-hidden` do frame e da célula de recortá-lo
+            (o defeito da primeira versão, em que o evento desaparecia ao sair da
+            célula).
+
+            `dropAnimation={null}`: a animação default do dnd-kit devolve o
+            overlay pra posição de origem antes de desmontar, e como o
+            consumidor já reposicionou o evento no `onEventMove`, o usuário via o
+            bloco voar de volta pro lugar antigo e o evento aparecer no novo —
+            duas coisas ao mesmo tempo. Sem ela, o overlay some e o bloco real já
+            está no destino, com a transição de assentamento do `movable`. */}
+        <DragOverlay dropAnimation={null}>
+          {eventoArrastado ? (
+            <SchedulerEventItem
+              event={eventoArrastado}
+              view={state.view}
+              variant={state.view === "month" ? "pill" : "block"}
+              dragging
+              timeLabel={
+                eventoArrastado.allDay
+                  ? undefined
+                  : format(
+                      eventoArrastado.start,
+                      hourFormat === "12h" ? "h:mm a" : "HH:mm",
+                      { locale },
+                    )
+              }
+            />
+          ) : null}
+        </DragOverlay>
         </DndContext>
       </div>
     );

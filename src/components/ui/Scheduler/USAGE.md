@@ -293,6 +293,17 @@ Detalhes que evitam surpresa:
   não na grade de horas.
 - **Arrastar pra baixo perto do fim da grade encosta no limite** em vez de vazar
   pro dia seguinte. Mudar de dia se faz atravessando a coluna — o gesto explícito.
+- **O bloco que segue o cursor é um `DragOverlay`, em `position: fixed`.** É
+  obrigatório: três ancestrais cortam (o frame da grade, a pilha de eventos da
+  célula e o corpo rolável de week/day), e elemento transformado continua sujeito
+  ao clipping do ancestral — a primeira versão movia o próprio bloco e ele
+  **desaparecia** ao sair da célula. Se você embrulhar o `Scheduler` num
+  container com `transform`, `filter` ou `contain: paint`, esse container passa
+  a ser o containing block do `fixed` e o defeito volta.
+- **Só dá pra mover pra um dia VISÍVEL na grade.** No mês isso inclui as células
+  cinzas dos meses vizinhos (a grade de setembro/2026 vai de 30/ago a 10/out, e
+  as duas pontas são alvo válido). Pra um mês fora da tela, navegue primeiro —
+  não há auto-avanço ao arrastar sobre as setas.
 
 > ⚠️ O gesto real **não pôde ser verificado no browser de teste**: o
 > `PointerSensor` do dnd-kit usa `setPointerCapture` com `pointerId` real, e nem

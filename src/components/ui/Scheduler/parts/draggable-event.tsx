@@ -85,7 +85,7 @@ export function DraggableEvent({
   resizable = false,
   ...rest
 }: DraggableEventProps) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: draggableIdForMove(rest.event.id),
     disabled: !movable,
   });
@@ -96,7 +96,21 @@ export function DraggableEvent({
       movable={movable}
       dragging={isDragging}
       setDragNodeRef={setNodeRef}
-      dragTransform={transform}
+      /**
+       * ⚠️ **`dragTransform` NÃO é passado de propósito.**
+       *
+       * A primeira versão movia o próprio bloco com `translate3d`, e ele
+       * **desaparecia** ao sair da célula: três ancestrais cortam — o frame da
+       * grade (`overflow-hidden`), a pilha de eventos da célula
+       * (`overflow-hidden`) e o corpo rolável de week/day (`overflow-y-auto`).
+       * Elemento transformado continua sujeito ao clipping do ancestral, então
+       * não havia z-index que resolvesse.
+       *
+       * Quem segue o cursor agora é o `DragOverlay` (em `scheduler.tsx`), que o
+       * dnd-kit renderiza em portal FORA da árvore que corta. O original fica no
+       * lugar, esmaecido, marcando de onde o evento saiu.
+       */
+      dragTransform={null}
       /* Sem `movable`, nem `attributes` nem `listeners` entram: um elemento que
          se anuncia arrastável e não arrasta é pior que um que não se anuncia. */
       dragAttributes={

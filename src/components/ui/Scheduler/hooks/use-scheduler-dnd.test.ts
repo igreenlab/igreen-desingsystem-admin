@@ -122,6 +122,36 @@ describe("useSchedulerDnd — mover no mês", () => {
     expect(onEventMove).not.toHaveBeenCalled();
   });
 
+  it("soltar numa célula do MÊS VIZINHO move o evento pra lá", () => {
+    // A grade de setembro/2026 vai de 30/ago a 10/out: as duas pontas são
+    // células de outro mês, e são alvo válido. Este teste existe porque foi
+    // reportado como "não move pro outro mês" — o que estava quebrado era o
+    // recorte visual durante o arraste (o bloco desaparecia e não dava pra
+    // mirar), não a resolução do drop.
+    const { hook, onEventMove } = montar("month");
+
+    act(() => {
+      hook.result.current.handleDragEnd(
+        dragEnd(draggableIdForMove("e1"), droppableIdForDay(at(2026, 9, 3))),
+      );
+    });
+
+    const arg = onEventMove.mock.calls[0][0];
+    expect(arg.start.getMonth()).toBe(9); // outubro
+    expect(arg.start.getDate()).toBe(3);
+    expect(arg.start.getHours()).toBe(10); // hora preservada
+
+    // E pra trás, na outra ponta da grade.
+    act(() => {
+      hook.result.current.handleDragEnd(
+        dragEnd(draggableIdForMove("e1"), droppableIdForDay(at(2026, 7, 30))),
+      );
+    });
+    const arg2 = onEventMove.mock.calls[1][0];
+    expect(arg2.start.getMonth()).toBe(7); // agosto
+    expect(arg2.start.getDate()).toBe(30);
+  });
+
   it("delta vertical NÃO muda o horário no mês", () => {
     // A grade do mês não tem eixo de tempo: usar delta.y aqui inventaria uma
     // mudança de hora que o usuário não pediu.

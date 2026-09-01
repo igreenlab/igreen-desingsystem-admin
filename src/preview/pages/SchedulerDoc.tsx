@@ -317,6 +317,27 @@ export function SchedulerDoc() {
     { categoryId: ["cliente"] },
   );
 
+  /**
+   * Exemplo de dnd: `events` em estado, porque o componente é dumb sobre
+   * mutação. Sem isto o arraste não teria efeito — que é justamente o que o
+   * `console.warn` de DEV do componente avisa.
+   */
+  const [eventosDnd, setEventosDnd] = useState<SchedulerEvent[]>(EVENTS);
+  const [ultimaMudanca, setUltimaMudanca] = useState<string | null>(null);
+
+  const aplicarDnd = ({
+    id,
+    start,
+    end,
+  }: {
+    id: string;
+    start: Date;
+    end: Date;
+  }) =>
+    setEventosDnd((atual) =>
+      atual.map((e) => (e.id === id ? { ...e, start, end } : e)),
+    );
+
   /** Exemplo da anatomia: o painel isolado precisa do próprio estado. */
   const [filtroIsolado, setFiltroIsolado] = useState<SchedulerFilterModel>({
     tagIds: ["time"],
@@ -633,6 +654,51 @@ export function SchedulerDoc() {
       </p>
 
       <SectionH2 id="dnd" title="Drag & drop e teclado" />
+      <ExampleSection
+        id="dnd-vivo"
+        title="Segure o evento e arraste"
+        description="Este exemplo tem o dnd LIGADO — é o único da página, porque nos outros o clique é o gesto documentado (abre o painel) e arrastes acidentais enquanto se lê a doc seriam ruído. A área de arraste é o EVENTO INTEIRO: segure em qualquer ponto dele. No mês, soltar em outra célula muda a data preservando hora e duração; troque pra Semana e o bloco também aceita ser movido pra outra hora, além de ter alça nas bordas pra mudar a duração. O que separa clicar de arrastar é um limiar de 6px — mover menos conta como clique. O componente não muta nada: ele emite onEventMove/onEventResize e este exemplo aplica no próprio estado, que é o que faz a mudança persistir."
+        plain
+      >
+        <div className="flex flex-col gap-gp-xl">
+          <div className="flex flex-wrap items-center gap-gp-md">
+            <Button
+              variant="outline"
+              color="secondary"
+              size="sm"
+              onClick={() => setEventosDnd(EVENTS)}
+            >
+              Restaurar posições
+            </Button>
+            <span className="text-caption-sm text-fg-muted">
+              {ultimaMudanca ?? "Nenhuma mudança ainda — arraste um evento."}
+            </span>
+          </div>
+
+          <div className="h-[720px]">
+            <Scheduler
+              events={eventosDnd}
+              locale={ptBR}
+              draggable
+              resizable
+              onEventMove={(m) => {
+                aplicarDnd(m);
+                setUltimaMudanca(
+                  `Movido: ${format(m.start, "d MMM HH:mm", { locale: ptBR })} → ${format(m.end, "HH:mm", { locale: ptBR })}`,
+                );
+              }}
+              onEventResize={(m) => {
+                aplicarDnd(m);
+                setUltimaMudanca(
+                  `Duração alterada: ${format(m.start, "HH:mm", { locale: ptBR })}–${format(m.end, "HH:mm", { locale: ptBR })}`,
+                );
+              }}
+              onEventClick={(event) => setSelected(event)}
+            />
+          </div>
+        </div>
+      </ExampleSection>
+
       <p className="mb-14 text-body-md text-fg-muted">
         <strong>Arrastar</strong> move o evento: no <strong>mês</strong> muda a
         data preservando hora e duração; em <strong>semana/dia</strong> combina a
@@ -664,11 +730,11 @@ export function SchedulerDoc() {
         <strong>168</strong>.
         <br />
         <br />
-        Demonstração com o dnd LIGADO:{" "}
+        O exemplo acima é o único desta página com dnd ligado — nos outros o
+        clique é o gesto documentado, e arrastes acidentais enquanto se lê a doc
+        seriam ruído. Há também a versão de tela inteira em{" "}
         <strong>Example: Tela cheia</strong> (
-        <code className="text-code-sm">#/scheduler-full</code>) — os exemplos
-        desta página deixam o dnd desligado de propósito, pra o clique no evento
-        continuar sendo o gesto que abre o painel.
+        <code className="text-code-sm">#/scheduler-full</code>).
       </p>
 
       <SectionH2 id="falta" title="O que ainda não está pronto" />
