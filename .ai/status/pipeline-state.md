@@ -27,6 +27,7 @@
 - [O achado que muda a conclusão: não era a IA que errou, era o DS](#o-achado-que-muda-a-conclusão-não-era-a-ia-que-errou-era-o-ds)
 - [O que ficou](#o-que-ficou)
 - [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
+- [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 
 <!-- doc-index:fim -->
 
@@ -4634,3 +4635,54 @@ browser; sem isso teriam virado "verificado" falso.
 
 **Fora da v1 (YAGNI, inalterado):** recorrência/RRULE · múltiplos calendários / visão por
 recurso · fuso por evento · export ICS · impressão · virtualização.
+
+---
+
+## 2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada
+
+**Escopo:** tornar o `Scheduler` utilizável em tela de toque. Mergeada (PR #300);
+npm `latest` = **0.57.0**; CLI **inalterado** em 0.25.29 — nenhum foundational nem
+`cli/templates/**` foi tocado.
+
+**O defeito de origem:** a v0.56.0 saiu desenhada pro desktop. Abaixo de 1024px o botão
+Filtro ficava permanentemente desabilitado, com `title` explicando a largura mínima. Era
+coerente com a arquitetura de então (o painel só existia como coluna) e **passou em todos
+os gates** — nenhum deles olha usabilidade. Quem achou foi o mantenedor perguntando "está
+adaptável pro mobile?".
+
+**Decisões:**
+
+1. **Drawer em vez de coluna abaixo de 1024px**, reusando o `FloatingPanel` — o mesmo
+   veículo do `ToolbarSimpleFilterDrawer` de `DataTable`/`DataList`. Nenhuma peça nova: o
+   `SchedulerFilterPanel` é o mesmo nos dois modos. O breakpoint deixou de decidir SE o
+   filtro existe e passou a decidir QUAL invólucro.
+2. **`embedded` como prop única**, não `hideHeader` + algo pra moldura. É uma decisão só —
+   "existe outro contêiner em volta?" — e duas props permitiriam combinar metade de cada.
+3. **Toolbar em duas linhas** com alvos de 44×44. Só esconder o rótulo dava 32×36; num
+   layout que existe pra dedo isso é regressão, e `min-h-form-xl` (44px) é o alvo do DS.
+4. **`primaryAction` continua do consumidor.** Reescrever nó alheio por CSS quebraria no
+   primeiro que passasse algo que não é Button. Oferecida a receita e aplicada nos 3
+   exemplos do showcase.
+
+**Assumption:** que 1024px é o limite certo pra coluna. Falsificável por uma tela real com
+sidebar larga, onde a grade + coluna não cabem mesmo acima de 1024 — aí o gatilho passa a
+ser largura MEDIDA do componente (`ResizeObserver`), não do viewport. Não foi feito agora
+porque exigiria o observer que este ambiente não consegue verificar.
+
+**O pre-commit bloqueou, e estava certo:** `embedded` é prop pública (sai pelo barrel) e
+nasceu no PR anterior sem entrar na USAGE nem na DocPage. Documentada antes do commit de
+release.
+
+**Também corrigido:** a `USAGE.md` mandava manter o breakpoint em dois lugares — instrução
+pra reintroduzir o bug do "botão aberto, painel `display: none`" que já havia sido
+consertado. L-060 na forma canônica: doc é load-bearing.
+
+**Ferramental:** o `gh` foi instalado nesta sessão. Até então toda release parava no push e
+entregava link de compare pra colar à mão; a #300 é o primeiro PR aberto por CLI, como a
+Regra 8 e o passo 6.9 sempre pediram.
+
+**Fica aberto (não é débito escondido — é decisão de produto não tomada):** mês e semana
+seguem ilegíveis em 375px, com o rótulo do evento em 0–6px de largura útil (coluna de
+49,9px = 351÷7). Resolver exige o mês virar só pontos abaixo de `sm`, ou mês/semana caírem
+pra lista. Menores: `MessageComposer` e `AvatarGroup` fora do `ComponentsOverviewDoc`
+(9ª superfície, sem gate), e o grupo `‹ Hoje ›` em 36px contra os 44 do alvo de toque.
