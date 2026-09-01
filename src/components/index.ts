@@ -43,6 +43,7 @@ export * from "./ui/Modal";
 export * from "./ui/MonthYearPicker";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
+export * from "./ui/Scheduler";
 export * from "./ui/ScreenLoader";
 export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";

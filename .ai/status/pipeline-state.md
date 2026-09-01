@@ -4543,3 +4543,47 @@ o `size` some em vez de virar API permanente.
 cadeia 13/400 com `fg-muted` e o último em `fg-default` · item único 16/600 — zero desvio.
 
 **Dívida:** nenhuma aberta.
+
+---
+
+### 2026-09-01 | ds-designer | `Scheduler` — calendário de eventos (month/week/day/list) | GATE APROVADO
+
+**Input:** *"queria fazer esse novo componente de Calendario (já temos um componente Calendar
+então precisa ser outro nome) … formato de meses, semanas, dia e lista … quando clicar em um
+elemento abrir um panel detalhado (igual ao dsgreen-paneldetail-2) … busca também e filtros com
+categorias / tags"*, com 5 prints do Untitled UI como referência visual.
+
+**Spec:** `.ai/specs/scheduler-componente-de-calendario.md` (705 linhas). Aprovada pelo usuário
+em 2026-09-01, opção **A** de cor. Implementação segue pro DS Dev.
+
+**As decisões que a próxima pessoa precisa conhecer:**
+
+1. **Um componente, prop `view`.** Não são 4 componentes: `month | week | day | list` numa API
+   só, toolbar embutida — mesma gramática do `viewMode` do DataTable. `week` e `day` são a
+   MESMA view (`time-grid.tsx`) com 7 ou 1 coluna.
+2. **A cor mora no dot/acento/tint, nunca no texto.** Medido: `text-fg-{cor}` sobre pílula
+   tingida dá 1.72–4.49 no light e 2.97–4.31 no dark — nenhuma família passa AA, e `warning`
+   soft dá 1.72:1. O texto é `fg-default` (17.46–18.42 / 7.45–10.95). Isso é o que tornou a
+   opção A viável sem cascata de token.
+3. **A entrega ~5 categorias praticáveis, não 6.** `brand` (hue 151) e `success` (161) estão a
+   10° e como tint viram o mesmo off-white. `info` é hue 280 — o "roxo" dos prints já está
+   coberto. Gatilho pra reabrir como paleta `event-*` (opção B): consumidor real precisando de
+   >5 categorias simultâneas, e aí derivando de `chart-*` pela fórmula `color-mix` dos status.
+4. **O segmented é reimplementado em `scheduler.styles.ts`, não importado do `TableToolbar`.**
+   Cross-import entre pastas de `ui/` é o que gerou o `registryDependency` dangling da L-049 no
+   `DataList`: `@igreen/table-toolbar` não existe como item, e o `igreen:add scheduler`
+   estrearia quebrado com `tsc` e showcase verdes.
+5. **`draggable` default `false`.** DnD ligado sem `onEventMove` conectado deixa o usuário
+   arrastar e ver voltar — lê como bug do app. Mesmo default do `enableDnD` do Kanban.
+
+**Assumption:** que o consumidor consegue nomear seus eventos com ≤5 categorias visualmente
+separáveis, e que a cor é reforço — nunca o único portador da informação. Falsificável: se uma
+tela real precisar de 6+ categorias distinguíveis lado a lado, a opção B (paleta `event-*`
+derivada de `chart-*`) passa a ser o certo, e a união fechada torna a ampliação aditiva.
+
+**Fora da v1 (YAGNI declarado):** recorrência/RRULE · múltiplos calendários / visão por recurso
+· fuso por evento · export ICS · impressão · virtualização.
+
+**Dívida:** `date-fns` precisa ser declarado no item do registry — nenhum componente de
+`src/components/` o importa hoje, e herdá-lo transitivamente do `react-day-picker` é a receita
+da L-037. Fecha no `/ds-release`.
