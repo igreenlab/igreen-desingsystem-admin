@@ -153,7 +153,7 @@ Pra travar num número fixo (quando a tela precisa de altura de linha previsíve
 independentemente do conteúdo), a view de mês aceita `maxPerCell` — mas o
 default adaptativo é o que aproveita a tela.
 
-Exemplo vivo: **Example: Scheduler tela cheia** no menu do showcase
+Exemplo vivo: **Scheduler Full Screen**, na categoria Examples do showcase
 (`#/scheduler-full`).
 
 > ⚠️ A re-medição pós-montagem depende de `ResizeObserver`. Ela **não pôde ser

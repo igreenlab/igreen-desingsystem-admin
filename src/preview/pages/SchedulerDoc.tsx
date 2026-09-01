@@ -649,7 +649,7 @@ export function SchedulerDoc() {
         e <strong>6 pills</strong>. Pra travar num número fixo, a view de mês
         aceita <code className="text-code-sm">maxPerCell</code>, mas o default
         adaptativo é o que aproveita a tela. Exemplo dedicado no menu:{" "}
-        <strong>Example: Scheduler tela cheia</strong> (
+        <strong>Scheduler Full Screen</strong>, na categoria Examples (
         <code className="text-code-sm">#/scheduler-full</code>).
       </p>
 
@@ -733,7 +733,7 @@ export function SchedulerDoc() {
         O exemplo acima é o único desta página com dnd ligado — nos outros o
         clique é o gesto documentado, e arrastes acidentais enquanto se lê a doc
         seriam ruído. Há também a versão de tela inteira em{" "}
-        <strong>Example: Tela cheia</strong> (
+        <strong>Scheduler Full Screen</strong> (na categoria Examples) (
         <code className="text-code-sm">#/scheduler-full</code>).
       </p>
 

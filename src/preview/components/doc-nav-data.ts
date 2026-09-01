@@ -109,6 +109,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Popover", href: "popover" },
       { label: "Progress", href: "progress" },
       { label: "Radio Group", href: "radio-group" },
+      { label: "Scheduler", href: "scheduler" },
       { label: "Screen Loader", href: "screen-loader" },
       { label: "Scroll Area", href: "scroll-area" },
       { label: "Select", href: "select" },
@@ -177,16 +178,6 @@ const BASE_NAV: DocNavSection[] = [
     ],
   },
   {
-    // Seção própria, no padrão de "Data Table Components" e "List Components":
-    // um "Example:" solto no meio da lista alfabética de Components ficava
-    // impossível de achar — era vizinho de "Screen Loader" por acidente de nome.
-    title: "Scheduler",
-    items: [
-      { label: "Scheduler", href: "scheduler" },
-      { label: "Example: Tela cheia", href: "scheduler-full" },
-    ],
-  },
-  {
     title: "List Components",
     items: [
       { label: "List", href: "list" },
@@ -218,6 +209,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Mapa de Rede", href: "mapa-rede" },
       { label: "Chat", href: "chat-v2" },
       { label: "Dashboard", href: "dashboard-showcase" },
+      { label: "Scheduler Full Screen", href: "scheduler-full" },
       // Apps standalone (fullscreen via ?app=) — abrem fora do chrome de docs.
       { label: "App (esqueleto)", href: "app-shell-example", url: "?app=app-shell" },
       { label: "Login", href: "login", url: "?app=login" },

@@ -247,8 +247,11 @@ export function SchedulerFullPreview() {
 
   return (
     <ExamplePageLayout
-      category="Scheduler"
-      title="Tela cheia"
+      /* Título IGUAL ao item do menu ("Scheduler Full Screen", na categoria
+         Examples): clicar num nome e cair numa página com outro lê como se
+         fosse outra coisa. */
+      category="Examples"
+      title="Scheduler Full Screen"
       description="O mesmo Scheduler ocupando a janela inteira, e com drag & drop LIGADO. Não há prop de fullscreen: o componente já é h-full, e é a altura do pai que manda. O que muda de verdade é a célula do mês — o corte do “+N mais” é derivado da altura medida da linha, então aqui cabem 6+ eventos onde num card de 720px cabiam 3, como as linhas da tabela. Arraste um evento pra outro dia (no mês) ou pra outra hora/coluna (na semana); arraste a BORDA do bloco em semana/dia pra mudar a duração. O componente não muta nada — ele emite onEventMove/onEventResize e esta página aplica no próprio estado."
       code={CODE}
     >
