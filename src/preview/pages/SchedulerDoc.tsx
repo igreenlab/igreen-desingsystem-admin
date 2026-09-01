@@ -12,7 +12,7 @@ import type {
 import { Button } from "../../components/ui/Button";
 import { Chip } from "../../components/ui/Chip";
 import { Avatar } from "../../components/ui/avatar-ig";
-import { FloatingPanel } from "../../components/ui/FloatingPanel";
+import { SchedulerEventDetail } from "./scheduler-event-detail";
 import {
   DocLayout,
   DocHeader,
@@ -63,7 +63,14 @@ const EVENTS: SchedulerEvent[] = [
     categoryId: "interna",
     tagIds: ["time"],
     description: "Sincronização rápida de progresso e bloqueios.",
-    meta: { local: "Sala Vidro / Meet", responsavel: "Aline Castro" },
+    meta: {
+      local: "Sala Vidro / Meet",
+      responsavel: "Aline Castro",
+      videochamada: "https://meet.google.com/abc-defg-hij",
+      recorrencia: "Todo dia útil",
+      visibilidade: "Time de produto",
+      lembrete: "5 min antes",
+    },
   },
   {
     id: "e2",
@@ -74,7 +81,14 @@ const EVENTS: SchedulerEvent[] = [
     categoryId: "cliente",
     tagIds: ["comercial", "importante"],
     description: "Apresentação do novo painel de consumo.",
-    meta: { local: "Zoom", responsavel: "Sérgio Vieira" },
+    meta: {
+      local: "Zoom",
+      responsavel: "Sérgio Vieira",
+      videochamada: "https://zoom.us/j/8634196",
+      recorrencia: "Toda quarta, até dezembro",
+      visibilidade: "Somente convidados",
+      lembrete: "15 min antes",
+    },
   },
   {
     id: "e3",
@@ -85,7 +99,12 @@ const EVENTS: SchedulerEvent[] = [
     categoryId: "interna",
     tagIds: ["design"],
     description: "Fechar a hierarquia dos KPIs do dashboard.",
-    meta: { local: "Sala Verde", responsavel: "Marina Duarte" },
+    meta: {
+      local: "Sala Verde",
+      responsavel: "Marina Duarte",
+      visibilidade: "Somente convidados",
+      lembrete: "10 min antes",
+    },
   },
   {
     id: "e4",
@@ -99,7 +118,12 @@ const EVENTS: SchedulerEvent[] = [
     categoryId: "interna",
     tagIds: ["time"],
     description: "Três dias de planejamento fora do escritório.",
-    meta: { local: "Itu / SP", responsavel: "Aline Castro" },
+    meta: {
+      local: "Itu / SP",
+      responsavel: "Aline Castro",
+      visibilidade: "Toda a empresa",
+      lembrete: "1 dia antes",
+    },
   },
   {
     id: "e5",
@@ -307,8 +331,6 @@ const EVENT_PROPS = [
  * Página
  * ──────────────────────────────────────────────────────────────────────── */
 
-type EventMeta = { local: string; responsavel: string };
-
 export function SchedulerDoc() {
   const [selected, setSelected] = useState<SchedulerEvent | null>(null);
 
@@ -348,53 +370,6 @@ export function SchedulerDoc() {
   const [dataControlada, setDataControlada] = useState<Date>(() => new Date());
   const [viewControlada, setViewControlada] = useState<SchedulerView>("month");
 
-  const meta = (selected?.meta ?? null) as EventMeta | null;
-
-  const detailFields = useMemo(() => {
-    if (!selected) return [];
-    const sameDay =
-      selected.start.toDateString() === selected.end.toDateString();
-    const quando = selected.allDay
-      ? `${format(selected.start, "d MMM", { locale: ptBR })} — ${format(selected.end, "d MMM yyyy", { locale: ptBR })}`
-      : sameDay
-        ? `${format(selected.start, "d MMM yyyy, HH:mm", { locale: ptBR })} – ${format(selected.end, "HH:mm", { locale: ptBR })}`
-        : `${format(selected.start, "d MMM, HH:mm", { locale: ptBR })} → ${format(selected.end, "d MMM, HH:mm", { locale: ptBR })}`;
-
-    return [
-      { icone: CalendarDays, label: "Quando", valor: <span className="tabular-nums">{quando}</span> },
-      { icone: Clock, label: "Duração", valor: selected.allDay ? "Dia inteiro" : `${Math.round((selected.end.getTime() - selected.start.getTime()) / 60000)} min` },
-      { icone: MapPin, label: "Local", valor: meta?.local ?? "—" },
-      {
-        icone: Tag,
-        label: "Tags",
-        valor: (
-          <span className="flex flex-wrap items-center gap-gp-sm">
-            {(selected.tagIds ?? []).map((t) => (
-              <Chip key={t} color="neutral" variant="soft" size="sm">
-                {t}
-              </Chip>
-            ))}
-          </span>
-        ),
-      },
-      {
-        icone: Users,
-        label: "Responsável",
-        valor: (
-          <span className="flex items-center gap-gp-md">
-            <Avatar size="sm" colorHex="#2563EB" aria-label={meta?.responsavel ?? ""}>
-              {(meta?.responsavel ?? "?")
-                .split(" ")
-                .map((p) => p[0])
-                .slice(0, 2)
-                .join("")}
-            </Avatar>
-            <span>{meta?.responsavel ?? "—"}</span>
-          </span>
-        ),
-      },
-    ];
-  }, [selected, meta]);
 
   return (
     <DocLayout toc={TOC} wide>
@@ -756,91 +731,13 @@ export function SchedulerDoc() {
       <SectionH2 id="api-ref" title="SchedulerRef (imperativo)" />
       <PropsTable items={REF_PROPS} />
 
-      {/* ── Painel de detalhe (padrão dsgreen-paneldetail-2) ────────── */}
-      <FloatingPanel
-        open={selected !== null}
-        onOpenChange={(open) => {
-          if (!open) setSelected(null);
-        }}
-        side="right"
-        size="lg"
-        resizable
-        maximizable
-        resizableStorageKey="scheduler-doc.detail.width"
-        titleSlot={
-          <div className="flex min-w-0 items-center gap-gp-sm text-body-sm text-fg-muted">
-            <span className="truncate">Agenda</span>
-            <span className="opacity-50">/</span>
-            <span className="truncate font-medium text-fg-default">
-              {selected
-                ? format(selected.start, "d 'de' MMMM", { locale: ptBR })
-                : ""}
-            </span>
-          </div>
-        }
-        headerActions={
-          <>
-            <Button variant="soft" color="secondary" size="icon-sm" aria-label="Editar evento">
-              <Pencil />
-            </Button>
-            <Button variant="soft" color="secondary" size="icon-sm" aria-label="Copiar link">
-              <Link2 />
-            </Button>
-          </>
-        }
-        footer={
-          <>
-            <Button
-              variant="outline"
-              color="secondary"
-              size="sm"
-              onClick={() => setSelected(null)}
-            >
-              Fechar
-            </Button>
-            <Button variant="filled" size="sm">
-              Abrir evento
-            </Button>
-          </>
-        }
-      >
-        {/* Wrapper de gap OBRIGATÓRIO: o body do FloatingPanel não tem gap
-            entre filhos (só padding) — sem ele o título cola na lista. É a
-            mesma armadilha documentada no bloco dsgreen-paneldetail-2. */}
-        <div className="flex flex-col gap-gp-2xl">
-          <h2 className="text-title-lg text-balance text-fg-default">
-            {selected?.title}
-          </h2>
-
-          <div className="grid grid-cols-[132px_1fr] items-center gap-x-gp-md">
-            {detailFields.map((f) => (
-              <div key={f.label} className="contents">
-                <div className="flex min-h-form-md items-center gap-gp-md text-body-sm text-fg-muted">
-                  <f.icone
-                    className="size-icon-sm shrink-0 text-fg-subtle"
-                    aria-hidden="true"
-                  />
-                  <span className="truncate">{f.label}</span>
-                </div>
-                <div className="flex min-h-form-md min-w-0 items-center text-body-sm text-fg-default">
-                  {f.valor}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {selected?.description ? (
-            <div className="flex flex-col gap-gp-md rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl">
-              <span className="text-body-xs font-semibold text-fg-muted">
-                Descrição
-              </span>
-              <p className="text-body-sm text-fg-default">
-                {selected.description}
-              </p>
-            </div>
-          ) : null}
-        </div>
-      </FloatingPanel>
+      {/* Painel de detalhe compartilhado com a página de tela cheia — as duas
+          mostram o MESMO padrão, e duplicá-lo era o caminho pra divergirem. */}
+      <SchedulerEventDetail
+        event={selected}
+        onClose={() => setSelected(null)}
+        storageKey="scheduler-doc.detail.width"
+      />
     </DocLayout>
   );
 }
