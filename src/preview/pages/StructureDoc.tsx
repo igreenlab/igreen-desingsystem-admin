@@ -70,7 +70,7 @@ export function StructureDoc() {
           <p className="ml-sp-2xl">context/                         <span className="text-fg-subtle">← Architecture, tokens, components</span></p>
           <p className="ml-sp-2xl">rules/coding-standards.md        <span className="text-fg-subtle">← Long-form tv() reference</span></p>
           <p className="ml-sp-2xl">status/pipeline-state.md         <span className="text-fg-subtle">← Audit log (append-only)</span></p>
-          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-070</span></p>
+          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-071</span></p>
           <p className="ml-sp-2xl">status/lessons-archive.md        <span className="text-fg-subtle">← Lições absorvidas por gate (continuam valendo)</span></p>
           <p className="ml-sp-md">memory/                            <span className="text-fg-subtle">← Project-level memory</span></p>
           <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← Manifesto do registry (distribuição)</span></p>
@@ -187,7 +187,7 @@ export function StructureDoc() {
         <FileRow path=".ai/context/components/guide.md" desc="Long-form component guide (variants, compounds, patterns)" tag="Guide" />
         <FileRow path=".ai/rules/coding-standards.md" desc="Long-form tv() pattern reference (sub-skill load)" tag="Rules" />
         <FileRow path=".ai/status/pipeline-state.md" desc="Audit log (append-only): every decision + Assumption field" tag="Audit" />
-        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-070 (full descriptions, examples)" tag="Lessons" />
+        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-071 (full descriptions, examples)" tag="Lessons" />
         <FileRow path=".ai/status/lessons-archive.md" desc="Lições absorvidas por gate automático — continuam valendo, o pipeline só já as aplica sozinho" tag="Lessons" />
         <FileRow path=".ai/status/BACKLOG.md" desc="Pending features queued for the pipeline" tag="Queue" />
         <FileRow path="memory/" desc="Project-level memory (MEMORY.md index + project_*.md notes)" tag="Memory" />
