@@ -58,9 +58,14 @@ const NAO_COMPONENTE = /^example-|^theme(-|$)|^(tv|utils)$/;
  * Em 2026-08-28 entraram `max`, `total`, `surface`, `ring`, `src` e `children` — as props do
  * `AvatarGroup`/`Avatar`, e a classe que a regra deles proíbe escrever na mão. E `value`, do
  * `TabsNavigation`, que é controlado.
+ *
+ * Em 2026-09-01 entraram os valores de view do `Scheduler` (`day`/`week`/`month` — `list`
+ * ja e componente real), as props `draggable`/`resizable`, o valor `false` (a regra diz
+ * que as duas nascem desligadas) e o prefixo `h-`: a regra proibe escrever `h-full` na
+ * mao, porque o componente ja e.
  */
 const NAO_NOME =
-  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|value$|switcher$|src$|children$|max$|total$|surface$|ring$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$)/i;
+  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|h-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|value$|switcher$|src$|children$|max$|total$|surface$|ring$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$|day$|week$|month$|draggable$|resizable$|false$)/i;
 
 /** Deps npm citadas legitimamente (aparecem como "traz `d3-geo`"). */
 const DEPS_NPM = new Set(["d3-geo", "topojson-client", "recharts", "lucide-react"]);

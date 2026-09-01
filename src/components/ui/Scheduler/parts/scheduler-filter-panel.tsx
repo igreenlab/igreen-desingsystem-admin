@@ -3,7 +3,7 @@ import type { Locale } from "date-fns";
 import { ChevronDown, X } from "lucide-react";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { cn } from "@/lib/utils";
-import { Button } from "../../Button";
+import { Button } from "@/components/ui/Button";
 import {
   schedulerAsideHead,
   schedulerAsideSection,

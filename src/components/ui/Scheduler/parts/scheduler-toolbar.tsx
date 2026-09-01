@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { Button } from "../../Button";
+import { Button } from "@/components/ui/Button";
 import {
   schedulerClearLink,
   schedulerFilterChip,

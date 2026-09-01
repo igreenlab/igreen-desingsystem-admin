@@ -46,6 +46,39 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.56.0",
+    date: "2026-09-01",
+    tag: "preview",
+    title: "Scheduler: o calendário de eventos, com 4 views numa prop só",
+    summary:
+      "O DS tinha `Calendar` — o primitivo que escolhe uma DATA dentro de um form — e não tinha onde mostrar **eventos ao longo do tempo**. O `Scheduler` é essa peça, e o nome é distinto de propósito: as intenções são opostas. Mês, semana, dia e lista saem de uma prop `view`; a toolbar (período, busca, filtros, seletor de view) vem embutida; e o detalhe do evento continua sendo da TELA — o componente só emite `onEventClick` e devolve `event.meta` intacto.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`<Scheduler view=\"month|week|day|list\" />`** — quatro visualizações numa API só, não quatro componentes. `week` e `day` são literalmente a MESMA view com 7 ou 1 coluna: gutter de horas, banda de dia inteiro que só aparece quando há evento `allDay` na janela, lane-packing de sobreposição e linha do “agora”. A `list` é agenda e mostra **só os dias que têm evento** — rolar por 22 blocos vazios pra achar 8 eventos é o oposto do que uma agenda serve.",
+          "**Filtros declarativos com painel-COLUNA.** `filterFields` declara os campos e o componente filtra sozinho (AND entre campos, OR dentro). O botão Filtro abre uma coluna à direita que **empurra** a grade em vez de cobri-la: filtro é o controle cujo resultado você quer ver *enquanto* mexe, e por cima da grade isso viraria marcar → fechar → olhar → reabrir. Dentro dela, mini-calendário pra saltar de data e caixas coloridas na mesma cor que o evento tem na grade.",
+          "**Drag & drop por ponteiro** (`@dnd-kit/core`, a mesma base do `Kanban`): no mês muda a data preservando hora e duração; em semana/dia combina a coluna com o deslocamento vertical snapado; a **borda** do bloco redimensiona. O componente **não muta `events`** — emite `onEventMove`/`onEventResize` e o consumidor aplica, mesma escolha do `onCardMove`.",
+          "**Roving tabindex**: cada grade é UMA parada de `Tab`, as setas movem por dentro, `Home`/`End` vão às pontas da linha e `Enter` cria no slot focado. Sem isso o mês custava **42 `Tab`** e a semana **168**.",
+          "**Showcase**: `#/scheduler` com 7 exemplos vivos (as 4 views isoladas, filtro pré-aplicado, modo controlado, dnd) e **Scheduler Full Screen** em Examples, onde a célula do mês mostra 6 eventos onde num card de 720px mostrava 2.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**`PropsTable` ganhou `mb-14`** — afeta TODAS as doc pages. O `SectionH2` tem `pb-5 border-b mb-12` e nenhum `margin-top`, então um heading logo depois de uma tabela colava nela, com a régua a 0px da borda do card. A **L-050 já registrava esse sintoma** sem que nada no código o resolvesse: toda página que empilha duas tabelas de props reproduzia.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**A cor do evento nunca vai no texto.** Medido em WCAG antes de decidir: `text-fg-{cor}` sobre a pílula tingida dá 1.72–4.49 no claro e 2.97–4.31 no escuro — nenhuma das 6 famílias passa AA, e `warning` chega a 1.72:1. O texto é `fg-default` (16.2–18.2 / 16.4–17.8 medidos no browser, AAA nos dois modos) e a cor mora no dot, na borda e no tint. Corolário: **cor é reforço**, nunca o único portador da informação.",
+          "**A célula do mês se adapta à altura medida da linha.** O corte do “+N mais” é derivado, não constante — 76px de linha mostram 2 pills, 176px mostram 6. Mesmo comportamento adaptativo das linhas da tabela, e é o que faz a versão de tela cheia aproveitar o espaço em vez de mostrar “+5 mais” com meia célula vazia.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.55.0",
     date: "2026-08-28",
     tag: "preview",
