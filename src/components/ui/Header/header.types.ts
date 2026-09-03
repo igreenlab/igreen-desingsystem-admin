@@ -26,6 +26,14 @@ export type HeaderBreadcrumbItem = {
   switcherTitle?: ReactNode;
   switcherSearchPlaceholder?: string;
   switcherFooter?: ReactNode;
+
+  /**
+   * Conteúdo livre depois do rótulo, dentro do mesmo item — chip de status ao
+   * lado do nome do registro, por exemplo. Fica FORA do gatilho do seletor
+   * (irmão), o que é o que permite conteúdo interativo: `<button>` dentro de
+   * `<button>` é inválido. Espelha `trailing` de `BreadcrumbItemData`.
+   */
+  trailing?: ReactNode;
 };
 
 /* ── Command palette (search) ─────────────────────────────────────────────── */

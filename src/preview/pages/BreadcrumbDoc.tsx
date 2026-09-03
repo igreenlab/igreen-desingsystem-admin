@@ -24,6 +24,8 @@ import {
 const CLIENTES = [
   {
     value: "c1",
+    status: "Ativo",
+    statusCor: "success" as const,
     label: "Maria Silva",
     description: "CPF 123.456.789-00 · 3 UCs",
     keywords: ["12345678900"],
@@ -32,6 +34,8 @@ const CLIENTES = [
   },
   {
     value: "c2",
+    status: "Ativo",
+    statusCor: "success" as const,
     label: "Comercial Andrade LTDA",
     description: "CNPJ 12.345.678/0001-90 · 12 UCs",
     keywords: ["12345678000190"],
@@ -40,6 +44,8 @@ const CLIENTES = [
   },
   {
     value: "c3",
+    status: "Inadimplente",
+    statusCor: "danger" as const,
     label: "João Pedro Costa",
     description: "CPF 987.654.321-00 · 1 UC",
     leading: <User className="size-icon-sm shrink-0 text-fg-subtle" aria-hidden />,
@@ -47,6 +53,8 @@ const CLIENTES = [
   },
   {
     value: "c4",
+    status: "Suspenso",
+    statusCor: "warning" as const,
     label: "Padaria do Bairro ME",
     description: "CNPJ 98.765.432/0001-10 · 2 UCs",
     leading: <Building2 className="size-icon-sm shrink-0 text-fg-subtle" aria-hidden />,
@@ -54,6 +62,8 @@ const CLIENTES = [
   },
   {
     value: "c5",
+    status: "Em análise",
+    statusCor: "info" as const,
     label: "Transportes Vale Verde",
     description: "CNPJ 45.678.912/0001-33 · 8 UCs",
     leading: <Lock className="size-icon-sm shrink-0 text-fg-subtle" aria-hidden />,
@@ -92,7 +102,8 @@ const PROPS = [
 ];
 
 const PROPS_CAMINHO = [
-  { name: "items", type: "BreadcrumbItemData[] — { label, href?, onClick?, switcher?, value?, onValueChange? }. SEM isto, renderiza children no primitivo", defaultVal: "—" },
+  { name: "items", type: "BreadcrumbItemData[] — { label, href?, onClick?, switcher?, value?, onValueChange?, trailing? }. SEM isto, renderiza children no primitivo", defaultVal: "—" },
+  { name: "items[].trailing", type: "ReactNode — conteúdo livre DEPOIS do rótulo, no mesmo <li>. Irmão do gatilho, nunca filho: <button> em <button> é inválido, e é por ser externo que aceita nó interativo. Vale pros 4 tipos de item. Clicar nele não abre a lista", defaultVal: "—" },
   { name: "size", type: '"sm" (13px cadeia / 16px item único — o do Header) | "md" (14px — o do primitivo)', defaultVal: '"md"' },
   { name: "separator", type: "ReactNode — separador entre itens", defaultVal: "ChevronRight 14px" },
 ];
@@ -231,6 +242,8 @@ export function BreadcrumbDoc() {
         footer={<Button variant="ghost" size="sm">Ver todos os clientes</Button>}
         aria-label="Trocar cliente"
       />
+      {/* irmão do gatilho — qualquer nó serve aqui */}
+      <Chip size="sm" variant="soft" color={c.statusCor}>{c.status}</Chip>
     </BreadcrumbItem>
   </BreadcrumbList>
 </Breadcrumb>`}
@@ -256,6 +269,13 @@ export function BreadcrumbDoc() {
                   }
                   aria-label="Trocar cliente"
                 />
+                {/* Irmão do gatilho, dentro do mesmo `BreadcrumbItem` — que é
+                    `inline-flex items-center gap-gp-sm`, então no modo composição
+                    não precisa de prop nenhuma. O status vem do cliente ABERTO:
+                    trocar no dropdown muda o chip. */}
+                <Chip size="sm" variant="soft" color={achar(cliente)?.statusCor}>
+                  {achar(cliente)?.status}
+                </Chip>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -268,8 +288,11 @@ export function BreadcrumbDoc() {
                 </p>
                 <p className="text-body-sm text-fg-muted">{achar(cliente)?.description}</p>
               </div>
-              <Chip size="md" color="success" variant="soft">
-                Ativo
+              {/* Mesma fonte do chip do caminho. Fixo em "Ativo" ele contradizia
+                  o de cima ao trocar pra um cliente inadimplente — dois status
+                  diferentes pro mesmo registro, na mesma tela. */}
+              <Chip size="md" variant="soft" color={achar(cliente)?.statusCor}>
+                {achar(cliente)?.status}
               </Chip>
             </div>
           </div>
@@ -286,7 +309,7 @@ export function BreadcrumbDoc() {
       <ExampleSection
         id="ex-header"
         title="No Header do app"
-        description="O item do breadcrumb do Header vira seletor quando recebe os TRÊS: switcher (a lista), value e onValueChange. Faltando um, ele continua texto — gatilho que abre lista vazia, ou que não sabe avisar a escolha, é pior que texto normal. No celular, onde a cadeia colapsa e sobra só o último item, o seletor continua ali: é justamente onde voltar à lista dói mais."
+        description="O item do breadcrumb do Header vira seletor quando recebe os TRÊS: switcher (a lista), value e onValueChange. Faltando um, ele continua texto — gatilho que abre lista vazia, ou que não sabe avisar a escolha, é pior que texto normal. No celular, onde a cadeia colapsa e sobra só o último item, o seletor continua ali: é justamente onde voltar à lista dói mais. É AQUI que trailing existe: no modo declarativo o consumidor não tem onde escrever um irmão do gatilho — quem monta o item é o componente. O chip de status ao lado do nome é só um exemplo; o slot aceita qualquer nó."
         code={`<Header
   breadcrumb={[
     { label: "Clientes", href: "/clientes" },
@@ -296,6 +319,8 @@ export function BreadcrumbDoc() {
       value: clienteId,
       onValueChange: abrirCliente,
       switcherTitle: "Trocar cliente",
+      // qualquer nó — chip, avatar, botão de ação, o que a tela precisar
+      trailing: <Chip size="sm" variant="soft" color={c.statusCor}>{c.status}</Chip>,
     },
   ]}
 />`}
@@ -311,6 +336,11 @@ export function BreadcrumbDoc() {
                 onValueChange: setClienteHeader,
                 switcherTitle: "Trocar cliente",
                 switcherSearchPlaceholder: "Buscar por nome ou documento…",
+                trailing: (
+                  <Chip size="sm" variant="soft" color={achar(clienteHeader)?.statusCor}>
+                    {achar(clienteHeader)?.status}
+                  </Chip>
+                ),
               },
             ]}
             showSearch={false}
