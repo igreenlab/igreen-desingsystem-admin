@@ -46,6 +46,37 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.58.0",
+    date: "2026-09-03",
+    tag: "preview",
+    title: "Breadcrumb: um slot livre depois do rótulo, em qualquer item do caminho",
+    summary:
+      "O pedido nasceu como “um chip de status ao lado do nome do cliente”, e virou um slot genérico: `trailing` aceita qualquer nó e qualquer montagem — o status é um exemplo dele, não a feature. No modo de **composição** isso já era possível (o `BreadcrumbItem` é `inline-flex items-center gap-gp-sm`, basta escrever o nó ao lado); o que não dava era no modo **declarativo** e no `breadcrumb` do `Header`, onde quem monta o item é o componente e o consumidor não tem onde escrever um irmão. É esse caminho que a prop atende — e é onde o breadcrumb do app de verdade vive.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`trailing?: ReactNode`** em `BreadcrumbItemData` e em `HeaderBreadcrumbItem` — conteúdo livre depois do rótulo, dentro do mesmo `<li>`. Vale pros **quatro** tipos de item (seletor, link, página atual, texto inerte), não só pro seletor.",
+          "**O slot é IRMÃO do gatilho, nunca filho** — e é isso que torna “qualquer componente” verdade: o gatilho do seletor é um `<button>`, e `<button>` aninhado em `<button>` é HTML inválido (quebra clique e foco), então chip clicável, link ou botão só funcionam porque o slot é externo. Consequência de desenho, não acidente: **clicar no `trailing` não abre a lista** — status não é a affordance de “trocar registro”.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Contradição no exemplo do Breadcrumb.** O card abaixo do seletor tinha `<Chip color=\"success\">Ativo</Chip>` cravado, então ao abrir um cliente inadimplente a mesma tela mostrava dois status diferentes pro mesmo registro. Já existia; ficou visível quando o chip do caminho passou a seguir o cliente aberto.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Forma completa de `HeaderBreadcrumbItem` documentada.** A tabela do `Header/USAGE.md` descrevia o item como `{ label, href?, onClick? }` — sem `switcher`, `value` nem `onValueChange`, que existiam há várias versões. Quem lesse concluía que o breadcrumb do Header não virava seletor.",
+          "**Ausências deliberadas do catálogo registradas no ponto de uso.** `MessageComposer` (decisão do mantenedor; nem está no registry) e `AvatarGroup` (coberto pela entrada Avatar) não são lacunas do `ComponentsOverviewDoc`. A nota está no cabeçalho do `CATALOG`, onde para quem for “consertar”.",
+          "**Os 5 clientes do exemplo ganharam status distintos** (Ativo · Inadimplente · Suspenso · Em análise), pra trocar no dropdown mostrar o chip mudando de rótulo e de cor. Chip fixo não ensinaria que o slot acompanha o registro.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.57.0",
     date: "2026-09-01",
     tag: "preview",

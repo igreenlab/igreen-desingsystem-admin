@@ -14,7 +14,7 @@ import { Header } from "@/components/ui/Header";
 ## Props essenciais
 | Prop | Tipo | Função |
 |---|---|---|
-| `breadcrumb` | `HeaderBreadcrumbItem[]` (`{ label, href?, onClick? }`) | Array de items (último = página atual, nunca link) |
+| `breadcrumb` | `HeaderBreadcrumbItem[]` | Array de items (último = página atual, nunca link). Ver a forma completa abaixo |
 | `onCollapseMenu` | () => void | Botão de collapse do MenuSidebar (omitido = botão escondido) |
 | `menuCollapsed` | boolean | Controla o ícone (PanelLeftClose vs PanelLeftOpen) |
 | `showSearch` | boolean (default `true`) | Mostra o fake-input de busca; `false` desliga |
@@ -26,6 +26,50 @@ import { Header } from "@/components/ui/Header";
 | `notifications` | { items, onMarkAllRead, onViewAll } | Popover sino (vira bottom-sheet no mobile via `mobileSheet`) |
 | `messages` | { items, onNewMessage, onExpand, onViewAll } | Popover chat (vira bottom-sheet no mobile via `mobileSheet`) |
 | `rightSlot` | ReactNode | Slot livre à direita (botões custom antes dos ícones default) |
+
+### `HeaderBreadcrumbItem` — a forma completa
+
+```ts
+{
+  label: string;
+  href?: string;              // vira link; o ÚLTIMO item nunca é link
+  onClick?: (e) => void;
+
+  // Vira SELETOR de registro. Precisa dos TRÊS juntos; faltando um, o item
+  // renderiza como texto — gatilho que abre lista vazia é pior que texto.
+  switcher?: BreadcrumbSwitcherOption[];
+  value?: string;
+  onValueChange?: (v: string) => void;
+  switcherTitle?: ReactNode;
+  switcherSearchPlaceholder?: string;
+  switcherFooter?: ReactNode;
+
+  // Conteúdo livre DEPOIS do rótulo, no mesmo item.
+  trailing?: ReactNode;
+}
+```
+
+**`trailing`** aceita qualquer nó — o caso de origem foi um chip de status ao lado
+do nome do registro aberto (`Clientes / Maria Silva [Ativo]`), mas o slot não sabe
+disso. É a única forma de pôr algo ali neste modo: quem monta o `<li>` é o
+componente, então não há onde escrever um irmão na mão.
+
+⚠️ Ele é **irmão** do gatilho do seletor, não filho — é o que permite conteúdo
+interativo (`<button>` dentro de `<button>` é HTML inválido). Consequência: clicar
+no `trailing` **não** abre a lista do seletor.
+
+```tsx
+<Header
+  breadcrumb={[
+    { label: "Clientes", href: "/clientes" },
+    {
+      label: cliente.nome,
+      switcher: CLIENTES, value: id, onValueChange: abrirCliente,
+      trailing: <Chip size="sm" variant="soft" color={cliente.statusCor}>{cliente.status}</Chip>,
+    },
+  ]}
+/>
+```
 
 ## Exemplo mínimo
 ```tsx
