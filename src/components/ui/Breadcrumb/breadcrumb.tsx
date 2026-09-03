@@ -130,6 +130,24 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(function Brea
                     {item.label}
                   </span>
                 )}
+
+                {/* `trailing` — irmão do rótulo/gatilho, FORA dele.
+
+                    Depois do bloco condicional de propósito: vale igual pros
+                    quatro tipos de item (seletor, link, página atual, texto
+                    inerte), e nenhum deles precisa saber que existe.
+
+                    Não vai DENTRO do gatilho do seletor porque ele é um
+                    `<button>`: aninhar interativo em `<button>` é HTML inválido
+                    e quebra clique e foco. Como irmão, o slot aceita qualquer
+                    montagem — inclusive chip clicável, link ou botão.
+
+                    `shrink-0` porque o `<li>` é `min-w-0`: sem isso o chip
+                    seria o primeiro a ser esmagado quando o caminho aperta, e o
+                    que tem que truncar é o rótulo, que é texto. */}
+                {item.trailing ? (
+                  <span className="flex shrink-0 items-center">{item.trailing}</span>
+                ) : null}
               </BreadcrumbItem>
             </Fragment>
           );

@@ -22,6 +22,25 @@ export type BreadcrumbItemData = {
   switcherFooter?: ReactNode;
   /** Rótulo acessível do gatilho. Default: `"Trocar: <label>"`. */
   switcherAriaLabel?: string;
+
+  /**
+   * Conteúdo livre DEPOIS do rótulo deste item, dentro do mesmo `<li>`.
+   *
+   * O caso que pediu isto foi um chip de status ao lado do nome do registro
+   * aberto (`Clientes / Maria Silva [Ativo]`), mas o slot não sabe disso: aceita
+   * qualquer nó e qualquer montagem.
+   *
+   * ⚠️ **Fica FORA do gatilho do seletor, como irmão.** Não dentro do `<button>`
+   * — `<button>` aninhado em `<button>` é HTML inválido e quebra clique e foco,
+   * então um chip clicável, link ou botão aqui só funciona porque o slot é
+   * externo. Consequência de desenho, não acidente: clicar no que está aqui
+   * **não** abre a lista, e é o certo — status não é a affordance de "trocar
+   * registro".
+   *
+   * Vale pra QUALQUER item, seletor ou não: badge ao lado de item de página é
+   * igualmente legítimo e custa o mesmo.
+   */
+  trailing?: ReactNode;
 };
 
 export interface BreadcrumbProps extends ComponentPropsWithoutRef<"nav"> {

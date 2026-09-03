@@ -115,6 +115,49 @@ continua ali.
 
 `BreadcrumbSwitcherOption`: `{ value, label, leading?, description?, keywords?, group? }`.
 
+## `trailing` — conteúdo livre depois do rótulo
+
+Qualquer item do modo `items={...}` (e do `breadcrumb` do `Header`) aceita
+`trailing?: ReactNode` — o que vier ali entra no mesmo `<li>`, depois do rótulo
+ou do gatilho:
+
+```tsx
+<Breadcrumb
+  items={[
+    { label: "Clientes", href: "/clientes" },
+    {
+      label: cliente.nome,
+      switcher: CLIENTES, value: id, onValueChange: setId,
+      trailing: (
+        <Chip size="sm" variant="soft" color={cliente.statusCor}>
+          {cliente.status}
+        </Chip>
+      ),
+    },
+  ]}
+/>
+```
+
+O slot **não sabe** que o caso de origem foi status: aceita qualquer nó e qualquer
+montagem. E vale pros quatro tipos de item — seletor, link, página atual e texto
+inerte —, não só pro seletor.
+
+⚠️ **Ele é IRMÃO do gatilho, não filho.** É o que torna "qualquer componente"
+verdade: `<button>` dentro de `<button>` é HTML inválido e quebra clique e foco,
+então chip clicável, link ou botão só funcionam porque o slot é externo. A
+consequência é de desenho, não acidente — **clicar no `trailing` não abre a
+lista**, e é o certo: status não é a affordance de "trocar registro".
+
+No **modo composição** você não precisa dele: `BreadcrumbItem` é
+`inline-flex items-center gap-gp-sm`, então basta escrever o nó ao lado.
+
+```tsx
+<BreadcrumbItem>
+  <BreadcrumbSwitcher … />
+  <Chip size="sm" variant="soft" color="success">Ativo</Chip>
+</BreadcrumbItem>
+```
+
 ## Gotchas / cuidados
 
 - **Ele não navega.** `onValueChange` devolve o valor; rota, fetch e estado são seus. É o que
