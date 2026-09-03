@@ -28,6 +28,7 @@
 - [O que ficou](#o-que-ficou)
 - [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
+- [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
 
 <!-- doc-index:fim -->
 
@@ -4686,3 +4687,50 @@ seguem ilegíveis em 375px, com o rótulo do evento em 0–6px de largura útil 
 49,9px = 351÷7). Resolver exige o mês virar só pontos abaixo de `sm`, ou mês/semana caírem
 pra lista. Menores: `MessageComposer` e `AvatarGroup` fora do `ComponentsOverviewDoc`
 (9ª superfície, sem gate), e o grupo `‹ Hoje ›` em 36px contra os 44 do alvo de toque.
+
+---
+
+## 2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada
+
+**Escopo:** um slot livre depois do rótulo de qualquer item do caminho. Mergeada (PR #304);
+npm `latest` = **0.58.0**; CLI inalterado em 0.25.29.
+
+**Como o pedido mudou de forma, e por que isso importa.** Começou como "um chip de status ao
+lado do nome do cliente" — que eu ia entregar como exemplo, sem tocar em componente. O
+mantenedor corrigiu o enquadramento: *"esse componente tem que ser flexível, pode aceitar
+qualquer coisa; o badge seria um exemplo"*. Virou API, e a forma certa só apareceu porque ele
+recusou a solução estreita.
+
+**Decisões:**
+
+1. **Slot IRMÃO do gatilho, nunca filho.** É a decisão de fundo, e é o que torna "qualquer
+   componente" verdade: o gatilho do seletor é um `<button>`, e `<button>` aninhado em
+   `<button>` é HTML inválido — chip clicável, link ou botão só funcionam por ser externo.
+   Consequência aceita de propósito: clicar no `trailing` não abre a lista, porque status não
+   é a affordance de "trocar registro".
+2. **Renderiza depois do bloco condicional**, o que faz valer igual pros quatro tipos de item
+   (seletor, link, página atual, texto inerte) sem nenhum deles saber que existe.
+3. **A prop existe pelo modo declarativo.** No modo composição já dava — `BreadcrumbItem` é
+   `inline-flex items-center gap-gp-sm`. Isso virou doc, não código. O que não dava era em
+   `items={...}` e no `breadcrumb` do `Header`, onde quem monta o `<li>` é o componente — e é
+   justamente onde o breadcrumb do app vive.
+4. **`shrink-0` no wrapper** porque o `<li>` é `min-w-0`: sem isso o chip é o primeiro a ser
+   esmagado quando o caminho aperta, e quem tem que truncar é o rótulo, que é texto.
+
+**Assumption:** que o `trailing` do CAMINHO basta, e que ninguém precisa do mesmo slot por
+OPÇÃO da lista (cada linha do dropdown com o próprio status). Declarado fora do escopo, não
+esquecido. Falsificável por uma tela onde a decisão de qual registro abrir dependa do status
+de cada um — aí ver o status só depois de trocar é tarde.
+
+**O pre-commit bloqueou — segunda release seguida, mesma classe.** `HeaderBreadcrumbItem`
+ganhou `trailing` sem menção no `Header/USAGE.md`; na v0.57.0 foi o `embedded` do
+`SchedulerFilterPanel`. Ao corrigir, achei que a linha do `breadcrumb` já estava defasada de
+antes: descrevia o item como `{ label, href?, onClick? }`, sem `switcher`/`value`/
+`onValueChange`, que existem há várias versões — quem lesse concluía que o breadcrumb do
+Header não virava seletor. **Se acontecer uma terceira vez, virar gate:** "prop pública nova
+sem menção no USAGE do componente" é regra independente de contexto, o critério da L-059.
+
+**Um defeito que já existia e ficou visível:** o card do exemplo tinha `Ativo` cravado. Fazer
+o chip do caminho seguir o cliente aberto pôs os dois lado a lado, e a contradição apareceu —
+dois status diferentes pro mesmo registro na mesma tela. É o padrão de "dado derivado vs dado
+fixo": enquanto os dois eram fixos, concordavam por coincidência.
