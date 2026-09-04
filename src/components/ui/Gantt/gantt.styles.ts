@@ -1458,6 +1458,20 @@ export const ganttLinksLayer = tv({
   base: "pointer-events-none absolute inset-0 z-[3] overflow-visible",
 });
 
+/**
+ * A linha-fantasma enquanto o usuário arrasta pra criar um vínculo.
+ *
+ * Tracejada e na cor da marca: tracejado diz "ainda não existe" (vínculo real
+ * é sólido) e a marca diz "isto é o seu gesto", separando-a das setas já
+ * desenhadas. Sem ela o usuário arrasta no vazio e não sabe se o gesto pegou.
+ */
+export const ganttLinkGhost = tv({
+  base: [
+    "pointer-events-none fill-none",
+    "stroke-bg-brand stroke-2 [stroke-dasharray:5_4]",
+  ],
+});
+
 export const ganttLinkPath = tv({
   base: [
     "pointer-events-auto fill-none cursor-pointer",

@@ -1,6 +1,14 @@
-import { useMemo, type MouseEvent, type RefObject, type UIEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type MouseEvent,
+  type RefObject,
+  type UIEvent,
+} from "react";
 import type { Locale } from "date-fns";
-import { format, isSameDay } from "date-fns";
+import { format, isSameDay, startOfDay } from "date-fns";
 import {
   ganttCanvas,
   ganttCanvasRow,
@@ -11,6 +19,7 @@ import {
   ganttHeadDayNumber,
   ganttHeadRow,
   ganttHeadWeekday,
+  ganttLinkGhost,
   ganttNowDot,
   ganttNowLine,
   ganttNowStroke,
@@ -31,6 +40,12 @@ import {
   packLanes,
   type GanttFlatRow,
 } from "../hooks/layout";
+import {
+  dragToDates,
+  linkTypeFromSides,
+  sideFromPointer,
+  type GanttDragMode,
+} from "../hooks/drag";
 import { GanttBarView } from "../parts/gantt-bar";
 import {
   GanttLinksLayer,
@@ -38,6 +53,7 @@ import {
 } from "../parts/gantt-links-layer";
 import type {
   GanttBar,
+  GanttBarChange,
   GanttColorKey,
   GanttGranularity,
   GanttLink,
@@ -108,6 +124,14 @@ export type GanttTimelineViewProps = {
   onSelectDay: (dayOffset: number | null) => void;
   onHoverDay: (dayOffset: number | null) => void;
 
+  /**
+   * Emitem a INTENÇÃO do gesto. O componente não reagenda nada — ver a nota
+   * do `gantt.tsx`. Ausentes, o gesto ainda dá prévia e volta ao lugar.
+   */
+  onBarMove?: (change: GanttBarChange) => void;
+  onBarResize?: (change: GanttBarChange) => void;
+  onLinkCreate?: (link: Omit<GanttLink, "id">) => void;
+
   onScroll: (evt: UIEvent<HTMLDivElement>) => void;
   /**
    * O elemento que rola, exposto pra raiz.
@@ -159,11 +183,43 @@ export function GanttTimelineView({
   selectedRow,
   selectedDay,
   onSelectDay,
+  onBarMove,
+  onBarResize,
+  onLinkCreate,
   onScroll,
   scrollRef,
   onBarClick,
   onLinkClick,
 }: GanttTimelineViewProps) {
+  /**
+   * ## O gesto, e por que o estado é dividido em dois pedaços
+   *
+   * `gesto` é ESTÁVEL durante o arraste (qual barra, qual modo, onde começou);
+   * `deltaPx` muda a cada `pointermove`. Se os dois vivessem no mesmo objeto, o
+   * `useEffect` que assina os listeners de `window` teria `deltaPx` nas deps e
+   * **re-assinaria ~60 vezes por segundo** — remove/add de listener por frame.
+   *
+   * O `deltaRef` existe porque o `pointerup` precisa do delta FINAL, e a
+   * closure do listener capturaria o valor do render em que foi criada.
+   */
+  const [gesto, setGesto] = useState<{
+    barId: string;
+    mode: GanttDragMode;
+    xInicial: number;
+  } | null>(null);
+  const [deltaPx, setDeltaPx] = useState(0);
+  const deltaRef = useRef(0);
+
+  /** Vínculo em criação: de qual barra/ponta, e onde o ponteiro está. */
+  const [vinculo, setVinculo] = useState<{
+    barId: string;
+    side: "start" | "end";
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const canvasRef = useRef<HTMLDivElement>(null);
+
   const axis = useMemo(
     () => buildTimeAxis(windowStart, windowEnd, granularity, locale, weekStartsOn),
     [windowStart, windowEnd, granularity, locale, weekStartsOn],
@@ -201,7 +257,23 @@ export function GanttTimelineView({
             })()
           : row.bars;
 
-      const recortadas = barras
+      /**
+       * ⚠️ A prévia do arraste entra AQUI, antes do recorte — e é a única
+       * razão de `gesto`/`deltaPx` estarem nas deps deste memo.
+       *
+       * Trocar as datas da barra arrastada e deixar o pipeline seguir
+       * (`clipToWindow` → `dateToX`) significa que a prévia e o valor emitido
+       * no `pointerup` saem da MESMA conta. Um caminho paralelo de prévia
+       * divergiria no primeiro arredondamento — e o usuário veria a barra
+       * pousar num dia diferente do que arrastou (L-038).
+       */
+      const comPrevia = barras.map((b) =>
+        gesto?.barId === b.id
+          ? { ...b, ...dragToDates(b, deltaPx, pxPerDay, gesto.mode) }
+          : b,
+      );
+
+      const recortadas = comPrevia
         .map((b) => clipToWindow(b, windowStart, windowEnd))
         .filter((x): x is NonNullable<typeof x> => x !== null);
 
@@ -229,7 +301,7 @@ export function GanttTimelineView({
     });
 
     return { mapa, lista };
-  }, [rows, allRows, windowStart, windowEnd, pxPerDay, tops]);
+  }, [rows, allRows, windowStart, windowEnd, pxPerDay, tops, gesto, deltaPx]);
 
   /**
    * `top` da barra dentro da faixa da linha — CENTRADO (#7).
@@ -286,6 +358,155 @@ export function GanttTimelineView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [links, geos, conflictBarIds, criticalBarIds, alturas, rows]);
 
+  /* ── o gesto ──────────────────────────────────────────────────── */
+
+  const iniciarGesto = (barId: string, mode: GanttDragMode, evt: MouseEvent) => {
+    // Botão secundário abre menu de contexto; iniciar arraste ali sequestra o
+    // gesto do sistema.
+    if ((evt as unknown as PointerEvent).button !== 0) return;
+    if (mode === "move" ? !draggable : !resizable) return;
+    deltaRef.current = 0;
+    setDeltaPx(0);
+    setGesto({ barId, mode, xInicial: evt.clientX });
+  };
+
+  /**
+   * ⚠️ Deps são `[gesto]` e NÃO `[gesto, deltaPx]`.
+   *
+   * Com `deltaPx` nas deps, este efeito remove e re-adiciona os dois listeners
+   * a cada `pointermove` — ~60 ciclos de add/remove por segundo durante todo o
+   * arraste. O delta final chega pelo `deltaRef`, que a closure lê no momento
+   * do `pointerup` em vez de capturar o valor do render em que nasceu.
+   */
+  useEffect(() => {
+    if (!gesto) return;
+
+    const mover = (e: PointerEvent) => {
+      const dx = e.clientX - gesto.xInicial;
+      deltaRef.current = dx;
+      setDeltaPx(dx);
+    };
+
+    const soltar = () => {
+      const geo = geos.mapa.get(gesto.barId);
+      const dx = deltaRef.current;
+      // Limpa ANTES de emitir: se o consumidor re-renderizar em resposta, o
+      // gesto já não está ativo e a prévia não briga com o dado novo.
+      setGesto(null);
+      setDeltaPx(0);
+      deltaRef.current = 0;
+      if (!geo) return;
+
+      const destino = dragToDates(geo.bar, dx, pxPerDay, gesto.mode);
+      // Nada mudou (arraste menor que meio dia, ou clique sem arrastar) →
+      // não emite. Emitir aqui faria um clique simples virar uma mutação.
+      if (
+        destino.start.getTime() === startOfDay(geo.bar.start).getTime() &&
+        destino.end.getTime() === startOfDay(geo.bar.end).getTime()
+      ) {
+        return;
+      }
+
+      const change: GanttBarChange = {
+        bar: geo.bar,
+        row: geo.row,
+        start: destino.start,
+        end: destino.end,
+      };
+      if (gesto.mode === "move") onBarMove?.(change);
+      else onBarResize?.(change);
+    };
+
+    window.addEventListener("pointermove", mover);
+    window.addEventListener("pointerup", soltar);
+    // `pointercancel` existe: o browser cancela o gesto (gesto do sistema,
+    // troca de janela). Sem tratar, o estado ficava preso em "arrastando" e a
+    // barra congelava na prévia.
+    window.addEventListener("pointercancel", soltar);
+    return () => {
+      window.removeEventListener("pointermove", mover);
+      window.removeEventListener("pointerup", soltar);
+      window.removeEventListener("pointercancel", soltar);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gesto]);
+
+  /* ── criação de vínculo ───────────────────────────────────────── */
+
+  const iniciarVinculo = (
+    barId: string,
+    side: "start" | "end",
+    evt: MouseEvent,
+  ) => {
+    if ((evt as unknown as PointerEvent).button !== 0) return;
+    if (!linkable) return;
+    const caixa = canvasRef.current?.getBoundingClientRect();
+    if (!caixa) return;
+    setVinculo({
+      barId,
+      side,
+      x: evt.clientX - caixa.left,
+      y: evt.clientY - caixa.top,
+    });
+  };
+
+  useEffect(() => {
+    if (!vinculo) return;
+
+    const mover = (e: PointerEvent) => {
+      const caixa = canvasRef.current?.getBoundingClientRect();
+      if (!caixa) return;
+      setVinculo((v) =>
+        v ? { ...v, x: e.clientX - caixa.left, y: e.clientY - caixa.top } : v,
+      );
+    };
+
+    const soltar = (e: PointerEvent) => {
+      const origem = vinculo;
+      setVinculo(null);
+
+      /**
+       * O alvo do drop vem de `elementFromPoint` + `closest`, não de um
+       * droppable registrado.
+       *
+       * ⚠️ É por isso que a barra carrega `data-gantt-bar`. Sem ele o alvo
+       * teria que ser a porta de 9px da barra de destino, e 9px não é
+       * afordância — FF e SF ficariam inalcançáveis na prática.
+       */
+      const sob = document.elementFromPoint(e.clientX, e.clientY);
+      const alvo = sob?.closest("[data-gantt-bar]");
+      const alvoId = alvo?.getAttribute("data-gantt-bar");
+      if (!alvoId) return;
+      // Auto-vínculo não existe: uma barra não depende de si mesma, e o
+      // `topoSort` trataria isso como ciclo.
+      if (alvoId === origem.barId) return;
+
+      const geoAlvo = geos.mapa.get(alvoId);
+      const caixa = canvasRef.current?.getBoundingClientRect();
+      if (!geoAlvo || !caixa) return;
+
+      const ladoAlvo = sideFromPointer(
+        e.clientX - caixa.left,
+        geoAlvo.left,
+        geoAlvo.width,
+      );
+      onLinkCreate?.({
+        source: origem.barId,
+        target: alvoId,
+        type: linkTypeFromSides(origem.side, ladoAlvo),
+      });
+    };
+
+    window.addEventListener("pointermove", mover);
+    window.addEventListener("pointerup", soltar);
+    window.addEventListener("pointercancel", () => setVinculo(null));
+    return () => {
+      window.removeEventListener("pointermove", mover);
+      window.removeEventListener("pointerup", soltar);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vinculo?.barId, vinculo?.side]);
+
   /**
    * Offset em dias do início de uma unidade do eixo.
    *
@@ -314,6 +535,29 @@ export function GanttTimelineView({
     }
     return saida;
   }, [axis]);
+
+  /**
+   * Geometria da linha-fantasma — derivada do MESMO `geos.mapa` e do MESMO
+   * `topDaBarra` que as setas reais usam.
+   *
+   * Sem isso a fantasma sairia de um ponto e a seta definitiva de outro, e o
+   * usuário veria o vínculo "pular" ao soltar (L-038).
+   */
+  const vinculoFantasma = useMemo(() => {
+    if (!vinculo) return null;
+    const de = geos.mapa.get(vinculo.barId);
+    if (!de) return null;
+    const tipo = de.row.type ?? "task";
+    const altura =
+      tipo === "summary" ? GANTT_SUMMARY_BAR_HEIGHT_PX : GANTT_BAR_HEIGHT_PX;
+    return {
+      x1: vinculo.side === "end" ? de.left + de.width : de.left,
+      y1: topDaBarra(de, tipo) + altura / 2,
+      x2: vinculo.x,
+      y2: vinculo.y,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vinculo, geos]);
 
   const nowX = dateToX(now, windowStart, pxPerDay);
   const nowVisivel = nowX >= 0 && nowX <= larguraTotal;
@@ -439,6 +683,7 @@ export function GanttTimelineView({
         </div>
 
         <div
+          ref={canvasRef}
           className={ganttCanvas()}
           style={{ width: larguraTotal, height: Math.max(alturaTotal, 1) }}
           /**
@@ -505,6 +750,25 @@ export function GanttTimelineView({
 
           {geos.lista.map((g) => {
             const tipo = g.row.type ?? "task";
+            /**
+             * ⚠️ Linha `summary` NÃO aceita gesto, e não é conservadorismo.
+             *
+             * O intervalo dela é **derivado** dos descendentes, e a barra é
+             * sintética: o id é ``${row.id}__summary``, que não existe no
+             * `rows` do consumidor. Um gesto ali produziria:
+             *
+             *   • `onBarMove` com uma `bar` que o consumidor não possui — ele
+             *     procuraria o id e não acharia;
+             *   • `onLinkCreate` com `source` pendurado — o `checkAllLinks` e o
+             *     `topoSort` receberiam um id que `mapaBarras` não resolve.
+             *
+             * Medido: a varredura de gesto sorteou `f1__summary` como origem, e
+             * o vínculo simplesmente não nascia. Melhor não oferecer o punho do
+             * que oferecer um que emite lixo — o punho é uma promessa.
+             *
+             * Mover a fase é mover os filhos, e isso é decisão do consumidor.
+             */
+            const aceitaGesto = tipo !== "summary";
             return (
               <GanttBarView
                 key={g.bar.id}
@@ -518,16 +782,26 @@ export function GanttTimelineView({
                 continuesAfter={g.continuesAfter}
                 conflict={conflictBarIds.has(g.bar.id)}
                 critical={criticalBarIds.has(g.bar.id)}
-                movable={draggable}
-                resizable={resizable}
-                linkable={linkable}
+                movable={draggable && aceitaGesto}
+                resizable={resizable && aceitaGesto}
+                linkable={linkable && aceitaGesto}
                 height={
                   tipo === "summary"
                     ? GANTT_SUMMARY_BAR_HEIGHT_PX
                     : GANTT_BAR_HEIGHT_PX
                 }
+                dragging={gesto?.barId === g.bar.id}
                 style={{ top: topDaBarra(g, tipo) }}
                 onClick={(e) => onBarClick?.(g.bar, g.row, e)}
+                onMoveStart={(e) => iniciarGesto(g.bar.id, "move", e)}
+                onResizeStart={(lado, e) =>
+                  iniciarGesto(
+                    g.bar.id,
+                    lado === "start" ? "resize-start" : "resize-end",
+                    e,
+                  )
+                }
+                onLinkStart={(lado, e) => iniciarVinculo(g.bar.id, lado, e)}
               />
             );
           })}
@@ -538,6 +812,31 @@ export function GanttTimelineView({
             height={Math.max(alturaTotal, 1)}
             onLinkClick={onLinkClick}
           />
+
+          {/*
+            Linha-fantasma do vínculo em criação.
+
+            SVG próprio e NÃO dentro do `GanttLinksLayer`: aquela camada recebe
+            geometria pronta de vínculos que EXISTEM, e enfiar um provisório
+            nela obrigaria a inventar um id e um `GanttLink` falso — que o
+            `checkAllLinks` e o `topoSort` então veriam como vínculo real.
+          */}
+          {vinculoFantasma ? (
+            <svg
+              className="pointer-events-none absolute inset-0 z-[4] overflow-visible"
+              width={larguraTotal}
+              height={Math.max(alturaTotal, 1)}
+              aria-hidden
+            >
+              <line
+                x1={vinculoFantasma.x1}
+                y1={vinculoFantasma.y1}
+                x2={vinculoFantasma.x2}
+                y2={vinculoFantasma.y2}
+                className={ganttLinkGhost()}
+              />
+            </svg>
+          ) : null}
 
           {nowVisivel ? (
             <div className={ganttNowLine()} style={{ left: nowX }} aria-hidden>

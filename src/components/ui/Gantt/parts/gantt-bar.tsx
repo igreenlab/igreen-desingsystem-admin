@@ -56,6 +56,14 @@ export type GanttBarViewProps = {
   dragging?: boolean;
 
   onClick?: (evt: MouseEvent) => void;
+  /**
+   * Início do gesto de MOVER — `pointerdown` no corpo da barra.
+   *
+   * ⚠️ Só no corpo: os punhos de resize e as portas de vínculo dão
+   * `stopPropagation`, senão um `pointerdown` no punho iniciaria os dois
+   * gestos ao mesmo tempo e a barra moveria enquanto redimensiona.
+   */
+  onMoveStart?: (evt: MouseEvent) => void;
   /** Início do gesto de resize. `side` diz qual ponta. */
   onResizeStart?: (side: "start" | "end", evt: MouseEvent) => void;
   /** Início do gesto de criar vínculo. */
@@ -90,6 +98,7 @@ export const GanttBarView = forwardRef<HTMLDivElement, GanttBarViewProps>(
       linkable = false,
       dragging = false,
       onClick,
+      onMoveStart,
       onResizeStart,
       onLinkStart,
       children,
@@ -135,6 +144,16 @@ export const GanttBarView = forwardRef<HTMLDivElement, GanttBarViewProps>(
         role="button"
         tabIndex={0}
         aria-label={bar.searchText ?? undefined}
+        /**
+         * ⚠️ `data-gantt-bar` NÃO é decoração: é como o gesto de vínculo
+         * descobre em qual barra o ponteiro soltou.
+         *
+         * O alvo do drop não é um droppable registrado — é um
+         * `elementFromPoint` + `closest("[data-gantt-bar]")`. Sem o atributo,
+         * criar vínculo exigiria acertar uma porta de 9px, o que não é
+         * afordância. Com ele, meia barra é alvo (ver `sideFromPointer`).
+         */
+        data-gantt-bar={bar.id}
         className={estilos.root()}
         style={{
           left,
@@ -142,6 +161,9 @@ export const GanttBarView = forwardRef<HTMLDivElement, GanttBarViewProps>(
           height,
           ...style,
         }}
+        // `pointerdown` no CORPO inicia o move. Os punhos e as portas param a
+        // propagação, senão um gesto iniciaria dois ao mesmo tempo.
+        onPointerDown={(e) => onMoveStart?.(e as unknown as MouseEvent)}
         onClick={onClick}
         onKeyDown={(e) => {
           // Enter e Space ativam — o nó é `div` com `role="button"`, então o
@@ -175,14 +197,20 @@ export const GanttBarView = forwardRef<HTMLDivElement, GanttBarViewProps>(
               aria-label="Mudar início"
               tabIndex={-1}
               className={ganttResizeHandle({ side: "start" })}
-              onPointerDown={(e) => onResizeStart?.("start", e as unknown as MouseEvent)}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeStart?.("start", e as unknown as MouseEvent);
+              }}
             />
             <span
               role="separator"
               aria-label="Mudar fim"
               tabIndex={-1}
               className={ganttResizeHandle({ side: "end" })}
-              onPointerDown={(e) => onResizeStart?.("end", e as unknown as MouseEvent)}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeStart?.("end", e as unknown as MouseEvent);
+              }}
             />
           </>
         ) : null}
@@ -194,14 +222,20 @@ export const GanttBarView = forwardRef<HTMLDivElement, GanttBarViewProps>(
               aria-label="Criar vínculo a partir do início"
               tabIndex={-1}
               className={ganttLinkPort({ side: "start" })}
-              onPointerDown={(e) => onLinkStart?.("start", e as unknown as MouseEvent)}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onLinkStart?.("start", e as unknown as MouseEvent);
+              }}
             />
             <span
               role="button"
               aria-label="Criar vínculo a partir do fim"
               tabIndex={-1}
               className={ganttLinkPort({ side: "end" })}
-              onPointerDown={(e) => onLinkStart?.("end", e as unknown as MouseEvent)}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onLinkStart?.("end", e as unknown as MouseEvent);
+              }}
             />
           </>
         ) : null}

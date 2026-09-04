@@ -4,6 +4,7 @@ import { addDays, format, startOfDay } from "date-fns";
 import { Plus } from "lucide-react";
 import { Gantt } from "@/components/ui/Gantt";
 import type {
+  GanttBarChange,
   GanttColumn,
   GanttFilterField,
   GanttLink,
@@ -24,6 +25,17 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
  * como um cronograma é usado de verdade: 20 linhas, 4 níveis de hierarquia, 16
  * vínculos dos 4 tipos, 2 conflitos de prazo, filtros por frente e por
  * responsável, e o painel de detalhe abrindo no clique.
+ *
+ * ## O gesto é exercitado de verdade aqui
+ *
+ * `draggable`/`resizable`/`linkable` ligados **com handlers que aplicam**: as
+ * linhas e os vínculos são estado da tela. Arrastar move a barra e ela FICA;
+ * arrastar de uma porta pra outra barra cria o vínculo; clicar numa seta a
+ * remove. O componente só emite — e é isso que esta tela prova.
+ *
+ * ⚠️ O par mais interessante de olhar é conflito + caminho crítico: mover uma
+ * barra faz o contador de conflito e o realce de crítico recalcularem no mesmo
+ * gesto, porque os dois saem do grafo e não de estado guardado.
  *
  * ⚠️ Um dos dois conflitos eu não plantei — escrevi as datas e o componente
  * achou (front termina 1 dia depois de o QA começar). Ficou, porque é o caso
@@ -76,7 +88,7 @@ const PESSOAS: Record<string, string> = {
   henrique: "Henrique Vilela",
 };
 
-const ROWS: GanttRow[] = [
+const ROWS_SEMENTE: GanttRow[] = [
   /* ── Fase 1 ──────────────────────────────────────────────────── */
   {
     id: "f1",
@@ -231,7 +243,7 @@ const ROWS: GanttRow[] = [
   },
 ];
 
-const LINKS: GanttLink[] = [
+const LINKS_SEMENTE: GanttLink[] = [
   { id: "l1", source: "b1", target: "b2", type: "SS", lag: 3 },
   { id: "l2", source: "b2", target: "b3", type: "FS" },
   { id: "l3", source: "b3", target: "m1", type: "FS" },
@@ -400,6 +412,34 @@ const COLUNAS: GanttColumn[] = [
 
 export function GanttFullPreview() {
   const ganttRef = useRef<GanttRef>(null);
+
+  /**
+   * ⚠️ As linhas e os vínculos são ESTADO DA TELA, e isso é o ponto do exemplo.
+   *
+   * O `Gantt` é dumb sobre mutação: arrastar emite `onBarMove`, e quem reescreve
+   * as datas é o consumidor. Um exemplo com `rows` constante ligaria
+   * `draggable` e o usuário arrastaria pra ver a barra **voltar** — que é
+   * exatamente o que o JSDoc de `draggable` avisa que acontece sem handler.
+   *
+   * Aqui a tela aplica de verdade, e é por isso que o gesto pode ser verificado.
+   */
+  const [rows, setRows] = useState<GanttRow[]>(ROWS_SEMENTE);
+  const [links, setLinks] = useState<GanttLink[]>(LINKS_SEMENTE);
+
+  /** Reescreve as datas de UMA barra, preservando o resto da linha. */
+  const aplicarMudanca = ({ bar, start, end }: GanttBarChange) =>
+    setRows((atuais) =>
+      atuais.map((r) =>
+        r.bars.some((b) => b.id === bar.id)
+          ? {
+              ...r,
+              bars: r.bars.map((b) =>
+                b.id === bar.id ? { ...b, start, end } : b,
+              ),
+            }
+          : r,
+      ),
+    );
   const [detalhe, setDetalhe] = useState<{
     titulo: string;
     meta: Meta;
@@ -458,8 +498,24 @@ export function GanttFullPreview() {
       <div className="flex min-h-0 flex-1 flex-col">
         <Gantt
           ref={ganttRef}
-          rows={ROWS}
-          links={LINKS}
+          rows={rows}
+          links={links}
+          draggable
+          resizable
+          linkable
+          onBarMove={aplicarMudanca}
+          onBarResize={aplicarMudanca}
+          onLinkCreate={(novo) =>
+            setLinks((atuais) => [
+              ...atuais,
+              // O id é do CONSUMIDOR — o componente emite a intenção sem id
+              // justamente porque não sabe como você os gera.
+              { ...novo, id: `l-${novo.source}-${novo.target}-${atuais.length}` },
+            ])
+          }
+          onLinkDelete={(alvo) =>
+            setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))
+          }
           columns={COLUNAS}
           filterFields={FILTROS}
           searchable

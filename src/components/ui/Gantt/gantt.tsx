@@ -93,6 +93,15 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     onFilterModelChange,
     onBarClick,
     onRowClick,
+    /**
+     * ⚠️ Estes quatro estavam DECLARADOS no tipo e nunca desestruturados aqui —
+     * a raiz não os recebia. Era superfície de API sem nada por trás: os punhos
+     * e as portas renderizavam, acessíveis, e o gesto não existia.
+     */
+    onBarMove,
+    onBarResize,
+    onLinkCreate,
+    onLinkDelete,
     onRowToggle,
     now = new Date(),
     locale,
@@ -672,6 +681,10 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                   selectedRow={selectedRow}
                   selectedDay={selectedDay}
                   onSelectDay={setSelectedDay}
+                  onBarMove={onBarMove}
+                  onBarResize={onBarResize}
+                  onLinkCreate={onLinkCreate}
+                  onLinkClick={onLinkDelete}
                   onScroll={aoRolar}
                   scrollRef={scrollerRef}
                   onBarClick={onBarClick}

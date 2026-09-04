@@ -208,7 +208,50 @@ duas coisas:
 Com `windowStart`/`windowEnd` controlados, nada disso acontece: a janela é sua,
 e o componente não sobrescreve a sua decisão.
 
-### 12. O `accessor` tem que casar com o `kind`
+### 12. O gesto EMITE, você aplica
+
+`draggable` / `resizable` / `linkable` ligam os gestos:
+
+| Gesto | Onde | Emite |
+|---|---|---|
+| mover | `pointerdown` no corpo da barra | `onBarMove` |
+| redimensionar | punho de 8px em cada ponta | `onBarResize` |
+| criar vínculo | porta redonda fora da ponta → soltar sobre outra barra | `onLinkCreate` |
+| remover vínculo | clique na seta | `onLinkDelete` |
+
+⚠️ **Ligar sem handler = arrastar e ver voltar.** A prévia acontece (a barra
+acompanha o ponteiro com snap de dia), mas nada persiste: o `Gantt` é dumb sobre
+mutação, igual ao `Kanban`. Datas reescritas sozinhas parecem dados, e o erro
+seria invisível.
+
+```tsx
+const [rows, setRows] = useState(SEMENTE);
+
+<Gantt
+  rows={rows}
+  draggable resizable linkable
+  onBarMove={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}
+  onBarResize={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}
+  onLinkCreate={(novo) => setLinks((l) => [...l, { ...novo, id: gerarId() }])}
+/>
+```
+
+**O tipo do vínculo sai das duas pontas** — `linkTypeFromSides`: sair da ponta
+direita e soltar na metade **esquerda** do destino dá `FS` (o caso comum); as
+outras três combinações dão `SS`, `FF` e `SF`. O alvo é **meia barra**, não a
+porta de 9px do destino: 9px não é afordância.
+
+⛔ **Linha `summary` não aceita gesto.** O intervalo dela é derivado dos filhos e
+a barra é sintética (id `<rowId>__summary`, que não existe no seu `rows`) — um
+gesto ali emitiria uma `bar` que você não possui e um `source` pendurado. Mover
+a fase é mover os filhos, e isso é decisão sua.
+
+**Snap em dia inteiro**, sempre. Arraste menor que meio dia não move nada, e
+arrastar o punho inicial para depois do fim **para** em `start === end` (1 dia)
+em vez de inverter a barra — sem esse clamp a largura ficaria negativa e a barra
+desapareceria no meio do gesto.
+
+### 13. O `accessor` tem que casar com o `kind`
 
 `number` precisa de número (ou string numérica); `date` precisa de `Date` ou ISO;
 `boolean` aceita `true`/`1`/`"sim"`. Devolver a coisa errada **não é erro de tipo** —
@@ -223,7 +266,7 @@ date-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UT
 vira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —
 predicado e chip — pra os dois nunca divergirem.
 
-### 13. Em telas estreitas, declare o limite
+### 14. Em telas estreitas, declare o limite
 
 Grade + eixo não caben em 375px. O componente não finge que cabe — em vez de
 espremer os dois, use `granularity="week"` ou mais, reduza `gridWidth`, ou ofereça
@@ -236,14 +279,15 @@ Declarado pra não virar descoberta:
 | | Estado |
 |---|---|
 | `view="calendar"` | **placeholder** — a grade de mês tem o núcleo puro pronto e testado (`buildMonthMatrix`, `computeOverflow`, `daysOfBar`), mas a view não foi montada |
-| `draggable` / `resizable` / `linkable` | os punhos e conectores **renderizam** e são acessíveis, mas o gesto não está ligado. ⚠️ Pior que isso: `onBarMove`/`onBarResize`/`onLinkCreate`/`onLinkDelete` estão declarados no tipo e **nem chegam a ser recebidos** pela raiz — é superfície de API sem nada por trás |
+| criar vínculo `FF` / `SF` por gesto | possível, mas exige soltar na **metade direita** da barra de destino. Descoberta só pela doc — não há dica visual da metade |
 | seletor de visão na toolbar | **não existe** — `onViewChange` está na API mas nada o chama. `view` só muda por prop, então `calendar` seria inalcançável pela UI mesmo depois de construída |
 
 O que está completo: as duas visões de dado (tarefa e portfólio), hierarquia com
 collapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os
 **4 tipos de vínculo** com `lag`, detecção de conflito, caminho crítico, busca,
 zoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral
-e chips de aplicado, seleção de linha e de coluna, e virada de mês no eixo.
+e chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os
+**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia.
 
 ## Núcleo puro exportado
 
@@ -258,4 +302,5 @@ import { buildTimeAxis, clipToWindow, packLanes } from "@/components/ui/Gantt";
 packing com sobreposição parcial, ciclo em `parent` (que devolvia lista VAZIA até
 o teste existir), auto-vínculo, as 4 restrições nas pontas certas, o índice
 `ancestorHasNext[i+1]` do conector (L-045) e o parse de `YYYY-MM-DD` como
-meia-noite local (com `new Date` era UTC e o filtro de data voltava um dia).
+meia-noite local (com `new Date` era UTC e o filtro de data voltava um dia), e o
+clamp do resize que impedia a barra de inverter e desaparecer.
