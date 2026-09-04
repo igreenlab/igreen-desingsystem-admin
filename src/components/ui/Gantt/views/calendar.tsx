@@ -287,6 +287,10 @@ export function GanttCalendarView({
                       <span
                         className={ganttDayNumber({
                           today: isSameDay(dia, now),
+                          // O fundo não distingue mais outro-mês de fim de
+                          // semana (os dois são `bg-canvas`) — quem distingue é
+                          // o número. Ver a nota do `ganttDayNumber`.
+                          outside: !isSameMonth(dia, anchor),
                         })}
                       >
                         {format(dia, "d", { locale })}

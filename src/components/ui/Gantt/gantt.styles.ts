@@ -1750,51 +1750,88 @@ export const ganttMonthCell = tv({
   variants: {
     /** Dia de fora do mês âncora: presente, mas recuado. */
     /**
-     * Dia de FORA do mês âncora — o fundo do site, não uma sobreposição.
+     * ## Uma regra só: **claro = dia útil DESTE mês**
      *
-     * ⚠️ Era `bg-bg-subtle/40`, que no dark é branco 1% a 40% de opacidade — ou
-     * seja, **nada**. As células de fora ficavam idênticas às de dentro, e a
+     * `outside` e `weekend` compartilham o mesmo fundo escuro (`bg-canvas`), e
+     * isso é decisão, não coincidência. A grade tem dois níveis com um
+     * significado só — dia de trabalho do mês corrente, ou não — em vez de três
+     * níveis com uma diferença que ninguém consegue nomear.
+     *
+     * ## Por que `bg-canvas` e não escurecer com `/NN`
+     *
+     * O dia que não é útil deste mês não é uma SOBREPOSIÇÃO sobre a grade: é o
+     * buraco por onde se vê o fundo da página. O token que significa isso é
+     * `bg-canvas` (0.205), e contra a superfície da grade (`bg-surface`, 0.225)
+     * ele dá ΔL 0.020.
+     *
+     * ⚠️ 0.020 é pouco pra uma LINHA e suficiente pra uma ÁREA — contraste de
+     * área grande é muito mais perceptível que de traço fino. É por isso que
+     * aqui 0.020 lê enquanto na virada de mês do eixo 0.040 não lia.
+     *
+     * ⚠️ E não há token ENTRE 0.225 e 0.205, então "um pouco mais escuro que o
+     * dia útil, um pouco mais claro que o outro mês" não é expressável: sairia
+     * `bg-canvas/50`, dois passos de ΔL 0.010, ambos abaixo do que se vê. Um
+     * passo claro vale mais que dois invisíveis.
+     *
+     * ## O que separa fim de semana de outro mês
+     *
+     * O NÚMERO do dia — ver a variante `outside` do `ganttDayNumber`.
+     *
+     * ⛔ O `text-fg-subtle` que morava aqui era CÓDIGO MORTO. Medido: o
+     * `ganttDayNumber` põe a própria cor no `<span>`, que vence a herança, então
+     * os três casos renderizavam o número em `oklch(0.7025)`. Cor de texto num
+     * container cujo filho já declara a dele não faz nada.
+     *
+     * ## O que era antes, e por que não funcionava
+     *
+     *   outside  `bg-bg-subtle/40`  → branco 1% × 40% = 0.004 de alfa
+     *   weekend  `bg-bg-subtle/30`  → branco 1% × 30% = 0.003 de alfa
+     *
+     * Os dois abaixo do limiar de percepção: as variantes existiam no CSS e não
+     * pintavam nada. 20 das 42 células carregavam estilo que ninguém via, e a
      * grade não dizia onde o mês começa nem onde acaba.
-     *
-     * `bg-bg-canvas` (0.205) contra a superfície da grade (`bg-surface`, 0.225)
-     * dá ΔL 0.020 — pouco pra uma LINHA, suficiente pra uma ÁREA. Contraste de
-     * área grande é muito mais perceptível que de traço fino, e é por isso que
-     * aqui 0.020 lê e na virada de mês do eixo 0.040 não lia.
-     *
-     * ⛔ Não é escurecer com `/NN` sobre um token de fundo: o dia de fora não é
-     * uma sobreposição sobre a grade, é o **buraco** por onde se vê o fundo da
-     * página. O token que significa isso é `bg-canvas`.
      */
-    outside: { true: "bg-bg-canvas text-fg-subtle", false: "" },
+    outside: { true: "bg-bg-canvas", false: "" },
     today: { true: "bg-bg-brand-subtle", false: "" },
-    /**
-     * Fim de semana DENTRO do mês. Mais claro que o `outside` de propósito: ele
-     * é um dia do mês que só não é útil, e não um dia de outro mês.
-     */
-    weekend: { true: "bg-bg-subtle/30", false: "" },
+    /** Fim de semana do mês — o MESMO escuro do `outside`. Ver a nota acima. */
+    weekend: { true: "bg-bg-canvas", false: "" },
   },
   compoundVariants: [
     /**
-     * ⚠️ `outside` VENCE `weekend`.
+     * `today` vence `outside` e `weekend`.
      *
-     * Um sábado de outro mês recebia as duas variantes, e a ordem no CSS gerado
-     * decidia qual fundo aparecia — as duas primeiras e as duas últimas colunas
-     * da grade podiam sair mais claras que as de dentro do mês, invertendo a
-     * informação. `outside` é a categoria mais forte: não importa que dia da
-     * semana seja, aquele quadrado não é deste mês.
+     * Se hoje cai num sábado, ou num dia de outro mês visível na grade, marcar
+     * HOJE é mais importante que marcar não-é-dia-útil-deste-mês. É a única
+     * célula que o usuário procura sem saber a data.
      *
-     * E `today` vence os dois: se hoje cai num dia de outro mês visível na
-     * grade, marcar hoje é mais importante que marcar de-fora.
+     * ⚠️ Não há mais compound pra `outside` × `weekend`: as duas variantes agora
+     * pintam o MESMO valor, então o empate deixou de existir. Antes ele era
+     * necessário porque a ordem no CSS gerado decidia, e as duas primeiras e as
+     * duas últimas colunas podiam sair mais claras que as de dentro do mês —
+     * invertendo a informação.
      */
-    { outside: true, weekend: true, class: "bg-bg-canvas" },
     { outside: true, today: true, class: "bg-bg-brand-subtle" },
+    { weekend: true, today: true, class: "bg-bg-brand-subtle" },
   ],
   defaultVariants: { outside: false, today: false, weekend: false },
 });
 
+/**
+ * O número do dia na célula do mês.
+ *
+ * ⚠️ A variante `outside` existe porque o FUNDO deixou de distinguir dia de
+ * outro mês de fim de semana deste — os dois são `bg-canvas` agora. Quem carrega
+ * essa diferença é o número: `fg-disabled` (0.36 no dark) contra `fg-muted`
+ * (0.7025) é meio tom de luminosidade, e lê imediatamente.
+ *
+ * `fg-disabled` e não um `fg-subtle` qualquer: um dia de outro mês não é
+ * acionável nesta grade — não recebe `+`, não recebe segmento próprio, e clicar
+ * nele não faz nada. O token que significa isso é o de desabilitado.
+ */
 export const ganttDayNumber = tv({
   base: "text-caption-sm tabular-nums text-fg-muted",
   variants: {
+    outside: { true: "text-fg-disabled", false: "" },
     today: {
       true: [
         "grid size-icon-lg place-items-center rounded-radius-full",
@@ -1803,7 +1840,11 @@ export const ganttDayNumber = tv({
       false: "",
     },
   },
-  defaultVariants: { today: false },
+  compoundVariants: [
+    // `today` vence `outside`: hoje num dia de outro mês ainda é hoje.
+    { outside: true, today: true, class: "font-semibold text-fg-on-brand" },
+  ],
+  defaultVariants: { today: false, outside: false },
 });
 
 /** Chip de barra dentro da célula do mês. */
