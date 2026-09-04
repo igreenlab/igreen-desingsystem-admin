@@ -268,10 +268,29 @@ predicado e chip — pra os dois nunca divergirem.
 
 ### 14. As duas visões respondem perguntas diferentes
 
-| Visão | Responde | Título | `‹ ›` anda | Escala |
-|---|---|---|---|---|
-| `timeline` | *o que depende do quê* | o intervalo ("31 ago – 2 nov 2026") | meia janela | ✅ |
-| `calendar` | *o que acontece no dia 12* | o **mês** ("outubro 2026") | **1 mês** | ⛔ some |
+| Visão | Responde | Título | `‹ ›` anda | Escala | Painel esquerdo |
+|---|---|---|---|---|---|
+| `timeline` | *o que depende do quê* | o intervalo ("31 ago – 2 nov 2026") | meia janela | ✅ | ✅ |
+| `calendar` | *o que acontece no dia 12* | o **mês** ("outubro 2026") | **1 mês** | ⛔ | ⛔ |
+| `list` | *o que vem a seguir* | o intervalo | meia janela | ⛔ | ⛔ |
+
+O seletor é o **primeiro item da toolbar**, à esquerda, seguido de divisor —
+igual à `DataTable`, onde o toggle Tabela/Lista/Kanban abre a toolbar. A razão é
+hierárquica: a visão decide o que todo o resto da toolbar significa (o período
+vira um mês no calendário, a escala desaparece), então ela não pode vir depois
+do que governa.
+
+**`list` é uma AGENDA, não uma tabela de tarefas.** Tabela com hierarquia e
+filtro é o `DataTable` (view lista, `hierarchical`). O que faz esta visão
+diferente é o agrupamento por **dia**: a mesma tarefa aparece em cada dia que
+ocupa, com a posição no intervalo à direita ("dia 2 de 6"). Numa tarefa repetida
+em 6 blocos, o intervalo seria idêntico nos seis e não diria nada novo — a
+posição diz onde no trabalho aquele dia está.
+
+⚠️ **Só os dias que TÊM tarefa aparecem.** Uma agenda que lista 60 dias pra
+mostrar 20 tarefas obriga a rolar por 40 blocos vazios; o salto entre datas é o
+próprio sinal de que não há nada no meio. (A grade de mês faz o oposto, e está
+certa: lá o dia vazio *é* a informação.)
 
 A toolbar **muda com a visão**, não só o conteúdo. O título de `calendar` é o mês
 porque a grade é de um mês — anunciar 64 dias sobre uma grade que mostra 31 seria

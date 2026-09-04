@@ -233,7 +233,20 @@ export type GanttBarChange = {
 
 /* ──────────────────────────────────────────────────────────── raiz ── */
 
-export type GanttView = "timeline" | "calendar";
+/**
+ * As três visões, e cada uma responde uma pergunta diferente do MESMO dado:
+ *
+ *   timeline  "o que depende do quê"      eixo horizontal + setas + gesto
+ *   calendar  "o que acontece no dia 12"  grade de mês com segmentos
+ *   list      "o que vem a seguir"        agenda por dia, só dias com tarefa
+ *
+ * ⚠️ A `list` NÃO é uma tabela de tarefas — isso é o `DataTable` (view lista,
+ * `hierarchical`). Ela é uma AGENDA: agrupa por DIA e repete a tarefa em cada
+ * dia que ela ocupa, com a posição dentro do intervalo. Responde "o que estou
+ * fazendo hoje e amanhã", que nem o eixo nem a grade de mês respondem sem o
+ * usuário contar colunas.
+ */
+export type GanttView = "timeline" | "calendar" | "list";
 
 export type GanttGranularity = "day" | "week" | "month" | "quarter";
 

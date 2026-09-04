@@ -34,6 +34,7 @@ import { GanttToolbar } from "./parts/gantt-toolbar";
 import { GanttFilterPanel } from "./parts/gantt-filter-panel";
 import { GANTT_DEFAULT_COLUMNS, GanttGrid } from "./parts/gantt-grid";
 import { GanttCalendarView } from "./views/calendar";
+import { GanttListView } from "./views/list";
 import { GanttTimelineView } from "./views/timeline";
 import {
   dateToX,
@@ -489,10 +490,12 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
   /**
    * O título muda de NATUREZA com a visão, não só de formato.
    *
-   * `timeline` mostra o intervalo ("31 ago – 2 nov 2026") porque é isso que o
-   * eixo cobre. `calendar` mostra o MÊS ("outubro 2026") porque a grade é de um
-   * mês — anunciar um intervalo de 64 dias sobre uma grade que mostra 31 seria
-   * o título mentindo sobre o conteúdo.
+   * `timeline` e `list` mostram o INTERVALO ("31 ago – 2 nov 2026"): as duas
+   * cobrem a janela inteira — uma no eixo, a outra em sequência.
+   *
+   * `calendar` mostra o MÊS ("outubro 2026") porque a grade é de um mês:
+   * anunciar um intervalo de 64 dias sobre uma grade que mostra 31 seria o
+   * título mentindo sobre o conteúdo.
    */
   const titulo = useMemo(() => {
     if (view === "calendar") {
@@ -667,6 +670,11 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
 
       <div
         ref={bodyRef}
+        /*
+          A moldura é do `ganttBody` só na timeline: as outras duas views
+          trazem a própria (`ganttMonthFrame`, `ganttListFrame`), e as duas
+          juntas desenham bordas concêntricas separadas por 1px.
+        */
         className={ganttBody({ framed: view === "timeline" })}
         role="region"
         aria-label={`Cronograma, ${titulo}`}
@@ -773,7 +781,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                   scrollRef={scrollerRef}
                   onBarClick={onBarClick}
                 />
-              ) : (
+              ) : view === "calendar" ? (
                 /*
                   ⚠️ O mês âncora é o MEIO da janela, e chegar nisso custou uma
                   medição.
@@ -801,6 +809,24 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                   criticalBarIds={criticalBarIds}
                   onBarClick={onBarClick}
                   onDayAdd={onDayAdd}
+                />
+              ) : (
+                /*
+                  A agenda usa a JANELA, não o mês âncora: ela é a leitura
+                  sequencial do período visível, e recortá-la no mês faria as
+                  setas `‹ ›` andarem meia janela enquanto a lista pularia de
+                  mês — duas unidades de navegação no mesmo controle.
+                */
+                <GanttListView
+                  rows={flat}
+                  windowStart={windowStart}
+                  windowEnd={windowEnd}
+                  now={now}
+                  locale={locale}
+                  conflictBarIds={conflictBarIds}
+                  criticalBarIds={criticalBarIds}
+                  onBarClick={onBarClick}
+                  emptyState={emptyState}
                 />
               )}
             </div>

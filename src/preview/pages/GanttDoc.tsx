@@ -293,7 +293,11 @@ const COLUNAS: GanttColumn[] = [
 const PROPS = [
   { name: "rows", type: "GanttRow[] — { id, label, type?, parent?, bars[], lanePacking?, trailing? }", defaultVal: "—" },
   { name: "links", type: "GanttLink[] — { source, target, type?, lag? }. Ausente = sem setas", defaultVal: "—" },
-  { name: "view", type: '"timeline" | "calendar"', defaultVal: '"timeline"' },
+  {
+    name: "view",
+    type: '"timeline" | "calendar" | "list" — a `list` é AGENDA por dia, não tabela de tarefas',
+    defaultVal: '"timeline"',
+  },
   { name: "windowStart / windowEnd", type: "Date — janela visível, do CONSUMIDOR. Omitidos, derivam dos dados", defaultVal: "derivada" },
   { name: "granularity", type: '"day" | "week" | "month" | "quarter"', defaultVal: '"day"' },
   { name: "columns", type: "GanttColumn[] — colunas da grade esquerda", defaultVal: "nome + início + fim" },

@@ -299,6 +299,18 @@ export const ganttViewSwitchButton = tv({
   defaultVariants: { isActive: false },
 });
 
+/**
+ * Divisor vertical entre grupos da toolbar.
+ *
+ * ⛔ Cópia do `toolbarDivider` do `TableToolbar` (1px × 24px, `border-default`,
+ * 6px de respiro, centrado). Mesma medida e mesmo token: é o mesmo separador
+ * lógico — "acabou um grupo de controles, começa outro" — e duas espessuras
+ * diferentes pra isso no mesmo produto é ruído.
+ */
+export const ganttToolbarDivider = tv({
+  base: "mx-[6px] h-[24px] w-[1px] shrink-0 self-center bg-border-default",
+});
+
 /** `‹ Hoje ›` — três segmentos colados num controle só. */
 export const ganttNavGroup = tv({
   base: [
@@ -1883,6 +1895,101 @@ export const ganttOverflowButton = tv({
     "hover:bg-bg-muted hover:text-fg-default",
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
   ],
+});
+
+/* ════════════════════════════════════════════ visão de lista ══ */
+
+/**
+ * A agenda.
+ *
+ * ⛔ Gramática copiada do `schedulerList*`, não importada (L-049). A moldura é
+ * própria e por isso o `ganttBody` entra sem `framed` nesta visão — duas
+ * bordas concêntricas separadas por 1px é o que sai de deixar as duas.
+ */
+export const ganttListFrame = tv({
+  base: [
+    "flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain scrollbar-thin",
+    "rounded-radius-xl border border-border-default bg-bg-surface",
+  ],
+});
+
+export const ganttListDay = tv({
+  base: "flex flex-col gap-gp-md border-b border-border-subtle p-sp-xl last:border-b-0",
+});
+
+/**
+ * Cabeçalho do dia.
+ *
+ * `sticky` com fundo OPACO: numa agenda longa, saber "que dia é este que estou
+ * lendo" é justamente o que se perde ao rolar. Fundo translúcido deixaria o
+ * conteúdo passar por baixo do rótulo.
+ *
+ * As margens negativas existem porque o `p-sp-xl` do dia já recuou o conteúdo:
+ * sem elas o sticky grudaria 20px abaixo do topo do scroller.
+ */
+export const ganttListDayHead = tv({
+  base: [
+    "sticky top-0 z-[1] -mx-sp-xl -mt-sp-xl px-sp-xl pb-pad-md pt-sp-xl",
+    "flex items-baseline gap-gp-md bg-bg-surface",
+  ],
+});
+
+export const ganttListDayNumber = tv({
+  base: "text-title-sm font-semibold tabular-nums",
+  variants: {
+    today: { true: "text-fg-brand", false: "text-fg-default" },
+  },
+  defaultVariants: { today: false },
+});
+
+export const ganttListDayName = tv({
+  base: "text-body-sm text-fg-muted first-letter:uppercase",
+});
+
+export const ganttListItems = tv({
+  base: "flex flex-col gap-gp-sm",
+});
+
+/**
+ * Uma tarefa na agenda — linha larga com sublinha e metadado à direita.
+ *
+ * Mesma anatomia do `schedulerEvent` variante `row`, e a cor segue a receita
+ * do resto deste componente: fundo TINGIDO + `fg-default` no texto + a cor viva
+ * num ponto. Ver a nota do topo do arquivo — texto colorido sobre pílula
+ * tingida dá 1.72–4.49 de contraste no light, e nenhuma família passa AA.
+ */
+export const ganttListItem = tv({
+  slots: {
+    root: [
+      "group/item flex min-h-form-lg w-full min-w-0 cursor-pointer items-center gap-gp-md",
+      "rounded-radius-lg border px-pad-xl py-pad-md text-left outline-none",
+      "transition-[background-color,border-color] duration-150",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    ],
+    dot: "size-[9px] shrink-0 rounded-radius-full",
+    body: "flex min-w-0 flex-1 flex-col",
+    title: "truncate text-body-sm font-medium text-fg-default",
+    sub: "truncate text-caption-sm text-fg-muted",
+    meta: "shrink-0 text-caption-sm tabular-nums text-fg-muted",
+  },
+  variants: {
+    colorKey: {
+      "chart-1": { root: "border-chart-1/40 bg-chart-1/14 hover:bg-chart-1/24", dot: "bg-chart-1" },
+      "chart-2": { root: "border-chart-2/40 bg-chart-2/14 hover:bg-chart-2/24", dot: "bg-chart-2" },
+      "chart-3": { root: "border-chart-3/40 bg-chart-3/14 hover:bg-chart-3/24", dot: "bg-chart-3" },
+      "chart-4": { root: "border-chart-4/40 bg-chart-4/14 hover:bg-chart-4/24", dot: "bg-chart-4" },
+      "chart-5": { root: "border-chart-5/40 bg-chart-5/14 hover:bg-chart-5/24", dot: "bg-chart-5" },
+      brand: { root: "border-border-brand-subtle bg-bg-brand-subtle hover:bg-bg-brand-subtle-hover", dot: "bg-bg-brand" },
+      success: { root: "border-border-success-muted bg-bg-success-muted", dot: "bg-bg-success" },
+      warning: { root: "border-border-warning-muted bg-bg-warning-muted", dot: "bg-bg-warning" },
+      danger: { root: "border-border-danger-muted bg-bg-danger-muted", dot: "bg-bg-danger" },
+      info: { root: "border-border-info-muted bg-bg-info-muted", dot: "bg-bg-info" },
+      neutral: { root: "border-border-default bg-bg-muted", dot: "bg-fg-subtle" },
+    },
+    conflict: { true: { root: "border-dashed !border-border-danger-muted" }, false: {} },
+    critical: { true: { root: "ring-2 ring-bg-danger/50" }, false: {} },
+  },
+  defaultVariants: { colorKey: "chart-1", conflict: false, critical: false },
 });
 
 /* ══════════════════════════════════════════════════ auxiliares ══ */

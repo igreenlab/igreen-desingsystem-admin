@@ -7,6 +7,7 @@ import {
   ChevronRight,
   Columns3,
   Filter,
+  List,
   Search,
   Zap,
 } from "lucide-react";
@@ -27,6 +28,7 @@ import {
   ganttSearchInput,
   ganttTitle,
   ganttTitleText,
+  ganttToolbarDivider,
   ganttViewSwitch,
   ganttViewSwitchButton,
   ganttToolbar,
@@ -51,9 +53,16 @@ import type {
  *
  * ## Ordem
  *
- *   Esquerda:  [📅 período] [‹ Hoje ›]
- *   Direita:   [busca] [Crítico] [▤|▦ visão] [▦ Escala ▾] [⧩] [ação]
+ *   Esquerda:  [▤|▦|☰ visão] │ [📅 período] [‹ Hoje ›]
+ *   Direita:   [busca] [Crítico] [▦ Escala ▾] [⧩] [ação]
  *   Abaixo:    [chips do que está aplicado] [Limpar tudo]
+ *
+ * ⚠️ A VISÃO vem primeiro, à esquerda, com divisor — igual à `DataTable`, onde
+ * o toggle Tabela/Lista/Kanban abre a toolbar. A razão é hierárquica: a visão
+ * decide o que TODO o resto da toolbar significa (o período passa a ser um mês
+ * no calendário, a escala desaparece), então ela não pode estar depois do que
+ * ela governa. Ficava à direita, entre a busca e a escala, como se fosse mais
+ * uma ferramenta.
  *
  * Espelha a orientação do `TableToolbar`: contexto à esquerda, busca à direita,
  * ação primária no fim. A busca **expande no foco** (200 → 300px), com a mesma
@@ -99,6 +108,7 @@ const VIEW_ITEMS: {
 }[] = [
   { value: "timeline", label: "Cronograma", icon: <ChartNoAxesGantt /> },
   { value: "calendar", label: "Calendário", icon: <CalendarDays /> },
+  { value: "list", label: "Lista", icon: <List /> },
 ];
 
 const ZOOM_ITEMS: { value: GanttGranularity; label: string }[] = [
@@ -200,6 +210,39 @@ export function GanttToolbar({
       {/* ── esquerda: período (o contexto) ───────────────────────── */}
       <div className={ganttToolbarSide({ slot: "leading" })}>
         {/*
+          Visão — o controle segmentado do `TableToolbar`, e o PRIMEIRO item.
+
+          `role="radiogroup"` + `role="radio"` + `aria-checked`, como lá: são
+          opções mutuamente exclusivas de um conjunto, não toggles
+          independentes.
+        */}
+        <div
+          role="radiogroup"
+          aria-label="Visualização"
+          className={ganttViewSwitch()}
+        >
+          {VIEW_ITEMS.map((v) => {
+            const ativa = v.value === view;
+            return (
+              <button
+                key={v.value}
+                type="button"
+                role="radio"
+                aria-checked={ativa}
+                aria-label={v.label}
+                title={v.label}
+                onClick={() => onViewChange(v.value)}
+                className={ganttViewSwitchButton({ isActive: ativa })}
+              >
+                {v.icon}
+              </button>
+            );
+          })}
+        </div>
+
+        <span className={ganttToolbarDivider()} aria-hidden />
+
+        {/*
           Ícone de calendário à esquerda do período: ele diz que aquele texto é
           um INTERVALO de datas, não um título de tela. `aria-hidden` porque o
           texto ao lado já diz tudo — ícone decorativo anunciado é ruído no
@@ -280,50 +323,19 @@ export function GanttToolbar({
           </Button>
         ) : null}
 
-        {/*
-          Visão — o controle segmentado do `TableToolbar`, não dois botões.
-
-          `role="radiogroup"` + `role="radio"` + `aria-checked`, como lá: são
-          opções mutuamente exclusivas de um conjunto, não toggles
-          independentes. `aria-pressed` (que eu usei antes) descreveria dois
-          botões que podem estar pressionados ao mesmo tempo.
-        */}
-        <div
-          role="radiogroup"
-          aria-label="Visualização"
-          className={ganttViewSwitch()}
-        >
-          {VIEW_ITEMS.map((v) => {
-            const ativa = v.value === view;
-            return (
-              <button
-                key={v.value}
-                type="button"
-                role="radio"
-                aria-checked={ativa}
-                aria-label={v.label}
-                title={v.label}
-                onClick={() => onViewChange(v.value)}
-                className={ganttViewSwitchButton({ isActive: ativa })}
-              >
-                {v.icon}
-              </button>
-            );
-          })}
-        </div>
 
         {/*
-          ⛔ A ESCALA NÃO EXISTE NA VISÃO DE CALENDÁRIO.
+          ⛔ A ESCALA SÓ EXISTE NA TIMELINE.
 
-          "Dia / Semana / Mês / Trimestre" é a densidade do EIXO HORIZONTAL da
-          timeline. Numa grade de mês não há eixo pra adensar — a unidade é o
-          dia por construção, e as 6 linhas são semanas. Deixar o controle
-          visível ali seria oferecer uma escolha que não muda nada, que é a
-          mesma classe de defeito do toggle de crítico sem vínculo no grafo.
+          "Dia / Semana / Mês / Trimestre" é a densidade do EIXO HORIZONTAL.
+          Na grade de mês a unidade é o dia por construção e as 6 linhas são
+          semanas; na agenda não há eixo nenhum — o agrupamento é por dia
+          sempre. Nas duas, o controle ofereceria uma escolha que não muda
+          nada: mesma classe de defeito do toggle de crítico sem vínculo.
 
           ⚠️ O estado NÃO é resetado ao esconder: voltando pra timeline, a
-          escala que estava selecionada continua. Zerar teria feito trocar de
-          visão e voltar perder o zoom, que é trabalho do usuário jogado fora.
+          escala que estava selecionada continua. Zerar faria trocar de visão e
+          voltar perder o zoom, que é trabalho do usuário jogado fora.
         */}
         {view === "timeline" ? (
         <DropdownMenu>
