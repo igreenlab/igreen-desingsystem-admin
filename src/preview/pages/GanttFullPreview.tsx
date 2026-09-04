@@ -513,6 +513,35 @@ export function GanttFullPreview() {
               { ...novo, id: `l-${novo.source}-${novo.target}-${atuais.length}` },
             ])
           }
+          /*
+            O "+" da célula do calendário. A tela cria a tarefa de verdade —
+            sem handler o "+" nem renderiza, e um exemplo com o botão inerte
+            ensinaria que ele não faz nada.
+          */
+          onDayAdd={(dia) =>
+            setRows((atuais) => [
+              ...atuais,
+              {
+                id: `nova-${dia.getTime()}`,
+                label: `Nova tarefa ${format(dia, "dd/MM")}`,
+                parent: "f3",
+                bars: [
+                  {
+                    id: `nova-b-${dia.getTime()}`,
+                    label: "Nova",
+                    start: dia,
+                    end: addDays(dia, 2),
+                    colorKey: "chart-2",
+                    meta: {
+                      responsavel: "ana",
+                      frente: "engenharia",
+                      descricao: "Criada pelo + da grade de mês.",
+                    } satisfies Meta,
+                  },
+                ],
+              },
+            ])
+          }
           onLinkDelete={(alvo) =>
             setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))
           }

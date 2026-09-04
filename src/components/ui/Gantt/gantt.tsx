@@ -103,6 +103,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     onBarResize,
     onLinkCreate,
     onLinkDelete,
+    onDayAdd,
     onRowToggle,
     now = new Date(),
     locale,
@@ -745,6 +746,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                   conflictBarIds={conflictBarIds}
                   criticalBarIds={criticalBarIds}
                   onBarClick={onBarClick}
+                  onDayAdd={onDayAdd}
                 />
               )}
             </div>

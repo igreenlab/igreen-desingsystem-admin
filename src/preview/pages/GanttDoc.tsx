@@ -325,6 +325,11 @@ const PROPS = [
   { name: "onBarMove / onBarResize", type: "(change) => void — EMITE, não aplica", defaultVal: "—" },
   { name: "onLinkViolations", type: "(violations) => void — vínculos que as datas atuais violam", defaultVal: "—" },
   { name: "onGraphError", type: "({ kind: 'cycle', barIds }) => void — ciclo é resultado, não exceção", defaultVal: "—" },
+  {
+    name: "onDayAdd",
+    type: "(date) => void — o "+" no hover da célula do calendário; SEM handler o botão não renderiza",
+    defaultVal: "—",
+  },
   { name: "onRowToggle", type: "(rowId, collapsed) => void", defaultVal: "—" },
   { name: "now / locale / weekStartsOn", type: "injetáveis pra teste e i18n", defaultVal: "new Date() · — · 0" },
 ];

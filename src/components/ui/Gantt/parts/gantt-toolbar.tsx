@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import {
   CalendarDays,
+  ChartNoAxesGantt,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -26,6 +27,8 @@ import {
   ganttSearchInput,
   ganttTitle,
   ganttTitleText,
+  ganttViewSwitch,
+  ganttViewSwitchButton,
   ganttToolbar,
   ganttToolbarSide,
 } from "../gantt.styles";
@@ -49,7 +52,7 @@ import type {
  * ## Ordem
  *
  *   Esquerda:  [📅 período] [‹ Hoje ›]
- *   Direita:   [busca] [Crítico] [Cronograma|Calendário] [▦ Escala ▾] [⧩] [ação]
+ *   Direita:   [busca] [Crítico] [▤|▦ visão] [▦ Escala ▾] [⧩] [ação]
  *   Abaixo:    [chips do que está aplicado] [Limpar tudo]
  *
  * Espelha a orientação do `TableToolbar`: contexto à esquerda, busca à direita,
@@ -76,23 +79,26 @@ import type {
  */
 
 /**
- * As duas visões.
+ * As duas visões — **icon-only**, no controle segmentado do `TableToolbar`.
  *
- * ⚠️ Segmentos unidos e NÃO dropdown, ao contrário do `Scheduler` — e a razão
- * é a contagem. Lá são 4 visões, e 4 num dropdown é o certo. Aqui são **2**, e
- * um dropdown pra escolher entre duas coisas custa dois cliques (abrir, marcar)
- * pra fazer o que um clique faz. A gramática visual é a mesma do `‹ Hoje ›`,
- * que já existe neste componente.
+ * Ícone sem rótulo, com `aria-label` + `title`, exatamente como o toggle
+ * Tabela/Lista/Kanban da `DataTable` faz. É o mesmo gesto, então é o mesmo
+ * controle: 36px por segmento em vez de ~200px de dois botões com texto, e a
+ * largura devolvida ao eixo.
  *
- * Se um dia entrar uma terceira visão, isto vira dropdown como o do Scheduler.
- *
- * ⛔ Sem ícone de propósito. `Calendário` pediria `CalendarDays`, que já rotula
- * o PERÍODO ali do lado esquerdo — dois calendários na mesma toolbar
- * significando coisas diferentes é pior que texto puro. Duas palavras resolvem.
+ * ⚠️ Aqui `CalendarDays` repete o ícone do título do período, e eu tinha
+ * recusado isso na versão anterior. Reverti: naquele caso era um botão COM
+ * rótulo, onde o ícone é ornamento e a redundância confunde. Num controle
+ * icon-only o ícone **é** o rótulo, então ele tem que ser o óbvio — e o óbvio
+ * de "Calendário" é um calendário. Os contextos são diferentes.
  */
-const VIEW_ITEMS: { value: GanttView; label: string }[] = [
-  { value: "timeline", label: "Cronograma" },
-  { value: "calendar", label: "Calendário" },
+const VIEW_ITEMS: {
+  value: GanttView;
+  label: string;
+  icon: ReactNode;
+}[] = [
+  { value: "timeline", label: "Cronograma", icon: <ChartNoAxesGantt /> },
+  { value: "calendar", label: "Calendário", icon: <CalendarDays /> },
 ];
 
 const ZOOM_ITEMS: { value: GanttGranularity; label: string }[] = [
@@ -275,30 +281,33 @@ export function GanttToolbar({
         ) : null}
 
         {/*
-          Visão: dois segmentos unidos. A ativa vem `soft`/`primary`, que é como
-          o resto do DS marca "este é o estado corrente" num par de botões.
+          Visão — o controle segmentado do `TableToolbar`, não dois botões.
+
+          `role="radiogroup"` + `role="radio"` + `aria-checked`, como lá: são
+          opções mutuamente exclusivas de um conjunto, não toggles
+          independentes. `aria-pressed` (que eu usei antes) descreveria dois
+          botões que podem estar pressionados ao mesmo tempo.
         */}
         <div
-          role="group"
+          role="radiogroup"
           aria-label="Visualização"
-          className={cn(ganttNavGroup(), "max-md:hidden")}
+          className={ganttViewSwitch()}
         >
           {VIEW_ITEMS.map((v) => {
             const ativa = v.value === view;
             return (
-              <Button
+              <button
                 key={v.value}
-                variant={ativa ? "soft" : "outline"}
-                color={ativa ? "primary" : "secondary"}
-                size="md"
+                type="button"
+                role="radio"
+                aria-checked={ativa}
+                aria-label={v.label}
+                title={v.label}
                 onClick={() => onViewChange(v.value)}
-                // `aria-pressed` e não `aria-selected`: são botões de
-                // alternância, não opções de um listbox.
-                aria-pressed={ativa}
-                className={cn(ativa && "border-border-brand hover:border-border-brand")}
+                className={ganttViewSwitchButton({ isActive: ativa })}
               >
-                {v.label}
-              </Button>
+                {v.icon}
+              </button>
             );
           })}
         </div>

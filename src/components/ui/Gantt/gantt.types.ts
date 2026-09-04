@@ -411,6 +411,18 @@ export interface GanttProps {
   onLinkCreate?: (link: Omit<GanttLink, "id">) => void;
   onLinkDelete?: (link: GanttLink) => void;
 
+  /**
+   * Clique no "+" de uma célula da visão `calendar`.
+   *
+   * ⚠️ **Sem este handler o "+" não é renderizado.** Um botão de adicionar que
+   * não adiciona nada é pior que a ausência dele — mesma regra do toggle de
+   * caminho crítico sem vínculo no grafo.
+   *
+   * Recebe o dia clicado à meia-noite local. Quem cria a tarefa é você: o
+   * `Gantt` é dumb sobre mutação.
+   */
+  onDayAdd?: (date: Date) => void;
+
   onRowToggle?: (rowId: string, collapsed: boolean) => void;
 
   /** "Hoje". Injetável pra teste e pra fuso do servidor. @default new Date() */

@@ -276,9 +276,15 @@ predicado e chip — pra os dois nunca divergirem.
 O seletor fica na toolbar (dois segmentos, não dropdown — são só duas). `view` +
 `onViewChange` controlam de fora; omitidos, o componente guarda em estado próprio.
 
-**A barra ocupa TODOS os dias que atravessa** na grade de mês: uma tarefa de 10 a
-15 aparece em 6 células. É a diferença entre cronograma e agenda — a tarefa não
-acontece num instante, ela ocupa um intervalo.
+**A barra é UM segmento contínuo** atravessando os dias que ocupa — não um chip
+por dia. Uma tarefa de 10 a 15 é uma barra de 6 colunas, e se cruzar a virada de
+semana vira dois segmentos com a ponta cortada marcada (mesmo vocabulário
+`continuesBefore`/`continuesAfter` da timeline). Um chip por dia leria como seis
+tarefas de um dia em vez de uma de seis.
+
+`onDayAdd` liga o **"+" no hover da célula**. Sem o handler o botão não é
+renderizado — um "+" que não adiciona nada é pior que a ausência dele. Ele recebe
+o dia à meia-noite local; quem cria a tarefa é você.
 
 ⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos
 filhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a

@@ -255,6 +255,50 @@ export const ganttTitleText = tv({
   base: "min-w-0 truncate first-letter:uppercase",
 });
 
+/**
+ * Controle segmentado de VISÃO — trilho com pílula ativa.
+ *
+ * ⚠️ Isto é o `toolbarSegmented`/`toolbarSegmentedButton` do `TableToolbar`,
+ * token por token. É o mesmo controle que troca Tabela/Lista/Kanban na
+ * `DataTable`, e trocar de visão é a mesma ação nas duas telas — o usuário não
+ * deve aprender dois controles pro mesmo gesto.
+ *
+ * ⛔ Minha primeira versão eram dois `Button` de texto unidos pelo
+ * `ganttNavGroup`. Funcionava e estava ERRADO: eu disse que ia seguir o modelo
+ * do DS e inventei um controle, quando o modelo existia a um arquivo de
+ * distância. Trilho `bg-bg-muted` com pílula `bg-bg-accent` é uma gramática
+ * diferente de dois botões `outline` colados — não é detalhe de estilo, é outro
+ * componente visual.
+ *
+ * ⛔ Copiado e não importado: `ToolbarSegmented` vive em `ui/TableToolbar/`, e
+ * cross-import entre pastas de `ui/` gera `registryDependency` pendente (L-049).
+ */
+export const ganttViewSwitch = tv({
+  base: [
+    "inline-flex shrink-0 items-center gap-[2px] p-[3px]",
+    "h-form-lg rounded-radius-lg bg-bg-muted",
+  ],
+});
+
+export const ganttViewSwitchButton = tv({
+  base: [
+    "grid h-[34px] min-w-[36px] place-items-center px-pad-md",
+    "cursor-pointer rounded-radius-md border-0 bg-transparent outline-none",
+    "text-body-sm font-normal text-fg-muted",
+    "transition-[background-color,color,box-shadow] duration-150",
+    "hover:text-fg-default",
+    "focus-visible:shadow-sh-ring",
+    "[&_svg]:size-[14px]",
+  ],
+  variants: {
+    isActive: {
+      true: "bg-bg-accent font-semibold text-fg-default shadow-sh-sm",
+      false: "",
+    },
+  },
+  defaultVariants: { isActive: false },
+});
+
 /** `‹ Hoje ›` — três segmentos colados num controle só. */
 export const ganttNavGroup = tv({
   base: [
@@ -1583,15 +1627,122 @@ export const ganttWeekdayCell = tv({
  */
 export const ganttMonthGrid = tv({
   base: [
-    "grid min-h-0 flex-1 grid-cols-7",
-    "auto-rows-[minmax(88px,1fr)]",
+    "flex min-h-0 flex-1 flex-col",
     "overflow-y-auto scrollbar-thin",
+  ],
+});
+
+/**
+ * Uma LINHA de semana — o contêiner que tornou o segmento contínuo possível.
+ *
+ * ⚠️ Antes a grade era 42 células soltas num `grid-cols-7 auto-rows-*`, e nessa
+ * estrutura uma barra de 6 dias **não tem como** ser um elemento só: ela viraria
+ * 6 chips, um por célula, cada um repetindo o nome. Lê como seis tarefas de um
+ * dia em vez de uma de seis — o oposto do que um cronograma diz.
+ *
+ * Agora cada semana é uma linha `relative` com DUAS camadas:
+ *
+ *   ganttWeekDays      → as 7 células (fundo, número do dia, "+N mais", o "+")
+ *   ganttWeekSegments  → camada absoluta com as barras atravessando colunas
+ *
+ * O `minmax(88px,1fr)` virou `min-h`: 88 é o mínimo pra a célula responder "o
+ * que acontece neste dia" em vez de "tem coisa aqui", e em viewport alta a linha
+ * cresce com o `flex-1`.
+ */
+export const ganttWeekRow = tv({
+  base: "relative flex min-h-[88px] shrink-0 flex-1 flex-col",
+});
+
+/** As 7 células de fundo da semana. */
+export const ganttWeekDays = tv({
+  base: "grid min-h-0 flex-1 grid-cols-7",
+});
+
+/**
+ * Camada dos segmentos.
+ *
+ * `pointer-events-none` na camada e reativado em cada segmento: senão ela
+ * cobriria as células e o hover do "+" nunca disparava. Mesmo padrão do
+ * `ganttLinksLayer` na timeline, e pela mesma razão.
+ */
+export const ganttWeekSegments = tv({
+  base: "pointer-events-none absolute inset-x-0",
+});
+
+/**
+ * Um segmento — a barra atravessando as colunas que ocupa.
+ *
+ * As pontas cortadas usam o MESMO vocabulário da timeline
+ * (`continuesBefore`/`continuesAfter`): perdem o canto e a borda daquele lado,
+ * pra o corte na virada de semana parecer intencional em vez de bug.
+ */
+export const ganttDaySegment = tv({
+  slots: {
+    root: [
+      "pointer-events-auto absolute flex min-w-0 items-center gap-gp-2xs",
+      "h-[18px] rounded-radius-sm border px-pad-sm",
+      "text-left outline-none transition-colors duration-150",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    ],
+    dot: "size-[7px] shrink-0 rounded-radius-full",
+    label: "min-w-0 flex-1 truncate text-caption-sm text-fg-default",
+  },
+  variants: {
+    colorKey: {
+      "chart-1": { root: "border-chart-1/40 bg-chart-1/14 hover:bg-chart-1/24", dot: "bg-chart-1" },
+      "chart-2": { root: "border-chart-2/40 bg-chart-2/14 hover:bg-chart-2/24", dot: "bg-chart-2" },
+      "chart-3": { root: "border-chart-3/40 bg-chart-3/14 hover:bg-chart-3/24", dot: "bg-chart-3" },
+      "chart-4": { root: "border-chart-4/40 bg-chart-4/14 hover:bg-chart-4/24", dot: "bg-chart-4" },
+      "chart-5": { root: "border-chart-5/40 bg-chart-5/14 hover:bg-chart-5/24", dot: "bg-chart-5" },
+      brand: { root: "border-border-brand-subtle bg-bg-brand-subtle hover:bg-bg-brand-subtle-hover", dot: "bg-bg-brand" },
+      success: { root: "border-border-success-muted bg-bg-success-muted", dot: "bg-bg-success" },
+      warning: { root: "border-border-warning-muted bg-bg-warning-muted", dot: "bg-bg-warning" },
+      danger: { root: "border-border-danger-muted bg-bg-danger-muted", dot: "bg-bg-danger" },
+      info: { root: "border-border-info-muted bg-bg-info-muted", dot: "bg-bg-info" },
+      neutral: { root: "border-border-default bg-bg-muted", dot: "bg-fg-subtle" },
+    },
+    continuesBefore: { true: { root: "rounded-l-none border-l-0" }, false: {} },
+    continuesAfter: { true: { root: "rounded-r-none border-r-0" }, false: {} },
+    conflict: { true: { root: "border-dashed !border-border-danger-muted" }, false: {} },
+    critical: { true: { root: "ring-2 ring-bg-danger/50" }, false: {} },
+  },
+  defaultVariants: {
+    colorKey: "chart-1",
+    continuesBefore: false,
+    continuesAfter: false,
+    conflict: false,
+    critical: false,
+  },
+});
+
+/**
+ * O "+" de adicionar, revelado no hover da célula.
+ *
+ * ⚠️ Só renderiza quando o consumidor passa `onDayAdd`. Um "+" que não
+ * adiciona nada é pior que a ausência dele — é a mesma regra do toggle de
+ * caminho crítico sem vínculo.
+ *
+ * `opacity-0` + `group-hover` e não `hidden`: com `hidden` o nó entra e sai do
+ * fluxo no hover, e a célula muda de altura embaixo do cursor.
+ */
+export const ganttDayAdd = tv({
+  base: [
+    "absolute bottom-pad-sm right-pad-sm z-[2]",
+    "grid size-icon-lg place-items-center rounded-radius-md",
+    "border border-border-subtle bg-bg-surface text-fg-muted",
+    "opacity-0 transition-opacity duration-150",
+    "group-hover/cell:opacity-100 focus-visible:opacity-100",
+    "hover:border-border-brand hover:text-fg-brand",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    "[&_svg]:size-icon-sm",
   ],
 });
 
 export const ganttMonthCell = tv({
   base: [
-    "flex min-h-0 min-w-0 flex-col gap-gp-2xs overflow-hidden",
+    // `group/cell` é o gatilho do hover do `ganttDayAdd`. Nome com barra pra
+    // não colidir com o `group/row` da grade esquerda.
+    "group/cell relative flex min-h-0 min-w-0 flex-col overflow-hidden",
     "border-b border-r border-border-subtle p-pad-sm",
     "[&:nth-child(7n)]:border-r-0",
     "transition-colors duration-150",
@@ -1649,9 +1800,18 @@ export const ganttDayChip = tv({
   defaultVariants: { colorKey: "chart-1" },
 });
 
+/**
+ * O "+N mais" da célula do mês.
+ *
+ * ⚠️ `absolute`, e isto é conserto de um defeito medido: no fluxo do flex ele
+ * caía logo depois do número do dia — **na mesma faixa vertical dos
+ * segmentos** — e como os segmentos vivem numa camada absoluta por cima, o
+ * botão aparecia atravessado pelas barras. Posicionado, ele fica exatamente
+ * abaixo da última faixa visível (o `top` vem da view, que sabe quantas são).
+ */
 export const ganttOverflowButton = tv({
   base: [
-    "w-full truncate rounded-radius-sm px-pad-sm py-[2px] text-left",
+    "absolute inset-x-pad-sm z-[2] truncate rounded-radius-sm px-pad-2xs text-left",
     "text-caption-sm font-medium text-fg-muted",
     "transition-colors duration-150",
     "hover:bg-bg-muted hover:text-fg-default",
