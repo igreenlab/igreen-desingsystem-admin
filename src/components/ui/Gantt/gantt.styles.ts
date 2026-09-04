@@ -1750,70 +1750,59 @@ export const ganttMonthCell = tv({
   variants: {
     /** Dia de fora do mês âncora: presente, mas recuado. */
     /**
-     * ## Uma regra só: **claro = dia útil DESTE mês**
+     * ## O mês é UNIFORME. O que se destaca é o que não é dele.
      *
-     * `outside` e `weekend` compartilham o mesmo fundo escuro (`bg-canvas`), e
-     * isso é decisão, não coincidência. A grade tem dois níveis com um
-     * significado só — dia de trabalho do mês corrente, ou não — em vez de três
-     * níveis com uma diferença que ninguém consegue nomear.
+     * Todo dia do mês âncora tem o mesmo fundo — útil ou fim de semana, tanto
+     * faz. Só as células de OUTRO mês recebem `bg-canvas`, e a grade passa a
+     * responder uma pergunta só: onde este mês começa e onde acaba.
+     *
+     * ⛔ **Não existe variante de fim de semana aqui, e isso é decisão.**
+     * Sombrear sábado e domingo divide o mês em blocos verticais e compete com
+     * a única distinção que a grade precisa fazer. Num calendário de agenda o
+     * fim de semana importa (não se marca reunião); num CRONOGRAMA a barra
+     * atravessa o fim de semana de qualquer jeito, e listrar as colunas só
+     * atrapalha a leitura do segmento contínuo que passa por cima.
      *
      * ## Por que `bg-canvas` e não escurecer com `/NN`
      *
-     * O dia que não é útil deste mês não é uma SOBREPOSIÇÃO sobre a grade: é o
-     * buraco por onde se vê o fundo da página. O token que significa isso é
-     * `bg-canvas` (0.205), e contra a superfície da grade (`bg-surface`, 0.225)
-     * ele dá ΔL 0.020.
+     * O dia de outro mês não é uma SOBREPOSIÇÃO sobre a grade: é o buraco por
+     * onde se vê o fundo da página. O token que significa isso é `bg-canvas`
+     * (0.205), e contra a superfície da grade (`bg-surface`, 0.225) ele dá
+     * ΔL 0.020.
      *
      * ⚠️ 0.020 é pouco pra uma LINHA e suficiente pra uma ÁREA — contraste de
      * área grande é muito mais perceptível que de traço fino. É por isso que
      * aqui 0.020 lê enquanto na virada de mês do eixo 0.040 não lia.
      *
-     * ⚠️ E não há token ENTRE 0.225 e 0.205, então "um pouco mais escuro que o
-     * dia útil, um pouco mais claro que o outro mês" não é expressável: sairia
-     * `bg-canvas/50`, dois passos de ΔL 0.010, ambos abaixo do que se vê. Um
-     * passo claro vale mais que dois invisíveis.
-     *
-     * ## O que separa fim de semana de outro mês
-     *
-     * O NÚMERO do dia — ver a variante `outside` do `ganttDayNumber`.
-     *
-     * ⛔ O `text-fg-subtle` que morava aqui era CÓDIGO MORTO. Medido: o
-     * `ganttDayNumber` põe a própria cor no `<span>`, que vence a herança, então
-     * os três casos renderizavam o número em `oklch(0.7025)`. Cor de texto num
-     * container cujo filho já declara a dele não faz nada.
-     *
-     * ## O que era antes, e por que não funcionava
+     * ## O histórico, porque ele explica as duas variantes que sumiram
      *
      *   outside  `bg-bg-subtle/40`  → branco 1% × 40% = 0.004 de alfa
      *   weekend  `bg-bg-subtle/30`  → branco 1% × 30% = 0.003 de alfa
      *
-     * Os dois abaixo do limiar de percepção: as variantes existiam no CSS e não
-     * pintavam nada. 20 das 42 células carregavam estilo que ninguém via, e a
-     * grade não dizia onde o mês começa nem onde acaba.
+     * As duas abaixo do limiar de percepção: existiam no CSS e não pintavam
+     * nada — 20 das 42 células com estilo que ninguém via. Ao consertar, eu
+     * tornei o fim de semana visível TAMBÉM, e aí ele virou o defeito oposto:
+     * as colunas de sábado e domingo escuras de ponta a ponta, com o mês
+     * parecendo quatro blocos. O conserto certo era **remover**, não calibrar.
+     *
+     * ⛔ E o `text-fg-subtle` que morava na variante `outside` era CÓDIGO MORTO:
+     * medido, o `ganttDayNumber` põe a própria cor no `<span>` e vence a
+     * herança. Quem dim o número do dia de fora é a variante `outside` DELE.
      */
     outside: { true: "bg-bg-canvas", false: "" },
     today: { true: "bg-bg-brand-subtle", false: "" },
-    /** Fim de semana do mês — o MESMO escuro do `outside`. Ver a nota acima. */
-    weekend: { true: "bg-bg-canvas", false: "" },
   },
   compoundVariants: [
     /**
-     * `today` vence `outside` e `weekend`.
+     * `today` vence `outside`.
      *
-     * Se hoje cai num sábado, ou num dia de outro mês visível na grade, marcar
-     * HOJE é mais importante que marcar não-é-dia-útil-deste-mês. É a única
-     * célula que o usuário procura sem saber a data.
-     *
-     * ⚠️ Não há mais compound pra `outside` × `weekend`: as duas variantes agora
-     * pintam o MESMO valor, então o empate deixou de existir. Antes ele era
-     * necessário porque a ordem no CSS gerado decidia, e as duas primeiras e as
-     * duas últimas colunas podiam sair mais claras que as de dentro do mês —
-     * invertendo a informação.
+     * Se hoje cai num dia de outro mês visível na grade, marcar HOJE é mais
+     * importante que marcar não-é-deste-mês: é a única célula que o usuário
+     * procura sem saber a data.
      */
     { outside: true, today: true, class: "bg-bg-brand-subtle" },
-    { weekend: true, today: true, class: "bg-bg-brand-subtle" },
   ],
-  defaultVariants: { outside: false, today: false, weekend: false },
+  defaultVariants: { outside: false, today: false },
 });
 
 /**

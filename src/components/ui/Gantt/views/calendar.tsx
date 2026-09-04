@@ -278,10 +278,13 @@ export function GanttCalendarView({
                   return (
                     <div
                       key={dia.getTime()}
+                      /*
+                        ⛔ Sem `weekend`: o mês é uniforme de propósito. Ver a
+                        nota do `ganttMonthCell`.
+                      */
                       className={ganttMonthCell({
                         outside: !isSameMonth(dia, anchor),
                         today: isSameDay(dia, now),
-                        weekend: dia.getDay() === 0 || dia.getDay() === 6,
                       })}
                     >
                       <span
