@@ -12,7 +12,7 @@ import { tv, type VariantProps } from "@/utils/tv";
  *   media*     = container/elementos do MessageMediaRenderer
  *   body       = corpo markdown
  *   meta       = rodapé HH:mm + label editada + MessageAck
- *   actions*   = botão de ações (hover, top-right) + Popover content
+ *   actions*   = botão de ações (hover, top-right, superfície própria) + Popover content
  *
  * Cor: `sent` = `bg-bg-success-muted` (verde sutil — espelha o "balão enviado"
  * do WA, claro/escuro via token). `received` = `bg-bg-surface`. Sem hardcode.
@@ -21,7 +21,9 @@ import { tv, type VariantProps } from "@/utils/tv";
  * largura de bolha de chat (regra do domínio: bolha nunca passa de 70% da coluna).
  *
  * disabled = n/a (bolha não é controle interativo). `tail` é o único modifier
- * de raio; `side` controla bg + alinhamento + lado da rabeta.
+ * de raio; `side` controla bg + alinhamento + lado da rabeta; `origin="ai"`
+ * troca a borda pela da marca (contorno sutil) — quem decide se a mensagem é
+ * da IA é o consumidor.
  */
 export const messageBubbleStyles = tv({
   slots: {
@@ -99,6 +101,7 @@ export const messageBubbleStyles = tv({
     /* ações (hover) */
     actionsTrigger: [
       "absolute right-pad-md top-pad-md",
+      "bg-bg-emphasis shadow-sh-sm hover:bg-bg-accent-hover",
       "opacity-0 transition-opacity",
       "group-hover/bubble:opacity-100 focus-visible:opacity-100",
     ],
@@ -114,12 +117,16 @@ export const messageBubbleStyles = tv({
       received: {
         row: "flex-row",
         column: "items-start",
-        bubble: "bg-bg-surface",
+        bubble: "bg-bg-surface border-border-subtle",
       },
     },
     tail: {
       true: {},
       false: {},
+    },
+    origin: {
+      human: {},
+      ai: { bubble: "border-border-brand-subtle" },
     },
   },
   compoundVariants: [
@@ -130,6 +137,7 @@ export const messageBubbleStyles = tv({
   defaultVariants: {
     side: "received",
     tail: true,
+    origin: "human",
   },
 });
 

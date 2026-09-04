@@ -5,6 +5,9 @@ import type { MessageBubbleVariantProps } from "./message-bubble.styles";
 /** Lado da bolha — quem enviou. `sent` = nós (direita), `received` = contato (esquerda). */
 export type MessageSide = NonNullable<MessageBubbleVariantProps["side"]>;
 
+/** Origem da mensagem. `ai` = escrita pela IA (Sol); `human` = pessoa. */
+export type MessageOrigin = NonNullable<MessageBubbleVariantProps["origin"]>;
+
 /** Tipo de mídia que a bolha carrega. `text` = sem mídia (só corpo). */
 export type MessageMediaType =
   | "text"
@@ -76,6 +79,12 @@ export interface MessageBubbleProps {
    * `true`.
    */
   tail?: boolean;
+  /**
+   * Origem da mensagem. `ai` aplica um contorno sutil da marca na bolha para
+   * distinguir a resposta da IA da de um atendente; o critério de "é da IA" é
+   * do consumidor. Default `human` (sem mudança visual).
+   */
+  origin?: MessageOrigin;
   /** Nome do autor (exibido no topo da bolha — útil em grupos). */
   authorName?: string;
   /** Slot de avatar (renderizado ao lado da bolha). */
