@@ -29,6 +29,7 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
+- [2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`](#2026-09-03-concluído-messagebubble-botão-de-ações-com-superfície-originai)
 
 <!-- doc-index:fim -->
 
@@ -4734,3 +4735,49 @@ sem menção no USAGE do componente" é regra independente de contexto, o crité
 o chip do caminho seguir o cliente aberto pôs os dois lado a lado, e a contradição apareceu —
 dois status diferentes pro mesmo registro na mesma tela. É o padrão de "dado derivado vs dado
 fixo": enquanto os dois eram fixos, concordavam por coincidência.
+
+## 2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`
+
+**Escopo:** só `src/components/ui/MessageBubble/` (styles, tsx, types, index, USAGE, teste
+novo). Pedido do time de atendimento do Hub, autorizado pelo mantenedor em 03/09. PR aberta e
+parada no merge; distribuição (changelog/embed) fica pro `/ds-release`.
+
+**O defeito, medido em token, não em impressão.** No `.dark`, a bolha recebida é
+`bg-bg-surface` (L 0.225), o fundo da conversa é `bg-bg-subtle` (1% de branco) e o hover do
+ghost secundário é `bg-bg-muted` (3%). O gatilho ⋮ era `size="2xs"` (glifo 12px) sem
+superfície nenhuma: bolha, fundo e botão viravam um campo só.
+
+**Decisões:**
+
+1. **Superfície própria no slot `actionsTrigger`** — `bg-bg-emphasis` (12% de branco no dark,
+   gray-100 no light) + `shadow-sh-sm`, e `hover:bg-bg-accent-hover`, que é o ÚNICO neutro
+   acima de `emphasis` nos dois modos (16% / L 0.84). O hover do próprio ghost (`bg-bg-muted`)
+   deixaria a pílula MAIS apagada no hover do que em repouso; o twMerge deixa o do slot vencer,
+   e o teste trava.
+2. **Raio pela API do Button** (`shape="pill"`), não por classe no slot: o Button documenta que
+   ganhar do `size` exige o `!`. Glifo 16px via `size="icon-xs"` (32×32; o `2xs` media ≈32×28,
+   então a pegada sobre o texto não cresceu).
+3. **Bolha recebida com `border-border-subtle`** no lugar de `border-transparent` — 4% de
+   branco no dark, gray-150 no light.
+4. **`origin: human | ai`** como variante do `tv()`, default `human` (zero mudança pra quem não
+   passa). `ai` = `border-border-brand-subtle` (36% da marca), nos dois lados. Declarada DEPOIS
+   de `side` de propósito: as duas escrevem cor de borda e no twMerge vence a última —
+   `origem-e-acoes.test.tsx` reprova se a ordem inverter.
+5. **Sem convenção de toque nova.** O DS não tem `pointer-coarse`/`hover:none` em lugar nenhum
+   (grep vazio em `src/` e `tokens/`); o gatilho segue hover + `focus-visible`.
+
+**Não tocado, de propósito:** o `MessageBubble` do ChatV2 e o de `examples/chat` — são a tela
+de referência com cópia própria (entrada de 2026-08-18); o do `ui/` é o que o Hub consome pelo
+submódulo. Nenhum token novo.
+
+**Validação:** `npm test` 70 arquivos / 920 verdes · `lint:styles --ratchet` 0 violação nova em
+15 linhas · `build` ok · `registry-check`, `distribution-debt`, `examples-drift` ✓ · medido no
+browser (harness descartado, não versionado) por `getComputedStyle`: dark — pílula
+`oklch(1 0 0/0.12)` em repouso e `/0.16` no hover com ícone `fg-default`, borda recebida
+`oklch(1 0 0/0.04)`, borda `ai` `oklch(0.7289 0.1571 162.3/0.36)`; light — pílula
+`oklch(0.94 0 0)`, borda recebida `oklch(0.931 0 0)`, borda `ai` `oklch(0.5248 0.1415 150.9/0.36)`.
+
+**Assumption:** que "é da IA" é decisão do consumidor, com o mesmo critério que hoje liga
+`actions` só às mensagens da Sol — o componente não recebe autor nem canal. Cai se um segundo
+consumidor precisar do mesmo critério e passar a duplicá-lo; aí o lugar dele é um helper, não
+uma prop a mais aqui.

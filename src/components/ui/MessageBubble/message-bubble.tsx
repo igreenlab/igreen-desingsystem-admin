@@ -245,6 +245,7 @@ export function MessageBubble({
   isEdited = false,
   isDeleted = false,
   tail = true,
+  origin,
   authorName,
   avatar,
   actions,
@@ -252,7 +253,7 @@ export function MessageBubble({
   className,
 }: MessageBubbleProps) {
   const [actionsOpen, setActionsOpen] = useState(false);
-  const s = messageBubbleStyles({ side, tail });
+  const s = messageBubbleStyles({ side, tail, origin });
 
   const time = formatTime(createdAt);
   const hasMedia = !isDeleted && mediaType !== "text";
@@ -274,7 +275,8 @@ export function MessageBubble({
               <PopoverAnchor asChild>
                 <Button
                   type="button"
-                  size="2xs"
+                  size="icon-xs"
+                  shape="pill"
                   variant="ghost"
                   color="secondary"
                   aria-label="Ações da mensagem"
