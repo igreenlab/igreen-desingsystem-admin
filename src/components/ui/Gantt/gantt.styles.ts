@@ -196,11 +196,27 @@ export const ganttToolbar = tv({
 /**
  * Os dois lados da toolbar.
  *
- * `gap-gp-2xl` (16px) no lado esquerdo, `gap-gp-md` (8px) no direito: à esquerda
- * convivem duas coisas de NATUREZA diferente — um rótulo de período e um grupo
- * de 3 botões. Em 8px o `‹ Hoje ›` encostava no texto "31 ago – 2 nov 2026" e os
- * dois liam como um controle só. À direita o gap menor está certo: lá é tudo
- * controle, e agrupar é o que se quer.
+ * O lado esquerdo usa o gap do `toolbarLeft` do `TableToolbar` —
+ * `gap-gp-sm md:gap-[10px]` (6px → 10px) —, e não um valor próprio. Ele tem a
+ * mesma anatomia da toolbar da tabela: seletor de visão, DIVISOR, e o que a
+ * visão governa. O divisor carrega `mx-[6px]`, então o gap do grupo é metade do
+ * respiro que aparece em volta dele; com 16px ali o divisor ficava com 22px de
+ * cada lado contra os 16px da tabela, e era isso que fazia as abas, o divisor e
+ * a data parecerem soltos entre si. À direita o gap é 8px: lá é tudo controle,
+ * e agrupar é o que se quer.
+ *
+ * ⛔ Três classes da receita da tabela ficaram FORA de propósito:
+ *   - `max-md:hidden` — na tabela o grupo esquerdo desaparece no mobile porque
+ *     toggle, abas e "adicionar" colapsam pro menu de Configurações. Aqui o
+ *     grupo carrega o título do mês e o `‹ Hoje ›`, que são a ÚNICA navegação do
+ *     componente; não há menu pra onde colapsar, então esconder equivale a
+ *     travar o Gantt no mês em que abriu.
+ *   - `[&>*]:shrink-0` — o título é TEXTO, e o `ganttTitleText` trunca de
+ *     propósito ("31 ago – 2 nov 2026" é longo). `shrink-0` no filho impede o
+ *     truncate e o texto vaza a toolbar. Na tabela todos os filhos são
+ *     controles de largura própria, e ali a classe está certa.
+ *   - `flex-1` — a raiz (`ganttToolbar`) já é `justify-between`, então o lado
+ *     esquerdo já recebe a sobra sem precisar disputá-la.
  *
  * ⚠️ O `gap` está NAS VARIANTES e não na base, e isso não é estilo — é
  * necessidade. MEDIDO: `tailwind-merge` **não colapsa** `gap-gp-*`. Um elemento
@@ -221,7 +237,7 @@ export const ganttToolbarSide = tv({
   variants: {
     slot: {
       leading: [
-        "w-full justify-between gap-gp-2xl",
+        "w-full justify-between gap-gp-sm md:gap-[10px]",
         "lg:w-auto lg:flex-wrap lg:justify-start",
       ],
       trailing: "w-full gap-gp-md lg:w-auto lg:flex-wrap",
@@ -311,10 +327,20 @@ export const ganttToolbarDivider = tv({
   base: "mx-[6px] h-[24px] w-[1px] shrink-0 self-center bg-border-default",
 });
 
-/** `‹ Hoje ›` — três segmentos colados num controle só. */
+/**
+ * `‹ Hoje ›` — três segmentos colados num controle só.
+ *
+ * O `ml-gp-sm` (6px) soma com o gap do grupo e dá 16px no desktop / 12px no
+ * mobile entre o título e este controle — e não é enfeite: o vizinho da esquerda
+ * é TEXTO, sem borda nem fundo, então o respiro do lado dele tem que vir todo
+ * do gap. Com os 10px do grupo puro, o `‹` encostava em "2 nov 2026" e os dois
+ * liam como um controle só (foi o defeito relatado quando o gap era 8px).
+ *
+ * Os outros filhos do grupo têm superfície própria e ficam nos 10px da tabela.
+ */
 export const ganttNavGroup = tv({
   base: [
-    "inline-flex shrink-0 items-center",
+    "ml-gp-sm inline-flex shrink-0 items-center",
     "[&>*:not(:first-child)]:-ml-px",
     "[&>*:focus-visible]:relative [&>*:focus-visible]:z-[1]",
     "[&>*:first-child]:!rounded-r-none",
