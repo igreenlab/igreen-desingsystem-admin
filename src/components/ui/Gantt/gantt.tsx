@@ -12,8 +12,10 @@ import {
   addDays,
   addMonths,
   differenceInCalendarDays,
+  endOfMonth,
   format,
   startOfDay,
+  startOfMonth,
 } from "date-fns";
 import { cn } from "@/lib/utils";
 import {
@@ -488,24 +490,52 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
   );
 
   /**
+   * As visões SEM EIXO são mensais — `calendar` e `list`.
+   *
+   * ⚠️ A agenda começou lendo a janela inteira, e com os 64 dias do exemplo ela
+   * saía com **62 blocos de dia e 168 itens**. Isso é uma lista de rolagem
+   * infinita disfarçada de agenda: ninguém lê 168 cartões em sequência, e o
+   * título prometia "31 ago – 2 nov" enquanto a leitura útil era "esta semana".
+   *
+   * Recortada no mês, ela tem no máximo 31 blocos — e o `‹ ›` andando um mês
+   * exato dá ao usuário o gesto pra chegar nos outros. É o mesmo recorte que o
+   * `SchedulerListView` faz, pelo mesmo motivo.
+   *
+   * ⛔ Não é a janela: a janela existe pro EIXO, que comprime 64 dias em pixels
+   * e por isso pode mostrar tudo de uma vez. Agenda e grade de mês não
+   * comprimem — cada dia custa uma linha.
+   */
+  const mesVisivel = useMemo(
+    () => ({
+      start: startOfMonth(ancoraDoMes),
+      end: endOfMonth(ancoraDoMes),
+    }),
+    [ancoraDoMes],
+  );
+
+  /** As visões cujo período é um MÊS, não a janela do eixo. */
+  const visaoMensal = view === "calendar" || view === "list";
+
+  /**
    * O título muda de NATUREZA com a visão, não só de formato.
    *
-   * `timeline` e `list` mostram o INTERVALO ("31 ago – 2 nov 2026"): as duas
-   * cobrem a janela inteira — uma no eixo, a outra em sequência.
+   * `timeline` mostra o INTERVALO ("31 ago – 2 nov 2026") porque é isso que o
+   * eixo cobre.
    *
-   * `calendar` mostra o MÊS ("outubro 2026") porque a grade é de um mês:
-   * anunciar um intervalo de 64 dias sobre uma grade que mostra 31 seria o
-   * título mentindo sobre o conteúdo.
+   * `calendar` e `list` mostram o MÊS ("outubro 2026"), porque é isso que as
+   * duas mostram. Anunciar um intervalo de 64 dias sobre uma grade que mostra 31
+   * — ou sobre uma agenda recortada no mês — é o título mentindo sobre o
+   * conteúdo.
    */
   const titulo = useMemo(() => {
-    if (view === "calendar") {
+    if (visaoMensal) {
       return format(ancoraDoMes, "MMMM yyyy", { locale });
     }
     const mesmoAno = windowStart.getFullYear() === windowEnd.getFullYear();
     const a = format(windowStart, mesmoAno ? "d MMM" : "d MMM yyyy", { locale });
     const b = format(windowEnd, "d MMM yyyy", { locale });
     return `${a} – ${b}`;
-  }, [view, ancoraDoMes, windowStart, windowEnd, locale]);
+  }, [visaoMensal, ancoraDoMes, windowStart, windowEnd, locale]);
 
   /**
    * Quanto o `‹ ›` anda — e a unidade depende da visão.
@@ -513,20 +543,20 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
    * `timeline`: meia janela, que é o passo que mantém contexto de um lado
    * enquanto revela o outro.
    *
-   * `calendar`: **um mês exato**. Meia janela ali andaria 32 dias e poderia
-   * cair no mesmo mês (a grade não mudaria) ou pular um — em nenhum dos dois
-   * casos o botão faria o que o título promete. O passo é calculado em DIAS a
-   * partir do mês vizinho, pra a janela seguir sendo a fonte única.
+   * `calendar` e `list`: **um mês exato**. Meia janela ali andaria 32 dias e
+   * poderia cair no mesmo mês (a grade não mudaria) ou pular um — em nenhum dos
+   * dois casos o botão faria o que o título promete. O passo é calculado em DIAS
+   * a partir do mês vizinho, pra a janela seguir sendo a fonte única.
    */
   const passoDeNavegacao = useCallback(
     (direcao: 1 | -1) => {
-      if (view === "calendar") {
+      if (visaoMensal) {
         const destino = addMonths(ancoraDoMes, direcao);
         return differenceInCalendarDays(destino, ancoraDoMes);
       }
       return direcao * Math.max(1, Math.floor(larguraJanelaDias / 2));
     },
-    [view, ancoraDoMes, larguraJanelaDias],
+    [visaoMensal, ancoraDoMes, larguraJanelaDias],
   );
 
   /**
@@ -812,15 +842,14 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                 />
               ) : (
                 /*
-                  A agenda usa a JANELA, não o mês âncora: ela é a leitura
-                  sequencial do período visível, e recortá-la no mês faria as
-                  setas `‹ ›` andarem meia janela enquanto a lista pularia de
-                  mês — duas unidades de navegação no mesmo controle.
+                  A agenda recebe o MÊS, não a janela — ver a nota do
+                  `mesVisivel`. As setas `‹ ›` andam um mês nesta visão, então o
+                  recorte e a navegação falam a mesma unidade.
                 */
                 <GanttListView
                   rows={flat}
-                  windowStart={windowStart}
-                  windowEnd={windowEnd}
+                  windowStart={mesVisivel.start}
+                  windowEnd={mesVisivel.end}
                   now={now}
                   locale={locale}
                   conflictBarIds={conflictBarIds}

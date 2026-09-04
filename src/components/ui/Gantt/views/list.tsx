@@ -57,7 +57,10 @@ import type { GanttFlatRow } from "../hooks/layout";
 export type GanttListViewProps = {
   /** Linhas JÁ filtradas e achatadas — mesma entrada das outras views. */
   rows: GanttFlatRow[];
-  /** A janela visível. A agenda lista os dias DELA que têm tarefa. */
+  /**
+   * O período a listar — o MÊS visível, não a janela do eixo (ver a nota do
+   * `mesVisivel` no `gantt.tsx`). A agenda lista os dias DELE que têm tarefa.
+   */
   windowStart: Date;
   windowEnd: Date;
   now: Date;
@@ -197,7 +200,24 @@ export function GanttListView({
                       <span className={estilos.title()}>
                         {typeof row.label === "string" ? row.label : bar.id}
                       </span>
-                      {row.sublabel ? (
+                      {/*
+                        ⚠️ Numa linha com VÁRIAS barras, a sublinha é o rótulo da
+                        BARRA — não o `sublabel` da linha.
+
+                        Medido no exemplo: a linha "Sustentação (paralelo)" tem 3
+                        barras, e mostrando só `row.label` + `row.sublabel` ela
+                        aparecia TRÊS VEZES no mesmo dia, com título e sublinha
+                        idênticos e só o "dia N de M" diferente. Três cartões
+                        indistinguíveis é pior que um cartão errado: o usuário
+                        não tem como saber qual frente é qual.
+
+                        Com uma barra só, o `sublabel` da linha é a informação
+                        certa ("5 sessões · Ana") e o rótulo da barra seria
+                        redundante com o título.
+                      */}
+                      {row.bars.length > 1 && bar.label ? (
+                        <span className={estilos.sub()}>{bar.label}</span>
+                      ) : row.sublabel ? (
                         <span className={estilos.sub()}>{row.sublabel}</span>
                       ) : null}
                     </span>

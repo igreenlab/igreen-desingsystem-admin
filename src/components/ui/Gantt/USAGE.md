@@ -272,7 +272,7 @@ predicado e chip — pra os dois nunca divergirem.
 |---|---|---|---|---|---|
 | `timeline` | *o que depende do quê* | o intervalo ("31 ago – 2 nov 2026") | meia janela | ✅ | ✅ |
 | `calendar` | *o que acontece no dia 12* | o **mês** ("outubro 2026") | **1 mês** | ⛔ | ⛔ |
-| `list` | *o que vem a seguir* | o intervalo | meia janela | ⛔ | ⛔ |
+| `list` | *o que vem a seguir* | o **mês** | **1 mês** | ⛔ | ⛔ |
 
 O seletor é o **primeiro item da toolbar**, à esquerda, seguido de divisor —
 igual à `DataTable`, onde o toggle Tabela/Lista/Kanban abre a toolbar. A razão é
@@ -291,6 +291,18 @@ posição diz onde no trabalho aquele dia está.
 mostrar 20 tarefas obriga a rolar por 40 blocos vazios; o salto entre datas é o
 próprio sinal de que não há nada no meio. (A grade de mês faz o oposto, e está
 certa: lá o dia vazio *é* a informação.)
+
+⚠️ **A agenda é recortada no MÊS, não na janela** — como a grade. Lendo a janela
+inteira ela saía com **62 blocos de dia e 168 cartões** no exemplo: rolagem
+infinita disfarçada de agenda. No mês são no máximo 31 blocos, e o `‹ ›` andando
+um mês exato dá o gesto pra chegar nos outros. A janela existe pro EIXO, que
+comprime 64 dias em pixels; agenda e grade não comprimem — cada dia custa uma
+linha.
+
+⚠️ Numa linha com **várias barras** (`lanePacking`), a sublinha do cartão é o
+rótulo da BARRA, não o `sublabel` da linha. Sem isso a linha aparecia N vezes no
+mesmo dia com título e sublinha idênticos, só o "dia N de M" diferente — N
+cartões indistinguíveis.
 
 A toolbar **muda com a visão**, não só o conteúdo. O título de `calendar` é o mês
 porque a grade é de um mês — anunciar 64 dias sobre uma grade que mostra 31 seria
