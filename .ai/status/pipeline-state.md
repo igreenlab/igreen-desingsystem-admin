@@ -30,6 +30,7 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
 - [2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`](#2026-09-03-concluído-messagebubble-botão-de-ações-com-superfície-originai)
+- [2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`](#2026-09-04-concluído-família-semântica-caution-laranja-entre-warning-e-danger)
 
 <!-- doc-index:fim -->
 
