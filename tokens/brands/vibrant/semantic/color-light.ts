@@ -27,7 +27,7 @@
  */
 
 import {
-  brand, gray, success, warning, danger, info,
+  brand, gray, success, warning, caution, danger, info,
   white, black,
 } from "../primitives/color-palette";
 
@@ -65,7 +65,7 @@ export const bg = {
   "brand-hover":    brand[900],
   "brand-subtle-hover": `color-mix(in oklch, ${brand[400]} 22%, transparent)`,
 
-  // Status (sólido + muted alpha — ×4 cores) — verbatim da default
+  // Status (sólido + muted alpha — ×5 cores) — verbatim da default
   danger:                danger[500],
   "danger-muted":        `color-mix(in oklch, ${danger[500]} 14%, transparent)`,
   "danger-hover":        `color-mix(in oklch, ${danger[500]} 90%, black)`,
@@ -82,6 +82,11 @@ export const bg = {
   "warning-muted":        `color-mix(in oklch, ${warning[500]} 14%, transparent)`,
   "warning-hover":        `color-mix(in oklch, ${warning[500]} 90%, black)`,
   "warning-muted-hover":  `color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+
+  caution:                caution[500],
+  "caution-muted":        `color-mix(in oklch, ${caution[500]} 14%, transparent)`,
+  "caution-hover":        `color-mix(in oklch, ${caution[500]} 90%, black)`,
+  "caution-muted-hover":  `color-mix(in oklch, ${caution[500]} 22%, transparent)`,
 
   info:                info[500],
   "info-muted":        `color-mix(in oklch, ${info[500]} 14%, transparent)`,
@@ -147,6 +152,7 @@ export const fg = {
   danger:  danger[500],
   success: success[800],       // = brand[800] — mesmo shade do fg.brand (6.56:1)
   warning: warning[500],
+  caution: caution[500],
   info:    info[500],
 
   // Sobre fundos sólidos (on-*) — cada um MEDIDO contra o próprio fundo:
@@ -154,6 +160,7 @@ export const fg = {
   //   on-success idem — success É a marca
   //   on-danger  white sobre #e40126       4.82:1   (a default entrega 3.76:1)
   //   on-warning black sobre #fdb803      12.03:1
+  //   on-caution black sobre #ff8506       8.62:1
   //   on-info    white sobre #9202fd       5.75:1   (roxo pica escuro em sRGB)
   // ⚠️ No DARK o bg.brand é o neon brand[400] e aí o texto TEM de ser brand[950]
   // (white daria 1.37:1) — ver color-dark.ts. É o único par que difere entre modos.
@@ -161,6 +168,7 @@ export const fg = {
   "on-danger":  white,
   "on-success": white,
   "on-warning": black,
+  "on-caution": black,
   "on-info":    white,
 } as const;
 
@@ -201,6 +209,7 @@ export const border = {
   "danger-muted":  `color-mix(in oklch, ${danger[500]} 36%, transparent)`,
   "success-muted": `color-mix(in oklch, ${success[400]} 36%, transparent)`,  // ancora no 400 (= brand)
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
+  "caution-muted": `color-mix(in oklch, ${caution[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
@@ -216,6 +225,7 @@ export const ring = {
   danger:    `color-mix(in oklch, ${danger[500]} 22%, transparent)`,
   success:   `color-mix(in oklch, ${success[500]} 22%, transparent)`,
   warning:   `color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+  caution:   `color-mix(in oklch, ${caution[500]} 22%, transparent)`,
   info:      `color-mix(in oklch, ${info[500]} 22%, transparent)`,
   secondary: `color-mix(in oklch, ${gray[500]} 22%, transparent)`,
 } as const;

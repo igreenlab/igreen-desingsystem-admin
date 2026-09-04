@@ -30,6 +30,7 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
 - [2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`](#2026-09-03-concluído-messagebubble-botão-de-ações-com-superfície-originai)
+- [2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`](#2026-09-04-concluído-família-semântica-caution-laranja-entre-warning-e-danger)
 
 <!-- doc-index:fim -->
 
@@ -4781,3 +4782,63 @@ browser (harness descartado, não versionado) por `getComputedStyle`: dark — p
 `actions` só às mensagens da Sol — o componente não recebe autor nem canal. Cai se um segundo
 consumidor precisar do mesmo critério e passar a duplicá-lo; aí o lugar dele é um helper, não
 uma prop a mais aqui.
+
+## 2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`
+
+**Escopo:** token novo de cor, autorizado expressamente pelo mantenedor em 04/09/2026 (gate da
+Regra 4 cumprido antes de começar). Pedido do atendimento do Hub: o card de ticket pendente vai
+ganhar fundo pastel por faixa de espera — 30 min amarelo, 1 h laranja, 2 h vermelho — e o DS
+tinha `warning` (hue 81) e `danger` (hue 25), mas nenhum laranja. Sem token a UI hardcodaria cor.
+PR aberta e parada no merge; distribuição (embed do registry + bump do CLI + changelog) fica pro
+`/ds-release`.
+
+**O que entrou, espelhando `warning` chave por chave (nenhum sufixo novo):** `bg.caution`,
+`bg.caution-muted` (14%), `bg.caution-hover` (90% + black no light / white no dark),
+`bg.caution-muted-hover` (22%), `fg.caution`, `fg.on-caution`, `border.caution-muted` (36%),
+`ring.caution` (22%) e `elevation.shadow.ring-caution` — nos dois modos e nas 5 marcas.
+
+**Valores, medidos e não estimados** (`scripts/brand-contrast.mjs` pros pares sólidos; composição
+alpha sobre canvas calculada em sRGB, que é como o browser compõe):
+
+1. **Base `oklch(0.74 0.170 55)` = #fa8927**, hue a meio caminho entre as irmãs. O teto de croma
+   do sRGB em L 0.74 / h 55 é 0.182; 0.170 é 93% dele — a mesma folga que `warning` guarda (96%).
+   O mesmo valor nos dois modos, como `warning[500]` e `danger[500]` fazem.
+2. **Rampa 50–950 inteira dentro do gamut** (C = 93% do teto em cada degrau). As rampas irmãs
+   NÃO estão: `warning` estoura o gamut em 50–300 e 600–950, `danger` em 50–300 (medido com o mesmo
+   conversor). Não corrigi as irmãs — "não alterar token existente" — mas a nova não herda o
+   defeito.
+3. **`fg.on-caution` = black** nos dois modos: 8.66:1 (branco daria 2.42:1).
+4. **`fg.caution` sobre `bg.caution-muted`**: 2.15:1 no light e 5.91:1 no dark — fica ENTRE as
+   irmãs (warning 1.68 / 7.40 · danger 3.13 / 4.13). Sobre o canvas: 2.42:1 light, 7.39:1 dark.
+   O uso que motivou o token é fundo pastel com texto neutro por cima: `fg.default` sobre
+   `bg.caution-muted` dá 17.4:1 no light e 13.5:1 no dark.
+5. **Marcas.** `blue` e `green` recebem a rampa idêntica à default (é como tratam `warning`) — diff
+   zero no overlay. `vibrant` ganha rampa própria com a base no PICO do hue (C 0.182, #ff8506),
+   que é o critério dos outros status dela; on-caution black 8.62:1. `pay` não tem kit pra isto:
+   derivado como ponto médio em OKLCH entre o warning e o danger DELA — light #ec6007
+   (hover #cd5205, alphas .12/.20/.36/.30 como o warning da pay), dark #fe9553 no gamut
+   (hover #ffa167, alphas .14/.22/.36/.35). `on-caution` black nos dois (6.24:1 light, 9.64:1
+   dark) — branco daria 3.36:1; a pay usa branco no `on-warning` a 3.07:1 por decisão do kit, e
+   aqui não há kit, então valeu a medição (L-027).
+
+**Superfícies tocadas:** primitivos + semânticos das 5 marcas · `elevation.ts` · tema gerado e 4
+overlays regenerados · `cli:rebake` (tema + `brand-pay`/`brand-vibrant` no template) ·
+`ColorsDoc` (rampa, TOC, 6 linhas semânticas) · `.ai/context/tokens/color.md` (listas, contagens
+45→49 / 15→17 / 11→12 / 6→7, faixa de vars dos overlays 43–91, guia de uso) · enumerações que
+ficariam falsas: `CLAUDE.md` §Nomenclatura, `spec-token.md`, `README-PIPELINE`, e "os 6 rings
+reais" do `CLAUDE.md` do template (agora 7). O `void black` da `pay` light saiu porque `black`
+passou a ser usado.
+
+**Validação:** `npm test` 70 arquivos / 920 verdes · `build` ok · `check-foundationals` 11/11 ·
+`brand-check` 5 marcas × 10 superfícies · `registry-check` ✓ com o aviso informativo do embed
+(theme, theme-pay, theme-vibrant) · `release:check` reprova só no `registry-check --ci` pelo
+mesmo embed — que a Regra 8 manda consolidar no release; os passos seguintes
+(distribution-debt, examples-drift, version-claims, blocks, audit) passam isolados ·
+`audit:token-docs` sem candidato citando `caution`.
+
+**Assumption:** que a escala por gravidade em 3 faixas é a forma, e `caution` é o único degrau
+que faltava — se o Hub pedir uma 4ª faixa (ou "laranja mais forte"), a resposta é shade da rampa
+(`caution[600]`) ou o `-hover`, não uma 6ª família. E que o laranja lê como "entre amarelo e
+vermelho" nas 5 marcas sem ninguém confundir com o `warning` da `pay`, que já é alaranjado
+(#d97c02): o par dela ficou #d97c02 → #ec6007 → #f83b3b, separação medida de 17–18° de hue em
+cada salto. Cai se, na tela, os dois primeiros se confundirem; aí o ajuste é na `pay`, não na default.

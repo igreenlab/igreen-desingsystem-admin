@@ -14,7 +14,7 @@
  * omite o que já é idêntico à default.
  */
 
-/* ── Light (83 vars divergem da default) ─────────────────────────── */
+/* ── Light (91 vars divergem da default) ─────────────────────────── */
 [data-theme="pay"]:not(.dark) {
   --color-bg-canvas: #f9fafb;
   --color-bg-surface: #ffffff;
@@ -42,6 +42,10 @@
   --color-bg-warning-muted: rgba(217,124,2,.12);
   --color-bg-warning-hover: #b96702;
   --color-bg-warning-muted-hover: rgba(217,124,2,.20);
+  --color-bg-caution: #ec6007;
+  --color-bg-caution-muted: rgba(236,96,7,.12);
+  --color-bg-caution-hover: #cd5205;
+  --color-bg-caution-muted-hover: rgba(236,96,7,.20);
   --color-bg-info: #0058e6;
   --color-bg-info-muted: rgba(0,88,230,.10);
   --color-bg-info-hover: #0047bd;
@@ -68,11 +72,13 @@
   --color-fg-danger: #f83b3b;
   --color-fg-success: #00a859;
   --color-fg-warning: #d97c02;
+  --color-fg-caution: #ec6007;
   --color-fg-info: #0058e6;
   --color-fg-on-brand: #ffffff;
   --color-fg-on-danger: #ffffff;
   --color-fg-on-success: #ffffff;
   --color-fg-on-warning: #ffffff;
+  --color-fg-on-caution: #000000;
   --color-fg-on-info: #ffffff;
   --color-border-default: rgba(17,17,17,.08);
   --color-border-subtle: rgba(17,17,17,.06);
@@ -83,12 +89,14 @@
   --color-border-danger-muted: rgba(248,59,59,.36);
   --color-border-success-muted: rgba(0,168,89,.36);
   --color-border-warning-muted: rgba(217,124,2,.36);
+  --color-border-caution-muted: rgba(236,96,7,.36);
   --color-border-info-muted: rgba(0,88,230,.36);
   --color-border-table: rgba(17,17,17,.08);
   --color-ring-brand: rgba(0,168,89,.30);
   --color-ring-danger: rgba(248,59,59,.30);
   --color-ring-success: rgba(0,168,89,.30);
   --color-ring-warning: rgba(217,124,2,.30);
+  --color-ring-caution: rgba(236,96,7,.30);
   --color-ring-info: rgba(0,88,230,.30);
   --color-ring-secondary: rgba(17,17,17,.14);
   --color-overlay-scrim: rgba(0,0,0,.55);
@@ -101,7 +109,7 @@
   --color-chart-grid: rgba(17,17,17,.08);
 }
 
-/* ── Dark (83 vars — .dark[data-theme] vence o .dark base) ────────── */
+/* ── Dark (91 vars — .dark[data-theme] vence o .dark base) ────────── */
 .dark[data-theme="pay"] {
   --color-bg-canvas: #050608;
   --color-bg-surface: #0b0d10;
@@ -129,6 +137,10 @@
   --color-bg-warning-muted: rgba(255,182,32,.14);
   --color-bg-warning-hover: #ffc748;
   --color-bg-warning-muted-hover: rgba(255,182,32,.22);
+  --color-bg-caution: #fe9553;
+  --color-bg-caution-muted: rgba(254,149,83,.14);
+  --color-bg-caution-hover: #ffa167;
+  --color-bg-caution-muted-hover: rgba(254,149,83,.22);
   --color-bg-info: #3580ff;
   --color-bg-info-muted: rgba(53,128,255,.15);
   --color-bg-info-hover: #5a99ff;
@@ -155,11 +167,13 @@
   --color-fg-danger: #ff6b6b;
   --color-fg-success: #3bc882;
   --color-fg-warning: #ffb620;
+  --color-fg-caution: #fe9553;
   --color-fg-info: #3580ff;
   --color-fg-on-brand: #ffffff;
   --color-fg-on-danger: #ffffff;
   --color-fg-on-success: #000000;
   --color-fg-on-warning: #000000;
+  --color-fg-on-caution: #000000;
   --color-fg-on-info: #ffffff;
   --color-border-default: rgba(255,255,255,.08);
   --color-border-subtle: rgba(255,255,255,.06);
@@ -170,12 +184,14 @@
   --color-border-danger-muted: rgba(255,107,107,.36);
   --color-border-success-muted: rgba(59,200,130,.36);
   --color-border-warning-muted: rgba(255,182,32,.36);
+  --color-border-caution-muted: rgba(254,149,83,.36);
   --color-border-info-muted: rgba(53,128,255,.36);
   --color-border-table: rgba(255,255,255,.08);
   --color-ring-brand: rgba(0,168,89,.35);
   --color-ring-danger: rgba(255,107,107,.35);
   --color-ring-success: rgba(59,200,130,.35);
   --color-ring-warning: rgba(255,182,32,.35);
+  --color-ring-caution: rgba(254,149,83,.35);
   --color-ring-info: rgba(53,128,255,.35);
   --color-ring-secondary: rgba(255,255,255,.16);
   --color-overlay-scrim: rgba(0,0,0,.6);

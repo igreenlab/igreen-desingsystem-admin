@@ -66,7 +66,7 @@ Toda spec entregue ao Orchestrator pra gate inclui:
 Arquitetura:
 ```
 color-palette.ts (primitivo OKLCH)
-  brand · brandContrast · gray · success/warning/danger/info · white · black · alpha
+  brand · brandContrast · gray · success/warning/caution/danger/info · white · black · alpha
        ↓
 color-light.ts + color-dark.ts (semântico)
   bg.* · fg.* · border.* · ring.* · overlay.* · chart.*
@@ -96,7 +96,7 @@ Sufixos:
 
 | Família | Tom sutil | Não existe |
 |---|---|---|
-| status (`success`/`warning`/`danger`/`info`) | `bg.{cor}-muted` · `border.{cor}-muted` | `bg.success-subtle` · `border.warning` cru |
+| status (`success`/`warning`/`caution`/`danger`/`info`) | `bg.{cor}-muted` · `border.{cor}-muted` | `bg.success-subtle` · `border.warning` cru |
 | `brand` | `bg.brand-subtle` | — |
 | neutro (sem cor) | `bg.subtle` · `fg.subtle` · `border.subtle` | — |
 

@@ -1954,7 +1954,7 @@ estrita de responsabilidades:
 **Tier 1 — Primitivos (API privada)**
 ```
 tokens/primitives/
-├── color-palette.ts  ← escalas OKLCH: brand/neutral/success/warning/danger/info
+├── color-palette.ts  ← escalas OKLCH: brand/neutral/success/warning/caution/danger/info
 ├── scales.ts         ← valores numéricos base (4, 8, 12, 16...)
 ├── fonts.ts          ← definições de fonte
 └── motion.ts         ← valores de duração e easing
