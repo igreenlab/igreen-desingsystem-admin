@@ -1749,10 +1749,46 @@ export const ganttMonthCell = tv({
   ],
   variants: {
     /** Dia de fora do mês âncora: presente, mas recuado. */
-    outside: { true: "bg-bg-subtle/40 text-fg-subtle", false: "" },
+    /**
+     * Dia de FORA do mês âncora — o fundo do site, não uma sobreposição.
+     *
+     * ⚠️ Era `bg-bg-subtle/40`, que no dark é branco 1% a 40% de opacidade — ou
+     * seja, **nada**. As células de fora ficavam idênticas às de dentro, e a
+     * grade não dizia onde o mês começa nem onde acaba.
+     *
+     * `bg-bg-canvas` (0.205) contra a superfície da grade (`bg-surface`, 0.225)
+     * dá ΔL 0.020 — pouco pra uma LINHA, suficiente pra uma ÁREA. Contraste de
+     * área grande é muito mais perceptível que de traço fino, e é por isso que
+     * aqui 0.020 lê e na virada de mês do eixo 0.040 não lia.
+     *
+     * ⛔ Não é escurecer com `/NN` sobre um token de fundo: o dia de fora não é
+     * uma sobreposição sobre a grade, é o **buraco** por onde se vê o fundo da
+     * página. O token que significa isso é `bg-canvas`.
+     */
+    outside: { true: "bg-bg-canvas text-fg-subtle", false: "" },
     today: { true: "bg-bg-brand-subtle", false: "" },
+    /**
+     * Fim de semana DENTRO do mês. Mais claro que o `outside` de propósito: ele
+     * é um dia do mês que só não é útil, e não um dia de outro mês.
+     */
     weekend: { true: "bg-bg-subtle/30", false: "" },
   },
+  compoundVariants: [
+    /**
+     * ⚠️ `outside` VENCE `weekend`.
+     *
+     * Um sábado de outro mês recebia as duas variantes, e a ordem no CSS gerado
+     * decidia qual fundo aparecia — as duas primeiras e as duas últimas colunas
+     * da grade podiam sair mais claras que as de dentro do mês, invertendo a
+     * informação. `outside` é a categoria mais forte: não importa que dia da
+     * semana seja, aquele quadrado não é deste mês.
+     *
+     * E `today` vence os dois: se hoje cai num dia de outro mês visível na
+     * grade, marcar hoje é mais importante que marcar de-fora.
+     */
+    { outside: true, weekend: true, class: "bg-bg-canvas" },
+    { outside: true, today: true, class: "bg-bg-brand-subtle" },
+  ],
   defaultVariants: { outside: false, today: false, weekend: false },
 });
 
