@@ -61,6 +61,7 @@ export const gray = {
 // ─── Status — cores próprias do kit (dark como referência) ────────────────────
 export const success = { 500: "#3bc882" } as const;
 export const warning = { 500: "#ffb620" } as const;
+export const caution = { 500: "#fe9553" } as const;
 export const danger  = { 500: "#ff6b6b" } as const;
 export const info    = { 500: "#3580ff" } as const;
 
@@ -74,5 +75,5 @@ export const alpha = {
 } as const;
 
 export const colorPalette = {
-  brand, brandContrast, gray, success, warning, danger, info, white, black, alpha,
+  brand, brandContrast, gray, success, warning, caution, danger, info, white, black, alpha,
 };

@@ -22,7 +22,7 @@
  *   ring    → focus de input/textarea/select (3px brand-tinted box-shadow)
  */
 
-import { brand, brandContrast, danger, success, warning, info } from "../primitives/color-palette";
+import { brand, brandContrast, danger, success, warning, caution, info } from "../primitives/color-palette";
 
 // ─── Shadow tokens ─────────────────────────────────────────────────────────────
 
@@ -41,6 +41,7 @@ export const shadow = {
     ring:         `0 0 0 3px color-mix(in oklch, ${brand[600]} 22%, transparent)`,
     "ring-danger":  `0 0 0 3px color-mix(in oklch, ${danger[500]} 22%, transparent)`,
     "ring-warning": `0 0 0 3px color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+    "ring-caution": `0 0 0 3px color-mix(in oklch, ${caution[500]} 22%, transparent)`,
     "ring-success": `0 0 0 3px color-mix(in oklch, ${success[500]} 22%, transparent)`,
     "ring-info":    `0 0 0 3px color-mix(in oklch, ${info[500]} 22%, transparent)`,
   },
@@ -62,6 +63,7 @@ export const shadow = {
     ring:         `0 0 0 3px color-mix(in oklch, ${brandContrast[400]} 22%, transparent)`,
     "ring-danger":  `0 0 0 3px color-mix(in oklch, ${danger[500]} 22%, transparent)`,
     "ring-warning": `0 0 0 3px color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+    "ring-caution": `0 0 0 3px color-mix(in oklch, ${caution[500]} 22%, transparent)`,
     "ring-success": `0 0 0 3px color-mix(in oklch, ${success[500]} 22%, transparent)`,
     "ring-info":    `0 0 0 3px color-mix(in oklch, ${info[500]} 22%, transparent)`,
   },

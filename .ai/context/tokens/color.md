@@ -27,7 +27,7 @@ muda por marca são só os **valores**, e só de **cor**.
 | Onde vive | `tokens/brands/<id>/` — `primitives/color-palette.ts` + `semantic/color-{light,dark}.ts` |
 | Como vira CSS | `npm run tokens:brand:<id>` → `src/styles/theme/brand-<id>.css` |
 | Como ativa | `data-theme="<id>"` no `<html>`; `default` = sem atributo (é o tema-base) |
-| Escopo do overlay | só o **DIFF** contra a default — 14 a 83 vars, não as ~400 |
+| Escopo do overlay | só o **DIFF** contra a default — 43 a 91 vars, não as ~400 |
 
 A `default` é a única sem overlay: ela **é** o `tailwind-theme.css`. As outras 4 são camadas
 por cima, e marca × claro/escuro são **eixos independentes** que combinam livremente.
@@ -58,7 +58,7 @@ superfícies de registro e as 7 armadilhas medidas. Doc humana: `#/themes` no sh
 color-palette.ts (primitivo — OKLCH)
   brand[0–1000]         → verde da marca (default; azul e a marca `blue`)
   neutral[0–950]        → slate (levemente frio, hue ~247)
-  success/warning/danger/info [50–950]
+  success/warning/caution/danger/info [50–950]
   purple/teal/sky/pink/yellow [50–950]
   alpha.black[4–64]
   alpha.white[8–64]
@@ -66,10 +66,10 @@ color-palette.ts (primitivo — OKLCH)
   alpha.brand[10–24]    → overlays de marca
        ↓
 color-light.ts  /  color-dark.ts (semântico)
-  bg.*      → fundos de superfície e containers   (45 tokens)
-  fg.*      → texto e ícones (sem namespace separado para icon)  (15)
-  border.*  → bordas e dividers                    (11)
-  ring.*    → focus rings (outline de foco acessível)  (6)
+  bg.*      → fundos de superfície e containers   (49 tokens)
+  fg.*      → texto e ícones (sem namespace separado para icon)  (17)
+  border.*  → bordas e dividers                    (12)
+  ring.*    → focus rings (outline de foco acessível)  (7)
   overlay.* → float, scrim                          (2)
   chart.*   → 1–5 + grid                            (6)
 ```
@@ -83,10 +83,15 @@ Errar isso é o defeito mais comum, porque a classe some sem avisar.
 | Família | Tons que existem | Não existe |
 |---|---|---|
 | `brand` | `bg.brand`, `bg.brand-hover`, `bg.brand-subtle`, `bg.brand-subtle-hover` | `bg.brand-muted` |
-| status (`success` `warning` `danger` `info`) | `bg.{s}`, `bg.{s}-hover`, `bg.{s}-muted`, `bg.{s}-muted-hover` | `bg.{s}-subtle` |
+| status (`success` `warning` `caution` `danger` `info`) | `bg.{s}`, `bg.{s}-hover`, `bg.{s}-muted`, `bg.{s}-muted-hover` | `bg.{s}-subtle` |
 | neutro | `bg.subtle`, `bg.muted`, `bg.emphasis`, `bg.accent` | — |
 | borda de status | **só** `border.{s}-muted` | `border.{s}` cru |
 | borda de marca | `border.brand`, `border.brand-subtle` | — |
+
+`caution` é o degrau **entre `warning` e `danger`** — laranja, hue 55 (warning é 81, danger 25),
+mesma família de status e mesmos sufixos. Nasceu para escala por gravidade em 3 faixas
+(amarelo → laranja → vermelho), como a espera de um ticket; `warning` sozinho não separa
+"atenção" de "quase crítico". Existe nas 5 marcas.
 
 ## `on-*` — texto que senta SOBRE uma cor de marca ou status
 
@@ -97,7 +102,7 @@ bg.brand      → fundo verde da marca (default)
 fg.on-brand   → texto que vai SOBRE bg.brand
 ```
 
-Existem: `fg.on-brand`, `fg.on-danger`, `fg.on-info`, `fg.on-success`, `fg.on-warning`.
+Existem: `fg.on-brand`, `fg.on-caution`, `fg.on-danger`, `fg.on-info`, `fg.on-success`, `fg.on-warning`.
 Não existe `fg.on-primary` (esse é o nome V2, extinto).
 
 > ⛔ **Não existe sufixo `-inverted` em nenhum token.** Esta doc descrevia uma família
@@ -115,7 +120,7 @@ Não existe `fg.on-primary` (esse é o nome V2, extinto).
 |---|---|
 | Superfície | `canvas` · `surface` · `surface-elevated` · `surface-panels` · `subtle` · `muted` (+`-hover`) · `emphasis` · `accent` (+`-hover`) |
 | Marca | `brand` · `brand-hover` · `brand-subtle` · `brand-subtle-hover` |
-| Status | `success` · `warning` · `danger` · `info`, cada um com `-hover`, `-muted`, `-muted-hover` |
+| Status | `success` · `warning` · `caution` · `danger` · `info`, cada um com `-hover`, `-muted`, `-muted-hover` |
 | Form / chrome | `input` (+`-hover`) · `dropdown` · `sidebar` · `sidebar-accent` (+`-hover`) |
 | Tabela | `table` · `table-head` · `table-row-hover` · `table-row-selected` (+`-hover`, `-solid`, `-hover-solid`) |
 | Scrollbar | `scrollbar-thumb` (+`-hover`) — ⚠️ **alpha, não cor sólida** (ver abaixo) |
@@ -138,17 +143,17 @@ branco: a barra sumia em todo consumidor, e o showcase mascarava com um override
 | `muted` / `subtle` | texto secundário / terciário |
 | `disabled` | texto de elemento desabilitado |
 | `brand` | cor da marca — links, CTAs |
-| `success` `warning` `danger` `info` | texto de status |
-| `on-brand` `on-success` `on-warning` `on-danger` `on-info` | texto sobre a cor correspondente |
+| `success` `warning` `caution` `danger` `info` | texto de status |
+| `on-brand` `on-success` `on-warning` `on-caution` `on-danger` `on-info` | texto sobre a cor correspondente |
 
 ### `border.*`
 
 `default` · `subtle` · `input` · `table` · `sidebar` · `brand` · `brand-subtle` ·
-`danger-muted` · `warning-muted` · `success-muted` · `info-muted`
+`danger-muted` · `caution-muted` · `warning-muted` · `success-muted` · `info-muted`
 
 ### `ring.*` — focus rings
 
-`brand` · `secondary` · `success` · `warning` · `danger` · `info`
+`brand` · `secondary` · `success` · `warning` · `caution` · `danger` · `info`
 
 O ring padrão é **`ring-ring-brand`**. O token já embute alpha — **nunca** acrescentar
 `/20`, `/30` (L-001). Aplicar como `focus-visible:ring-4 focus-visible:ring-ring-brand`
@@ -209,6 +214,7 @@ junto de `focus-visible:outline-none`.
 | Texto de elemento desabilitado | `fg.disabled` | `text-fg-disabled` |
 | Banner suave de sucesso | `bg.success-muted` + `border.success-muted` | `bg-bg-success-muted border-border-success-muted` |
 | Banner suave da marca | `bg.brand-subtle` | `bg-bg-brand-subtle` |
+| Fundo pastel por faixa de gravidade (30 min → 1 h → 2 h) | `bg.warning-muted` → `bg.caution-muted` → `bg.danger-muted` | `bg-bg-caution-muted` |
 | Focus ring | `ring.brand` | `focus-visible:ring-4 focus-visible:ring-ring-brand` |
 
 ---

@@ -30,6 +30,7 @@ type Paleta = {
   gray: Rampa;
   success: Rampa;
   warning: Rampa;
+  caution: Rampa;
   danger: Rampa;
   info: Rampa;
   /** Só a `vibrant` tem — neutra acromática exclusiva do dark. */
@@ -51,6 +52,7 @@ const TOC = [
   { id: "gray", label: "Gray" },
   { id: "success", label: "Success" },
   { id: "warning", label: "Warning" },
+  { id: "caution", label: "Caution" },
   { id: "danger", label: "Danger" },
   { id: "info", label: "Info" },
   { id: "semantic", label: "Semantic" },
@@ -145,6 +147,7 @@ export function ColorsDoc() {
       )}
       <PaletteGrid id="success" name="Success" scale={colorPalette.success} />
       <PaletteGrid id="warning" name="Warning" scale={colorPalette.warning} />
+      <PaletteGrid id="caution" name="Caution" scale={colorPalette.caution} />
       <PaletteGrid id="danger" name="Danger" scale={colorPalette.danger} />
       <PaletteGrid id="info" name="Info" scale={colorPalette.info} />
 
@@ -172,6 +175,8 @@ export function ColorsDoc() {
             ["bg.success-muted", "--color-bg-success-muted"],
             ["bg.warning", "--color-bg-warning"],
             ["bg.warning-muted", "--color-bg-warning-muted"],
+            ["bg.caution", "--color-bg-caution"],
+            ["bg.caution-muted", "--color-bg-caution-muted"],
             ["bg.info", "--color-bg-info"],
             ["bg.info-muted", "--color-bg-info-muted"],
           ].map(([name, cssVar]) => (
@@ -193,11 +198,13 @@ export function ColorsDoc() {
             ["fg.danger", "--color-fg-danger"],
             ["fg.success", "--color-fg-success"],
             ["fg.warning", "--color-fg-warning"],
+            ["fg.caution", "--color-fg-caution"],
             ["fg.info", "--color-fg-info"],
             ["fg.on-brand", "--color-fg-on-brand"],
             ["fg.on-danger", "--color-fg-on-danger"],
             ["fg.on-success", "--color-fg-on-success"],
             ["fg.on-warning", "--color-fg-on-warning"],
+            ["fg.on-caution", "--color-fg-on-caution"],
             ["fg.on-info", "--color-fg-on-info"],
           ].map(([name, cssVar]) => (
             <SemanticRow key={name} name={name} cssVar={cssVar} />
@@ -218,6 +225,7 @@ export function ColorsDoc() {
             ["border.danger-muted", "--color-border-danger-muted"],
             ["border.success-muted", "--color-border-success-muted"],
             ["border.warning-muted", "--color-border-warning-muted"],
+            ["border.caution-muted", "--color-border-caution-muted"],
             ["border.info-muted", "--color-border-info-muted"],
           ].map(([name, cssVar]) => (
             <SemanticRow key={name} name={name} cssVar={cssVar} />
@@ -233,6 +241,7 @@ export function ColorsDoc() {
             ["ring.danger", "--color-ring-danger"],
             ["ring.success", "--color-ring-success"],
             ["ring.warning", "--color-ring-warning"],
+            ["ring.caution", "--color-ring-caution"],
             ["ring.info", "--color-ring-info"],
             ["ring.secondary", "--color-ring-secondary"],
           ].map(([name, cssVar]) => (

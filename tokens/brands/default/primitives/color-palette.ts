@@ -18,6 +18,7 @@
  *   gray           → neutro puro (chroma 0)
  *   danger         → feedback destrutivo/erro (vermelho)
  *   success / warning / info → feedback positivo / atenção / informação
+ *   caution        → atenção elevada, entre warning e danger (laranja)
  */
 
 // ─── Brand — base oklch(0.5248 0.1415 150.9) em 600 (verde escuro #00803c) ────
@@ -117,6 +118,22 @@ export const warning = {
   950: "oklch(0.24 0.060 81)",
 } as const;
 
+// ─── Caution — base oklch(0.74 0.170 55) em 500 (laranja hue 55, entre warning 81 e danger 25) ─
+export const caution = {
+  50:  "oklch(0.97 0.016 55)",
+  100: "oklch(0.95 0.027 55)",
+  150: "oklch(0.93 0.038 55)",
+  200: "oklch(0.90 0.056 55)",
+  300: "oklch(0.83 0.102 55)",
+  400: "oklch(0.78 0.138 55)",
+  500: "oklch(0.74 0.170 55)",   // BASE
+  600: "oklch(0.65 0.149 55)",
+  700: "oklch(0.55 0.126 55)",
+  800: "oklch(0.44 0.101 55)",
+  900: "oklch(0.33 0.076 55)",
+  950: "oklch(0.23 0.053 55)",
+} as const;
+
 // ─── Info — base oklch(0.62 0.210 280) em 500 (roxo hue 280) ──────────────────
 export const info = {
   50:  "oklch(0.97 0.025 280)",
@@ -167,7 +184,7 @@ export const alpha = {
 
 export const colorPalette = {
   brand, brandContrast, gray,
-  success, warning, danger, info,
+  success, warning, caution, danger, info,
   white, black,
   alpha,
 };

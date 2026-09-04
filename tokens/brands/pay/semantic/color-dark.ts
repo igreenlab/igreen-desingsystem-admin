@@ -45,6 +45,11 @@ export const bg = {
   "warning-hover":        "#ffc748",
   "warning-muted-hover":  "rgba(255,182,32,.22)",
 
+  caution:                "#fe9553",
+  "caution-muted":        "rgba(254,149,83,.14)",
+  "caution-hover":        "#ffa167",
+  "caution-muted-hover":  "rgba(254,149,83,.22)",
+
   info:                "#3580ff",
   "info-muted":        "rgba(53,128,255,.15)",
   "info-hover":        "#5a99ff",
@@ -88,12 +93,14 @@ export const fg = {
   danger:  "#ff6b6b",
   success: "#3bc882",
   warning: "#ffb620",
+  caution: "#fe9553",
   info:    "#3580ff",
 
   "on-brand":   white,   // botão #00a859 + texto branco
   "on-danger":  white,
   "on-success": black,
   "on-warning": black,
+  "on-caution": black,
   "on-info":    white,
 } as const;
 
@@ -111,6 +118,7 @@ export const border = {
   "danger-muted":  "rgba(255,107,107,.36)",
   "success-muted": "rgba(59,200,130,.36)",
   "warning-muted": "rgba(255,182,32,.36)",
+  "caution-muted": "rgba(254,149,83,.36)",
   "info-muted":    "rgba(53,128,255,.36)",
 
   table: "rgba(255,255,255,.08)",
@@ -123,6 +131,7 @@ export const ring = {
   danger:    "rgba(255,107,107,.35)",
   success:   "rgba(59,200,130,.35)",
   warning:   "rgba(255,182,32,.35)",
+  caution:   "rgba(254,149,83,.35)",
   info:      "rgba(53,128,255,.35)",
   secondary: "rgba(255,255,255,.16)",   // --border-2
 } as const;
