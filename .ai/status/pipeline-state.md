@@ -29,6 +29,7 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
+- [2026-09-04 — PARCIAL · Gantt: componente novo, fase 1 (sem dnd nem calendário)](#2026-09-04-parcial-gantt-componente-novo-fase-1-sem-dnd-nem-calendário)
 
 <!-- doc-index:fim -->
 
@@ -4734,3 +4735,78 @@ sem menção no USAGE do componente" é regra independente de contexto, o crité
 o chip do caminho seguir o cliente aberto pôs os dois lado a lado, e a contradição apareceu —
 dois status diferentes pro mesmo registro na mesma tela. É o padrão de "dado derivado vs dado
 fixo": enquanto os dois eram fixos, concordavam por coincidência.
+
+## 2026-09-04 — PARCIAL · Gantt: componente novo, fase 1 (sem dnd nem calendário)
+
+**Agente:** DS Dev · **Spec:** `.ai/specs/gantt-componente-de-cronograma.md`
+
+**Input:** 13 referências visuais + um HTML do time. Pedido: matriz de Gantt
+completa, com setas de dependência, **sem dependência de terceiros nova**.
+
+**Output:** 18 arquivos, 7.884 linhas, **146 testes** de núcleo puro.
+`registry.json` item `gantt` (deps `date-fns`, `lucide-react`; registryDeps
+button, checkbox, dropdown-menu, floating-panel, popover, radio-group, tv, utils).
+Showcase em `#/gantt` e `#/gantt-full`.
+
+**Decisões que valem revisitar:**
+
+- **Grade própria, não `DataTable`** — medido: a DataTable são 12.187 linhas em 75
+  arquivos, o `hierarchical` dela vive na view de lista, e a altura de linha
+  deriva de `density`. Altura de linha é exatamente o que os dois painéis do
+  Gantt precisam casar ao pixel (L-038).
+- **O Gantt é dono das SUAS visões** — a recomendação inicial (minha) era delegar
+  a visão de calendário ao `Scheduler`. Descartada pelo mantenedor, com razão
+  melhor: necessidade nova do Gantt viraria mudança numa API publicada que serve
+  outros consumidores.
+- **Caminho crítico só considera `FS`** — limite declarado. Os outros três tipos
+  exigem tratar as duas pontas como nós independentes; implementar pela metade
+  daria resultado plausível e errado.
+- **Barra tingida, não sólida com texto branco** — herdado da medição da v0.56.0:
+  branco/colorido sobre pílula tingida dá 1.72–4.49 de contraste no light.
+- **Filtro nos 6 tipos sem mudar `GanttFilterModel`** — os 6 codificam o valor no
+  mesmo `Record<string, string[]>`. O que faltava não era a forma do dado, era
+  como interpretá-lo; por isso zero migração pra quem já usava `multi`.
+
+**Assumption:** a cor da barra carrega **CATEGORIA** (qual frente), não estado.
+Status vai em `row.trailing` como `Chip`. Se um consumidor precisar de cor por
+status, a suposição quebrou e o contrato de `colorKey` tem que ser revisto — não
+o exemplo.
+
+**Bugs que os testes acharam (e que eu não teria achado na tela):**
+
+1. Eixo de semana perdia a última semana parcial — `endOfWeek` devolve
+   23:59:59.999 e o resto de tempo viajava pro cursor seguinte. L-045.
+2. `new Date("2026-09-30")` é parseado como **UTC** → em UTC−3 volta um dia. Todo
+   filtro de período deslocava, e `<input type="date">` emite exatamente esse
+   formato. Invisível em fuso positivo, onde o teste passaria.
+3. Ciclo em `parent` devolvia lista **vazia** — o Gantt renderizava em branco,
+   sem erro, com todas as tarefas no `rows`. A guarda contra estouro de pilha
+   existia; a varredura partia de `porPai.get(null)` e num ciclo puro nenhuma
+   linha tem pai nulo. E o comentário do arquivo já prometia o contrário (L-060).
+4. O conserto do #3 quebrou o collapse — filho de nó colapsado também está "não
+   visitado". Três testes de collapse reprovaram na mesma rodada.
+
+**Padrão de erro meu, três vezes na mesma sessão:** trocar token de cor, conferir
+que o **valor** mudou e não conferir que a mudança **se vê**. Aconteceu na virada
+de mês (`border-default`, ΔL 0.040 contra 0.031 da linha comum = a mesma linha),
+no divisor dos painéis e nos conectores de árvore. As três vezes a correção veio
+de medir ΔL contra a superfície, não de olhar o nome do token.
+
+**PENDENTE — nesta ordem:**
+
+1. **Gesto de dnd.** `onBarMove`/`onBarResize`/`onLinkCreate`/`onLinkDelete` estão
+   declarados no tipo e **nem chegam a ser recebidos** pela raiz. `draggable`/
+   `resizable`/`linkable` renderizam punhos acessíveis que não fazem nada. É o
+   único item onde a API promete e não entrega — pior que ausência declarada.
+2. **Seletor de visão na toolbar.** `onViewChange` é desestruturado e nunca
+   chamado; não há controle de visão. Sem ele o item 3 nasce inalcançável.
+3. **`view="calendar"`.** Placeholder. O núcleo puro está pronto e testado
+   (`buildMonthMatrix`, `computeOverflow`, `daysOfBar`).
+
+**NÃO é pendência:** visão de lista. `GanttView` declara duas visões, e "lista de
+tarefas com hierarquia e filtro" é o `DataTable` (view lista, `hierarchical`) ou o
+`DataList`. Uma terceira implementação disso dentro do Gantt duplicaria o que dois
+componentes do DS já fazem.
+
+**Distribuição:** registry + embed fechados. Falta a entry de changelog e o bump —
+consolidam no `/ds-release` quando o conjunto fechar (Regra 8).

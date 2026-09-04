@@ -52,6 +52,7 @@ label, helper, erro e do `htmlFor`).
 | data | `date-picker` — `mode`: `single` (default) · `range` · `multiple` |
 | só mês/ano | `month-year-picker` |
 | agenda de EVENTOS (não é campo de data) | `scheduler` — ver o grupo de dados |
+| CRONOGRAMA com dependência entre tarefas | `gantt` — ver o grupo de dados |
 | arquivo | `file-upload-field` |
 | código / OTP | `input-otp` — mesmos `size` (`xxs`/`xs`/`sm`/`md`) e `state` do `input`, então num form misto use o MESMO size dos dois. `variant`: `connected` (default) · `outlined` · `filled` · `underline` |
 | cor | `color-picker` |
@@ -116,6 +117,7 @@ Todo flutuante já segue a mesma receita visual (superfície frosted, radius 12,
 | lista de cards simples | `list` |
 | quadro por status/etapa | `kanban` — ou `viewMode: "kanban"` do `data-table` |
 | **eventos ao longo do TEMPO** (agenda, compromissos, reservas) | **`scheduler`** — 4 views numa prop só: `month` · `week` · `day` · `list`. Toolbar embutida (período, busca, filtros, seletor de view). **Não confundir com `calendar`/`date-picker`, que escolhem uma DATA num campo** — aqui o assunto são eventos. Dumb sobre mutação: arrastar emite `onEventMove`/`onEventResize` e QUEM APLICA é você (mesma gramática do `onCardMove` do kanban). Filtro é declarativo (`filterFields`) e abre num painel-COLUNA à direita, não em overlay. **O pai precisa ter altura** — o componente é `h-full`, e é a altura dele que decide quantos eventos cabem na célula do mês. Detalhe do evento é SEU: o componente só emite `onEventClick` e devolve `event.meta` intacto; monte o painel com o bloco `dsgreen-paneldetail-2`. `draggable`/`resizable` nascem `false` de propósito: ligados sem handler, o usuário arrasta e vê o evento voltar |
+| **cronograma de PROJETO** (o que depende do quê, prazo, caminho crítico) | **`gantt`** — hierarquia com collapse à esquerda, eixo de tempo à direita, e **setas de dependência** entre as barras. É a seta que distingue: sem ela isto seria uma timeline, e timeline é o `scheduler`. Quatro tipos de vínculo (finish-to-start, start-to-start, finish-to-finish, start-to-finish) com espera/antecipação em dias. Linha agrupadora deriva o intervalo dos filhos; marco vira losango. **Dumb sobre mutação como o kanban**: arrastar emite evento e QUEM APLICA é você — o componente detecta conflito de prazo e sinaliza, mas nunca reagenda. **O pai precisa ter altura** (é `h-full`), e um cronograma legível pede ~900px de largura. A cor da barra diz CATEGORIA (qual frente), não status — status vai no slot livre da linha como `chip`. Detalhe da tarefa é SEU: o componente emite o clique e devolve o payload intacto |
 | paginar algo que não é tabela | `pagination` |
 
 ### ⛔ Filtro em tabela/lista → SEMPRE nativo, nunca form/select acima
@@ -208,7 +210,7 @@ código.
 
 - `command` — paleta de comandos / busca com teclado (⌘K).
 - `markdown-text` — renderizar markdown (chat, descrições vindas de API).
-- `calendar` — calendário inline; para **campo** de data use `date-picker`, e para exibir EVENTOS use `scheduler`.
+- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`.
 - `button` — ação. Variações (cor, tamanho, ícone, loading) na própria API; ver o USAGE.
 
 ---
