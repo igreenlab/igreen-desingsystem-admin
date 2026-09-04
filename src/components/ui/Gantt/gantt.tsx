@@ -27,6 +27,7 @@ import {
 import { GanttToolbar } from "./parts/gantt-toolbar";
 import { GanttFilterPanel } from "./parts/gantt-filter-panel";
 import { GANTT_DEFAULT_COLUMNS, GanttGrid } from "./parts/gantt-grid";
+import { GanttCalendarView } from "./views/calendar";
 import { GanttTimelineView } from "./views/timeline";
 import {
   dateToX,
@@ -516,6 +517,18 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
             end: addDays(startOfDay(now), larguraJanelaDias - meio - 1),
           });
         }}
+        view={view}
+        /**
+         * Controlado vence o local — e o callback dispara nos DOIS casos.
+         *
+         * ⚠️ `onViewChange` era desestruturado e nunca chamado: `view` só
+         * mudava por prop, então a visão de calendário seria inalcançável pela
+         * UI mesmo depois de construída.
+         */
+        onViewChange={(v) => {
+          if (viewProp === undefined) setViewLocal(v);
+          onViewChange?.(v);
+        }}
         granularity={granularity}
         onGranularityChange={(g) => {
           // Que instante do tempo está no meio da viewport AGORA — antes de
@@ -596,7 +609,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
 
       <div
         ref={bodyRef}
-        className={ganttBody()}
+        className={ganttBody({ framed: view === "timeline" })}
         role="region"
         aria-label={`Cronograma, ${titulo}`}
       >
@@ -610,6 +623,17 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
           </div>
         ) : (
           <>
+            {/*
+              ⚠️ A grade e o divisor existem SÓ na `timeline`.
+
+              Na grade de mês não há eixo horizontal pra a coluna de nomes
+              acompanhar — ela seria uma lista de tarefas ao lado de um
+              calendário, sem relação de linha entre as duas metades, roubando
+              460px de uma grade que precisa de largura pra os chips caberem.
+              O nome da tarefa está no próprio chip.
+            */}
+            {view === "timeline" ? (
+              <>
             <div className={ganttGridPane()} style={{ width: gridWidth }}>
               <GanttGrid
                 rows={flat}
@@ -653,6 +677,8 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                 if (e.key === "ArrowRight") setGridWidth((w) => w + 16);
               }}
             />
+              </>
+            ) : null}
 
             <div className={ganttTimelinePane()}>
               {view === "timeline" ? (
@@ -690,13 +716,36 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                   onBarClick={onBarClick}
                 />
               ) : (
-                <div className={ganttCanvasScroll()}>
-                  <div className={ganttEmpty()}>
-                    <span className={ganttEmptyText()}>
-                      A visão de calendário entra na próxima iteração.
-                    </span>
-                  </div>
-                </div>
+                /*
+                  ⚠️ O mês âncora é o MEIO da janela, e chegar nisso custou uma
+                  medição.
+
+                  Não é `now`: aí navegar com `‹ ›` moveria a janela e a grade
+                  ficaria parada — as duas visões falariam de períodos
+                  diferentes, e trocar de visão teleportaria o usuário.
+
+                  E não é `windowStart`, que foi a primeira tentativa. A janela
+                  derivada começa UM DIA ANTES da primeira barra, então o mês
+                  âncora caía no mês anterior ao trabalho: medido no exemplo,
+                  `windowStart` = 31/ago abria agosto com **5 células ocupadas
+                  de 42** enquanto os dados viviam em set–nov.
+
+                  O meio da janela é onde a massa do cronograma está, acompanha
+                  o `‹ ›` e nunca cai num mês de borda.
+                */
+                <GanttCalendarView
+                  rows={flat}
+                  anchor={addDays(
+                    startOfDay(windowStart),
+                    Math.floor(larguraJanelaDias / 2),
+                  )}
+                  weekStartsOn={weekStartsOn}
+                  now={now}
+                  locale={locale}
+                  conflictBarIds={conflictBarIds}
+                  criticalBarIds={criticalBarIds}
+                  onBarClick={onBarClick}
+                />
               )}
             </div>
           </>

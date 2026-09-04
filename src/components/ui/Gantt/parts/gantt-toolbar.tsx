@@ -33,6 +33,7 @@ import type {
   GanttFilterField,
   GanttFilterModel,
   GanttGranularity,
+  GanttView,
 } from "../gantt.types";
 
 /**
@@ -48,7 +49,7 @@ import type {
  * ## Ordem
  *
  *   Esquerda:  [📅 período] [‹ Hoje ›]
- *   Direita:   [busca] [Crítico] [▦ Escala ▾] [⧩] [ação]
+ *   Direita:   [busca] [Crítico] [Cronograma|Calendário] [▦ Escala ▾] [⧩] [ação]
  *   Abaixo:    [chips do que está aplicado] [Limpar tudo]
  *
  * Espelha a orientação do `TableToolbar`: contexto à esquerda, busca à direita,
@@ -74,6 +75,26 @@ import type {
  * e o `igreen:add` estreia quebrado.
  */
 
+/**
+ * As duas visões.
+ *
+ * ⚠️ Segmentos unidos e NÃO dropdown, ao contrário do `Scheduler` — e a razão
+ * é a contagem. Lá são 4 visões, e 4 num dropdown é o certo. Aqui são **2**, e
+ * um dropdown pra escolher entre duas coisas custa dois cliques (abrir, marcar)
+ * pra fazer o que um clique faz. A gramática visual é a mesma do `‹ Hoje ›`,
+ * que já existe neste componente.
+ *
+ * Se um dia entrar uma terceira visão, isto vira dropdown como o do Scheduler.
+ *
+ * ⛔ Sem ícone de propósito. `Calendário` pediria `CalendarDays`, que já rotula
+ * o PERÍODO ali do lado esquerdo — dois calendários na mesma toolbar
+ * significando coisas diferentes é pior que texto puro. Duas palavras resolvem.
+ */
+const VIEW_ITEMS: { value: GanttView; label: string }[] = [
+  { value: "timeline", label: "Cronograma" },
+  { value: "calendar", label: "Calendário" },
+];
+
 const ZOOM_ITEMS: { value: GanttGranularity; label: string }[] = [
   { value: "day", label: "Dia" },
   { value: "week", label: "Semana" },
@@ -86,6 +107,9 @@ export type GanttToolbarProps = {
   onPrev: () => void;
   onNext: () => void;
   onToday: () => void;
+
+  view: GanttView;
+  onViewChange: (v: GanttView) => void;
 
   granularity: GanttGranularity;
   onGranularityChange: (g: GanttGranularity) => void;
@@ -130,6 +154,8 @@ export function GanttToolbar({
   onPrev,
   onNext,
   onToday,
+  view,
+  onViewChange,
   granularity,
   onGranularityChange,
   searchable,
@@ -247,6 +273,35 @@ export function GanttToolbar({
             <span className="hidden lg:inline">Crítico</span>
           </Button>
         ) : null}
+
+        {/*
+          Visão: dois segmentos unidos. A ativa vem `soft`/`primary`, que é como
+          o resto do DS marca "este é o estado corrente" num par de botões.
+        */}
+        <div
+          role="group"
+          aria-label="Visualização"
+          className={cn(ganttNavGroup(), "max-md:hidden")}
+        >
+          {VIEW_ITEMS.map((v) => {
+            const ativa = v.value === view;
+            return (
+              <Button
+                key={v.value}
+                variant={ativa ? "soft" : "outline"}
+                color={ativa ? "primary" : "secondary"}
+                size="md"
+                onClick={() => onViewChange(v.value)}
+                // `aria-pressed` e não `aria-selected`: são botões de
+                // alternância, não opções de um listbox.
+                aria-pressed={ativa}
+                className={cn(ativa && "border-border-brand hover:border-border-brand")}
+              >
+                {v.label}
+              </Button>
+            );
+          })}
+        </div>
 
         {/* Escala: escolha única → RadioGroup, que anuncia qual está ativa. */}
         <DropdownMenu>

@@ -266,7 +266,31 @@ date-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UT
 vira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —
 predicado e chip — pra os dois nunca divergirem.
 
-### 14. Em telas estreitas, declare o limite
+### 14. As duas visões respondem perguntas diferentes
+
+| Visão | Responde | Tem |
+|---|---|---|
+| `timeline` | *o que depende do quê* | eixo de tempo, setas, gesto, os 2 painéis |
+| `calendar` | *o que acontece no dia 12* | grade de mês, chips por dia, `+N mais` |
+
+O seletor fica na toolbar (dois segmentos, não dropdown — são só duas). `view` +
+`onViewChange` controlam de fora; omitidos, o componente guarda em estado próprio.
+
+**A barra ocupa TODOS os dias que atravessa** na grade de mês: uma tarefa de 10 a
+15 aparece em 6 células. É a diferença entre cronograma e agenda — a tarefa não
+acontece num instante, ela ocupa um intervalo.
+
+⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos
+filhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a
+hierarquia não é visível pra dar sentido ao agregado.
+
+⚠️ **O corte do `+N mais` é MEDIDO, não fixo.** A célula tem altura mínima de 88px
+(cabeçalho + 3 chips) e a grade rola quando não cabe; um `ResizeObserver` recalcula
+quantos chips entram quando a altura muda. Com corte fixo, uma viewport curta
+recortava os chips e o próprio `+N mais` — o usuário via 2 tarefas e nenhuma pista
+de que havia 4.
+
+### 15. Em telas estreitas, declare o limite
 
 Grade + eixo não caben em 375px. O componente não finge que cabe — em vez de
 espremer os dois, use `granularity="week"` ou mais, reduza `gridWidth`, ou ofereça
@@ -278,16 +302,17 @@ Declarado pra não virar descoberta:
 
 | | Estado |
 |---|---|
-| `view="calendar"` | **placeholder** — a grade de mês tem o núcleo puro pronto e testado (`buildMonthMatrix`, `computeOverflow`, `daysOfBar`), mas a view não foi montada |
+| setas de vínculo na visão `calendar` | **não existem, e é decisão** — numa grade de mês uma seta do dia 3 ao 19 atravessaria 3 semanas passando por cima de 16 células alheias. O grafo segue vivo (conflito marcado no chip, `onLinkViolations` emitindo); sai só o desenho |
+| gesto na visão `calendar` | só clique. Arrastar num calendário move por dia, não por pixel — é outro gesto, e misturá-lo com o da timeline daria duas semânticas pro mesmo arraste |
 | criar vínculo `FF` / `SF` por gesto | possível, mas exige soltar na **metade direita** da barra de destino. Descoberta só pela doc — não há dica visual da metade |
-| seletor de visão na toolbar | **não existe** — `onViewChange` está na API mas nada o chama. `view` só muda por prop, então `calendar` seria inalcançável pela UI mesmo depois de construída |
 
 O que está completo: as duas visões de dado (tarefa e portfólio), hierarquia com
 collapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os
 **4 tipos de vínculo** com `lag`, detecção de conflito, caminho crítico, busca,
 zoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral
 e chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os
-**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia.
+**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia, e as
+**duas visões** com seletor na toolbar.
 
 ## Núcleo puro exportado
 

@@ -619,11 +619,24 @@ export const ganttFilterOptionCount = tv({
 
 /* ═══════════════════════════════════════════════ dois painéis ══ */
 
+/**
+ * A área abaixo da toolbar.
+ *
+ * ⚠️ A moldura é VARIANTE porque as duas visões a resolvem em lugares
+ * diferentes. Na `timeline` quem molda é este contêiner (os dois painéis vivem
+ * dentro dele e o divisor os separa). Na `calendar` quem molda é o
+ * `ganttMonthFrame`, que traz borda e radius próprios — deixar as duas ligadas
+ * desenhava **duas bordas concêntricas** separadas por 1px.
+ */
 export const ganttBody = tv({
-  base: [
-    "flex min-h-0 flex-1 overflow-hidden",
-    "rounded-radius-xl border border-border-default bg-bg-surface",
-  ],
+  base: "flex min-h-0 flex-1 overflow-hidden",
+  variants: {
+    framed: {
+      true: "rounded-radius-xl border border-border-default bg-bg-surface",
+      false: "",
+    },
+  },
+  defaultVariants: { framed: true },
 });
 
 /** Painel esquerdo: a grade de linhas. */
@@ -1552,8 +1565,28 @@ export const ganttWeekdayCell = tv({
   ],
 });
 
+/**
+ * A grade do mês — 6 linhas, com **altura mínima por linha e rolagem**.
+ *
+ * ⚠️ Era `grid-rows-6` puro, e o defeito foi medido: com 409px disponíveis a
+ * linha saía com **68px**, que depois do número do dia (14) e dos paddings (12)
+ * deixa 42px — **2 fatias de chip**. Numa célula com 4 tarefas o resultado era 1
+ * chip visível e um "+3 mais".
+ *
+ * `minmax(88px, 1fr)`: 88 é 26 de cabeçalho + 3 fatias de 20 + folga, o mínimo
+ * pra a célula responder "o que acontece neste dia" em vez de "tem coisa aqui".
+ * Em viewport alta as linhas crescem com o `1fr`; em viewport curta a grade
+ * **rola**, que é o que um calendário de mês faz.
+ *
+ * ⛔ Não troque por `grid-rows-6` "pra caber sem rolar": caber sem rolar aqui
+ * significa não mostrar o conteúdo.
+ */
 export const ganttMonthGrid = tv({
-  base: "grid min-h-0 flex-1 grid-cols-7 grid-rows-6",
+  base: [
+    "grid min-h-0 flex-1 grid-cols-7",
+    "auto-rows-[minmax(88px,1fr)]",
+    "overflow-y-auto scrollbar-thin",
+  ],
 });
 
 export const ganttMonthCell = tv({
