@@ -312,7 +312,20 @@ export function GanttToolbar({
           })}
         </div>
 
-        {/* Escala: escolha única → RadioGroup, que anuncia qual está ativa. */}
+        {/*
+          ⛔ A ESCALA NÃO EXISTE NA VISÃO DE CALENDÁRIO.
+
+          "Dia / Semana / Mês / Trimestre" é a densidade do EIXO HORIZONTAL da
+          timeline. Numa grade de mês não há eixo pra adensar — a unidade é o
+          dia por construção, e as 6 linhas são semanas. Deixar o controle
+          visível ali seria oferecer uma escolha que não muda nada, que é a
+          mesma classe de defeito do toggle de crítico sem vínculo no grafo.
+
+          ⚠️ O estado NÃO é resetado ao esconder: voltando pra timeline, a
+          escala que estava selecionada continua. Zerar teria feito trocar de
+          visão e voltar perder o zoom, que é trabalho do usuário jogado fora.
+        */}
+        {view === "timeline" ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -352,6 +365,7 @@ export function GanttToolbar({
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
+        ) : null}
 
         {/*
           #4 — o filtro abre PAINEL, não dropdown.

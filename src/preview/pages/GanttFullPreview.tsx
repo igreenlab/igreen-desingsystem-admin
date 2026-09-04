@@ -16,6 +16,10 @@ import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Avatar } from "@/components/ui/avatar-ig";
 import { FloatingPanel } from "@/components/ui/FloatingPanel";
+import {
+  FormFieldInput,
+  FormFieldSelect,
+} from "@/components/ui/FormField";
 
 /**
  * `Gantt` em tela cheia — o exemplo que valida o componente a fundo.
@@ -87,6 +91,23 @@ const PESSOAS: Record<string, string> = {
   gabriela: "Gabriela Prado",
   henrique: "Henrique Vilela",
 };
+
+/**
+ * As cores que o drawer oferece.
+ *
+ * ⚠️ São as **chaves de chart** do DS, não hex. A cor da barra diz CATEGORIA
+ * (qual frente), e o rótulo aqui é o nome da frente — não "verde", "roxo". Um
+ * seletor de cor por nome de cor convidaria o usuário a usar cor como STATUS,
+ * que é exatamente a assumption que a spec declara e que status em
+ * `row.trailing` resolve.
+ */
+const CORES_DISPONIVEIS = [
+  { value: "chart-1", label: "Produto" },
+  { value: "chart-5", label: "Design" },
+  { value: "chart-3", label: "Engenharia" },
+  { value: "chart-4", label: "QA" },
+  { value: "chart-2", label: "Integração" },
+] as const;
 
 const ROWS_SEMENTE: GanttRow[] = [
   /* ── Fase 1 ──────────────────────────────────────────────────── */
@@ -424,6 +445,28 @@ export function GanttFullPreview() {
    * Aqui a tela aplica de verdade, e é por isso que o gesto pode ser verificado.
    */
   const [rows, setRows] = useState<GanttRow[]>(ROWS_SEMENTE);
+
+  /**
+   * O drawer de "nova tarefa" — e ele é DA TELA, não do componente.
+   *
+   * O `Gantt` emite `onDayAdd(dia)` e para aí. Quem decide que campos existem,
+   * que cores são oferecidas e o que acontece no salvar é o consumidor — mesma
+   * divisão do painel de detalhe (`onBarClick` devolve o payload e a tela
+   * desenha a ficha).
+   *
+   * ⚠️ A versão anterior criava a tarefa DIRETO no clique do "+", com nome e
+   * cor chutados. Estava errado por dois motivos: o usuário não escolhia nada, e
+   * o exemplo ensinava que `onDayAdd` é "adicione isto" quando ele é "o usuário
+   * pediu pra adicionar aqui".
+   */
+  const [novo, setNovo] = useState<{
+    dia: Date;
+    nome: string;
+    dias: string;
+    cor: string;
+    responsavel: string;
+    frente: string;
+  } | null>(null);
   const [links, setLinks] = useState<GanttLink[]>(LINKS_SEMENTE);
 
   /** Reescreve as datas de UMA barra, preservando o resto da linha. */
@@ -514,33 +557,20 @@ export function GanttFullPreview() {
             ])
           }
           /*
-            O "+" da célula do calendário. A tela cria a tarefa de verdade —
-            sem handler o "+" nem renderiza, e um exemplo com o botão inerte
-            ensinaria que ele não faz nada.
+            O "+" da célula do calendário ABRE O DRAWER — não cria nada.
+
+            Sem handler o "+" nem renderiza; com ele, o componente diz "o
+            usuário pediu pra adicionar no dia X" e a tela decide o resto.
           */
           onDayAdd={(dia) =>
-            setRows((atuais) => [
-              ...atuais,
-              {
-                id: `nova-${dia.getTime()}`,
-                label: `Nova tarefa ${format(dia, "dd/MM")}`,
-                parent: "f3",
-                bars: [
-                  {
-                    id: `nova-b-${dia.getTime()}`,
-                    label: "Nova",
-                    start: dia,
-                    end: addDays(dia, 2),
-                    colorKey: "chart-2",
-                    meta: {
-                      responsavel: "ana",
-                      frente: "engenharia",
-                      descricao: "Criada pelo + da grade de mês.",
-                    } satisfies Meta,
-                  },
-                ],
-              },
-            ])
+            setNovo({
+              dia,
+              nome: "",
+              dias: "3",
+              cor: "chart-2",
+              responsavel: "ana",
+              frente: "engenharia",
+            })
           }
           onLinkDelete={(alvo) =>
             setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))
@@ -629,6 +659,138 @@ export function GanttFullPreview() {
               <p className="text-body-sm leading-relaxed text-fg-muted">
                 {detalhe.meta.descricao}
               </p>
+            </div>
+          </div>
+        ) : null}
+      </FloatingPanel>
+
+      {/*
+        Drawer de nova tarefa. `FormFieldInput`/`FormFieldSelect` do DS e não
+        `<label>` + `<input>` na unha — L-023: label solta divergia em peso e em
+        cor no dark, silenciosamente.
+      */}
+      <FloatingPanel
+        open={novo !== null}
+        onOpenChange={(aberto) => {
+          if (!aberto) setNovo(null);
+        }}
+        side="right"
+        size="md"
+        title="Nova tarefa"
+        description={
+          novo
+            ? `Começa em ${format(novo.dia, "dd/MM/yyyy", { locale: ptBR })}`
+            : undefined
+        }
+        footer={
+          <div className="flex w-full items-center justify-end gap-gp-md">
+            <Button variant="ghost" color="secondary" size="md" onClick={() => setNovo(null)}>
+              Cancelar
+            </Button>
+            <Button
+              variant="filled"
+              size="md"
+              // Nome vazio não cria: o rótulo é a única coisa que a linha
+              // mostra na grade, e uma tarefa sem nome é uma linha em branco.
+              disabled={!novo?.nome.trim()}
+              onClick={() => {
+                if (!novo?.nome.trim()) return;
+                const duracao = Math.max(1, Number(novo.dias) || 1);
+                const id = `nova-${novo.dia.getTime()}`;
+                setRows((atuais) => [
+                  ...atuais,
+                  {
+                    id,
+                    label: novo.nome.trim(),
+                    sublabel: PESSOAS[novo.responsavel],
+                    parent: "f3",
+                    bars: [
+                      {
+                        id: `${id}-b`,
+                        label: novo.nome.trim(),
+                        start: novo.dia,
+                        // `duracao - 1` porque `end` é INCLUSIVO: 3 dias a
+                        // partir do dia 10 termina no 12, não no 13.
+                        end: addDays(novo.dia, duracao - 1),
+                        colorKey: novo.cor as GanttRow["bars"][number]["colorKey"],
+                        meta: {
+                          responsavel: novo.responsavel,
+                          frente: novo.frente,
+                          descricao: `Criada pelo + da grade de mês, ${duracao} dia(s).`,
+                        } satisfies Meta,
+                      },
+                    ],
+                  },
+                ]);
+                setNovo(null);
+              }}
+            >
+              Criar tarefa
+            </Button>
+          </div>
+        }
+      >
+        {novo ? (
+          <div className="flex flex-col gap-form-gap">
+            <FormFieldInput
+              label="Nome da tarefa"
+              placeholder="Ex.: Revisar contrato de integração"
+              value={novo.nome}
+              onChange={(e) => setNovo({ ...novo, nome: e.target.value })}
+            />
+
+            <div className="grid grid-cols-2 gap-form-gap">
+              <FormFieldInput
+                label="Duração (dias)"
+                type="number"
+                min={1}
+                value={novo.dias}
+                onChange={(e) => setNovo({ ...novo, dias: e.target.value })}
+              />
+              <FormFieldSelect
+                label="Frente (cor)"
+                options={CORES_DISPONIVEIS.map((c) => ({
+                  value: c.value,
+                  label: c.label,
+                }))}
+                value={novo.cor}
+                onValueChange={(v) =>
+                  setNovo({
+                    ...novo,
+                    cor: v,
+                    // A frente do filtro acompanha a cor escolhida: as duas
+                    // dizem a mesma coisa, e deixá-las divergir faria a tarefa
+                    // nova sumir ao filtrar pela frente que ela aparenta ser.
+                    frente:
+                      CORES_DISPONIVEIS.find((c) => c.value === v)?.label.toLowerCase() ??
+                      novo.frente,
+                  })
+                }
+              />
+            </div>
+
+            <FormFieldSelect
+              label="Responsável"
+              options={Object.entries(PESSOAS).map(([value, label]) => ({
+                value,
+                label,
+              }))}
+              value={novo.responsavel}
+              onValueChange={(v) => setNovo({ ...novo, responsavel: v })}
+            />
+
+            {/* Prévia da cor escolhida, com a chave real do DS. */}
+            <div className="flex items-center gap-gp-md">
+              <span className="text-caption-md font-semibold uppercase text-fg-subtle">
+                Prévia
+              </span>
+              <Chip
+                size="sm"
+                variant="soft"
+                color="neutral"
+              >
+                {CORES_DISPONIVEIS.find((c) => c.value === novo.cor)?.label}
+              </Chip>
             </div>
           </div>
         ) : null}

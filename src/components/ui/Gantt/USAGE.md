@@ -268,10 +268,22 @@ predicado e chip — pra os dois nunca divergirem.
 
 ### 14. As duas visões respondem perguntas diferentes
 
-| Visão | Responde | Tem |
-|---|---|---|
-| `timeline` | *o que depende do quê* | eixo de tempo, setas, gesto, os 2 painéis |
-| `calendar` | *o que acontece no dia 12* | grade de mês, chips por dia, `+N mais` |
+| Visão | Responde | Título | `‹ ›` anda | Escala |
+|---|---|---|---|---|
+| `timeline` | *o que depende do quê* | o intervalo ("31 ago – 2 nov 2026") | meia janela | ✅ |
+| `calendar` | *o que acontece no dia 12* | o **mês** ("outubro 2026") | **1 mês** | ⛔ some |
+
+A toolbar **muda com a visão**, não só o conteúdo. O título de `calendar` é o mês
+porque a grade é de um mês — anunciar 64 dias sobre uma grade que mostra 31 seria
+o título mentindo. O `‹ ›` anda um mês exato ali (meia janela poderia cair no
+mesmo mês, e o botão não faria o que o título promete). E a escala **desaparece**:
+"Dia/Semana/Mês/Trimestre" é a densidade do eixo horizontal, e na grade de mês não
+há eixo pra adensar — controle que não muda nada é a mesma classe de defeito do
+toggle de crítico sem vínculo.
+
+⚠️ A escala **não é resetada** ao esconder: voltando pra timeline, o zoom que
+estava selecionado continua. Zerar faria trocar de visão e voltar perder trabalho
+do usuário.
 
 O seletor fica na toolbar (dois segmentos, não dropdown — são só duas). `view` +
 `onViewChange` controlam de fora; omitidos, o componente guarda em estado próprio.
@@ -283,8 +295,19 @@ semana vira dois segmentos com a ponta cortada marcada (mesmo vocabulário
 tarefas de um dia em vez de uma de seis.
 
 `onDayAdd` liga o **"+" no hover da célula**. Sem o handler o botão não é
-renderizado — um "+" que não adiciona nada é pior que a ausência dele. Ele recebe
-o dia à meia-noite local; quem cria a tarefa é você.
+renderizado — um "+" que não adiciona nada é pior que a ausência dele.
+
+⚠️ Ele significa **"o usuário pediu pra adicionar no dia X"**, não "adicione
+isto". Abra seu drawer/modal com os campos que a SUA tela precisa (nome, cor,
+responsável, duração) e crie a linha no salvar — mesma divisão do `onBarClick`,
+que devolve o payload e deixa a ficha pra você. O `GanttFullPreview` mostra o
+drawer completo com `FormFieldInput`/`FormFieldSelect`.
+
+⛔ Não ofereça "escolha uma cor" por NOME DE COR no seu formulário. A cor da barra
+diz CATEGORIA (qual frente), e um seletor de "verde/roxo" convida o usuário a usar
+cor como STATUS — que é exatamente a assumption que este componente declara.
+Rotule as opções pela frente ("Design", "Engenharia") e mapeie pra `colorKey` por
+dentro.
 
 ⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos
 filhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a

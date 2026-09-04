@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · accordion · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · alert-dialog · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · alert-modal · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · alert · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · app-shell · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · aspect-ratio · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · avatar-ig · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · avatar · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · badge · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · breadcrumb · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · button-group · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · button · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · calendar · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · card-checkbox · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · card-option · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · card · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · carousel · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · chart · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · checkbox · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · chip · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · choropleth-map · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · collapsible · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · color-picker · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · combobox · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · command · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · context-menu · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · data-list · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · data-table · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · date-picker · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · dialog · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · drawer · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · dropdown-menu · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · empty-state · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-app-shell · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-chat · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-clientes · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-dashboard · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-edit-page · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-finance · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2756,7 +2756,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-login · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2813,7 +2813,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-mapa-rede · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2894,7 +2894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · example-order-detail · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -2944,7 +2944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · file-upload-field · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3012,7 +3012,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · floating-panel · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3054,7 +3054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · footer-table · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3140,7 +3140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · form-field · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3172,7 +3172,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Gantt/gantt.tsx",
-        "content": "import {\n  forwardRef,\n  useCallback,\n  useEffect,\n  useImperativeHandle,\n  useMemo,\n  useRef,\n  useState,\n  type UIEvent,\n} from \"react\";\nimport { addDays, differenceInCalendarDays, format, startOfDay } from \"date-fns\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  ganttBody,\n  ganttCanvasScroll,\n  ganttEmpty,\n  ganttEmptyText,\n  ganttGridPane,\n  ganttRoot,\n  ganttSplitter,\n  ganttTimelinePane,\n  GANTT_LANE_HEIGHT_PX,\n  GANTT_PX_PER_DAY,\n  GANTT_ROW_HEIGHT_PX,\n  GANTT_WINDOW_DAYS,\n} from \"./gantt.styles\";\nimport { GanttToolbar } from \"./parts/gantt-toolbar\";\nimport { GanttFilterPanel } from \"./parts/gantt-filter-panel\";\nimport { GANTT_DEFAULT_COLUMNS, GanttGrid } from \"./parts/gantt-grid\";\nimport { GanttCalendarView } from \"./views/calendar\";\nimport { GanttTimelineView } from \"./views/timeline\";\nimport {\n  dateToX,\n  deriveWindow,\n  flattenRows,\n  rowHeights,\n  rowOffsets,\n  xToDate,\n  type GanttFlatRow,\n} from \"./hooks/layout\";\nimport { checkAllLinks, computeCriticalPath } from \"./hooks/links\";\nimport {\n  aplicarFiltros,\n  campoVazio,\n  contarAplicados,\n  parseDiaISO,\n} from \"./hooks/filters\";\nimport type {\n  GanttBar,\n  GanttFilterModel,\n  GanttProps,\n  GanttRef,\n} from \"./gantt.types\";\n\n/**\n * `Gantt` — cronograma de projeto com vínculos.\n *\n * Spec: `.ai/specs/gantt-componente-de-cronograma.md`.\n *\n * ## O que ele NÃO faz, e é decisão\n *\n * Não reagenda nada. Arrastar emite `onBarMove`; vínculo violado emite\n * `onLinkViolations`. Quem aplica é o consumidor — o DS é dumb sobre mutação, e\n * aqui isso vale em dobro: datas reescritas sozinhas parecem dados, e o erro\n * seria invisível.\n *\n * ## Janela é do consumidor\n *\n * `windowStart`/`windowEnd` vêm por prop. As setas `‹ ›` chamam o callback do\n * consumidor quando ele controla; sem as props, o componente mantém a janela em\n * estado próprio como conveniência — derivada dos dados na primeira montagem.\n */\nexport const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(\n  {\n    rows,\n    links = [],\n    view: viewProp,\n    onViewChange,\n    windowStart: wsProp,\n    windowEnd: weProp,\n    granularity: granProp,\n    columns,\n    gridWidth: gridWidthProp = 360,\n    draggable = false,\n    resizable = false,\n    linkable = false,\n    criticalPath: criticalProp = false,\n    criticalPathToggle = true,\n    onGraphError,\n    onLinkViolations,\n    searchable = false,\n    filterFields,\n    filterModel,\n    onFilterModelChange,\n    onBarClick,\n    onRowClick,\n    /**\n     * ⚠️ Estes quatro estavam DECLARADOS no tipo e nunca desestruturados aqui —\n     * a raiz não os recebia. Era superfície de API sem nada por trás: os punhos\n     * e as portas renderizavam, acessíveis, e o gesto não existia.\n     */\n    onBarMove,\n    onBarResize,\n    onLinkCreate,\n    onLinkDelete,\n    onDayAdd,\n    onRowToggle,\n    now = new Date(),\n    locale,\n    weekStartsOn = 0,\n    toolbarActions,\n    primaryAction,\n    emptyState,\n    className,\n  },\n  ref,\n) {\n  /* ── estado local só onde a prop não controla ─────────────────── */\n  const [viewLocal, setViewLocal] = useState(viewProp ?? \"timeline\");\n  const view = viewProp ?? viewLocal;\n\n  const [granLocal, setGranLocal] = useState(granProp ?? \"day\");\n  const granularity = granProp ?? granLocal;\n\n  const [criticalLocal, setCriticalLocal] = useState(criticalProp);\n  const criticalPath = criticalLocal;\n\n  const [busca, setBusca] = useState(\"\");\n  /**\n   * `filterModel` local pro caso não-controlado.\n   *\n   * Com `filterFields` mas sem `filterModel`, o dropdown precisa guardar as\n   * marcações em algum lugar — senão marcar não faz nada, e um filtro que não\n   * filtra é pior que a ausência dele.\n   */\n  const [filterLocal, setFilterLocal] = useState<GanttFilterModel>({});\n  const [colapsadas, setColapsadas] = useState<Set<string>>(() => new Set());\n  const [gridWidth, setGridWidth] = useState(gridWidthProp);\n  const [arrastandoDivisor, setArrastandoDivisor] = useState(false);\n\n  /**\n   * Janela: derivada dos dados na primeira montagem quando o consumidor não\n   * controla. `useState` com inicializador e não `useMemo`, porque ela é\n   * ESTADO — as setas de navegação a movem — e não valor derivado.\n   */\n  const [janelaLocal, setJanelaLocal] = useState(() =>\n    deriveWindow(rows, granProp ?? \"day\"),\n  );\n  const windowStart = wsProp ?? janelaLocal.start;\n  const windowEnd = weProp ?? janelaLocal.end;\n\n  const pxPerDay = GANTT_PX_PER_DAY[granularity];\n\n  /** Controlado vence o local — o consumidor manda quando ele participa. */\n  const modeloEfetivo = filterModel ?? filterLocal;\n\n  const aplicarModelo = useCallback(\n    (proximo: GanttFilterModel) => {\n      setFilterLocal(proximo);\n      onFilterModelChange?.(proximo);\n    },\n    [onFilterModelChange],\n  );\n\n  /** Marca ou desmarca um grupo inteiro — o \"selecionar todas\" do painel. */\n  const definirValores = useCallback(\n    (fieldId: string, values: string[]) => {\n      aplicarModelo({ ...modeloEfetivo, [fieldId]: values });\n    },\n    [modeloEfetivo, aplicarModelo],\n  );\n\n  const alternarValor = useCallback(\n    (fieldId: string, value: string) => {\n      const atuais = modeloEfetivo[fieldId] ?? [];\n      const proximas = atuais.includes(value)\n        ? atuais.filter((v) => v !== value)\n        : [...atuais, value];\n      aplicarModelo({ ...modeloEfetivo, [fieldId]: proximas });\n    },\n    [modeloEfetivo, aplicarModelo],\n  );\n\n  /* ── busca + filtro ──────────────────────────────────────────── */\n  const rowsFiltradas = useMemo(() => {\n    let saida = rows;\n\n    const termo = busca.trim().toLowerCase();\n    if (termo) {\n      /**\n       * Casar numa linha mantém os ANCESTRAIS dela visíveis.\n       *\n       * Sem isso, buscar uma tarefa a arranca da hierarquia e ela aparece solta\n       * na raiz — o usuário perde a informação de qual fase ela pertence, que é\n       * metade do valor de um Gantt hierárquico.\n       */\n       const casa = (r: (typeof rows)[number]) => {\n        const alvo = [\n          r.searchText,\n          typeof r.label === \"string\" ? r.label : \"\",\n          typeof r.sublabel === \"string\" ? r.sublabel : \"\",\n          ...r.bars.map((b) => b.searchText ?? \"\"),\n        ]\n          .join(\" \")\n          .toLowerCase();\n        return alvo.includes(termo);\n      };\n\n      const porId = new Map(rows.map((r) => [r.id, r]));\n      const manter = new Set<string>();\n      for (const r of rows) {\n        if (!casa(r)) continue;\n        manter.add(r.id);\n        let pai = r.parent;\n        let guarda = 0;\n        while (pai && guarda < 50) {\n          if (manter.has(pai)) break;\n          manter.add(pai);\n          pai = porId.get(pai)?.parent;\n          guarda++;\n        }\n      }\n      saida = saida.filter((r) => manter.has(r.id));\n    }\n\n    /**\n     * Os 6 tipos de filtro vivem no núcleo puro (`hooks/filters.ts`), testado.\n     *\n     * ⚠️ Aqui havia o predicado inline de UM tipo só (interseção de strings) —\n     * era o que limitava o componente a multi-seleção. Texto, faixa numérica e\n     * período não eram expressáveis.\n     *\n     * A convenção \"vazio = SEM filtro\" (não \"esconde tudo\") mudou de lugar mas\n     * não de valor: mora no `campoVazio`, que sabe que `[\"\", \"\"]` de um campo\n     * de faixa tem length 2 e zero intenção de filtrar.\n     */\n    saida = aplicarFiltros(saida, filterFields, modeloEfetivo);\n\n    return saida;\n  }, [rows, busca, filterFields, modeloEfetivo]);\n\n  const flat: GanttFlatRow[] = useMemo(\n    () => flattenRows(rowsFiltradas, colapsadas),\n    [rowsFiltradas, colapsadas],\n  );\n\n  /**\n   * #2 — alturas e offsets calculados AQUI, uma vez, e passados aos dois\n   * painéis.\n   *\n   * Era o defeito: a grade usava a constante pra toda linha e o canvas somava\n   * lanes. Uma linha-contêiner com 3 barras saía 98px de um lado e 48 do\n   * outro, com o nome desalinhado das barras dali pra baixo (L-038).\n   */\n  const alturas = useMemo(\n    () => rowHeights(flat, GANTT_ROW_HEIGHT_PX, GANTT_LANE_HEIGHT_PX),\n    [flat],\n  );\n  const offsets = useMemo(() => rowOffsets(alturas), [alturas]);\n\n  /**\n   * Contagem por opção de filtro.\n   *\n   * ⚠️ Conta sobre `rows` (todas), não sobre `rowsFiltradas`: se contasse o\n   * filtrado, marcar uma opção zeraria as irmãs dela e o usuário não teria\n   * como saber que existem — o filtro se fecharia sobre si mesmo.\n   */\n  const contagens = useMemo(() => {\n    const saida: Record<string, Record<string, number>> = {};\n    for (const campo of filterFields ?? []) {\n      const kind = campo.kind ?? \"multi\";\n      /**\n       * ⚠️ Contagem por opção só existe onde HÁ opções.\n       *\n       * Em `text`/`number`/`date` o valor é contínuo: não há o que contar por\n       * chave, e tentar produzia um mapa com uma entrada por valor distinto do\n       * dado (\"6d\": 1, \"7d\": 1, …) — lixo que o painel renderizaria como se\n       * fosse contagem de opção.\n       */\n      if (kind !== \"multi\" && kind !== \"single\" && kind !== \"boolean\") continue;\n      const porOpcao: Record<string, number> = {};\n      for (const r of rows) {\n        const v = campo.accessor(r);\n        if (v === undefined || v === null) continue;\n        for (const x of Array.isArray(v) ? v : [v]) {\n          const chave = String(x);\n          porOpcao[chave] = (porOpcao[chave] ?? 0) + 1;\n        }\n      }\n      saida[campo.id] = porOpcao;\n    }\n    return saida;\n  }, [rows, filterFields]);\n\n  /* ── grafo ───────────────────────────────────────────────────── */\n  const todasBarras = useMemo(() => {\n    const lista: GanttBar[] = [];\n    for (const r of rows) lista.push(...r.bars);\n    return lista;\n  }, [rows]);\n\n  const mapaBarras = useMemo(\n    () => new Map(todasBarras.map((b) => [b.id, b])),\n    [todasBarras],\n  );\n\n  const violacoes = useMemo(\n    () => checkAllLinks(links, mapaBarras),\n    [links, mapaBarras],\n  );\n\n  const conflictBarIds = useMemo(\n    () => new Set(violacoes.map((v) => v.link.target)),\n    [violacoes],\n  );\n\n  /**\n   * ⚠️ Emitir num `useEffect` e não no `useMemo`.\n   *\n   * Chamar callback do consumidor durante o cálculo do memo é efeito colateral\n   * na fase de render — em StrictMode roda duas vezes, e um `setState` do lado\n   * do consumidor viraria loop.\n   */\n  const violacoesRef = useRef<string>(\"\");\n  useEffect(() => {\n    const assinatura = violacoes.map((v) => `${v.link.id}:${v.deficitDays}`).join(\"|\");\n    if (assinatura === violacoesRef.current) return;\n    violacoesRef.current = assinatura;\n    onLinkViolations?.(violacoes);\n  }, [violacoes, onLinkViolations]);\n\n  const criticalBarIds = useMemo(() => {\n    if (!criticalPath || links.length === 0) return new Set<string>();\n    const r = computeCriticalPath(todasBarras, links);\n    if (\"cycle\" in r) return new Set<string>();\n    return r.critical;\n  }, [criticalPath, links, todasBarras]);\n\n  /** Ciclo é resultado, não exceção — vai pro callback e o crítico não pinta. */\n  const cicloRef = useRef<string>(\"\");\n  useEffect(() => {\n    if (!criticalPath || links.length === 0) return;\n    const r = computeCriticalPath(todasBarras, links);\n    if (!(\"cycle\" in r)) {\n      cicloRef.current = \"\";\n      return;\n    }\n    const assinatura = r.cycle.join(\"|\");\n    if (assinatura === cicloRef.current) return;\n    cicloRef.current = assinatura;\n    onGraphError?.({ kind: \"cycle\", barIds: r.cycle });\n  }, [criticalPath, links, todasBarras, onGraphError]);\n\n  /**\n   * #3 — hover CRUZADO. A linha e a coluna sob o cursor acendem nos DOIS\n   * painéis, e isso não é possível só com `:hover`: nenhum seletor CSS alcança\n   * um irmão de outro contêiner. O índice mora aqui, no ancestral comum.\n   */\n  const [hoveredRow, setHoveredRow] = useState<number | null>(null);\n  /** #7 — linha selecionada por clique, no verde da marca. */\n  const [selectedRow, setSelectedRow] = useState<number | null>(null);\n  /** #2 — coluna selecionada por clique no cabeçalho do dia. */\n  const [selectedDay, setSelectedDay] = useState<number | null>(null);\n  /** #4 — o filtro agora é painel lateral, com estado de abertura. */\n  const [filtroAberto, setFiltroAberto] = useState(false);\n  const [hoveredDay, setHoveredDay] = useState<number | null>(null);\n\n  /* ── scroll espelhado entre os painéis ───────────────────────── */\n  const [scrollTop, setScrollTop] = useState(0);\n  const aoRolar = useCallback((e: UIEvent<HTMLDivElement>) => {\n    setScrollTop(e.currentTarget.scrollTop);\n  }, []);\n\n  /* ── divisor arrastável ──────────────────────────────────────── */\n  const bodyRef = useRef<HTMLDivElement>(null);\n  const scrollerRef = useRef<HTMLDivElement>(null);\n\n  /**\n   * Instante do tempo pra recentrar a viewport, pendente até o próximo layout.\n   *\n   * Trocar de escala muda `pxPerDay` E a janela; o `scrollLeft` que traduzia\n   * \"estou olhando setembro\" na escala antiga não significa nada na nova. Sem\n   * recentrar, mudar pra trimestre deixava o usuário em 2024 numa janela de 5\n   * anos cujos dados vivem em 2026 — canvas vazio, e nada dizendo onde estava\n   * o trabalho.\n   *\n   * ⚠️ Estado + efeito, e não `scrollLeft` direto no handler: no momento do\n   * clique o DOM ainda tem a largura ANTIGA do trilho. Atribuir ali seria\n   * medir a escala velha pra posicionar na nova.\n   */\n  const [centrarEm, setCentrarEm] = useState<Date | null>(null);\n\n  useEffect(() => {\n    if (!centrarEm) return;\n    const el = scrollerRef.current;\n    if (!el) return;\n    const x = dateToX(centrarEm, windowStart, pxPerDay);\n    el.scrollLeft = Math.max(0, x - el.clientWidth / 2);\n    setCentrarEm(null);\n  }, [centrarEm, windowStart, pxPerDay]);\n  useEffect(() => {\n    if (!arrastandoDivisor) return;\n    const mover = (e: PointerEvent) => {\n      const caixa = bodyRef.current?.getBoundingClientRect();\n      if (!caixa) return;\n      // Piso de 180px e teto de 60% da largura: abaixo do piso a coluna do nome\n      // não cabe, e acima do teto o cronograma — que é o ponto do componente —\n      // fica menor que a grade.\n      const bruto = e.clientX - caixa.left;\n      setGridWidth(Math.min(Math.max(180, bruto), caixa.width * 0.6));\n    };\n    const soltar = () => setArrastandoDivisor(false);\n    window.addEventListener(\"pointermove\", mover);\n    window.addEventListener(\"pointerup\", soltar);\n    return () => {\n      window.removeEventListener(\"pointermove\", mover);\n      window.removeEventListener(\"pointerup\", soltar);\n    };\n  }, [arrastandoDivisor]);\n\n  /* ── navegação de janela ─────────────────────────────────────── */\n  const larguraJanelaDias =\n    differenceInCalendarDays(startOfDay(windowEnd), startOfDay(windowStart)) + 1;\n\n  const mover = useCallback(\n    (dias: number) => {\n      // Só mexe no estado local: quando o consumidor controla a janela, mover\n      // é decisão dele — e sobrescrever a prop faria o componente lutar contra\n      // o próprio consumidor no próximo render.\n      if (wsProp || weProp) return;\n      setJanelaLocal((j) => ({\n        start: addDays(j.start, dias),\n        end: addDays(j.end, dias),\n      }));\n    },\n    [wsProp, weProp],\n  );\n\n  useImperativeHandle(\n    ref,\n    (): GanttRef => ({\n      goToDate: (date) => {\n        if (wsProp || weProp) return;\n        const meio = Math.floor(larguraJanelaDias / 2);\n        setJanelaLocal({\n          start: addDays(startOfDay(date), -meio),\n          end: addDays(startOfDay(date), larguraJanelaDias - meio - 1),\n        });\n      },\n      goToToday: () => {\n        if (wsProp || weProp) return;\n        const meio = Math.floor(larguraJanelaDias / 2);\n        setJanelaLocal({\n          start: addDays(startOfDay(now), -meio),\n          end: addDays(startOfDay(now), larguraJanelaDias - meio - 1),\n        });\n      },\n      expandAll: () => setColapsadas(new Set()),\n      collapseAll: () =>\n        setColapsadas(new Set(rows.filter((r) => r.parent === undefined).map((r) => r.id))),\n    }),\n    [wsProp, weProp, larguraJanelaDias, now, rows],\n  );\n\n  const titulo = useMemo(() => {\n    const mesmoAno = windowStart.getFullYear() === windowEnd.getFullYear();\n    const a = format(windowStart, mesmoAno ? \"d MMM\" : \"d MMM yyyy\", { locale });\n    const b = format(windowEnd, \"d MMM yyyy\", { locale });\n    return `${a} – ${b}`;\n  }, [windowStart, windowEnd, locale]);\n\n  /**\n   * Formata o ISO de um filtro `date` pro chip.\n   *\n   * Vive na raiz porque é onde o `locale` está — o chip mostraria\n   * \"2026-09-01\" a um usuário pt-BR se formatasse por conta própria, e uma\n   * segunda decisão de formato de data no mesmo componente é como duas fontes\n   * divergem (L-038).\n   */\n  const formatarDataDeFiltro = useCallback(\n    (iso: string) => {\n      /**\n       * ⚠️ `parseDiaISO` e NÃO `new Date(iso)` — o MESMO parser que o\n       * predicado usa. Com `new Date`, o chip mostraria 29/09 pra um filtro\n       * de 30/09 (ISO date-only é UTC; aqui é UTC−3) enquanto o filtro\n       * casaria 30/09 corretamente: duas fontes pra mesma data divergindo em\n       * um dia, que é a L-038 no pior formato — o chip mentiria sobre o que o\n       * filtro está fazendo.\n       */\n      const d = parseDiaISO(iso);\n      if (!d) return iso;\n      return format(d, \"dd/MM/yy\", { locale });\n    },\n    [locale],\n  );\n\n  const colunas = columns ?? GANTT_DEFAULT_COLUMNS;\n  /**\n   * ⚠️ Não é `Object.values(modelo).filter(v => v.length > 0)`.\n   *\n   * Um campo de faixa guarda `[\"\", \"\"]` — length 2 com zero intenção de\n   * filtrar. A conta antiga daria 1 filtro ativo, com o badge aceso e o\n   * \"Limpar tudo\" habilitado sobre nada.\n   */\n  const appliedCount = contarAplicados(filterFields, modeloEfetivo);\n\n  return (\n    <div className={cn(ganttRoot(), className)}>\n      <GanttToolbar\n        title={titulo}\n        onPrev={() => mover(-Math.max(1, Math.floor(larguraJanelaDias / 2)))}\n        onNext={() => mover(Math.max(1, Math.floor(larguraJanelaDias / 2)))}\n        onToday={() => {\n          if (wsProp || weProp) return;\n          const meio = Math.floor(larguraJanelaDias / 2);\n          setJanelaLocal({\n            start: addDays(startOfDay(now), -meio),\n            end: addDays(startOfDay(now), larguraJanelaDias - meio - 1),\n          });\n        }}\n        view={view}\n        /**\n         * Controlado vence o local — e o callback dispara nos DOIS casos.\n         *\n         * ⚠️ `onViewChange` era desestruturado e nunca chamado: `view` só\n         * mudava por prop, então a visão de calendário seria inalcançável pela\n         * UI mesmo depois de construída.\n         */\n        onViewChange={(v) => {\n          if (viewProp === undefined) setViewLocal(v);\n          onViewChange?.(v);\n        }}\n        granularity={granularity}\n        onGranularityChange={(g) => {\n          // Que instante do tempo está no meio da viewport AGORA — antes de\n          // `pxPerDay` mudar e o número perder o sentido.\n          const el = scrollerRef.current;\n          if (el) {\n            setCentrarEm(\n              xToDate(el.scrollLeft + el.clientWidth / 2, windowStart, pxPerDay),\n            );\n          }\n          setGranLocal(g);\n          /**\n           * #9 — a janela ACOMPANHA a escala.\n           *\n           * Sem isto, trocar pra trimestre mantinha os ~60 dias e o cronograma\n           * inteiro colapsava numa tira de 128px (medido: 60 dias × 2px/dia).\n           * Escolher escala mais grossa é pedir pra ver MAIS TEMPO — não a\n           * mesma janela comprimida.\n           *\n           * Só mexe no estado local: quando o consumidor controla a janela,\n           * mudar de escala não pode sobrescrever a decisão dele.\n           */\n          if (wsProp || weProp) return;\n          const dias = GANTT_WINDOW_DAYS[g];\n          /**\n           * #5a — a janela da escala é um PISO, e o cronograma é o outro.\n           *\n           * A janela centrada da escala (60 dias em `day`) podia ser MENOR que o\n           * cronograma: voltar de \"trimestre\" pra \"dia\" recentrava em 60 dias e\n           * **cortava as duas pontas** — as barras do fim desapareciam sem nada\n           * dizer que havia mais. Medido no exemplo: 64 dias de dados, 60 de\n           * janela, 2 dias perdidos em cada ponta.\n           *\n           * A correção é a UNIÃO da janela centrada com a extensão dos dados\n           * (`deriveWindow`, a MESMA função que decide a janela na primeira\n           * montagem), e não um `max` de larguras. União porque ela é\n           * **idempotente e reversível**: day→quarter→day devolve exatamente a\n           * janela original, enquanto recentrar numa largura maior desloca a\n           * janela em 1 dia a cada volta pelo arredondamento do meio.\n           */\n          const extensao = deriveWindow(rows, g);\n          setJanelaLocal((j) => {\n            // Mantém o CENTRO: o usuário estava olhando um ponto do tempo, e\n            // trocar a escala não deve teleportá-lo pra outro lugar.\n            const meio = addDays(\n              startOfDay(j.start),\n              Math.floor(\n                differenceInCalendarDays(startOfDay(j.end), startOfDay(j.start)) / 2,\n              ),\n            );\n            const start = addDays(meio, -Math.floor(dias / 2));\n            const end = addDays(meio, dias - Math.floor(dias / 2) - 1);\n            return {\n              start: extensao.start < start ? extensao.start : start,\n              end: extensao.end > end ? extensao.end : end,\n            };\n          });\n        }}\n        searchable={searchable}\n        search={busca}\n        onSearchChange={setBusca}\n        filterFields={filterFields}\n        onOpenFilterPanel={() => setFiltroAberto(true)}\n        appliedCount={appliedCount}\n        filterModel={modeloEfetivo}\n        onClearField={(id) => definirValores(id, [])}\n        onClearAll={() => aplicarModelo({})}\n        onToggleFilterValue={alternarValor}\n        filterCounts={contagens}\n        formatFilterDate={formatarDataDeFiltro}\n        hasLinks={links.length > 0}\n        showCriticalToggle={criticalPathToggle}\n        criticalPath={criticalPath}\n        onToggleCriticalPath={() => setCriticalLocal((v) => !v)}\n        toolbarActions={toolbarActions}\n        primaryAction={primaryAction}\n      />\n\n      <div\n        ref={bodyRef}\n        className={ganttBody({ framed: view === \"timeline\" })}\n        role=\"region\"\n        aria-label={`Cronograma, ${titulo}`}\n      >\n        {flat.length === 0 ? (\n          <div className={ganttEmpty()}>\n            {emptyState ?? (\n              <span className={ganttEmptyText()}>\n                Nenhuma tarefa neste período.\n              </span>\n            )}\n          </div>\n        ) : (\n          <>\n            {/*\n              ⚠️ A grade e o divisor existem SÓ na `timeline`.\n\n              Na grade de mês não há eixo horizontal pra a coluna de nomes\n              acompanhar — ela seria uma lista de tarefas ao lado de um\n              calendário, sem relação de linha entre as duas metades, roubando\n              460px de uma grade que precisa de largura pra os chips caberem.\n              O nome da tarefa está no próprio chip.\n            */}\n            {view === \"timeline\" ? (\n              <>\n            <div className={ganttGridPane()} style={{ width: gridWidth }}>\n              <GanttGrid\n                rows={flat}\n                columns={colunas}\n                heights={alturas}\n                scrollTop={scrollTop}\n                locale={locale}\n                hoveredRow={hoveredRow}\n                onHoverRow={setHoveredRow}\n                selectedRow={selectedRow}\n                onRowToggle={(id, colapsar) => {\n                  setColapsadas((prev) => {\n                    const proximo = new Set(prev);\n                    if (colapsar) proximo.add(id);\n                    else proximo.delete(id);\n                    return proximo;\n                  });\n                  onRowToggle?.(id, colapsar);\n                }}\n                onRowClick={(row, e) => {\n                  const i = flat.findIndex((f) => f.row.id === row.id);\n                  // Clicar na linha já selecionada DESSELECIONA: sem isso não\n                  // há como voltar ao estado neutro sem recarregar.\n                  setSelectedRow((atual) => (atual === i ? null : i));\n                  onRowClick?.(row, e);\n                }}\n              />\n            </div>\n\n            <div\n              role=\"separator\"\n              aria-orientation=\"vertical\"\n              aria-label=\"Redimensionar a grade\"\n              tabIndex={0}\n              className={ganttSplitter({ active: arrastandoDivisor })}\n              onPointerDown={() => setArrastandoDivisor(true)}\n              onKeyDown={(e) => {\n                // Teclado move o divisor em passos de 16px — sem isso ele é\n                // inalcançável sem ponteiro.\n                if (e.key === \"ArrowLeft\") setGridWidth((w) => Math.max(180, w - 16));\n                if (e.key === \"ArrowRight\") setGridWidth((w) => w + 16);\n              }}\n            />\n              </>\n            ) : null}\n\n            <div className={ganttTimelinePane()}>\n              {view === \"timeline\" ? (\n                <GanttTimelineView\n                  rows={flat}\n                  allRows={rows}\n                  links={links}\n                  windowStart={windowStart}\n                  windowEnd={windowEnd}\n                  granularity={granularity}\n                  pxPerDay={pxPerDay}\n                  heights={alturas}\n                  offsets={offsets}\n                  now={now}\n                  locale={locale}\n                  weekStartsOn={weekStartsOn}\n                  conflictBarIds={conflictBarIds}\n                  criticalBarIds={criticalBarIds}\n                  draggable={draggable}\n                  resizable={resizable}\n                  linkable={linkable}\n                  hoveredRow={hoveredRow}\n                  onHoverRow={setHoveredRow}\n                  hoveredDay={hoveredDay}\n                  onHoverDay={setHoveredDay}\n                  selectedRow={selectedRow}\n                  selectedDay={selectedDay}\n                  onSelectDay={setSelectedDay}\n                  onBarMove={onBarMove}\n                  onBarResize={onBarResize}\n                  onLinkCreate={onLinkCreate}\n                  onLinkClick={onLinkDelete}\n                  onScroll={aoRolar}\n                  scrollRef={scrollerRef}\n                  onBarClick={onBarClick}\n                />\n              ) : (\n                /*\n                  ⚠️ O mês âncora é o MEIO da janela, e chegar nisso custou uma\n                  medição.\n\n                  Não é `now`: aí navegar com `‹ ›` moveria a janela e a grade\n                  ficaria parada — as duas visões falariam de períodos\n                  diferentes, e trocar de visão teleportaria o usuário.\n\n                  E não é `windowStart`, que foi a primeira tentativa. A janela\n                  derivada começa UM DIA ANTES da primeira barra, então o mês\n                  âncora caía no mês anterior ao trabalho: medido no exemplo,\n                  `windowStart` = 31/ago abria agosto com **5 células ocupadas\n                  de 42** enquanto os dados viviam em set–nov.\n\n                  O meio da janela é onde a massa do cronograma está, acompanha\n                  o `‹ ›` e nunca cai num mês de borda.\n                */\n                <GanttCalendarView\n                  rows={flat}\n                  anchor={addDays(\n                    startOfDay(windowStart),\n                    Math.floor(larguraJanelaDias / 2),\n                  )}\n                  weekStartsOn={weekStartsOn}\n                  now={now}\n                  locale={locale}\n                  conflictBarIds={conflictBarIds}\n                  criticalBarIds={criticalBarIds}\n                  onBarClick={onBarClick}\n                  onDayAdd={onDayAdd}\n                />\n              )}\n            </div>\n          </>\n        )}\n      </div>\n\n      {/*\n        O painel de filtro vive FORA do `ganttBody` porque o `FloatingPanel` se\n        posiciona sozinho (fixed + portal). Dentro do body ele herdaria o\n        `flex` e o `overflow-hidden` do contêiner dos dois painéis.\n      */}\n      {filterFields && filterFields.length > 0 ? (\n        <GanttFilterPanel\n          open={filtroAberto}\n          onOpenChange={setFiltroAberto}\n          fields={filterFields}\n          model={modeloEfetivo}\n          onToggleValue={alternarValor}\n          onSetFieldValues={definirValores}\n          onClearAll={() => aplicarModelo({})}\n          appliedCount={appliedCount}\n          counts={contagens}\n        />\n      ) : null}\n    </div>\n  );\n});\n",
+        "content": "import {\n  forwardRef,\n  useCallback,\n  useEffect,\n  useImperativeHandle,\n  useMemo,\n  useRef,\n  useState,\n  type UIEvent,\n} from \"react\";\nimport {\n  addDays,\n  addMonths,\n  differenceInCalendarDays,\n  format,\n  startOfDay,\n} from \"date-fns\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  ganttBody,\n  ganttCanvasScroll,\n  ganttEmpty,\n  ganttEmptyText,\n  ganttGridPane,\n  ganttRoot,\n  ganttSplitter,\n  ganttTimelinePane,\n  GANTT_LANE_HEIGHT_PX,\n  GANTT_PX_PER_DAY,\n  GANTT_ROW_HEIGHT_PX,\n  GANTT_WINDOW_DAYS,\n} from \"./gantt.styles\";\nimport { GanttToolbar } from \"./parts/gantt-toolbar\";\nimport { GanttFilterPanel } from \"./parts/gantt-filter-panel\";\nimport { GANTT_DEFAULT_COLUMNS, GanttGrid } from \"./parts/gantt-grid\";\nimport { GanttCalendarView } from \"./views/calendar\";\nimport { GanttTimelineView } from \"./views/timeline\";\nimport {\n  dateToX,\n  deriveWindow,\n  flattenRows,\n  rowHeights,\n  rowOffsets,\n  xToDate,\n  type GanttFlatRow,\n} from \"./hooks/layout\";\nimport { checkAllLinks, computeCriticalPath } from \"./hooks/links\";\nimport {\n  aplicarFiltros,\n  campoVazio,\n  contarAplicados,\n  parseDiaISO,\n} from \"./hooks/filters\";\nimport type {\n  GanttBar,\n  GanttFilterModel,\n  GanttProps,\n  GanttRef,\n} from \"./gantt.types\";\n\n/**\n * `Gantt` — cronograma de projeto com vínculos.\n *\n * Spec: `.ai/specs/gantt-componente-de-cronograma.md`.\n *\n * ## O que ele NÃO faz, e é decisão\n *\n * Não reagenda nada. Arrastar emite `onBarMove`; vínculo violado emite\n * `onLinkViolations`. Quem aplica é o consumidor — o DS é dumb sobre mutação, e\n * aqui isso vale em dobro: datas reescritas sozinhas parecem dados, e o erro\n * seria invisível.\n *\n * ## Janela é do consumidor\n *\n * `windowStart`/`windowEnd` vêm por prop. As setas `‹ ›` chamam o callback do\n * consumidor quando ele controla; sem as props, o componente mantém a janela em\n * estado próprio como conveniência — derivada dos dados na primeira montagem.\n */\nexport const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(\n  {\n    rows,\n    links = [],\n    view: viewProp,\n    onViewChange,\n    windowStart: wsProp,\n    windowEnd: weProp,\n    granularity: granProp,\n    columns,\n    gridWidth: gridWidthProp = 360,\n    draggable = false,\n    resizable = false,\n    linkable = false,\n    criticalPath: criticalProp = false,\n    criticalPathToggle = true,\n    onGraphError,\n    onLinkViolations,\n    searchable = false,\n    filterFields,\n    filterModel,\n    onFilterModelChange,\n    onBarClick,\n    onRowClick,\n    /**\n     * ⚠️ Estes quatro estavam DECLARADOS no tipo e nunca desestruturados aqui —\n     * a raiz não os recebia. Era superfície de API sem nada por trás: os punhos\n     * e as portas renderizavam, acessíveis, e o gesto não existia.\n     */\n    onBarMove,\n    onBarResize,\n    onLinkCreate,\n    onLinkDelete,\n    onDayAdd,\n    onRowToggle,\n    now = new Date(),\n    locale,\n    weekStartsOn = 0,\n    toolbarActions,\n    primaryAction,\n    emptyState,\n    className,\n  },\n  ref,\n) {\n  /* ── estado local só onde a prop não controla ─────────────────── */\n  const [viewLocal, setViewLocal] = useState(viewProp ?? \"timeline\");\n  const view = viewProp ?? viewLocal;\n\n  const [granLocal, setGranLocal] = useState(granProp ?? \"day\");\n  const granularity = granProp ?? granLocal;\n\n  const [criticalLocal, setCriticalLocal] = useState(criticalProp);\n  const criticalPath = criticalLocal;\n\n  const [busca, setBusca] = useState(\"\");\n  /**\n   * `filterModel` local pro caso não-controlado.\n   *\n   * Com `filterFields` mas sem `filterModel`, o dropdown precisa guardar as\n   * marcações em algum lugar — senão marcar não faz nada, e um filtro que não\n   * filtra é pior que a ausência dele.\n   */\n  const [filterLocal, setFilterLocal] = useState<GanttFilterModel>({});\n  const [colapsadas, setColapsadas] = useState<Set<string>>(() => new Set());\n  const [gridWidth, setGridWidth] = useState(gridWidthProp);\n  const [arrastandoDivisor, setArrastandoDivisor] = useState(false);\n\n  /**\n   * Janela: derivada dos dados na primeira montagem quando o consumidor não\n   * controla. `useState` com inicializador e não `useMemo`, porque ela é\n   * ESTADO — as setas de navegação a movem — e não valor derivado.\n   */\n  const [janelaLocal, setJanelaLocal] = useState(() =>\n    deriveWindow(rows, granProp ?? \"day\"),\n  );\n  const windowStart = wsProp ?? janelaLocal.start;\n  const windowEnd = weProp ?? janelaLocal.end;\n\n  const pxPerDay = GANTT_PX_PER_DAY[granularity];\n\n  /** Controlado vence o local — o consumidor manda quando ele participa. */\n  const modeloEfetivo = filterModel ?? filterLocal;\n\n  const aplicarModelo = useCallback(\n    (proximo: GanttFilterModel) => {\n      setFilterLocal(proximo);\n      onFilterModelChange?.(proximo);\n    },\n    [onFilterModelChange],\n  );\n\n  /** Marca ou desmarca um grupo inteiro — o \"selecionar todas\" do painel. */\n  const definirValores = useCallback(\n    (fieldId: string, values: string[]) => {\n      aplicarModelo({ ...modeloEfetivo, [fieldId]: values });\n    },\n    [modeloEfetivo, aplicarModelo],\n  );\n\n  const alternarValor = useCallback(\n    (fieldId: string, value: string) => {\n      const atuais = modeloEfetivo[fieldId] ?? [];\n      const proximas = atuais.includes(value)\n        ? atuais.filter((v) => v !== value)\n        : [...atuais, value];\n      aplicarModelo({ ...modeloEfetivo, [fieldId]: proximas });\n    },\n    [modeloEfetivo, aplicarModelo],\n  );\n\n  /* ── busca + filtro ──────────────────────────────────────────── */\n  const rowsFiltradas = useMemo(() => {\n    let saida = rows;\n\n    const termo = busca.trim().toLowerCase();\n    if (termo) {\n      /**\n       * Casar numa linha mantém os ANCESTRAIS dela visíveis.\n       *\n       * Sem isso, buscar uma tarefa a arranca da hierarquia e ela aparece solta\n       * na raiz — o usuário perde a informação de qual fase ela pertence, que é\n       * metade do valor de um Gantt hierárquico.\n       */\n       const casa = (r: (typeof rows)[number]) => {\n        const alvo = [\n          r.searchText,\n          typeof r.label === \"string\" ? r.label : \"\",\n          typeof r.sublabel === \"string\" ? r.sublabel : \"\",\n          ...r.bars.map((b) => b.searchText ?? \"\"),\n        ]\n          .join(\" \")\n          .toLowerCase();\n        return alvo.includes(termo);\n      };\n\n      const porId = new Map(rows.map((r) => [r.id, r]));\n      const manter = new Set<string>();\n      for (const r of rows) {\n        if (!casa(r)) continue;\n        manter.add(r.id);\n        let pai = r.parent;\n        let guarda = 0;\n        while (pai && guarda < 50) {\n          if (manter.has(pai)) break;\n          manter.add(pai);\n          pai = porId.get(pai)?.parent;\n          guarda++;\n        }\n      }\n      saida = saida.filter((r) => manter.has(r.id));\n    }\n\n    /**\n     * Os 6 tipos de filtro vivem no núcleo puro (`hooks/filters.ts`), testado.\n     *\n     * ⚠️ Aqui havia o predicado inline de UM tipo só (interseção de strings) —\n     * era o que limitava o componente a multi-seleção. Texto, faixa numérica e\n     * período não eram expressáveis.\n     *\n     * A convenção \"vazio = SEM filtro\" (não \"esconde tudo\") mudou de lugar mas\n     * não de valor: mora no `campoVazio`, que sabe que `[\"\", \"\"]` de um campo\n     * de faixa tem length 2 e zero intenção de filtrar.\n     */\n    saida = aplicarFiltros(saida, filterFields, modeloEfetivo);\n\n    return saida;\n  }, [rows, busca, filterFields, modeloEfetivo]);\n\n  const flat: GanttFlatRow[] = useMemo(\n    () => flattenRows(rowsFiltradas, colapsadas),\n    [rowsFiltradas, colapsadas],\n  );\n\n  /**\n   * #2 — alturas e offsets calculados AQUI, uma vez, e passados aos dois\n   * painéis.\n   *\n   * Era o defeito: a grade usava a constante pra toda linha e o canvas somava\n   * lanes. Uma linha-contêiner com 3 barras saía 98px de um lado e 48 do\n   * outro, com o nome desalinhado das barras dali pra baixo (L-038).\n   */\n  const alturas = useMemo(\n    () => rowHeights(flat, GANTT_ROW_HEIGHT_PX, GANTT_LANE_HEIGHT_PX),\n    [flat],\n  );\n  const offsets = useMemo(() => rowOffsets(alturas), [alturas]);\n\n  /**\n   * Contagem por opção de filtro.\n   *\n   * ⚠️ Conta sobre `rows` (todas), não sobre `rowsFiltradas`: se contasse o\n   * filtrado, marcar uma opção zeraria as irmãs dela e o usuário não teria\n   * como saber que existem — o filtro se fecharia sobre si mesmo.\n   */\n  const contagens = useMemo(() => {\n    const saida: Record<string, Record<string, number>> = {};\n    for (const campo of filterFields ?? []) {\n      const kind = campo.kind ?? \"multi\";\n      /**\n       * ⚠️ Contagem por opção só existe onde HÁ opções.\n       *\n       * Em `text`/`number`/`date` o valor é contínuo: não há o que contar por\n       * chave, e tentar produzia um mapa com uma entrada por valor distinto do\n       * dado (\"6d\": 1, \"7d\": 1, …) — lixo que o painel renderizaria como se\n       * fosse contagem de opção.\n       */\n      if (kind !== \"multi\" && kind !== \"single\" && kind !== \"boolean\") continue;\n      const porOpcao: Record<string, number> = {};\n      for (const r of rows) {\n        const v = campo.accessor(r);\n        if (v === undefined || v === null) continue;\n        for (const x of Array.isArray(v) ? v : [v]) {\n          const chave = String(x);\n          porOpcao[chave] = (porOpcao[chave] ?? 0) + 1;\n        }\n      }\n      saida[campo.id] = porOpcao;\n    }\n    return saida;\n  }, [rows, filterFields]);\n\n  /* ── grafo ───────────────────────────────────────────────────── */\n  const todasBarras = useMemo(() => {\n    const lista: GanttBar[] = [];\n    for (const r of rows) lista.push(...r.bars);\n    return lista;\n  }, [rows]);\n\n  const mapaBarras = useMemo(\n    () => new Map(todasBarras.map((b) => [b.id, b])),\n    [todasBarras],\n  );\n\n  const violacoes = useMemo(\n    () => checkAllLinks(links, mapaBarras),\n    [links, mapaBarras],\n  );\n\n  const conflictBarIds = useMemo(\n    () => new Set(violacoes.map((v) => v.link.target)),\n    [violacoes],\n  );\n\n  /**\n   * ⚠️ Emitir num `useEffect` e não no `useMemo`.\n   *\n   * Chamar callback do consumidor durante o cálculo do memo é efeito colateral\n   * na fase de render — em StrictMode roda duas vezes, e um `setState` do lado\n   * do consumidor viraria loop.\n   */\n  const violacoesRef = useRef<string>(\"\");\n  useEffect(() => {\n    const assinatura = violacoes.map((v) => `${v.link.id}:${v.deficitDays}`).join(\"|\");\n    if (assinatura === violacoesRef.current) return;\n    violacoesRef.current = assinatura;\n    onLinkViolations?.(violacoes);\n  }, [violacoes, onLinkViolations]);\n\n  const criticalBarIds = useMemo(() => {\n    if (!criticalPath || links.length === 0) return new Set<string>();\n    const r = computeCriticalPath(todasBarras, links);\n    if (\"cycle\" in r) return new Set<string>();\n    return r.critical;\n  }, [criticalPath, links, todasBarras]);\n\n  /** Ciclo é resultado, não exceção — vai pro callback e o crítico não pinta. */\n  const cicloRef = useRef<string>(\"\");\n  useEffect(() => {\n    if (!criticalPath || links.length === 0) return;\n    const r = computeCriticalPath(todasBarras, links);\n    if (!(\"cycle\" in r)) {\n      cicloRef.current = \"\";\n      return;\n    }\n    const assinatura = r.cycle.join(\"|\");\n    if (assinatura === cicloRef.current) return;\n    cicloRef.current = assinatura;\n    onGraphError?.({ kind: \"cycle\", barIds: r.cycle });\n  }, [criticalPath, links, todasBarras, onGraphError]);\n\n  /**\n   * #3 — hover CRUZADO. A linha e a coluna sob o cursor acendem nos DOIS\n   * painéis, e isso não é possível só com `:hover`: nenhum seletor CSS alcança\n   * um irmão de outro contêiner. O índice mora aqui, no ancestral comum.\n   */\n  const [hoveredRow, setHoveredRow] = useState<number | null>(null);\n  /** #7 — linha selecionada por clique, no verde da marca. */\n  const [selectedRow, setSelectedRow] = useState<number | null>(null);\n  /** #2 — coluna selecionada por clique no cabeçalho do dia. */\n  const [selectedDay, setSelectedDay] = useState<number | null>(null);\n  /** #4 — o filtro agora é painel lateral, com estado de abertura. */\n  const [filtroAberto, setFiltroAberto] = useState(false);\n  const [hoveredDay, setHoveredDay] = useState<number | null>(null);\n\n  /* ── scroll espelhado entre os painéis ───────────────────────── */\n  const [scrollTop, setScrollTop] = useState(0);\n  const aoRolar = useCallback((e: UIEvent<HTMLDivElement>) => {\n    setScrollTop(e.currentTarget.scrollTop);\n  }, []);\n\n  /* ── divisor arrastável ──────────────────────────────────────── */\n  const bodyRef = useRef<HTMLDivElement>(null);\n  const scrollerRef = useRef<HTMLDivElement>(null);\n\n  /**\n   * Instante do tempo pra recentrar a viewport, pendente até o próximo layout.\n   *\n   * Trocar de escala muda `pxPerDay` E a janela; o `scrollLeft` que traduzia\n   * \"estou olhando setembro\" na escala antiga não significa nada na nova. Sem\n   * recentrar, mudar pra trimestre deixava o usuário em 2024 numa janela de 5\n   * anos cujos dados vivem em 2026 — canvas vazio, e nada dizendo onde estava\n   * o trabalho.\n   *\n   * ⚠️ Estado + efeito, e não `scrollLeft` direto no handler: no momento do\n   * clique o DOM ainda tem a largura ANTIGA do trilho. Atribuir ali seria\n   * medir a escala velha pra posicionar na nova.\n   */\n  const [centrarEm, setCentrarEm] = useState<Date | null>(null);\n\n  useEffect(() => {\n    if (!centrarEm) return;\n    const el = scrollerRef.current;\n    if (!el) return;\n    const x = dateToX(centrarEm, windowStart, pxPerDay);\n    el.scrollLeft = Math.max(0, x - el.clientWidth / 2);\n    setCentrarEm(null);\n  }, [centrarEm, windowStart, pxPerDay]);\n  useEffect(() => {\n    if (!arrastandoDivisor) return;\n    const mover = (e: PointerEvent) => {\n      const caixa = bodyRef.current?.getBoundingClientRect();\n      if (!caixa) return;\n      // Piso de 180px e teto de 60% da largura: abaixo do piso a coluna do nome\n      // não cabe, e acima do teto o cronograma — que é o ponto do componente —\n      // fica menor que a grade.\n      const bruto = e.clientX - caixa.left;\n      setGridWidth(Math.min(Math.max(180, bruto), caixa.width * 0.6));\n    };\n    const soltar = () => setArrastandoDivisor(false);\n    window.addEventListener(\"pointermove\", mover);\n    window.addEventListener(\"pointerup\", soltar);\n    return () => {\n      window.removeEventListener(\"pointermove\", mover);\n      window.removeEventListener(\"pointerup\", soltar);\n    };\n  }, [arrastandoDivisor]);\n\n  /* ── navegação de janela ─────────────────────────────────────── */\n  const larguraJanelaDias =\n    differenceInCalendarDays(startOfDay(windowEnd), startOfDay(windowStart)) + 1;\n\n  const mover = useCallback(\n    (dias: number) => {\n      // Só mexe no estado local: quando o consumidor controla a janela, mover\n      // é decisão dele — e sobrescrever a prop faria o componente lutar contra\n      // o próprio consumidor no próximo render.\n      if (wsProp || weProp) return;\n      setJanelaLocal((j) => ({\n        start: addDays(j.start, dias),\n        end: addDays(j.end, dias),\n      }));\n    },\n    [wsProp, weProp],\n  );\n\n  useImperativeHandle(\n    ref,\n    (): GanttRef => ({\n      goToDate: (date) => {\n        if (wsProp || weProp) return;\n        const meio = Math.floor(larguraJanelaDias / 2);\n        setJanelaLocal({\n          start: addDays(startOfDay(date), -meio),\n          end: addDays(startOfDay(date), larguraJanelaDias - meio - 1),\n        });\n      },\n      goToToday: () => {\n        if (wsProp || weProp) return;\n        const meio = Math.floor(larguraJanelaDias / 2);\n        setJanelaLocal({\n          start: addDays(startOfDay(now), -meio),\n          end: addDays(startOfDay(now), larguraJanelaDias - meio - 1),\n        });\n      },\n      expandAll: () => setColapsadas(new Set()),\n      collapseAll: () =>\n        setColapsadas(new Set(rows.filter((r) => r.parent === undefined).map((r) => r.id))),\n    }),\n    [wsProp, weProp, larguraJanelaDias, now, rows],\n  );\n\n  /**\n   * Mês âncora da visão `calendar` — o MEIO da janela.\n   *\n   * ⚠️ Extraída pra variável porque agora TRÊS lugares a consomem: o título, a\n   * navegação e a própria view. Calculada inline no JSX (como estava) o título\n   * poderia dizer um mês e a grade mostrar outro no primeiro arredondamento\n   * diferente — é a L-038 esperando acontecer.\n   *\n   * Não é `windowStart`: a janela derivada começa um dia ANTES da primeira\n   * barra, então o âncora caía no mês anterior ao trabalho (medido: abria\n   * agosto com 5 células ocupadas de 42 enquanto os dados viviam em set–nov).\n   */\n  const ancoraDoMes = useMemo(\n    () =>\n      addDays(startOfDay(windowStart), Math.floor(larguraJanelaDias / 2)),\n    [windowStart, larguraJanelaDias],\n  );\n\n  /**\n   * O título muda de NATUREZA com a visão, não só de formato.\n   *\n   * `timeline` mostra o intervalo (\"31 ago – 2 nov 2026\") porque é isso que o\n   * eixo cobre. `calendar` mostra o MÊS (\"outubro 2026\") porque a grade é de um\n   * mês — anunciar um intervalo de 64 dias sobre uma grade que mostra 31 seria\n   * o título mentindo sobre o conteúdo.\n   */\n  const titulo = useMemo(() => {\n    if (view === \"calendar\") {\n      return format(ancoraDoMes, \"MMMM yyyy\", { locale });\n    }\n    const mesmoAno = windowStart.getFullYear() === windowEnd.getFullYear();\n    const a = format(windowStart, mesmoAno ? \"d MMM\" : \"d MMM yyyy\", { locale });\n    const b = format(windowEnd, \"d MMM yyyy\", { locale });\n    return `${a} – ${b}`;\n  }, [view, ancoraDoMes, windowStart, windowEnd, locale]);\n\n  /**\n   * Quanto o `‹ ›` anda — e a unidade depende da visão.\n   *\n   * `timeline`: meia janela, que é o passo que mantém contexto de um lado\n   * enquanto revela o outro.\n   *\n   * `calendar`: **um mês exato**. Meia janela ali andaria 32 dias e poderia\n   * cair no mesmo mês (a grade não mudaria) ou pular um — em nenhum dos dois\n   * casos o botão faria o que o título promete. O passo é calculado em DIAS a\n   * partir do mês vizinho, pra a janela seguir sendo a fonte única.\n   */\n  const passoDeNavegacao = useCallback(\n    (direcao: 1 | -1) => {\n      if (view === \"calendar\") {\n        const destino = addMonths(ancoraDoMes, direcao);\n        return differenceInCalendarDays(destino, ancoraDoMes);\n      }\n      return direcao * Math.max(1, Math.floor(larguraJanelaDias / 2));\n    },\n    [view, ancoraDoMes, larguraJanelaDias],\n  );\n\n  /**\n   * Formata o ISO de um filtro `date` pro chip.\n   *\n   * Vive na raiz porque é onde o `locale` está — o chip mostraria\n   * \"2026-09-01\" a um usuário pt-BR se formatasse por conta própria, e uma\n   * segunda decisão de formato de data no mesmo componente é como duas fontes\n   * divergem (L-038).\n   */\n  const formatarDataDeFiltro = useCallback(\n    (iso: string) => {\n      /**\n       * ⚠️ `parseDiaISO` e NÃO `new Date(iso)` — o MESMO parser que o\n       * predicado usa. Com `new Date`, o chip mostraria 29/09 pra um filtro\n       * de 30/09 (ISO date-only é UTC; aqui é UTC−3) enquanto o filtro\n       * casaria 30/09 corretamente: duas fontes pra mesma data divergindo em\n       * um dia, que é a L-038 no pior formato — o chip mentiria sobre o que o\n       * filtro está fazendo.\n       */\n      const d = parseDiaISO(iso);\n      if (!d) return iso;\n      return format(d, \"dd/MM/yy\", { locale });\n    },\n    [locale],\n  );\n\n  const colunas = columns ?? GANTT_DEFAULT_COLUMNS;\n  /**\n   * ⚠️ Não é `Object.values(modelo).filter(v => v.length > 0)`.\n   *\n   * Um campo de faixa guarda `[\"\", \"\"]` — length 2 com zero intenção de\n   * filtrar. A conta antiga daria 1 filtro ativo, com o badge aceso e o\n   * \"Limpar tudo\" habilitado sobre nada.\n   */\n  const appliedCount = contarAplicados(filterFields, modeloEfetivo);\n\n  return (\n    <div className={cn(ganttRoot(), className)}>\n      <GanttToolbar\n        title={titulo}\n        onPrev={() => mover(passoDeNavegacao(-1))}\n        onNext={() => mover(passoDeNavegacao(1))}\n        onToday={() => {\n          if (wsProp || weProp) return;\n          const meio = Math.floor(larguraJanelaDias / 2);\n          setJanelaLocal({\n            start: addDays(startOfDay(now), -meio),\n            end: addDays(startOfDay(now), larguraJanelaDias - meio - 1),\n          });\n        }}\n        view={view}\n        /**\n         * Controlado vence o local — e o callback dispara nos DOIS casos.\n         *\n         * ⚠️ `onViewChange` era desestruturado e nunca chamado: `view` só\n         * mudava por prop, então a visão de calendário seria inalcançável pela\n         * UI mesmo depois de construída.\n         */\n        onViewChange={(v) => {\n          if (viewProp === undefined) setViewLocal(v);\n          onViewChange?.(v);\n        }}\n        granularity={granularity}\n        onGranularityChange={(g) => {\n          // Que instante do tempo está no meio da viewport AGORA — antes de\n          // `pxPerDay` mudar e o número perder o sentido.\n          const el = scrollerRef.current;\n          if (el) {\n            setCentrarEm(\n              xToDate(el.scrollLeft + el.clientWidth / 2, windowStart, pxPerDay),\n            );\n          }\n          setGranLocal(g);\n          /**\n           * #9 — a janela ACOMPANHA a escala.\n           *\n           * Sem isto, trocar pra trimestre mantinha os ~60 dias e o cronograma\n           * inteiro colapsava numa tira de 128px (medido: 60 dias × 2px/dia).\n           * Escolher escala mais grossa é pedir pra ver MAIS TEMPO — não a\n           * mesma janela comprimida.\n           *\n           * Só mexe no estado local: quando o consumidor controla a janela,\n           * mudar de escala não pode sobrescrever a decisão dele.\n           */\n          if (wsProp || weProp) return;\n          const dias = GANTT_WINDOW_DAYS[g];\n          /**\n           * #5a — a janela da escala é um PISO, e o cronograma é o outro.\n           *\n           * A janela centrada da escala (60 dias em `day`) podia ser MENOR que o\n           * cronograma: voltar de \"trimestre\" pra \"dia\" recentrava em 60 dias e\n           * **cortava as duas pontas** — as barras do fim desapareciam sem nada\n           * dizer que havia mais. Medido no exemplo: 64 dias de dados, 60 de\n           * janela, 2 dias perdidos em cada ponta.\n           *\n           * A correção é a UNIÃO da janela centrada com a extensão dos dados\n           * (`deriveWindow`, a MESMA função que decide a janela na primeira\n           * montagem), e não um `max` de larguras. União porque ela é\n           * **idempotente e reversível**: day→quarter→day devolve exatamente a\n           * janela original, enquanto recentrar numa largura maior desloca a\n           * janela em 1 dia a cada volta pelo arredondamento do meio.\n           */\n          const extensao = deriveWindow(rows, g);\n          setJanelaLocal((j) => {\n            // Mantém o CENTRO: o usuário estava olhando um ponto do tempo, e\n            // trocar a escala não deve teleportá-lo pra outro lugar.\n            const meio = addDays(\n              startOfDay(j.start),\n              Math.floor(\n                differenceInCalendarDays(startOfDay(j.end), startOfDay(j.start)) / 2,\n              ),\n            );\n            const start = addDays(meio, -Math.floor(dias / 2));\n            const end = addDays(meio, dias - Math.floor(dias / 2) - 1);\n            return {\n              start: extensao.start < start ? extensao.start : start,\n              end: extensao.end > end ? extensao.end : end,\n            };\n          });\n        }}\n        searchable={searchable}\n        search={busca}\n        onSearchChange={setBusca}\n        filterFields={filterFields}\n        onOpenFilterPanel={() => setFiltroAberto(true)}\n        appliedCount={appliedCount}\n        filterModel={modeloEfetivo}\n        onClearField={(id) => definirValores(id, [])}\n        onClearAll={() => aplicarModelo({})}\n        onToggleFilterValue={alternarValor}\n        filterCounts={contagens}\n        formatFilterDate={formatarDataDeFiltro}\n        hasLinks={links.length > 0}\n        showCriticalToggle={criticalPathToggle}\n        criticalPath={criticalPath}\n        onToggleCriticalPath={() => setCriticalLocal((v) => !v)}\n        toolbarActions={toolbarActions}\n        primaryAction={primaryAction}\n      />\n\n      <div\n        ref={bodyRef}\n        className={ganttBody({ framed: view === \"timeline\" })}\n        role=\"region\"\n        aria-label={`Cronograma, ${titulo}`}\n      >\n        {flat.length === 0 ? (\n          <div className={ganttEmpty()}>\n            {emptyState ?? (\n              <span className={ganttEmptyText()}>\n                Nenhuma tarefa neste período.\n              </span>\n            )}\n          </div>\n        ) : (\n          <>\n            {/*\n              ⚠️ A grade e o divisor existem SÓ na `timeline`.\n\n              Na grade de mês não há eixo horizontal pra a coluna de nomes\n              acompanhar — ela seria uma lista de tarefas ao lado de um\n              calendário, sem relação de linha entre as duas metades, roubando\n              460px de uma grade que precisa de largura pra os chips caberem.\n              O nome da tarefa está no próprio chip.\n            */}\n            {view === \"timeline\" ? (\n              <>\n            <div className={ganttGridPane()} style={{ width: gridWidth }}>\n              <GanttGrid\n                rows={flat}\n                columns={colunas}\n                heights={alturas}\n                scrollTop={scrollTop}\n                locale={locale}\n                hoveredRow={hoveredRow}\n                onHoverRow={setHoveredRow}\n                selectedRow={selectedRow}\n                onRowToggle={(id, colapsar) => {\n                  setColapsadas((prev) => {\n                    const proximo = new Set(prev);\n                    if (colapsar) proximo.add(id);\n                    else proximo.delete(id);\n                    return proximo;\n                  });\n                  onRowToggle?.(id, colapsar);\n                }}\n                onRowClick={(row, e) => {\n                  const i = flat.findIndex((f) => f.row.id === row.id);\n                  // Clicar na linha já selecionada DESSELECIONA: sem isso não\n                  // há como voltar ao estado neutro sem recarregar.\n                  setSelectedRow((atual) => (atual === i ? null : i));\n                  onRowClick?.(row, e);\n                }}\n              />\n            </div>\n\n            <div\n              role=\"separator\"\n              aria-orientation=\"vertical\"\n              aria-label=\"Redimensionar a grade\"\n              tabIndex={0}\n              className={ganttSplitter({ active: arrastandoDivisor })}\n              onPointerDown={() => setArrastandoDivisor(true)}\n              onKeyDown={(e) => {\n                // Teclado move o divisor em passos de 16px — sem isso ele é\n                // inalcançável sem ponteiro.\n                if (e.key === \"ArrowLeft\") setGridWidth((w) => Math.max(180, w - 16));\n                if (e.key === \"ArrowRight\") setGridWidth((w) => w + 16);\n              }}\n            />\n              </>\n            ) : null}\n\n            <div className={ganttTimelinePane()}>\n              {view === \"timeline\" ? (\n                <GanttTimelineView\n                  rows={flat}\n                  allRows={rows}\n                  links={links}\n                  windowStart={windowStart}\n                  windowEnd={windowEnd}\n                  granularity={granularity}\n                  pxPerDay={pxPerDay}\n                  heights={alturas}\n                  offsets={offsets}\n                  now={now}\n                  locale={locale}\n                  weekStartsOn={weekStartsOn}\n                  conflictBarIds={conflictBarIds}\n                  criticalBarIds={criticalBarIds}\n                  draggable={draggable}\n                  resizable={resizable}\n                  linkable={linkable}\n                  hoveredRow={hoveredRow}\n                  onHoverRow={setHoveredRow}\n                  hoveredDay={hoveredDay}\n                  onHoverDay={setHoveredDay}\n                  selectedRow={selectedRow}\n                  selectedDay={selectedDay}\n                  onSelectDay={setSelectedDay}\n                  onBarMove={onBarMove}\n                  onBarResize={onBarResize}\n                  onLinkCreate={onLinkCreate}\n                  onLinkClick={onLinkDelete}\n                  onScroll={aoRolar}\n                  scrollRef={scrollerRef}\n                  onBarClick={onBarClick}\n                />\n              ) : (\n                /*\n                  ⚠️ O mês âncora é o MEIO da janela, e chegar nisso custou uma\n                  medição.\n\n                  Não é `now`: aí navegar com `‹ ›` moveria a janela e a grade\n                  ficaria parada — as duas visões falariam de períodos\n                  diferentes, e trocar de visão teleportaria o usuário.\n\n                  E não é `windowStart`, que foi a primeira tentativa. A janela\n                  derivada começa UM DIA ANTES da primeira barra, então o mês\n                  âncora caía no mês anterior ao trabalho: medido no exemplo,\n                  `windowStart` = 31/ago abria agosto com **5 células ocupadas\n                  de 42** enquanto os dados viviam em set–nov.\n\n                  O meio da janela é onde a massa do cronograma está, acompanha\n                  o `‹ ›` e nunca cai num mês de borda.\n                */\n                <GanttCalendarView\n                  rows={flat}\n                  anchor={ancoraDoMes}\n                  weekStartsOn={weekStartsOn}\n                  now={now}\n                  locale={locale}\n                  conflictBarIds={conflictBarIds}\n                  criticalBarIds={criticalBarIds}\n                  onBarClick={onBarClick}\n                  onDayAdd={onDayAdd}\n                />\n              )}\n            </div>\n          </>\n        )}\n      </div>\n\n      {/*\n        O painel de filtro vive FORA do `ganttBody` porque o `FloatingPanel` se\n        posiciona sozinho (fixed + portal). Dentro do body ele herdaria o\n        `flex` e o `overflow-hidden` do contêiner dos dois painéis.\n      */}\n      {filterFields && filterFields.length > 0 ? (\n        <GanttFilterPanel\n          open={filtroAberto}\n          onOpenChange={setFiltroAberto}\n          fields={filterFields}\n          model={modeloEfetivo}\n          onToggleValue={alternarValor}\n          onSetFieldValues={definirValores}\n          onClearAll={() => aplicarModelo({})}\n          appliedCount={appliedCount}\n          counts={contagens}\n        />\n      ) : null}\n    </div>\n  );\n});\n",
         "type": "registry:ui",
         "target": "components/ui/Gantt/gantt.tsx"
       },
@@ -3226,13 +3226,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Gantt/parts/gantt-toolbar.tsx",
-        "content": "import type { ReactNode } from \"react\";\nimport {\n  CalendarDays,\n  ChartNoAxesGantt,\n  ChevronDown,\n  ChevronLeft,\n  ChevronRight,\n  Columns3,\n  Filter,\n  Search,\n  Zap,\n} from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuTrigger,\n} from \"@/components/shadcn/dropdown-menu\";\nimport { cn } from \"@/lib/utils\";\nimport { Button } from \"@/components/ui/Button\";\nimport { GanttAppliedFilters } from \"./gantt-applied-filters\";\nimport {\n  ganttFilterDot,\n  ganttNavGroup,\n  ganttSearch,\n  ganttSearchInput,\n  ganttTitle,\n  ganttTitleText,\n  ganttViewSwitch,\n  ganttViewSwitchButton,\n  ganttToolbar,\n  ganttToolbarSide,\n} from \"../gantt.styles\";\nimport type {\n  GanttFilterField,\n  GanttFilterModel,\n  GanttGranularity,\n  GanttView,\n} from \"../gantt.types\";\n\n/**\n * Toolbar do `Gantt`.\n *\n * ## Tamanhos vêm do `TableToolbar`, medidos e não estimados\n *\n * Todos os controles ficam em **40px**: busca `h-form-lg`, botões `icon-md`\n * (40×40) ou `md` com rótulo. A primeira versão misturou `size=\"sm\"` (36px) nos\n * botões com `h-form-lg` (40px) na busca, e a diferença de 4px numa fileira de\n * 5 controles lê como desalinho, não como hierarquia.\n *\n * ## Ordem\n *\n *   Esquerda:  [📅 período] [‹ Hoje ›]\n *   Direita:   [busca] [Crítico] [▤|▦ visão] [▦ Escala ▾] [⧩] [ação]\n *   Abaixo:    [chips do que está aplicado] [Limpar tudo]\n *\n * Espelha a orientação do `TableToolbar`: contexto à esquerda, busca à direita,\n * ação primária no fim. A busca **expande no foco** (200 → 300px), com a mesma\n * curva e duração de lá.\n *\n * O filtro abre um **painel lateral**, e por isso NÃO tem seta: seta promete\n * dropdown, e mentir sobre o que vai acontecer é pior que não sinalizar.\n *\n * ## A segunda linha não é decoração\n *\n * O que está filtrado aparece em chips abaixo da toolbar, com `×` em cada um.\n * É a L-051: o estado filtrado tem que ser visível e desfazível sem procurar o\n * controle que o produziu. Com o filtro num painel que fecha, sem essa linha o\n * usuário volta pra uma grade com metade das tarefas e nada na tela dizendo o\n * porquê — o que lê como bug, não como filtro.\n *\n * A linha SOME inteira quando nada está aplicado. Chip vazio seria um segundo\n * lugar de escolher a mesma coisa que o painel.\n *\n * ⛔ Nada importado do `Scheduler` nem do `TableToolbar` — só a gramática visual\n * (L-049). Cross-import entre pastas de `ui/` gera `registryDependency` pendente\n * e o `igreen:add` estreia quebrado.\n */\n\n/**\n * As duas visões — **icon-only**, no controle segmentado do `TableToolbar`.\n *\n * Ícone sem rótulo, com `aria-label` + `title`, exatamente como o toggle\n * Tabela/Lista/Kanban da `DataTable` faz. É o mesmo gesto, então é o mesmo\n * controle: 36px por segmento em vez de ~200px de dois botões com texto, e a\n * largura devolvida ao eixo.\n *\n * ⚠️ Aqui `CalendarDays` repete o ícone do título do período, e eu tinha\n * recusado isso na versão anterior. Reverti: naquele caso era um botão COM\n * rótulo, onde o ícone é ornamento e a redundância confunde. Num controle\n * icon-only o ícone **é** o rótulo, então ele tem que ser o óbvio — e o óbvio\n * de \"Calendário\" é um calendário. Os contextos são diferentes.\n */\nconst VIEW_ITEMS: {\n  value: GanttView;\n  label: string;\n  icon: ReactNode;\n}[] = [\n  { value: \"timeline\", label: \"Cronograma\", icon: <ChartNoAxesGantt /> },\n  { value: \"calendar\", label: \"Calendário\", icon: <CalendarDays /> },\n];\n\nconst ZOOM_ITEMS: { value: GanttGranularity; label: string }[] = [\n  { value: \"day\", label: \"Dia\" },\n  { value: \"week\", label: \"Semana\" },\n  { value: \"month\", label: \"Mês\" },\n  { value: \"quarter\", label: \"Trimestre\" },\n];\n\nexport type GanttToolbarProps = {\n  title: ReactNode;\n  onPrev: () => void;\n  onNext: () => void;\n  onToday: () => void;\n\n  view: GanttView;\n  onViewChange: (v: GanttView) => void;\n\n  granularity: GanttGranularity;\n  onGranularityChange: (g: GanttGranularity) => void;\n\n  searchable: boolean;\n  search: string;\n  onSearchChange: (s: string) => void;\n\n  filterFields?: GanttFilterField[];\n  onOpenFilterPanel: () => void;\n  appliedCount: number;\n  /** O que está marcado — a linha de chips lê daqui. */\n  filterModel: GanttFilterModel;\n  /** Desliga UM campo inteiro (o `×` do chip). */\n  onClearField: (fieldId: string) => void;\n  /** Desliga todos (\"Limpar todos\"). */\n  onClearAll: () => void;\n  /** Marca/desmarca um valor — o popover do chip edita por aqui. */\n  onToggleFilterValue: (fieldId: string, value: string) => void;\n  /** Contagem por opção, sobre TODAS as linhas. */\n  filterCounts: Record<string, Record<string, number>>;\n  /** Formata o ISO de um filtro `date` pro chip — o `locale` mora na raiz. */\n  formatFilterDate: (iso: string) => string;\n\n  /**\n   * Só aparece quando há vínculo E o consumidor não escondeu o botão.\n   *\n   * Sem grafo não existe caminho crítico; e `criticalPathToggle={false}`\n   * esconde o controle quando o estado é decisão da tela.\n   */\n  hasLinks: boolean;\n  showCriticalToggle: boolean;\n  criticalPath: boolean;\n  onToggleCriticalPath: () => void;\n\n  toolbarActions?: ReactNode;\n  primaryAction?: ReactNode;\n};\n\nexport function GanttToolbar({\n  title,\n  onPrev,\n  onNext,\n  onToday,\n  view,\n  onViewChange,\n  granularity,\n  onGranularityChange,\n  searchable,\n  search,\n  onSearchChange,\n  filterFields,\n  onOpenFilterPanel,\n  appliedCount,\n  filterModel,\n  onClearField,\n  onClearAll,\n  onToggleFilterValue,\n  filterCounts,\n  formatFilterDate,\n  hasLinks,\n  showCriticalToggle,\n  criticalPath,\n  onToggleCriticalPath,\n  toolbarActions,\n  primaryAction,\n}: GanttToolbarProps) {\n  const zoomAtivo = ZOOM_ITEMS.find((z) => z.value === granularity) ?? ZOOM_ITEMS[0];\n  const temFiltros = (filterFields?.length ?? 0) > 0;\n  const filtroEngajado = appliedCount > 0;\n\n\n  /*\n    A coluna externa NÃO tem `gap`: quem paga o espaçamento entre a toolbar e os\n    chips é a própria linha de chips (`mt`/`pt` em `ganttFilterRow`). Ela só\n    existe quando há filtro aplicado, e um `gap` aqui cobraria margem por uma\n    linha ausente na maior parte do tempo.\n  */\n  return (\n    <div className=\"flex flex-col\">\n      <div className={ganttToolbar()}>\n      {/* ── esquerda: período (o contexto) ───────────────────────── */}\n      <div className={ganttToolbarSide({ slot: \"leading\" })}>\n        {/*\n          Ícone de calendário à esquerda do período: ele diz que aquele texto é\n          um INTERVALO de datas, não um título de tela. `aria-hidden` porque o\n          texto ao lado já diz tudo — ícone decorativo anunciado é ruído no\n          leitor de tela.\n        */}\n        <span className={ganttTitle()}>\n          <CalendarDays aria-hidden />\n          <span className={ganttTitleText()}>{title}</span>\n        </span>\n\n        <div\n          role=\"group\"\n          aria-label=\"Navegação de período\"\n          className={ganttNavGroup()}\n        >\n          <Button\n            variant=\"outline\"\n            color=\"secondary\"\n            size=\"icon-md\"\n            onClick={onPrev}\n            aria-label=\"Período anterior\"\n          >\n            <ChevronLeft />\n          </Button>\n          <Button variant=\"outline\" color=\"secondary\" size=\"md\" onClick={onToday}>\n            Hoje\n          </Button>\n          <Button\n            variant=\"outline\"\n            color=\"secondary\"\n            size=\"icon-md\"\n            onClick={onNext}\n            aria-label=\"Próximo período\"\n          >\n            <ChevronRight />\n          </Button>\n        </div>\n      </div>\n\n      {/* ── direita: busca, ferramentas, ação ────────────────────── */}\n      <div className={ganttToolbarSide({ slot: \"trailing\" })}>\n        {searchable ? (\n          <label className={ganttSearch()}>\n            <Search aria-hidden />\n            <input\n              type=\"search\"\n              value={search}\n              onChange={(e) => onSearchChange(e.target.value)}\n              placeholder=\"Buscar tarefa…\"\n              aria-label=\"Buscar tarefa\"\n              className={ganttSearchInput()}\n            />\n          </label>\n        ) : null}\n\n        {toolbarActions}\n\n        {/*\n          Caminho crítico só existe com vínculo. Um toggle que nunca muda nada é\n          pior que a ausência dele: o usuário clica, nada acontece, e conclui que\n          está quebrado.\n        */}\n        {hasLinks && showCriticalToggle ? (\n          <Button\n            variant={criticalPath ? \"soft\" : \"outline\"}\n            color={criticalPath ? \"primary\" : \"secondary\"}\n            size=\"md\"\n            iconLeft={<Zap />}\n            onClick={onToggleCriticalPath}\n            aria-pressed={criticalPath}\n            aria-label=\"Caminho crítico\"\n            className={cn(\n              \"shrink-0 max-lg:size-form-lg max-lg:p-0\",\n              criticalPath && \"border-border-brand hover:border-border-brand\",\n            )}\n          >\n            <span className=\"hidden lg:inline\">Crítico</span>\n          </Button>\n        ) : null}\n\n        {/*\n          Visão — o controle segmentado do `TableToolbar`, não dois botões.\n\n          `role=\"radiogroup\"` + `role=\"radio\"` + `aria-checked`, como lá: são\n          opções mutuamente exclusivas de um conjunto, não toggles\n          independentes. `aria-pressed` (que eu usei antes) descreveria dois\n          botões que podem estar pressionados ao mesmo tempo.\n        */}\n        <div\n          role=\"radiogroup\"\n          aria-label=\"Visualização\"\n          className={ganttViewSwitch()}\n        >\n          {VIEW_ITEMS.map((v) => {\n            const ativa = v.value === view;\n            return (\n              <button\n                key={v.value}\n                type=\"button\"\n                role=\"radio\"\n                aria-checked={ativa}\n                aria-label={v.label}\n                title={v.label}\n                onClick={() => onViewChange(v.value)}\n                className={ganttViewSwitchButton({ isActive: ativa })}\n              >\n                {v.icon}\n              </button>\n            );\n          })}\n        </div>\n\n        {/* Escala: escolha única → RadioGroup, que anuncia qual está ativa. */}\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button\n              variant=\"outline\"\n              color=\"secondary\"\n              size=\"md\"\n              /*\n                `Columns3` porque é O QUE O CONTROLE FAZ: ele troca a densidade\n                das colunas do eixo — dia, semana, mês, trimestre são larguras\n                de coluna, não datas.\n\n                Passei por `Ruler` (régua = \"escala\") e ficou ruim: a metáfora é\n                de MEDIR comprimento, e ninguém mede nada aqui. E de propósito\n                não é calendário — o calendário já rotula o período do lado\n                esquerdo, e dois calendários na mesma toolbar significando\n                coisas diferentes (que intervalo eu vejo × em que unidade eu\n                vejo) é pior que ícone nenhum.\n              */\n              iconLeft={<Columns3 />}\n              iconRight={<ChevronDown />}\n              aria-label={`Escala: ${zoomAtivo.label}`}\n              className=\"shrink-0\"\n            >\n              {zoomAtivo.label}\n            </Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"end\" className=\"min-w-[168px]\">\n            <DropdownMenuRadioGroup\n              value={granularity}\n              onValueChange={(v) => onGranularityChange(v as GanttGranularity)}\n            >\n              {ZOOM_ITEMS.map((z) => (\n                <DropdownMenuRadioItem key={z.value} value={z.value}>\n                  {z.label}\n                </DropdownMenuRadioItem>\n              ))}\n            </DropdownMenuRadioGroup>\n          </DropdownMenuContent>\n        </DropdownMenu>\n\n        {/*\n          #4 — o filtro abre PAINEL, não dropdown.\n\n          Um cronograma real filtra por frente, responsável, status,\n          prioridade e tag — cinco grupos com muitas opções. Dropdown com 40\n          linhas rola dentro de uma caixa de 240px e fecha ao clicar fora sem\n          querer. O painel é o mesmo veículo do filtro do `DataTable`.\n\n          #8 — SEM `iconRight`: a seta prometia dropdown, e o que abre é um\n          painel lateral. Seta que mente sobre o que vai acontecer é pior que\n          seta ausente.\n\n          ⚠️ O ícone é `Filter` (funil) porque é EXATAMENTE o do\n          `ToolbarFilterButton`, que é a fonte única do botão de filtro do\n          `DataTable` e do `DataList`. Era `ListFilter` (as barras\n          decrescentes) — outro desenho pra a mesma ação, na mesma tela, é o\n          usuário aprendendo duas vezes.\n\n          ⛔ E é ícone copiado, não componente importado: `ToolbarFilterButton`\n          vive em `ui/TableToolbar/`, e cross-import entre pastas de `ui/`\n          gera `registryDependency` pendente e quebra o `igreen:add` (L-049).\n\n          E é **icon-only**, igual ao de lá. O rótulo \"Filtro\" era redundante:\n          o funil já é o vocabulário universal, e o que o usuário precisa saber\n          não é que existe um filtro — é QUAL filtro está ligado, que agora\n          está nos chips abaixo, onde a informação é específica em vez de\n          genérica. Os 62px de rótulo voltaram pro eixo.\n        */}\n        {temFiltros ? (\n          <span className=\"relative shrink-0\">\n            <Button\n              variant={filtroEngajado ? \"soft\" : \"outline\"}\n              color={filtroEngajado ? \"primary\" : \"secondary\"}\n              size=\"icon-md\"\n              onClick={onOpenFilterPanel}\n              aria-label=\"Filtro\"\n              title=\"Filtro\"\n              className={cn(\n                filtroEngajado &&\n                  \"border-border-brand hover:border-border-brand\",\n              )}\n            >\n              <Filter />\n            </Button>\n            {appliedCount > 0 ? (\n              <span className={ganttFilterDot()} aria-hidden />\n            ) : null}\n          </span>\n        ) : null}\n        {primaryAction}\n        </div>\n      </div>\n\n      {/*\n        Resumo do que está APLICADO — ver a nota do topo (L-051).\n\n        Componente próprio e não JSX inline aqui: a anatomia do chip da tabela\n        tem 5 peças, um popover de edição e regra de colapso de valores. Inline\n        isso somava ~70 linhas no meio da toolbar, e a toolbar deixava de ser\n        legível de uma passada.\n      */}\n      {temFiltros ? (\n        <GanttAppliedFilters\n          fields={filterFields ?? []}\n          model={filterModel}\n          counts={filterCounts}\n          onToggleValue={onToggleFilterValue}\n          onClearField={onClearField}\n          onClearAll={onClearAll}\n          formatDate={formatFilterDate}\n        />\n      ) : null}\n    </div>\n  );\n}\n",
+        "content": "import type { ReactNode } from \"react\";\nimport {\n  CalendarDays,\n  ChartNoAxesGantt,\n  ChevronDown,\n  ChevronLeft,\n  ChevronRight,\n  Columns3,\n  Filter,\n  Search,\n  Zap,\n} from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuTrigger,\n} from \"@/components/shadcn/dropdown-menu\";\nimport { cn } from \"@/lib/utils\";\nimport { Button } from \"@/components/ui/Button\";\nimport { GanttAppliedFilters } from \"./gantt-applied-filters\";\nimport {\n  ganttFilterDot,\n  ganttNavGroup,\n  ganttSearch,\n  ganttSearchInput,\n  ganttTitle,\n  ganttTitleText,\n  ganttViewSwitch,\n  ganttViewSwitchButton,\n  ganttToolbar,\n  ganttToolbarSide,\n} from \"../gantt.styles\";\nimport type {\n  GanttFilterField,\n  GanttFilterModel,\n  GanttGranularity,\n  GanttView,\n} from \"../gantt.types\";\n\n/**\n * Toolbar do `Gantt`.\n *\n * ## Tamanhos vêm do `TableToolbar`, medidos e não estimados\n *\n * Todos os controles ficam em **40px**: busca `h-form-lg`, botões `icon-md`\n * (40×40) ou `md` com rótulo. A primeira versão misturou `size=\"sm\"` (36px) nos\n * botões com `h-form-lg` (40px) na busca, e a diferença de 4px numa fileira de\n * 5 controles lê como desalinho, não como hierarquia.\n *\n * ## Ordem\n *\n *   Esquerda:  [📅 período] [‹ Hoje ›]\n *   Direita:   [busca] [Crítico] [▤|▦ visão] [▦ Escala ▾] [⧩] [ação]\n *   Abaixo:    [chips do que está aplicado] [Limpar tudo]\n *\n * Espelha a orientação do `TableToolbar`: contexto à esquerda, busca à direita,\n * ação primária no fim. A busca **expande no foco** (200 → 300px), com a mesma\n * curva e duração de lá.\n *\n * O filtro abre um **painel lateral**, e por isso NÃO tem seta: seta promete\n * dropdown, e mentir sobre o que vai acontecer é pior que não sinalizar.\n *\n * ## A segunda linha não é decoração\n *\n * O que está filtrado aparece em chips abaixo da toolbar, com `×` em cada um.\n * É a L-051: o estado filtrado tem que ser visível e desfazível sem procurar o\n * controle que o produziu. Com o filtro num painel que fecha, sem essa linha o\n * usuário volta pra uma grade com metade das tarefas e nada na tela dizendo o\n * porquê — o que lê como bug, não como filtro.\n *\n * A linha SOME inteira quando nada está aplicado. Chip vazio seria um segundo\n * lugar de escolher a mesma coisa que o painel.\n *\n * ⛔ Nada importado do `Scheduler` nem do `TableToolbar` — só a gramática visual\n * (L-049). Cross-import entre pastas de `ui/` gera `registryDependency` pendente\n * e o `igreen:add` estreia quebrado.\n */\n\n/**\n * As duas visões — **icon-only**, no controle segmentado do `TableToolbar`.\n *\n * Ícone sem rótulo, com `aria-label` + `title`, exatamente como o toggle\n * Tabela/Lista/Kanban da `DataTable` faz. É o mesmo gesto, então é o mesmo\n * controle: 36px por segmento em vez de ~200px de dois botões com texto, e a\n * largura devolvida ao eixo.\n *\n * ⚠️ Aqui `CalendarDays` repete o ícone do título do período, e eu tinha\n * recusado isso na versão anterior. Reverti: naquele caso era um botão COM\n * rótulo, onde o ícone é ornamento e a redundância confunde. Num controle\n * icon-only o ícone **é** o rótulo, então ele tem que ser o óbvio — e o óbvio\n * de \"Calendário\" é um calendário. Os contextos são diferentes.\n */\nconst VIEW_ITEMS: {\n  value: GanttView;\n  label: string;\n  icon: ReactNode;\n}[] = [\n  { value: \"timeline\", label: \"Cronograma\", icon: <ChartNoAxesGantt /> },\n  { value: \"calendar\", label: \"Calendário\", icon: <CalendarDays /> },\n];\n\nconst ZOOM_ITEMS: { value: GanttGranularity; label: string }[] = [\n  { value: \"day\", label: \"Dia\" },\n  { value: \"week\", label: \"Semana\" },\n  { value: \"month\", label: \"Mês\" },\n  { value: \"quarter\", label: \"Trimestre\" },\n];\n\nexport type GanttToolbarProps = {\n  title: ReactNode;\n  onPrev: () => void;\n  onNext: () => void;\n  onToday: () => void;\n\n  view: GanttView;\n  onViewChange: (v: GanttView) => void;\n\n  granularity: GanttGranularity;\n  onGranularityChange: (g: GanttGranularity) => void;\n\n  searchable: boolean;\n  search: string;\n  onSearchChange: (s: string) => void;\n\n  filterFields?: GanttFilterField[];\n  onOpenFilterPanel: () => void;\n  appliedCount: number;\n  /** O que está marcado — a linha de chips lê daqui. */\n  filterModel: GanttFilterModel;\n  /** Desliga UM campo inteiro (o `×` do chip). */\n  onClearField: (fieldId: string) => void;\n  /** Desliga todos (\"Limpar todos\"). */\n  onClearAll: () => void;\n  /** Marca/desmarca um valor — o popover do chip edita por aqui. */\n  onToggleFilterValue: (fieldId: string, value: string) => void;\n  /** Contagem por opção, sobre TODAS as linhas. */\n  filterCounts: Record<string, Record<string, number>>;\n  /** Formata o ISO de um filtro `date` pro chip — o `locale` mora na raiz. */\n  formatFilterDate: (iso: string) => string;\n\n  /**\n   * Só aparece quando há vínculo E o consumidor não escondeu o botão.\n   *\n   * Sem grafo não existe caminho crítico; e `criticalPathToggle={false}`\n   * esconde o controle quando o estado é decisão da tela.\n   */\n  hasLinks: boolean;\n  showCriticalToggle: boolean;\n  criticalPath: boolean;\n  onToggleCriticalPath: () => void;\n\n  toolbarActions?: ReactNode;\n  primaryAction?: ReactNode;\n};\n\nexport function GanttToolbar({\n  title,\n  onPrev,\n  onNext,\n  onToday,\n  view,\n  onViewChange,\n  granularity,\n  onGranularityChange,\n  searchable,\n  search,\n  onSearchChange,\n  filterFields,\n  onOpenFilterPanel,\n  appliedCount,\n  filterModel,\n  onClearField,\n  onClearAll,\n  onToggleFilterValue,\n  filterCounts,\n  formatFilterDate,\n  hasLinks,\n  showCriticalToggle,\n  criticalPath,\n  onToggleCriticalPath,\n  toolbarActions,\n  primaryAction,\n}: GanttToolbarProps) {\n  const zoomAtivo = ZOOM_ITEMS.find((z) => z.value === granularity) ?? ZOOM_ITEMS[0];\n  const temFiltros = (filterFields?.length ?? 0) > 0;\n  const filtroEngajado = appliedCount > 0;\n\n\n  /*\n    A coluna externa NÃO tem `gap`: quem paga o espaçamento entre a toolbar e os\n    chips é a própria linha de chips (`mt`/`pt` em `ganttFilterRow`). Ela só\n    existe quando há filtro aplicado, e um `gap` aqui cobraria margem por uma\n    linha ausente na maior parte do tempo.\n  */\n  return (\n    <div className=\"flex flex-col\">\n      <div className={ganttToolbar()}>\n      {/* ── esquerda: período (o contexto) ───────────────────────── */}\n      <div className={ganttToolbarSide({ slot: \"leading\" })}>\n        {/*\n          Ícone de calendário à esquerda do período: ele diz que aquele texto é\n          um INTERVALO de datas, não um título de tela. `aria-hidden` porque o\n          texto ao lado já diz tudo — ícone decorativo anunciado é ruído no\n          leitor de tela.\n        */}\n        <span className={ganttTitle()}>\n          <CalendarDays aria-hidden />\n          <span className={ganttTitleText()}>{title}</span>\n        </span>\n\n        <div\n          role=\"group\"\n          aria-label=\"Navegação de período\"\n          className={ganttNavGroup()}\n        >\n          <Button\n            variant=\"outline\"\n            color=\"secondary\"\n            size=\"icon-md\"\n            onClick={onPrev}\n            aria-label=\"Período anterior\"\n          >\n            <ChevronLeft />\n          </Button>\n          <Button variant=\"outline\" color=\"secondary\" size=\"md\" onClick={onToday}>\n            Hoje\n          </Button>\n          <Button\n            variant=\"outline\"\n            color=\"secondary\"\n            size=\"icon-md\"\n            onClick={onNext}\n            aria-label=\"Próximo período\"\n          >\n            <ChevronRight />\n          </Button>\n        </div>\n      </div>\n\n      {/* ── direita: busca, ferramentas, ação ────────────────────── */}\n      <div className={ganttToolbarSide({ slot: \"trailing\" })}>\n        {searchable ? (\n          <label className={ganttSearch()}>\n            <Search aria-hidden />\n            <input\n              type=\"search\"\n              value={search}\n              onChange={(e) => onSearchChange(e.target.value)}\n              placeholder=\"Buscar tarefa…\"\n              aria-label=\"Buscar tarefa\"\n              className={ganttSearchInput()}\n            />\n          </label>\n        ) : null}\n\n        {toolbarActions}\n\n        {/*\n          Caminho crítico só existe com vínculo. Um toggle que nunca muda nada é\n          pior que a ausência dele: o usuário clica, nada acontece, e conclui que\n          está quebrado.\n        */}\n        {hasLinks && showCriticalToggle ? (\n          <Button\n            variant={criticalPath ? \"soft\" : \"outline\"}\n            color={criticalPath ? \"primary\" : \"secondary\"}\n            size=\"md\"\n            iconLeft={<Zap />}\n            onClick={onToggleCriticalPath}\n            aria-pressed={criticalPath}\n            aria-label=\"Caminho crítico\"\n            className={cn(\n              \"shrink-0 max-lg:size-form-lg max-lg:p-0\",\n              criticalPath && \"border-border-brand hover:border-border-brand\",\n            )}\n          >\n            <span className=\"hidden lg:inline\">Crítico</span>\n          </Button>\n        ) : null}\n\n        {/*\n          Visão — o controle segmentado do `TableToolbar`, não dois botões.\n\n          `role=\"radiogroup\"` + `role=\"radio\"` + `aria-checked`, como lá: são\n          opções mutuamente exclusivas de um conjunto, não toggles\n          independentes. `aria-pressed` (que eu usei antes) descreveria dois\n          botões que podem estar pressionados ao mesmo tempo.\n        */}\n        <div\n          role=\"radiogroup\"\n          aria-label=\"Visualização\"\n          className={ganttViewSwitch()}\n        >\n          {VIEW_ITEMS.map((v) => {\n            const ativa = v.value === view;\n            return (\n              <button\n                key={v.value}\n                type=\"button\"\n                role=\"radio\"\n                aria-checked={ativa}\n                aria-label={v.label}\n                title={v.label}\n                onClick={() => onViewChange(v.value)}\n                className={ganttViewSwitchButton({ isActive: ativa })}\n              >\n                {v.icon}\n              </button>\n            );\n          })}\n        </div>\n\n        {/*\n          ⛔ A ESCALA NÃO EXISTE NA VISÃO DE CALENDÁRIO.\n\n          \"Dia / Semana / Mês / Trimestre\" é a densidade do EIXO HORIZONTAL da\n          timeline. Numa grade de mês não há eixo pra adensar — a unidade é o\n          dia por construção, e as 6 linhas são semanas. Deixar o controle\n          visível ali seria oferecer uma escolha que não muda nada, que é a\n          mesma classe de defeito do toggle de crítico sem vínculo no grafo.\n\n          ⚠️ O estado NÃO é resetado ao esconder: voltando pra timeline, a\n          escala que estava selecionada continua. Zerar teria feito trocar de\n          visão e voltar perder o zoom, que é trabalho do usuário jogado fora.\n        */}\n        {view === \"timeline\" ? (\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button\n              variant=\"outline\"\n              color=\"secondary\"\n              size=\"md\"\n              /*\n                `Columns3` porque é O QUE O CONTROLE FAZ: ele troca a densidade\n                das colunas do eixo — dia, semana, mês, trimestre são larguras\n                de coluna, não datas.\n\n                Passei por `Ruler` (régua = \"escala\") e ficou ruim: a metáfora é\n                de MEDIR comprimento, e ninguém mede nada aqui. E de propósito\n                não é calendário — o calendário já rotula o período do lado\n                esquerdo, e dois calendários na mesma toolbar significando\n                coisas diferentes (que intervalo eu vejo × em que unidade eu\n                vejo) é pior que ícone nenhum.\n              */\n              iconLeft={<Columns3 />}\n              iconRight={<ChevronDown />}\n              aria-label={`Escala: ${zoomAtivo.label}`}\n              className=\"shrink-0\"\n            >\n              {zoomAtivo.label}\n            </Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"end\" className=\"min-w-[168px]\">\n            <DropdownMenuRadioGroup\n              value={granularity}\n              onValueChange={(v) => onGranularityChange(v as GanttGranularity)}\n            >\n              {ZOOM_ITEMS.map((z) => (\n                <DropdownMenuRadioItem key={z.value} value={z.value}>\n                  {z.label}\n                </DropdownMenuRadioItem>\n              ))}\n            </DropdownMenuRadioGroup>\n          </DropdownMenuContent>\n        </DropdownMenu>\n        ) : null}\n\n        {/*\n          #4 — o filtro abre PAINEL, não dropdown.\n\n          Um cronograma real filtra por frente, responsável, status,\n          prioridade e tag — cinco grupos com muitas opções. Dropdown com 40\n          linhas rola dentro de uma caixa de 240px e fecha ao clicar fora sem\n          querer. O painel é o mesmo veículo do filtro do `DataTable`.\n\n          #8 — SEM `iconRight`: a seta prometia dropdown, e o que abre é um\n          painel lateral. Seta que mente sobre o que vai acontecer é pior que\n          seta ausente.\n\n          ⚠️ O ícone é `Filter` (funil) porque é EXATAMENTE o do\n          `ToolbarFilterButton`, que é a fonte única do botão de filtro do\n          `DataTable` e do `DataList`. Era `ListFilter` (as barras\n          decrescentes) — outro desenho pra a mesma ação, na mesma tela, é o\n          usuário aprendendo duas vezes.\n\n          ⛔ E é ícone copiado, não componente importado: `ToolbarFilterButton`\n          vive em `ui/TableToolbar/`, e cross-import entre pastas de `ui/`\n          gera `registryDependency` pendente e quebra o `igreen:add` (L-049).\n\n          E é **icon-only**, igual ao de lá. O rótulo \"Filtro\" era redundante:\n          o funil já é o vocabulário universal, e o que o usuário precisa saber\n          não é que existe um filtro — é QUAL filtro está ligado, que agora\n          está nos chips abaixo, onde a informação é específica em vez de\n          genérica. Os 62px de rótulo voltaram pro eixo.\n        */}\n        {temFiltros ? (\n          <span className=\"relative shrink-0\">\n            <Button\n              variant={filtroEngajado ? \"soft\" : \"outline\"}\n              color={filtroEngajado ? \"primary\" : \"secondary\"}\n              size=\"icon-md\"\n              onClick={onOpenFilterPanel}\n              aria-label=\"Filtro\"\n              title=\"Filtro\"\n              className={cn(\n                filtroEngajado &&\n                  \"border-border-brand hover:border-border-brand\",\n              )}\n            >\n              <Filter />\n            </Button>\n            {appliedCount > 0 ? (\n              <span className={ganttFilterDot()} aria-hidden />\n            ) : null}\n          </span>\n        ) : null}\n        {primaryAction}\n        </div>\n      </div>\n\n      {/*\n        Resumo do que está APLICADO — ver a nota do topo (L-051).\n\n        Componente próprio e não JSX inline aqui: a anatomia do chip da tabela\n        tem 5 peças, um popover de edição e regra de colapso de valores. Inline\n        isso somava ~70 linhas no meio da toolbar, e a toolbar deixava de ser\n        legível de uma passada.\n      */}\n      {temFiltros ? (\n        <GanttAppliedFilters\n          fields={filterFields ?? []}\n          model={filterModel}\n          counts={filterCounts}\n          onToggleValue={onToggleFilterValue}\n          onClearField={onClearField}\n          onClearAll={onClearAll}\n          formatDate={formatFilterDate}\n        />\n      ) : null}\n    </div>\n  );\n}\n",
         "type": "registry:ui",
         "target": "components/ui/Gantt/parts/gantt-toolbar.tsx"
       },
       {
         "path": "src/components/ui/Gantt/USAGE.md",
-        "content": "# Gantt\n\nCronograma de projeto: hierarquia de tarefas à esquerda, tempo à direita, e\n**vínculos** entre as barras. Categoria: data-display.\n\n## Quando usar\n\nQuando a pergunta é **\"o que depende de quê\"**. Sem vínculo isto é uma timeline,\nnão um Gantt — e o DS já tem timeline.\n\n| Precisa de | Use |\n|---|---|\n| escolher **uma data** num formulário | `DatePicker` · `Calendar` · `MonthYearPicker` |\n| mostrar **quando** algo acontece (compromisso, reserva, agenda) | `Scheduler` |\n| mostrar **o que bloqueia o quê**, com hierarquia e progresso | **`Gantt`** |\n| linhas de registro sem eixo de tempo | `DataTable` · `DataList` |\n\n## Import\n\n```tsx\nimport { Gantt } from \"@/components/ui/Gantt\";\nimport type { GanttRow, GanttLink, GanttColumn } from \"@/components/ui/Gantt\";\n```\n\n## Exemplo mínimo\n\n```tsx\n<Gantt\n  rows={[\n    { id: \"fase\", label: \"Descoberta\", type: \"summary\", bars: [] },\n    {\n      id: \"t1\", label: \"Entrevistas\", parent: \"fase\",\n      bars: [{ id: \"b1\", label: \"Entrevistas\", start: d1, end: d2,\n               colorKey: \"chart-1\", progress: 100 }],\n    },\n    {\n      id: \"t2\", label: \"Escopo\", parent: \"fase\",\n      bars: [{ id: \"b2\", label: \"Escopo\", start: d2, end: d3, colorKey: \"chart-1\" }],\n    },\n  ]}\n  links={[{ id: \"v1\", source: \"b1\", target: \"b2\", type: \"FS\" }]}\n  searchable\n  locale={ptBR}\n  onBarClick={(bar, row) => abrirDetalhe(row.id)}\n/>\n```\n\n## Props essenciais\n\n| Prop | Tipo | Default |\n|---|---|---|\n| `rows` | `GanttRow[]` | — |\n| `links` | `GanttLink[]` — ausente = sem setas | — |\n| `view` | `\"timeline\" \\| \"calendar\"` | `\"timeline\"` |\n| `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |\n| `granularity` | `\"day\" \\| \"week\" \\| \"month\" \\| \"quarter\"` | `\"day\"` |\n| `columns` | `GanttColumn[]` | nome + início + fim |\n| `gridWidth` | `number` — largura inicial; o divisor é arrastável | `360` |\n| `draggable` / `resizable` / `linkable` | `boolean` | **`false`** |\n| `criticalPath` | `boolean` — liga o realce | **`false`** |\n| `criticalPathToggle` | `boolean` — mostra o botão \"Crítico\" na toolbar | `true` |\n| `onBarClick` | `(bar, row, evt) => void` | — |\n| `onBarMove` / `onBarResize` | `(change) => void` — **emite, não aplica** | — |\n| `onLinkViolations` | `(violations) => void` | — |\n| `onGraphError` | `({ kind: \"cycle\", barIds }) => void` | — |\n\n`GanttBar`: `{ id, start, end, label?, searchText?, colorKey?, progress?, continuesBefore?, continuesAfter?, meta? }`\n`GanttLink`: `{ id, source, target, type?, lag? }`\n`GanttFilterField`: `{ id, label, kind?, options?, accessor, searchable?, placeholder? }`\n\n### Filtro — os 6 `kind`\n\nO vocabulário espelha o da `DataTable`, pra o usuário ler a mesma frase nas duas\ntelas: *\"Status é Ativo\"*, *\"Duração entre 3 e 10\"*, *\"Início a partir de 01/09/26\"*.\n\n| `kind` | Controle no painel | `filterModel[id]` | Operador no chip |\n|---|---|---|---|\n| `multi` *(default)* | checkboxes + busca (≥7 opções) + \"selecionar todas\" | valores marcados | `é` |\n| `single` | radio | um valor | `é` |\n| `text` | um campo de texto | `[termo]` | `contém` |\n| `number` | dois campos numéricos | `[min, max]` — `\"\"` = livre | `entre` / `≥` / `≤` |\n| `date` | dois campos de data | `[de, até]` — `\"\"` = livre | `entre` / `a partir de` / `até` |\n| `boolean` | radio Sim/Não (ou seus `options`) | `[\"true\"]` \\| `[\"false\"]` | `é` |\n\n```tsx\nconst FILTROS: GanttFilterField[] = [\n  { id: \"frente\", label: \"Frente\", options: [...], accessor: r => meta(r).frente },\n  { id: \"desc\", label: \"Descrição\", kind: \"text\", accessor: r => meta(r).descricao },\n  { id: \"dur\", label: \"Duração\", kind: \"number\", accessor: r => dias(r) },\n  { id: \"inicio\", label: \"Início\", kind: \"date\", accessor: r => r.bars[0]?.start },\n  { id: \"ok\", label: \"Concluída\", kind: \"boolean\", accessor: r => r.bars[0]?.progress === 100 },\n];\n```\n\n⚠️ **`GanttFilterModel` não mudou de forma** — segue `Record<string, string[]>`. Os 6\ntipos codificam o valor em `string[]`, então `filterModel` controlado, persistência e\n\"Limpar tudo\" que você já tinha continuam funcionando **sem migração**.\n\n## Gotchas / cuidados\n\n### 1. O pai precisa ter altura\n\nO componente é `h-full`. Sem altura no pai, ele colapsa e você vê só a toolbar.\n\n```tsx\n<div className=\"flex h-[520px] flex-col\">   {/* ou h-full num pai com altura */}\n  <Gantt … />\n</div>\n```\n\n### 2. `links` referencia id de BARRA, não de linha\n\n```tsx\nrows:  { id: \"t1\", bars: [{ id: \"b1\", … }] }\nlinks: { source: \"b1\", target: \"b2\" }        // ✅ id da barra\nlinks: { source: \"t1\", target: \"t2\" }        // ❌ silenciosamente ignorado\n```\n\nUma linha-contêiner tem N barras, e o vínculo é entre trabalhos. Vínculo cujas\npontas não existem é **ignorado**, não reportado como erro — referência pendente\nacontece em paginação e em edição otimista, e tratar como conflito encheria a\ntela de falso positivo transitório.\n\n### 3. O componente NÃO reagenda\n\nArrastar emite `onBarMove`. Vínculo violado emite `onLinkViolations` com o\ndéficit em dias. **Nada se move sozinho.**\n\nCorrigir cronograma é decisão de negócio: mover a tarefa que atrasou, cortar\nescopo, aceitar o atraso ou renegociar o vínculo são quatro respostas diferentes\npro mesmo conflito. Datas reescritas sozinhas parecem dados, e o erro seria\ninvisível.\n\n### 4. A janela é do consumidor\n\n`windowStart`/`windowEnd` vêm por prop, e as setas `‹ ›` **não fazem nada**\nquando você as controla — mover é sua decisão. Omitidas, o componente mantém a\njanela em estado próprio, derivada dos dados na primeira montagem.\n\n### 5. `progress: undefined` ≠ `progress: 0`\n\nAusente = \"não rastreia progresso\", e não desenha trilha nenhuma.\n`0` = \"rastreia, e está em zero\", e desenha a trilha vazia. Os dois estados\naparecem lado a lado em cronograma real.\n\n### 6. A cor diz CATEGORIA, não estado\n\n`colorKey` usa a paleta de chart (`chart-1`…`chart-5`) porque no Gantt a cor diz\n**qual frente**. Status vai em `row.trailing` como `Chip`:\n\n```tsx\n{ id: \"fase\", label: \"Design\", type: \"summary\", bars: [],\n  trailing: <Chip size=\"sm\" variant=\"soft\" color=\"warning\">Em andamento</Chip> }\n```\n\nAzul (`chart-3`) é legítimo aqui: o `DESIGN.md` proíbe azul na **interface**, e o\n`Chart/USAGE.md` o inclui como **dado categórico**. Barra de Gantt é dado.\n\n### 7. A barra é tingida, não sólida com texto branco\n\nSe você vier de uma referência com barra saturada e texto branco: o DS não faz\nisso, e a razão foi **medida** — texto branco ou colorido sobre pílula tingida dá\ncontraste de **1.72–4.49 no light**, e nenhuma família passa AA. A cor viva vive\nno acento da borda esquerda e no preenchimento de progresso; o texto é\n`fg-default`.\n\n### 8. `summary` deriva o intervalo dos filhos\n\n`type: \"summary\"` com `bars: []` calcula o intervalo de **toda** a descendência\n(não só filhos diretos). Passar `bars` num `summary` vence o cálculo — serve pra\nquem tem o agregado do servidor.\n\nO intervalo é derivado de **todas** as linhas, não das visíveis: colapsar não\nencolhe a barra do summary, porque colapsar é justamente quando ela passa a ser\na única informação.\n\n### 9. Caminho crítico só considera `FS`\n\nLimite conhecido e declarado. Os outros três tipos exigem tratar as duas pontas\ncomo nós independentes no grafo, e implementar isso pela metade daria caminho\ncrítico **plausível e errado** — que é pior que não ter. `SS`, `FF` e `SF`\ncontinuam sendo validados como conflito; só não entram no cálculo de criticidade.\n\nCiclo no grafo → `onGraphError` e o crítico simplesmente não pinta. Ciclo é dado\ndo consumidor, não exceção do componente.\n\n### 10. Uma altura de linha, duas superfícies\n\n`GANTT_ROW_HEIGHT_PX` (48px) é constante e é consumida pelos **dois** painéis. Não\ntente sobrescrever por CSS num deles: o desalinho entre nome e barra é o pior\ndefeito possível aqui, porque produz leitura errada sem parecer quebrado.\n\n### 11. Trocar de escala nunca esconde trabalho\n\nQuando o consumidor não controla `windowStart`/`windowEnd`, trocar a escala faz\nduas coisas:\n\n1. **A janela** vira a UNIÃO da largura própria daquela escala (60 dias em\n   `day`, 1825 em `quarter`) com a extensão real do cronograma. União e não\n   `max` porque ela é idempotente: `day → quarter → day` devolve exatamente a\n   janela original. Antes a janela era só a largura da escala, e voltar de\n   `quarter` pra `day` recortava em 60 dias — as barras das duas pontas\n   desapareciam sem nada dizer que havia mais.\n2. **A viewport** recentra no mesmo instante do tempo que estava no meio da\n   tela. Sem isso, ir pra `quarter` deixava você olhando o começo de uma janela\n   de 5 anos cujos dados vivem no meio dela: canvas vazio.\n\nCom `windowStart`/`windowEnd` controlados, nada disso acontece: a janela é sua,\ne o componente não sobrescreve a sua decisão.\n\n### 12. O gesto EMITE, você aplica\n\n`draggable` / `resizable` / `linkable` ligam os gestos:\n\n| Gesto | Onde | Emite |\n|---|---|---|\n| mover | `pointerdown` no corpo da barra | `onBarMove` |\n| redimensionar | punho de 8px em cada ponta | `onBarResize` |\n| criar vínculo | porta redonda fora da ponta → soltar sobre outra barra | `onLinkCreate` |\n| remover vínculo | clique na seta | `onLinkDelete` |\n\n⚠️ **Ligar sem handler = arrastar e ver voltar.** A prévia acontece (a barra\nacompanha o ponteiro com snap de dia), mas nada persiste: o `Gantt` é dumb sobre\nmutação, igual ao `Kanban`. Datas reescritas sozinhas parecem dados, e o erro\nseria invisível.\n\n```tsx\nconst [rows, setRows] = useState(SEMENTE);\n\n<Gantt\n  rows={rows}\n  draggable resizable linkable\n  onBarMove={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\n  onBarResize={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\n  onLinkCreate={(novo) => setLinks((l) => [...l, { ...novo, id: gerarId() }])}\n/>\n```\n\n**O tipo do vínculo sai das duas pontas** — `linkTypeFromSides`: sair da ponta\ndireita e soltar na metade **esquerda** do destino dá `FS` (o caso comum); as\noutras três combinações dão `SS`, `FF` e `SF`. O alvo é **meia barra**, não a\nporta de 9px do destino: 9px não é afordância.\n\n⛔ **Linha `summary` não aceita gesto.** O intervalo dela é derivado dos filhos e\na barra é sintética (id `<rowId>__summary`, que não existe no seu `rows`) — um\ngesto ali emitiria uma `bar` que você não possui e um `source` pendurado. Mover\na fase é mover os filhos, e isso é decisão sua.\n\n**Snap em dia inteiro**, sempre. Arraste menor que meio dia não move nada, e\narrastar o punho inicial para depois do fim **para** em `start === end` (1 dia)\nem vez de inverter a barra — sem esse clamp a largura ficaria negativa e a barra\ndesapareceria no meio do gesto.\n\n### 13. O `accessor` tem que casar com o `kind`\n\n`number` precisa de número (ou string numérica); `date` precisa de `Date` ou ISO;\n`boolean` aceita `true`/`1`/`\"sim\"`. Devolver a coisa errada **não é erro de tipo** —\no `accessor` é declarado largo de propósito — e o campo simplesmente não casa nada.\n\nE `undefined` **exclui** a linha quando o filtro está ativo: filtrar por\n\"Responsável = Ana\" e receber de volta as linhas sem responsável nenhum é o oposto\ndo pedido.\n\n⚠️ Se você monta o valor de `date` na mão, **não** use `new Date(\"2026-09-30\")`: ISO\ndate-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UTC−3:\nvira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —\npredicado e chip — pra os dois nunca divergirem.\n\n### 14. As duas visões respondem perguntas diferentes\n\n| Visão | Responde | Tem |\n|---|---|---|\n| `timeline` | *o que depende do quê* | eixo de tempo, setas, gesto, os 2 painéis |\n| `calendar` | *o que acontece no dia 12* | grade de mês, chips por dia, `+N mais` |\n\nO seletor fica na toolbar (dois segmentos, não dropdown — são só duas). `view` +\n`onViewChange` controlam de fora; omitidos, o componente guarda em estado próprio.\n\n**A barra é UM segmento contínuo** atravessando os dias que ocupa — não um chip\npor dia. Uma tarefa de 10 a 15 é uma barra de 6 colunas, e se cruzar a virada de\nsemana vira dois segmentos com a ponta cortada marcada (mesmo vocabulário\n`continuesBefore`/`continuesAfter` da timeline). Um chip por dia leria como seis\ntarefas de um dia em vez de uma de seis.\n\n`onDayAdd` liga o **\"+\" no hover da célula**. Sem o handler o botão não é\nrenderizado — um \"+\" que não adiciona nada é pior que a ausência dele. Ele recebe\no dia à meia-noite local; quem cria a tarefa é você.\n\n⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos\nfilhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a\nhierarquia não é visível pra dar sentido ao agregado.\n\n⚠️ **O corte do `+N mais` é MEDIDO, não fixo.** A célula tem altura mínima de 88px\n(cabeçalho + 3 chips) e a grade rola quando não cabe; um `ResizeObserver` recalcula\nquantos chips entram quando a altura muda. Com corte fixo, uma viewport curta\nrecortava os chips e o próprio `+N mais` — o usuário via 2 tarefas e nenhuma pista\nde que havia 4.\n\n### 15. Em telas estreitas, declare o limite\n\nGrade + eixo não caben em 375px. O componente não finge que cabe — em vez de\nespremer os dois, use `granularity=\"week\"` ou mais, reduza `gridWidth`, ou ofereça\noutra visão. Um Gantt legível precisa de ~900px.\n\n## ⚠️ O que ainda NÃO existe\n\nDeclarado pra não virar descoberta:\n\n| | Estado |\n|---|---|\n| setas de vínculo na visão `calendar` | **não existem, e é decisão** — numa grade de mês uma seta do dia 3 ao 19 atravessaria 3 semanas passando por cima de 16 células alheias. O grafo segue vivo (conflito marcado no chip, `onLinkViolations` emitindo); sai só o desenho |\n| gesto na visão `calendar` | só clique. Arrastar num calendário move por dia, não por pixel — é outro gesto, e misturá-lo com o da timeline daria duas semânticas pro mesmo arraste |\n| criar vínculo `FF` / `SF` por gesto | possível, mas exige soltar na **metade direita** da barra de destino. Descoberta só pela doc — não há dica visual da metade |\n\nO que está completo: as duas visões de dado (tarefa e portfólio), hierarquia com\ncollapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os\n**4 tipos de vínculo** com `lag`, detecção de conflito, caminho crítico, busca,\nzoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral\ne chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os\n**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia, e as\n**duas visões** com seletor na toolbar.\n\n## Núcleo puro exportado\n\nÚtil fora do render — validar cronograma no servidor, calcular crítico num job:\n\n```tsx\nimport { checkAllLinks, computeCriticalPath, topoSort } from \"@/components/ui/Gantt\";\nimport { buildTimeAxis, clipToWindow, packLanes } from \"@/components/ui/Gantt\";\n```\n\n**146 testes** cobrem as bordas: virada de mês, barra que cruza a janela, lane\npacking com sobreposição parcial, ciclo em `parent` (que devolvia lista VAZIA até\no teste existir), auto-vínculo, as 4 restrições nas pontas certas, o índice\n`ancestorHasNext[i+1]` do conector (L-045) e o parse de `YYYY-MM-DD` como\nmeia-noite local (com `new Date` era UTC e o filtro de data voltava um dia), e o\nclamp do resize que impedia a barra de inverter e desaparecer.\n",
+        "content": "# Gantt\n\nCronograma de projeto: hierarquia de tarefas à esquerda, tempo à direita, e\n**vínculos** entre as barras. Categoria: data-display.\n\n## Quando usar\n\nQuando a pergunta é **\"o que depende de quê\"**. Sem vínculo isto é uma timeline,\nnão um Gantt — e o DS já tem timeline.\n\n| Precisa de | Use |\n|---|---|\n| escolher **uma data** num formulário | `DatePicker` · `Calendar` · `MonthYearPicker` |\n| mostrar **quando** algo acontece (compromisso, reserva, agenda) | `Scheduler` |\n| mostrar **o que bloqueia o quê**, com hierarquia e progresso | **`Gantt`** |\n| linhas de registro sem eixo de tempo | `DataTable` · `DataList` |\n\n## Import\n\n```tsx\nimport { Gantt } from \"@/components/ui/Gantt\";\nimport type { GanttRow, GanttLink, GanttColumn } from \"@/components/ui/Gantt\";\n```\n\n## Exemplo mínimo\n\n```tsx\n<Gantt\n  rows={[\n    { id: \"fase\", label: \"Descoberta\", type: \"summary\", bars: [] },\n    {\n      id: \"t1\", label: \"Entrevistas\", parent: \"fase\",\n      bars: [{ id: \"b1\", label: \"Entrevistas\", start: d1, end: d2,\n               colorKey: \"chart-1\", progress: 100 }],\n    },\n    {\n      id: \"t2\", label: \"Escopo\", parent: \"fase\",\n      bars: [{ id: \"b2\", label: \"Escopo\", start: d2, end: d3, colorKey: \"chart-1\" }],\n    },\n  ]}\n  links={[{ id: \"v1\", source: \"b1\", target: \"b2\", type: \"FS\" }]}\n  searchable\n  locale={ptBR}\n  onBarClick={(bar, row) => abrirDetalhe(row.id)}\n/>\n```\n\n## Props essenciais\n\n| Prop | Tipo | Default |\n|---|---|---|\n| `rows` | `GanttRow[]` | — |\n| `links` | `GanttLink[]` — ausente = sem setas | — |\n| `view` | `\"timeline\" \\| \"calendar\"` | `\"timeline\"` |\n| `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |\n| `granularity` | `\"day\" \\| \"week\" \\| \"month\" \\| \"quarter\"` | `\"day\"` |\n| `columns` | `GanttColumn[]` | nome + início + fim |\n| `gridWidth` | `number` — largura inicial; o divisor é arrastável | `360` |\n| `draggable` / `resizable` / `linkable` | `boolean` | **`false`** |\n| `criticalPath` | `boolean` — liga o realce | **`false`** |\n| `criticalPathToggle` | `boolean` — mostra o botão \"Crítico\" na toolbar | `true` |\n| `onBarClick` | `(bar, row, evt) => void` | — |\n| `onBarMove` / `onBarResize` | `(change) => void` — **emite, não aplica** | — |\n| `onLinkViolations` | `(violations) => void` | — |\n| `onGraphError` | `({ kind: \"cycle\", barIds }) => void` | — |\n\n`GanttBar`: `{ id, start, end, label?, searchText?, colorKey?, progress?, continuesBefore?, continuesAfter?, meta? }`\n`GanttLink`: `{ id, source, target, type?, lag? }`\n`GanttFilterField`: `{ id, label, kind?, options?, accessor, searchable?, placeholder? }`\n\n### Filtro — os 6 `kind`\n\nO vocabulário espelha o da `DataTable`, pra o usuário ler a mesma frase nas duas\ntelas: *\"Status é Ativo\"*, *\"Duração entre 3 e 10\"*, *\"Início a partir de 01/09/26\"*.\n\n| `kind` | Controle no painel | `filterModel[id]` | Operador no chip |\n|---|---|---|---|\n| `multi` *(default)* | checkboxes + busca (≥7 opções) + \"selecionar todas\" | valores marcados | `é` |\n| `single` | radio | um valor | `é` |\n| `text` | um campo de texto | `[termo]` | `contém` |\n| `number` | dois campos numéricos | `[min, max]` — `\"\"` = livre | `entre` / `≥` / `≤` |\n| `date` | dois campos de data | `[de, até]` — `\"\"` = livre | `entre` / `a partir de` / `até` |\n| `boolean` | radio Sim/Não (ou seus `options`) | `[\"true\"]` \\| `[\"false\"]` | `é` |\n\n```tsx\nconst FILTROS: GanttFilterField[] = [\n  { id: \"frente\", label: \"Frente\", options: [...], accessor: r => meta(r).frente },\n  { id: \"desc\", label: \"Descrição\", kind: \"text\", accessor: r => meta(r).descricao },\n  { id: \"dur\", label: \"Duração\", kind: \"number\", accessor: r => dias(r) },\n  { id: \"inicio\", label: \"Início\", kind: \"date\", accessor: r => r.bars[0]?.start },\n  { id: \"ok\", label: \"Concluída\", kind: \"boolean\", accessor: r => r.bars[0]?.progress === 100 },\n];\n```\n\n⚠️ **`GanttFilterModel` não mudou de forma** — segue `Record<string, string[]>`. Os 6\ntipos codificam o valor em `string[]`, então `filterModel` controlado, persistência e\n\"Limpar tudo\" que você já tinha continuam funcionando **sem migração**.\n\n## Gotchas / cuidados\n\n### 1. O pai precisa ter altura\n\nO componente é `h-full`. Sem altura no pai, ele colapsa e você vê só a toolbar.\n\n```tsx\n<div className=\"flex h-[520px] flex-col\">   {/* ou h-full num pai com altura */}\n  <Gantt … />\n</div>\n```\n\n### 2. `links` referencia id de BARRA, não de linha\n\n```tsx\nrows:  { id: \"t1\", bars: [{ id: \"b1\", … }] }\nlinks: { source: \"b1\", target: \"b2\" }        // ✅ id da barra\nlinks: { source: \"t1\", target: \"t2\" }        // ❌ silenciosamente ignorado\n```\n\nUma linha-contêiner tem N barras, e o vínculo é entre trabalhos. Vínculo cujas\npontas não existem é **ignorado**, não reportado como erro — referência pendente\nacontece em paginação e em edição otimista, e tratar como conflito encheria a\ntela de falso positivo transitório.\n\n### 3. O componente NÃO reagenda\n\nArrastar emite `onBarMove`. Vínculo violado emite `onLinkViolations` com o\ndéficit em dias. **Nada se move sozinho.**\n\nCorrigir cronograma é decisão de negócio: mover a tarefa que atrasou, cortar\nescopo, aceitar o atraso ou renegociar o vínculo são quatro respostas diferentes\npro mesmo conflito. Datas reescritas sozinhas parecem dados, e o erro seria\ninvisível.\n\n### 4. A janela é do consumidor\n\n`windowStart`/`windowEnd` vêm por prop, e as setas `‹ ›` **não fazem nada**\nquando você as controla — mover é sua decisão. Omitidas, o componente mantém a\njanela em estado próprio, derivada dos dados na primeira montagem.\n\n### 5. `progress: undefined` ≠ `progress: 0`\n\nAusente = \"não rastreia progresso\", e não desenha trilha nenhuma.\n`0` = \"rastreia, e está em zero\", e desenha a trilha vazia. Os dois estados\naparecem lado a lado em cronograma real.\n\n### 6. A cor diz CATEGORIA, não estado\n\n`colorKey` usa a paleta de chart (`chart-1`…`chart-5`) porque no Gantt a cor diz\n**qual frente**. Status vai em `row.trailing` como `Chip`:\n\n```tsx\n{ id: \"fase\", label: \"Design\", type: \"summary\", bars: [],\n  trailing: <Chip size=\"sm\" variant=\"soft\" color=\"warning\">Em andamento</Chip> }\n```\n\nAzul (`chart-3`) é legítimo aqui: o `DESIGN.md` proíbe azul na **interface**, e o\n`Chart/USAGE.md` o inclui como **dado categórico**. Barra de Gantt é dado.\n\n### 7. A barra é tingida, não sólida com texto branco\n\nSe você vier de uma referência com barra saturada e texto branco: o DS não faz\nisso, e a razão foi **medida** — texto branco ou colorido sobre pílula tingida dá\ncontraste de **1.72–4.49 no light**, e nenhuma família passa AA. A cor viva vive\nno acento da borda esquerda e no preenchimento de progresso; o texto é\n`fg-default`.\n\n### 8. `summary` deriva o intervalo dos filhos\n\n`type: \"summary\"` com `bars: []` calcula o intervalo de **toda** a descendência\n(não só filhos diretos). Passar `bars` num `summary` vence o cálculo — serve pra\nquem tem o agregado do servidor.\n\nO intervalo é derivado de **todas** as linhas, não das visíveis: colapsar não\nencolhe a barra do summary, porque colapsar é justamente quando ela passa a ser\na única informação.\n\n### 9. Caminho crítico só considera `FS`\n\nLimite conhecido e declarado. Os outros três tipos exigem tratar as duas pontas\ncomo nós independentes no grafo, e implementar isso pela metade daria caminho\ncrítico **plausível e errado** — que é pior que não ter. `SS`, `FF` e `SF`\ncontinuam sendo validados como conflito; só não entram no cálculo de criticidade.\n\nCiclo no grafo → `onGraphError` e o crítico simplesmente não pinta. Ciclo é dado\ndo consumidor, não exceção do componente.\n\n### 10. Uma altura de linha, duas superfícies\n\n`GANTT_ROW_HEIGHT_PX` (48px) é constante e é consumida pelos **dois** painéis. Não\ntente sobrescrever por CSS num deles: o desalinho entre nome e barra é o pior\ndefeito possível aqui, porque produz leitura errada sem parecer quebrado.\n\n### 11. Trocar de escala nunca esconde trabalho\n\nQuando o consumidor não controla `windowStart`/`windowEnd`, trocar a escala faz\nduas coisas:\n\n1. **A janela** vira a UNIÃO da largura própria daquela escala (60 dias em\n   `day`, 1825 em `quarter`) com a extensão real do cronograma. União e não\n   `max` porque ela é idempotente: `day → quarter → day` devolve exatamente a\n   janela original. Antes a janela era só a largura da escala, e voltar de\n   `quarter` pra `day` recortava em 60 dias — as barras das duas pontas\n   desapareciam sem nada dizer que havia mais.\n2. **A viewport** recentra no mesmo instante do tempo que estava no meio da\n   tela. Sem isso, ir pra `quarter` deixava você olhando o começo de uma janela\n   de 5 anos cujos dados vivem no meio dela: canvas vazio.\n\nCom `windowStart`/`windowEnd` controlados, nada disso acontece: a janela é sua,\ne o componente não sobrescreve a sua decisão.\n\n### 12. O gesto EMITE, você aplica\n\n`draggable` / `resizable` / `linkable` ligam os gestos:\n\n| Gesto | Onde | Emite |\n|---|---|---|\n| mover | `pointerdown` no corpo da barra | `onBarMove` |\n| redimensionar | punho de 8px em cada ponta | `onBarResize` |\n| criar vínculo | porta redonda fora da ponta → soltar sobre outra barra | `onLinkCreate` |\n| remover vínculo | clique na seta | `onLinkDelete` |\n\n⚠️ **Ligar sem handler = arrastar e ver voltar.** A prévia acontece (a barra\nacompanha o ponteiro com snap de dia), mas nada persiste: o `Gantt` é dumb sobre\nmutação, igual ao `Kanban`. Datas reescritas sozinhas parecem dados, e o erro\nseria invisível.\n\n```tsx\nconst [rows, setRows] = useState(SEMENTE);\n\n<Gantt\n  rows={rows}\n  draggable resizable linkable\n  onBarMove={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\n  onBarResize={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\n  onLinkCreate={(novo) => setLinks((l) => [...l, { ...novo, id: gerarId() }])}\n/>\n```\n\n**O tipo do vínculo sai das duas pontas** — `linkTypeFromSides`: sair da ponta\ndireita e soltar na metade **esquerda** do destino dá `FS` (o caso comum); as\noutras três combinações dão `SS`, `FF` e `SF`. O alvo é **meia barra**, não a\nporta de 9px do destino: 9px não é afordância.\n\n⛔ **Linha `summary` não aceita gesto.** O intervalo dela é derivado dos filhos e\na barra é sintética (id `<rowId>__summary`, que não existe no seu `rows`) — um\ngesto ali emitiria uma `bar` que você não possui e um `source` pendurado. Mover\na fase é mover os filhos, e isso é decisão sua.\n\n**Snap em dia inteiro**, sempre. Arraste menor que meio dia não move nada, e\narrastar o punho inicial para depois do fim **para** em `start === end` (1 dia)\nem vez de inverter a barra — sem esse clamp a largura ficaria negativa e a barra\ndesapareceria no meio do gesto.\n\n### 13. O `accessor` tem que casar com o `kind`\n\n`number` precisa de número (ou string numérica); `date` precisa de `Date` ou ISO;\n`boolean` aceita `true`/`1`/`\"sim\"`. Devolver a coisa errada **não é erro de tipo** —\no `accessor` é declarado largo de propósito — e o campo simplesmente não casa nada.\n\nE `undefined` **exclui** a linha quando o filtro está ativo: filtrar por\n\"Responsável = Ana\" e receber de volta as linhas sem responsável nenhum é o oposto\ndo pedido.\n\n⚠️ Se você monta o valor de `date` na mão, **não** use `new Date(\"2026-09-30\")`: ISO\ndate-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UTC−3:\nvira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —\npredicado e chip — pra os dois nunca divergirem.\n\n### 14. As duas visões respondem perguntas diferentes\n\n| Visão | Responde | Título | `‹ ›` anda | Escala |\n|---|---|---|---|---|\n| `timeline` | *o que depende do quê* | o intervalo (\"31 ago – 2 nov 2026\") | meia janela | ✅ |\n| `calendar` | *o que acontece no dia 12* | o **mês** (\"outubro 2026\") | **1 mês** | ⛔ some |\n\nA toolbar **muda com a visão**, não só o conteúdo. O título de `calendar` é o mês\nporque a grade é de um mês — anunciar 64 dias sobre uma grade que mostra 31 seria\no título mentindo. O `‹ ›` anda um mês exato ali (meia janela poderia cair no\nmesmo mês, e o botão não faria o que o título promete). E a escala **desaparece**:\n\"Dia/Semana/Mês/Trimestre\" é a densidade do eixo horizontal, e na grade de mês não\nhá eixo pra adensar — controle que não muda nada é a mesma classe de defeito do\ntoggle de crítico sem vínculo.\n\n⚠️ A escala **não é resetada** ao esconder: voltando pra timeline, o zoom que\nestava selecionado continua. Zerar faria trocar de visão e voltar perder trabalho\ndo usuário.\n\nO seletor fica na toolbar (dois segmentos, não dropdown — são só duas). `view` +\n`onViewChange` controlam de fora; omitidos, o componente guarda em estado próprio.\n\n**A barra é UM segmento contínuo** atravessando os dias que ocupa — não um chip\npor dia. Uma tarefa de 10 a 15 é uma barra de 6 colunas, e se cruzar a virada de\nsemana vira dois segmentos com a ponta cortada marcada (mesmo vocabulário\n`continuesBefore`/`continuesAfter` da timeline). Um chip por dia leria como seis\ntarefas de um dia em vez de uma de seis.\n\n`onDayAdd` liga o **\"+\" no hover da célula**. Sem o handler o botão não é\nrenderizado — um \"+\" que não adiciona nada é pior que a ausência dele.\n\n⚠️ Ele significa **\"o usuário pediu pra adicionar no dia X\"**, não \"adicione\nisto\". Abra seu drawer/modal com os campos que a SUA tela precisa (nome, cor,\nresponsável, duração) e crie a linha no salvar — mesma divisão do `onBarClick`,\nque devolve o payload e deixa a ficha pra você. O `GanttFullPreview` mostra o\ndrawer completo com `FormFieldInput`/`FormFieldSelect`.\n\n⛔ Não ofereça \"escolha uma cor\" por NOME DE COR no seu formulário. A cor da barra\ndiz CATEGORIA (qual frente), e um seletor de \"verde/roxo\" convida o usuário a usar\ncor como STATUS — que é exatamente a assumption que este componente declara.\nRotule as opções pela frente (\"Design\", \"Engenharia\") e mapeie pra `colorKey` por\ndentro.\n\n⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos\nfilhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a\nhierarquia não é visível pra dar sentido ao agregado.\n\n⚠️ **O corte do `+N mais` é MEDIDO, não fixo.** A célula tem altura mínima de 88px\n(cabeçalho + 3 chips) e a grade rola quando não cabe; um `ResizeObserver` recalcula\nquantos chips entram quando a altura muda. Com corte fixo, uma viewport curta\nrecortava os chips e o próprio `+N mais` — o usuário via 2 tarefas e nenhuma pista\nde que havia 4.\n\n### 15. Em telas estreitas, declare o limite\n\nGrade + eixo não caben em 375px. O componente não finge que cabe — em vez de\nespremer os dois, use `granularity=\"week\"` ou mais, reduza `gridWidth`, ou ofereça\noutra visão. Um Gantt legível precisa de ~900px.\n\n## ⚠️ O que ainda NÃO existe\n\nDeclarado pra não virar descoberta:\n\n| | Estado |\n|---|---|\n| setas de vínculo na visão `calendar` | **não existem, e é decisão** — numa grade de mês uma seta do dia 3 ao 19 atravessaria 3 semanas passando por cima de 16 células alheias. O grafo segue vivo (conflito marcado no chip, `onLinkViolations` emitindo); sai só o desenho |\n| gesto na visão `calendar` | só clique. Arrastar num calendário move por dia, não por pixel — é outro gesto, e misturá-lo com o da timeline daria duas semânticas pro mesmo arraste |\n| criar vínculo `FF` / `SF` por gesto | possível, mas exige soltar na **metade direita** da barra de destino. Descoberta só pela doc — não há dica visual da metade |\n\nO que está completo: as duas visões de dado (tarefa e portfólio), hierarquia com\ncollapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os\n**4 tipos de vínculo** com `lag`, detecção de conflito, caminho crítico, busca,\nzoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral\ne chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os\n**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia, e as\n**duas visões** com seletor na toolbar.\n\n## Núcleo puro exportado\n\nÚtil fora do render — validar cronograma no servidor, calcular crítico num job:\n\n```tsx\nimport { checkAllLinks, computeCriticalPath, topoSort } from \"@/components/ui/Gantt\";\nimport { buildTimeAxis, clipToWindow, packLanes } from \"@/components/ui/Gantt\";\n```\n\n**146 testes** cobrem as bordas: virada de mês, barra que cruza a janela, lane\npacking com sobreposição parcial, ciclo em `parent` (que devolvia lista VAZIA até\no teste existir), auto-vínculo, as 4 restrições nas pontas certas, o índice\n`ancestorHasNext[i+1]` do conector (L-045) e o parse de `YYYY-MM-DD` como\nmeia-noite local (com `new Date` era UTC e o filtro de data voltava um dia), e o\nclamp do resize que impedia a barra de inverter e desaparecer.\n",
         "type": "registry:file",
         "target": "components/ui/Gantt/USAGE.md"
       },
@@ -3269,7 +3269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · gantt · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3361,7 +3361,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · header · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3385,7 +3385,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · hover-card · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · icon · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3462,7 +3462,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · input-group · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3487,7 +3487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · input-otp · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3511,7 +3511,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · input · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3570,7 +3570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · kanban · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3632,7 +3632,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · kpi · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · label · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3764,7 +3764,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · list · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3810,7 +3810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · markdown-text · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3920,7 +3920,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · menu-sidebar · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3945,7 +3945,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · menubar · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -3989,7 +3989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · modal · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4038,7 +4038,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · month-year-picker · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4064,7 +4064,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · navigation-menu · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4111,7 +4111,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · page-header · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4136,7 +4136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · pagination · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4211,7 +4211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · panel · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4235,7 +4235,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · popover · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4259,7 +4259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · progress · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4283,7 +4283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · radio-group · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4423,7 +4423,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · scheduler · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4471,7 +4471,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · screen-loader · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · scroll-area · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4520,7 +4520,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · select · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4544,7 +4544,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · separator · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · sheet · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4683,7 +4683,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4705,7 +4705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · skeleton · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4729,7 +4729,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · slider · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4752,7 +4752,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · sonner · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4798,7 +4798,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · spinner · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4822,7 +4822,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · switch · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4901,7 +4901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · table · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4964,7 +4964,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · tabs-navigation · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -4988,7 +4988,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · tabs · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -5012,7 +5012,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · textarea · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -5030,7 +5030,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · theme-blue · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   },
@@ -5048,7 +5048,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · theme-green · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   },
@@ -5066,7 +5066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · theme-pay · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   },
@@ -5084,7 +5084,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · theme-vibrant · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   },
@@ -5106,7 +5106,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · theme · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   },
@@ -5157,7 +5157,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · toast · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -5183,7 +5183,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · toggle-group · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -5208,7 +5208,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · toggle · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -5232,7 +5232,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · tooltip · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:ui"
   },
@@ -5253,7 +5253,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · tv · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   },
@@ -5275,7 +5275,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.58.0 · 5111f44 · 2026-09-04"
+      "stamp": "igreen-ds · utils · v0.58.0 · 6722c4b · 2026-09-04"
     },
     "type": "registry:file"
   }

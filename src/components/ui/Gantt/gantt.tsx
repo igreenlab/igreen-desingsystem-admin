@@ -8,7 +8,13 @@ import {
   useState,
   type UIEvent,
 } from "react";
-import { addDays, differenceInCalendarDays, format, startOfDay } from "date-fns";
+import {
+  addDays,
+  addMonths,
+  differenceInCalendarDays,
+  format,
+  startOfDay,
+} from "date-fns";
 import { cn } from "@/lib/utils";
 import {
   ganttBody,
@@ -462,12 +468,63 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     [wsProp, weProp, larguraJanelaDias, now, rows],
   );
 
+  /**
+   * Mês âncora da visão `calendar` — o MEIO da janela.
+   *
+   * ⚠️ Extraída pra variável porque agora TRÊS lugares a consomem: o título, a
+   * navegação e a própria view. Calculada inline no JSX (como estava) o título
+   * poderia dizer um mês e a grade mostrar outro no primeiro arredondamento
+   * diferente — é a L-038 esperando acontecer.
+   *
+   * Não é `windowStart`: a janela derivada começa um dia ANTES da primeira
+   * barra, então o âncora caía no mês anterior ao trabalho (medido: abria
+   * agosto com 5 células ocupadas de 42 enquanto os dados viviam em set–nov).
+   */
+  const ancoraDoMes = useMemo(
+    () =>
+      addDays(startOfDay(windowStart), Math.floor(larguraJanelaDias / 2)),
+    [windowStart, larguraJanelaDias],
+  );
+
+  /**
+   * O título muda de NATUREZA com a visão, não só de formato.
+   *
+   * `timeline` mostra o intervalo ("31 ago – 2 nov 2026") porque é isso que o
+   * eixo cobre. `calendar` mostra o MÊS ("outubro 2026") porque a grade é de um
+   * mês — anunciar um intervalo de 64 dias sobre uma grade que mostra 31 seria
+   * o título mentindo sobre o conteúdo.
+   */
   const titulo = useMemo(() => {
+    if (view === "calendar") {
+      return format(ancoraDoMes, "MMMM yyyy", { locale });
+    }
     const mesmoAno = windowStart.getFullYear() === windowEnd.getFullYear();
     const a = format(windowStart, mesmoAno ? "d MMM" : "d MMM yyyy", { locale });
     const b = format(windowEnd, "d MMM yyyy", { locale });
     return `${a} – ${b}`;
-  }, [windowStart, windowEnd, locale]);
+  }, [view, ancoraDoMes, windowStart, windowEnd, locale]);
+
+  /**
+   * Quanto o `‹ ›` anda — e a unidade depende da visão.
+   *
+   * `timeline`: meia janela, que é o passo que mantém contexto de um lado
+   * enquanto revela o outro.
+   *
+   * `calendar`: **um mês exato**. Meia janela ali andaria 32 dias e poderia
+   * cair no mesmo mês (a grade não mudaria) ou pular um — em nenhum dos dois
+   * casos o botão faria o que o título promete. O passo é calculado em DIAS a
+   * partir do mês vizinho, pra a janela seguir sendo a fonte única.
+   */
+  const passoDeNavegacao = useCallback(
+    (direcao: 1 | -1) => {
+      if (view === "calendar") {
+        const destino = addMonths(ancoraDoMes, direcao);
+        return differenceInCalendarDays(destino, ancoraDoMes);
+      }
+      return direcao * Math.max(1, Math.floor(larguraJanelaDias / 2));
+    },
+    [view, ancoraDoMes, larguraJanelaDias],
+  );
 
   /**
    * Formata o ISO de um filtro `date` pro chip.
@@ -508,8 +565,8 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     <div className={cn(ganttRoot(), className)}>
       <GanttToolbar
         title={titulo}
-        onPrev={() => mover(-Math.max(1, Math.floor(larguraJanelaDias / 2)))}
-        onNext={() => mover(Math.max(1, Math.floor(larguraJanelaDias / 2)))}
+        onPrev={() => mover(passoDeNavegacao(-1))}
+        onNext={() => mover(passoDeNavegacao(1))}
         onToday={() => {
           if (wsProp || weProp) return;
           const meio = Math.floor(larguraJanelaDias / 2);
@@ -736,10 +793,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                 */
                 <GanttCalendarView
                   rows={flat}
-                  anchor={addDays(
-                    startOfDay(windowStart),
-                    Math.floor(larguraJanelaDias / 2),
-                  )}
+                  anchor={ancoraDoMes}
                   weekStartsOn={weekStartsOn}
                   now={now}
                   locale={locale}
