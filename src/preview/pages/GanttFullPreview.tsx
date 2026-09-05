@@ -17,11 +17,23 @@ import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Avatar } from "@/components/ui/avatar-ig";
 import { FloatingPanel } from "@/components/ui/FloatingPanel";
+import { AppShell } from "@/components/ui/AppShell";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { useTheme, type Theme } from "@/hooks/useTheme";
 import {
   FormFieldInput,
   FormFieldSelect,
   FormFieldTextarea,
 } from "@/components/ui/FormField";
+import {
+  APP_SHELL_CONTEXTS,
+  APP_SHELL_COMMANDS,
+  APP_SHELL_NOTIFICATIONS,
+  APP_SHELL_MESSAGES,
+  APP_SHELL_THEME_OPTIONS,
+  APP_SHELL_LAYOUT_OPTIONS,
+  APP_SHELL_USER,
+} from "../mocks/app-shell-mocks";
 
 /**
  * `Gantt` em tela cheia — o exemplo que valida o componente a fundo.
@@ -433,7 +445,65 @@ const COLUNAS: GanttColumn[] = [
   },
 ];
 
+/**
+ * O shell é o mesmo dos outros exemplos de tela (`mapa-rede`, `finance`,
+ * `order-detail`): mesmos contextos, ⌘K, notificações, tema e usuário, vindos
+ * do `app-shell-mocks`.
+ *
+ * ⚠️ Ele existe aqui pela mesma razão que existe lá: um cronograma real vive
+ * DENTRO de um app, e a pergunta que este exemplo responde inclui "como esta
+ * peça convive com o rail, o header e o breadcrumb". Sem o shell, o exemplo
+ * mostrava o componente flutuando numa página vazia — o caso que ninguém tem.
+ *
+ * ⛔ O shell **não** vai pro `example-gantt`: lá ele é substituído por uma
+ * `div` de altura, porque quem consome já tem o próprio shell (L-034). A
+ * fronteira entre os dois é o `ConteudoDoCronograma`.
+ */
 export function GanttFullPreview() {
+  const { theme, setTheme } = useTheme();
+  const [layout, setLayout] = useState<string>("fluid");
+
+  return (
+    <AppShell
+      contexts={APP_SHELL_CONTEXTS}
+      defaultActiveContextId="inbox"
+      defaultActiveItemHref="#atendimentos"
+      breadcrumb={[{ label: "Projetos" }, { label: "Cronograma" }]}
+      commandGroups={APP_SHELL_COMMANDS}
+      notifications={{
+        items: APP_SHELL_NOTIFICATIONS,
+        onMarkAllRead: () => {},
+        onMoreActions: () => {},
+        onViewAll: () => {},
+      }}
+      messages={{
+        items: APP_SHELL_MESSAGES,
+        onNewMessage: () => {},
+        onExpand: () => {},
+        onViewAll: () => {},
+      }}
+      theme={theme}
+      onThemeChange={(id) => setTheme(id as Theme)}
+      themeOptions={APP_SHELL_THEME_OPTIONS}
+      user={APP_SHELL_USER}
+      layout={layout}
+      onLayoutChange={setLayout}
+      layoutOptions={APP_SHELL_LAYOUT_OPTIONS}
+      onSettings={() => {}}
+      onLogout={() => {}}
+    >
+      <ConteudoDoCronograma />
+    </AppShell>
+  );
+}
+
+/**
+ * O conteúdo da tela — e a fronteira do `example-gantt`.
+ *
+ * Tudo daqui pra baixo é o que o consumidor recebe; o `AppShell` acima fica de
+ * fora, porque quem consome já tem o dele.
+ */
+function ConteudoDoCronograma() {
   const ganttRef = useRef<GanttRef>(null);
 
   /**
@@ -534,40 +604,44 @@ export function GanttFullPreview() {
   }, [violacoes]);
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-gp-xl p-pad-3xl">
-      <div className="flex flex-wrap items-end justify-between gap-gp-xl">
-        <div>
-          <h1 className="text-heading-sm font-semibold text-fg-default">
-            Implantação do portal de operação
-          </h1>
-          <p className="mt-1 text-body-sm text-fg-muted">
-            20 linhas · 4 níveis · 16 vínculos dos 4 tipos · 2 conflitos de prazo
-          </p>
-        </div>
-        <div className="flex items-center gap-gp-md">
-          {rodape ? (
-            <Chip size="md" variant="soft" color="danger">
+    <div className="flex h-full min-h-0 flex-col gap-gp-2xl">
+      {/*
+        `PageHeader` e não um `<h1>` na unha — é o que `mapa-rede`, `finance` e
+        `order-detail` usam, e título de tela é decisão do DS, não de cada
+        exemplo. O contador de conflito entra como `badge` porque ele qualifica
+        a tela inteira; `Recolher`/`Expandir` são `actions` porque operam nela.
+      */}
+      <PageHeader
+        title="Implantação do portal de operação"
+        description="20 linhas · 4 níveis · 16 vínculos dos 4 tipos · 2 conflitos de prazo. Arraste uma barra pra ver o conflito e o caminho crítico recalcularem no mesmo gesto."
+        badge={
+          rodape ? (
+            <Chip size="sm" variant="soft" color="danger" shape="rounded">
               {rodape}
             </Chip>
-          ) : null}
-          <Button
-            variant="outline"
-            color="secondary"
-            size="md"
-            onClick={() => ganttRef.current?.collapseAll()}
-          >
-            Recolher tudo
-          </Button>
-          <Button
-            variant="outline"
-            color="secondary"
-            size="md"
-            onClick={() => ganttRef.current?.expandAll()}
-          >
-            Expandir tudo
-          </Button>
-        </div>
-      </div>
+          ) : undefined
+        }
+        actions={
+          <>
+            <Button
+              variant="outline"
+              color="secondary"
+              size="md"
+              onClick={() => ganttRef.current?.collapseAll()}
+            >
+              Recolher tudo
+            </Button>
+            <Button
+              variant="outline"
+              color="secondary"
+              size="md"
+              onClick={() => ganttRef.current?.expandAll()}
+            >
+              Expandir tudo
+            </Button>
+          </>
+        }
+      />
 
       {/*
         `min-h-0` no wrapper é o que faz o Gantt receber a altura restante em vez

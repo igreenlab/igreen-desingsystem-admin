@@ -1,9 +1,9 @@
 # Gantt
 
 <!-- ds:regras
+- monte a tela a partir do `example-gantt` (`igreen:add example-gantt`) — é o comportamento COMPLETO, não um toy
 - o pai precisa ter ALTURA (o componente é `h-full`): sem isso você vê só a toolbar
 - busca do servidor → passe `loading`, senão `rows={[]}` afirma "Nenhuma tarefa neste período"
-- `links` referencia id de BARRA, não de linha — ponta inexistente é ignorada em silêncio
 - `colorKey` diz CATEGORIA (qual frente), não status: status vai em `row.trailing` como `Chip`
 -->
 
@@ -28,6 +28,37 @@ não um Gantt — e o DS já tem timeline.
 import { Gantt } from "@/components/ui/Gantt";
 import type { GanttRow, GanttLink, GanttColumn } from "@/components/ui/Gantt";
 ```
+
+## ⭐ A referência é o `example-gantt`, não este arquivo
+
+```bash
+npx igreen:add example-gantt
+```
+
+**Antes de montar uma tela com o `Gantt`, comece por aqui.** O `example-gantt` é a
+extração 1:1 do showcase `#/gantt-full` do DS — não é um toy, é a tela que valida
+o componente a fundo, e ela é a fonte de verdade do **comportamento**. Este
+`USAGE.md` descreve a API; o exemplo mostra como as peças se comportam **juntas**,
+que é onde as decisões erradas aparecem.
+
+O que ele exercita, e que um exemplo mínimo não mostra:
+
+| | |
+|---|---|
+| **dado real** | 20 linhas, 4 níveis de hierarquia, `summary` derivado, marco, progresso |
+| **grafo real** | 16 vínculos dos 4 tipos com `lag`, **2 conflitos** (um deles não foi plantado — as datas foram escritas e o componente achou) e caminho crítico |
+| **os 4 gestos aplicando** | `rows`/`links` são estado da tela: arrastar move e a barra **fica**; criar e remover vínculo funcionam |
+| **as 3 visões** | o mesmo dado em `timeline`, `calendar` e `list` |
+| **filtro nos 6 `kind`** | com painel lateral e chips de aplicado |
+| **o que é DA TELA** | painel de detalhe (`onBarClick`) e drawer de nova tarefa (`onDayAdd`) — o componente só emite |
+
+⚠️ **O ponto mais fácil de errar** está lá resolvido: `draggable`/`resizable`
+ligados **sem handler que aplique** fazem o usuário arrastar e ver a barra
+**voltar**. No exemplo os handlers reescrevem o estado — copie essa parte.
+
+O arquivo `_gantt-data.tsx` é o que você troca primeiro; `gantt-screen.tsx` tem um
+cabeçalho "Cuidado ao adaptar" dizendo o que ligar ao seu estado, o que remover se
+não servir e o que **não** mexer.
 
 ## Exemplo mínimo
 

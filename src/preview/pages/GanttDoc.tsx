@@ -38,7 +38,6 @@ const TOC = [
   { id: "toolbar", label: "Recortar visões e estender a toolbar" },
   { id: "carregando", label: "Carregando ≠ vazio" },
   { id: "api", label: "API" },
-  { id: "decisoes", label: "Decisões" },
 ];
 
 const d = (dia: number, mes = 9) => new Date(2026, mes - 1, dia);
@@ -668,94 +667,6 @@ export function GanttDoc() {
 
       <SectionH2 id="api-bar" title="API — GanttBar" />
       <PropsTable items={BAR_PROPS} />
-
-      <SectionH2 id="decisoes" title="Decisões" />
-
-      <ExampleSection id="ex-decisoes" title="Por que a peça é assim">
-        <div className="flex flex-col gap-gp-2xl">
-          <div>
-            <h4 className="mb-2 text-body-md font-semibold text-fg-default">
-              A barra é tingida, não sólida com texto branco
-            </h4>
-            <p className="max-w-[80ch] text-body-sm leading-relaxed text-fg-muted">
-              As referências mostram barra saturada com texto branco. O DS não
-              faz isso, e a razão foi <strong>medida</strong> ao especificar o{" "}
-              <code className="text-code-sm">Scheduler</code>: texto colorido ou
-              branco sobre pílula tingida dá contraste de{" "}
-              <strong>1.72–4.49 no light</strong> — nenhuma família passa AA, e{" "}
-              <code className="text-code-sm">warning</code> chega a 1.72:1. A
-              receita é fundo tingido, texto{" "}
-              <code className="text-code-sm">fg-default</code>, e a cor viva no
-              acento da borda esquerda e no preenchimento de progresso. A cor
-              segue dizendo qual frente é; ela só não carrega o texto.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="mb-2 text-body-md font-semibold text-fg-default">
-              A cor diz CATEGORIA, não estado
-            </h4>
-            <p className="max-w-[80ch] text-body-sm leading-relaxed text-fg-muted">
-              Por isso <code className="text-code-sm">colorKey</code> aceita a
-              paleta de chart — azul incluído, que o{" "}
-              <code className="text-code-sm">DESIGN.md</code> proíbe na interface
-              e o <code className="text-code-sm">Chart/USAGE</code> permite como
-              dado categórico. Estado viaja em{" "}
-              <code className="text-code-sm">row.trailing</code> como{" "}
-              <code className="text-code-sm">Chip</code>, que é o canal que o DS
-              já usa pra status.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="mb-2 text-body-md font-semibold text-fg-default">
-              Uma altura de linha, consumida pelos dois painéis
-            </h4>
-            <p className="max-w-[80ch] text-body-sm leading-relaxed text-fg-muted">
-              <code className="text-code-sm">GANTT_ROW_HEIGHT_PX</code> é
-              constante e não classe utilitária. A grade da esquerda é fluxo, o
-              canvas da direita é <code className="text-code-sm">top</code>{" "}
-              absoluto; se as duas derivassem a altura de lugares diferentes,
-              bastaria um <code className="text-code-sm">line-height</code>{" "}
-              herdado pra desalinhar — e o desalinho cresce linha a linha.
-              Desalinho entre nome e barra é o pior defeito possível aqui,
-              porque produz leitura errada sem parecer quebrado.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="mb-2 text-body-md font-semibold text-fg-default">
-              As setas vivem numa camada SVG irmã, não dentro das células
-            </h4>
-            <p className="max-w-[80ch] text-body-sm leading-relaxed text-fg-muted">
-              A seta vai de uma linha a outra e precisa desenhar fora dos limites
-              da linha de origem. Filha da célula, ela seria recortada pelo{" "}
-              <code className="text-code-sm">overflow</code> de qualquer
-              ancestral — e desapareceria exatamente quando cruza pra outra
-              linha, que é sempre. É o mesmo defeito que o{" "}
-              <code className="text-code-sm">DragOverlay</code> resolveu no{" "}
-              <code className="text-code-sm">Scheduler</code>: a primeira
-              hipótese foi z-index e estava errada; era clipping, de 3
-              ancestrais.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="mb-2 text-body-md font-semibold text-fg-default">
-              Caminho crítico só considera FS — e isso é declarado
-            </h4>
-            <p className="max-w-[80ch] text-body-sm leading-relaxed text-fg-muted">
-              Os outros três tipos exigem tratar as duas pontas como nós
-              independentes no grafo, e implementar isso pela metade daria
-              caminho crítico <strong>plausível e errado</strong> — que é pior
-              que não ter. <code className="text-code-sm">SS</code>,{" "}
-              <code className="text-code-sm">FF</code> e{" "}
-              <code className="text-code-sm">SF</code> continuam sendo validados
-              como conflito; só não entram no cálculo de criticidade.
-            </p>
-          </div>
-        </div>
-      </ExampleSection>
     </DocLayout>
   );
 }

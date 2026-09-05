@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · accordion · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · alert-dialog · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · alert-modal · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · alert · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · app-shell · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · aspect-ratio · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · avatar-ig · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · avatar · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · badge · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · breadcrumb · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · button-group · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · button · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · calendar · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · card-checkbox · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · card-option · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · card · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · carousel · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · chart · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · checkbox · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · chip · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · choropleth-map · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · collapsible · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · color-picker · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · combobox · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · command · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · context-menu · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · data-list · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · data-table · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · date-picker · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · dialog · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · drawer · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · dropdown-menu · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · empty-state · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-app-shell · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-chat · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-clientes · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-dashboard · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-edit-page · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,46 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-finance · v0.60.0 · 530fb6f · 2026-09-05"
+    },
+    "type": "registry:ui"
+  },
+  "example-gantt": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "example-gantt",
+    "title": "Exemplo — Cronograma (Gantt com vínculos, showcase real)",
+    "description": "A tela completa do `Gantt`: 20 linhas em 4 níveis, 16 vínculos dos 4 tipos, 2 conflitos de prazo, os 4 gestos aplicando de verdade, filtro nos 6 kind, painel de detalhe e drawer de nova tarefa. Extração 1:1 do showcase do DS — é a referência de COMPORTAMENTO do componente, não um toy.",
+    "registryDependencies": [
+      "@igreen/gantt",
+      "@igreen/button",
+      "@igreen/chip",
+      "@igreen/avatar-ig",
+      "@igreen/floating-panel",
+      "@igreen/form-field",
+      "@igreen/page-header"
+    ],
+    "files": [
+      {
+        "path": "src/examples/gantt/_gantt-data.tsx",
+        "content": "/**\r\n * Dados de exemplo do cronograma — o que você troca PRIMEIRO.\r\n *\r\n * Extraído 1:1 do showcase `GanttFullPreview` do DS (L-034): não é toy, é o\r\n * mesmo dado que a página de exemplo exercita — 20 linhas, 4 níveis de\r\n * hierarquia, 16 vínculos dos 4 tipos e 2 conflitos de prazo.\r\n *\r\n * ⚠️ **Um dos dois conflitos não foi plantado.** As datas foram escritas e o\r\n * componente achou (o front termina 1 dia depois de o QA começar). Ficou de\r\n * propósito: é o caso mais comum em cronograma real, e mostra o contador\r\n * somando déficits de vínculos diferentes.\r\n *\r\n * ⚠️ `hoje` é uma data FIXA (17/09/2026), não `new Date()`. O exemplo precisa\r\n * ser estável: com data corrente, o `now` andaria e o cronograma sairia da\r\n * janela em algumas semanas. Ao ligar em dado real, troque por `new Date()`.\r\n */\r\n\r\nimport { addDays, startOfDay } from \"date-fns\";\r\nimport type {\r\n  GanttColumn,\r\n  GanttFilterField,\r\n  GanttLink,\r\n  GanttRow,\r\n} from \"@/components/ui/Gantt\";\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\n\r\nexport const hoje = startOfDay(new Date(2026, 8, 17));\r\nexport const d = (offset: number) => addDays(hoje, offset);\r\n\r\nexport type Meta = {\r\n  responsavel: string;\r\n  frente: string;\r\n  descricao: string;\r\n};\r\n\r\n/** Iniciais pro avatar. O `avatar-ig` recebe iniciais como children. */\r\nexport const iniciais = (nome: string) =>\r\n  nome\r\n    .split(\" \")\r\n    .slice(0, 2)\r\n    .map((p) => p[0])\r\n    .join(\"\")\r\n    .toUpperCase();\r\n\r\n/**\r\n * Oito pessoas, e o número importa: o painel de filtro liga a busca a partir de\r\n * **7 opções**. Com 4 o campo não aparecia — e é justamente no grupo de\r\n * responsável que procurar por nome ganha da varredura visual.\r\n *\r\n * Não usei `searchable: true` no campo pra forçar: deixar o limiar natural\r\n * disparar é o que prova que ele funciona.\r\n */\r\nexport const PESSOAS: Record<string, string> = {\r\n  ana: \"Ana Ribeiro\",\r\n  bruno: \"Bruno Camargo\",\r\n  carla: \"Carla Menezes\",\r\n  diego: \"Diego Sato\",\r\n  elisa: \"Elisa Nakamura\",\r\n  fabio: \"Fábio Queiroz\",\r\n  gabriela: \"Gabriela Prado\",\r\n  henrique: \"Henrique Vilela\",\r\n};\r\n\r\n/**\r\n * As cores que o drawer oferece.\r\n *\r\n * ⚠️ São as **chaves de chart** do DS, não hex. A cor da barra diz CATEGORIA\r\n * (qual frente), e o rótulo aqui é o nome da frente — não \"verde\", \"roxo\". Um\r\n * seletor de cor por nome de cor convidaria o usuário a usar cor como STATUS,\r\n * que é exatamente a assumption que a spec declara e que status em\r\n * `row.trailing` resolve.\r\n */\r\nexport const CORES_DISPONIVEIS = [\r\n  { value: \"chart-1\", label: \"Produto\" },\r\n  { value: \"chart-5\", label: \"Design\" },\r\n  { value: \"chart-3\", label: \"Engenharia\" },\r\n  { value: \"chart-4\", label: \"QA\" },\r\n  { value: \"chart-2\", label: \"Integração\" },\r\n] as const;\r\n\r\nexport const ROWS_SEMENTE: GanttRow[] = [\r\n  /* ── Fase 1 ──────────────────────────────────────────────────── */\r\n  {\r\n    id: \"f1\",\r\n    label: \"1. Descoberta e escopo\",\r\n    type: \"summary\",\r\n    bars: [],\r\n    trailing: <Chip size=\"sm\" variant=\"soft\" color=\"success\">Concluída</Chip>,\r\n  },\r\n  {\r\n    id: \"f1-a\",\r\n    label: \"Entrevistas com a operação\",\r\n    sublabel: \"5 sessões · Ana\",\r\n    parent: \"f1\",\r\n    bars: [{ id: \"b1\", label: \"Entrevistas\", start: d(-16), end: d(-11), colorKey: \"chart-1\", progress: 100, meta: { responsavel: \"ana\", frente: \"produto\", descricao: \"Levantamento com o time de atendimento e a supervisão.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f1-b\",\r\n    label: \"Mapa de processos\",\r\n    sublabel: \"Bruno\",\r\n    parent: \"f1\",\r\n    bars: [{ id: \"b2\", label: \"Mapa\", start: d(-13), end: d(-8), colorKey: \"chart-1\", progress: 100, meta: { responsavel: \"bruno\", frente: \"produto\", descricao: \"Fluxo atual documentado, com os 4 pontos de retrabalho.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f1-c\",\r\n    label: \"Escopo e estimativa\",\r\n    sublabel: \"Ana\",\r\n    parent: \"f1\",\r\n    bars: [{ id: \"b3\", label: \"Escopo\", start: d(-8), end: d(-4), colorKey: \"chart-1\", progress: 100, meta: { responsavel: \"ana\", frente: \"produto\", descricao: \"Três fases, 22 entregas, marco de aprovação.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f1-m\",\r\n    label: \"Escopo aprovado\",\r\n    type: \"milestone\",\r\n    parent: \"f1\",\r\n    bars: [{ id: \"m1\", start: d(-4), end: d(-4), colorKey: \"brand\", meta: { responsavel: \"ana\", frente: \"produto\", descricao: \"Aprovado em comitê.\" } satisfies Meta }],\r\n  },\r\n\r\n  /* ── Fase 2 ──────────────────────────────────────────────────── */\r\n  {\r\n    id: \"f2\",\r\n    label: \"2. Design\",\r\n    type: \"summary\",\r\n    bars: [],\r\n    trailing: <Chip size=\"sm\" variant=\"soft\" color=\"warning\">Em andamento</Chip>,\r\n  },\r\n  {\r\n    id: \"f2-a\",\r\n    label: \"Fluxos e arquitetura de informação\",\r\n    sublabel: \"Carla\",\r\n    parent: \"f2\",\r\n    bars: [{ id: \"b4\", label: \"Fluxos e IA\", start: d(-3), end: d(3), colorKey: \"chart-5\", progress: 100, meta: { responsavel: \"carla\", frente: \"design\", descricao: \"12 fluxos, incluindo os 3 de exceção.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f2-b\",\r\n    label: \"Sistema de design\",\r\n    type: \"summary\",\r\n    parent: \"f2\",\r\n    bars: [],\r\n  },\r\n  {\r\n    id: \"f2-b1\",\r\n    label: \"Tokens e fundações\",\r\n    sublabel: \"Elisa\",\r\n    parent: \"f2-b\",\r\n    bars: [{ id: \"b5\", label: \"Tokens\", start: d(1), end: d(6), colorKey: \"chart-5\", progress: 70, meta: { responsavel: \"elisa\", frente: \"design\", descricao: \"Cor, tipografia e espaçamento em 3 tiers.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f2-b2\",\r\n    label: \"Componentes de formulário\",\r\n    sublabel: \"Fábio\",\r\n    parent: \"f2-b\",\r\n    bars: [{ id: \"b6\", label: \"Formulário\", start: d(4), end: d(11), colorKey: \"chart-5\", progress: 30, meta: { responsavel: \"fabio\", frente: \"design\", descricao: \"Input, select, date picker e validação.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f2-c\",\r\n    label: \"Telas de alta fidelidade\",\r\n    sublabel: \"Carla · Diego\",\r\n    parent: \"f2\",\r\n    bars: [{ id: \"b7\", label: \"Telas\", start: d(6), end: d(17), colorKey: \"chart-5\", progress: 15, meta: { responsavel: \"carla\", frente: \"design\", descricao: \"18 telas, 2 estados cada.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f2-d\",\r\n    label: \"Revisão com o time\",\r\n    sublabel: \"todos\",\r\n    parent: \"f2\",\r\n    bars: [{ id: \"b8\", label: \"Revisão\", start: d(16), end: d(19), colorKey: \"chart-5\", progress: 0, meta: { responsavel: \"ana\", frente: \"design\", descricao: \"Sessão de crítica com engenharia e operação.\" } satisfies Meta }],\r\n  },\r\n\r\n  /* ── Fase 3 ──────────────────────────────────────────────────── */\r\n  {\r\n    id: \"f3\",\r\n    label: \"3. Construção\",\r\n    type: \"summary\",\r\n    bars: [],\r\n    trailing: <Chip size=\"sm\" variant=\"soft\" color=\"neutral\">Planejada</Chip>,\r\n  },\r\n  {\r\n    id: \"f3-a\",\r\n    label: \"API de cronograma\",\r\n    sublabel: \"Bruno\",\r\n    parent: \"f3\",\r\n    bars: [{ id: \"b9\", label: \"API\", start: d(19), end: d(30), colorKey: \"chart-3\", meta: { responsavel: \"bruno\", frente: \"engenharia\", descricao: \"CRUD de tarefa, vínculo e recálculo.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f3-b\",\r\n    label: \"Front do painel\",\r\n    sublabel: \"Diego\",\r\n    parent: \"f3\",\r\n    bars: [{ id: \"b10\", label: \"Front\", start: d(23), end: d(37), colorKey: \"chart-3\", meta: { responsavel: \"diego\", frente: \"engenharia\", descricao: \"Consome o Gantt do DS.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f3-c\",\r\n    label: \"Integração com o ERP\",\r\n    sublabel: \"Bruno\",\r\n    parent: \"f3\",\r\n    // ⚠️ CONFLITO PLANTADO: começa antes de a API terminar, e o vínculo é FS.\r\n    bars: [{ id: \"b11\", label: \"Integração\", start: d(26), end: d(35), colorKey: \"chart-2\", meta: { responsavel: \"bruno\", frente: \"engenharia\", descricao: \"Começa antes do permitido — o componente sinaliza.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f3-d\",\r\n    label: \"QA e correções\",\r\n    sublabel: \"todos\",\r\n    parent: \"f3\",\r\n    bars: [{ id: \"b12\", label: \"QA\", start: d(36), end: d(43), colorKey: \"chart-4\", meta: { responsavel: \"gabriela\", frente: \"qa\", descricao: \"Regressão e acessibilidade.\" } satisfies Meta }],\r\n  },\r\n  {\r\n    id: \"f3-e\",\r\n    label: \"Documentação\",\r\n    sublabel: \"Ana\",\r\n    parent: \"f3\",\r\n    bars: [{ id: \"b13\", label: \"Docs\", start: d(38), end: d(44), colorKey: \"chart-1\", meta: { responsavel: \"ana\", frente: \"produto\", descricao: \"USAGE, doc page e vocabulário do consumidor.\" } satisfies Meta }],\r\n  },\r\n\r\n  /* ── Portfólio: a linha como contêiner ───────────────────────── */\r\n  {\r\n    id: \"sustentacao\",\r\n    label: \"Sustentação (paralelo)\",\r\n    sublabel: \"3 frentes simultâneas\",\r\n    lanePacking: \"stack\",\r\n    bars: [\r\n      { id: \"s1\", label: \"Bugs P1\", start: d(-10), end: d(5), colorKey: \"chart-4\", meta: { responsavel: \"diego\", frente: \"engenharia\", descricao: \"Fila contínua.\" } satisfies Meta },\r\n      { id: \"s2\", label: \"Débito técnico\", start: d(0), end: d(20), colorKey: \"chart-2\", meta: { responsavel: \"bruno\", frente: \"engenharia\", descricao: \"Refatoração do módulo de faturamento.\" } satisfies Meta },\r\n      { id: \"s3\", label: \"Observabilidade\", start: d(12), end: d(34), colorKey: \"chart-3\", meta: { responsavel: \"henrique\", frente: \"engenharia\", descricao: \"Métricas e alertas.\" } satisfies Meta },\r\n    ],\r\n  },\r\n\r\n  {\r\n    id: \"entrega\",\r\n    label: \"Entrega em produção\",\r\n    type: \"milestone\",\r\n    bars: [{ id: \"m2\", start: d(45), end: d(45), colorKey: \"danger\", meta: { responsavel: \"ana\", frente: \"produto\", descricao: \"Go-live com o piloto de 3 filiais.\" } satisfies Meta }],\r\n  },\r\n];\r\n\r\nexport const LINKS_SEMENTE: GanttLink[] = [\r\n  { id: \"l1\", source: \"b1\", target: \"b2\", type: \"SS\", lag: 3 },\r\n  { id: \"l2\", source: \"b2\", target: \"b3\", type: \"FS\" },\r\n  { id: \"l3\", source: \"b3\", target: \"m1\", type: \"FS\" },\r\n  { id: \"l4\", source: \"m1\", target: \"b4\", type: \"FS\" },\r\n  { id: \"l5\", source: \"b4\", target: \"b5\", type: \"SS\", lag: 4 },\r\n  { id: \"l6\", source: \"b5\", target: \"b6\", type: \"SS\", lag: 3 },\r\n  { id: \"l7\", source: \"b6\", target: \"b7\", type: \"SS\", lag: 2 },\r\n  { id: \"l8\", source: \"b7\", target: \"b8\", type: \"FF\", lag: 2 },\r\n  { id: \"l9\", source: \"b8\", target: \"b9\", type: \"FS\" },\r\n  { id: \"l10\", source: \"b9\", target: \"b10\", type: \"SS\", lag: 4 },\r\n  // Este é o conflito: a integração começa antes de a API terminar.\r\n  { id: \"l11\", source: \"b9\", target: \"b11\", type: \"FS\" },\r\n  /**\r\n   * SEGUNDO conflito, e ele foi acidental — eu escrevi as datas e o componente\r\n   * achou: o front termina em d(37) e o QA começa em d(36), 1 dia antes.\r\n   *\r\n   * Ficou de propósito. É o caso mais comum em cronograma real (duas frentes\r\n   * convergindo no mesmo marco, uma delas escorregando) e é o que mostra o\r\n   * contador somando déficit de vínculos diferentes: 4d + 1d = 5d.\r\n   */\r\n  { id: \"l12\", source: \"b10\", target: \"b12\", type: \"FS\" },\r\n  { id: \"l13\", source: \"b11\", target: \"b12\", type: \"FS\", lag: 1 },\r\n  { id: \"l14\", source: \"b12\", target: \"b13\", type: \"SS\", lag: 2 },\r\n  { id: \"l15\", source: \"b12\", target: \"m2\", type: \"FS\", lag: 2 },\r\n  { id: \"l16\", source: \"b13\", target: \"m2\", type: \"FS\" },\r\n];\r\n\r\n/** Duração em dias da primeira barra — o mesmo número da coluna \"Duração\". */\r\nexport const duracaoEmDias = (row: GanttRow): number | undefined => {\r\n  const b = row.bars[0];\r\n  if (!b) return undefined;\r\n  return Math.round((b.end.getTime() - b.start.getTime()) / 86_400_000) + 1;\r\n};\r\n\r\n/**\r\n * Os **6 tipos** de filtro, um de cada — e é de propósito.\r\n *\r\n * Até a v0.59 o `Gantt` só aceitava `multi`, então o exemplo só exercitava\r\n * `multi`. Um exemplo que cobre 1 de 6 caminhos não prova que os outros 5\r\n * funcionam: prova que existem no tipo. Aqui cada `kind` aparece com dado real,\r\n * e é isso que faz a tela ser gate e não vitrine.\r\n *\r\n * A ordem importa pra leitura do painel: os dois de opções primeiro (que é o\r\n * caso comum), depois os de valor.\r\n */\r\nexport const FILTROS: GanttFilterField[] = [\r\n  {\r\n    id: \"frente\",\r\n    label: \"Frente\",\r\n    kind: \"multi\",\r\n    options: [\r\n      { value: \"produto\", label: \"Produto\", colorKey: \"chart-1\" },\r\n      { value: \"design\", label: \"Design\", colorKey: \"chart-5\" },\r\n      { value: \"engenharia\", label: \"Engenharia\", colorKey: \"chart-3\" },\r\n      { value: \"qa\", label: \"QA\", colorKey: \"chart-4\" },\r\n    ],\r\n    accessor: (row) =>\r\n      row.bars.map((b) => (b.meta as Meta | undefined)?.frente ?? \"\").filter(Boolean),\r\n  },\r\n  {\r\n    id: \"responsavel\",\r\n    label: \"Responsável\",\r\n    options: Object.entries(PESSOAS).map(([value, label]) => ({ value, label })),\r\n    accessor: (row) =>\r\n      row.bars\r\n        .map((b) => (b.meta as Meta | undefined)?.responsavel ?? \"\")\r\n        .filter(Boolean),\r\n  },\r\n\r\n  /**\r\n   * `single` — uma frente só. Radio, não checkbox.\r\n   *\r\n   * Convive com o `multi` de \"Frente\" no mesmo painel de propósito: é o par\r\n   * que mostra que a diferença entre os dois é de CONTROLE (checkbox × radio),\r\n   * não de dado — os dois leem o mesmo campo.\r\n   */\r\n  {\r\n    id: \"frenteUnica\",\r\n    label: \"Frente (só uma)\",\r\n    kind: \"single\",\r\n    options: [\r\n      { value: \"produto\", label: \"Produto\", colorKey: \"chart-1\" },\r\n      { value: \"design\", label: \"Design\", colorKey: \"chart-5\" },\r\n      { value: \"engenharia\", label: \"Engenharia\", colorKey: \"chart-3\" },\r\n      { value: \"qa\", label: \"QA\", colorKey: \"chart-4\" },\r\n    ],\r\n    accessor: (row) => (row.bars[0]?.meta as Meta | undefined)?.frente,\r\n  },\r\n\r\n  /** `text` — busca na descrição, que não é nenhuma das colunas visíveis. */\r\n  {\r\n    id: \"descricao\",\r\n    label: \"Descrição\",\r\n    kind: \"text\",\r\n    placeholder: \"Ex.: retrabalho, comitê…\",\r\n    accessor: (row) => (row.bars[0]?.meta as Meta | undefined)?.descricao,\r\n  },\r\n\r\n  /**\r\n   * `number` — faixa de duração.\r\n   *\r\n   * O acessor devolve **número**, não string: é o caminho que o núcleo trata\r\n   * sem conversão, e o que um consumidor real teria.\r\n   */\r\n  {\r\n    id: \"duracao\",\r\n    label: \"Duração (dias)\",\r\n    kind: \"number\",\r\n    accessor: duracaoEmDias,\r\n  },\r\n\r\n  /**\r\n   * `date` — período de início.\r\n   *\r\n   * O acessor devolve um `Date` de verdade. É este campo que exercita o\r\n   * `parseDiaISO`: o input emite `YYYY-MM-DD` e o dado é `Date` local, dois\r\n   * lados que só casam porque o parser não passa pelo `new Date(iso)` (que\r\n   * seria UTC e voltaria um dia em UTC−3).\r\n   */\r\n  {\r\n    id: \"inicio\",\r\n    label: \"Início\",\r\n    kind: \"date\",\r\n    accessor: (row) => row.bars[0]?.start,\r\n  },\r\n\r\n  /**\r\n   * `boolean` — concluída ou não.\r\n   *\r\n   * `options` presente pra o chip dizer \"Concluída\"/\"Em aberto\" em vez do par\r\n   * universal \"Sim\"/\"Não\" — que é o que aparece quando o consumidor omite.\r\n   */\r\n  {\r\n    id: \"concluida\",\r\n    label: \"Concluída\",\r\n    kind: \"boolean\",\r\n    options: [\r\n      { value: \"true\", label: \"Concluída\", colorKey: \"success\" },\r\n      { value: \"false\", label: \"Em aberto\", colorKey: \"neutral\" },\r\n    ],\r\n    accessor: (row) => (row.bars[0]?.progress ?? 0) >= 100,\r\n  },\r\n];\r\n\r\nexport const COLUNAS: GanttColumn[] = [\r\n  { id: \"label\", header: \"Tarefa\" },\r\n  { id: \"start\", header: \"Início\", width: 82 },\r\n  { id: \"duration\", header: \"Duração\", width: 74, align: \"right\" },\r\n  {\r\n    id: \"resp\",\r\n    header: \"Resp.\",\r\n    width: 56,\r\n    align: \"center\",\r\n    render: (row) => {\r\n      const r = (row.bars[0]?.meta as Meta | undefined)?.responsavel;\r\n      if (!r) return null;\r\n      const nome = PESSOAS[r] ?? r;\r\n      return (\r\n        <Avatar size=\"xs\" color=\"brand\" aria-label={nome}>\r\n          {iniciais(nome)}\r\n        </Avatar>\r\n      );\r\n    },\r\n  },\r\n];\r\n",
+        "type": "registry:ui",
+        "target": "examples/gantt/_gantt-data.tsx"
+      },
+      {
+        "path": "src/examples/gantt/gantt-screen.tsx",
+        "content": "/**\r\n * Cronograma de projeto — a tela completa, extraída do showcase do DS (L-034).\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * **O que ligar ao seu estado:** `rows` e `links` são estado DESTA tela, e é\r\n * de propósito. O `Gantt` é *dumb* sobre mutação: arrastar emite `onBarMove`,\r\n * vínculo violado emite `onLinkViolations` — **nada se move sozinho**. Troque\r\n * os `useState` por dados do servidor e mantenha os handlers aplicando; se\r\n * você ligar `draggable`/`resizable` sem handler que aplique, o usuário\r\n * arrasta e vê a barra **voltar**.\r\n *\r\n * **O que trocar primeiro:** `_gantt-data.tsx` — linhas, vínculos, colunas e\r\n * filtros. O resto da tela não muda.\r\n *\r\n * **O que remover se não servir:** o `FloatingPanel` de detalhe e o drawer de\r\n * nova tarefa são **da tela**, não do componente. O `Gantt` só emite\r\n * `onBarClick` e `onDayAdd` e devolve o payload intacto — quem decide que\r\n * campos existem é você.\r\n *\r\n * **O que NÃO mexer:** a divisão entre `colorKey` (categoria — qual frente) e\r\n * `row.trailing` (status, como `Chip`). Cor por status quebra a leitura que o\r\n * componente foi desenhado pra dar.\r\n *\r\n * ⚠️ **O pai precisa ter ALTURA.** O componente é `h-full`; sem altura no pai\r\n * você vê só a toolbar.\r\n *\r\n * ⚠️ Se os dados vêm do servidor, passe **`loading`**. Sem ele, `rows={[]}`\r\n * durante o fetch afirma \"Nenhuma tarefa neste período\" — o componente não tem\r\n * como saber que isso é verdade.\r\n */\r\n\r\nimport { useMemo, useRef, useState } from \"react\";\r\nimport { ptBR } from \"date-fns/locale\";\r\nimport { addDays, format, startOfDay } from \"date-fns\";\r\nimport { Plus } from \"lucide-react\";\r\nimport { Gantt, ganttDaySegment } from \"@/components/ui/Gantt\";\r\nimport type {\r\n  GanttBarChange,\r\n  GanttColorKey,\r\n  GanttLink,\r\n  GanttLinkViolation,\r\n  GanttRef,\r\n  GanttRow,\r\n} from \"@/components/ui/Gantt\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\nimport { FloatingPanel } from \"@/components/ui/FloatingPanel\";\r\nimport { PageHeader } from \"@/components/ui/PageHeader\";\r\nimport {\r\n  FormFieldInput,\r\n  FormFieldSelect,\r\n  FormFieldTextarea,\r\n} from \"@/components/ui/FormField\";\r\nimport {\r\n  COLUNAS,\r\n  CORES_DISPONIVEIS,\r\n  FILTROS,\r\n  LINKS_SEMENTE,\r\n  PESSOAS,\r\n  ROWS_SEMENTE,\r\n  hoje,\r\n  iniciais,\r\n  type Meta,\r\n} from \"./_gantt-data\";\r\n\r\nexport function GanttScreen() {\r\n  const ganttRef = useRef<GanttRef>(null);\r\n\r\n  /**\r\n   * ⚠️ As linhas e os vínculos são ESTADO DA TELA, e isso é o ponto do exemplo.\r\n   *\r\n   * O `Gantt` é dumb sobre mutação: arrastar emite `onBarMove`, e quem reescreve\r\n   * as datas é o consumidor. Um exemplo com `rows` constante ligaria\r\n   * `draggable` e o usuário arrastaria pra ver a barra **voltar** — que é\r\n   * exatamente o que o JSDoc de `draggable` avisa que acontece sem handler.\r\n   *\r\n   * Aqui a tela aplica de verdade, e é por isso que o gesto pode ser verificado.\r\n   */\r\n  const [rows, setRows] = useState<GanttRow[]>(ROWS_SEMENTE);\r\n\r\n  /**\r\n   * O drawer de \"nova tarefa\" — e ele é DA TELA, não do componente.\r\n   *\r\n   * O `Gantt` emite `onDayAdd(dia)` e para aí. Quem decide que campos existem,\r\n   * que cores são oferecidas e o que acontece no salvar é o consumidor — mesma\r\n   * divisão do painel de detalhe (`onBarClick` devolve o payload e a tela\r\n   * desenha a ficha).\r\n   *\r\n   * ⚠️ A versão anterior criava a tarefa DIRETO no clique do \"+\", com nome e\r\n   * cor chutados. Estava errado por dois motivos: o usuário não escolhia nada, e\r\n   * o exemplo ensinava que `onDayAdd` é \"adicione isto\" quando ele é \"o usuário\r\n   * pediu pra adicionar aqui\".\r\n   */\r\n  const [novo, setNovo] = useState<{\r\n    dia: Date;\r\n    nome: string;\r\n    dias: string;\r\n    cor: string;\r\n    responsavel: string;\r\n    frente: string;\r\n    descricao: string;\r\n  } | null>(null);\r\n\r\n  /**\r\n   * Abre o drawer num dia — DUAS portas, um formulário só.\r\n   *\r\n   * O \"+\" da célula sabe o dia (o usuário apontou pra ele); o \"Nova tarefa\" da\r\n   * toolbar não sabe, e abre em `hoje`. Por isso a data virou CAMPO em vez de\r\n   * ficar só no subtítulo: sem ela, a porta da toolbar criaria tudo no mesmo dia\r\n   * sem o usuário poder corrigir.\r\n   */\r\n  const abrirNovaTarefa = (dia: Date) =>\r\n    setNovo({\r\n      dia,\r\n      nome: \"\",\r\n      dias: \"3\",\r\n      cor: \"chart-2\",\r\n      responsavel: \"ana\",\r\n      frente: \"integração\",\r\n      descricao: \"\",\r\n    });\r\n  const [links, setLinks] = useState<GanttLink[]>(LINKS_SEMENTE);\r\n\r\n  /**\r\n   * Duração, fim e estilo da prévia — derivados do formulário.\r\n   *\r\n   * `fim` usa `duracao - 1` porque `end` é INCLUSIVO no `Gantt`: 3 dias a\r\n   * partir do dia 10 terminam no 12, não no 13. É a mesma conta do salvar, e\r\n   * está aqui pra ser UMA — se o subtítulo dissesse um fim e o salvar gravasse\r\n   * outro, o usuário só descobriria depois de criar (L-038).\r\n   */\r\n  const duracaoNova = Math.max(1, Number(novo?.dias) || 1);\r\n  const fimNovo = novo ? addDays(novo.dia, duracaoNova - 1) : null;\r\n  const previaDoSegmento = ganttDaySegment({\r\n    colorKey: (novo?.cor ?? \"chart-1\") as GanttColorKey,\r\n  });\r\n\r\n  /** Reescreve as datas de UMA barra, preservando o resto da linha. */\r\n  const aplicarMudanca = ({ bar, start, end }: GanttBarChange) =>\r\n    setRows((atuais) =>\r\n      atuais.map((r) =>\r\n        r.bars.some((b) => b.id === bar.id)\r\n          ? {\r\n              ...r,\r\n              bars: r.bars.map((b) =>\r\n                b.id === bar.id ? { ...b, start, end } : b,\r\n              ),\r\n            }\r\n          : r,\r\n      ),\r\n    );\r\n  const [detalhe, setDetalhe] = useState<{\r\n    titulo: string;\r\n    meta: Meta;\r\n    inicio: Date;\r\n    fim: Date;\r\n  } | null>(null);\r\n  const [violacoes, setViolacoes] = useState<GanttLinkViolation[]>([]);\r\n\r\n  const rodape = useMemo(() => {\r\n    if (violacoes.length === 0) return null;\r\n    const total = violacoes.reduce((s, v) => s + v.deficitDays, 0);\r\n    return `${violacoes.length} vínculo(s) em conflito · ${total} dia(s) de déficit`;\r\n  }, [violacoes]);\r\n\r\n  return (\r\n    <div className=\"flex h-full min-h-0 flex-col gap-gp-2xl\">\r\n      {/*\r\n        `PageHeader` e não um `<h1>` na unha — é o que `mapa-rede`, `finance` e\r\n        `order-detail` usam, e título de tela é decisão do DS, não de cada\r\n        exemplo. O contador de conflito entra como `badge` porque ele qualifica\r\n        a tela inteira; `Recolher`/`Expandir` são `actions` porque operam nela.\r\n      */}\r\n      <PageHeader\r\n        title=\"Implantação do portal de operação\"\r\n        description=\"20 linhas · 4 níveis · 16 vínculos dos 4 tipos · 2 conflitos de prazo. Arraste uma barra pra ver o conflito e o caminho crítico recalcularem no mesmo gesto.\"\r\n        badge={\r\n          rodape ? (\r\n            <Chip size=\"sm\" variant=\"soft\" color=\"danger\" shape=\"rounded\">\r\n              {rodape}\r\n            </Chip>\r\n          ) : undefined\r\n        }\r\n        actions={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"md\"\r\n              onClick={() => ganttRef.current?.collapseAll()}\r\n            >\r\n              Recolher tudo\r\n            </Button>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"md\"\r\n              onClick={() => ganttRef.current?.expandAll()}\r\n            >\r\n              Expandir tudo\r\n            </Button>\r\n          </>\r\n        }\r\n      />\r\n\r\n      {/*\r\n        `min-h-0` no wrapper é o que faz o Gantt receber a altura restante em vez\r\n        de estourar a página. Sem isso, `h-full` num filho de flex-col resolve\r\n        contra `auto` e o componente cresce indefinidamente.\r\n      */}\r\n      <div className=\"flex min-h-0 flex-1 flex-col\">\r\n        <Gantt\r\n          ref={ganttRef}\r\n          rows={rows}\r\n          links={links}\r\n          draggable\r\n          resizable\r\n          linkable\r\n          onBarMove={aplicarMudanca}\r\n          onBarResize={aplicarMudanca}\r\n          onLinkCreate={(novo) =>\r\n            setLinks((atuais) => [\r\n              ...atuais,\r\n              // O id é do CONSUMIDOR — o componente emite a intenção sem id\r\n              // justamente porque não sabe como você os gera.\r\n              { ...novo, id: `l-${novo.source}-${novo.target}-${atuais.length}` },\r\n            ])\r\n          }\r\n          /*\r\n            O \"+\" da célula do calendário ABRE O DRAWER — não cria nada.\r\n\r\n            Sem handler o \"+\" nem renderiza; com ele, o componente diz \"o\r\n            usuário pediu pra adicionar no dia X\" e a tela decide o resto.\r\n          */\r\n          onDayAdd={abrirNovaTarefa}\r\n          onLinkDelete={(alvo) =>\r\n            setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))\r\n          }\r\n          columns={COLUNAS}\r\n          filterFields={FILTROS}\r\n          searchable\r\n          criticalPath\r\n          criticalPathToggle={false}\r\n          locale={ptBR}\r\n          now={hoje}\r\n          gridWidth={460}\r\n          onLinkViolations={setViolacoes}\r\n          onGraphError={({ barIds }) =>\r\n            window.alert(`Ciclo no grafo: ${barIds.join(\", \")}`)\r\n          }\r\n          onBarClick={(bar, row) => {\r\n            const meta = bar.meta as Meta | undefined;\r\n            if (!meta) return;\r\n            setDetalhe({\r\n              titulo: typeof row.label === \"string\" ? row.label : bar.id,\r\n              meta,\r\n              inicio: bar.start,\r\n              fim: bar.end,\r\n            });\r\n          }}\r\n          /*\r\n            A ação primária abre o MESMO drawer do \"+\" da grade de mês.\r\n\r\n            Duas portas pra criar tarefa com dois formulários diferentes é o\r\n            defeito clássico de tela de cadastro: o usuário aprende um e\r\n            encontra o outro. A única diferença entre as portas é o dia em que\r\n            o formulário abre — e o dia é campo, então dá pra mudar nas duas.\r\n          */\r\n          primaryAction={\r\n            <Button\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              iconLeft={<Plus />}\r\n              onClick={() => abrirNovaTarefa(hoje)}\r\n            >\r\n              Nova tarefa\r\n            </Button>\r\n          }\r\n        />\r\n      </div>\r\n\r\n      {/*\r\n        O painel de detalhe é da TELA, não do componente — o `Gantt` só emite\r\n        `onBarClick` e devolve `bar.meta` intacto. Mesma divisão do `Scheduler`.\r\n      */}\r\n      <FloatingPanel\r\n        open={detalhe !== null}\r\n        onOpenChange={(aberto) => {\r\n          if (!aberto) setDetalhe(null);\r\n        }}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title={detalhe?.titulo ?? \"\"}\r\n        description={\r\n          detalhe\r\n            ? `${format(detalhe.inicio, \"dd/MM/yyyy\", { locale: ptBR })} → ${format(detalhe.fim, \"dd/MM/yyyy\", { locale: ptBR })}`\r\n            : undefined\r\n        }\r\n      >\r\n        {detalhe ? (\r\n          <div className=\"flex flex-col gap-gp-2xl\">\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Responsável\r\n              </span>\r\n              <div className=\"flex items-center gap-gp-md\">\r\n                <Avatar\r\n                  size=\"sm\"\r\n                  color=\"brand\"\r\n                  aria-label={PESSOAS[detalhe.meta.responsavel]}\r\n                >\r\n                  {iniciais(PESSOAS[detalhe.meta.responsavel])}\r\n                </Avatar>\r\n                <span className=\"text-body-sm text-fg-default\">\r\n                  {PESSOAS[detalhe.meta.responsavel]}\r\n                </span>\r\n              </div>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Frente\r\n              </span>\r\n              <span className=\"text-body-sm text-fg-default\">\r\n                {detalhe.meta.frente}\r\n              </span>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Descrição\r\n              </span>\r\n              <p className=\"text-body-sm leading-relaxed text-fg-muted\">\r\n                {detalhe.meta.descricao}\r\n              </p>\r\n            </div>\r\n          </div>\r\n        ) : null}\r\n      </FloatingPanel>\r\n\r\n      {/*\r\n        Drawer de nova tarefa. `FormFieldInput`/`FormFieldSelect` do DS e não\r\n        `<label>` + `<input>` na unha — L-023: label solta divergia em peso e em\r\n        cor no dark, silenciosamente.\r\n      */}\r\n      <FloatingPanel\r\n        open={novo !== null}\r\n        onOpenChange={(aberto) => {\r\n          if (!aberto) setNovo(null);\r\n        }}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title=\"Nova tarefa\"\r\n        /*\r\n          O subtítulo diz o PERÍODO, não só o começo: o campo de duração está\r\n          logo abaixo e o usuário mexe nele: ver o fim se mover é o retorno\r\n          imediato de que a conta é inclusiva.\r\n        */\r\n        description={\r\n          novo && fimNovo\r\n            ? `${format(novo.dia, \"dd 'de' MMM\", { locale: ptBR })} → ${format(\r\n                fimNovo,\r\n                \"dd 'de' MMM 'de' yyyy\",\r\n                { locale: ptBR },\r\n              )} · ${duracaoNova} ${duracaoNova === 1 ? \"dia\" : \"dias\"}`\r\n            : undefined\r\n        }\r\n        footer={\r\n          <div className=\"flex w-full items-center justify-end gap-gp-md\">\r\n            <Button variant=\"ghost\" color=\"secondary\" size=\"md\" onClick={() => setNovo(null)}>\r\n              Cancelar\r\n            </Button>\r\n            <Button\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              // Nome vazio não cria: o rótulo é a única coisa que a linha\r\n              // mostra na grade, e uma tarefa sem nome é uma linha em branco.\r\n              disabled={!novo?.nome.trim()}\r\n              onClick={() => {\r\n                if (!novo?.nome.trim() || !fimNovo) return;\r\n                const id = `nova-${novo.dia.getTime()}`;\r\n                setRows((atuais) => [\r\n                  ...atuais,\r\n                  {\r\n                    id,\r\n                    label: novo.nome.trim(),\r\n                    sublabel: PESSOAS[novo.responsavel],\r\n                    parent: \"f3\",\r\n                    bars: [\r\n                      {\r\n                        id: `${id}-b`,\r\n                        label: novo.nome.trim(),\r\n                        start: novo.dia,\r\n                        end: fimNovo,\r\n                        colorKey: novo.cor as GanttRow[\"bars\"][number][\"colorKey\"],\r\n                        meta: {\r\n                          responsavel: novo.responsavel,\r\n                          frente: novo.frente,\r\n                          // A descrição digitada alimenta o painel de detalhe,\r\n                          // que já a renderiza — sem ela o campo seria enfeite.\r\n                          descricao:\r\n                            novo.descricao.trim() ||\r\n                            `Sem descrição · ${duracaoNova} dia(s).`,\r\n                        } satisfies Meta,\r\n                      },\r\n                    ],\r\n                  },\r\n                ]);\r\n                setNovo(null);\r\n              }}\r\n            >\r\n              Criar tarefa\r\n            </Button>\r\n          </div>\r\n        }\r\n      >\r\n        {novo ? (\r\n          <div className=\"flex flex-col gap-form-gap\">\r\n            <FormFieldInput\r\n              label=\"Nome da tarefa\"\r\n              placeholder=\"Ex.: Revisar contrato de integração\"\r\n              value={novo.nome}\r\n              onChange={(e) => setNovo({ ...novo, nome: e.target.value })}\r\n            />\r\n\r\n            <div className=\"grid grid-cols-2 gap-form-gap\">\r\n              {/*\r\n                A data é CAMPO porque o drawer tem duas portas: o \"+\" da grade\r\n                sabe o dia, o \"Nova tarefa\" da toolbar não.\r\n\r\n                ⚠️ `value` e `onChange` passam por `yyyy-MM-dd`, e o parse é na\r\n                mão: `new Date(\"2026-09-30\")` é lido como UTC e volta um dia em\r\n                UTC−3 — o mesmo defeito que o filtro de período já teve aqui.\r\n                `new Date(a, m - 1, d)` é meia-noite LOCAL.\r\n              */}\r\n              <FormFieldInput\r\n                label=\"Início\"\r\n                type=\"date\"\r\n                value={format(novo.dia, \"yyyy-MM-dd\")}\r\n                onChange={(e) => {\r\n                  const [a, m, d] = e.target.value.split(\"-\").map(Number);\r\n                  if (!a || !m || !d) return;\r\n                  setNovo({ ...novo, dia: new Date(a, m - 1, d) });\r\n                }}\r\n              />\r\n              <FormFieldInput\r\n                label=\"Duração (dias)\"\r\n                type=\"number\"\r\n                min={1}\r\n                value={novo.dias}\r\n                onChange={(e) => setNovo({ ...novo, dias: e.target.value })}\r\n              />\r\n            </div>\r\n\r\n            <div className=\"grid grid-cols-2 gap-form-gap\">\r\n              <FormFieldSelect\r\n                label=\"Frente (cor)\"\r\n                options={CORES_DISPONIVEIS.map((c) => ({\r\n                  value: c.value,\r\n                  label: c.label,\r\n                }))}\r\n                value={novo.cor}\r\n                onValueChange={(v) =>\r\n                  setNovo({\r\n                    ...novo,\r\n                    cor: v,\r\n                    // A frente do filtro acompanha a cor escolhida: as duas\r\n                    // dizem a mesma coisa, e deixá-las divergir faria a tarefa\r\n                    // nova sumir ao filtrar pela frente que ela aparenta ser.\r\n                    frente:\r\n                      CORES_DISPONIVEIS.find((c) => c.value === v)?.label.toLowerCase() ??\r\n                      novo.frente,\r\n                  })\r\n                }\r\n              />\r\n              <FormFieldSelect\r\n                label=\"Responsável\"\r\n                options={Object.entries(PESSOAS).map(([value, label]) => ({\r\n                  value,\r\n                  label,\r\n                }))}\r\n                value={novo.responsavel}\r\n                onValueChange={(v) => setNovo({ ...novo, responsavel: v })}\r\n              />\r\n            </div>\r\n\r\n            <FormFieldTextarea\r\n              label=\"Descrição\"\r\n              placeholder=\"O que precisa acontecer, e o que trava se não acontecer\"\r\n              rows={3}\r\n              helperText=\"Aparece no painel de detalhe, ao clicar na tarefa.\"\r\n              value={novo.descricao}\r\n              onChange={(e) => setNovo({ ...novo, descricao: e.target.value })}\r\n            />\r\n\r\n            {/*\r\n              A prévia é o SEGMENTO REAL da grade de mês.\r\n\r\n              `ganttDaySegment` é o mesmo `tv()` que a visão `calendar` usa pra\r\n              desenhar a pílula — mesmo ponto de cor, mesmo tingimento do\r\n              `colorKey`, mesma altura de 18px. Antes aqui havia um `Chip`\r\n              neutro com o NOME da frente escrito dentro: não tinha a cor que a\r\n              escolha produz e não tinha a forma que a grade mostra, então\r\n              prometia uma coisa e entregava outra.\r\n\r\n              Desenhar a pílula na mão daria o mesmo defeito com um passo a\r\n              mais: duas definições da mesma coisa, divergindo na primeira vez\r\n              que uma das duas mudasse.\r\n\r\n              O `relative w-full` neutraliza o `absolute` do slot — na grade ele\r\n              é posicionado por `left`/`top` dentro da semana; aqui, não.\r\n            */}\r\n            <div className=\"flex flex-col gap-gp-md\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Prévia na grade de mês\r\n              </span>\r\n              <div className=\"rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl\">\r\n                <div className={previaDoSegmento.root({ class: \"relative w-full\" })}>\r\n                  <span className={previaDoSegmento.dot()} aria-hidden />\r\n                  <span className={previaDoSegmento.label()}>\r\n                    {novo.nome.trim() || \"Nova tarefa\"}\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        ) : null}\r\n      </FloatingPanel>\r\n    </div>\r\n  );\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "examples/gantt/gantt-screen.tsx"
+      },
+      {
+        "path": "src/examples/gantt/index.ts",
+        "content": "export { GanttScreen } from \"./gantt-screen\";\r\n",
+        "type": "registry:ui",
+        "target": "examples/gantt/index.ts"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · example-gantt · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2756,7 +2795,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-login · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2813,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-mapa-rede · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2894,7 +2933,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · example-order-detail · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2944,7 +2983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · file-upload-field · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3012,7 +3051,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · floating-panel · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3054,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · footer-table · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3140,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · form-field · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3277,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Gantt/USAGE.md",
-        "content": "# Gantt\r\n\r\n<!-- ds:regras\r\n- o pai precisa ter ALTURA (o componente é `h-full`): sem isso você vê só a toolbar\r\n- busca do servidor → passe `loading`, senão `rows={[]}` afirma \"Nenhuma tarefa neste período\"\r\n- `links` referencia id de BARRA, não de linha — ponta inexistente é ignorada em silêncio\r\n- `colorKey` diz CATEGORIA (qual frente), não status: status vai em `row.trailing` como `Chip`\r\n-->\r\n\r\nCronograma de projeto: hierarquia de tarefas à esquerda, tempo à direita, e\r\n**vínculos** entre as barras. Categoria: data-display.\r\n\r\n## Quando usar\r\n\r\nQuando a pergunta é **\"o que depende de quê\"**. Sem vínculo isto é uma timeline,\r\nnão um Gantt — e o DS já tem timeline.\r\n\r\n| Precisa de | Use |\r\n|---|---|\r\n| escolher **uma data** num formulário | `DatePicker` · `Calendar` · `MonthYearPicker` |\r\n| mostrar **quando** algo acontece (compromisso, reserva, agenda) | `Scheduler` |\r\n| mostrar **o que bloqueia o quê**, com hierarquia e progresso | **`Gantt`** |\r\n| linhas de registro sem eixo de tempo | `DataTable` · `DataList` |\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { Gantt } from \"@/components/ui/Gantt\";\r\nimport type { GanttRow, GanttLink, GanttColumn } from \"@/components/ui/Gantt\";\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n<Gantt\r\n  rows={[\r\n    { id: \"fase\", label: \"Descoberta\", type: \"summary\", bars: [] },\r\n    {\r\n      id: \"t1\", label: \"Entrevistas\", parent: \"fase\",\r\n      bars: [{ id: \"b1\", label: \"Entrevistas\", start: d1, end: d2,\r\n               colorKey: \"chart-1\", progress: 100 }],\r\n    },\r\n    {\r\n      id: \"t2\", label: \"Escopo\", parent: \"fase\",\r\n      bars: [{ id: \"b2\", label: \"Escopo\", start: d2, end: d3, colorKey: \"chart-1\" }],\r\n    },\r\n  ]}\r\n  links={[{ id: \"v1\", source: \"b1\", target: \"b2\", type: \"FS\" }]}\r\n  searchable\r\n  locale={ptBR}\r\n  onBarClick={(bar, row) => abrirDetalhe(row.id)}\r\n/>\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default |\r\n|---|---|---|\r\n| `rows` | `GanttRow[]` | — |\r\n| `links` | `GanttLink[]` — ausente = sem setas | — |\r\n| `views` | `GanttView[]` — **quais visões existem** | as três |\r\n| `view` | `\"timeline\" \\| \"calendar\" \\| \"list\"` — qual está **aberta** | `\"timeline\"` |\r\n| `toolbarActions` / `primaryAction` | `ReactNode` — os dois slots livres da toolbar | — |\r\n| `emptyState` | `ReactNode` — substitui o vazio de busca/filtro | ícone + texto |\r\n| `loading` / `loadingState` | `boolean` + `ReactNode` — esqueleto no lugar do conteúdo | `false` |\r\n| `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |\r\n| `granularity` | `\"day\" \\| \"week\" \\| \"month\" \\| \"quarter\"` | `\"day\"` |\r\n| `onViewChange` / `onGranularityChange` / `onCriticalPathChange` | os pares dos três estados de UI — ver abaixo | — |\r\n| `columns` | `GanttColumn[]` | nome + início + fim |\r\n| `gridWidth` | `number` — largura inicial; o divisor é arrastável | `360` |\r\n| `draggable` / `resizable` / `linkable` | `boolean` | **`false`** |\r\n| `criticalPath` | `boolean` — liga o realce | **`false`** |\r\n| `criticalPathToggle` | `boolean` — mostra o botão \"Crítico\" na toolbar | `true` |\r\n| `onBarClick` | `(bar, row, evt) => void` | — |\r\n| `onBarMove` / `onBarResize` | `(change) => void` — **emite, não aplica** | — |\r\n| `onLinkViolations` | `(violations) => void` | — |\r\n| `onGraphError` | `({ kind: \"cycle\", barIds }) => void` | — |\r\n\r\n`GanttBar`: `{ id, start, end, label?, searchText?, colorKey?, progress?, continuesBefore?, continuesAfter?, meta? }`\r\n`GanttLink`: `{ id, source, target, type?, lag? }`\r\n`GanttFilterField`: `{ id, label, kind?, options?, accessor, searchable?, placeholder? }`\r\n\r\n### Filtro — os 6 `kind`\r\n\r\nO vocabulário espelha o da `DataTable`, pra o usuário ler a mesma frase nas duas\r\ntelas: *\"Status é Ativo\"*, *\"Duração entre 3 e 10\"*, *\"Início a partir de 01/09/26\"*.\r\n\r\n| `kind` | Controle no painel | `filterModel[id]` | Operador no chip |\r\n|---|---|---|---|\r\n| `multi` *(default)* | checkboxes + busca (≥7 opções) + \"selecionar todas\" | valores marcados | `é` |\r\n| `single` | radio | um valor | `é` |\r\n| `text` | um campo de texto | `[termo]` | `contém` |\r\n| `number` | dois campos numéricos | `[min, max]` — `\"\"` = livre | `entre` / `≥` / `≤` |\r\n| `date` | dois campos de data | `[de, até]` — `\"\"` = livre | `entre` / `a partir de` / `até` |\r\n| `boolean` | radio Sim/Não (ou seus `options`) | `[\"true\"]` \\| `[\"false\"]` | `é` |\r\n\r\n```tsx\r\nconst FILTROS: GanttFilterField[] = [\r\n  { id: \"frente\", label: \"Frente\", options: [...], accessor: r => meta(r).frente },\r\n  { id: \"desc\", label: \"Descrição\", kind: \"text\", accessor: r => meta(r).descricao },\r\n  { id: \"dur\", label: \"Duração\", kind: \"number\", accessor: r => dias(r) },\r\n  { id: \"inicio\", label: \"Início\", kind: \"date\", accessor: r => r.bars[0]?.start },\r\n  { id: \"ok\", label: \"Concluída\", kind: \"boolean\", accessor: r => r.bars[0]?.progress === 100 },\r\n];\r\n```\r\n\r\n⚠️ **`GanttFilterModel` não mudou de forma** — segue `Record<string, string[]>`. Os 6\r\ntipos codificam o valor em `string[]`, então `filterModel` controlado, persistência e\r\n\"Limpar tudo\" que você já tinha continuam funcionando **sem migração**.\r\n\r\n## Gotchas / cuidados\r\n\r\n### 1. O pai precisa ter altura\r\n\r\nO componente é `h-full`. Sem altura no pai, ele colapsa e você vê só a toolbar.\r\n\r\n```tsx\r\n<div className=\"flex h-[520px] flex-col\">   {/* ou h-full num pai com altura */}\r\n  <Gantt … />\r\n</div>\r\n```\r\n\r\n### 2. `links` referencia id de BARRA, não de linha\r\n\r\n```tsx\r\nrows:  { id: \"t1\", bars: [{ id: \"b1\", … }] }\r\nlinks: { source: \"b1\", target: \"b2\" }        // ✅ id da barra\r\nlinks: { source: \"t1\", target: \"t2\" }        // ❌ silenciosamente ignorado\r\n```\r\n\r\nUma linha-contêiner tem N barras, e o vínculo é entre trabalhos. Vínculo cujas\r\npontas não existem é **ignorado**, não reportado como erro — referência pendente\r\nacontece em paginação e em edição otimista, e tratar como conflito encheria a\r\ntela de falso positivo transitório.\r\n\r\n### 3. O componente NÃO reagenda\r\n\r\nArrastar emite `onBarMove`. Vínculo violado emite `onLinkViolations` com o\r\ndéficit em dias. **Nada se move sozinho.**\r\n\r\nCorrigir cronograma é decisão de negócio: mover a tarefa que atrasou, cortar\r\nescopo, aceitar o atraso ou renegociar o vínculo são quatro respostas diferentes\r\npro mesmo conflito. Datas reescritas sozinhas parecem dados, e o erro seria\r\ninvisível.\r\n\r\n### 4. A janela é do consumidor\r\n\r\n`windowStart`/`windowEnd` vêm por prop, e as setas `‹ ›` **não fazem nada**\r\nquando você as controla — mover é sua decisão. Omitidas, o componente mantém a\r\njanela em estado próprio, derivada dos dados na primeira montagem.\r\n\r\n### 5. `progress: undefined` ≠ `progress: 0`\r\n\r\nAusente = \"não rastreia progresso\", e não desenha trilha nenhuma.\r\n`0` = \"rastreia, e está em zero\", e desenha a trilha vazia. Os dois estados\r\naparecem lado a lado em cronograma real.\r\n\r\n### 6. A cor diz CATEGORIA, não estado\r\n\r\n`colorKey` usa a paleta de chart (`chart-1`…`chart-5`) porque no Gantt a cor diz\r\n**qual frente**. Status vai em `row.trailing` como `Chip`:\r\n\r\n```tsx\r\n{ id: \"fase\", label: \"Design\", type: \"summary\", bars: [],\r\n  trailing: <Chip size=\"sm\" variant=\"soft\" color=\"warning\">Em andamento</Chip> }\r\n```\r\n\r\nAzul (`chart-3`) é legítimo aqui: o `DESIGN.md` proíbe azul na **interface**, e o\r\n`Chart/USAGE.md` o inclui como **dado categórico**. Barra de Gantt é dado.\r\n\r\n### 7. A barra é tingida, não sólida com texto branco\r\n\r\nSe você vier de uma referência com barra saturada e texto branco: o DS não faz\r\nisso, e a razão foi **medida** — texto branco ou colorido sobre pílula tingida dá\r\ncontraste de **1.72–4.49 no light**, e nenhuma família passa AA. A cor viva vive\r\nno acento da borda esquerda e no preenchimento de progresso; o texto é\r\n`fg-default`.\r\n\r\n### 8. `summary` deriva o intervalo dos filhos\r\n\r\n`type: \"summary\"` com `bars: []` calcula o intervalo de **toda** a descendência\r\n(não só filhos diretos). Passar `bars` num `summary` vence o cálculo — serve pra\r\nquem tem o agregado do servidor.\r\n\r\nO intervalo é derivado de **todas** as linhas, não das visíveis: colapsar não\r\nencolhe a barra do summary, porque colapsar é justamente quando ela passa a ser\r\na única informação.\r\n\r\n### 9. Caminho crítico só considera `FS`\r\n\r\nLimite conhecido e declarado. Os outros três tipos exigem tratar as duas pontas\r\ncomo nós independentes no grafo, e implementar isso pela metade daria caminho\r\ncrítico **plausível e errado** — que é pior que não ter. `SS`, `FF` e `SF`\r\ncontinuam sendo validados como conflito; só não entram no cálculo de criticidade.\r\n\r\nCiclo no grafo → `onGraphError` e o crítico simplesmente não pinta. Ciclo é dado\r\ndo consumidor, não exceção do componente.\r\n\r\n### 10. Uma altura de linha, duas superfícies\r\n\r\n`GANTT_ROW_HEIGHT_PX` (48px) é constante e é consumida pelos **dois** painéis. Não\r\ntente sobrescrever por CSS num deles: o desalinho entre nome e barra é o pior\r\ndefeito possível aqui, porque produz leitura errada sem parecer quebrado.\r\n\r\n### 11. Trocar de escala nunca esconde trabalho\r\n\r\nQuando o consumidor não controla `windowStart`/`windowEnd`, trocar a escala faz\r\nduas coisas:\r\n\r\n1. **A janela** vira a UNIÃO da largura própria daquela escala (60 dias em\r\n   `day`, 1825 em `quarter`) com a extensão real do cronograma. União e não\r\n   `max` porque ela é idempotente: `day → quarter → day` devolve exatamente a\r\n   janela original. Antes a janela era só a largura da escala, e voltar de\r\n   `quarter` pra `day` recortava em 60 dias — as barras das duas pontas\r\n   desapareciam sem nada dizer que havia mais.\r\n2. **A viewport** recentra no mesmo instante do tempo que estava no meio da\r\n   tela. Sem isso, ir pra `quarter` deixava você olhando o começo de uma janela\r\n   de 5 anos cujos dados vivem no meio dela: canvas vazio.\r\n\r\nCom `windowStart`/`windowEnd` controlados, nada disso acontece: a janela é sua,\r\ne o componente não sobrescreve a sua decisão.\r\n\r\n### 12. O gesto EMITE, você aplica\r\n\r\n`draggable` / `resizable` / `linkable` ligam os gestos:\r\n\r\n| Gesto | Onde | Emite |\r\n|---|---|---|\r\n| mover | `pointerdown` no corpo da barra | `onBarMove` |\r\n| redimensionar | punho de 8px em cada ponta | `onBarResize` |\r\n| criar vínculo | porta redonda fora da ponta → soltar sobre outra barra | `onLinkCreate` |\r\n| remover vínculo | clique na seta | `onLinkDelete` |\r\n\r\n⚠️ **Ligar sem handler = arrastar e ver voltar.** A prévia acontece (a barra\r\nacompanha o ponteiro com snap de dia), mas nada persiste: o `Gantt` é dumb sobre\r\nmutação, igual ao `Kanban`. Datas reescritas sozinhas parecem dados, e o erro\r\nseria invisível.\r\n\r\n```tsx\r\nconst [rows, setRows] = useState(SEMENTE);\r\n\r\n<Gantt\r\n  rows={rows}\r\n  draggable resizable linkable\r\n  onBarMove={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\r\n  onBarResize={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\r\n  onLinkCreate={(novo) => setLinks((l) => [...l, { ...novo, id: gerarId() }])}\r\n/>\r\n```\r\n\r\n**O tipo do vínculo sai das duas pontas** — `linkTypeFromSides`: sair da ponta\r\ndireita e soltar na metade **esquerda** do destino dá `FS` (o caso comum); as\r\noutras três combinações dão `SS`, `FF` e `SF`. O alvo é **meia barra**, não a\r\nporta de 9px do destino: 9px não é afordância.\r\n\r\n⛔ **Linha `summary` não aceita gesto.** O intervalo dela é derivado dos filhos e\r\na barra é sintética (id `<rowId>__summary`, que não existe no seu `rows`) — um\r\ngesto ali emitiria uma `bar` que você não possui e um `source` pendurado. Mover\r\na fase é mover os filhos, e isso é decisão sua.\r\n\r\n**Snap em dia inteiro**, sempre. Arraste menor que meio dia não move nada, e\r\narrastar o punho inicial para depois do fim **para** em `start === end` (1 dia)\r\nem vez de inverter a barra — sem esse clamp a largura ficaria negativa e a barra\r\ndesapareceria no meio do gesto.\r\n\r\n### 13. O `accessor` tem que casar com o `kind`\r\n\r\n`number` precisa de número (ou string numérica); `date` precisa de `Date` ou ISO;\r\n`boolean` aceita `true`/`1`/`\"sim\"`. Devolver a coisa errada **não é erro de tipo** —\r\no `accessor` é declarado largo de propósito — e o campo simplesmente não casa nada.\r\n\r\nE `undefined` **exclui** a linha quando o filtro está ativo: filtrar por\r\n\"Responsável = Ana\" e receber de volta as linhas sem responsável nenhum é o oposto\r\ndo pedido.\r\n\r\n⚠️ Se você monta o valor de `date` na mão, **não** use `new Date(\"2026-09-30\")`: ISO\r\ndate-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UTC−3:\r\nvira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —\r\npredicado e chip — pra os dois nunca divergirem.\r\n\r\n### 14. As duas visões respondem perguntas diferentes\r\n\r\n| Visão | Responde | Título | `‹ ›` anda | Escala | Painel esquerdo |\r\n|---|---|---|---|---|---|\r\n| `timeline` | *o que depende do quê* | o intervalo (\"31 ago – 2 nov 2026\") | meia janela | ✅ | ✅ |\r\n| `calendar` | *o que acontece no dia 12* | o **mês** (\"outubro 2026\") | **1 mês** | ⛔ | ⛔ |\r\n| `list` | *o que vem a seguir* | o **mês** | **1 mês** | ⛔ | ⛔ |\r\n\r\nO seletor é o **primeiro item da toolbar**, à esquerda, seguido de divisor —\r\nigual à `DataTable`, onde o toggle Tabela/Lista/Kanban abre a toolbar. A razão é\r\nhierárquica: a visão decide o que todo o resto da toolbar significa (o período\r\nvira um mês no calendário, a escala desaparece), então ela não pode vir depois\r\ndo que governa.\r\n\r\n**`list` é uma AGENDA, não uma tabela de tarefas.** Tabela com hierarquia e\r\nfiltro é o `DataTable` (view lista, `hierarchical`). O que faz esta visão\r\ndiferente é o agrupamento por **dia**: a mesma tarefa aparece em cada dia que\r\nocupa, com a posição no intervalo à direita (\"dia 2 de 6\"). Numa tarefa repetida\r\nem 6 blocos, o intervalo seria idêntico nos seis e não diria nada novo — a\r\nposição diz onde no trabalho aquele dia está.\r\n\r\n⚠️ **Só os dias que TÊM tarefa aparecem.** Uma agenda que lista 60 dias pra\r\nmostrar 20 tarefas obriga a rolar por 40 blocos vazios; o salto entre datas é o\r\npróprio sinal de que não há nada no meio. (A grade de mês faz o oposto, e está\r\ncerta: lá o dia vazio *é* a informação.)\r\n\r\n⚠️ **A agenda é recortada no MÊS, não na janela** — como a grade. Lendo a janela\r\ninteira ela saía com **62 blocos de dia e 168 cartões** no exemplo: rolagem\r\ninfinita disfarçada de agenda. No mês são no máximo 31 blocos, e o `‹ ›` andando\r\num mês exato dá o gesto pra chegar nos outros. A janela existe pro EIXO, que\r\ncomprime 64 dias em pixels; agenda e grade não comprimem — cada dia custa uma\r\nlinha.\r\n\r\n⚠️ Numa linha com **várias barras** (`lanePacking`), a sublinha do cartão é o\r\nrótulo da BARRA, não o `sublabel` da linha. Sem isso a linha aparecia N vezes no\r\nmesmo dia com título e sublinha idênticos, só o \"dia N de M\" diferente — N\r\ncartões indistinguíveis.\r\n\r\nA toolbar **muda com a visão**, não só o conteúdo. O título de `calendar` é o mês\r\nporque a grade é de um mês — anunciar 64 dias sobre uma grade que mostra 31 seria\r\no título mentindo. O `‹ ›` anda um mês exato ali (meia janela poderia cair no\r\nmesmo mês, e o botão não faria o que o título promete). E a escala **desaparece**:\r\n\"Dia/Semana/Mês/Trimestre\" é a densidade do eixo horizontal, e na grade de mês não\r\nhá eixo pra adensar — controle que não muda nada é a mesma classe de defeito do\r\ntoggle de crítico sem vínculo.\r\n\r\n⚠️ A escala **não é resetada** ao esconder: voltando pra timeline, o zoom que\r\nestava selecionado continua. Zerar faria trocar de visão e voltar perder trabalho\r\ndo usuário.\r\n\r\n### Recortar as visões — `views` ≠ `view`\r\n\r\n`views` diz **o que existe**; `view` diz **o que está aberto**. Nem todo\r\ncronograma quer as três: um painel de dependências não ganha nada com a agenda,\r\numa tela de acompanhamento mensal pode não querer o eixo.\r\n\r\n```tsx\r\n<Gantt rows={ROWS} views={[\"timeline\"]} />              // só o cronograma\r\n<Gantt rows={ROWS} views={[\"calendar\", \"list\"]} />      // sem eixo\r\n```\r\n\r\n⚠️ **Com uma visão só, o seletor e o divisor não são renderizados.** Segmentado\r\nde uma opção é um controle que nunca muda nada — a mesma regra do toggle de\r\ncrítico sem vínculo e do \"+\" da grade sem `onDayAdd`.\r\n\r\n⚠️ **`views` vence `view`.** `view=\"list\"` com `views={[\"timeline\"]}` abre a\r\ntimeline: renderizar o que o consumidor excluiu seria pior que corrigir. Lista\r\nvazia (`views={[]}`) é tratada como omitida.\r\n\r\n### A toolbar tem dois slots livres\r\n\r\n**É aqui que entra o botão de opções.** O componente não inventa \"⋯\", \"exportar\"\r\nnem \"imprimir\" — ele abre espaço e você põe o que a sua tela precisa, do mesmo\r\njeito que a `TableToolbar` recebe `actions`.\r\n\r\n```\r\n[visão] │ [‹ Hoje ›] [período]   …   [busca] [toolbarActions] [crítico] [escala] [filtro] [primaryAction]\r\n```\r\n\r\n```tsx\r\n<Gantt\r\n  rows={ROWS}\r\n  toolbarActions={\r\n    <DropdownMenu>\r\n      <DropdownMenuTrigger asChild>\r\n        <Button variant=\"outline\" color=\"secondary\" size=\"icon-md\"\r\n                aria-label=\"Mais opções\"><MoreHorizontal /></Button>\r\n      </DropdownMenuTrigger>\r\n      <DropdownMenuContent align=\"end\">…</DropdownMenuContent>\r\n    </DropdownMenu>\r\n  }\r\n  primaryAction={<Button iconLeft={<Plus />}>Nova tarefa</Button>}\r\n/>\r\n```\r\n\r\n`toolbarActions` entra **antes** da ação primária, de propósito: a ação primária\r\nfecha a barra, e é o último lugar onde o olho para.\r\n\r\n### Carregando ≠ vazio\r\n\r\n⚠️ **Se você busca do servidor, passe `loading`.** Sem ele, `rows={[]}` durante o\r\nfetch faz o componente afirmar *\"Nenhuma tarefa neste período\"* — uma frase que\r\nele não tem como saber que é verdade, e que faz o usuário desistir antes de o\r\ndado chegar.\r\n\r\n```tsx\r\n<Gantt rows={rows} loading={isFetching} />\r\n```\r\n\r\n`loading` **vence** `rows`: mesmo com linhas na tela ele mostra o esqueleto,\r\nporque durante um refetch o que está renderizado pode estar velho. A **toolbar\r\ncontinua** — período, busca e filtro não dependem dos dados, e apagá-la faria a\r\ntela inteira piscar quando eles chegam.\r\n\r\nO esqueleto imita a silhueta da visão atual (painel + barras na timeline, 6×7 na\r\ngrade, blocos na agenda), pra a chegada do dado não deslocar nada. `loadingState`\r\ntroca por um seu — mantenha a altura.\r\n\r\n### O imperativo — `GanttRef`\r\n\r\nQuatro métodos, pra quando a tela precisa mandar no cronograma sem passar por\r\nprop: `goToDate(date)` · `goToToday()` · `expandAll()` · `collapseAll()`.\r\n\r\n```tsx\r\nconst gantt = useRef<GanttRef>(null);\r\n<Button onClick={() => gantt.current?.collapseAll()}>Recolher tudo</Button>\r\n<Gantt ref={gantt} rows={ROWS} />\r\n```\r\n\r\n### Os três estados de UI seguem o MESMO par\r\n\r\n`view`, `granularity` e `criticalPath` são estados que a UI do próprio\r\ncomponente mexe — o seletor de visão, o dropdown de escala e o botão \"Crítico\".\r\nCada um aceita as duas formas:\r\n\r\n| Você passa | Quem manda | O `on*Change` |\r\n|---|---|---|\r\n| nada | o componente | não existe pra chamar |\r\n| só o valor | você — **o controle congela** | não existe pra chamar |\r\n| valor + callback | você | avisa a intenção do usuário |\r\n\r\nÉ a semântica normal de campo controlado no React, e a linha do meio é\r\ndeliberada — não é bug.\r\n\r\n⛔ **`granularity` e `criticalPath` não tinham callback até a v0.59.** O\r\nresultado era só a linha do meio, sem escapatória: passar `granularity=\"day\"`\r\ncomo valor inicial matava o dropdown de escala em silêncio — o clique mudava o\r\nestado interno e a prop o mascarava de volta. Se você copiou um exemplo com\r\n`granularity` fixo e a escala \"não funciona\", é isto: **remova a prop** (o\r\ncomponente já começa em `day`) ou acrescente `onGranularityChange`.\r\n\r\n**A barra é UM segmento contínuo** atravessando os dias que ocupa — não um chip\r\npor dia. Uma tarefa de 10 a 15 é uma barra de 6 colunas, e se cruzar a virada de\r\nsemana vira dois segmentos com a ponta cortada marcada (mesmo vocabulário\r\n`continuesBefore`/`continuesAfter` da timeline). Um chip por dia leria como seis\r\ntarefas de um dia em vez de uma de seis.\r\n\r\n`onDayAdd` liga o **\"+\" no hover da célula**. Sem o handler o botão não é\r\nrenderizado — um \"+\" que não adiciona nada é pior que a ausência dele.\r\n\r\n⚠️ Ele significa **\"o usuário pediu pra adicionar no dia X\"**, não \"adicione\r\nisto\". Abra seu drawer/modal com os campos que a SUA tela precisa (nome, cor,\r\nresponsável, duração) e crie a linha no salvar — mesma divisão do `onBarClick`,\r\nque devolve o payload e deixa a ficha pra você. O `GanttFullPreview` mostra o\r\ndrawer completo com `FormFieldInput`/`FormFieldSelect`.\r\n\r\n⛔ Não ofereça \"escolha uma cor\" por NOME DE COR no seu formulário. A cor da barra\r\ndiz CATEGORIA (qual frente), e um seletor de \"verde/roxo\" convida o usuário a usar\r\ncor como STATUS — que é exatamente a assumption que este componente declara.\r\nRotule as opções pela frente (\"Design\", \"Engenharia\") e mapeie pra `colorKey` por\r\ndentro.\r\n\r\n⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos\r\nfilhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a\r\nhierarquia não é visível pra dar sentido ao agregado.\r\n\r\n⚠️ **O corte do `+N mais` é MEDIDO, não fixo.** A célula tem altura mínima de 88px\r\n(cabeçalho + 3 chips) e a grade rola quando não cabe; um `ResizeObserver` recalcula\r\nquantos chips entram quando a altura muda. Com corte fixo, uma viewport curta\r\nrecortava os chips e o próprio `+N mais` — o usuário via 2 tarefas e nenhuma pista\r\nde que havia 4.\r\n\r\n### 15. Em telas estreitas, a TOOLBAR se adapta — a MATRIZ não\r\n\r\nSão dois problemas diferentes, e só um tem solução dentro do componente.\r\n\r\n**A toolbar resolve sozinha, com a regra da `TableToolbar`.** Abaixo de `md`\r\n(768px) saem da barra o **seletor de visão**, o **`‹ Hoje ›`**, a **escala** e o\r\n**caminho crítico**; eles reaparecem num menu (ícone de sliders) ao lado do\r\ntítulo, que abre como bottom-sheet. Ficam na barra: **título do período**,\r\n**busca**, **filtro** e a **ação primária**.\r\n\r\nMedido a 375px: antes, a busca era espremida a **51px** (o ícone e nada mais) e o\r\ntítulo saía cortado no meio; depois, a busca tem **153px** e o título cabe\r\ninteiro. O título é a única coisa que o Gantt preserva e a tabela não tem — sem\r\nele o usuário não sabe que período está vendo.\r\n\r\n⚠️ **A `primaryAction` é sua.** O componente não pode encolhê-la (é um\r\n`ReactNode` que você passa). Em mobile ela come ~126px com rótulo — passe um\r\nbotão **icon-only** abaixo de `md` se a barra ficar apertada.\r\n\r\n**A matriz não cabe, e o componente não finge que cabe.** Grade + eixo em 375px\r\nnão é problema de layout, é de densidade: um Gantt legível precisa de ~900px.\r\nUse `granularity=\"week\"` ou mais, reduza `gridWidth`, ou — melhor — mande\r\n`view=\"calendar\"` / `view=\"list\"` no mobile, que são justamente as visões sem\r\neixo horizontal.\r\n\r\n## ⚠️ O que ainda NÃO existe\r\n\r\nDeclarado pra não virar descoberta:\r\n\r\n| | Estado |\r\n|---|---|\r\n| setas de vínculo na visão `calendar` | **não existem, e é decisão** — numa grade de mês uma seta do dia 3 ao 19 atravessaria 3 semanas passando por cima de 16 células alheias. O grafo segue vivo (conflito marcado no chip, `onLinkViolations` emitindo); sai só o desenho |\r\n| gesto na visão `calendar` | só clique. Arrastar num calendário move por dia, não por pixel — é outro gesto, e misturá-lo com o da timeline daria duas semânticas pro mesmo arraste |\r\n| criar vínculo `FF` / `SF` por gesto | possível, mas exige soltar na **metade direita** da barra de destino. Descoberta só pela doc — não há dica visual da metade |\r\n\r\nO que está completo: as duas visões de dado (tarefa e portfólio), hierarquia com\r\ncollapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os\r\n**4 tipos de vínculo** com `lag`, detecção de conflito, caminho crítico, busca,\r\nzoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral\r\ne chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os\r\n**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia, e as\r\n**três visões** (`timeline`, `calendar`, `list`) com o seletor segmentado abrindo\r\na toolbar.\r\n\r\n## Núcleo puro exportado\r\n\r\nÚtil fora do render — validar cronograma no servidor, calcular crítico num job:\r\n\r\n```tsx\r\nimport { checkAllLinks, computeCriticalPath, topoSort } from \"@/components/ui/Gantt\";\r\nimport { buildTimeAxis, clipToWindow, packLanes } from \"@/components/ui/Gantt\";\r\n```\r\n\r\n**146 testes** cobrem as bordas: virada de mês, barra que cruza a janela, lane\r\npacking com sobreposição parcial, ciclo em `parent` (que devolvia lista VAZIA até\r\no teste existir), auto-vínculo, as 4 restrições nas pontas certas, o índice\r\n`ancestorHasNext[i+1]` do conector (L-045) e o parse de `YYYY-MM-DD` como\r\nmeia-noite local (com `new Date` era UTC e o filtro de data voltava um dia), e o\r\nclamp do resize que impedia a barra de inverter e desaparecer.\r\n",
+        "content": "# Gantt\r\n\r\n<!-- ds:regras\r\n- monte a tela a partir do `example-gantt` (`igreen:add example-gantt`) — é o comportamento COMPLETO, não um toy\r\n- o pai precisa ter ALTURA (o componente é `h-full`): sem isso você vê só a toolbar\r\n- busca do servidor → passe `loading`, senão `rows={[]}` afirma \"Nenhuma tarefa neste período\"\r\n- `colorKey` diz CATEGORIA (qual frente), não status: status vai em `row.trailing` como `Chip`\r\n-->\r\n\r\nCronograma de projeto: hierarquia de tarefas à esquerda, tempo à direita, e\r\n**vínculos** entre as barras. Categoria: data-display.\r\n\r\n## Quando usar\r\n\r\nQuando a pergunta é **\"o que depende de quê\"**. Sem vínculo isto é uma timeline,\r\nnão um Gantt — e o DS já tem timeline.\r\n\r\n| Precisa de | Use |\r\n|---|---|\r\n| escolher **uma data** num formulário | `DatePicker` · `Calendar` · `MonthYearPicker` |\r\n| mostrar **quando** algo acontece (compromisso, reserva, agenda) | `Scheduler` |\r\n| mostrar **o que bloqueia o quê**, com hierarquia e progresso | **`Gantt`** |\r\n| linhas de registro sem eixo de tempo | `DataTable` · `DataList` |\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { Gantt } from \"@/components/ui/Gantt\";\r\nimport type { GanttRow, GanttLink, GanttColumn } from \"@/components/ui/Gantt\";\r\n```\r\n\r\n## ⭐ A referência é o `example-gantt`, não este arquivo\r\n\r\n```bash\r\nnpx igreen:add example-gantt\r\n```\r\n\r\n**Antes de montar uma tela com o `Gantt`, comece por aqui.** O `example-gantt` é a\r\nextração 1:1 do showcase `#/gantt-full` do DS — não é um toy, é a tela que valida\r\no componente a fundo, e ela é a fonte de verdade do **comportamento**. Este\r\n`USAGE.md` descreve a API; o exemplo mostra como as peças se comportam **juntas**,\r\nque é onde as decisões erradas aparecem.\r\n\r\nO que ele exercita, e que um exemplo mínimo não mostra:\r\n\r\n| | |\r\n|---|---|\r\n| **dado real** | 20 linhas, 4 níveis de hierarquia, `summary` derivado, marco, progresso |\r\n| **grafo real** | 16 vínculos dos 4 tipos com `lag`, **2 conflitos** (um deles não foi plantado — as datas foram escritas e o componente achou) e caminho crítico |\r\n| **os 4 gestos aplicando** | `rows`/`links` são estado da tela: arrastar move e a barra **fica**; criar e remover vínculo funcionam |\r\n| **as 3 visões** | o mesmo dado em `timeline`, `calendar` e `list` |\r\n| **filtro nos 6 `kind`** | com painel lateral e chips de aplicado |\r\n| **o que é DA TELA** | painel de detalhe (`onBarClick`) e drawer de nova tarefa (`onDayAdd`) — o componente só emite |\r\n\r\n⚠️ **O ponto mais fácil de errar** está lá resolvido: `draggable`/`resizable`\r\nligados **sem handler que aplique** fazem o usuário arrastar e ver a barra\r\n**voltar**. No exemplo os handlers reescrevem o estado — copie essa parte.\r\n\r\nO arquivo `_gantt-data.tsx` é o que você troca primeiro; `gantt-screen.tsx` tem um\r\ncabeçalho \"Cuidado ao adaptar\" dizendo o que ligar ao seu estado, o que remover se\r\nnão servir e o que **não** mexer.\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n<Gantt\r\n  rows={[\r\n    { id: \"fase\", label: \"Descoberta\", type: \"summary\", bars: [] },\r\n    {\r\n      id: \"t1\", label: \"Entrevistas\", parent: \"fase\",\r\n      bars: [{ id: \"b1\", label: \"Entrevistas\", start: d1, end: d2,\r\n               colorKey: \"chart-1\", progress: 100 }],\r\n    },\r\n    {\r\n      id: \"t2\", label: \"Escopo\", parent: \"fase\",\r\n      bars: [{ id: \"b2\", label: \"Escopo\", start: d2, end: d3, colorKey: \"chart-1\" }],\r\n    },\r\n  ]}\r\n  links={[{ id: \"v1\", source: \"b1\", target: \"b2\", type: \"FS\" }]}\r\n  searchable\r\n  locale={ptBR}\r\n  onBarClick={(bar, row) => abrirDetalhe(row.id)}\r\n/>\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default |\r\n|---|---|---|\r\n| `rows` | `GanttRow[]` | — |\r\n| `links` | `GanttLink[]` — ausente = sem setas | — |\r\n| `views` | `GanttView[]` — **quais visões existem** | as três |\r\n| `view` | `\"timeline\" \\| \"calendar\" \\| \"list\"` — qual está **aberta** | `\"timeline\"` |\r\n| `toolbarActions` / `primaryAction` | `ReactNode` — os dois slots livres da toolbar | — |\r\n| `emptyState` | `ReactNode` — substitui o vazio de busca/filtro | ícone + texto |\r\n| `loading` / `loadingState` | `boolean` + `ReactNode` — esqueleto no lugar do conteúdo | `false` |\r\n| `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |\r\n| `granularity` | `\"day\" \\| \"week\" \\| \"month\" \\| \"quarter\"` | `\"day\"` |\r\n| `onViewChange` / `onGranularityChange` / `onCriticalPathChange` | os pares dos três estados de UI — ver abaixo | — |\r\n| `columns` | `GanttColumn[]` | nome + início + fim |\r\n| `gridWidth` | `number` — largura inicial; o divisor é arrastável | `360` |\r\n| `draggable` / `resizable` / `linkable` | `boolean` | **`false`** |\r\n| `criticalPath` | `boolean` — liga o realce | **`false`** |\r\n| `criticalPathToggle` | `boolean` — mostra o botão \"Crítico\" na toolbar | `true` |\r\n| `onBarClick` | `(bar, row, evt) => void` | — |\r\n| `onBarMove` / `onBarResize` | `(change) => void` — **emite, não aplica** | — |\r\n| `onLinkViolations` | `(violations) => void` | — |\r\n| `onGraphError` | `({ kind: \"cycle\", barIds }) => void` | — |\r\n\r\n`GanttBar`: `{ id, start, end, label?, searchText?, colorKey?, progress?, continuesBefore?, continuesAfter?, meta? }`\r\n`GanttLink`: `{ id, source, target, type?, lag? }`\r\n`GanttFilterField`: `{ id, label, kind?, options?, accessor, searchable?, placeholder? }`\r\n\r\n### Filtro — os 6 `kind`\r\n\r\nO vocabulário espelha o da `DataTable`, pra o usuário ler a mesma frase nas duas\r\ntelas: *\"Status é Ativo\"*, *\"Duração entre 3 e 10\"*, *\"Início a partir de 01/09/26\"*.\r\n\r\n| `kind` | Controle no painel | `filterModel[id]` | Operador no chip |\r\n|---|---|---|---|\r\n| `multi` *(default)* | checkboxes + busca (≥7 opções) + \"selecionar todas\" | valores marcados | `é` |\r\n| `single` | radio | um valor | `é` |\r\n| `text` | um campo de texto | `[termo]` | `contém` |\r\n| `number` | dois campos numéricos | `[min, max]` — `\"\"` = livre | `entre` / `≥` / `≤` |\r\n| `date` | dois campos de data | `[de, até]` — `\"\"` = livre | `entre` / `a partir de` / `até` |\r\n| `boolean` | radio Sim/Não (ou seus `options`) | `[\"true\"]` \\| `[\"false\"]` | `é` |\r\n\r\n```tsx\r\nconst FILTROS: GanttFilterField[] = [\r\n  { id: \"frente\", label: \"Frente\", options: [...], accessor: r => meta(r).frente },\r\n  { id: \"desc\", label: \"Descrição\", kind: \"text\", accessor: r => meta(r).descricao },\r\n  { id: \"dur\", label: \"Duração\", kind: \"number\", accessor: r => dias(r) },\r\n  { id: \"inicio\", label: \"Início\", kind: \"date\", accessor: r => r.bars[0]?.start },\r\n  { id: \"ok\", label: \"Concluída\", kind: \"boolean\", accessor: r => r.bars[0]?.progress === 100 },\r\n];\r\n```\r\n\r\n⚠️ **`GanttFilterModel` não mudou de forma** — segue `Record<string, string[]>`. Os 6\r\ntipos codificam o valor em `string[]`, então `filterModel` controlado, persistência e\r\n\"Limpar tudo\" que você já tinha continuam funcionando **sem migração**.\r\n\r\n## Gotchas / cuidados\r\n\r\n### 1. O pai precisa ter altura\r\n\r\nO componente é `h-full`. Sem altura no pai, ele colapsa e você vê só a toolbar.\r\n\r\n```tsx\r\n<div className=\"flex h-[520px] flex-col\">   {/* ou h-full num pai com altura */}\r\n  <Gantt … />\r\n</div>\r\n```\r\n\r\n### 2. `links` referencia id de BARRA, não de linha\r\n\r\n```tsx\r\nrows:  { id: \"t1\", bars: [{ id: \"b1\", … }] }\r\nlinks: { source: \"b1\", target: \"b2\" }        // ✅ id da barra\r\nlinks: { source: \"t1\", target: \"t2\" }        // ❌ silenciosamente ignorado\r\n```\r\n\r\nUma linha-contêiner tem N barras, e o vínculo é entre trabalhos. Vínculo cujas\r\npontas não existem é **ignorado**, não reportado como erro — referência pendente\r\nacontece em paginação e em edição otimista, e tratar como conflito encheria a\r\ntela de falso positivo transitório.\r\n\r\n### 3. O componente NÃO reagenda\r\n\r\nArrastar emite `onBarMove`. Vínculo violado emite `onLinkViolations` com o\r\ndéficit em dias. **Nada se move sozinho.**\r\n\r\nCorrigir cronograma é decisão de negócio: mover a tarefa que atrasou, cortar\r\nescopo, aceitar o atraso ou renegociar o vínculo são quatro respostas diferentes\r\npro mesmo conflito. Datas reescritas sozinhas parecem dados, e o erro seria\r\ninvisível.\r\n\r\n### 4. A janela é do consumidor\r\n\r\n`windowStart`/`windowEnd` vêm por prop, e as setas `‹ ›` **não fazem nada**\r\nquando você as controla — mover é sua decisão. Omitidas, o componente mantém a\r\njanela em estado próprio, derivada dos dados na primeira montagem.\r\n\r\n### 5. `progress: undefined` ≠ `progress: 0`\r\n\r\nAusente = \"não rastreia progresso\", e não desenha trilha nenhuma.\r\n`0` = \"rastreia, e está em zero\", e desenha a trilha vazia. Os dois estados\r\naparecem lado a lado em cronograma real.\r\n\r\n### 6. A cor diz CATEGORIA, não estado\r\n\r\n`colorKey` usa a paleta de chart (`chart-1`…`chart-5`) porque no Gantt a cor diz\r\n**qual frente**. Status vai em `row.trailing` como `Chip`:\r\n\r\n```tsx\r\n{ id: \"fase\", label: \"Design\", type: \"summary\", bars: [],\r\n  trailing: <Chip size=\"sm\" variant=\"soft\" color=\"warning\">Em andamento</Chip> }\r\n```\r\n\r\nAzul (`chart-3`) é legítimo aqui: o `DESIGN.md` proíbe azul na **interface**, e o\r\n`Chart/USAGE.md` o inclui como **dado categórico**. Barra de Gantt é dado.\r\n\r\n### 7. A barra é tingida, não sólida com texto branco\r\n\r\nSe você vier de uma referência com barra saturada e texto branco: o DS não faz\r\nisso, e a razão foi **medida** — texto branco ou colorido sobre pílula tingida dá\r\ncontraste de **1.72–4.49 no light**, e nenhuma família passa AA. A cor viva vive\r\nno acento da borda esquerda e no preenchimento de progresso; o texto é\r\n`fg-default`.\r\n\r\n### 8. `summary` deriva o intervalo dos filhos\r\n\r\n`type: \"summary\"` com `bars: []` calcula o intervalo de **toda** a descendência\r\n(não só filhos diretos). Passar `bars` num `summary` vence o cálculo — serve pra\r\nquem tem o agregado do servidor.\r\n\r\nO intervalo é derivado de **todas** as linhas, não das visíveis: colapsar não\r\nencolhe a barra do summary, porque colapsar é justamente quando ela passa a ser\r\na única informação.\r\n\r\n### 9. Caminho crítico só considera `FS`\r\n\r\nLimite conhecido e declarado. Os outros três tipos exigem tratar as duas pontas\r\ncomo nós independentes no grafo, e implementar isso pela metade daria caminho\r\ncrítico **plausível e errado** — que é pior que não ter. `SS`, `FF` e `SF`\r\ncontinuam sendo validados como conflito; só não entram no cálculo de criticidade.\r\n\r\nCiclo no grafo → `onGraphError` e o crítico simplesmente não pinta. Ciclo é dado\r\ndo consumidor, não exceção do componente.\r\n\r\n### 10. Uma altura de linha, duas superfícies\r\n\r\n`GANTT_ROW_HEIGHT_PX` (48px) é constante e é consumida pelos **dois** painéis. Não\r\ntente sobrescrever por CSS num deles: o desalinho entre nome e barra é o pior\r\ndefeito possível aqui, porque produz leitura errada sem parecer quebrado.\r\n\r\n### 11. Trocar de escala nunca esconde trabalho\r\n\r\nQuando o consumidor não controla `windowStart`/`windowEnd`, trocar a escala faz\r\nduas coisas:\r\n\r\n1. **A janela** vira a UNIÃO da largura própria daquela escala (60 dias em\r\n   `day`, 1825 em `quarter`) com a extensão real do cronograma. União e não\r\n   `max` porque ela é idempotente: `day → quarter → day` devolve exatamente a\r\n   janela original. Antes a janela era só a largura da escala, e voltar de\r\n   `quarter` pra `day` recortava em 60 dias — as barras das duas pontas\r\n   desapareciam sem nada dizer que havia mais.\r\n2. **A viewport** recentra no mesmo instante do tempo que estava no meio da\r\n   tela. Sem isso, ir pra `quarter` deixava você olhando o começo de uma janela\r\n   de 5 anos cujos dados vivem no meio dela: canvas vazio.\r\n\r\nCom `windowStart`/`windowEnd` controlados, nada disso acontece: a janela é sua,\r\ne o componente não sobrescreve a sua decisão.\r\n\r\n### 12. O gesto EMITE, você aplica\r\n\r\n`draggable` / `resizable` / `linkable` ligam os gestos:\r\n\r\n| Gesto | Onde | Emite |\r\n|---|---|---|\r\n| mover | `pointerdown` no corpo da barra | `onBarMove` |\r\n| redimensionar | punho de 8px em cada ponta | `onBarResize` |\r\n| criar vínculo | porta redonda fora da ponta → soltar sobre outra barra | `onLinkCreate` |\r\n| remover vínculo | clique na seta | `onLinkDelete` |\r\n\r\n⚠️ **Ligar sem handler = arrastar e ver voltar.** A prévia acontece (a barra\r\nacompanha o ponteiro com snap de dia), mas nada persiste: o `Gantt` é dumb sobre\r\nmutação, igual ao `Kanban`. Datas reescritas sozinhas parecem dados, e o erro\r\nseria invisível.\r\n\r\n```tsx\r\nconst [rows, setRows] = useState(SEMENTE);\r\n\r\n<Gantt\r\n  rows={rows}\r\n  draggable resizable linkable\r\n  onBarMove={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\r\n  onBarResize={({ bar, start, end }) => setRows(atualizar(bar.id, start, end))}\r\n  onLinkCreate={(novo) => setLinks((l) => [...l, { ...novo, id: gerarId() }])}\r\n/>\r\n```\r\n\r\n**O tipo do vínculo sai das duas pontas** — `linkTypeFromSides`: sair da ponta\r\ndireita e soltar na metade **esquerda** do destino dá `FS` (o caso comum); as\r\noutras três combinações dão `SS`, `FF` e `SF`. O alvo é **meia barra**, não a\r\nporta de 9px do destino: 9px não é afordância.\r\n\r\n⛔ **Linha `summary` não aceita gesto.** O intervalo dela é derivado dos filhos e\r\na barra é sintética (id `<rowId>__summary`, que não existe no seu `rows`) — um\r\ngesto ali emitiria uma `bar` que você não possui e um `source` pendurado. Mover\r\na fase é mover os filhos, e isso é decisão sua.\r\n\r\n**Snap em dia inteiro**, sempre. Arraste menor que meio dia não move nada, e\r\narrastar o punho inicial para depois do fim **para** em `start === end` (1 dia)\r\nem vez de inverter a barra — sem esse clamp a largura ficaria negativa e a barra\r\ndesapareceria no meio do gesto.\r\n\r\n### 13. O `accessor` tem que casar com o `kind`\r\n\r\n`number` precisa de número (ou string numérica); `date` precisa de `Date` ou ISO;\r\n`boolean` aceita `true`/`1`/`\"sim\"`. Devolver a coisa errada **não é erro de tipo** —\r\no `accessor` é declarado largo de propósito — e o campo simplesmente não casa nada.\r\n\r\nE `undefined` **exclui** a linha quando o filtro está ativo: filtrar por\r\n\"Responsável = Ana\" e receber de volta as linhas sem responsável nenhum é o oposto\r\ndo pedido.\r\n\r\n⚠️ Se você monta o valor de `date` na mão, **não** use `new Date(\"2026-09-30\")`: ISO\r\ndate-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UTC−3:\r\nvira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —\r\npredicado e chip — pra os dois nunca divergirem.\r\n\r\n### 14. As duas visões respondem perguntas diferentes\r\n\r\n| Visão | Responde | Título | `‹ ›` anda | Escala | Painel esquerdo |\r\n|---|---|---|---|---|---|\r\n| `timeline` | *o que depende do quê* | o intervalo (\"31 ago – 2 nov 2026\") | meia janela | ✅ | ✅ |\r\n| `calendar` | *o que acontece no dia 12* | o **mês** (\"outubro 2026\") | **1 mês** | ⛔ | ⛔ |\r\n| `list` | *o que vem a seguir* | o **mês** | **1 mês** | ⛔ | ⛔ |\r\n\r\nO seletor é o **primeiro item da toolbar**, à esquerda, seguido de divisor —\r\nigual à `DataTable`, onde o toggle Tabela/Lista/Kanban abre a toolbar. A razão é\r\nhierárquica: a visão decide o que todo o resto da toolbar significa (o período\r\nvira um mês no calendário, a escala desaparece), então ela não pode vir depois\r\ndo que governa.\r\n\r\n**`list` é uma AGENDA, não uma tabela de tarefas.** Tabela com hierarquia e\r\nfiltro é o `DataTable` (view lista, `hierarchical`). O que faz esta visão\r\ndiferente é o agrupamento por **dia**: a mesma tarefa aparece em cada dia que\r\nocupa, com a posição no intervalo à direita (\"dia 2 de 6\"). Numa tarefa repetida\r\nem 6 blocos, o intervalo seria idêntico nos seis e não diria nada novo — a\r\nposição diz onde no trabalho aquele dia está.\r\n\r\n⚠️ **Só os dias que TÊM tarefa aparecem.** Uma agenda que lista 60 dias pra\r\nmostrar 20 tarefas obriga a rolar por 40 blocos vazios; o salto entre datas é o\r\npróprio sinal de que não há nada no meio. (A grade de mês faz o oposto, e está\r\ncerta: lá o dia vazio *é* a informação.)\r\n\r\n⚠️ **A agenda é recortada no MÊS, não na janela** — como a grade. Lendo a janela\r\ninteira ela saía com **62 blocos de dia e 168 cartões** no exemplo: rolagem\r\ninfinita disfarçada de agenda. No mês são no máximo 31 blocos, e o `‹ ›` andando\r\num mês exato dá o gesto pra chegar nos outros. A janela existe pro EIXO, que\r\ncomprime 64 dias em pixels; agenda e grade não comprimem — cada dia custa uma\r\nlinha.\r\n\r\n⚠️ Numa linha com **várias barras** (`lanePacking`), a sublinha do cartão é o\r\nrótulo da BARRA, não o `sublabel` da linha. Sem isso a linha aparecia N vezes no\r\nmesmo dia com título e sublinha idênticos, só o \"dia N de M\" diferente — N\r\ncartões indistinguíveis.\r\n\r\nA toolbar **muda com a visão**, não só o conteúdo. O título de `calendar` é o mês\r\nporque a grade é de um mês — anunciar 64 dias sobre uma grade que mostra 31 seria\r\no título mentindo. O `‹ ›` anda um mês exato ali (meia janela poderia cair no\r\nmesmo mês, e o botão não faria o que o título promete). E a escala **desaparece**:\r\n\"Dia/Semana/Mês/Trimestre\" é a densidade do eixo horizontal, e na grade de mês não\r\nhá eixo pra adensar — controle que não muda nada é a mesma classe de defeito do\r\ntoggle de crítico sem vínculo.\r\n\r\n⚠️ A escala **não é resetada** ao esconder: voltando pra timeline, o zoom que\r\nestava selecionado continua. Zerar faria trocar de visão e voltar perder trabalho\r\ndo usuário.\r\n\r\n### Recortar as visões — `views` ≠ `view`\r\n\r\n`views` diz **o que existe**; `view` diz **o que está aberto**. Nem todo\r\ncronograma quer as três: um painel de dependências não ganha nada com a agenda,\r\numa tela de acompanhamento mensal pode não querer o eixo.\r\n\r\n```tsx\r\n<Gantt rows={ROWS} views={[\"timeline\"]} />              // só o cronograma\r\n<Gantt rows={ROWS} views={[\"calendar\", \"list\"]} />      // sem eixo\r\n```\r\n\r\n⚠️ **Com uma visão só, o seletor e o divisor não são renderizados.** Segmentado\r\nde uma opção é um controle que nunca muda nada — a mesma regra do toggle de\r\ncrítico sem vínculo e do \"+\" da grade sem `onDayAdd`.\r\n\r\n⚠️ **`views` vence `view`.** `view=\"list\"` com `views={[\"timeline\"]}` abre a\r\ntimeline: renderizar o que o consumidor excluiu seria pior que corrigir. Lista\r\nvazia (`views={[]}`) é tratada como omitida.\r\n\r\n### A toolbar tem dois slots livres\r\n\r\n**É aqui que entra o botão de opções.** O componente não inventa \"⋯\", \"exportar\"\r\nnem \"imprimir\" — ele abre espaço e você põe o que a sua tela precisa, do mesmo\r\njeito que a `TableToolbar` recebe `actions`.\r\n\r\n```\r\n[visão] │ [‹ Hoje ›] [período]   …   [busca] [toolbarActions] [crítico] [escala] [filtro] [primaryAction]\r\n```\r\n\r\n```tsx\r\n<Gantt\r\n  rows={ROWS}\r\n  toolbarActions={\r\n    <DropdownMenu>\r\n      <DropdownMenuTrigger asChild>\r\n        <Button variant=\"outline\" color=\"secondary\" size=\"icon-md\"\r\n                aria-label=\"Mais opções\"><MoreHorizontal /></Button>\r\n      </DropdownMenuTrigger>\r\n      <DropdownMenuContent align=\"end\">…</DropdownMenuContent>\r\n    </DropdownMenu>\r\n  }\r\n  primaryAction={<Button iconLeft={<Plus />}>Nova tarefa</Button>}\r\n/>\r\n```\r\n\r\n`toolbarActions` entra **antes** da ação primária, de propósito: a ação primária\r\nfecha a barra, e é o último lugar onde o olho para.\r\n\r\n### Carregando ≠ vazio\r\n\r\n⚠️ **Se você busca do servidor, passe `loading`.** Sem ele, `rows={[]}` durante o\r\nfetch faz o componente afirmar *\"Nenhuma tarefa neste período\"* — uma frase que\r\nele não tem como saber que é verdade, e que faz o usuário desistir antes de o\r\ndado chegar.\r\n\r\n```tsx\r\n<Gantt rows={rows} loading={isFetching} />\r\n```\r\n\r\n`loading` **vence** `rows`: mesmo com linhas na tela ele mostra o esqueleto,\r\nporque durante um refetch o que está renderizado pode estar velho. A **toolbar\r\ncontinua** — período, busca e filtro não dependem dos dados, e apagá-la faria a\r\ntela inteira piscar quando eles chegam.\r\n\r\nO esqueleto imita a silhueta da visão atual (painel + barras na timeline, 6×7 na\r\ngrade, blocos na agenda), pra a chegada do dado não deslocar nada. `loadingState`\r\ntroca por um seu — mantenha a altura.\r\n\r\n### O imperativo — `GanttRef`\r\n\r\nQuatro métodos, pra quando a tela precisa mandar no cronograma sem passar por\r\nprop: `goToDate(date)` · `goToToday()` · `expandAll()` · `collapseAll()`.\r\n\r\n```tsx\r\nconst gantt = useRef<GanttRef>(null);\r\n<Button onClick={() => gantt.current?.collapseAll()}>Recolher tudo</Button>\r\n<Gantt ref={gantt} rows={ROWS} />\r\n```\r\n\r\n### Os três estados de UI seguem o MESMO par\r\n\r\n`view`, `granularity` e `criticalPath` são estados que a UI do próprio\r\ncomponente mexe — o seletor de visão, o dropdown de escala e o botão \"Crítico\".\r\nCada um aceita as duas formas:\r\n\r\n| Você passa | Quem manda | O `on*Change` |\r\n|---|---|---|\r\n| nada | o componente | não existe pra chamar |\r\n| só o valor | você — **o controle congela** | não existe pra chamar |\r\n| valor + callback | você | avisa a intenção do usuário |\r\n\r\nÉ a semântica normal de campo controlado no React, e a linha do meio é\r\ndeliberada — não é bug.\r\n\r\n⛔ **`granularity` e `criticalPath` não tinham callback até a v0.59.** O\r\nresultado era só a linha do meio, sem escapatória: passar `granularity=\"day\"`\r\ncomo valor inicial matava o dropdown de escala em silêncio — o clique mudava o\r\nestado interno e a prop o mascarava de volta. Se você copiou um exemplo com\r\n`granularity` fixo e a escala \"não funciona\", é isto: **remova a prop** (o\r\ncomponente já começa em `day`) ou acrescente `onGranularityChange`.\r\n\r\n**A barra é UM segmento contínuo** atravessando os dias que ocupa — não um chip\r\npor dia. Uma tarefa de 10 a 15 é uma barra de 6 colunas, e se cruzar a virada de\r\nsemana vira dois segmentos com a ponta cortada marcada (mesmo vocabulário\r\n`continuesBefore`/`continuesAfter` da timeline). Um chip por dia leria como seis\r\ntarefas de um dia em vez de uma de seis.\r\n\r\n`onDayAdd` liga o **\"+\" no hover da célula**. Sem o handler o botão não é\r\nrenderizado — um \"+\" que não adiciona nada é pior que a ausência dele.\r\n\r\n⚠️ Ele significa **\"o usuário pediu pra adicionar no dia X\"**, não \"adicione\r\nisto\". Abra seu drawer/modal com os campos que a SUA tela precisa (nome, cor,\r\nresponsável, duração) e crie a linha no salvar — mesma divisão do `onBarClick`,\r\nque devolve o payload e deixa a ficha pra você. O `GanttFullPreview` mostra o\r\ndrawer completo com `FormFieldInput`/`FormFieldSelect`.\r\n\r\n⛔ Não ofereça \"escolha uma cor\" por NOME DE COR no seu formulário. A cor da barra\r\ndiz CATEGORIA (qual frente), e um seletor de \"verde/roxo\" convida o usuário a usar\r\ncor como STATUS — que é exatamente a assumption que este componente declara.\r\nRotule as opções pela frente (\"Design\", \"Engenharia\") e mapeie pra `colorKey` por\r\ndentro.\r\n\r\n⚠️ **Linha `summary` não entra na grade de mês.** O intervalo dela é a união dos\r\nfilhos, então ela pintaria exatamente as células que os filhos já pintam — e ali a\r\nhierarquia não é visível pra dar sentido ao agregado.\r\n\r\n⚠️ **O corte do `+N mais` é MEDIDO, não fixo.** A célula tem altura mínima de 88px\r\n(cabeçalho + 3 chips) e a grade rola quando não cabe; um `ResizeObserver` recalcula\r\nquantos chips entram quando a altura muda. Com corte fixo, uma viewport curta\r\nrecortava os chips e o próprio `+N mais` — o usuário via 2 tarefas e nenhuma pista\r\nde que havia 4.\r\n\r\n### 15. Em telas estreitas, a TOOLBAR se adapta — a MATRIZ não\r\n\r\nSão dois problemas diferentes, e só um tem solução dentro do componente.\r\n\r\n**A toolbar resolve sozinha, com a regra da `TableToolbar`.** Abaixo de `md`\r\n(768px) saem da barra o **seletor de visão**, o **`‹ Hoje ›`**, a **escala** e o\r\n**caminho crítico**; eles reaparecem num menu (ícone de sliders) ao lado do\r\ntítulo, que abre como bottom-sheet. Ficam na barra: **título do período**,\r\n**busca**, **filtro** e a **ação primária**.\r\n\r\nMedido a 375px: antes, a busca era espremida a **51px** (o ícone e nada mais) e o\r\ntítulo saía cortado no meio; depois, a busca tem **153px** e o título cabe\r\ninteiro. O título é a única coisa que o Gantt preserva e a tabela não tem — sem\r\nele o usuário não sabe que período está vendo.\r\n\r\n⚠️ **A `primaryAction` é sua.** O componente não pode encolhê-la (é um\r\n`ReactNode` que você passa). Em mobile ela come ~126px com rótulo — passe um\r\nbotão **icon-only** abaixo de `md` se a barra ficar apertada.\r\n\r\n**A matriz não cabe, e o componente não finge que cabe.** Grade + eixo em 375px\r\nnão é problema de layout, é de densidade: um Gantt legível precisa de ~900px.\r\nUse `granularity=\"week\"` ou mais, reduza `gridWidth`, ou — melhor — mande\r\n`view=\"calendar\"` / `view=\"list\"` no mobile, que são justamente as visões sem\r\neixo horizontal.\r\n\r\n## ⚠️ O que ainda NÃO existe\r\n\r\nDeclarado pra não virar descoberta:\r\n\r\n| | Estado |\r\n|---|---|\r\n| setas de vínculo na visão `calendar` | **não existem, e é decisão** — numa grade de mês uma seta do dia 3 ao 19 atravessaria 3 semanas passando por cima de 16 células alheias. O grafo segue vivo (conflito marcado no chip, `onLinkViolations` emitindo); sai só o desenho |\r\n| gesto na visão `calendar` | só clique. Arrastar num calendário move por dia, não por pixel — é outro gesto, e misturá-lo com o da timeline daria duas semânticas pro mesmo arraste |\r\n| criar vínculo `FF` / `SF` por gesto | possível, mas exige soltar na **metade direita** da barra de destino. Descoberta só pela doc — não há dica visual da metade |\r\n\r\nO que está completo: as duas visões de dado (tarefa e portfólio), hierarquia com\r\ncollapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os\r\n**4 tipos de vínculo** com `lag`, detecção de conflito, caminho crítico, busca,\r\nzoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral\r\ne chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os\r\n**4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia, e as\r\n**três visões** (`timeline`, `calendar`, `list`) com o seletor segmentado abrindo\r\na toolbar.\r\n\r\n## Núcleo puro exportado\r\n\r\nÚtil fora do render — validar cronograma no servidor, calcular crítico num job:\r\n\r\n```tsx\r\nimport { checkAllLinks, computeCriticalPath, topoSort } from \"@/components/ui/Gantt\";\r\nimport { buildTimeAxis, clipToWindow, packLanes } from \"@/components/ui/Gantt\";\r\n```\r\n\r\n**146 testes** cobrem as bordas: virada de mês, barra que cruza a janela, lane\r\npacking com sobreposição parcial, ciclo em `parent` (que devolvia lista VAZIA até\r\no teste existir), auto-vínculo, as 4 restrições nas pontas certas, o índice\r\n`ancestorHasNext[i+1]` do conector (L-045) e o parse de `YYYY-MM-DD` como\r\nmeia-noite local (com `new Date` era UTC e o filtro de data voltava um dia), e o\r\nclamp do resize que impedia a barra de inverter e desaparecer.\r\n",
         "type": "registry:file",
         "target": "components/ui/Gantt/USAGE.md"
       },
@@ -3280,7 +3319,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · gantt · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3372,7 +3411,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · header · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3396,7 +3435,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · hover-card · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3449,7 +3488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · icon · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3473,7 +3512,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · input-group · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3498,7 +3537,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · input-otp · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3522,7 +3561,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · input · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3581,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · kanban · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3643,7 +3682,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · kpi · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3668,7 +3707,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · label · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3775,7 +3814,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · list · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3821,7 +3860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · markdown-text · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3931,7 +3970,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · menu-sidebar · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3956,7 +3995,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · menubar · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4000,7 +4039,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · modal · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4049,7 +4088,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · month-year-picker · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4075,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · navigation-menu · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4122,7 +4161,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · page-header · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4147,7 +4186,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · pagination · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4222,7 +4261,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · panel · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4246,7 +4285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · popover · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4270,7 +4309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · progress · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4294,7 +4333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · radio-group · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4434,7 +4473,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · scheduler · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4482,7 +4521,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · screen-loader · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4506,7 +4545,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · scroll-area · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4531,7 +4570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · select · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4555,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · separator · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4581,7 +4620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · sheet · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4694,7 +4733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4716,7 +4755,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · skeleton · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4740,7 +4779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · slider · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4763,7 +4802,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · sonner · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4809,7 +4848,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · spinner · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4833,7 +4872,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · switch · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4912,7 +4951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · table · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4975,7 +5014,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · tabs-navigation · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4999,7 +5038,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · tabs · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5023,7 +5062,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · textarea · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5041,7 +5080,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · theme-blue · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5059,7 +5098,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · theme-green · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5077,7 +5116,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · theme-pay · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5095,7 +5134,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · theme-vibrant · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5117,7 +5156,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · theme · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5168,7 +5207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · toast · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5194,7 +5233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · toggle-group · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5219,7 +5258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · toggle · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5243,7 +5282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · tooltip · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5264,7 +5303,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · tv · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5286,7 +5325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.60.0 · 172141f · 2026-09-05"
+      "stamp": "igreen-ds · utils · v0.60.0 · 530fb6f · 2026-09-05"
     },
     "type": "registry:file"
   }
