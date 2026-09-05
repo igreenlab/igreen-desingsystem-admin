@@ -88,12 +88,16 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     windowStart: wsProp,
     windowEnd: weProp,
     granularity: granProp,
+    onGranularityChange,
     columns,
     gridWidth: gridWidthProp = 360,
     draggable = false,
     resizable = false,
     linkable = false,
-    criticalPath: criticalProp = false,
+    // Sem default no destructuring de propósito: `undefined` é o sinal de
+    // "não controlado", e um default aqui o apagaria.
+    criticalPath: criticalProp,
+    onCriticalPathChange,
     criticalPathToggle = true,
     onGraphError,
     onLinkViolations,
@@ -131,8 +135,8 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
   const [granLocal, setGranLocal] = useState(granProp ?? "day");
   const granularity = granProp ?? granLocal;
 
-  const [criticalLocal, setCriticalLocal] = useState(criticalProp);
-  const criticalPath = criticalLocal;
+  const [criticalLocal, setCriticalLocal] = useState(criticalProp ?? false);
+  const criticalPath = criticalProp ?? criticalLocal;
 
   const [busca, setBusca] = useState("");
   /**
@@ -630,7 +634,8 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
               xToDate(el.scrollLeft + el.clientWidth / 2, windowStart, pxPerDay),
             );
           }
-          setGranLocal(g);
+          if (granProp === undefined) setGranLocal(g);
+          onGranularityChange?.(g);
           /**
            * #9 — a janela ACOMPANHA a escala.
            *
@@ -693,7 +698,11 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
         hasLinks={links.length > 0}
         showCriticalToggle={criticalPathToggle}
         criticalPath={criticalPath}
-        onToggleCriticalPath={() => setCriticalLocal((v) => !v)}
+        onToggleCriticalPath={() => {
+          const proximo = !criticalPath;
+          if (criticalProp === undefined) setCriticalLocal(proximo);
+          onCriticalPathChange?.(proximo);
+        }}
         toolbarActions={toolbarActions}
         primaryAction={primaryAction}
       />

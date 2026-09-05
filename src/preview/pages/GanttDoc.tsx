@@ -300,6 +300,11 @@ const PROPS = [
   },
   { name: "windowStart / windowEnd", type: "Date — janela visível, do CONSUMIDOR. Omitidos, derivam dos dados", defaultVal: "derivada" },
   { name: "granularity", type: '"day" | "week" | "month" | "quarter"', defaultVal: '"day"' },
+  {
+    name: "onViewChange / onGranularityChange / onCriticalPathChange",
+    type: "os pares dos 3 estados de UI — passar SÓ o valor congela o controle (campo controlado); passar nada deixa o componente cuidar",
+    defaultVal: "—",
+  },
   { name: "columns", type: "GanttColumn[] — colunas da grade esquerda", defaultVal: "nome + início + fim" },
   { name: "gridWidth", type: "number — largura inicial da grade; o divisor é arrastável", defaultVal: "360" },
   { name: "draggable / resizable / linkable", type: "boolean — ligados sem handler, o usuário arrasta e vê voltar", defaultVal: "false" },
@@ -441,7 +446,6 @@ export function GanttDoc() {
       ],
     },
   ]}
-  granularity="day"
 />`}
       >
         <div className="flex h-[320px] w-full flex-col">

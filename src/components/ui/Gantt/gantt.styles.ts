@@ -197,9 +197,9 @@ export const ganttToolbar = tv({
  * Os dois lados da toolbar.
  *
  * O lado esquerdo usa o gap do `toolbarLeft` do `TableToolbar` —
- * `gap-gp-sm md:gap-[10px]` (6px → 10px) —, e não um valor próprio. Ele tem a
+ * `gap-gp-sm md:gap-gp-lg` (6px → 10px) —, e não um valor próprio. Ele tem a
  * mesma anatomia da toolbar da tabela: seletor de visão, DIVISOR, e o que a
- * visão governa. O divisor carrega `mx-[6px]`, então o gap do grupo é metade do
+ * visão governa. O divisor carrega `mx-sp-sm`, então o gap do grupo é metade do
  * respiro que aparece em volta dele; com 16px ali o divisor ficava com 22px de
  * cada lado contra os 16px da tabela, e era isso que fazia as abas, o divisor e
  * a data parecerem soltos entre si. À direita o gap é 8px: lá é tudo controle,
@@ -237,7 +237,7 @@ export const ganttToolbarSide = tv({
   variants: {
     slot: {
       leading: [
-        "w-full justify-between gap-gp-sm md:gap-[10px]",
+        "w-full justify-between gap-gp-sm md:gap-gp-lg",
         "lg:w-auto lg:flex-wrap lg:justify-start",
       ],
       trailing: "w-full gap-gp-md lg:w-auto lg:flex-wrap",
@@ -259,7 +259,7 @@ export const ganttTitle = tv({
     // fundo pra criar respiro do lado dele. 6px somam com o gap do grupo e dão
     // 16px no desktop / 12px no mobile. (Enquanto o `‹ Hoje ›` vinha depois do
     // título, esta margem morava lá, pelo mesmo motivo espelhado.)
-    "ml-gp-sm",
+    "ml-sp-sm",
     "text-title-sm font-semibold text-fg-default",
     "[&>svg]:size-icon-md [&>svg]:shrink-0 [&>svg]:text-fg-muted",
   ],
@@ -296,7 +296,8 @@ export const ganttTitleText = tv({
  */
 export const ganttViewSwitch = tv({
   base: [
-    "inline-flex shrink-0 items-center gap-[2px] p-[3px]",
+    // `p-[3px]` fica literal: a escala `sp` vai 2 → 4px e não tem 3.
+    "inline-flex shrink-0 items-center gap-gp-2xs p-[3px]",
     "h-form-lg rounded-radius-lg bg-bg-muted",
   ],
 });
@@ -329,7 +330,10 @@ export const ganttViewSwitchButton = tv({
  * diferentes pra isso no mesmo produto é ruído.
  */
 export const ganttToolbarDivider = tv({
-  base: "mx-[6px] h-[24px] w-[1px] shrink-0 self-center bg-border-default",
+  // `mx-sp-sm` = 6px e `w-sp-px` = 1px, os mesmos valores do `toolbarDivider`
+  // da tabela — que os escreve literais. `h-[24px]` continua literal: a escala
+  // `form` vai 28 → 32 e não tem 24.
+  base: "mx-sp-sm h-[24px] w-sp-px shrink-0 self-center bg-border-default",
 });
 
 /**

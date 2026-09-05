@@ -51,9 +51,10 @@ import type { GanttRow, GanttLink, GanttColumn } from "@/components/ui/Gantt";
 |---|---|---|
 | `rows` | `GanttRow[]` | — |
 | `links` | `GanttLink[]` — ausente = sem setas | — |
-| `view` | `"timeline" \| "calendar"` | `"timeline"` |
+| `view` | `"timeline" \| "calendar" \| "list"` | `"timeline"` |
 | `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |
 | `granularity` | `"day" \| "week" \| "month" \| "quarter"` | `"day"` |
+| `onViewChange` / `onGranularityChange` / `onCriticalPathChange` | os pares dos três estados de UI — ver abaixo | — |
 | `columns` | `GanttColumn[]` | nome + início + fim |
 | `gridWidth` | `number` — largura inicial; o divisor é arrastável | `360` |
 | `draggable` / `resizable` / `linkable` | `boolean` | **`false`** |
@@ -316,8 +317,27 @@ toggle de crítico sem vínculo.
 estava selecionado continua. Zerar faria trocar de visão e voltar perder trabalho
 do usuário.
 
-O seletor fica na toolbar (dois segmentos, não dropdown — são só duas). `view` +
-`onViewChange` controlam de fora; omitidos, o componente guarda em estado próprio.
+### Os três estados de UI seguem o MESMO par
+
+`view`, `granularity` e `criticalPath` são estados que a UI do próprio
+componente mexe — o seletor de visão, o dropdown de escala e o botão "Crítico".
+Cada um aceita as duas formas:
+
+| Você passa | Quem manda | O `on*Change` |
+|---|---|---|
+| nada | o componente | não existe pra chamar |
+| só o valor | você — **o controle congela** | não existe pra chamar |
+| valor + callback | você | avisa a intenção do usuário |
+
+É a semântica normal de campo controlado no React, e a linha do meio é
+deliberada — não é bug.
+
+⛔ **`granularity` e `criticalPath` não tinham callback até a v0.59.** O
+resultado era só a linha do meio, sem escapatória: passar `granularity="day"`
+como valor inicial matava o dropdown de escala em silêncio — o clique mudava o
+estado interno e a prop o mascarava de volta. Se você copiou um exemplo com
+`granularity` fixo e a escala "não funciona", é isto: **remova a prop** (o
+componente já começa em `day`) ou acrescente `onGranularityChange`.
 
 **A barra é UM segmento contínuo** atravessando os dias que ocupa — não um chip
 por dia. Uma tarefa de 10 a 15 é uma barra de 6 colunas, e se cruzar a virada de

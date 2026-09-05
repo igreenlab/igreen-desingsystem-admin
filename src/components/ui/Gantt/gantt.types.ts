@@ -337,7 +337,28 @@ export interface GanttProps {
   /** Ausente = sem setas. Presente = é um Gantt de verdade. */
   links?: GanttLink[];
 
-  /** @default "timeline" */
+  /**
+   * ## O par valor + callback, e por que os TRÊS seguem o mesmo formato
+   *
+   * `view`, `granularity` e `criticalPath` são estados que a UI do próprio
+   * componente mexe (o seletor de visão, o dropdown de escala, o botão de
+   * caminho crítico). Cada um aceita as duas formas:
+   *
+   *   - **omitido** → o componente guarda o estado e o controle funciona
+   *     sozinho. É o caso comum.
+   *   - **passado** → quem manda é você, e o `on*Change` avisa da intenção do
+   *     usuário. Passar o valor SEM o callback congela o controle — semântica
+   *     normal de campo controlado no React, e é deliberado.
+   *
+   * ⚠️ `granularity` e `criticalPath` não tinham callback até esta rodada, e
+   * o resultado era a segunda forma sem escapatória: passar `granularity="day"`
+   * (que a doc ensinava como valor INICIAL) matava o dropdown de escala em
+   * silêncio — o clique mudava o estado interno e o valor da prop o mascarava
+   * de volta, com `tsc` verde e nenhum erro. `view` já tinha o par, e o JSDoc
+   * do handler dele descreve exatamente este defeito.
+   *
+   * @default "timeline"
+   */
   view?: GanttView;
   onViewChange?: (view: GanttView) => void;
 
@@ -354,8 +375,13 @@ export interface GanttProps {
   windowStart?: Date;
   windowEnd?: Date;
 
-  /** @default "day" */
+  /**
+   * Escala do eixo. Ver a nota do par valor + callback em `view`.
+   *
+   * @default "day"
+   */
   granularity?: GanttGranularity;
+  onGranularityChange?: (granularity: GanttGranularity) => void;
 
   /** Colunas da grade esquerda. Omitido, usa nome + datas + duração. */
   columns?: GanttColumn[];
@@ -380,7 +406,7 @@ export interface GanttProps {
   linkable?: boolean;
 
   /**
-   * Destaca o caminho crítico.
+   * Destaca o caminho crítico. Ver a nota do par valor + callback em `view`.
    *
    * @default false — e não é economia de pixel: é **cálculo**. Exige ordenação
    * topológica sobre os vínculos, e num grafo com ciclo não existe resposta.
@@ -388,6 +414,7 @@ export interface GanttProps {
    * resultado silenciosamente errado. Ciclo detectado → `onGraphError`.
    */
   criticalPath?: boolean;
+  onCriticalPathChange?: (on: boolean) => void;
 
   /**
    * Mostra o botão que liga/desliga o caminho crítico na toolbar.
@@ -396,9 +423,9 @@ export interface GanttProps {
    * exemplo um painel onde o crítico está sempre visível. Aí o botão só
    * ocuparia 40px oferecendo desligar algo que a tela quer ligado.
    *
-   * ⚠️ Desligar o botão NÃO desliga o realce: quem manda no realce é
-   * `criticalPath`. As duas props são independentes de propósito — esconder
-   * o controle de um estado permanente é diferente de não ter o estado.
+   * ⚠️ Desligar o botão NÃO desliga o realce: o realce é `criticalPath`. As
+   * duas props são independentes de propósito — esconder o controle de um
+   * estado permanente é diferente de não ter o estado.
    *
    * O botão também não aparece quando não há `links`: sem grafo não existe
    * caminho crítico, e um toggle que nunca muda nada é pior que a ausência.
