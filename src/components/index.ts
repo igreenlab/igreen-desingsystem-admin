@@ -44,6 +44,7 @@ export * from "./ui/MonthYearPicker";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
 export * from "./ui/Scheduler";
+export * from "./ui/Gantt";
 export * from "./ui/ScreenLoader";
 export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";

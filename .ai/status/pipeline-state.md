@@ -31,6 +31,8 @@
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
 - [2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`](#2026-09-03-concluído-messagebubble-botão-de-ações-com-superfície-originai)
 - [2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`](#2026-09-04-concluído-família-semântica-caution-laranja-entre-warning-e-danger)
+- [2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd](#2026-09-04-concluído-gantt-componente-novo-três-visões-com-dnd)
+- [2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados](#2026-09-05-concluído-gantt-rodada-de-revisão-contra-os-componentes-consolidados)
 
 <!-- doc-index:fim -->
 
@@ -4842,3 +4844,167 @@ que faltava — se o Hub pedir uma 4ª faixa (ou "laranja mais forte"), a respos
 vermelho" nas 5 marcas sem ninguém confundir com o `warning` da `pay`, que já é alaranjado
 (#d97c02): o par dela ficou #d97c02 → #ec6007 → #f83b3b, separação medida de 17–18° de hue em
 cada salto. Cai se, na tela, os dois primeiros se confundirem; aí o ajuste é na `pay`, não na default.
+## 2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd
+
+**Agente:** DS Dev · **Spec:** `.ai/specs/gantt-componente-de-cronograma.md`
+
+**Input:** 13 referências visuais + um HTML do time. Pedido: matriz de Gantt
+completa, com setas de dependência, **sem dependência de terceiros nova**.
+
+**Output:** 19 arquivos no item de registry, **189 testes** de núcleo puro
+(geometria, filtros, gesto e faixas de semana). `registry.json` item `gantt`
+(deps `date-fns`, `lucide-react`; registryDeps button, checkbox, dropdown-menu,
+floating-panel, popover, radio-group, tv, utils). Showcase em `#/gantt` e
+`#/gantt-full`.
+
+**Três visões**, com o seletor segmentado como primeiro item da toolbar (mesmo
+controle e mesmo divisor da `DataTable`): `timeline` (o eixo), `calendar` (a
+grade de mês) e `list` (a agenda por dia). As duas sem eixo são recortadas no
+MÊS — a janela existe pro eixo, que comprime 64 dias em pixels; agenda e grade
+não comprimem, cada dia custa uma linha.
+
+**Decisões que valem revisitar:**
+
+- **Grade própria, não `DataTable`** — medido: a DataTable são 12.187 linhas em 75
+  arquivos, o `hierarchical` dela vive na view de lista, e a altura de linha
+  deriva de `density`. Altura de linha é exatamente o que os dois painéis do
+  Gantt precisam casar ao pixel (L-038).
+- **O Gantt é dono das SUAS visões** — a recomendação inicial (minha) era delegar
+  a visão de calendário ao `Scheduler`. Descartada pelo mantenedor, com razão
+  melhor: necessidade nova do Gantt viraria mudança numa API publicada que serve
+  outros consumidores.
+- **Caminho crítico só considera `FS`** — limite declarado. Os outros três tipos
+  exigem tratar as duas pontas como nós independentes; implementar pela metade
+  daria resultado plausível e errado.
+- **Barra tingida, não sólida com texto branco** — herdado da medição da v0.56.0:
+  branco/colorido sobre pílula tingida dá 1.72–4.49 de contraste no light.
+- **Filtro nos 6 tipos sem mudar `GanttFilterModel`** — os 6 codificam o valor no
+  mesmo `Record<string, string[]>`. O que faltava não era a forma do dado, era
+  como interpretá-lo; por isso zero migração pra quem já usava `multi`.
+
+**Assumption:** a cor da barra carrega **CATEGORIA** (qual frente), não estado.
+Status vai em `row.trailing` como `Chip`. Se um consumidor precisar de cor por
+status, a suposição quebrou e o contrato de `colorKey` tem que ser revisto — não
+o exemplo.
+
+**Bugs que os testes acharam (e que eu não teria achado na tela):**
+
+1. Eixo de semana perdia a última semana parcial — `endOfWeek` devolve
+   23:59:59.999 e o resto de tempo viajava pro cursor seguinte. L-045.
+2. `new Date("2026-09-30")` é parseado como **UTC** → em UTC−3 volta um dia. Todo
+   filtro de período deslocava, e `<input type="date">` emite exatamente esse
+   formato. Invisível em fuso positivo, onde o teste passaria.
+3. Ciclo em `parent` devolvia lista **vazia** — o Gantt renderizava em branco,
+   sem erro, com todas as tarefas no `rows`. A guarda contra estouro de pilha
+   existia; a varredura partia de `porPai.get(null)` e num ciclo puro nenhuma
+   linha tem pai nulo. E o comentário do arquivo já prometia o contrário (L-060).
+4. O conserto do #3 quebrou o collapse — filho de nó colapsado também está "não
+   visitado". Três testes de collapse reprovaram na mesma rodada.
+
+**Padrão de erro meu, três vezes na mesma sessão:** trocar token de cor, conferir
+que o **valor** mudou e não conferir que a mudança **se vê**. Aconteceu na virada
+de mês (`border-default`, ΔL 0.040 contra 0.031 da linha comum = a mesma linha),
+no divisor dos painéis e nos conectores de árvore. As três vezes a correção veio
+de medir ΔL contra a superfície, não de olhar o nome do token.
+
+**As três pendências da fase 1 foram fechadas** (nesta ordem, que era a do
+registro): o **gesto de dnd** — os quatro handlers agora chegam à raiz e os
+punhos fazem o que prometem, com snap de dia por `Math.round(deltaPx/pxPerDay)`
+e `addDays`, não aritmética de milissegundo; o **seletor de visão**; e a
+**`view="calendar"`**, que deixou de ser placeholder.
+
+⚠️ **A nota "NÃO é pendência: visão de lista" foi revertida pelo mantenedor, e
+a razão dele é melhor que a minha.** Eu argumentei que "lista de tarefas com
+hierarquia e filtro" já é o `DataTable`/`DataList` e que uma terceira
+implementação duplicaria o DS. Verdade — e irrelevante, porque a `list` do Gantt
+não é isso: ela agrupa por **DIA**, e a mesma tarefa aparece em cada dia que
+ocupa, com a posição no intervalo ("dia 2 de 6") à direita. Nenhum dos dois
+componentes faz agrupamento por dia. Eu comparei pelo NOME da visão em vez de
+pela pergunta que ela responde.
+
+**PENDENTE — o que sobra, e nenhum é código do componente:**
+
+1. **PR.** 12 commits em `feat/gantt-cronograma`, nada empurrado — foi instrução
+   explícita do mantenedor nesta sessão ("pode commitar... mas não suba nada").
+   Fechar por `ds-dev/handoff-pr.md` quando ele autorizar.
+2. **Changelog + bump.** `updates-data.ts` não tem entry de Gantt e a versão
+   segue em 0.58.0. Consolidam no `/ds-release` (Regra 8), não por-PR.
+
+**Ausências declaradas** (na tabela "O que ainda NÃO existe" do `USAGE.md`, não
+débito escondido): setas de vínculo e gesto na grade de mês; criar `FF`/`SF` por
+gesto exige soltar na metade direita do destino, sem dica visual da metade.
+
+**Distribuição:** registry + embed fechados e recarimbados a cada rodada.
+
+---
+
+## 2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados
+
+**Agente:** DS Dev · **Escopo:** auditoria pedida pelo mantenedor — tokens,
+arquitetura, mobile e estrutura, medindo contra `DataTable`, `Scheduler`,
+`DataList` e `List`.
+
+**Input:** *"validar se está nos conformes, se usa tokens corretos, se o
+componente está burro, se está tudo separado"* + *"veja como foi construída a
+tabela ... pra ver se precisa de mais alguma melhoria"*.
+
+**Output:** 6 achados corrigidos, 5 arquivos novos/alterados no componente, 15
+testes de render novos (os primeiros do Gantt fora do núcleo puro).
+
+**O que a auditoria achou — e nenhum apareceu em gate:**
+
+1. **`granularity` sem callback congelava o dropdown de escala.** Resolvia
+   `granProp ?? granLocal` mas não tinha `onGranularityChange`: passar
+   `granularity="day"` — que a doc ensinava como valor INICIAL, num exemplo
+   copiável — matava o controle em silêncio. `criticalPath` tinha o espelho:
+   `useState(criticalProp)` fazia a prop ser só semente, enquanto o JSDoc do
+   `criticalPathToggle` afirmava dez linhas acima que ela mandava no realce.
+2. **Não havia como pedir só o cronograma.** As três visões eram fixas no
+   `VIEW_ITEMS`. Nasceu `views`, que recorta o que EXISTE (≠ `view`, que diz o
+   que está aberto) e some com o seletor quando sobra uma.
+3. **A toolbar não cabia em 375px.** Cabia sem estouro E não servia: busca
+   espremida a 51px e título cortado. Colapsa como a `TableToolbar` — visão,
+   `‹ Hoje ›`, escala e crítico vão pra um menu bottom-sheet.
+4. **`loading` não existia.** `DataTable`, `DataList` e `List` têm; o Gantt
+   respondia "Nenhuma tarefa neste período" durante o fetch — afirmação que
+   ele não tem como saber que é verdade.
+5. **Seis props invisíveis.** `toolbarActions`, `primaryAction`, `emptyState`,
+   `onLinkCreate`, `onLinkDelete`, `onRowClick` e o `GanttRef` inteiro não
+   estavam na `PropsTable` nem no `USAGE.md`. `toolbarActions` é literalmente
+   o slot do botão de opções que o mantenedor perguntou se existia.
+6. **Doc contradizendo o código** em dois pontos ("duas visões" no USAGE, entry
+   PARCIAL no pipeline com as 3 pendências já fechadas).
+
+**Decisões que valem revisitar:**
+
+- **Os três estados de UI têm o MESMO contrato** (valor + `on*Change`): nada
+  passado = o componente cuida; só o valor = congela (campo controlado); valor +
+  callback = controlado de verdade. A linha do meio é deliberada.
+- **`views` vence `view`** — renderizar uma visão que o consumidor excluiu
+  seria pior que corrigir em silêncio.
+- **`loading` vence `rows`** — num refetch, o que está na tela pode estar velho.
+- **O título do período FICA no mobile**, contra a regra da tabela (que esconde
+  o grupo esquerdo inteiro). É diferença de conteúdo: a toolbar da tabela não
+  tem rótulo de contexto pra preservar.
+
+**Assumption:** o `Gantt` continua **dumb sobre mutação** e sobre navegação —
+os 16 `useState` da raiz são todos de VISTA (hover, seleção, scroll, janela,
+fallback não-controlado), nenhum guarda `rows` nem `links`. Se um consumidor
+precisar que o componente reagende ou persista dado, a suposição quebrou e o
+contrato inteiro tem que ser revisto — não o caso pontual.
+
+**Débito de SISTEMA registrado (não do Gantt):** não há token de motion no
+tema, então `duration-[220ms]` + a curva `cubic-bezier(0.4,0,0.2,1)` são
+literais no `FloatingPanel`, no `TableToolbar` e aqui; e os tokens `sh-*` são
+simétricos, então sombra direcional carrega `oklch()` inline. Corrigir só no
+Gantt o deixaria fora de passo com os outros três — é cascata (Regra 3).
+
+**Não virou tarefa, com motivo:** `labels`/i18n (nenhum dos cinco tem — é
+decisão do DS, não gap do Gantt), `density` (a altura de linha precisa casar ao
+pixel entre os painéis — L-038) e virtualização/`memo` (otimização pra um
+volume que ninguém mediu).
+
+**Validação:** `tsc` 0 · 1.121 testes (75 arquivos) · ds-lint 0 ·
+`release:check` 7/7 · medições no browser a 375 / 800 / 1440px.
+
+**PENDENTE:** só a entry de changelog + bump, que consolidam no `/ds-release`.

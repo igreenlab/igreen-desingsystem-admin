@@ -16,6 +16,8 @@ import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
 import { SpinnerDoc } from "./preview/pages/SpinnerDoc";
 import { SchedulerFullPreview } from "./preview/pages/SchedulerFullPreview";
 import { SchedulerDoc } from "./preview/pages/SchedulerDoc";
+import { GanttDoc } from "./preview/pages/GanttDoc";
+import { GanttFullPreview } from "./preview/pages/GanttFullPreview";
 import { ScreenLoaderDoc } from "./preview/pages/ScreenLoaderDoc";
 import { ChoroplethMapDoc } from "./preview/pages/ChoroplethMapDoc";
 import { EmptyStateDoc } from "./preview/pages/EmptyStateDoc";
@@ -304,7 +306,9 @@ const DOC_PAGES = [
   "skeleton",
   "spinner",
   "scheduler-full",
+  "gantt-full",
   "scheduler",
+  "gantt",
   "screen-loader",
   "choropleth-map",
   "empty-state",
@@ -611,6 +615,8 @@ export function App() {
             {activePage === "spinner" && <SpinnerDoc />}
             {activePage === "scheduler-full" && <SchedulerFullPreview />}
             {activePage === "scheduler" && <SchedulerDoc />}
+            {activePage === "gantt" && <GanttDoc />}
+            {activePage === "gantt-full" && <GanttFullPreview />}
             {activePage === "screen-loader" && <ScreenLoaderDoc />}
             {activePage === "choropleth-map" && <ChoroplethMapDoc />}
             {activePage === "empty-state" && <EmptyStateDoc />}

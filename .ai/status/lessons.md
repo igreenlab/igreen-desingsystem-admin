@@ -1751,3 +1751,58 @@ achar uma lição; dividido, abre-se só a fatia relevante. O resumo no `ds-stan
 segue como índice único. ⚠️ Não é tarefa de 5 minutos: exige reapontar as referências
 cruzadas (`ver lessons.md L-0XX` espalhado em skills e specs) e provar que nenhuma
 lição se perdeu — trate como tarefa própria, com verificação de integridade.
+
+---
+
+## [L-072] Variante de `tv()` NÃO sobrescreve a base em classe com prefixo DS — as duas sobrevivem e a ordem do CSS decide
+
+**Data:** 2026-09-05 · **Origem:** toolbar do `Gantt`
+
+### O que aconteceu
+
+`ganttToolbarSide` tinha `gap-gp-md` na `base` e `gap-gp-2xl` numa variante.
+O esperado era 16px; **medido no browser: 8px**. As DUAS classes estavam no
+elemento, e quem decidiu foi a ordem no CSS gerado — o valor da base.
+
+### Por que
+
+O grupo `gap` do `tailwind-merge` valida o sufixo como número ou valor
+arbitrário. `gp-md` não é nem um nem outro, então ele **não reconhece as duas
+como conflitantes** e não remove nenhuma. Não há erro, não há aviso: `tsc`
+verde, teste verde, e o pixel errado.
+
+### Relação com a L-016 — é o modo de falha ESPELHADO
+
+A L-016 é o preset tipográfico que o merge **remove** por confundir com
+`text-fg-*`. Esta é o oposto: ele **mantém as duas** por não as reconhecer. As
+duas nascem da mesma raiz — o `twMergeConfig` não conhece o vocabulário do DS —
+e por isso a L-016 não cobre este caso: lá a classe some, aqui ela fica e perde.
+
+### Regra
+
+⛔ Com prefixo DS (`gp-`, `sp-`, `pad-`, `form-`, `icon-`), **não conte com
+variante sobrescrevendo a base**. Declare o valor em **UM lugar só** — ou tudo
+na base, ou tudo nas variantes.
+
+```ts
+// ❌ silenciosamente 8px
+base: "flex items-center gap-gp-md",
+variants: { slot: { leading: "gap-gp-2xl" } },
+
+// ✅ o gap mora só nas variantes
+base: "flex items-center",
+variants: { slot: { leading: "gap-gp-2xl", trailing: "gap-gp-md" } },
+```
+
+### Por que não virou gate
+
+Detectar exige olhar `base` + `variants` do mesmo `tv()` e saber que o par
+colide — regra que depende de contexto cross-elemento, que é onde a L-059 manda
+parar. Um grep por duas classes da mesma família num arquivo daria ruído em
+todo `tv()` com variante responsiva legítima (`gap-gp-sm md:gap-gp-lg`, que é
+correta porque os breakpoints não competem).
+
+### Como se verifica
+
+`getComputedStyle(el).columnGap` no browser. Valor em arquivo de token não é
+evidência de pixel — mesma disciplina da L-066.
