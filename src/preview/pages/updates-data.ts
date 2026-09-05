@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.61.0",
+    date: "2026-09-05",
+    tag: "preview",
+    title: "O Gantt ganha exemplo distribuível e entra no chrome do app",
+    summary:
+      "A v0.60.0 entregou o componente nos 4 canais e deixou um buraco: dos 9 exemplos do repo, nenhum era dele. `example-*` não é enfeite — é a extração 1:1 do showcase real, e é o que a IA do consumidor lê pra saber como a peça se comporta MONTADA. Sem ele, ela tinha a API (o `USAGE.md`) e o exemplo mínimo, que não mostra gesto aplicando, conflito recalculando nem as três visões sobre o mesmo dado. Na mesma rodada a tela de exemplo passou a ter o mesmo chrome das outras (`mapa-rede`, `finance`): um cronograma real vive DENTRO de um app, e a pergunta que o exemplo responde inclui como ele convive com rail, header e breadcrumb.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`example-gantt`** — o primeiro exemplo do componente, extraído 1:1 de `#/gantt-full`: 20 linhas em 4 níveis, 16 vínculos dos 4 tipos, 2 conflitos de prazo, os **4 gestos aplicando de verdade** (arrastar move e a barra FICA), as 3 visões sobre o mesmo dado, filtro nos 6 `kind`, painel de detalhe e drawer de nova tarefa. `_gantt-data.tsx` é o que se troca primeiro; `gantt-screen.tsx` abre com um bloco **Cuidado ao adaptar** dizendo o que ligar ao seu estado, o que remover se não servir e o que NÃO mexer. Registrado como item do registry (101) e no lock do drift-check (8 exemplos), que passa a avisar se o showcase mudar e o exemplo ficar pra trás.",
+          "**O ponteiro pro exemplo nas 3 superfícies que a IA do consumidor lê** — primeira linha do bloco `ds:regras`, seção própria no `USAGE.md` e a linha do vocabulário (esta é a que ela vê em 100% das sessões). O `USAGE.md` descreve a API; o exemplo mostra o comportamento junto, que é onde a composição erra.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**`#/gantt-full` agora tem `AppShell` + `PageHeader`**, com os mesmos mocks e a mesma composição de `mapa-rede`, `finance` e `order-detail` — verificado lado a lado. O contador de conflito virou `badge` (qualifica a tela inteira) e os botões de recolher/expandir saíram a pedido do mantenedor; o `ganttRef` saiu junto, porque nada mais o lia. ⚠️ O shell **não** atravessa pro `example-gantt`: lá ele vira uma `div` de altura, porque quem consome já tem o próprio (é o *strip AppShell* da L-034), e a fronteira entre os dois é explícita no código.",
+          "**A seção \"Decisões\" saiu da doc page do `Gantt`** — 89 linhas, nada adicionado. As cinco decisões já vivem onde são consultadas: barra tingida, cor = categoria e caminho crítico só `FS` estão nos gotchas do `USAGE.md`; altura de linha única e a camada SVG das setas estão no JSDoc do código, que é onde olha quem vai mexer.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.60.0",
     date: "2026-09-05",
     tag: "preview",
