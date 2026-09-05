@@ -2,9 +2,10 @@ import { useMemo, useRef, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { addDays, format, startOfDay } from "date-fns";
 import { Plus } from "lucide-react";
-import { Gantt } from "@/components/ui/Gantt";
+import { Gantt, ganttDaySegment } from "@/components/ui/Gantt";
 import type {
   GanttBarChange,
+  GanttColorKey,
   GanttColumn,
   GanttFilterField,
   GanttLink,
@@ -19,6 +20,7 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
 import {
   FormFieldInput,
   FormFieldSelect,
+  FormFieldTextarea,
 } from "@/components/ui/FormField";
 
 /**
@@ -466,8 +468,42 @@ export function GanttFullPreview() {
     cor: string;
     responsavel: string;
     frente: string;
+    descricao: string;
   } | null>(null);
+
+  /**
+   * Abre o drawer num dia — DUAS portas, um formulário só.
+   *
+   * O "+" da célula sabe o dia (o usuário apontou pra ele); o "Nova tarefa" da
+   * toolbar não sabe, e abre em `hoje`. Por isso a data virou CAMPO em vez de
+   * ficar só no subtítulo: sem ela, a porta da toolbar criaria tudo no mesmo dia
+   * sem o usuário poder corrigir.
+   */
+  const abrirNovaTarefa = (dia: Date) =>
+    setNovo({
+      dia,
+      nome: "",
+      dias: "3",
+      cor: "chart-2",
+      responsavel: "ana",
+      frente: "integração",
+      descricao: "",
+    });
   const [links, setLinks] = useState<GanttLink[]>(LINKS_SEMENTE);
+
+  /**
+   * Duração, fim e estilo da prévia — derivados do formulário.
+   *
+   * `fim` usa `duracao - 1` porque `end` é INCLUSIVO no `Gantt`: 3 dias a
+   * partir do dia 10 terminam no 12, não no 13. É a mesma conta do salvar, e
+   * está aqui pra ser UMA — se o subtítulo dissesse um fim e o salvar gravasse
+   * outro, o usuário só descobriria depois de criar (L-038).
+   */
+  const duracaoNova = Math.max(1, Number(novo?.dias) || 1);
+  const fimNovo = novo ? addDays(novo.dia, duracaoNova - 1) : null;
+  const previaDoSegmento = ganttDaySegment({
+    colorKey: (novo?.cor ?? "chart-1") as GanttColorKey,
+  });
 
   /** Reescreve as datas de UMA barra, preservando o resto da linha. */
   const aplicarMudanca = ({ bar, start, end }: GanttBarChange) =>
@@ -562,16 +598,7 @@ export function GanttFullPreview() {
             Sem handler o "+" nem renderiza; com ele, o componente diz "o
             usuário pediu pra adicionar no dia X" e a tela decide o resto.
           */
-          onDayAdd={(dia) =>
-            setNovo({
-              dia,
-              nome: "",
-              dias: "3",
-              cor: "chart-2",
-              responsavel: "ana",
-              frente: "engenharia",
-            })
-          }
+          onDayAdd={abrirNovaTarefa}
           onLinkDelete={(alvo) =>
             setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))
           }
@@ -597,8 +624,21 @@ export function GanttFullPreview() {
               fim: bar.end,
             });
           }}
+          /*
+            A ação primária abre o MESMO drawer do "+" da grade de mês.
+
+            Duas portas pra criar tarefa com dois formulários diferentes é o
+            defeito clássico de tela de cadastro: o usuário aprende um e
+            encontra o outro. A única diferença entre as portas é o dia em que
+            o formulário abre — e o dia é campo, então dá pra mudar nas duas.
+          */
           primaryAction={
-            <Button variant="filled" size="md" iconLeft={<Plus />}>
+            <Button
+              variant="filled"
+              size="md"
+              iconLeft={<Plus />}
+              onClick={() => abrirNovaTarefa(hoje)}
+            >
               Nova tarefa
             </Button>
           }
@@ -677,9 +717,18 @@ export function GanttFullPreview() {
         side="right"
         size="md"
         title="Nova tarefa"
+        /*
+          O subtítulo diz o PERÍODO, não só o começo: o campo de duração está
+          logo abaixo e o usuário mexe nele: ver o fim se mover é o retorno
+          imediato de que a conta é inclusiva.
+        */
         description={
-          novo
-            ? `Começa em ${format(novo.dia, "dd/MM/yyyy", { locale: ptBR })}`
+          novo && fimNovo
+            ? `${format(novo.dia, "dd 'de' MMM", { locale: ptBR })} → ${format(
+                fimNovo,
+                "dd 'de' MMM 'de' yyyy",
+                { locale: ptBR },
+              )} · ${duracaoNova} ${duracaoNova === 1 ? "dia" : "dias"}`
             : undefined
         }
         footer={
@@ -694,8 +743,7 @@ export function GanttFullPreview() {
               // mostra na grade, e uma tarefa sem nome é uma linha em branco.
               disabled={!novo?.nome.trim()}
               onClick={() => {
-                if (!novo?.nome.trim()) return;
-                const duracao = Math.max(1, Number(novo.dias) || 1);
+                if (!novo?.nome.trim() || !fimNovo) return;
                 const id = `nova-${novo.dia.getTime()}`;
                 setRows((atuais) => [
                   ...atuais,
@@ -709,14 +757,16 @@ export function GanttFullPreview() {
                         id: `${id}-b`,
                         label: novo.nome.trim(),
                         start: novo.dia,
-                        // `duracao - 1` porque `end` é INCLUSIVO: 3 dias a
-                        // partir do dia 10 termina no 12, não no 13.
-                        end: addDays(novo.dia, duracao - 1),
+                        end: fimNovo,
                         colorKey: novo.cor as GanttRow["bars"][number]["colorKey"],
                         meta: {
                           responsavel: novo.responsavel,
                           frente: novo.frente,
-                          descricao: `Criada pelo + da grade de mês, ${duracao} dia(s).`,
+                          // A descrição digitada alimenta o painel de detalhe,
+                          // que já a renderiza — sem ela o campo seria enfeite.
+                          descricao:
+                            novo.descricao.trim() ||
+                            `Sem descrição · ${duracaoNova} dia(s).`,
                         } satisfies Meta,
                       },
                     ],
@@ -740,6 +790,25 @@ export function GanttFullPreview() {
             />
 
             <div className="grid grid-cols-2 gap-form-gap">
+              {/*
+                A data é CAMPO porque o drawer tem duas portas: o "+" da grade
+                sabe o dia, o "Nova tarefa" da toolbar não.
+
+                ⚠️ `value` e `onChange` passam por `yyyy-MM-dd`, e o parse é na
+                mão: `new Date("2026-09-30")` é lido como UTC e volta um dia em
+                UTC−3 — o mesmo defeito que o filtro de período já teve aqui.
+                `new Date(a, m - 1, d)` é meia-noite LOCAL.
+              */}
+              <FormFieldInput
+                label="Início"
+                type="date"
+                value={format(novo.dia, "yyyy-MM-dd")}
+                onChange={(e) => {
+                  const [a, m, d] = e.target.value.split("-").map(Number);
+                  if (!a || !m || !d) return;
+                  setNovo({ ...novo, dia: new Date(a, m - 1, d) });
+                }}
+              />
               <FormFieldInput
                 label="Duração (dias)"
                 type="number"
@@ -747,6 +816,9 @@ export function GanttFullPreview() {
                 value={novo.dias}
                 onChange={(e) => setNovo({ ...novo, dias: e.target.value })}
               />
+            </div>
+
+            <div className="grid grid-cols-2 gap-form-gap">
               <FormFieldSelect
                 label="Frente (cor)"
                 options={CORES_DISPONIVEIS.map((c) => ({
@@ -767,30 +839,55 @@ export function GanttFullPreview() {
                   })
                 }
               />
+              <FormFieldSelect
+                label="Responsável"
+                options={Object.entries(PESSOAS).map(([value, label]) => ({
+                  value,
+                  label,
+                }))}
+                value={novo.responsavel}
+                onValueChange={(v) => setNovo({ ...novo, responsavel: v })}
+              />
             </div>
 
-            <FormFieldSelect
-              label="Responsável"
-              options={Object.entries(PESSOAS).map(([value, label]) => ({
-                value,
-                label,
-              }))}
-              value={novo.responsavel}
-              onValueChange={(v) => setNovo({ ...novo, responsavel: v })}
+            <FormFieldTextarea
+              label="Descrição"
+              placeholder="O que precisa acontecer, e o que trava se não acontecer"
+              rows={3}
+              helperText="Aparece no painel de detalhe, ao clicar na tarefa."
+              value={novo.descricao}
+              onChange={(e) => setNovo({ ...novo, descricao: e.target.value })}
             />
 
-            {/* Prévia da cor escolhida, com a chave real do DS. */}
-            <div className="flex items-center gap-gp-md">
+            {/*
+              A prévia é o SEGMENTO REAL da grade de mês.
+
+              `ganttDaySegment` é o mesmo `tv()` que a visão `calendar` usa pra
+              desenhar a pílula — mesmo ponto de cor, mesmo tingimento do
+              `colorKey`, mesma altura de 18px. Antes aqui havia um `Chip`
+              neutro com o NOME da frente escrito dentro: não tinha a cor que a
+              escolha produz e não tinha a forma que a grade mostra, então
+              prometia uma coisa e entregava outra.
+
+              Desenhar a pílula na mão daria o mesmo defeito com um passo a
+              mais: duas definições da mesma coisa, divergindo na primeira vez
+              que uma das duas mudasse.
+
+              O `relative w-full` neutraliza o `absolute` do slot — na grade ele
+              é posicionado por `left`/`top` dentro da semana; aqui, não.
+            */}
+            <div className="flex flex-col gap-gp-md">
               <span className="text-caption-md font-semibold uppercase text-fg-subtle">
-                Prévia
+                Prévia na grade de mês
               </span>
-              <Chip
-                size="sm"
-                variant="soft"
-                color="neutral"
-              >
-                {CORES_DISPONIVEIS.find((c) => c.value === novo.cor)?.label}
-              </Chip>
+              <div className="rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl">
+                <div className={previaDoSegmento.root({ class: "relative w-full" })}>
+                  <span className={previaDoSegmento.dot()} aria-hidden />
+                  <span className={previaDoSegmento.label()}>
+                    {novo.nome.trim() || "Nova tarefa"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         ) : null}

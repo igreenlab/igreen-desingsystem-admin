@@ -72,6 +72,24 @@ export {
   GANTT_PX_PER_DAY,
 } from "./gantt.styles";
 
+/**
+ * O `tv()` do segmento da grade de mês — a "pílula" que representa a tarefa num
+ * dia, com ponto de cor, rótulo e o tingimento do `colorKey`.
+ *
+ * Exportado por um motivo específico: **prever como o item vai ficar antes de
+ * criá-lo**. Um formulário de nova tarefa que ofereça escolha de cor precisa
+ * mostrar a escolha, e desenhar isso na mão no consumidor recria o único
+ * defeito que a prévia existe pra evitar — duas definições da mesma pílula, que
+ * divergem na primeira vez que uma das duas mudar.
+ *
+ * Slots: `root` · `dot` · `label`. Variantes: `colorKey`, `continuesBefore`,
+ * `continuesAfter`, `conflict`, `critical`.
+ *
+ * ⚠️ O `root` é `absolute` porque na grade ele é posicionado por `left`/`top`
+ * dentro da semana. Fora dela, neutralize: `root({ class: "relative w-full" })`.
+ */
+export { ganttDaySegment } from "./gantt.styles";
+
 export type {
   GanttProps,
   GanttRef,
