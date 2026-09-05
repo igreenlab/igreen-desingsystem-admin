@@ -34,6 +34,7 @@
 - [2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd](#2026-09-04-concluído-gantt-componente-novo-três-visões-com-dnd)
 - [2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados](#2026-09-05-concluído-gantt-rodada-de-revisão-contra-os-componentes-consolidados)
 - [2026-09-05 — CONCLUÍDO · v0.60.0 publicada nos 4 canais](#2026-09-05-concluído-v0600-publicada-nos-4-canais)
+- [2026-09-05 — CONCLUÍDO · v0.61.0 publicada · o Gantt ganha exemplo distribuível](#2026-09-05-concluído-v0610-publicada-o-gantt-ganha-exemplo-distribuível)
 
 <!-- doc-index:fim -->
 
@@ -5051,3 +5052,51 @@ PowerShell.
 **Ausências declaradas que seguem abertas** (tabela "O que ainda NÃO existe" do
 `USAGE.md`): setas de vínculo e gesto de arraste na visão `calendar`; criar
 `FF`/`SF` por gesto exige soltar na metade direita do destino, sem dica visual.
+
+---
+
+## 2026-09-05 — CONCLUÍDO · v0.61.0 publicada · o Gantt ganha exemplo distribuível
+
+**Agente:** DS Dev · **Fluxo:** `/ds-release` completo (PR #312 → #313).
+
+| Canal | Onde | Estado |
+|---|---|---|
+| npm (lib) | `@snksergio/design-system` | **0.61.0** |
+| npm (CLI) | `@snksergio/create-design-system` | **0.25.32** |
+| registry / copy-in | embed carimbado | **v0.61.0**, 101 itens |
+| submódulo | segue o `main` | `74be38e` |
+
+**O que a v0.61.0 entrega:** o `example-gantt` — o **primeiro exemplo** do
+componente. A v0.60.0 tinha entregue o Gantt nos 4 canais e deixado esse
+buraco: dos 9 exemplos do repo, nenhum era dele.
+
+**Por que isso não é detalhe.** `example-*` é a extração 1:1 do showcase real
+(L-034) e é o que a IA do consumidor lê pra saber como a peça se comporta
+MONTADA. Sem ele, ela tinha a API (`USAGE.md`) e o exemplo mínimo — que não
+mostra gesto aplicando, conflito recalculando nem as três visões sobre o mesmo
+dado. O ponteiro entrou nas 3 superfícies que ela lê: bloco `ds:regras`, seção
+no `USAGE.md` e a linha do vocabulário.
+
+**Bump do CLI de novo obrigatório:** `cli/templates/**` mudou (o vocabulário
+ganhou o ponteiro). Foundational não mudou → sem `cli:rebake`.
+
+**Decisão registrada no gate:** o bump é MINOR porque entra um item novo no
+registry, mas a **API do componente não mudou** desde a v0.60.0 — o que entra é
+exemplo e doc. O mantenedor foi avisado e escolheu MINOR.
+
+**Assumption:** o `example-gantt` é a referência de comportamento, e o
+drift-check é o que impede ela de envelhecer — se `#/gantt-full` mudar e o
+exemplo não, o gate acusa. Se alguém editar o exemplo direto em vez do
+showcase, a suposição quebra: o par deixa de ser 1:1 e o gate passa a reclamar
+de algo que ninguém vai saber resolver.
+
+**Defeito de método corrigido no caminho:** o extrator do exemplo escrevia o
+bloco de imports À MÃO. Ao remover dois botões do showcase, `useRef` e
+`GanttRef` sobreviveram no exemplo sem uso — lista escrita à mão fica para trás
+no primeiro import que a fonte ganha ou perde. Agora o bloco vem do fonte,
+removendo só o que é do shell.
+
+**Também nesta rodada:** `#/gantt-full` passou a ter `AppShell` + `PageHeader`
+como `mapa-rede`/`finance` (o shell NÃO atravessa pro exemplo — é o *strip
+AppShell* da L-034), e a seção "Decisões" saiu da doc page (89 linhas; as cinco
+decisões já viviam nos gotchas do `USAGE.md` e no JSDoc do código).
