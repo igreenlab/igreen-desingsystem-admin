@@ -46,6 +46,42 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.60.0",
+    date: "2026-09-05",
+    tag: "preview",
+    title: "Gantt — o cronograma que responde \"o que depende de quê\"",
+    summary:
+      "O DS já sabia mostrar QUANDO algo acontece (`Scheduler`) e QUAL data foi escolhida num formulário (`Calendar`/`DatePicker`). Não sabia mostrar o que BLOQUEIA o quê — e é a seta de dependência que separa as duas coisas: sem vínculo isto seria mais uma timeline. O componente é dumb sobre mutação em dobro: arrastar emite `onBarMove`, vínculo violado emite `onLinkViolations` com o déficit em dias, e nada se move sozinho. Corrigir cronograma é decisão de negócio — mover a tarefa que atrasou, cortar escopo, aceitar o atraso ou renegociar o vínculo são quatro respostas diferentes pro mesmo conflito, e datas reescritas sozinhas parecem dados.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`Gantt`** — hierarquia com collapse e conectores de árvore à esquerda, eixo de tempo à direita, e **setas de dependência** entre as barras. Os **4 tipos de vínculo** (`FS`/`SS`/`FF`/`SF`) com espera/antecipação em dias, detecção de conflito de prazo e **caminho crítico**. Linha `summary` deriva o intervalo de toda a descendência; marco vira losango; `progress: undefined` ≠ `0` (ausente não desenha trilha). A cor da barra diz **categoria** (qual frente), não status — status vai em `row.trailing` como `Chip`. 189 testes, 174 deles de núcleo puro em 5 módulos sem React.",
+          "**Três visões**, com o seletor segmentado abrindo a toolbar — mesmo controle e mesmo divisor da `DataTable`, porque trocar de visão é o mesmo gesto nas duas telas. `timeline` responde *o que depende de quê*; `calendar` responde *o que acontece no dia 12*; `list` é uma **agenda por DIA** (a mesma tarefa aparece em cada dia que ocupa, com a posição no intervalo à direita — \"dia 2 de 6\"). As duas sem eixo são recortadas no MÊS: a janela existe pro eixo, que comprime 64 dias em pixels; agenda e grade não comprimem, cada dia custa uma linha.",
+          "**Os 4 gestos** com snap de dia — mover, redimensionar, criar e remover vínculo. Pointer events nativos e não `@dnd-kit`: o alvo aqui é uma COORDENADA no eixo, não uma zona de drop. O snap usa `addDays` e não aritmética de milissegundo, e o clamp impede que redimensionar inverta a barra.",
+          "**Filtro nos 6 `kind`** (`multi`/`single`/`text`/`number`/`date`/`boolean`) com painel lateral e **chips do que está aplicado** abaixo da toolbar, no vocabulário da `DataTable` — *\"Status é Ativo\"*, *\"Duração entre 3 e 10\"*. O `GanttFilterModel` **não mudou de forma** (segue `Record<string, string[]>`): o que faltava não era o dado, era como interpretá-lo, então quem já usava `multi` não migra nada.",
+          "**`views`** — quais visões EXISTEM (≠ `view`, que diz qual está aberta). Nem todo cronograma quer as três: um painel de dependências não ganha nada com a agenda. Com **uma** visão o seletor e o divisor não são renderizados, pela mesma regra do toggle de caminho crítico sem vínculo — controle que nunca muda nada é pior que ausência.",
+          "**`loading` / `loadingState`** — esqueleto no lugar do conteúdo, com a silhueta da visão atual pra a chegada do dado não deslocar nada. Sem isso, `rows={[]}` durante o fetch AFIRMA *\"Nenhuma tarefa neste período\"*, frase que o componente não tem como saber que é verdade.",
+          "**`onGranularityChange` / `onCriticalPathChange`** — os três estados que a UI do componente mexe (`view`, `granularity`, `criticalPath`) passam a ter o mesmo contrato: nada passado = o componente cuida; só o valor = congela (campo controlado); valor + callback = controlado de verdade.",
+          "**Toolbar responsiva** — abaixo de `md` o seletor de visão, o `‹ Hoje ›`, a escala e o caminho crítico saem da barra e reaparecem num menu bottom-sheet, com a regra da `TableToolbar`. Medido a 375px: a busca era espremida a 51px e o título saía cortado; agora a busca tem 153px e o título cabe inteiro. O **título do período fica**, que é a única divergência da tabela e é de conteúdo — a toolbar dela não tem rótulo de contexto pra preservar.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**`granularity` passado como valor inicial matava o dropdown de escala** — e a doc do componente ensinava exatamente esse uso, num exemplo copiável. Ele resolvia `granProp ?? granLocal` mas não tinha callback: o clique mudava o estado interno e a prop mascarava o resultado. Sem erro, sem aviso, `tsc` verde. `criticalPath` tinha o espelho: era só semente (`useState(criticalProp)`), enquanto o JSDoc do `criticalPathToggle` afirmava dez linhas acima que ela mandava no realce.",
+          "**Seis props e o `GanttRef` inteiro estavam invisíveis na doc** — `toolbarActions` (o slot do botão de opções ao lado da ação primária), `primaryAction`, `emptyState`, `onLinkCreate`, `onLinkDelete`, `onRowClick`, `goToDate`/`goToToday`/`expandAll`/`collapseAll`. Prop que ninguém acha é prop que não existe: o consumidor conclui que o componente não faz e reimplementa a toolbar por fora.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**L-072** — variante de `tv()` **não** sobrescreve a base em classe com prefixo DS. O `tailwind-merge` não reconhece `gap-gp-md` × `gap-gp-2xl` como conflito (o grupo `gap` valida o sufixo como número ou valor arbitrário, e `gp-md` não é nem um nem outro), as duas sobrevivem e a ordem do CSS decide — medido: saiu 8px onde a variante pedia 16. É o modo **espelhado** da L-016, em que a classe some; aqui ela fica e perde. Com `gp-`/`sp-`/`pad-`/`form-`/`icon-`, declare o valor em um lugar só.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.59.0",
     date: "2026-09-04",
     tag: "preview",
