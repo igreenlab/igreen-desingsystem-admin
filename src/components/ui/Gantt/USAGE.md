@@ -372,7 +372,8 @@ collapse e **conectores de árvore**, `summary` derivado, marcos, progresso, os
 zoom em 4 escalas, divisor arrastável, **filtro nos 6 tipos** com painel lateral
 e chips de aplicado, seleção de linha e de coluna, virada de mês no eixo e os
 **4 gestos** (mover, redimensionar, criar e remover vínculo) com snap de dia, e as
-**duas visões** com seletor na toolbar.
+**três visões** (`timeline`, `calendar`, `list`) com o seletor segmentado abrindo
+a toolbar.
 
 ## Núcleo puro exportado
 

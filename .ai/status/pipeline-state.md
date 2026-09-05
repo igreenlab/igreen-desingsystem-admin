@@ -29,7 +29,7 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
-- [2026-09-04 — PARCIAL · Gantt: componente novo, fase 1 (sem dnd nem calendário)](#2026-09-04-parcial-gantt-componente-novo-fase-1-sem-dnd-nem-calendário)
+- [2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd](#2026-09-04-concluído-gantt-componente-novo-três-visões-com-dnd)
 
 <!-- doc-index:fim -->
 
@@ -4736,17 +4736,24 @@ o chip do caminho seguir o cliente aberto pôs os dois lado a lado, e a contradi
 dois status diferentes pro mesmo registro na mesma tela. É o padrão de "dado derivado vs dado
 fixo": enquanto os dois eram fixos, concordavam por coincidência.
 
-## 2026-09-04 — PARCIAL · Gantt: componente novo, fase 1 (sem dnd nem calendário)
+## 2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd
 
 **Agente:** DS Dev · **Spec:** `.ai/specs/gantt-componente-de-cronograma.md`
 
 **Input:** 13 referências visuais + um HTML do time. Pedido: matriz de Gantt
 completa, com setas de dependência, **sem dependência de terceiros nova**.
 
-**Output:** 18 arquivos, 7.884 linhas, **146 testes** de núcleo puro.
-`registry.json` item `gantt` (deps `date-fns`, `lucide-react`; registryDeps
-button, checkbox, dropdown-menu, floating-panel, popover, radio-group, tv, utils).
-Showcase em `#/gantt` e `#/gantt-full`.
+**Output:** 19 arquivos no item de registry, **189 testes** de núcleo puro
+(geometria, filtros, gesto e faixas de semana). `registry.json` item `gantt`
+(deps `date-fns`, `lucide-react`; registryDeps button, checkbox, dropdown-menu,
+floating-panel, popover, radio-group, tv, utils). Showcase em `#/gantt` e
+`#/gantt-full`.
+
+**Três visões**, com o seletor segmentado como primeiro item da toolbar (mesmo
+controle e mesmo divisor da `DataTable`): `timeline` (o eixo), `calendar` (a
+grade de mês) e `list` (a agenda por dia). As duas sem eixo são recortadas no
+MÊS — a janela existe pro eixo, que comprime 64 dias em pixels; agenda e grade
+não comprimem, cada dia custa uma linha.
 
 **Decisões que valem revisitar:**
 
@@ -4792,21 +4799,31 @@ de mês (`border-default`, ΔL 0.040 contra 0.031 da linha comum = a mesma linha
 no divisor dos painéis e nos conectores de árvore. As três vezes a correção veio
 de medir ΔL contra a superfície, não de olhar o nome do token.
 
-**PENDENTE — nesta ordem:**
+**As três pendências da fase 1 foram fechadas** (nesta ordem, que era a do
+registro): o **gesto de dnd** — os quatro handlers agora chegam à raiz e os
+punhos fazem o que prometem, com snap de dia por `Math.round(deltaPx/pxPerDay)`
+e `addDays`, não aritmética de milissegundo; o **seletor de visão**; e a
+**`view="calendar"`**, que deixou de ser placeholder.
 
-1. **Gesto de dnd.** `onBarMove`/`onBarResize`/`onLinkCreate`/`onLinkDelete` estão
-   declarados no tipo e **nem chegam a ser recebidos** pela raiz. `draggable`/
-   `resizable`/`linkable` renderizam punhos acessíveis que não fazem nada. É o
-   único item onde a API promete e não entrega — pior que ausência declarada.
-2. **Seletor de visão na toolbar.** `onViewChange` é desestruturado e nunca
-   chamado; não há controle de visão. Sem ele o item 3 nasce inalcançável.
-3. **`view="calendar"`.** Placeholder. O núcleo puro está pronto e testado
-   (`buildMonthMatrix`, `computeOverflow`, `daysOfBar`).
+⚠️ **A nota "NÃO é pendência: visão de lista" foi revertida pelo mantenedor, e
+a razão dele é melhor que a minha.** Eu argumentei que "lista de tarefas com
+hierarquia e filtro" já é o `DataTable`/`DataList` e que uma terceira
+implementação duplicaria o DS. Verdade — e irrelevante, porque a `list` do Gantt
+não é isso: ela agrupa por **DIA**, e a mesma tarefa aparece em cada dia que
+ocupa, com a posição no intervalo ("dia 2 de 6") à direita. Nenhum dos dois
+componentes faz agrupamento por dia. Eu comparei pelo NOME da visão em vez de
+pela pergunta que ela responde.
 
-**NÃO é pendência:** visão de lista. `GanttView` declara duas visões, e "lista de
-tarefas com hierarquia e filtro" é o `DataTable` (view lista, `hierarchical`) ou o
-`DataList`. Uma terceira implementação disso dentro do Gantt duplicaria o que dois
-componentes do DS já fazem.
+**PENDENTE — o que sobra, e nenhum é código do componente:**
 
-**Distribuição:** registry + embed fechados. Falta a entry de changelog e o bump —
-consolidam no `/ds-release` quando o conjunto fechar (Regra 8).
+1. **PR.** 12 commits em `feat/gantt-cronograma`, nada empurrado — foi instrução
+   explícita do mantenedor nesta sessão ("pode commitar... mas não suba nada").
+   Fechar por `ds-dev/handoff-pr.md` quando ele autorizar.
+2. **Changelog + bump.** `updates-data.ts` não tem entry de Gantt e a versão
+   segue em 0.58.0. Consolidam no `/ds-release` (Regra 8), não por-PR.
+
+**Ausências declaradas** (na tabela "O que ainda NÃO existe" do `USAGE.md`, não
+débito escondido): setas de vínculo e gesto na grade de mês; criar `FF`/`SF` por
+gesto exige soltar na metade direita do destino, sem dica visual da metade.
+
+**Distribuição:** registry + embed fechados e recarimbados a cada rodada.
