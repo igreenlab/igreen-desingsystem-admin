@@ -370,11 +370,30 @@ quantos chips entram quando a altura muda. Com corte fixo, uma viewport curta
 recortava os chips e o próprio `+N mais` — o usuário via 2 tarefas e nenhuma pista
 de que havia 4.
 
-### 15. Em telas estreitas, declare o limite
+### 15. Em telas estreitas, a TOOLBAR se adapta — a MATRIZ não
 
-Grade + eixo não caben em 375px. O componente não finge que cabe — em vez de
-espremer os dois, use `granularity="week"` ou mais, reduza `gridWidth`, ou ofereça
-outra visão. Um Gantt legível precisa de ~900px.
+São dois problemas diferentes, e só um tem solução dentro do componente.
+
+**A toolbar resolve sozinha, com a regra da `TableToolbar`.** Abaixo de `md`
+(768px) saem da barra o **seletor de visão**, o **`‹ Hoje ›`**, a **escala** e o
+**caminho crítico**; eles reaparecem num menu (ícone de sliders) ao lado do
+título, que abre como bottom-sheet. Ficam na barra: **título do período**,
+**busca**, **filtro** e a **ação primária**.
+
+Medido a 375px: antes, a busca era espremida a **51px** (o ícone e nada mais) e o
+título saía cortado no meio; depois, a busca tem **153px** e o título cabe
+inteiro. O título é a única coisa que o Gantt preserva e a tabela não tem — sem
+ele o usuário não sabe que período está vendo.
+
+⚠️ **A `primaryAction` é sua.** O componente não pode encolhê-la (é um
+`ReactNode` que você passa). Em mobile ela come ~126px com rótulo — passe um
+botão **icon-only** abaixo de `md` se a barra ficar apertada.
+
+**A matriz não cabe, e o componente não finge que cabe.** Grade + eixo em 375px
+não é problema de layout, é de densidade: um Gantt legível precisa de ~900px.
+Use `granularity="week"` ou mais, reduza `gridWidth`, ou — melhor — mande
+`view="calendar"` / `view="list"` no mobile, que são justamente as visões sem
+eixo horizontal.
 
 ## ⚠️ O que ainda NÃO existe
 

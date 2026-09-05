@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import {
   CalendarDays,
   ChartNoAxesGantt,
+  Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -9,6 +10,7 @@ import {
   Filter,
   List,
   Search,
+  SlidersHorizontal,
   Zap,
 } from "lucide-react";
 import {
@@ -18,11 +20,18 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/shadcn/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { GanttAppliedFilters } from "./gantt-applied-filters";
 import {
   ganttFilterDot,
+  ganttMenuGroupFluid,
+  ganttMobileMenu,
   ganttNavGroup,
   ganttSearch,
   ganttSearchInput,
@@ -299,6 +308,28 @@ export function GanttToolbar({
           <CalendarDays aria-hidden />
           <span className={ganttTitleText()}>{title}</span>
         </span>
+
+        {/*
+          O menu de opções fica ao lado do TÍTULO, não junto da busca.
+
+          A maior parte do que ele guarda governa o período — `‹ Hoje ›` e a
+          escala —, e o título é o resultado disso. Ficar do lado direito da
+          mesma linha faz o gatilho e o que ele muda serem lidos juntos; embaixo,
+          na fila de ícones da busca, ele viraria "mais um botão".
+        */}
+        <GanttMobileMenu
+          view={view}
+          onViewChange={onViewChange}
+          granularity={granularity}
+          onGranularityChange={onGranularityChange}
+          onPrev={onPrev}
+          onToday={onToday}
+          onNext={onNext}
+          hasLinks={hasLinks}
+          showCriticalToggle={showCriticalToggle}
+          criticalPath={criticalPath}
+          onToggleCriticalPath={onToggleCriticalPath}
+        />
       </div>
 
       {/* ── direita: busca, ferramentas, ação ────────────────────── */}
@@ -334,7 +365,8 @@ export function GanttToolbar({
             aria-pressed={criticalPath}
             aria-label="Caminho crítico"
             className={cn(
-              "shrink-0 max-lg:size-form-lg max-lg:p-0",
+              // `max-md:hidden` — em <md ele vira item do menu de opções.
+              "shrink-0 max-md:hidden max-lg:size-form-lg max-lg:p-0",
               criticalPath && "border-border-brand hover:border-border-brand",
             )}
           >
@@ -378,7 +410,8 @@ export function GanttToolbar({
               iconLeft={<Columns3 />}
               iconRight={<ChevronDown />}
               aria-label={`Escala: ${zoomAtivo.label}`}
-              className="shrink-0"
+              // `max-md:hidden` — em <md a escala é uma seção do menu de opções.
+              className="shrink-0 max-md:hidden"
             >
               {zoomAtivo.label}
             </Button>
@@ -471,5 +504,184 @@ export function GanttToolbar({
         />
       ) : null}
     </div>
+  );
+}
+
+/**
+ * O menu de opções da toolbar em telas estreitas — o `md:hidden` do Gantt.
+ *
+ * ## O que ele recolhe, e por quê
+ *
+ * Medido a 375px antes dele: cinco controles disputando 335px deixavam a barra
+ * com duas linhas de 40px, o campo de busca espremido a **51px** (o ícone e
+ * nada mais) e o título do período cortado no meio. `flex-wrap` só empilha esse
+ * problema; a resposta da `TableToolbar` é tirar controles da barra.
+ *
+ * Saem em <md: **seletor de visão**, **`‹ Hoje ›`**, **escala** e **caminho
+ * crítico** — e reaparecem aqui. Ficam na barra: **título**, **busca**,
+ * **filtro** e a **ação primária**, que é a mesma divisão da tabela (lá a barra
+ * fica com busca + ícones, e o grupo esquerdo inteiro vai pro menu de
+ * Configurações).
+ *
+ * ## Duas decisões que valem a diferença
+ *
+ * **Um nível, sem drill-down.** O menu da tabela navega em níveis porque ele
+ * carrega painéis inteiros (ordenação, colunas, query builder). Aqui são três
+ * seções curtas — 3 + 4 opções e um par de setas. Drill-down aqui seria um
+ * clique a mais pra chegar em quatro linhas.
+ *
+ * **A escala respeita a visão.** Ela só entra no menu quando `view` é
+ * `timeline`, exatamente como o dropdown da barra: em grade de mês e agenda a
+ * unidade é o dia por construção, e oferecer a escolha num menu não a torna
+ * menos vazia.
+ */
+function GanttMobileMenu({
+  view,
+  onViewChange,
+  granularity,
+  onGranularityChange,
+  onPrev,
+  onToday,
+  onNext,
+  hasLinks,
+  showCriticalToggle,
+  criticalPath,
+  onToggleCriticalPath,
+}: Pick<
+  GanttToolbarProps,
+  | "view"
+  | "onViewChange"
+  | "granularity"
+  | "onGranularityChange"
+  | "onPrev"
+  | "onToday"
+  | "onNext"
+  | "hasLinks"
+  | "showCriticalToggle"
+  | "criticalPath"
+  | "onToggleCriticalPath"
+>) {
+  const estilos = ganttMobileMenu();
+  const mostraCritico = hasLinks && showCriticalToggle;
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          color="secondary"
+          size="icon-md"
+          aria-label="Opções do cronograma"
+          title="Opções do cronograma"
+          className={estilos.trigger()}
+        >
+          <SlidersHorizontal />
+        </Button>
+      </PopoverTrigger>
+
+      <PopoverContent align="end" className={estilos.content()}>
+        {/*
+          Período primeiro: é o que o usuário mais mexe, e o gatilho está do
+          lado do título que estas setas mudam.
+        */}
+        <div className={estilos.label()}>Período</div>
+        <div className={estilos.field()}>
+          <div className={ganttMenuGroupFluid()}>
+            <div
+              role="group"
+              aria-label="Navegação de período"
+              /*
+                `!flex` vence o `max-md:hidden` do `ganttNavGroup` — o grupo é o
+                MESMO controle da barra (mesma moldura, mesmas divisórias), e
+                aqui ele é justamente o que a barra escondeu.
+              */
+              className={cn(ganttNavGroup(), "!flex w-full")}
+            >
+              <Button
+                variant="soft"
+                color="secondary"
+                size="icon-md"
+                onClick={onPrev}
+                aria-label="Período anterior"
+              >
+                <ChevronLeft />
+              </Button>
+              <Button
+                variant="soft"
+                color="secondary"
+                size="md"
+                onClick={onToday}
+                className="flex-1"
+              >
+                Hoje
+              </Button>
+              <Button
+                variant="soft"
+                color="secondary"
+                size="icon-md"
+                onClick={onNext}
+                aria-label="Próximo período"
+              >
+                <ChevronRight />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className={estilos.separator()} />
+        <div className={estilos.label()}>Visualização</div>
+        {VIEW_ITEMS.map((v) => (
+          <button
+            key={v.value}
+            type="button"
+            role="radio"
+            aria-checked={v.value === view}
+            onClick={() => onViewChange(v.value)}
+            className={estilos.item({ active: v.value === view })}
+          >
+            {v.icon}
+            <span className="flex-1 truncate">{v.label}</span>
+            {v.value === view ? <Check strokeWidth={2.2} /> : null}
+          </button>
+        ))}
+
+        {view === "timeline" ? (
+          <>
+            <div className={estilos.separator()} />
+            <div className={estilos.label()}>Escala</div>
+            {ZOOM_ITEMS.map((z) => (
+              <button
+                key={z.value}
+                type="button"
+                role="radio"
+                aria-checked={z.value === granularity}
+                onClick={() => onGranularityChange(z.value)}
+                className={estilos.item({ active: z.value === granularity })}
+              >
+                <Columns3 />
+                <span className="flex-1 truncate">{z.label}</span>
+                {z.value === granularity ? <Check strokeWidth={2.2} /> : null}
+              </button>
+            ))}
+          </>
+        ) : null}
+
+        {mostraCritico ? (
+          <>
+            <div className={estilos.separator()} />
+            <button
+              type="button"
+              aria-pressed={criticalPath}
+              onClick={onToggleCriticalPath}
+              className={estilos.item({ active: criticalPath })}
+            >
+              <Zap />
+              <span className="flex-1 truncate">Caminho crítico</span>
+              {criticalPath ? <Check strokeWidth={2.2} /> : null}
+            </button>
+          </>
+        ) : null}
+      </PopoverContent>
+    </Popover>
   );
 }

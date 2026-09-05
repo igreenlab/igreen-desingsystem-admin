@@ -297,7 +297,9 @@ export const ganttTitleText = tv({
 export const ganttViewSwitch = tv({
   base: [
     // `p-[3px]` fica literal: a escala `sp` vai 2 → 4px e não tem 3.
-    "inline-flex shrink-0 items-center gap-gp-2xs p-[3px]",
+    // `max-md:hidden` — em <md este controle mora no menu de opções, como o
+    // toggle Kanban/Lista da tabela mora no menu de Configurações.
+    "max-md:hidden inline-flex shrink-0 items-center gap-gp-2xs p-[3px]",
     "h-form-lg rounded-radius-lg bg-bg-muted",
   ],
 });
@@ -333,7 +335,9 @@ export const ganttToolbarDivider = tv({
   // `mx-sp-sm` = 6px e `w-sp-px` = 1px, os mesmos valores do `toolbarDivider`
   // da tabela — que os escreve literais. `h-[24px]` continua literal: a escala
   // `form` vai 28 → 32 e não tem 24.
-  base: "mx-sp-sm h-[24px] w-sp-px shrink-0 self-center bg-border-default",
+  // `max-md:hidden`: em <md os dois grupos que ele separa não estão na barra
+  // (foram pro menu), e um divisor sem nada de um dos lados é um risco solto.
+  base: "max-md:hidden mx-sp-sm h-[24px] w-sp-px shrink-0 self-center bg-border-default",
 });
 
 /**
@@ -372,7 +376,9 @@ export const ganttToolbarDivider = tv({
  */
 export const ganttNavGroup = tv({
   base: [
-    "inline-flex shrink-0 items-center",
+    // `max-md:hidden` — 142px de `‹ Hoje ›` numa barra de 375px. Em <md ele
+    // aparece dentro do menu de opções, em largura cheia.
+    "max-md:hidden inline-flex shrink-0 items-center",
     "[&>*:focus-visible]:relative [&>*:focus-visible]:z-[1]",
     "[&>*:first-child]:!rounded-r-none",
     "[&>*:last-child]:!rounded-l-none",
@@ -381,6 +387,83 @@ export const ganttNavGroup = tv({
     "[&>*]:border-l-border-subtle dark:[&>*]:border-l-border-input",
     "[&>*:last-child]:border-r-border-subtle dark:[&>*:last-child]:border-r-border-input",
   ],
+});
+
+/**
+ * Menu de opções da toolbar — o `md:hidden` do Gantt.
+ *
+ * ## Por que existe
+ *
+ * Medido a 375px ANTES dele: a barra ocupava duas linhas de 40px, o campo de
+ * busca era espremido a **51px** (o ícone e nada mais, impossível digitar) e o
+ * título do período saía cortado no meio ("3…"). Cinco controles disputando
+ * 335px não cabem, e `flex-wrap` só empilha o problema.
+ *
+ * ## A regra é a da `TableToolbar`, não uma invenção
+ *
+ * Lá o grupo esquerdo inteiro sai em <md (`max-md:hidden`) e o que ele
+ * continha reaparece no menu de Configurações, em seções inline marcadas
+ * `md:hidden`; a barra fica com **busca + ícones**. Aqui é o mesmo: seletor de
+ * visão, `‹ Hoje ›`, escala e caminho crítico saem da barra e viram seções
+ * deste menu.
+ *
+ * ⛔ **O título do período FICA.** É a única diferença, e é de conteúdo: a
+ * toolbar da tabela não tem rótulo de contexto pra preservar — a do Gantt tem,
+ * e "outubro 2026" é o que diz o que a tela está mostrando. Escondê-lo pra
+ * seguir a regra ao pé da letra deixaria o usuário sem saber que mês vê.
+ *
+ * A gramática visual é cópia do `toolbar-settings-menu`: `p-pad-sm` com
+ * `gap-px`, rótulo `caption-sm` maiúsculo em `fg-subtle`, separador `h-px`,
+ * item `px-pad-lg py-pad-md` de `fg-muted` pra `fg-default` no hover.
+ */
+export const ganttMobileMenu = tv({
+  slots: {
+    trigger: "shrink-0 md:hidden",
+    /*
+      Sem largura de propósito. O `PopoverContent` do DS já carrega
+      `data-mobile-sheet` + `max-md:w-full max-md:max-w-none`, e a regra do tema
+      (`@media (width < 768px)`) prende o wrapper do Popper no rodapé com
+      `width: 100% !important` — este menu vira bottom-sheet sozinho.
+
+      MEDIDO: um `w-[280px] max-w-[calc(100vw-32px)]` que eu havia escrito aqui
+      resolvia 375px na tela, ou seja, era declaração morta. E não teria como
+      valer acima de `md`: o `trigger` é `md:hidden`, então o popover nunca
+      abre onde a largura importaria.
+    */
+    content: "flex flex-col gap-px p-pad-sm",
+    label:
+      "px-pad-lg py-pad-sm text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle",
+    separator: "mx-pad-xs my-pad-xs h-px bg-border-default",
+    field: "px-pad-lg pb-pad-sm",
+    item: [
+      "group/row relative flex w-full items-center gap-pad-lg",
+      "rounded-radius-sm px-pad-lg py-pad-md",
+      "cursor-pointer border-0 bg-transparent text-left outline-none",
+      "text-body-sm font-medium text-fg-muted [&_svg]:text-fg-muted",
+      "transition-colors duration-150",
+      "hover:bg-bg-muted hover:text-fg-default hover:[&_svg]:text-fg-default",
+      "focus-visible:bg-bg-muted focus-visible:text-fg-default",
+      "[&_svg]:size-icon-sm [&_svg]:shrink-0",
+    ],
+  },
+  variants: {
+    active: {
+      true: { item: "bg-bg-brand-subtle text-fg-brand [&_svg]:text-fg-brand" },
+      false: {},
+    },
+  },
+  defaultVariants: { active: false },
+});
+
+/**
+ * Dentro do menu, os dois grupos de controle ocupam a LARGURA CHEIA.
+ *
+ * Na barra eles são `shrink-0` e do tamanho do conteúdo; num painel de 280px
+ * isso os deixaria encolhidos à esquerda com um vazio à direita. `fluid` é a
+ * mesma ideia do `ToolbarSegmented fluid` que a tabela passa pro menu dela.
+ */
+export const ganttMenuGroupFluid = tv({
+  base: "flex w-full [&>*]:flex-1",
 });
 
 export const ganttSearch = tv({
