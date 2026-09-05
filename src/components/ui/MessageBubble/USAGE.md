@@ -12,7 +12,7 @@ Não use para notificações de sistema, separadores de data ou logs de chamada 
 ## Anatomia
 
 ```
-[avatar]  ┌───────────────────────────────┐   ← side="received" (esquerda, bg-surface)
+[avatar]  ┌───────────────────────────────┐   ← side="received" (esquerda, bg-surface + border-subtle)
           │ Autor (grupos)            ⋮   │   ← ⋮ = actions (Popover, hover top-right)
           │ ▏ citação (reply) ............│   ← quotedMessage (border-l + nome + prévia)
           │ [ mídia / MessageMediaRenderer]│
@@ -40,6 +40,7 @@ Não use para notificações de sistema, separadores de data ou logs de chamada 
 | `isEdited` | `boolean` | `false` | Adiciona label `editada` no rodapé. |
 | `isDeleted` | `boolean` | `false` | Itálico mudo + ícone proibido; **suprime corpo, mídia e ações**. |
 | `tail` | `boolean` | `true` | Rabeta (canto reto) no lado do remetente. |
+| `origin` | `"human" \| "ai"` | `"human"` | `ai` = contorno sutil da marca na bolha (resposta da IA/Sol). **Quem decide é o consumidor**; `human` não muda nada. |
 | `authorName` | `string` | — | Nome no topo (útil em grupos). |
 | `avatar` | `ReactNode` | — | Slot de avatar ao lado da bolha. |
 | `actions` | `ReactNode` | — | Conteúdo do Popover de ações (botão ⋮ aparece no hover). |
@@ -52,6 +53,7 @@ Não use para notificações de sistema, separadores de data ou logs de chamada 
 |---------|---------|--------|
 | `side` | `sent` · `received` | bg da bolha + alinhamento + lado da rabeta + lado do ack |
 | `tail` | `true` · `false` | canto reto (`rounded-br-none`/`rounded-bl-none`) vs todos arredondados |
+| `origin` | `human` · `ai` | `ai` troca a borda da bolha por `border-border-brand-subtle` (contorno sutil da marca, nos dois lados); `human` = borda padrão |
 
 `disabled` = n/a (bolha não é controle interativo).
 
@@ -86,6 +88,15 @@ import { MessageBubble, MessageReplyIcon } from "@snksergio/design-system";
   onMediaClick={() => openLightbox("/uploads/nota.jpg")}
   quotedMessage={{ authorName: "João", body: "Pode mandar o comprovante?" }}
 />
+
+<MessageBubble
+  side="sent"
+  origin="ai"
+  body="Oi! Sou a Sol. Posso ajudar com a sua fatura?"
+  createdAt={new Date()}
+  ack={3}
+  actions={<button onClick={onReply}><MessageReplyIcon /> Responder</button>}
+/>
 ```
 
 ## Gotchas
@@ -97,6 +108,8 @@ import { MessageBubble, MessageReplyIcon } from "@snksergio/design-system";
 - **`isDeleted` vence tudo:** suprime corpo, mídia, citação e ações — só mostra "Mensagem apagada" em itálico mudo com ícone de proibido.
 - **`media` slot = override:** quando passado, substitui o `MessageMediaRenderer` interno por completo (use para players custom, mapas embedados, etc).
 - **Citação inline:** a prévia da citação usa `<MarkdownText inline>` (1 linha, truncável). Sem body, mostra o rótulo do tipo de mídia ("Imagem", "Áudio"…).
-- **Ações via Popover não-modal:** o botão ⋮ usa `PopoverAnchor` (não Trigger) + `modal={false}` (L-022/L-031) para o toggle externo não conflitar com o hover; aparece no `group-hover` da bolha.
+- **Ações via Popover não-modal:** o botão ⋮ usa `PopoverAnchor` (não Trigger) + `modal={false}` (L-022/L-031) para o toggle externo não conflitar com o hover; aparece no `group-hover` da bolha (e no foco por teclado).
+- **O botão ⋮ tem superfície própria** (`bg-bg-emphasis` em pílula + `shadow-sh-sm`, glifo de 16px via `size="icon-xs"`). Sem isso ele sumia no tema escuro: bolha recebida (`bg-bg-surface`) e fundo da conversa têm quase a mesma luminância, e o ghost secundário só tinha `hover:bg-bg-muted` (3% de branco). Pelo mesmo motivo a bolha recebida tem `border-border-subtle` em vez de borda transparente.
+- **`origin="ai"` é só a variante:** o componente não sabe quem escreveu. O consumidor aplica o mesmo critério que já usa para ligar `actions` só às mensagens da IA.
 - **Subcomponente `MessageMediaRenderer` é interno** — não exportado. Consuma só via `MessageBubble`.
 ```

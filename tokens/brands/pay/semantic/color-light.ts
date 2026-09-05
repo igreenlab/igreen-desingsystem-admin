@@ -43,6 +43,11 @@ export const bg = {
   "warning-hover":        "#b96702",
   "warning-muted-hover":  "rgba(217,124,2,.20)",
 
+  caution:                "#ec6007",
+  "caution-muted":        "rgba(236,96,7,.12)",
+  "caution-hover":        "#cd5205",
+  "caution-muted-hover":  "rgba(236,96,7,.20)",
+
   info:                "#0058e6",
   "info-muted":        "rgba(0,88,230,.10)",
   "info-hover":        "#0047bd",
@@ -86,12 +91,14 @@ export const fg = {
   danger:  "#f83b3b",
   success: "#00a859",
   warning: "#d97c02",
+  caution: "#ec6007",
   info:    "#0058e6",
 
   "on-brand":   white,
   "on-danger":  white,
   "on-success": white,
   "on-warning": white,
+  "on-caution": black,
   "on-info":    white,
 } as const;
 
@@ -109,6 +116,7 @@ export const border = {
   "danger-muted":  "rgba(248,59,59,.36)",
   "success-muted": "rgba(0,168,89,.36)",
   "warning-muted": "rgba(217,124,2,.36)",
+  "caution-muted": "rgba(236,96,7,.36)",
   "info-muted":    "rgba(0,88,230,.36)",
 
   table: "rgba(17,17,17,.08)",
@@ -121,6 +129,7 @@ export const ring = {
   danger:    "rgba(248,59,59,.30)",
   success:   "rgba(0,168,89,.30)",
   warning:   "rgba(217,124,2,.30)",
+  caution:   "rgba(236,96,7,.30)",
   info:      "rgba(0,88,230,.30)",
   secondary: "rgba(17,17,17,.14)",
 } as const;
@@ -143,4 +152,3 @@ export const chart = {
 } as const;
 
 export const colorLight = { bg, fg, border, ring, overlay, chart };
-void black;

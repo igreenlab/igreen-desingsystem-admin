@@ -24,7 +24,7 @@
  * própria e status re-medidos. Hoje divergem da default: `brand`/`brandContrast`,
  * `gray` (neutra "graphite"), e os 4 status — `success` virou alias do próprio
  * brand; `danger`/`warning`/`info` foram re-medidos por teto de gamut. O overlay
- * resultante tem ~65 vars no light e ~62 no dark.
+ * resultante tem ~72 vars no light e ~67 no dark.
  */
 
 // ─── Brand — verde fluorescente, base oklch(0.866993 0.294055 142.3546) em 400 ─
@@ -242,6 +242,24 @@ export const warning = {
   950: "oklch(0.24 0.049 81)",    // #2b1c00
 } as const;
 
+// ─── Caution — hue 55 (entre warning 81 e danger 25), base no PICO (L 0.74 / C 0.182) ─
+// Laranja é o degrau entre warning e danger; a default usa C 0.170 (93% do teto).
+// Todos os 12 degraus dentro do gamut sRGB (medido). Texto preto: 8.62:1.
+export const caution = {
+  50:  "oklch(0.97 0.016 55)",    // #fef3eb
+  100: "oklch(0.95 0.028 55)",    // #feeadd
+  150: "oklch(0.93 0.040 55)",    // #fee2cf
+  200: "oklch(0.90 0.059 55)",    // #fed5b9
+  300: "oklch(0.83 0.106 55)",    // #fdb584
+  400: "oklch(0.78 0.144 55)",    // #fd9c55
+  500: "oklch(0.74 0.182 55)",    // #ff8506 — BASE (pico do hue)
+  600: "oklch(0.65 0.156 55)",    // #d57012
+  700: "oklch(0.55 0.132 55)",    // #aa590c
+  800: "oklch(0.44 0.105 55)",    // #7d4007
+  900: "oklch(0.33 0.079 55)",    // #532803
+  950: "oklch(0.23 0.055 55)",    // #301501
+} as const;
+
 // ─── Info — hue 300 (era 280), base no PICO (L 0.55 / C 0.293) ────────────────
 // O maior ganho da leva. Em hue 280 o roxo já estava a 100% do teto (C 0.210):
 // impossível deixar mais vibrante SEM mover o hue. Deslocando 280 → 300 o teto
@@ -297,7 +315,7 @@ export const alpha = {
 
 export const colorPalette = {
   brand, brandContrast, gray, grayDark,
-  success, warning, danger, info,
+  success, warning, caution, danger, info,
   white, black,
   alpha,
 };

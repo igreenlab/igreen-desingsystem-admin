@@ -255,7 +255,7 @@ no `npm test`.
 - `danger` = feedback destrutivo — **não** `critical` (primitivo, tokens e CSS usam `danger`; APIs antigas como `Button.color="critical"` mapeiam pra tokens `-danger` internamente)
 - `on-*` = texto sobre cor de marca (`fg.on-brand`)
 - `ring.*` = focus rings — NUNCA `border.*` para isso. Classe: `ring-ring-brand`
-- Tom sutil **depende da família**: status (`success`/`warning`/`danger`/`info`) usa **`-muted`** (`bg-bg-success-muted`, `border-border-warning-muted`) · `brand` usa **`-subtle`** (`bg-bg-brand-subtle`) · papel neutro usa `-subtle` sem cor (`bg-bg-subtle`, `fg-subtle`, `border-subtle`). Não há `bg-bg-success-subtle` nem `border-border-warning` cru
+- Tom sutil **depende da família**: status (`success`/`warning`/`caution`/`danger`/`info`) usa **`-muted`** (`bg-bg-success-muted`, `border-border-warning-muted`) · `brand` usa **`-subtle`** (`bg-bg-brand-subtle`) · papel neutro usa `-subtle` sem cor (`bg-bg-subtle`, `fg-subtle`, `border-subtle`). Não há `bg-bg-success-subtle` nem `border-border-warning` cru
 
 > Os nomes `primary` / `foreground` / `critical` / `main` são a nomenclatura **V2, extinta**.
 > Em 2026-07-30 havia 25 usos delas em `src/` — 9 de `ring-ring-primary` em 4 componentes

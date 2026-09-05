@@ -226,8 +226,8 @@ h-9 → min-h-form-md   h-10 → min-h-form-lg   h-11 → min-h-form-xl (WCAG mo
 // ❌ Ring / focus  (o token ja tem alpha — nunca /30; e `ring-3` nao existe no Tailwind)
 ring-ring-brand/30 → ring-ring-brand   ring-3 → ring-4
 outline-none → focus-visible:outline-none
-// ❌ `ring-ring-primary` NAO EXISTE (V2 extinta) — os 6 rings reais sao
-//    brand · secondary · success · warning · danger · info
+// ❌ `ring-ring-primary` NAO EXISTE (V2 extinta) — os 7 rings reais sao
+//    brand · secondary · success · warning · caution · danger · info
 // ❌ Tipografia avulsa
 text-sm font-medium → text-body-md font-medium
 text-[14px] → text-body-md

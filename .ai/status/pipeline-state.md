@@ -29,6 +29,8 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler v0.56.0 publicado](#2026-09-01-concluído-scheduler-v0560-publicado)
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
+- [2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`](#2026-09-03-concluído-messagebubble-botão-de-ações-com-superfície-originai)
+- [2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`](#2026-09-04-concluído-família-semântica-caution-laranja-entre-warning-e-danger)
 - [2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd](#2026-09-04-concluído-gantt-componente-novo-três-visões-com-dnd)
 - [2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados](#2026-09-05-concluído-gantt-rodada-de-revisão-contra-os-componentes-consolidados)
 
@@ -4737,6 +4739,111 @@ o chip do caminho seguir o cliente aberto pôs os dois lado a lado, e a contradi
 dois status diferentes pro mesmo registro na mesma tela. É o padrão de "dado derivado vs dado
 fixo": enquanto os dois eram fixos, concordavam por coincidência.
 
+## 2026-09-03 — CONCLUÍDO · MessageBubble: botão de ações com superfície + `origin="ai"`
+
+**Escopo:** só `src/components/ui/MessageBubble/` (styles, tsx, types, index, USAGE, teste
+novo). Pedido do time de atendimento do Hub, autorizado pelo mantenedor em 03/09. PR aberta e
+parada no merge; distribuição (changelog/embed) fica pro `/ds-release`.
+
+**O defeito, medido em token, não em impressão.** No `.dark`, a bolha recebida é
+`bg-bg-surface` (L 0.225), o fundo da conversa é `bg-bg-subtle` (1% de branco) e o hover do
+ghost secundário é `bg-bg-muted` (3%). O gatilho ⋮ era `size="2xs"` (glifo 12px) sem
+superfície nenhuma: bolha, fundo e botão viravam um campo só.
+
+**Decisões:**
+
+1. **Superfície própria no slot `actionsTrigger`** — `bg-bg-emphasis` (12% de branco no dark,
+   gray-100 no light) + `shadow-sh-sm`, e `hover:bg-bg-accent-hover`, que é o ÚNICO neutro
+   acima de `emphasis` nos dois modos (16% / L 0.84). O hover do próprio ghost (`bg-bg-muted`)
+   deixaria a pílula MAIS apagada no hover do que em repouso; o twMerge deixa o do slot vencer,
+   e o teste trava.
+2. **Raio pela API do Button** (`shape="pill"`), não por classe no slot: o Button documenta que
+   ganhar do `size` exige o `!`. Glifo 16px via `size="icon-xs"` (32×32; o `2xs` media ≈32×28,
+   então a pegada sobre o texto não cresceu).
+3. **Bolha recebida com `border-border-subtle`** no lugar de `border-transparent` — 4% de
+   branco no dark, gray-150 no light.
+4. **`origin: human | ai`** como variante do `tv()`, default `human` (zero mudança pra quem não
+   passa). `ai` = `border-border-brand-subtle` (36% da marca), nos dois lados. Declarada DEPOIS
+   de `side` de propósito: as duas escrevem cor de borda e no twMerge vence a última —
+   `origem-e-acoes.test.tsx` reprova se a ordem inverter.
+5. **Sem convenção de toque nova.** O DS não tem `pointer-coarse`/`hover:none` em lugar nenhum
+   (grep vazio em `src/` e `tokens/`); o gatilho segue hover + `focus-visible`.
+
+**Não tocado, de propósito:** o `MessageBubble` do ChatV2 e o de `examples/chat` — são a tela
+de referência com cópia própria (entrada de 2026-08-18); o do `ui/` é o que o Hub consome pelo
+submódulo. Nenhum token novo.
+
+**Validação:** `npm test` 70 arquivos / 920 verdes · `lint:styles --ratchet` 0 violação nova em
+15 linhas · `build` ok · `registry-check`, `distribution-debt`, `examples-drift` ✓ · medido no
+browser (harness descartado, não versionado) por `getComputedStyle`: dark — pílula
+`oklch(1 0 0/0.12)` em repouso e `/0.16` no hover com ícone `fg-default`, borda recebida
+`oklch(1 0 0/0.04)`, borda `ai` `oklch(0.7289 0.1571 162.3/0.36)`; light — pílula
+`oklch(0.94 0 0)`, borda recebida `oklch(0.931 0 0)`, borda `ai` `oklch(0.5248 0.1415 150.9/0.36)`.
+
+**Assumption:** que "é da IA" é decisão do consumidor, com o mesmo critério que hoje liga
+`actions` só às mensagens da Sol — o componente não recebe autor nem canal. Cai se um segundo
+consumidor precisar do mesmo critério e passar a duplicá-lo; aí o lugar dele é um helper, não
+uma prop a mais aqui.
+
+## 2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`
+
+**Escopo:** token novo de cor, autorizado expressamente pelo mantenedor em 04/09/2026 (gate da
+Regra 4 cumprido antes de começar). Pedido do atendimento do Hub: o card de ticket pendente vai
+ganhar fundo pastel por faixa de espera — 30 min amarelo, 1 h laranja, 2 h vermelho — e o DS
+tinha `warning` (hue 81) e `danger` (hue 25), mas nenhum laranja. Sem token a UI hardcodaria cor.
+PR aberta e parada no merge; distribuição (embed do registry + bump do CLI + changelog) fica pro
+`/ds-release`.
+
+**O que entrou, espelhando `warning` chave por chave (nenhum sufixo novo):** `bg.caution`,
+`bg.caution-muted` (14%), `bg.caution-hover` (90% + black no light / white no dark),
+`bg.caution-muted-hover` (22%), `fg.caution`, `fg.on-caution`, `border.caution-muted` (36%),
+`ring.caution` (22%) e `elevation.shadow.ring-caution` — nos dois modos e nas 5 marcas.
+
+**Valores, medidos e não estimados** (`scripts/brand-contrast.mjs` pros pares sólidos; composição
+alpha sobre canvas calculada em sRGB, que é como o browser compõe):
+
+1. **Base `oklch(0.74 0.170 55)` = #fa8927**, hue a meio caminho entre as irmãs. O teto de croma
+   do sRGB em L 0.74 / h 55 é 0.182; 0.170 é 93% dele — a mesma folga que `warning` guarda (96%).
+   O mesmo valor nos dois modos, como `warning[500]` e `danger[500]` fazem.
+2. **Rampa 50–950 inteira dentro do gamut** (C = 93% do teto em cada degrau). As rampas irmãs
+   NÃO estão: `warning` estoura o gamut em 50–300 e 600–950, `danger` em 50–300 (medido com o mesmo
+   conversor). Não corrigi as irmãs — "não alterar token existente" — mas a nova não herda o
+   defeito.
+3. **`fg.on-caution` = black** nos dois modos: 8.66:1 (branco daria 2.42:1).
+4. **`fg.caution` sobre `bg.caution-muted`**: 2.15:1 no light e 5.91:1 no dark — fica ENTRE as
+   irmãs (warning 1.68 / 7.40 · danger 3.13 / 4.13). Sobre o canvas: 2.42:1 light, 7.39:1 dark.
+   O uso que motivou o token é fundo pastel com texto neutro por cima: `fg.default` sobre
+   `bg.caution-muted` dá 17.4:1 no light e 13.5:1 no dark.
+5. **Marcas.** `blue` e `green` recebem a rampa idêntica à default (é como tratam `warning`) — diff
+   zero no overlay. `vibrant` ganha rampa própria com a base no PICO do hue (C 0.182, #ff8506),
+   que é o critério dos outros status dela; on-caution black 8.62:1. `pay` não tem kit pra isto:
+   derivado como ponto médio em OKLCH entre o warning e o danger DELA — light #ec6007
+   (hover #cd5205, alphas .12/.20/.36/.30 como o warning da pay), dark #fe9553 no gamut
+   (hover #ffa167, alphas .14/.22/.36/.35). `on-caution` black nos dois (6.24:1 light, 9.64:1
+   dark) — branco daria 3.36:1; a pay usa branco no `on-warning` a 3.07:1 por decisão do kit, e
+   aqui não há kit, então valeu a medição (L-027).
+
+**Superfícies tocadas:** primitivos + semânticos das 5 marcas · `elevation.ts` · tema gerado e 4
+overlays regenerados · `cli:rebake` (tema + `brand-pay`/`brand-vibrant` no template) ·
+`ColorsDoc` (rampa, TOC, 6 linhas semânticas) · `.ai/context/tokens/color.md` (listas, contagens
+45→49 / 15→17 / 11→12 / 6→7, faixa de vars dos overlays 43–91, guia de uso) · enumerações que
+ficariam falsas: `CLAUDE.md` §Nomenclatura, `spec-token.md`, `README-PIPELINE`, e "os 6 rings
+reais" do `CLAUDE.md` do template (agora 7). O `void black` da `pay` light saiu porque `black`
+passou a ser usado.
+
+**Validação:** `npm test` 70 arquivos / 920 verdes · `build` ok · `check-foundationals` 11/11 ·
+`brand-check` 5 marcas × 10 superfícies · `registry-check` ✓ com o aviso informativo do embed
+(theme, theme-pay, theme-vibrant) · `release:check` reprova só no `registry-check --ci` pelo
+mesmo embed — que a Regra 8 manda consolidar no release; os passos seguintes
+(distribution-debt, examples-drift, version-claims, blocks, audit) passam isolados ·
+`audit:token-docs` sem candidato citando `caution`.
+
+**Assumption:** que a escala por gravidade em 3 faixas é a forma, e `caution` é o único degrau
+que faltava — se o Hub pedir uma 4ª faixa (ou "laranja mais forte"), a resposta é shade da rampa
+(`caution[600]`) ou o `-hover`, não uma 6ª família. E que o laranja lê como "entre amarelo e
+vermelho" nas 5 marcas sem ninguém confundir com o `warning` da `pay`, que já é alaranjado
+(#d97c02): o par dela ficou #d97c02 → #ec6007 → #f83b3b, separação medida de 17–18° de hue em
+cada salto. Cai se, na tela, os dois primeiros se confundirem; aí o ajuste é na `pay`, não na default.
 ## 2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd
 
 **Agente:** DS Dev · **Spec:** `.ai/specs/gantt-componente-de-cronograma.md`

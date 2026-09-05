@@ -46,6 +46,36 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.59.0",
+    date: "2026-09-04",
+    tag: "preview",
+    title: "Laranja no vocabulário e a bolha da Sol com contorno próprio",
+    summary:
+      "Duas demandas do atendimento no Hub chegaram ao DS no mesmo dia. A primeira era visual: no tema escuro a bolha recebida e o fundo da conversa diferiam em 0,003 de luminância e o botão de ações, um glifo transparente de 12 px que só aparecia no hover, sumia; ao mesmo tempo o time queria distinguir a resposta da IA da resposta de uma pessoa. A segunda era de vocabulário: o card de ticket em espera precisava de amarelo, laranja e vermelho por faixa de tempo, e o DS tinha `warning` e `danger`, mas nenhum laranja — sem token, a tela hardcodaria cor. As duas entram como capacidade do sistema, não como exceção de uma tela.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Família semântica `caution`** (laranja, hue 55) entre `warning` (81) e `danger` (25), nas 5 marcas, claro e escuro: `bg-caution`, `bg-caution-muted`, `bg-caution-hover`, `bg-caution-muted-hover`, `fg-caution`, `fg-on-caution`, `border-caution-muted`, `ring-caution` e `sh-ring-caution`. Base `oklch(0.74 0.170 55)`, rampa 50–950 inteira dentro do sRGB (as irmãs estouram nas pontas e não foram tocadas). Contraste medido: preto sobre `bg-caution` 8,7:1; `fg-default` sobre `bg-caution-muted` 17,4:1 no claro e 13,5:1 no escuro.",
+          "**`origin?: \"human\" | \"ai\"` no `MessageBubble`** — `ai` aplica `border-border-brand-subtle` na bolha, nos dois lados; default `human`, sem mudança visual. Quem decide se a mensagem é da IA é o consumidor (no Hub, o mesmo critério que liga o menu de ações só às mensagens da Sol). A variante é declarada depois de `side` de propósito: as duas escrevem cor de borda e no twMerge vence a última — um teste trava essa ordem.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**Botão de ações da bolha com superfície própria**: `bg-bg-emphasis` + `shadow-sh-sm`, `hover:bg-bg-accent-hover` (o `hover:bg-bg-muted` do ghost, 3% de branco, deixava a pílula mais apagada no hover do que em repouso), glifo de 16 px (`size=\"icon-xs\"`, `shape=\"pill\"`). Continua aparecendo no hover e no `focus-visible`.",
+          "**Bolha recebida com `border-border-subtle`** no lugar de `border-transparent` — no escuro é o que separa a bolha do fundo da conversa.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Documentação de cores (`ColorsDoc`, `.ai/context/tokens/color.md`), `spec-token`, enumerações do `CLAUDE.md` e o template da CLI conhecem a família nova; o `USAGE.md` do `MessageBubble` ganhou `origin` e dois gotchas.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.58.0",
     date: "2026-09-03",
     tag: "preview",

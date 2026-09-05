@@ -9,7 +9,7 @@
  */
 
 import {
-  brand, gray, success, warning, danger, info,
+  brand, gray, success, warning, caution, danger, info,
   white, black,
 } from "../primitives/color-palette";
 
@@ -49,6 +49,11 @@ export const bg = {
   "warning-muted":        `color-mix(in oklch, ${warning[500]} 14%, transparent)`,
   "warning-hover":        `color-mix(in oklch, ${warning[500]} 90%, black)`,
   "warning-muted-hover":  `color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+
+  caution:                caution[500],
+  "caution-muted":        `color-mix(in oklch, ${caution[500]} 14%, transparent)`,
+  "caution-hover":        `color-mix(in oklch, ${caution[500]} 90%, black)`,
+  "caution-muted-hover":  `color-mix(in oklch, ${caution[500]} 22%, transparent)`,
 
   info:                info[500],
   "info-muted":        `color-mix(in oklch, ${info[500]} 14%, transparent)`,
@@ -93,12 +98,14 @@ export const fg = {
   danger:  danger[500],
   success: success[500],
   warning: warning[500],
+  caution: caution[500],
   info:    info[500],
 
   "on-brand":   white,
   "on-danger":  white,
   "on-success": white,
   "on-warning": black,
+  "on-caution": black,
   "on-info":    white,
 } as const;
 
@@ -116,6 +123,7 @@ export const border = {
   "danger-muted":  `color-mix(in oklch, ${danger[500]} 36%, transparent)`,
   "success-muted": `color-mix(in oklch, ${success[500]} 36%, transparent)`,
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
+  "caution-muted": `color-mix(in oklch, ${caution[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   table: gray[150],
@@ -128,6 +136,7 @@ export const ring = {
   danger:    `color-mix(in oklch, ${danger[500]} 22%, transparent)`,
   success:   `color-mix(in oklch, ${success[500]} 22%, transparent)`,
   warning:   `color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+  caution:   `color-mix(in oklch, ${caution[500]} 22%, transparent)`,
   info:      `color-mix(in oklch, ${info[500]} 22%, transparent)`,
   secondary: `color-mix(in oklch, ${gray[500]} 22%, transparent)`,
 } as const;

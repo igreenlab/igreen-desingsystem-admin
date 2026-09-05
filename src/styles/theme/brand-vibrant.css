@@ -14,7 +14,7 @@
  * omite o que já é idêntico à default.
  */
 
-/* ── Light (65 vars divergem da default) ─────────────────────────── */
+/* ── Light (72 vars divergem da default) ─────────────────────────── */
 [data-theme="vibrant"]:not(.dark) {
   --color-bg-surface-elevated: oklch(0.9851 0 0);
   --color-bg-sidebar: oklch(0.9516 0.0012 250);
@@ -37,6 +37,10 @@
   --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);
   --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, black);
   --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);
+  --color-bg-caution: oklch(0.74 0.182 55);
+  --color-bg-caution-muted: color-mix(in oklch, oklch(0.74 0.182 55) 14%, transparent);
+  --color-bg-caution-hover: color-mix(in oklch, oklch(0.74 0.182 55) 90%, black);
+  --color-bg-caution-muted-hover: color-mix(in oklch, oklch(0.74 0.182 55) 22%, transparent);
   --color-bg-info: oklch(0.55 0.293 300);
   --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 14%, transparent);
   --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, black);
@@ -60,6 +64,7 @@
   --color-fg-danger: oklch(0.58 0.235 25);
   --color-fg-success: oklch(0.4645 0.1539 142.59);
   --color-fg-warning: oklch(0.825 0.170 81);
+  --color-fg-caution: oklch(0.74 0.182 55);
   --color-fg-info: oklch(0.55 0.293 300);
   --color-border-default: oklch(0.906 0.0024 250);
   --color-border-subtle: oklch(0.9325 0.0016 250);
@@ -70,12 +75,14 @@
   --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
   --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);
+  --color-border-caution-muted: color-mix(in oklch, oklch(0.74 0.182 55) 36%, transparent);
   --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);
   --color-border-table: oklch(0.9325 0.0016 250);
   --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
   --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
   --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
   --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);
+  --color-ring-caution: color-mix(in oklch, oklch(0.74 0.182 55) 22%, transparent);
   --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);
   --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);
   --color-overlay-float: oklch(0.5517 0.0062 250 / 0.12);
@@ -83,7 +90,7 @@
   --color-chart-grid: oklch(0.9197 0.0020 250);
 }
 
-/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */
+/* ── Dark (67 vars — .dark[data-theme] vence o .dark base) ────────── */
 .dark[data-theme="vibrant"] {
   --color-bg-canvas: oklch(0.2050 0 0);
   --color-bg-surface: oklch(0.2603 0 0);
@@ -107,6 +114,10 @@
   --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 10%, transparent);
   --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, white);
   --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 16%, transparent);
+  --color-bg-caution: oklch(0.74 0.182 55);
+  --color-bg-caution-muted: color-mix(in oklch, oklch(0.74 0.182 55) 10%, transparent);
+  --color-bg-caution-hover: color-mix(in oklch, oklch(0.74 0.182 55) 90%, white);
+  --color-bg-caution-muted-hover: color-mix(in oklch, oklch(0.74 0.182 55) 16%, transparent);
   --color-bg-info: oklch(0.55 0.293 300);
   --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 10%, transparent);
   --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, white);
@@ -126,6 +137,7 @@
   --color-fg-danger: oklch(0.68 0.208 25);
   --color-fg-success: oklch(0.866993 0.294055 142.3546);
   --color-fg-warning: oklch(0.825 0.170 81);
+  --color-fg-caution: oklch(0.74 0.182 55);
   --color-fg-info: oklch(0.72 0.172 300);
   --color-border-default: oklch(0.3400 0 0);
   --color-border-subtle: oklch(0.3090 0 0);
@@ -136,12 +148,14 @@
   --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
   --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);
+  --color-border-caution-muted: color-mix(in oklch, oklch(0.74 0.182 55) 36%, transparent);
   --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);
   --color-border-table: oklch(0.3090 0 0);
   --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
   --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
   --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
   --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);
+  --color-ring-caution: color-mix(in oklch, oklch(0.74 0.182 55) 22%, transparent);
   --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);
   --color-ring-secondary: color-mix(in oklch, oklch(0.5520 0 0) 22%, transparent);
   --color-chart-1: oklch(0.866993 0.294055 142.3546);

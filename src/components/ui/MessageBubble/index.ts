@@ -4,6 +4,7 @@ export type { MessageBubbleVariantProps } from "./message-bubble.styles";
 export type {
   MessageBubbleProps,
   MessageSide,
+  MessageOrigin,
   MessageMediaType,
   QuotedMessage,
 } from "./message-bubble.types";

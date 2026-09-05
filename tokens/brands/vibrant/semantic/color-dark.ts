@@ -34,7 +34,7 @@
  */
 
 import {
-  brandContrast, grayDark as gray, success, warning, danger, info,
+  brandContrast, grayDark as gray, success, warning, caution, danger, info,
   white, black,
 } from "../primitives/color-palette";
 
@@ -72,7 +72,7 @@ export const bg = {
   "brand-hover":    brandContrast[500],
   "brand-subtle-hover": `color-mix(in oklch, ${brandContrast[400]} 16%, transparent)`,
 
-  // Status (sólido + tint alpha — ×4 cores). Os VALORES não são da default: as
+  // Status (sólido + tint alpha — ×5 cores). Os VALORES não são da default: as
   // rampas foram re-medidas por teto de gamut (ver primitives). O tint caiu de 14%
   // pra 10% (e o hover de 22% pra 16%) a pedido do mantenedor — "o background podia
   // ser mais leve, as subtle mais transparentes". Só no dark.
@@ -91,6 +91,11 @@ export const bg = {
   "warning-muted":        `color-mix(in oklch, ${warning[500]} 10%, transparent)`,
   "warning-hover":        `color-mix(in oklch, ${warning[500]} 90%, white)`,
   "warning-muted-hover":  `color-mix(in oklch, ${warning[500]} 16%, transparent)`,
+
+  caution:                caution[500],
+  "caution-muted":        `color-mix(in oklch, ${caution[500]} 10%, transparent)`,
+  "caution-hover":        `color-mix(in oklch, ${caution[500]} 90%, white)`,
+  "caution-muted-hover":  `color-mix(in oklch, ${caution[500]} 16%, transparent)`,
 
   info:                info[500],
   "info-muted":        `color-mix(in oklch, ${info[500]} 10%, transparent)`,
@@ -172,6 +177,7 @@ export const fg = {
   danger:  danger[400],        // #ff5352
   success: success[400],       // = brand[400] — o neón, igual ao fg.brand
   warning: warning[500],       // #fdb803 — já é claro (L 0.825)
+  caution: caution[500],       // #ff8506 — já é claro (L 0.74)
   info:    info[300],          // #b688ff
 
   // Sobre fundos sólidos (on-*)
@@ -195,6 +201,7 @@ export const fg = {
   "on-danger":  white,
   "on-success": black,   // success É a marca — mesmo par
   "on-warning": black,
+  "on-caution": black,
   "on-info":    white,
 } as const;
 
@@ -234,6 +241,7 @@ export const border = {
   "danger-muted":  `color-mix(in oklch, ${danger[500]} 36%, transparent)`,
   "success-muted": `color-mix(in oklch, ${success[400]} 36%, transparent)`,  // ancora no 400 (= brand)
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
+  "caution-muted": `color-mix(in oklch, ${caution[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (= border.subtle)
@@ -249,6 +257,7 @@ export const ring = {
   danger:    `color-mix(in oklch, ${danger[500]} 22%, transparent)`,
   success:   `color-mix(in oklch, ${success[400]} 22%, transparent)`,  // espelha o brand
   warning:   `color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+  caution:   `color-mix(in oklch, ${caution[500]} 22%, transparent)`,
   info:      `color-mix(in oklch, ${info[500]} 22%, transparent)`,
   secondary: `color-mix(in oklch, ${gray[500]} 22%, transparent)`,
 } as const;

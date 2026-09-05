@@ -78,6 +78,10 @@ body {
   --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);
   --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);
   --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --color-bg-caution: oklch(0.74 0.170 55);
+  --color-bg-caution-muted: color-mix(in oklch, oklch(0.74 0.170 55) 14%, transparent);
+  --color-bg-caution-hover: color-mix(in oklch, oklch(0.74 0.170 55) 90%, black);
+  --color-bg-caution-muted-hover: color-mix(in oklch, oklch(0.74 0.170 55) 22%, transparent);
   --color-bg-info: oklch(0.62 0.210 280);
   --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);
   --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);
@@ -106,11 +110,13 @@ body {
   --color-fg-danger: oklch(0.6368 0.2078 25.33);
   --color-fg-success: oklch(0.66 0.135 161);
   --color-fg-warning: oklch(0.81 0.160 81);
+  --color-fg-caution: oklch(0.74 0.170 55);
   --color-fg-info: oklch(0.62 0.210 280);
   --color-fg-on-brand: oklch(1 0 0);
   --color-fg-on-danger: oklch(1 0 0);
   --color-fg-on-success: oklch(1 0 0);
   --color-fg-on-warning: oklch(0 0 0);
+  --color-fg-on-caution: oklch(0 0 0);
   --color-fg-on-info: oklch(1 0 0);
   --color-border-default: oklch(0.9076 0 0);
   --color-border-subtle: oklch(0.931 0 0);
@@ -121,12 +127,14 @@ body {
   --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);
   --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);
   --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);
+  --color-border-caution-muted: color-mix(in oklch, oklch(0.74 0.170 55) 36%, transparent);
   --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);
   --color-border-table: oklch(0.931 0 0);
   --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);
   --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
   --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
   --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --color-ring-caution: color-mix(in oklch, oklch(0.74 0.170 55) 22%, transparent);
   --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
   --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);
   --color-overlay-scrim: oklch(0 0 0 / 0.55);
@@ -298,6 +306,7 @@ body {
   --shadow-sh-ring: var(--ds-sh-ring);
   --shadow-sh-ring-danger: var(--ds-sh-ring-danger);
   --shadow-sh-ring-warning: var(--ds-sh-ring-warning);
+  --shadow-sh-ring-caution: var(--ds-sh-ring-caution);
   --shadow-sh-ring-success: var(--ds-sh-ring-success);
   --shadow-sh-ring-info: var(--ds-sh-ring-info);
 }
@@ -313,6 +322,7 @@ body {
   --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);
   --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
   --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --ds-sh-ring-caution: 0 0 0 3px color-mix(in oklch, oklch(0.74 0.170 55) 22%, transparent);
   --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
   --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
 }
@@ -346,6 +356,10 @@ body {
   --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);
   --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);
   --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --color-bg-caution: oklch(0.74 0.170 55);
+  --color-bg-caution-muted: color-mix(in oklch, oklch(0.74 0.170 55) 14%, transparent);
+  --color-bg-caution-hover: color-mix(in oklch, oklch(0.74 0.170 55) 90%, white);
+  --color-bg-caution-muted-hover: color-mix(in oklch, oklch(0.74 0.170 55) 22%, transparent);
   --color-bg-info: oklch(0.62 0.210 280);
   --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);
   --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);
@@ -374,11 +388,13 @@ body {
   --color-fg-danger: oklch(0.6368 0.2078 25.33);
   --color-fg-success: oklch(0.66 0.135 161);
   --color-fg-warning: oklch(0.81 0.160 81);
+  --color-fg-caution: oklch(0.74 0.170 55);
   --color-fg-info: oklch(0.62 0.210 280);
   --color-fg-on-brand: oklch(0 0 0);
   --color-fg-on-danger: oklch(1 0 0);
   --color-fg-on-success: oklch(0 0 0);
   --color-fg-on-warning: oklch(0 0 0);
+  --color-fg-on-caution: oklch(0 0 0);
   --color-fg-on-info: oklch(1 0 0);
   --color-border-default: oklch(0.2645 0 0);
   --color-border-subtle: oklch(1 0 0 / 0.04);
@@ -389,12 +405,14 @@ body {
   --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);
   --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);
   --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);
+  --color-border-caution-muted: color-mix(in oklch, oklch(0.74 0.170 55) 36%, transparent);
   --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);
   --color-border-table: oklch(0.2645 0 0);
   --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);
   --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
   --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
   --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --color-ring-caution: color-mix(in oklch, oklch(0.74 0.170 55) 22%, transparent);
   --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
   --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);
   --color-overlay-scrim: oklch(0 0 0 / 0.55);
@@ -415,6 +433,7 @@ body {
   --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);
   --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
   --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --ds-sh-ring-caution: 0 0 0 3px color-mix(in oklch, oklch(0.74 0.170 55) 22%, transparent);
   --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
   --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
 }
