@@ -55,6 +55,7 @@ import type { GanttRow, GanttLink, GanttColumn } from "@/components/ui/Gantt";
 | `view` | `"timeline" \| "calendar" \| "list"` — qual está **aberta** | `"timeline"` |
 | `toolbarActions` / `primaryAction` | `ReactNode` — os dois slots livres da toolbar | — |
 | `emptyState` | `ReactNode` — substitui o vazio de busca/filtro | ícone + texto |
+| `loading` / `loadingState` | `boolean` + `ReactNode` — esqueleto no lugar do conteúdo | `false` |
 | `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |
 | `granularity` | `"day" \| "week" \| "month" \| "quarter"` | `"day"` |
 | `onViewChange` / `onGranularityChange` / `onCriticalPathChange` | os pares dos três estados de UI — ver abaixo | — |
@@ -367,6 +368,26 @@ jeito que a `TableToolbar` recebe `actions`.
 
 `toolbarActions` entra **antes** da ação primária, de propósito: a ação primária
 fecha a barra, e é o último lugar onde o olho para.
+
+### Carregando ≠ vazio
+
+⚠️ **Se você busca do servidor, passe `loading`.** Sem ele, `rows={[]}` durante o
+fetch faz o componente afirmar *"Nenhuma tarefa neste período"* — uma frase que
+ele não tem como saber que é verdade, e que faz o usuário desistir antes de o
+dado chegar.
+
+```tsx
+<Gantt rows={rows} loading={isFetching} />
+```
+
+`loading` **vence** `rows`: mesmo com linhas na tela ele mostra o esqueleto,
+porque durante um refetch o que está renderizado pode estar velho. A **toolbar
+continua** — período, busca e filtro não dependem dos dados, e apagá-la faria a
+tela inteira piscar quando eles chegam.
+
+O esqueleto imita a silhueta da visão atual (painel + barras na timeline, 6×7 na
+grade, blocos na agenda), pra a chegada do dado não deslocar nada. `loadingState`
+troca por um seu — mantenha a altura.
 
 ### O imperativo — `GanttRef`
 

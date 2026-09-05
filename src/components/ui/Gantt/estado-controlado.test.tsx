@@ -131,6 +131,44 @@ describe("Gantt — `views` recorta o que existe", () => {
   });
 });
 
+/**
+ * `loading` vence `vazio`.
+ *
+ * Sem esta prop, quem busca do servidor renderiza `rows={[]}` durante o fetch e
+ * o componente respondia *"Nenhuma tarefa neste período"* — afirmação que ele
+ * não tinha como saber que era verdade.
+ */
+describe("Gantt — carregando não é vazio", () => {
+  it("sem `loading`, lista vazia afirma que não há tarefas", () => {
+    render(<Gantt rows={[]} />);
+    expect(screen.getByText(/nenhuma tarefa/i)).toBeTruthy();
+  });
+
+  it("com `loading`, mostra o esqueleto e NÃO a afirmação", () => {
+    render(<Gantt rows={[]} loading />);
+    expect(screen.queryByText(/nenhuma tarefa/i)).toBeNull();
+    expect(screen.getByRole("status", { name: /carregando/i })).toBeTruthy();
+  });
+
+  it("`loading` vence mesmo com linhas — o dado na tela pode estar velho", () => {
+    render(<Gantt rows={ROWS} loading />);
+    expect(screen.getByRole("status", { name: /carregando/i })).toBeTruthy();
+    expect(screen.queryByText("Alfa")).toBeNull();
+  });
+
+  it("a toolbar CONTINUA durante o carregamento — contexto não é dado", () => {
+    render(<Gantt rows={[]} loading searchable />);
+    expect(screen.getByLabelText(/buscar tarefa/i)).toBeTruthy();
+    expect(gatilhoDaEscala()).toBeTruthy();
+  });
+
+  it("`loadingState` substitui o esqueleto", () => {
+    render(<Gantt rows={[]} loading loadingState={<p>Buscando…</p>} />);
+    expect(screen.getByText("Buscando…")).toBeTruthy();
+    expect(screen.queryByRole("status", { name: /carregando/i })).toBeNull();
+  });
+});
+
 describe("Gantt — caminho crítico: valor + callback", () => {
   const alvo = () => screen.getByRole("button", { name: /crítico/i });
 

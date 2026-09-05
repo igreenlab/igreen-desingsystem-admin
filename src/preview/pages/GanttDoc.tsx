@@ -36,6 +36,7 @@ const TOC = [
   { id: "portfolio", label: "Timeline de portfólio" },
   { id: "conflito", label: "Conflito e caminho crítico" },
   { id: "toolbar", label: "Recortar visões e estender a toolbar" },
+  { id: "carregando", label: "Carregando ≠ vazio" },
   { id: "api", label: "API" },
   { id: "decisoes", label: "Decisões" },
 ];
@@ -374,6 +375,11 @@ const PROPS = [
     defaultVal: "ícone + texto",
   },
   {
+    name: "loading / loadingState",
+    type: "boolean + ReactNode — esqueleto no lugar do conteúdo. SEM ele, rows={[]} durante o fetch afirma \"Nenhuma tarefa neste período\", que o componente não tem como saber que é verdade. A toolbar continua",
+    defaultVal: "false · esqueleto da visão atual",
+  },
+  {
     name: "ref",
     type: "GanttRef — imperativo: goToDate(date) · goToToday() · expandAll() · collapseAll()",
     defaultVal: "—",
@@ -394,6 +400,10 @@ const BAR_PROPS = [
 export function GanttDoc() {
   const [selecionado, setSelecionado] = useState<string | null>(null);
   const [violacoes, setViolacoes] = useState(0);
+  /** Os três estados do exemplo "Carregando ≠ vazio". */
+  const [estadoDemo, setEstadoDemo] = useState<"loading" | "vazio" | "cheio">(
+    "loading",
+  );
 
   const agora = useMemo(() => d(17), []);
 
@@ -595,6 +605,60 @@ export function GanttDoc() {
                 Nova tarefa
               </Button>
             }
+          />
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="carregando" title="Carregando ≠ vazio" />
+
+      <ExampleSection
+        plain
+        id="ex-carregando"
+        title="A diferença entre não ter e não saber"
+        description="Sem `loading`, quem busca do servidor renderiza rows={[]} durante o fetch — e o componente responde “Nenhuma tarefa neste período”. É uma afirmação que ele não tem como saber que é verdade, e o usuário desiste antes de o dado chegar. Alterne abaixo e compare as duas telas. Note que a TOOLBAR continua nas duas: período, busca e filtro não dependem dos dados, e apagá-la faria a tela inteira piscar quando eles chegam. O esqueleto imita a silhueta da visão atual, pra a chegada do dado não deslocar nada."
+        code={`<Gantt rows={rows} loading={isFetching} />
+
+// loading VENCE rows: durante um refetch o que está na tela
+// pode estar velho. loadingState troca o esqueleto por um seu.`}
+      >
+        <div className="mb-6 flex flex-wrap items-center gap-gp-md">
+          <Button
+            variant={estadoDemo === "loading" ? "filled" : "outline"}
+            color={estadoDemo === "loading" ? "primary" : "secondary"}
+            size="sm"
+            onClick={() => setEstadoDemo("loading")}
+          >
+            loading
+          </Button>
+          <Button
+            variant={estadoDemo === "vazio" ? "filled" : "outline"}
+            color={estadoDemo === "vazio" ? "primary" : "secondary"}
+            size="sm"
+            onClick={() => setEstadoDemo("vazio")}
+          >
+            rows=[] sem loading
+          </Button>
+          <Button
+            variant={estadoDemo === "cheio" ? "filled" : "outline"}
+            color={estadoDemo === "cheio" ? "primary" : "secondary"}
+            size="sm"
+            onClick={() => setEstadoDemo("cheio")}
+          >
+            carregado
+          </Button>
+        </div>
+
+        <div className="flex h-[300px] w-full flex-col">
+          <Gantt
+            rows={estadoDemo === "cheio" ? CONFLITO : []}
+            views={["timeline"]}
+            loading={estadoDemo === "loading"}
+            locale={ptBR}
+            now={agora}
+            windowStart={d(1)}
+            windowEnd={d(20)}
+            gridWidth={260}
+            searchable
           />
         </div>
       </ExampleSection>

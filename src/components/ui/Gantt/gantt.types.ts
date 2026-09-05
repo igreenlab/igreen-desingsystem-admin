@@ -383,6 +383,32 @@ export interface GanttProps {
   views?: GanttView[];
 
   /**
+   * **Carregando** — o esqueleto no lugar do conteúdo.
+   *
+   * ⚠️ Não é firula. Sem isto, `rows={[]}` durante o fetch mostra
+   * *"Nenhuma tarefa neste período"* — uma AFIRMAÇÃO falsa: o componente não
+   * sabe se não há tarefas, ele ainda não recebeu nenhuma. O usuário lê que o
+   * cronograma está vazio e vai embora antes do dado chegar.
+   *
+   * A toolbar continua renderizada (período, busca, filtro): o contexto não
+   * depende dos dados, e apagá-lo faria a tela piscar inteira quando eles
+   * chegam. Mesmo desenho do `DataTable`.
+   *
+   * @default false
+   */
+  loading?: boolean;
+
+  /**
+   * Substitui o esqueleto padrão. Par do `emptyState`.
+   *
+   * O padrão imita a SILHUETA da visão atual — painel + barras na timeline,
+   * 6×7 na grade de mês, blocos de dia na agenda. Se você trocar, mantenha a
+   * altura: esqueleto de silhueta diferente troca "espera" por um salto de
+   * layout quando o dado chega.
+   */
+  loadingState?: ReactNode;
+
+  /**
    * **Janela visível, e ela é do consumidor.**
    *
    * O componente não navega sozinho — mesmo princípio do `Kanban` e da `Table`.

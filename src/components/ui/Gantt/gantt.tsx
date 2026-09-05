@@ -34,6 +34,7 @@ import {
 } from "./gantt.styles";
 import { GanttToolbar } from "./parts/gantt-toolbar";
 import { GanttFilterPanel } from "./parts/gantt-filter-panel";
+import { GanttSkeleton } from "./parts/gantt-skeleton";
 import { GANTT_DEFAULT_COLUMNS, GanttGrid } from "./parts/gantt-grid";
 import { GanttCalendarView } from "./views/calendar";
 import { GanttListView } from "./views/list";
@@ -126,6 +127,8 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     toolbarActions,
     primaryAction,
     emptyState,
+    loading = false,
+    loadingState,
     className,
   },
   ref,
@@ -739,7 +742,19 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
         role="region"
         aria-label={`Cronograma, ${titulo}`}
       >
-        {flat.length === 0 ? (
+        {/*
+          ⚠️ CARREGANDO vence VAZIO, e a ordem não é estética.
+
+          Quem busca do servidor renderiza `rows={[]}` enquanto espera. Com o
+          vazio primeiro, o componente afirmaria "Nenhuma tarefa neste período"
+          — uma frase que ele não tem como saber que é verdade, e que faz o
+          usuário desistir antes de o dado chegar.
+        */}
+        {loading ? (
+          (loadingState ?? (
+            <GanttSkeleton view={view} gridWidth={gridWidth} />
+          ))
+        ) : flat.length === 0 ? (
           <div className={ganttEmpty()}>
             {emptyState ?? (
               <span className={ganttEmptyText()}>

@@ -466,6 +466,42 @@ export const ganttMenuGroupFluid = tv({
   base: "flex w-full [&>*]:flex-1",
 });
 
+/**
+ * Esqueleto de carregamento.
+ *
+ * ## A silhueta é a mesma do conteúdo, e isso é a regra
+ *
+ * Copiada do `DataTableLoading`: o esqueleto usa o MESMO container do estado
+ * carregado (mesma borda, mesmo raio, mesma altura de linha) pra que a
+ * chegada do dado não desloque nada. Esqueleto de silhueta diferente troca
+ * "espera" por um salto de layout, que é pior que a espera.
+ *
+ * Por isso há três variantes, uma por visão: as três têm geometrias
+ * diferentes, e um esqueleto genérico saltaria em duas delas.
+ *
+ * `animate-pulse` é do Tailwind e não a `ds-pulse` da L-067 — esta última é a
+ * animação de ATENÇÃO do DS (um realce que chama), e aqui o pulso é de
+ * espera. São dois significados, e usar o de atenção pra espera faria o
+ * carregamento gritar.
+ */
+export const ganttSkeleton = tv({
+  slots: {
+    root: "flex min-h-0 flex-1 animate-pulse flex-col overflow-hidden",
+    /** A faixa do cabeçalho do eixo — mesma altura do `ganttHead`. */
+    head: "flex shrink-0 items-center gap-gp-2xl border-b border-border-default bg-bg-table-head px-pad-2xl",
+    /** Linha do corpo — a MESMA altura de `GANTT_ROW_HEIGHT_PX`. */
+    row: "flex shrink-0 items-center gap-gp-2xl border-b border-border-subtle px-pad-2xl",
+    /** O retângulo cinza que faz as vezes de texto ou de barra. */
+    bar: "rounded-radius-sm bg-bg-muted",
+    /** Painel esquerdo da timeline — só ele tem borda de separação. */
+    pane: "flex shrink-0 flex-col overflow-hidden border-r border-border-default",
+    canvas: "flex min-w-0 flex-1 flex-col overflow-hidden",
+    /** Célula da grade de mês. */
+    cell: "flex flex-col gap-gp-xs border-b border-r border-border-subtle p-pad-md",
+    grid: "grid min-h-0 flex-1 grid-cols-7",
+  },
+});
+
 export const ganttSearch = tv({
   base: [
     "relative flex cursor-text items-center gap-gp-md",
