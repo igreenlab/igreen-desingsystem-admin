@@ -402,7 +402,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 71 Lições (L-001 a L-071) — resumo
+## 72 Lições (L-001 a L-072) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
 `scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
@@ -564,6 +564,14 @@ presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.
   apagava e inertizava o botão "Reabrir com template" — a única saída do estado — e o
   atendente clicava sem efeito. Antes de pôr `pointer-events-none` num container: existe lá
   dentro alguma ação cuja função é encerrar este estado?
+
+### tv(): variante vs base (lição 2026-09-05)
+- **L-072** Variante de `tv()` **não** sobrescreve a base em classe com prefixo DS: o
+  `tailwind-merge` não reconhece `gap-gp-md` × `gap-gp-2xl` como conflito, as DUAS
+  sobrevivem e a ordem do CSS decide (medido: saiu 8px onde a variante pedia 16). É o
+  modo espelhado da L-016 — lá a classe some, aqui ela fica e perde. Com `gp-`/`sp-`/
+  `pad-`/`form-`/`icon-`, declare o valor em **um lugar só**. Sem gate: distinguir do
+  caso legítimo (`gap-gp-sm md:gap-gp-lg`) exige contexto (L-059).
 
 ### Composição de refs (lição 2026-09-01)
 - **L-071** `ref` que chega dentro de um spread **sobrescreve** o `ref=` escrito antes dele,
