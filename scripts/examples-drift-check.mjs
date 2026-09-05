@@ -28,6 +28,7 @@ const MAP = {
   "edit-page": "src/preview/pages/OrderEditShowcase",
   chat: "src/preview/pages/ChatV2",
   "mapa-rede": "src/preview/pages/MapaDeRedeShowcase",
+  gantt: "src/preview/pages/GanttFullPreview.tsx",
 };
 
 const LOCK = "scripts/examples-sources.lock.json";

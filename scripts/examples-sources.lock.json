@@ -26,5 +26,9 @@
   "mapa-rede": {
     "source": "src/preview/pages/MapaDeRedeShowcase",
     "hash": "dbc50d1c03142e900f5d0ee7ef0f450fc9e2b5ce1ca6e989606150f5efbdd0d7"
+  },
+  "gantt": {
+    "source": "src/preview/pages/GanttFullPreview.tsx",
+    "hash": "4a30818fed0369ea5cbb46f954ff253932ced21bef606806c6ffd2120343d70a"
   }
 }
