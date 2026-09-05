@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { addDays, format, startOfDay } from "date-fns";
 import { Plus } from "lucide-react";
@@ -10,7 +10,6 @@ import type {
   GanttFilterField,
   GanttLink,
   GanttLinkViolation,
-  GanttRef,
   GanttRow,
 } from "@/components/ui/Gantt";
 import { Button } from "@/components/ui/Button";
@@ -504,7 +503,6 @@ export function GanttFullPreview() {
  * fora, porque quem consome já tem o dele.
  */
 function ConteudoDoCronograma() {
-  const ganttRef = useRef<GanttRef>(null);
 
   /**
    * ⚠️ As linhas e os vínculos são ESTADO DA TELA, e isso é o ponto do exemplo.
@@ -621,26 +619,6 @@ function ConteudoDoCronograma() {
             </Chip>
           ) : undefined
         }
-        actions={
-          <>
-            <Button
-              variant="outline"
-              color="secondary"
-              size="md"
-              onClick={() => ganttRef.current?.collapseAll()}
-            >
-              Recolher tudo
-            </Button>
-            <Button
-              variant="outline"
-              color="secondary"
-              size="md"
-              onClick={() => ganttRef.current?.expandAll()}
-            >
-              Expandir tudo
-            </Button>
-          </>
-        }
       />
 
       {/*
@@ -650,7 +628,6 @@ function ConteudoDoCronograma() {
       */}
       <div className="flex min-h-0 flex-1 flex-col">
         <Gantt
-          ref={ganttRef}
           rows={rows}
           links={links}
           draggable

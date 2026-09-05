@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · accordion · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · alert-dialog · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · alert-modal · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · alert · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · app-shell · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · aspect-ratio · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · avatar-ig · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · avatar · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · badge · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · breadcrumb · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · button-group · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · button · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · calendar · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · card-checkbox · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · card-option · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · card · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · carousel · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · chart · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · checkbox · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · chip · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · choropleth-map · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · collapsible · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · color-picker · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · combobox · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · command · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · context-menu · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · data-list · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · data-table · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · date-picker · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · dialog · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · drawer · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · dropdown-menu · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · empty-state · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-app-shell · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-chat · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-clientes · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-dashboard · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-edit-page · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-finance · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2753,7 +2753,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/examples/gantt/gantt-screen.tsx",
-        "content": "/**\r\n * Cronograma de projeto — a tela completa, extraída do showcase do DS (L-034).\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * **O que ligar ao seu estado:** `rows` e `links` são estado DESTA tela, e é\r\n * de propósito. O `Gantt` é *dumb* sobre mutação: arrastar emite `onBarMove`,\r\n * vínculo violado emite `onLinkViolations` — **nada se move sozinho**. Troque\r\n * os `useState` por dados do servidor e mantenha os handlers aplicando; se\r\n * você ligar `draggable`/`resizable` sem handler que aplique, o usuário\r\n * arrasta e vê a barra **voltar**.\r\n *\r\n * **O que trocar primeiro:** `_gantt-data.tsx` — linhas, vínculos, colunas e\r\n * filtros. O resto da tela não muda.\r\n *\r\n * **O que remover se não servir:** o `FloatingPanel` de detalhe e o drawer de\r\n * nova tarefa são **da tela**, não do componente. O `Gantt` só emite\r\n * `onBarClick` e `onDayAdd` e devolve o payload intacto — quem decide que\r\n * campos existem é você.\r\n *\r\n * **O que NÃO mexer:** a divisão entre `colorKey` (categoria — qual frente) e\r\n * `row.trailing` (status, como `Chip`). Cor por status quebra a leitura que o\r\n * componente foi desenhado pra dar.\r\n *\r\n * ⚠️ **O pai precisa ter ALTURA.** O componente é `h-full`; sem altura no pai\r\n * você vê só a toolbar.\r\n *\r\n * ⚠️ Se os dados vêm do servidor, passe **`loading`**. Sem ele, `rows={[]}`\r\n * durante o fetch afirma \"Nenhuma tarefa neste período\" — o componente não tem\r\n * como saber que isso é verdade.\r\n */\r\n\r\nimport { useMemo, useRef, useState } from \"react\";\r\nimport { ptBR } from \"date-fns/locale\";\r\nimport { addDays, format, startOfDay } from \"date-fns\";\r\nimport { Plus } from \"lucide-react\";\r\nimport { Gantt, ganttDaySegment } from \"@/components/ui/Gantt\";\r\nimport type {\r\n  GanttBarChange,\r\n  GanttColorKey,\r\n  GanttLink,\r\n  GanttLinkViolation,\r\n  GanttRef,\r\n  GanttRow,\r\n} from \"@/components/ui/Gantt\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\nimport { FloatingPanel } from \"@/components/ui/FloatingPanel\";\r\nimport { PageHeader } from \"@/components/ui/PageHeader\";\r\nimport {\r\n  FormFieldInput,\r\n  FormFieldSelect,\r\n  FormFieldTextarea,\r\n} from \"@/components/ui/FormField\";\r\nimport {\r\n  COLUNAS,\r\n  CORES_DISPONIVEIS,\r\n  FILTROS,\r\n  LINKS_SEMENTE,\r\n  PESSOAS,\r\n  ROWS_SEMENTE,\r\n  hoje,\r\n  iniciais,\r\n  type Meta,\r\n} from \"./_gantt-data\";\r\n\r\nexport function GanttScreen() {\r\n  const ganttRef = useRef<GanttRef>(null);\r\n\r\n  /**\r\n   * ⚠️ As linhas e os vínculos são ESTADO DA TELA, e isso é o ponto do exemplo.\r\n   *\r\n   * O `Gantt` é dumb sobre mutação: arrastar emite `onBarMove`, e quem reescreve\r\n   * as datas é o consumidor. Um exemplo com `rows` constante ligaria\r\n   * `draggable` e o usuário arrastaria pra ver a barra **voltar** — que é\r\n   * exatamente o que o JSDoc de `draggable` avisa que acontece sem handler.\r\n   *\r\n   * Aqui a tela aplica de verdade, e é por isso que o gesto pode ser verificado.\r\n   */\r\n  const [rows, setRows] = useState<GanttRow[]>(ROWS_SEMENTE);\r\n\r\n  /**\r\n   * O drawer de \"nova tarefa\" — e ele é DA TELA, não do componente.\r\n   *\r\n   * O `Gantt` emite `onDayAdd(dia)` e para aí. Quem decide que campos existem,\r\n   * que cores são oferecidas e o que acontece no salvar é o consumidor — mesma\r\n   * divisão do painel de detalhe (`onBarClick` devolve o payload e a tela\r\n   * desenha a ficha).\r\n   *\r\n   * ⚠️ A versão anterior criava a tarefa DIRETO no clique do \"+\", com nome e\r\n   * cor chutados. Estava errado por dois motivos: o usuário não escolhia nada, e\r\n   * o exemplo ensinava que `onDayAdd` é \"adicione isto\" quando ele é \"o usuário\r\n   * pediu pra adicionar aqui\".\r\n   */\r\n  const [novo, setNovo] = useState<{\r\n    dia: Date;\r\n    nome: string;\r\n    dias: string;\r\n    cor: string;\r\n    responsavel: string;\r\n    frente: string;\r\n    descricao: string;\r\n  } | null>(null);\r\n\r\n  /**\r\n   * Abre o drawer num dia — DUAS portas, um formulário só.\r\n   *\r\n   * O \"+\" da célula sabe o dia (o usuário apontou pra ele); o \"Nova tarefa\" da\r\n   * toolbar não sabe, e abre em `hoje`. Por isso a data virou CAMPO em vez de\r\n   * ficar só no subtítulo: sem ela, a porta da toolbar criaria tudo no mesmo dia\r\n   * sem o usuário poder corrigir.\r\n   */\r\n  const abrirNovaTarefa = (dia: Date) =>\r\n    setNovo({\r\n      dia,\r\n      nome: \"\",\r\n      dias: \"3\",\r\n      cor: \"chart-2\",\r\n      responsavel: \"ana\",\r\n      frente: \"integração\",\r\n      descricao: \"\",\r\n    });\r\n  const [links, setLinks] = useState<GanttLink[]>(LINKS_SEMENTE);\r\n\r\n  /**\r\n   * Duração, fim e estilo da prévia — derivados do formulário.\r\n   *\r\n   * `fim` usa `duracao - 1` porque `end` é INCLUSIVO no `Gantt`: 3 dias a\r\n   * partir do dia 10 terminam no 12, não no 13. É a mesma conta do salvar, e\r\n   * está aqui pra ser UMA — se o subtítulo dissesse um fim e o salvar gravasse\r\n   * outro, o usuário só descobriria depois de criar (L-038).\r\n   */\r\n  const duracaoNova = Math.max(1, Number(novo?.dias) || 1);\r\n  const fimNovo = novo ? addDays(novo.dia, duracaoNova - 1) : null;\r\n  const previaDoSegmento = ganttDaySegment({\r\n    colorKey: (novo?.cor ?? \"chart-1\") as GanttColorKey,\r\n  });\r\n\r\n  /** Reescreve as datas de UMA barra, preservando o resto da linha. */\r\n  const aplicarMudanca = ({ bar, start, end }: GanttBarChange) =>\r\n    setRows((atuais) =>\r\n      atuais.map((r) =>\r\n        r.bars.some((b) => b.id === bar.id)\r\n          ? {\r\n              ...r,\r\n              bars: r.bars.map((b) =>\r\n                b.id === bar.id ? { ...b, start, end } : b,\r\n              ),\r\n            }\r\n          : r,\r\n      ),\r\n    );\r\n  const [detalhe, setDetalhe] = useState<{\r\n    titulo: string;\r\n    meta: Meta;\r\n    inicio: Date;\r\n    fim: Date;\r\n  } | null>(null);\r\n  const [violacoes, setViolacoes] = useState<GanttLinkViolation[]>([]);\r\n\r\n  const rodape = useMemo(() => {\r\n    if (violacoes.length === 0) return null;\r\n    const total = violacoes.reduce((s, v) => s + v.deficitDays, 0);\r\n    return `${violacoes.length} vínculo(s) em conflito · ${total} dia(s) de déficit`;\r\n  }, [violacoes]);\r\n\r\n  return (\r\n    <div className=\"flex h-full min-h-0 flex-col gap-gp-2xl\">\r\n      {/*\r\n        `PageHeader` e não um `<h1>` na unha — é o que `mapa-rede`, `finance` e\r\n        `order-detail` usam, e título de tela é decisão do DS, não de cada\r\n        exemplo. O contador de conflito entra como `badge` porque ele qualifica\r\n        a tela inteira; `Recolher`/`Expandir` são `actions` porque operam nela.\r\n      */}\r\n      <PageHeader\r\n        title=\"Implantação do portal de operação\"\r\n        description=\"20 linhas · 4 níveis · 16 vínculos dos 4 tipos · 2 conflitos de prazo. Arraste uma barra pra ver o conflito e o caminho crítico recalcularem no mesmo gesto.\"\r\n        badge={\r\n          rodape ? (\r\n            <Chip size=\"sm\" variant=\"soft\" color=\"danger\" shape=\"rounded\">\r\n              {rodape}\r\n            </Chip>\r\n          ) : undefined\r\n        }\r\n        actions={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"md\"\r\n              onClick={() => ganttRef.current?.collapseAll()}\r\n            >\r\n              Recolher tudo\r\n            </Button>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"md\"\r\n              onClick={() => ganttRef.current?.expandAll()}\r\n            >\r\n              Expandir tudo\r\n            </Button>\r\n          </>\r\n        }\r\n      />\r\n\r\n      {/*\r\n        `min-h-0` no wrapper é o que faz o Gantt receber a altura restante em vez\r\n        de estourar a página. Sem isso, `h-full` num filho de flex-col resolve\r\n        contra `auto` e o componente cresce indefinidamente.\r\n      */}\r\n      <div className=\"flex min-h-0 flex-1 flex-col\">\r\n        <Gantt\r\n          ref={ganttRef}\r\n          rows={rows}\r\n          links={links}\r\n          draggable\r\n          resizable\r\n          linkable\r\n          onBarMove={aplicarMudanca}\r\n          onBarResize={aplicarMudanca}\r\n          onLinkCreate={(novo) =>\r\n            setLinks((atuais) => [\r\n              ...atuais,\r\n              // O id é do CONSUMIDOR — o componente emite a intenção sem id\r\n              // justamente porque não sabe como você os gera.\r\n              { ...novo, id: `l-${novo.source}-${novo.target}-${atuais.length}` },\r\n            ])\r\n          }\r\n          /*\r\n            O \"+\" da célula do calendário ABRE O DRAWER — não cria nada.\r\n\r\n            Sem handler o \"+\" nem renderiza; com ele, o componente diz \"o\r\n            usuário pediu pra adicionar no dia X\" e a tela decide o resto.\r\n          */\r\n          onDayAdd={abrirNovaTarefa}\r\n          onLinkDelete={(alvo) =>\r\n            setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))\r\n          }\r\n          columns={COLUNAS}\r\n          filterFields={FILTROS}\r\n          searchable\r\n          criticalPath\r\n          criticalPathToggle={false}\r\n          locale={ptBR}\r\n          now={hoje}\r\n          gridWidth={460}\r\n          onLinkViolations={setViolacoes}\r\n          onGraphError={({ barIds }) =>\r\n            window.alert(`Ciclo no grafo: ${barIds.join(\", \")}`)\r\n          }\r\n          onBarClick={(bar, row) => {\r\n            const meta = bar.meta as Meta | undefined;\r\n            if (!meta) return;\r\n            setDetalhe({\r\n              titulo: typeof row.label === \"string\" ? row.label : bar.id,\r\n              meta,\r\n              inicio: bar.start,\r\n              fim: bar.end,\r\n            });\r\n          }}\r\n          /*\r\n            A ação primária abre o MESMO drawer do \"+\" da grade de mês.\r\n\r\n            Duas portas pra criar tarefa com dois formulários diferentes é o\r\n            defeito clássico de tela de cadastro: o usuário aprende um e\r\n            encontra o outro. A única diferença entre as portas é o dia em que\r\n            o formulário abre — e o dia é campo, então dá pra mudar nas duas.\r\n          */\r\n          primaryAction={\r\n            <Button\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              iconLeft={<Plus />}\r\n              onClick={() => abrirNovaTarefa(hoje)}\r\n            >\r\n              Nova tarefa\r\n            </Button>\r\n          }\r\n        />\r\n      </div>\r\n\r\n      {/*\r\n        O painel de detalhe é da TELA, não do componente — o `Gantt` só emite\r\n        `onBarClick` e devolve `bar.meta` intacto. Mesma divisão do `Scheduler`.\r\n      */}\r\n      <FloatingPanel\r\n        open={detalhe !== null}\r\n        onOpenChange={(aberto) => {\r\n          if (!aberto) setDetalhe(null);\r\n        }}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title={detalhe?.titulo ?? \"\"}\r\n        description={\r\n          detalhe\r\n            ? `${format(detalhe.inicio, \"dd/MM/yyyy\", { locale: ptBR })} → ${format(detalhe.fim, \"dd/MM/yyyy\", { locale: ptBR })}`\r\n            : undefined\r\n        }\r\n      >\r\n        {detalhe ? (\r\n          <div className=\"flex flex-col gap-gp-2xl\">\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Responsável\r\n              </span>\r\n              <div className=\"flex items-center gap-gp-md\">\r\n                <Avatar\r\n                  size=\"sm\"\r\n                  color=\"brand\"\r\n                  aria-label={PESSOAS[detalhe.meta.responsavel]}\r\n                >\r\n                  {iniciais(PESSOAS[detalhe.meta.responsavel])}\r\n                </Avatar>\r\n                <span className=\"text-body-sm text-fg-default\">\r\n                  {PESSOAS[detalhe.meta.responsavel]}\r\n                </span>\r\n              </div>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Frente\r\n              </span>\r\n              <span className=\"text-body-sm text-fg-default\">\r\n                {detalhe.meta.frente}\r\n              </span>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Descrição\r\n              </span>\r\n              <p className=\"text-body-sm leading-relaxed text-fg-muted\">\r\n                {detalhe.meta.descricao}\r\n              </p>\r\n            </div>\r\n          </div>\r\n        ) : null}\r\n      </FloatingPanel>\r\n\r\n      {/*\r\n        Drawer de nova tarefa. `FormFieldInput`/`FormFieldSelect` do DS e não\r\n        `<label>` + `<input>` na unha — L-023: label solta divergia em peso e em\r\n        cor no dark, silenciosamente.\r\n      */}\r\n      <FloatingPanel\r\n        open={novo !== null}\r\n        onOpenChange={(aberto) => {\r\n          if (!aberto) setNovo(null);\r\n        }}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title=\"Nova tarefa\"\r\n        /*\r\n          O subtítulo diz o PERÍODO, não só o começo: o campo de duração está\r\n          logo abaixo e o usuário mexe nele: ver o fim se mover é o retorno\r\n          imediato de que a conta é inclusiva.\r\n        */\r\n        description={\r\n          novo && fimNovo\r\n            ? `${format(novo.dia, \"dd 'de' MMM\", { locale: ptBR })} → ${format(\r\n                fimNovo,\r\n                \"dd 'de' MMM 'de' yyyy\",\r\n                { locale: ptBR },\r\n              )} · ${duracaoNova} ${duracaoNova === 1 ? \"dia\" : \"dias\"}`\r\n            : undefined\r\n        }\r\n        footer={\r\n          <div className=\"flex w-full items-center justify-end gap-gp-md\">\r\n            <Button variant=\"ghost\" color=\"secondary\" size=\"md\" onClick={() => setNovo(null)}>\r\n              Cancelar\r\n            </Button>\r\n            <Button\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              // Nome vazio não cria: o rótulo é a única coisa que a linha\r\n              // mostra na grade, e uma tarefa sem nome é uma linha em branco.\r\n              disabled={!novo?.nome.trim()}\r\n              onClick={() => {\r\n                if (!novo?.nome.trim() || !fimNovo) return;\r\n                const id = `nova-${novo.dia.getTime()}`;\r\n                setRows((atuais) => [\r\n                  ...atuais,\r\n                  {\r\n                    id,\r\n                    label: novo.nome.trim(),\r\n                    sublabel: PESSOAS[novo.responsavel],\r\n                    parent: \"f3\",\r\n                    bars: [\r\n                      {\r\n                        id: `${id}-b`,\r\n                        label: novo.nome.trim(),\r\n                        start: novo.dia,\r\n                        end: fimNovo,\r\n                        colorKey: novo.cor as GanttRow[\"bars\"][number][\"colorKey\"],\r\n                        meta: {\r\n                          responsavel: novo.responsavel,\r\n                          frente: novo.frente,\r\n                          // A descrição digitada alimenta o painel de detalhe,\r\n                          // que já a renderiza — sem ela o campo seria enfeite.\r\n                          descricao:\r\n                            novo.descricao.trim() ||\r\n                            `Sem descrição · ${duracaoNova} dia(s).`,\r\n                        } satisfies Meta,\r\n                      },\r\n                    ],\r\n                  },\r\n                ]);\r\n                setNovo(null);\r\n              }}\r\n            >\r\n              Criar tarefa\r\n            </Button>\r\n          </div>\r\n        }\r\n      >\r\n        {novo ? (\r\n          <div className=\"flex flex-col gap-form-gap\">\r\n            <FormFieldInput\r\n              label=\"Nome da tarefa\"\r\n              placeholder=\"Ex.: Revisar contrato de integração\"\r\n              value={novo.nome}\r\n              onChange={(e) => setNovo({ ...novo, nome: e.target.value })}\r\n            />\r\n\r\n            <div className=\"grid grid-cols-2 gap-form-gap\">\r\n              {/*\r\n                A data é CAMPO porque o drawer tem duas portas: o \"+\" da grade\r\n                sabe o dia, o \"Nova tarefa\" da toolbar não.\r\n\r\n                ⚠️ `value` e `onChange` passam por `yyyy-MM-dd`, e o parse é na\r\n                mão: `new Date(\"2026-09-30\")` é lido como UTC e volta um dia em\r\n                UTC−3 — o mesmo defeito que o filtro de período já teve aqui.\r\n                `new Date(a, m - 1, d)` é meia-noite LOCAL.\r\n              */}\r\n              <FormFieldInput\r\n                label=\"Início\"\r\n                type=\"date\"\r\n                value={format(novo.dia, \"yyyy-MM-dd\")}\r\n                onChange={(e) => {\r\n                  const [a, m, d] = e.target.value.split(\"-\").map(Number);\r\n                  if (!a || !m || !d) return;\r\n                  setNovo({ ...novo, dia: new Date(a, m - 1, d) });\r\n                }}\r\n              />\r\n              <FormFieldInput\r\n                label=\"Duração (dias)\"\r\n                type=\"number\"\r\n                min={1}\r\n                value={novo.dias}\r\n                onChange={(e) => setNovo({ ...novo, dias: e.target.value })}\r\n              />\r\n            </div>\r\n\r\n            <div className=\"grid grid-cols-2 gap-form-gap\">\r\n              <FormFieldSelect\r\n                label=\"Frente (cor)\"\r\n                options={CORES_DISPONIVEIS.map((c) => ({\r\n                  value: c.value,\r\n                  label: c.label,\r\n                }))}\r\n                value={novo.cor}\r\n                onValueChange={(v) =>\r\n                  setNovo({\r\n                    ...novo,\r\n                    cor: v,\r\n                    // A frente do filtro acompanha a cor escolhida: as duas\r\n                    // dizem a mesma coisa, e deixá-las divergir faria a tarefa\r\n                    // nova sumir ao filtrar pela frente que ela aparenta ser.\r\n                    frente:\r\n                      CORES_DISPONIVEIS.find((c) => c.value === v)?.label.toLowerCase() ??\r\n                      novo.frente,\r\n                  })\r\n                }\r\n              />\r\n              <FormFieldSelect\r\n                label=\"Responsável\"\r\n                options={Object.entries(PESSOAS).map(([value, label]) => ({\r\n                  value,\r\n                  label,\r\n                }))}\r\n                value={novo.responsavel}\r\n                onValueChange={(v) => setNovo({ ...novo, responsavel: v })}\r\n              />\r\n            </div>\r\n\r\n            <FormFieldTextarea\r\n              label=\"Descrição\"\r\n              placeholder=\"O que precisa acontecer, e o que trava se não acontecer\"\r\n              rows={3}\r\n              helperText=\"Aparece no painel de detalhe, ao clicar na tarefa.\"\r\n              value={novo.descricao}\r\n              onChange={(e) => setNovo({ ...novo, descricao: e.target.value })}\r\n            />\r\n\r\n            {/*\r\n              A prévia é o SEGMENTO REAL da grade de mês.\r\n\r\n              `ganttDaySegment` é o mesmo `tv()` que a visão `calendar` usa pra\r\n              desenhar a pílula — mesmo ponto de cor, mesmo tingimento do\r\n              `colorKey`, mesma altura de 18px. Antes aqui havia um `Chip`\r\n              neutro com o NOME da frente escrito dentro: não tinha a cor que a\r\n              escolha produz e não tinha a forma que a grade mostra, então\r\n              prometia uma coisa e entregava outra.\r\n\r\n              Desenhar a pílula na mão daria o mesmo defeito com um passo a\r\n              mais: duas definições da mesma coisa, divergindo na primeira vez\r\n              que uma das duas mudasse.\r\n\r\n              O `relative w-full` neutraliza o `absolute` do slot — na grade ele\r\n              é posicionado por `left`/`top` dentro da semana; aqui, não.\r\n            */}\r\n            <div className=\"flex flex-col gap-gp-md\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Prévia na grade de mês\r\n              </span>\r\n              <div className=\"rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl\">\r\n                <div className={previaDoSegmento.root({ class: \"relative w-full\" })}>\r\n                  <span className={previaDoSegmento.dot()} aria-hidden />\r\n                  <span className={previaDoSegmento.label()}>\r\n                    {novo.nome.trim() || \"Nova tarefa\"}\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        ) : null}\r\n      </FloatingPanel>\r\n    </div>\r\n  );\r\n}\r\n",
+        "content": "/**\r\n * Cronograma de projeto — a tela completa, extraída do showcase do DS (L-034).\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * **O que ligar ao seu estado:** `rows` e `links` são estado DESTA tela, e é\r\n * de propósito. O `Gantt` é *dumb* sobre mutação: arrastar emite `onBarMove`,\r\n * vínculo violado emite `onLinkViolations` — **nada se move sozinho**. Troque\r\n * os `useState` por dados do servidor e mantenha os handlers aplicando; se\r\n * você ligar `draggable`/`resizable` sem handler que aplique, o usuário\r\n * arrasta e vê a barra **voltar**.\r\n *\r\n * **O que trocar primeiro:** `_gantt-data.tsx` — linhas, vínculos, colunas e\r\n * filtros. O resto da tela não muda.\r\n *\r\n * **O que remover se não servir:** o `FloatingPanel` de detalhe e o drawer de\r\n * nova tarefa são **da tela**, não do componente. O `Gantt` só emite\r\n * `onBarClick` e `onDayAdd` e devolve o payload intacto — quem decide que\r\n * campos existem é você.\r\n *\r\n * **O que NÃO mexer:** a divisão entre `colorKey` (categoria — qual frente) e\r\n * `row.trailing` (status, como `Chip`). Cor por status quebra a leitura que o\r\n * componente foi desenhado pra dar.\r\n *\r\n * ⚠️ **O pai precisa ter ALTURA.** O componente é `h-full`; sem altura no pai\r\n * você vê só a toolbar.\r\n *\r\n * ⚠️ Se os dados vêm do servidor, passe **`loading`**. Sem ele, `rows={[]}`\r\n * durante o fetch afirma \"Nenhuma tarefa neste período\" — o componente não tem\r\n * como saber que isso é verdade.\r\n */\r\n\r\nimport { useMemo, useState } from \"react\";\r\nimport { ptBR } from \"date-fns/locale\";\r\nimport { addDays, format, startOfDay } from \"date-fns\";\r\nimport { Plus } from \"lucide-react\";\r\nimport { Gantt, ganttDaySegment } from \"@/components/ui/Gantt\";\r\nimport type {\r\n  GanttBarChange,\r\n  GanttColorKey,\r\n  GanttColumn,\r\n  GanttFilterField,\r\n  GanttLink,\r\n  GanttLinkViolation,\r\n  GanttRow,\r\n} from \"@/components/ui/Gantt\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\nimport { FloatingPanel } from \"@/components/ui/FloatingPanel\";\r\nimport { PageHeader } from \"@/components/ui/PageHeader\";\r\nimport {\r\n  FormFieldInput,\r\n  FormFieldSelect,\r\n  FormFieldTextarea,\r\n} from \"@/components/ui/FormField\";\r\nimport {\r\n  COLUNAS,\r\n  CORES_DISPONIVEIS,\r\n  FILTROS,\r\n  LINKS_SEMENTE,\r\n  PESSOAS,\r\n  ROWS_SEMENTE,\r\n  hoje,\r\n  iniciais,\r\n  type Meta,\r\n} from \"./_gantt-data\";\r\n\r\nexport function GanttScreen() {\r\n\r\n  /**\r\n   * ⚠️ As linhas e os vínculos são ESTADO DA TELA, e isso é o ponto do exemplo.\r\n   *\r\n   * O `Gantt` é dumb sobre mutação: arrastar emite `onBarMove`, e quem reescreve\r\n   * as datas é o consumidor. Um exemplo com `rows` constante ligaria\r\n   * `draggable` e o usuário arrastaria pra ver a barra **voltar** — que é\r\n   * exatamente o que o JSDoc de `draggable` avisa que acontece sem handler.\r\n   *\r\n   * Aqui a tela aplica de verdade, e é por isso que o gesto pode ser verificado.\r\n   */\r\n  const [rows, setRows] = useState<GanttRow[]>(ROWS_SEMENTE);\r\n\r\n  /**\r\n   * O drawer de \"nova tarefa\" — e ele é DA TELA, não do componente.\r\n   *\r\n   * O `Gantt` emite `onDayAdd(dia)` e para aí. Quem decide que campos existem,\r\n   * que cores são oferecidas e o que acontece no salvar é o consumidor — mesma\r\n   * divisão do painel de detalhe (`onBarClick` devolve o payload e a tela\r\n   * desenha a ficha).\r\n   *\r\n   * ⚠️ A versão anterior criava a tarefa DIRETO no clique do \"+\", com nome e\r\n   * cor chutados. Estava errado por dois motivos: o usuário não escolhia nada, e\r\n   * o exemplo ensinava que `onDayAdd` é \"adicione isto\" quando ele é \"o usuário\r\n   * pediu pra adicionar aqui\".\r\n   */\r\n  const [novo, setNovo] = useState<{\r\n    dia: Date;\r\n    nome: string;\r\n    dias: string;\r\n    cor: string;\r\n    responsavel: string;\r\n    frente: string;\r\n    descricao: string;\r\n  } | null>(null);\r\n\r\n  /**\r\n   * Abre o drawer num dia — DUAS portas, um formulário só.\r\n   *\r\n   * O \"+\" da célula sabe o dia (o usuário apontou pra ele); o \"Nova tarefa\" da\r\n   * toolbar não sabe, e abre em `hoje`. Por isso a data virou CAMPO em vez de\r\n   * ficar só no subtítulo: sem ela, a porta da toolbar criaria tudo no mesmo dia\r\n   * sem o usuário poder corrigir.\r\n   */\r\n  const abrirNovaTarefa = (dia: Date) =>\r\n    setNovo({\r\n      dia,\r\n      nome: \"\",\r\n      dias: \"3\",\r\n      cor: \"chart-2\",\r\n      responsavel: \"ana\",\r\n      frente: \"integração\",\r\n      descricao: \"\",\r\n    });\r\n  const [links, setLinks] = useState<GanttLink[]>(LINKS_SEMENTE);\r\n\r\n  /**\r\n   * Duração, fim e estilo da prévia — derivados do formulário.\r\n   *\r\n   * `fim` usa `duracao - 1` porque `end` é INCLUSIVO no `Gantt`: 3 dias a\r\n   * partir do dia 10 terminam no 12, não no 13. É a mesma conta do salvar, e\r\n   * está aqui pra ser UMA — se o subtítulo dissesse um fim e o salvar gravasse\r\n   * outro, o usuário só descobriria depois de criar (L-038).\r\n   */\r\n  const duracaoNova = Math.max(1, Number(novo?.dias) || 1);\r\n  const fimNovo = novo ? addDays(novo.dia, duracaoNova - 1) : null;\r\n  const previaDoSegmento = ganttDaySegment({\r\n    colorKey: (novo?.cor ?? \"chart-1\") as GanttColorKey,\r\n  });\r\n\r\n  /** Reescreve as datas de UMA barra, preservando o resto da linha. */\r\n  const aplicarMudanca = ({ bar, start, end }: GanttBarChange) =>\r\n    setRows((atuais) =>\r\n      atuais.map((r) =>\r\n        r.bars.some((b) => b.id === bar.id)\r\n          ? {\r\n              ...r,\r\n              bars: r.bars.map((b) =>\r\n                b.id === bar.id ? { ...b, start, end } : b,\r\n              ),\r\n            }\r\n          : r,\r\n      ),\r\n    );\r\n  const [detalhe, setDetalhe] = useState<{\r\n    titulo: string;\r\n    meta: Meta;\r\n    inicio: Date;\r\n    fim: Date;\r\n  } | null>(null);\r\n  const [violacoes, setViolacoes] = useState<GanttLinkViolation[]>([]);\r\n\r\n  const rodape = useMemo(() => {\r\n    if (violacoes.length === 0) return null;\r\n    const total = violacoes.reduce((s, v) => s + v.deficitDays, 0);\r\n    return `${violacoes.length} vínculo(s) em conflito · ${total} dia(s) de déficit`;\r\n  }, [violacoes]);\r\n\r\n  return (\r\n    <div className=\"flex h-full min-h-0 flex-col gap-gp-2xl\">\r\n      {/*\r\n        `PageHeader` e não um `<h1>` na unha — é o que `mapa-rede`, `finance` e\r\n        `order-detail` usam, e título de tela é decisão do DS, não de cada\r\n        exemplo. O contador de conflito entra como `badge` porque ele qualifica\r\n        a tela inteira; `Recolher`/`Expandir` são `actions` porque operam nela.\r\n      */}\r\n      <PageHeader\r\n        title=\"Implantação do portal de operação\"\r\n        description=\"20 linhas · 4 níveis · 16 vínculos dos 4 tipos · 2 conflitos de prazo. Arraste uma barra pra ver o conflito e o caminho crítico recalcularem no mesmo gesto.\"\r\n        badge={\r\n          rodape ? (\r\n            <Chip size=\"sm\" variant=\"soft\" color=\"danger\" shape=\"rounded\">\r\n              {rodape}\r\n            </Chip>\r\n          ) : undefined\r\n        }\r\n      />\r\n\r\n      {/*\r\n        `min-h-0` no wrapper é o que faz o Gantt receber a altura restante em vez\r\n        de estourar a página. Sem isso, `h-full` num filho de flex-col resolve\r\n        contra `auto` e o componente cresce indefinidamente.\r\n      */}\r\n      <div className=\"flex min-h-0 flex-1 flex-col\">\r\n        <Gantt\r\n          rows={rows}\r\n          links={links}\r\n          draggable\r\n          resizable\r\n          linkable\r\n          onBarMove={aplicarMudanca}\r\n          onBarResize={aplicarMudanca}\r\n          onLinkCreate={(novo) =>\r\n            setLinks((atuais) => [\r\n              ...atuais,\r\n              // O id é do CONSUMIDOR — o componente emite a intenção sem id\r\n              // justamente porque não sabe como você os gera.\r\n              { ...novo, id: `l-${novo.source}-${novo.target}-${atuais.length}` },\r\n            ])\r\n          }\r\n          /*\r\n            O \"+\" da célula do calendário ABRE O DRAWER — não cria nada.\r\n\r\n            Sem handler o \"+\" nem renderiza; com ele, o componente diz \"o\r\n            usuário pediu pra adicionar no dia X\" e a tela decide o resto.\r\n          */\r\n          onDayAdd={abrirNovaTarefa}\r\n          onLinkDelete={(alvo) =>\r\n            setLinks((atuais) => atuais.filter((l) => l.id !== alvo.id))\r\n          }\r\n          columns={COLUNAS}\r\n          filterFields={FILTROS}\r\n          searchable\r\n          criticalPath\r\n          criticalPathToggle={false}\r\n          locale={ptBR}\r\n          now={hoje}\r\n          gridWidth={460}\r\n          onLinkViolations={setViolacoes}\r\n          onGraphError={({ barIds }) =>\r\n            window.alert(`Ciclo no grafo: ${barIds.join(\", \")}`)\r\n          }\r\n          onBarClick={(bar, row) => {\r\n            const meta = bar.meta as Meta | undefined;\r\n            if (!meta) return;\r\n            setDetalhe({\r\n              titulo: typeof row.label === \"string\" ? row.label : bar.id,\r\n              meta,\r\n              inicio: bar.start,\r\n              fim: bar.end,\r\n            });\r\n          }}\r\n          /*\r\n            A ação primária abre o MESMO drawer do \"+\" da grade de mês.\r\n\r\n            Duas portas pra criar tarefa com dois formulários diferentes é o\r\n            defeito clássico de tela de cadastro: o usuário aprende um e\r\n            encontra o outro. A única diferença entre as portas é o dia em que\r\n            o formulário abre — e o dia é campo, então dá pra mudar nas duas.\r\n          */\r\n          primaryAction={\r\n            <Button\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              iconLeft={<Plus />}\r\n              onClick={() => abrirNovaTarefa(hoje)}\r\n            >\r\n              Nova tarefa\r\n            </Button>\r\n          }\r\n        />\r\n      </div>\r\n\r\n      {/*\r\n        O painel de detalhe é da TELA, não do componente — o `Gantt` só emite\r\n        `onBarClick` e devolve `bar.meta` intacto. Mesma divisão do `Scheduler`.\r\n      */}\r\n      <FloatingPanel\r\n        open={detalhe !== null}\r\n        onOpenChange={(aberto) => {\r\n          if (!aberto) setDetalhe(null);\r\n        }}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title={detalhe?.titulo ?? \"\"}\r\n        description={\r\n          detalhe\r\n            ? `${format(detalhe.inicio, \"dd/MM/yyyy\", { locale: ptBR })} → ${format(detalhe.fim, \"dd/MM/yyyy\", { locale: ptBR })}`\r\n            : undefined\r\n        }\r\n      >\r\n        {detalhe ? (\r\n          <div className=\"flex flex-col gap-gp-2xl\">\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Responsável\r\n              </span>\r\n              <div className=\"flex items-center gap-gp-md\">\r\n                <Avatar\r\n                  size=\"sm\"\r\n                  color=\"brand\"\r\n                  aria-label={PESSOAS[detalhe.meta.responsavel]}\r\n                >\r\n                  {iniciais(PESSOAS[detalhe.meta.responsavel])}\r\n                </Avatar>\r\n                <span className=\"text-body-sm text-fg-default\">\r\n                  {PESSOAS[detalhe.meta.responsavel]}\r\n                </span>\r\n              </div>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Frente\r\n              </span>\r\n              <span className=\"text-body-sm text-fg-default\">\r\n                {detalhe.meta.frente}\r\n              </span>\r\n            </div>\r\n\r\n            <div className=\"flex flex-col gap-gp-sm\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Descrição\r\n              </span>\r\n              <p className=\"text-body-sm leading-relaxed text-fg-muted\">\r\n                {detalhe.meta.descricao}\r\n              </p>\r\n            </div>\r\n          </div>\r\n        ) : null}\r\n      </FloatingPanel>\r\n\r\n      {/*\r\n        Drawer de nova tarefa. `FormFieldInput`/`FormFieldSelect` do DS e não\r\n        `<label>` + `<input>` na unha — L-023: label solta divergia em peso e em\r\n        cor no dark, silenciosamente.\r\n      */}\r\n      <FloatingPanel\r\n        open={novo !== null}\r\n        onOpenChange={(aberto) => {\r\n          if (!aberto) setNovo(null);\r\n        }}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title=\"Nova tarefa\"\r\n        /*\r\n          O subtítulo diz o PERÍODO, não só o começo: o campo de duração está\r\n          logo abaixo e o usuário mexe nele: ver o fim se mover é o retorno\r\n          imediato de que a conta é inclusiva.\r\n        */\r\n        description={\r\n          novo && fimNovo\r\n            ? `${format(novo.dia, \"dd 'de' MMM\", { locale: ptBR })} → ${format(\r\n                fimNovo,\r\n                \"dd 'de' MMM 'de' yyyy\",\r\n                { locale: ptBR },\r\n              )} · ${duracaoNova} ${duracaoNova === 1 ? \"dia\" : \"dias\"}`\r\n            : undefined\r\n        }\r\n        footer={\r\n          <div className=\"flex w-full items-center justify-end gap-gp-md\">\r\n            <Button variant=\"ghost\" color=\"secondary\" size=\"md\" onClick={() => setNovo(null)}>\r\n              Cancelar\r\n            </Button>\r\n            <Button\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              // Nome vazio não cria: o rótulo é a única coisa que a linha\r\n              // mostra na grade, e uma tarefa sem nome é uma linha em branco.\r\n              disabled={!novo?.nome.trim()}\r\n              onClick={() => {\r\n                if (!novo?.nome.trim() || !fimNovo) return;\r\n                const id = `nova-${novo.dia.getTime()}`;\r\n                setRows((atuais) => [\r\n                  ...atuais,\r\n                  {\r\n                    id,\r\n                    label: novo.nome.trim(),\r\n                    sublabel: PESSOAS[novo.responsavel],\r\n                    parent: \"f3\",\r\n                    bars: [\r\n                      {\r\n                        id: `${id}-b`,\r\n                        label: novo.nome.trim(),\r\n                        start: novo.dia,\r\n                        end: fimNovo,\r\n                        colorKey: novo.cor as GanttRow[\"bars\"][number][\"colorKey\"],\r\n                        meta: {\r\n                          responsavel: novo.responsavel,\r\n                          frente: novo.frente,\r\n                          // A descrição digitada alimenta o painel de detalhe,\r\n                          // que já a renderiza — sem ela o campo seria enfeite.\r\n                          descricao:\r\n                            novo.descricao.trim() ||\r\n                            `Sem descrição · ${duracaoNova} dia(s).`,\r\n                        } satisfies Meta,\r\n                      },\r\n                    ],\r\n                  },\r\n                ]);\r\n                setNovo(null);\r\n              }}\r\n            >\r\n              Criar tarefa\r\n            </Button>\r\n          </div>\r\n        }\r\n      >\r\n        {novo ? (\r\n          <div className=\"flex flex-col gap-form-gap\">\r\n            <FormFieldInput\r\n              label=\"Nome da tarefa\"\r\n              placeholder=\"Ex.: Revisar contrato de integração\"\r\n              value={novo.nome}\r\n              onChange={(e) => setNovo({ ...novo, nome: e.target.value })}\r\n            />\r\n\r\n            <div className=\"grid grid-cols-2 gap-form-gap\">\r\n              {/*\r\n                A data é CAMPO porque o drawer tem duas portas: o \"+\" da grade\r\n                sabe o dia, o \"Nova tarefa\" da toolbar não.\r\n\r\n                ⚠️ `value` e `onChange` passam por `yyyy-MM-dd`, e o parse é na\r\n                mão: `new Date(\"2026-09-30\")` é lido como UTC e volta um dia em\r\n                UTC−3 — o mesmo defeito que o filtro de período já teve aqui.\r\n                `new Date(a, m - 1, d)` é meia-noite LOCAL.\r\n              */}\r\n              <FormFieldInput\r\n                label=\"Início\"\r\n                type=\"date\"\r\n                value={format(novo.dia, \"yyyy-MM-dd\")}\r\n                onChange={(e) => {\r\n                  const [a, m, d] = e.target.value.split(\"-\").map(Number);\r\n                  if (!a || !m || !d) return;\r\n                  setNovo({ ...novo, dia: new Date(a, m - 1, d) });\r\n                }}\r\n              />\r\n              <FormFieldInput\r\n                label=\"Duração (dias)\"\r\n                type=\"number\"\r\n                min={1}\r\n                value={novo.dias}\r\n                onChange={(e) => setNovo({ ...novo, dias: e.target.value })}\r\n              />\r\n            </div>\r\n\r\n            <div className=\"grid grid-cols-2 gap-form-gap\">\r\n              <FormFieldSelect\r\n                label=\"Frente (cor)\"\r\n                options={CORES_DISPONIVEIS.map((c) => ({\r\n                  value: c.value,\r\n                  label: c.label,\r\n                }))}\r\n                value={novo.cor}\r\n                onValueChange={(v) =>\r\n                  setNovo({\r\n                    ...novo,\r\n                    cor: v,\r\n                    // A frente do filtro acompanha a cor escolhida: as duas\r\n                    // dizem a mesma coisa, e deixá-las divergir faria a tarefa\r\n                    // nova sumir ao filtrar pela frente que ela aparenta ser.\r\n                    frente:\r\n                      CORES_DISPONIVEIS.find((c) => c.value === v)?.label.toLowerCase() ??\r\n                      novo.frente,\r\n                  })\r\n                }\r\n              />\r\n              <FormFieldSelect\r\n                label=\"Responsável\"\r\n                options={Object.entries(PESSOAS).map(([value, label]) => ({\r\n                  value,\r\n                  label,\r\n                }))}\r\n                value={novo.responsavel}\r\n                onValueChange={(v) => setNovo({ ...novo, responsavel: v })}\r\n              />\r\n            </div>\r\n\r\n            <FormFieldTextarea\r\n              label=\"Descrição\"\r\n              placeholder=\"O que precisa acontecer, e o que trava se não acontecer\"\r\n              rows={3}\r\n              helperText=\"Aparece no painel de detalhe, ao clicar na tarefa.\"\r\n              value={novo.descricao}\r\n              onChange={(e) => setNovo({ ...novo, descricao: e.target.value })}\r\n            />\r\n\r\n            {/*\r\n              A prévia é o SEGMENTO REAL da grade de mês.\r\n\r\n              `ganttDaySegment` é o mesmo `tv()` que a visão `calendar` usa pra\r\n              desenhar a pílula — mesmo ponto de cor, mesmo tingimento do\r\n              `colorKey`, mesma altura de 18px. Antes aqui havia um `Chip`\r\n              neutro com o NOME da frente escrito dentro: não tinha a cor que a\r\n              escolha produz e não tinha a forma que a grade mostra, então\r\n              prometia uma coisa e entregava outra.\r\n\r\n              Desenhar a pílula na mão daria o mesmo defeito com um passo a\r\n              mais: duas definições da mesma coisa, divergindo na primeira vez\r\n              que uma das duas mudasse.\r\n\r\n              O `relative w-full` neutraliza o `absolute` do slot — na grade ele\r\n              é posicionado por `left`/`top` dentro da semana; aqui, não.\r\n            */}\r\n            <div className=\"flex flex-col gap-gp-md\">\r\n              <span className=\"text-caption-md font-semibold uppercase text-fg-subtle\">\r\n                Prévia na grade de mês\r\n              </span>\r\n              <div className=\"rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl\">\r\n                <div className={previaDoSegmento.root({ class: \"relative w-full\" })}>\r\n                  <span className={previaDoSegmento.dot()} aria-hidden />\r\n                  <span className={previaDoSegmento.label()}>\r\n                    {novo.nome.trim() || \"Nova tarefa\"}\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        ) : null}\r\n      </FloatingPanel>\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "examples/gantt/gantt-screen.tsx"
       },
@@ -2765,7 +2765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-gantt · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-gantt · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2795,7 +2795,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-login · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-mapa-rede · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2933,7 +2933,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · example-order-detail · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -2983,7 +2983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · file-upload-field · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3051,7 +3051,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · floating-panel · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · footer-table · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · form-field · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3319,7 +3319,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · gantt · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3411,7 +3411,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · header · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3435,7 +3435,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · hover-card · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3488,7 +3488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · icon · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3512,7 +3512,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · input-group · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3537,7 +3537,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · input-otp · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3561,7 +3561,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · input · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3620,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · kanban · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3682,7 +3682,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · kpi · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3707,7 +3707,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · label · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3814,7 +3814,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · list · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · markdown-text · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3970,7 +3970,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · menu-sidebar · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -3995,7 +3995,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · menubar · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4039,7 +4039,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · modal · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4088,7 +4088,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · month-year-picker · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4114,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · navigation-menu · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4161,7 +4161,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · page-header · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4186,7 +4186,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · pagination · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4261,7 +4261,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · panel · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4285,7 +4285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · popover · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4309,7 +4309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · progress · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4333,7 +4333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · radio-group · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4473,7 +4473,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · scheduler · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4521,7 +4521,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · screen-loader · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4545,7 +4545,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · scroll-area · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · select · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · separator · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4620,7 +4620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · sheet · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4733,7 +4733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4755,7 +4755,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · skeleton · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4779,7 +4779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · slider · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4802,7 +4802,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · sonner · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4848,7 +4848,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · spinner · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4872,7 +4872,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · switch · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -4951,7 +4951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · table · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5014,7 +5014,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · tabs-navigation · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5038,7 +5038,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · tabs · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5062,7 +5062,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · textarea · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5080,7 +5080,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · theme-blue · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5098,7 +5098,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · theme-green · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5116,7 +5116,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · theme-pay · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5134,7 +5134,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · theme-vibrant · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5156,7 +5156,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · theme · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5207,7 +5207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · toast · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5233,7 +5233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · toggle-group · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5258,7 +5258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · toggle · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5282,7 +5282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · tooltip · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:ui"
   },
@@ -5303,7 +5303,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · tv · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   },
@@ -5325,7 +5325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.60.0 · 530fb6f · 2026-09-05"
+      "stamp": "igreen-ds · utils · v0.60.0 · eca20d2 · 2026-09-05"
     },
     "type": "registry:file"
   }

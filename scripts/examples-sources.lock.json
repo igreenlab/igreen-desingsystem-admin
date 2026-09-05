@@ -29,6 +29,6 @@
   },
   "gantt": {
     "source": "src/preview/pages/GanttFullPreview.tsx",
-    "hash": "132f241b29a96f467435f50afbb10adad0ff336caf8132b3ced5238a42cd174d"
+    "hash": "4a30818fed0369ea5cbb46f954ff253932ced21bef606806c6ffd2120343d70a"
   }
 }
