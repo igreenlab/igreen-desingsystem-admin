@@ -89,6 +89,48 @@ describe("Gantt — escala: valor + callback", () => {
   });
 });
 
+/**
+ * `views` recorta o que EXISTE; `view` diz qual está aberta.
+ *
+ * Sem isto não havia como pedir "só o cronograma": as três visões eram fixas no
+ * `VIEW_ITEMS` da toolbar, e a única saída do consumidor era passar `view` — que
+ * escolhe a inicial e deixa o seletor lá, oferecendo as outras duas.
+ */
+describe("Gantt — `views` recorta o que existe", () => {
+  const seletor = () => screen.queryByRole("radiogroup", { name: /visualiza/i });
+
+  it("omitido, as três aparecem", () => {
+    render(<Gantt rows={ROWS} />);
+    expect(within(seletor()!).getAllByRole("radio")).toHaveLength(3);
+  });
+
+  it("com duas, só as duas — e o seletor continua", () => {
+    render(<Gantt rows={ROWS} views={["timeline", "calendar"]} />);
+    const opcoes = within(seletor()!).getAllByRole("radio");
+    expect(opcoes.map((o) => o.getAttribute("aria-label"))).toEqual([
+      "Cronograma",
+      "Calendário",
+    ]);
+  });
+
+  it("com UMA, o seletor não é renderizado — não há escolha a oferecer", () => {
+    render(<Gantt rows={ROWS} views={["timeline"]} />);
+    expect(seletor()).toBeNull();
+  });
+
+  it("`views` vence `view`: pedir a excluída abre a primeira permitida", () => {
+    render(<Gantt rows={ROWS} view="list" views={["timeline"]} />);
+    // A escala só existe na timeline — se abriu nela, o dropdown está lá.
+    expect(gatilhoDaEscala()).toBeTruthy();
+    expect(seletor()).toBeNull();
+  });
+
+  it("lista vazia é tratada como omitida — zero visões não renderiza nada", () => {
+    render(<Gantt rows={ROWS} views={[]} />);
+    expect(within(seletor()!).getAllByRole("radio")).toHaveLength(3);
+  });
+});
+
 describe("Gantt — caminho crítico: valor + callback", () => {
   const alvo = () => screen.getByRole("button", { name: /crítico/i });
 

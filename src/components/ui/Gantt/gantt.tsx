@@ -59,6 +59,7 @@ import type {
   GanttFilterModel,
   GanttProps,
   GanttRef,
+  GanttView,
 } from "./gantt.types";
 
 /**
@@ -84,6 +85,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     rows,
     links = [],
     view: viewProp,
+    views,
     onViewChange,
     windowStart: wsProp,
     windowEnd: weProp,
@@ -130,7 +132,25 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
 ) {
   /* ── estado local só onde a prop não controla ─────────────────── */
   const [viewLocal, setViewLocal] = useState(viewProp ?? "timeline");
-  const view = viewProp ?? viewLocal;
+  /**
+   * `views` recorta o que EXISTE; `view` diz qual está aberta.
+   *
+   * Quando a visão pedida não está na lista, abre a primeira permitida — ver
+   * a nota de `views` nos tipos. Lista vazia é tratada como omitida: zero
+   * visões renderizaria um componente sem conteúdo, e o consumidor que passou
+   * `[]` quase certamente quis dizer "todas".
+   */
+  const visoesDisponiveis = useMemo<GanttView[]>(
+    () =>
+      views && views.length > 0
+        ? views
+        : ["timeline", "calendar", "list"],
+    [views],
+  );
+  const viewPedida = viewProp ?? viewLocal;
+  const view = visoesDisponiveis.includes(viewPedida)
+    ? viewPedida
+    : visoesDisponiveis[0];
 
   const [granLocal, setGranLocal] = useState(granProp ?? "day");
   const granularity = granProp ?? granLocal;
@@ -613,6 +633,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
           });
         }}
         view={view}
+        views={visoesDisponiveis}
         /**
          * Controlado vence o local — e o callback dispara nos DOIS casos.
          *

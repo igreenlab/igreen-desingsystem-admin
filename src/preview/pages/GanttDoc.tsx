@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns";
-import { Plus } from "lucide-react";
+import { Download, MoreHorizontal, Plus, Printer } from "lucide-react";
 import { Gantt } from "@/components/ui/Gantt";
 import type {
   GanttColumn,
@@ -10,6 +10,12 @@ import type {
 } from "@/components/ui/Gantt";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/shadcn/dropdown-menu";
 import { DocLayout } from "../components/doc-layout";
 import { SectionH2 } from "../components/doc-section";
 import { ExampleSection } from "../components/doc-example";
@@ -29,6 +35,7 @@ const TOC = [
   { id: "cronograma", label: "Cronograma com vínculos" },
   { id: "portfolio", label: "Timeline de portfólio" },
   { id: "conflito", label: "Conflito e caminho crítico" },
+  { id: "toolbar", label: "Recortar visões e estender a toolbar" },
   { id: "api", label: "API" },
   { id: "decisoes", label: "Decisões" },
 ];
@@ -294,6 +301,11 @@ const PROPS = [
   { name: "rows", type: "GanttRow[] — { id, label, type?, parent?, bars[], lanePacking?, trailing? }", defaultVal: "—" },
   { name: "links", type: "GanttLink[] — { source, target, type?, lag? }. Ausente = sem setas", defaultVal: "—" },
   {
+    name: "views",
+    type: "GanttView[] — QUAIS visões existem (não qual está aberta). Com UMA, o seletor e o divisor não são renderizados. `views` vence `view`",
+    defaultVal: '["timeline", "calendar", "list"]',
+  },
+  {
     name: "view",
     type: '"timeline" | "calendar" | "list" — a `list` é AGENDA por dia, não tabela de tarefas',
     defaultVal: '"timeline"',
@@ -340,6 +352,32 @@ const PROPS = [
     defaultVal: "—",
   },
   { name: "onRowToggle", type: "(rowId, collapsed) => void", defaultVal: "—" },
+  {
+    name: "onLinkCreate / onLinkDelete",
+    type: "(link) => void — arrastar de um conector ao outro cria; clicar na seta remove. EMITE, não aplica",
+    defaultVal: "—",
+  },
+  { name: "onRowClick", type: "(row, evt) => void — clique na LINHA (a barra tem o seu próprio onBarClick)", defaultVal: "—" },
+  {
+    name: "toolbarActions",
+    type: "ReactNode — slot livre na toolbar, ANTES da ação primária. É aqui que vai o botão de opções (⋯), exportar, imprimir",
+    defaultVal: "—",
+  },
+  {
+    name: "primaryAction",
+    type: "ReactNode — a ação principal, no fim da toolbar. Em <md ela NÃO encolhe sozinha: passe icon-only",
+    defaultVal: "—",
+  },
+  {
+    name: "emptyState",
+    type: "ReactNode — substitui o vazio padrão (busca/filtro sem resultado)",
+    defaultVal: "ícone + texto",
+  },
+  {
+    name: "ref",
+    type: "GanttRef — imperativo: goToDate(date) · goToToday() · expandAll() · collapseAll()",
+    defaultVal: "—",
+  },
   { name: "now / locale / weekStartsOn", type: "injetáveis pra teste e i18n", defaultVal: "new Date() · — · 0" },
 ];
 
@@ -491,6 +529,74 @@ export function GanttDoc() {
           <code className="text-code-sm">onLinkViolations</code> reportou{" "}
           <strong className="text-fg-default">{violacoes}</strong> conflito(s).
         </p>
+      </ExampleSection>
+
+      <SectionH2 id="toolbar" title="Recortar visões e estender a toolbar" />
+
+      <ExampleSection
+        plain
+        id="ex-toolbar"
+        title="Nem todo cronograma quer as três visões"
+        description="`views` diz o que EXISTE (`view` diz o que está aberto). Aqui só a timeline é oferecida — e com uma visão só o seletor e o divisor não são renderizados, porque um segmentado de uma opção é um controle que nunca muda nada. A toolbar tem dois slots livres: `toolbarActions` entra ANTES da ação primária (é onde vai o ⋯ de opções, exportar, imprimir) e `primaryAction` fecha a barra. Os dois são ReactNode: quem decide o que são é você."
+        code={`<Gantt
+  rows={ROWS}
+  views={["timeline"]}          // só o cronograma; o seletor some
+  toolbarActions={
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" color="secondary" size="icon-md"
+                aria-label="Mais opções"><MoreHorizontal /></Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">…</DropdownMenuContent>
+    </DropdownMenu>
+  }
+  primaryAction={<Button iconLeft={<Plus />}>Nova tarefa</Button>}
+/>`}
+      >
+        <div className="flex h-[300px] w-full flex-col">
+          <Gantt
+            rows={CONFLITO}
+            links={CONFLITO_LINKS}
+            views={["timeline"]}
+            locale={ptBR}
+            now={agora}
+            windowStart={d(1)}
+            windowEnd={d(20)}
+            gridWidth={260}
+            searchable
+            toolbarActions={
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    color="secondary"
+                    size="icon-md"
+                    aria-label="Mais opções"
+                    title="Mais opções"
+                    className="shrink-0"
+                  >
+                    <MoreHorizontal />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    <Download />
+                    Exportar CSV
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Printer />
+                    Imprimir
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            }
+            primaryAction={
+              <Button variant="filled" size="md" iconLeft={<Plus />}>
+                Nova tarefa
+              </Button>
+            }
+          />
+        </div>
       </ExampleSection>
 
       <SectionH2 id="api" title="API — Gantt" />

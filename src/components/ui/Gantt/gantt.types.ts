@@ -363,6 +363,26 @@ export interface GanttProps {
   onViewChange?: (view: GanttView) => void;
 
   /**
+   * **Quais visões existem** — não qual está aberta (isso é `view`).
+   *
+   * Nem todo cronograma quer as três. Um painel de dependências não ganha
+   * nada com a agenda; uma tela de acompanhamento por mês pode não querer o
+   * eixo. Omitido, as três aparecem.
+   *
+   * ⚠️ **Com UMA visão o seletor não é renderizado** (nem o divisor ao lado
+   * dele). Um controle segmentado com uma opção só é um controle que nunca
+   * muda nada — a mesma regra do toggle de caminho crítico sem vínculo e do
+   * "+" da grade sem `onDayAdd`.
+   *
+   * ⚠️ **`views` vence `view`.** Passar `view="list"` com
+   * `views={["timeline"]}` abre a `timeline`: a lista diz o que EXISTE, e
+   * renderizar algo que o consumidor excluiu seria pior que corrigir.
+   *
+   * @default ["timeline", "calendar", "list"]
+   */
+  views?: GanttView[];
+
+  /**
    * **Janela visível, e ela é do consumidor.**
    *
    * O componente não navega sozinho — mesmo princípio do `Kanban` e da `Table`.

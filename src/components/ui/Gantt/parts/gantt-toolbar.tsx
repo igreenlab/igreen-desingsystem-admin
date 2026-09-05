@@ -134,6 +134,8 @@ export type GanttToolbarProps = {
   onToday: () => void;
 
   view: GanttView;
+  /** As visões que EXISTEM — já resolvidas pela raiz, nunca vazia. */
+  views: GanttView[];
   onViewChange: (v: GanttView) => void;
 
   granularity: GanttGranularity;
@@ -180,6 +182,7 @@ export function GanttToolbar({
   onNext,
   onToday,
   view,
+  views,
   onViewChange,
   granularity,
   onGranularityChange,
@@ -203,6 +206,15 @@ export function GanttToolbar({
   primaryAction,
 }: GanttToolbarProps) {
   const zoomAtivo = ZOOM_ITEMS.find((z) => z.value === granularity) ?? ZOOM_ITEMS[0];
+  const itensDeVisao = VIEW_ITEMS.filter((v) => views.includes(v.value));
+  /**
+   * Com uma visão só, nem o seletor nem o divisor aparecem.
+   *
+   * Segmentado de uma opção é um controle que nunca muda nada; e o divisor
+   * separa dois grupos — sem o da esquerda, ele vira um risco solto antes do
+   * título.
+   */
+  const mostraSeletorDeVisao = itensDeVisao.length > 1;
   const temFiltros = (filterFields?.length ?? 0) > 0;
   const filtroEngajado = appliedCount > 0;
 
@@ -225,31 +237,35 @@ export function GanttToolbar({
           opções mutuamente exclusivas de um conjunto, não toggles
           independentes.
         */}
-        <div
-          role="radiogroup"
-          aria-label="Visualização"
-          className={ganttViewSwitch()}
-        >
-          {VIEW_ITEMS.map((v) => {
-            const ativa = v.value === view;
-            return (
-              <button
-                key={v.value}
-                type="button"
-                role="radio"
-                aria-checked={ativa}
-                aria-label={v.label}
-                title={v.label}
-                onClick={() => onViewChange(v.value)}
-                className={ganttViewSwitchButton({ isActive: ativa })}
-              >
-                {v.icon}
-              </button>
-            );
-          })}
-        </div>
+        {mostraSeletorDeVisao ? (
+          <>
+            <div
+              role="radiogroup"
+              aria-label="Visualização"
+              className={ganttViewSwitch()}
+            >
+              {itensDeVisao.map((v) => {
+                const ativa = v.value === view;
+                return (
+                  <button
+                    key={v.value}
+                    type="button"
+                    role="radio"
+                    aria-checked={ativa}
+                    aria-label={v.label}
+                    title={v.label}
+                    onClick={() => onViewChange(v.value)}
+                    className={ganttViewSwitchButton({ isActive: ativa })}
+                  >
+                    {v.icon}
+                  </button>
+                );
+              })}
+            </div>
 
-        <span className={ganttToolbarDivider()} aria-hidden />
+            <span className={ganttToolbarDivider()} aria-hidden />
+          </>
+        ) : null}
 
         {/*
           O CONTROLE vem antes do RÓTULO: `‹ Hoje ›` e só depois
@@ -319,6 +335,7 @@ export function GanttToolbar({
         */}
         <GanttMobileMenu
           view={view}
+          views={views}
           onViewChange={onViewChange}
           granularity={granularity}
           onGranularityChange={onGranularityChange}
@@ -537,6 +554,7 @@ export function GanttToolbar({
  */
 function GanttMobileMenu({
   view,
+  views,
   onViewChange,
   granularity,
   onGranularityChange,
@@ -550,6 +568,7 @@ function GanttMobileMenu({
 }: Pick<
   GanttToolbarProps,
   | "view"
+  | "views"
   | "onViewChange"
   | "granularity"
   | "onGranularityChange"
@@ -563,6 +582,8 @@ function GanttMobileMenu({
 >) {
   const estilos = ganttMobileMenu();
   const mostraCritico = hasLinks && showCriticalToggle;
+  // Mesmo recorte da barra: com uma visão só, a seção não tem escolha a oferecer.
+  const itensDeVisao = VIEW_ITEMS.filter((v) => views.includes(v.value));
 
   return (
     <Popover>
@@ -628,22 +649,26 @@ function GanttMobileMenu({
           </div>
         </div>
 
-        <div className={estilos.separator()} />
-        <div className={estilos.label()}>Visualização</div>
-        {VIEW_ITEMS.map((v) => (
-          <button
-            key={v.value}
-            type="button"
-            role="radio"
-            aria-checked={v.value === view}
-            onClick={() => onViewChange(v.value)}
-            className={estilos.item({ active: v.value === view })}
-          >
-            {v.icon}
-            <span className="flex-1 truncate">{v.label}</span>
-            {v.value === view ? <Check strokeWidth={2.2} /> : null}
-          </button>
-        ))}
+        {itensDeVisao.length > 1 ? (
+          <>
+            <div className={estilos.separator()} />
+            <div className={estilos.label()}>Visualização</div>
+            {itensDeVisao.map((v) => (
+              <button
+                key={v.value}
+                type="button"
+                role="radio"
+                aria-checked={v.value === view}
+                onClick={() => onViewChange(v.value)}
+                className={estilos.item({ active: v.value === view })}
+              >
+                {v.icon}
+                <span className="flex-1 truncate">{v.label}</span>
+                {v.value === view ? <Check strokeWidth={2.2} /> : null}
+              </button>
+            ))}
+          </>
+        ) : null}
 
         {view === "timeline" ? (
           <>

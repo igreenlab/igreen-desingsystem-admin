@@ -51,7 +51,10 @@ import type { GanttRow, GanttLink, GanttColumn } from "@/components/ui/Gantt";
 |---|---|---|
 | `rows` | `GanttRow[]` | — |
 | `links` | `GanttLink[]` — ausente = sem setas | — |
-| `view` | `"timeline" \| "calendar" \| "list"` | `"timeline"` |
+| `views` | `GanttView[]` — **quais visões existem** | as três |
+| `view` | `"timeline" \| "calendar" \| "list"` — qual está **aberta** | `"timeline"` |
+| `toolbarActions` / `primaryAction` | `ReactNode` — os dois slots livres da toolbar | — |
+| `emptyState` | `ReactNode` — substitui o vazio de busca/filtro | ícone + texto |
 | `windowStart` / `windowEnd` | `Date` — **do consumidor** | derivada dos dados |
 | `granularity` | `"day" \| "week" \| "month" \| "quarter"` | `"day"` |
 | `onViewChange` / `onGranularityChange` / `onCriticalPathChange` | os pares dos três estados de UI — ver abaixo | — |
@@ -316,6 +319,65 @@ toggle de crítico sem vínculo.
 ⚠️ A escala **não é resetada** ao esconder: voltando pra timeline, o zoom que
 estava selecionado continua. Zerar faria trocar de visão e voltar perder trabalho
 do usuário.
+
+### Recortar as visões — `views` ≠ `view`
+
+`views` diz **o que existe**; `view` diz **o que está aberto**. Nem todo
+cronograma quer as três: um painel de dependências não ganha nada com a agenda,
+uma tela de acompanhamento mensal pode não querer o eixo.
+
+```tsx
+<Gantt rows={ROWS} views={["timeline"]} />              // só o cronograma
+<Gantt rows={ROWS} views={["calendar", "list"]} />      // sem eixo
+```
+
+⚠️ **Com uma visão só, o seletor e o divisor não são renderizados.** Segmentado
+de uma opção é um controle que nunca muda nada — a mesma regra do toggle de
+crítico sem vínculo e do "+" da grade sem `onDayAdd`.
+
+⚠️ **`views` vence `view`.** `view="list"` com `views={["timeline"]}` abre a
+timeline: renderizar o que o consumidor excluiu seria pior que corrigir. Lista
+vazia (`views={[]}`) é tratada como omitida.
+
+### A toolbar tem dois slots livres
+
+**É aqui que entra o botão de opções.** O componente não inventa "⋯", "exportar"
+nem "imprimir" — ele abre espaço e você põe o que a sua tela precisa, do mesmo
+jeito que a `TableToolbar` recebe `actions`.
+
+```
+[visão] │ [‹ Hoje ›] [período]   …   [busca] [toolbarActions] [crítico] [escala] [filtro] [primaryAction]
+```
+
+```tsx
+<Gantt
+  rows={ROWS}
+  toolbarActions={
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" color="secondary" size="icon-md"
+                aria-label="Mais opções"><MoreHorizontal /></Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">…</DropdownMenuContent>
+    </DropdownMenu>
+  }
+  primaryAction={<Button iconLeft={<Plus />}>Nova tarefa</Button>}
+/>
+```
+
+`toolbarActions` entra **antes** da ação primária, de propósito: a ação primária
+fecha a barra, e é o último lugar onde o olho para.
+
+### O imperativo — `GanttRef`
+
+Quatro métodos, pra quando a tela precisa mandar no cronograma sem passar por
+prop: `goToDate(date)` · `goToToday()` · `expandAll()` · `collapseAll()`.
+
+```tsx
+const gantt = useRef<GanttRef>(null);
+<Button onClick={() => gantt.current?.collapseAll()}>Recolher tudo</Button>
+<Gantt ref={gantt} rows={ROWS} />
+```
 
 ### Os três estados de UI seguem o MESMO par
 
