@@ -243,6 +243,53 @@ export function GanttToolbar({
         <span className={ganttToolbarDivider()} aria-hidden />
 
         {/*
+          O CONTROLE vem antes do RÓTULO: `‹ Hoje ›` e só depois
+          "31 mai – 2 ago 2027". O período é o RESULTADO de operar estes três
+          botões, e ler o resultado depois da ação é a ordem natural. De quebra o
+          divisor passa a separar dois grupos de CONTROLE (visão | navegação), em
+          vez de separar controle de texto.
+
+          `soft` e não `outline`: os dois pintam `bg-bg-muted` no dark, mas o
+          `outline` acrescenta `border-border-input` — e com o seletor de visão
+          colado do outro lado do divisor, três botões CONTORNADOS somavam quatro
+          caixas em sequência na abertura da toolbar. O `soft` mantém a superfície
+          e larga a borda; a borda da base fica `transparent`, que é o padrão do
+          DS pra transição suave.
+
+          ⚠️ NÃO é `ghost`: ghost é fundo transparente, e o pedido é a superfície
+          do botão secundário SEM a borda. No light a diferença também aparece —
+          `outline` usa `bg-bg-surface` e `soft` usa `bg-bg-muted`, que é o mesmo
+          token do trilho do seletor de visão ao lado.
+        */}
+        <div
+          role="group"
+          aria-label="Navegação de período"
+          className={ganttNavGroup()}
+        >
+          <Button
+            variant="soft"
+            color="secondary"
+            size="icon-md"
+            onClick={onPrev}
+            aria-label="Período anterior"
+          >
+            <ChevronLeft />
+          </Button>
+          <Button variant="soft" color="secondary" size="md" onClick={onToday}>
+            Hoje
+          </Button>
+          <Button
+            variant="soft"
+            color="secondary"
+            size="icon-md"
+            onClick={onNext}
+            aria-label="Próximo período"
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+
+        {/*
           Ícone de calendário à esquerda do período: ele diz que aquele texto é
           um INTERVALO de datas, não um título de tela. `aria-hidden` porque o
           texto ao lado já diz tudo — ícone decorativo anunciado é ruído no
@@ -252,34 +299,6 @@ export function GanttToolbar({
           <CalendarDays aria-hidden />
           <span className={ganttTitleText()}>{title}</span>
         </span>
-
-        <div
-          role="group"
-          aria-label="Navegação de período"
-          className={ganttNavGroup()}
-        >
-          <Button
-            variant="outline"
-            color="secondary"
-            size="icon-md"
-            onClick={onPrev}
-            aria-label="Período anterior"
-          >
-            <ChevronLeft />
-          </Button>
-          <Button variant="outline" color="secondary" size="md" onClick={onToday}>
-            Hoje
-          </Button>
-          <Button
-            variant="outline"
-            color="secondary"
-            size="icon-md"
-            onClick={onNext}
-            aria-label="Próximo período"
-          >
-            <ChevronRight />
-          </Button>
-        </div>
       </div>
 
       {/* ── direita: busca, ferramentas, ação ────────────────────── */}

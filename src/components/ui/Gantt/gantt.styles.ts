@@ -255,6 +255,11 @@ export const ganttTitle = tv({
   base: [
     // O ícone e o texto são um par; o `gap` aqui é DENTRO do par.
     "flex min-w-0 items-center gap-gp-md",
+    // O vizinho da ESQUERDA é o `‹ Hoje ›`, e o título é TEXTO — sem borda nem
+    // fundo pra criar respiro do lado dele. 6px somam com o gap do grupo e dão
+    // 16px no desktop / 12px no mobile. (Enquanto o `‹ Hoje ›` vinha depois do
+    // título, esta margem morava lá, pelo mesmo motivo espelhado.)
+    "ml-gp-sm",
     "text-title-sm font-semibold text-fg-default",
     "[&>svg]:size-icon-md [&>svg]:shrink-0 [&>svg]:text-fg-muted",
   ],
@@ -328,24 +333,49 @@ export const ganttToolbarDivider = tv({
 });
 
 /**
- * `‹ Hoje ›` — três segmentos colados num controle só.
+ * `‹ Hoje ›` — três botões `soft` colados, com moldura e divisórias de 1px.
  *
- * O `ml-gp-sm` (6px) soma com o gap do grupo e dá 16px no desktop / 12px no
- * mobile entre o título e este controle — e não é enfeite: o vizinho da esquerda
- * é TEXTO, sem borda nem fundo, então o respiro do lado dele tem que vir todo
- * do gap. Com os 10px do grupo puro, o `‹` encostava em "2 nov 2026" e os dois
- * liam como um controle só (foi o defeito relatado quando o gap era 8px).
+ * ## A borda é pintada por LADO, não por botão
  *
- * Os outros filhos do grupo têm superfície própria e ficam nos 10px da tabela.
+ * O `Button` já nasce com `border border-transparent` (padrão do DS, pra
+ * transição suave). Então não se acrescenta borda aqui — só se dá COR: topo e
+ * base em todos, ESQUERDA em todos, direita só no último. Lendo da esquerda pra
+ * direita isso desenha moldura e divisórias de uma vez — a esquerda do primeiro
+ * é o lado do quadro, a dos outros dois é a divisória com o vizinho.
+ *
+ * Três consequências de fazer assim, e as três importam:
+ *   - **A altura não muda.** O 1px já estava reservado nos quatro lados de cada
+ *     botão; colorir não empurra layout. Uma borda no CONTAINER somaria 2px e o
+ *     grupo ficaria mais alto que o seletor de visão (40px) ao lado.
+ *   - **Toda linha tem a MESMA espessura e a mesma cor.** Cada junção recebe
+ *     exatamente uma face colorida (a esquerda do botão da direita); a face que
+ *     encosta nela fica transparente. Sem isso, duas bordas de 1px encostadas
+ *     desenhariam uma divisória de 2px, o dobro da moldura.
+ *   - **Sem `-ml-px`.** No segmentado clássico ele existe pra colapsar essas duas
+ *     bordas em uma; aqui não há o que colapsar, e o overlap seria ATIVAMENTE
+ *     ruim: `border-input` é `oklch(1 0 0 / 0.08)` e `bg-bg-muted` é
+ *     `oklch(1 0 0 / 0.03)` — cores com ALPHA. Sobrepor 1px empilharia as duas
+ *     camadas e a divisória sairia ~2× mais forte que a moldura.
+ *
+ * Os cantos retos no miolo (`!rounded-none`, meio-raio nas pontas) completam o
+ * efeito: sem eles, três retângulos arredondados encostados desenham entalhes.
+ *
+ * A cor é a do botão secundário `outline` — `border-subtle` no light,
+ * `border-input` no dark —, porque é o mesmo papel: moldura de controle neutro.
+ *
+ * O `z-[1]` no foco fica: o `ring-4` de um botão do meio seria coberto pelos
+ * vizinhos, que encostam nele.
  */
 export const ganttNavGroup = tv({
   base: [
-    "ml-gp-sm inline-flex shrink-0 items-center",
-    "[&>*:not(:first-child)]:-ml-px",
+    "inline-flex shrink-0 items-center",
     "[&>*:focus-visible]:relative [&>*:focus-visible]:z-[1]",
     "[&>*:first-child]:!rounded-r-none",
     "[&>*:last-child]:!rounded-l-none",
     "[&>*:not(:first-child):not(:last-child)]:!rounded-none",
+    "[&>*]:border-y-border-subtle dark:[&>*]:border-y-border-input",
+    "[&>*]:border-l-border-subtle dark:[&>*]:border-l-border-input",
+    "[&>*:last-child]:border-r-border-subtle dark:[&>*:last-child]:border-r-border-input",
   ],
 });
 
