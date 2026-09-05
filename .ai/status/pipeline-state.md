@@ -30,6 +30,7 @@
 - [2026-09-01 — CONCLUÍDO · Scheduler mobile · v0.57.0 publicada](#2026-09-01-concluído-scheduler-mobile-v0570-publicada)
 - [2026-09-03 — CONCLUÍDO · Breadcrumb `trailing` · v0.58.0 publicada](#2026-09-03-concluído-breadcrumb-trailing-v0580-publicada)
 - [2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd](#2026-09-04-concluído-gantt-componente-novo-três-visões-com-dnd)
+- [2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados](#2026-09-05-concluído-gantt-rodada-de-revisão-contra-os-componentes-consolidados)
 
 <!-- doc-index:fim -->
 
@@ -4827,3 +4828,76 @@ débito escondido): setas de vínculo e gesto na grade de mês; criar `FF`/`SF` 
 gesto exige soltar na metade direita do destino, sem dica visual da metade.
 
 **Distribuição:** registry + embed fechados e recarimbados a cada rodada.
+
+---
+
+## 2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados
+
+**Agente:** DS Dev · **Escopo:** auditoria pedida pelo mantenedor — tokens,
+arquitetura, mobile e estrutura, medindo contra `DataTable`, `Scheduler`,
+`DataList` e `List`.
+
+**Input:** *"validar se está nos conformes, se usa tokens corretos, se o
+componente está burro, se está tudo separado"* + *"veja como foi construída a
+tabela ... pra ver se precisa de mais alguma melhoria"*.
+
+**Output:** 6 achados corrigidos, 5 arquivos novos/alterados no componente, 15
+testes de render novos (os primeiros do Gantt fora do núcleo puro).
+
+**O que a auditoria achou — e nenhum apareceu em gate:**
+
+1. **`granularity` sem callback congelava o dropdown de escala.** Resolvia
+   `granProp ?? granLocal` mas não tinha `onGranularityChange`: passar
+   `granularity="day"` — que a doc ensinava como valor INICIAL, num exemplo
+   copiável — matava o controle em silêncio. `criticalPath` tinha o espelho:
+   `useState(criticalProp)` fazia a prop ser só semente, enquanto o JSDoc do
+   `criticalPathToggle` afirmava dez linhas acima que ela mandava no realce.
+2. **Não havia como pedir só o cronograma.** As três visões eram fixas no
+   `VIEW_ITEMS`. Nasceu `views`, que recorta o que EXISTE (≠ `view`, que diz o
+   que está aberto) e some com o seletor quando sobra uma.
+3. **A toolbar não cabia em 375px.** Cabia sem estouro E não servia: busca
+   espremida a 51px e título cortado. Colapsa como a `TableToolbar` — visão,
+   `‹ Hoje ›`, escala e crítico vão pra um menu bottom-sheet.
+4. **`loading` não existia.** `DataTable`, `DataList` e `List` têm; o Gantt
+   respondia "Nenhuma tarefa neste período" durante o fetch — afirmação que
+   ele não tem como saber que é verdade.
+5. **Seis props invisíveis.** `toolbarActions`, `primaryAction`, `emptyState`,
+   `onLinkCreate`, `onLinkDelete`, `onRowClick` e o `GanttRef` inteiro não
+   estavam na `PropsTable` nem no `USAGE.md`. `toolbarActions` é literalmente
+   o slot do botão de opções que o mantenedor perguntou se existia.
+6. **Doc contradizendo o código** em dois pontos ("duas visões" no USAGE, entry
+   PARCIAL no pipeline com as 3 pendências já fechadas).
+
+**Decisões que valem revisitar:**
+
+- **Os três estados de UI têm o MESMO contrato** (valor + `on*Change`): nada
+  passado = o componente cuida; só o valor = congela (campo controlado); valor +
+  callback = controlado de verdade. A linha do meio é deliberada.
+- **`views` vence `view`** — renderizar uma visão que o consumidor excluiu
+  seria pior que corrigir em silêncio.
+- **`loading` vence `rows`** — num refetch, o que está na tela pode estar velho.
+- **O título do período FICA no mobile**, contra a regra da tabela (que esconde
+  o grupo esquerdo inteiro). É diferença de conteúdo: a toolbar da tabela não
+  tem rótulo de contexto pra preservar.
+
+**Assumption:** o `Gantt` continua **dumb sobre mutação** e sobre navegação —
+os 16 `useState` da raiz são todos de VISTA (hover, seleção, scroll, janela,
+fallback não-controlado), nenhum guarda `rows` nem `links`. Se um consumidor
+precisar que o componente reagende ou persista dado, a suposição quebrou e o
+contrato inteiro tem que ser revisto — não o caso pontual.
+
+**Débito de SISTEMA registrado (não do Gantt):** não há token de motion no
+tema, então `duration-[220ms]` + a curva `cubic-bezier(0.4,0,0.2,1)` são
+literais no `FloatingPanel`, no `TableToolbar` e aqui; e os tokens `sh-*` são
+simétricos, então sombra direcional carrega `oklch()` inline. Corrigir só no
+Gantt o deixaria fora de passo com os outros três — é cascata (Regra 3).
+
+**Não virou tarefa, com motivo:** `labels`/i18n (nenhum dos cinco tem — é
+decisão do DS, não gap do Gantt), `density` (a altura de linha precisa casar ao
+pixel entre os painéis — L-038) e virtualização/`memo` (otimização pra um
+volume que ninguém mediu).
+
+**Validação:** `tsc` 0 · 1.121 testes (75 arquivos) · ds-lint 0 ·
+`release:check` 7/7 · medições no browser a 375 / 800 / 1440px.
+
+**PENDENTE:** só a entry de changelog + bump, que consolidam no `/ds-release`.

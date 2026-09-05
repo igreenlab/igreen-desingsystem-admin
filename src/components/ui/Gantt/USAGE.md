@@ -1,5 +1,12 @@
 # Gantt
 
+<!-- ds:regras
+- o pai precisa ter ALTURA (o componente é `h-full`): sem isso você vê só a toolbar
+- busca do servidor → passe `loading`, senão `rows={[]}` afirma "Nenhuma tarefa neste período"
+- `links` referencia id de BARRA, não de linha — ponta inexistente é ignorada em silêncio
+- `colorKey` diz CATEGORIA (qual frente), não status: status vai em `row.trailing` como `Chip`
+-->
+
 Cronograma de projeto: hierarquia de tarefas à esquerda, tempo à direita, e
 **vínculos** entre as barras. Categoria: data-display.
 
