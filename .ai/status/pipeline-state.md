@@ -33,6 +33,7 @@
 - [2026-09-04 — CONCLUÍDO · Família semântica `caution` (laranja) entre `warning` e `danger`](#2026-09-04-concluído-família-semântica-caution-laranja-entre-warning-e-danger)
 - [2026-09-04 — CONCLUÍDO · Gantt: componente novo, três visões com dnd](#2026-09-04-concluído-gantt-componente-novo-três-visões-com-dnd)
 - [2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados](#2026-09-05-concluído-gantt-rodada-de-revisão-contra-os-componentes-consolidados)
+- [2026-09-05 — CONCLUÍDO · v0.60.0 publicada nos 4 canais](#2026-09-05-concluído-v0600-publicada-nos-4-canais)
 
 <!-- doc-index:fim -->
 
@@ -5008,3 +5009,45 @@ volume que ninguém mediu).
 `release:check` 7/7 · medições no browser a 375 / 800 / 1440px.
 
 **PENDENTE:** só a entry de changelog + bump, que consolidam no `/ds-release`.
+
+---
+
+## 2026-09-05 — CONCLUÍDO · v0.60.0 publicada nos 4 canais
+
+**Agente:** DS Dev · **Fluxo:** `/ds-release` completo, incluindo o Passo 7.
+
+**Escopo:** o `Gantt` — 20 commits, 43 arquivos, do PR #309 (componente) ao
+#310 (release).
+
+| Canal | Onde | Estado |
+|---|---|---|
+| npm (lib) | `@snksergio/design-system` | **0.60.0** |
+| npm (CLI) | `@snksergio/create-design-system` | **0.25.31** |
+| registry / copy-in | embed carimbado | **v0.60.0**, 100 itens |
+| submódulo | segue o `main` | `ecb89ce` |
+
+**Bump do CLI foi obrigatório, não higiene:** `cli/templates/**` mudou porque o
+vocabulário do consumidor ganhou a linha do `gantt`. Sem republicar, projeto
+novo scaffoldado não saberia que o componente existe e a IA dele comporia na
+unha — é o gap real que aconteceu com o `Toast` (registry na v0.12.0, catálogo
+só na CLI 0.13.7). Foundational (`cn`/`tv`/`lucide-types`/tema) NÃO mudou, então
+não houve `cli:rebake`.
+
+**Validação antes do push:** `tsc` 0 · 1.124 testes em 76 arquivos ·
+`release:check` 7/7 · pre-commit 10/10 nas 8 superfícies.
+
+**Assumption:** a release entrega um componente com **zero uso em produção**. Os
+189 testes cobrem o núcleo e o contrato, não a adequação — a primeira tela real
+é que vai dizer se `colorKey` = CATEGORIA sobrevive ao primeiro time que quiser
+cor por status. Se não sobreviver, quem muda é o contrato de `colorKey`, não o
+exemplo.
+
+**Anotação de método (não é lição — é do agente):** o `Set-Content -Encoding
+utf8` do PowerShell **corrompeu** `StructureDoc.tsx` numa troca de 3 linhas —
+BOM no início e `←` virando `â†`, 104 linhas no diff. Revertido e refeito com
+node. Em arquivo com acento ou seta, não reescreva o arquivo inteiro pelo
+PowerShell.
+
+**Ausências declaradas que seguem abertas** (tabela "O que ainda NÃO existe" do
+`USAGE.md`): setas de vínculo e gesto de arraste na visão `calendar`; criar
+`FF`/`SF` por gesto exige soltar na metade direita do destino, sem dica visual.
