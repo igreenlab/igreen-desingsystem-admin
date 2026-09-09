@@ -15,6 +15,7 @@ import {
   CalendarDays,
   FolderOpen,
   Link2,
+  User,
   Package,
   Wrench,
   LayoutTemplate,
@@ -632,14 +633,14 @@ export function SolicitarComponenteDoc() {
                     </Badge>
                   </div>
 
-                  {/* "Escrito por" nomeia o que as iniciais do avatar
-                      representam — sem o rótulo, um nome solto sob o título
-                      pode ser lido como subtítulo do pedido. */}
-                  <span className="text-caption-md text-fg-muted">
-                    Escrito por{" "}
-                    <span className="font-medium text-fg-default">
-                      {item.nome}
-                    </span>
+                  {/* O ícone de usuário faz o trabalho que o rótulo "Escrito
+                      por" fazia: sem ele, um nome solto sob o título é lido
+                      como subtítulo do pedido, não como autoria. Tudo em
+                      `fg-muted` — o nome é contexto, não é o que se lê
+                      primeiro. */}
+                  <span className="inline-flex items-center gap-gp-xs text-caption-md text-fg-muted [&>svg]:size-icon-xs [&>svg]:shrink-0 [&>svg]:text-fg-subtle">
+                    <User strokeWidth={1.8} aria-hidden="true" />
+                    {item.nome}
                   </span>
                 </div>
               </div>
