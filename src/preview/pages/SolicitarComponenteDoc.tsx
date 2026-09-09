@@ -19,8 +19,16 @@ import {
   Wrench,
   LayoutTemplate,
   CircleHelp,
+  Search,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/shadcn/input-group";
 import {
   FormFieldInput,
   FormFieldSelect,
@@ -264,6 +272,21 @@ function corDoNome(nome: string): string {
   return CORES_AVATAR[soma % CORES_AVATAR.length];
 }
 
+/**
+ * Normaliza pra busca: minúsculas e SEM acento.
+ *
+ * Sem tirar o acento, quem digita "duvida" não acha "Dúvida" e conclui que o
+ * pedido não existe — e aí abre um duplicado, que é exatamente o que esta
+ * página existe pra evitar. `NFD` separa a letra do diacrítico e o range
+ * `̀-ͯ` remove só as marcas, preservando ç→c e o resto do texto.
+ */
+function normalizar(texto: string): string {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
 /** Item de metadado: ícone apagado + valor. Mesma receita do `renderOrderCard`
  *  dos exemplos de List, pra fila e catálogo lerem igual. */
 function Meta({ icone, children }: { icone: ReactNode; children: ReactNode }) {
@@ -394,6 +417,7 @@ export function SolicitarComponenteDoc() {
 
   const [itens, setItens] = useState<Solicitacao[]>([]);
   const [lista, setLista] = useState<EstadoLista>("carregando");
+  const [busca, setBusca] = useState("");
 
   /** Armadilha de bot: fica fora do fluxo visual e do foco. Humano não
    *  preenche; robô que varre o HTML preenche. O endpoint responde "ok" e
@@ -416,6 +440,32 @@ export function SolicitarComponenteDoc() {
   useEffect(() => {
     void carregar();
   }, [carregar]);
+
+  /**
+   * Busca em todos os campos visíveis, inclusive na DESCRIÇÃO.
+   *
+   * É onde mora o que a pessoa realmente quer achar: o assunto é um resumo de
+   * uma linha, e quem procura "carrossel" pode ter escrito isso só no corpo do
+   * pedido. Buscar só no título faria a página dizer "não existe" para um
+   * pedido que existe — e o duplicado que ela abriria em seguida é justamente o
+   * que esta tela existe pra evitar.
+   */
+  const filtrados = useMemo(() => {
+    const termo = normalizar(busca.trim());
+    if (!termo) return itens;
+    return itens.filter((item) =>
+      normalizar(
+        [
+          item.assunto,
+          item.nome,
+          item.descricao,
+          item.tipo,
+          item.projeto,
+          item.status || STATUS_PADRAO,
+        ].join(" "),
+      ).includes(termo),
+    );
+  }, [itens, busca]);
 
   const faltando = useMemo(
     () => ({
@@ -629,11 +679,40 @@ export function SolicitarComponenteDoc() {
 
       <SectionH2 id="fila" title="Pedidos abertos" />
 
+      {/* Busca — mesma receita do `#/components-overview`: InputGroup com ícone
+          à esquerda e botão de limpar que só aparece com texto. */}
+      <div className="mb-gp-lg">
+        <InputGroup className="w-full">
+          <InputGroupAddon align="inline-start">
+            <Search className="size-icon-sm" strokeWidth={1.8} aria-hidden="true" />
+          </InputGroupAddon>
+          <InputGroupInput
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            placeholder="Buscar por assunto, quem pediu, projeto…"
+            aria-label="Buscar pedido"
+          />
+          {busca && (
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                onClick={() => setBusca("")}
+                aria-label="Limpar busca"
+              >
+                <X className="size-icon-sm" strokeWidth={2} aria-hidden="true" />
+              </InputGroupButton>
+            </InputGroupAddon>
+          )}
+        </InputGroup>
+      </div>
+
       <div className="mb-gp-lg flex items-center justify-between gap-gp-md">
         <span className="text-body-sm text-fg-muted">
-          {lista === "pronta"
-            ? `${itens.length} ${itens.length === 1 ? "pedido" : "pedidos"} — do mais recente para o mais antigo.`
-            : "Carregando os pedidos…"}
+          {lista !== "pronta"
+            ? "Carregando os pedidos…"
+            : busca.trim()
+              ? `${filtrados.length} de ${itens.length} ${itens.length === 1 ? "pedido" : "pedidos"}.`
+              : `${itens.length} ${itens.length === 1 ? "pedido" : "pedidos"} — do mais recente para o mais antigo.`}
         </span>
         <Button
           type="button"
@@ -681,9 +760,24 @@ export function SolicitarComponenteDoc() {
         </div>
       )}
 
-      {lista === "pronta" && itens.length > 0 && (
-        <ul className="flex flex-col gap-gp-md">
-          {itens.map((item, i) => (
+      {/* Busca sem resultado ≠ fila vazia: a mensagem tem que dizer qual dos
+          dois é, senão a pessoa acha que não há pedido nenhum e abre um
+          duplicado. */}
+      {lista === "pronta" && itens.length > 0 && filtrados.length === 0 && (
+        <div className="flex flex-col items-center gap-gp-sm rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-3xl text-center">
+          <span className="text-body-md font-medium text-fg-default">
+            Nenhum pedido com “{busca.trim()}”
+          </span>
+          <span className="text-body-sm text-fg-muted">
+            A busca cobre assunto, descrição, quem pediu, tipo e projeto. Se não
+            achou, provavelmente ninguém pediu ainda — o formulário está acima.
+          </span>
+        </div>
+      )}
+
+      {lista === "pronta" && filtrados.length > 0 && (
+        <ul className="flex flex-col gap-gp-2xl">
+          {filtrados.map((item, i) => (
             <CardPedido key={`${item.data}-${i}`} item={item} />
           ))}
         </ul>
