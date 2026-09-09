@@ -15,7 +15,6 @@ import {
   CalendarDays,
   FolderOpen,
   Link2,
-  User,
   Package,
   Wrench,
   LayoutTemplate,
@@ -580,7 +579,13 @@ export function SolicitarComponenteDoc() {
               // própria, borda mais forte no escuro (L-009 — `subtle` some no
               // fundo escuro) e elevação no hover. Sem a sombra o card fica
               // chapado contra a página, que era a diferença visual maior.
-              className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-xl shadow-sh-sm transition-[background-color,border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default dark:hover:bg-bg-canvas"
+              //
+              // ⚠️ O `dark:hover:bg-bg-canvas` da receita original SAIU: a
+              // descrição agora usa `bg-bg-canvas`, e com o card virando canvas
+              // no hover os dois se igualavam e o bloco da descrição sumia
+              // justo quando o mouse estava nele. Borda e sombra já dão o
+              // feedback de hover sozinhas.
+              className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-xl shadow-sh-sm transition-[border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default"
             >
               <div className="flex items-start gap-gp-md">
                 <span
@@ -633,24 +638,36 @@ export function SolicitarComponenteDoc() {
                     </Badge>
                   </div>
 
-                  {/* O ícone de usuário faz o trabalho que o rótulo "Escrito
-                      por" fazia: sem ele, um nome solto sob o título é lido
-                      como subtítulo do pedido, não como autoria. Tudo em
-                      `fg-muted` — o nome é contexto, não é o que se lê
-                      primeiro. */}
-                  <span className="inline-flex items-center gap-gp-xs text-caption-md text-fg-muted [&>svg]:size-icon-xs [&>svg]:shrink-0 [&>svg]:text-fg-subtle">
-                    <User strokeWidth={1.8} aria-hidden="true" />
+                  {/* Nome em `fg-muted`: é contexto, não é o que se lê
+                      primeiro. Quem assina o pedido está a um passo de
+                      distância — as iniciais do avatar, ao lado. */}
+                  <span className="text-caption-md text-fg-muted">
                     {item.nome}
                   </span>
                 </div>
               </div>
 
-              <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
-                {item.descricao}
-              </p>
+              {/* Descrição recuada numa superfície própria, mais escura que o
+                  card nos DOIS temas — e por isso são dois tokens, não um.
+                  ⚠️ MEDIDO: no tema claro, `bg-bg-canvas` resolve para
+                  `oklch(1 0 0)` — branco puro, IDÊNTICO ao `bg-bg-surface` do
+                  card. A hierarquia `canvas < surface` da L-008 vale no escuro
+                  (0.205 vs 0.225) e não vale no claro, onde as duas empatam.
+                  Então: `subtle` no claro (cinza contra o branco) e `canvas` no
+                  escuro (mais escuro que o card). Um token só falha num dos
+                  lados — e falha em silêncio, porque não quebra nada, só some.
+                  A borda fica de reforço. */}
+              <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-xl dark:bg-bg-canvas">
+                <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
+                  {item.descricao}
+                </p>
+              </div>
 
-              {/* Rodapé: quando e onde. O QUEM subiu pro topo do card. */}
-              <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
+              {/* Rodapé: quando e onde. O QUEM está no topo do card.
+                  Sem `border-t`: a descrição agora tem moldura própria, e a
+                  linha divisória logo abaixo dela separava duas vezes a mesma
+                  quebra. O espaço sozinho já resolve. */}
+              <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
                 {/* Data de inserção por extenso. O relativo ("há 8 h") fica no
                     `title`: numa fila que anda devagar, saber QUANDO entrou vale
                     mais do que há quanto tempo — e o relativo perde resolução
