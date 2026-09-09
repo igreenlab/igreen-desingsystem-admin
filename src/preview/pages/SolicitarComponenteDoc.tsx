@@ -128,6 +128,36 @@ function formatarData(iso: string): string {
 }
 
 /**
+ * "há 4 dias" em vez de "09 de set. de 2026".
+ *
+ * Numa fila, o que importa é **quanto tempo o pedido está parado**, não a data
+ * absoluta — e ler isso de uma data exige o leitor fazer a conta de cabeça. É o
+ * que o `#/list-rich` faz, e é o que torna a lista varrível. A data cheia
+ * continua acessível no `title` do elemento, pra quem precisar do valor exato.
+ */
+function tempoRelativo(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const seg = Math.round((Date.now() - d.getTime()) / 1000);
+  if (seg < 60) return "agora";
+  const min = Math.round(seg / 60);
+  if (min < 60) return `há ${min} min`;
+  const horas = Math.round(min / 60);
+  if (horas < 24) return `há ${horas} h`;
+  const dias = Math.round(horas / 24);
+  if (dias === 1) return "ontem";
+  if (dias < 7) return `há ${dias} dias`;
+  if (dias < 30) {
+    const semanas = Math.round(dias / 7);
+    return semanas === 1 ? "há 1 semana" : `há ${semanas} semanas`;
+  }
+  const meses = Math.round(dias / 30);
+  if (meses < 12) return meses === 1 ? "há 1 mês" : `há ${meses} meses`;
+  const anos = Math.round(meses / 12);
+  return anos === 1 ? "há 1 ano" : `há ${anos} anos`;
+}
+
+/**
  * Status exibido quando a planilha não diz nada.
  *
  * Todo card carrega badge, sempre. Com o badge condicional, pedido sem status
@@ -529,7 +559,11 @@ export function SolicitarComponenteDoc() {
           {itens.map((item, i) => (
             <li
               key={`${item.data}-${i}`}
-              className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl transition-colors hover:border-border-default"
+              // Receita do card do `#/list-rich`, medida no browser: sombra
+              // própria, borda mais forte no escuro (L-009 — `subtle` some no
+              // fundo escuro) e elevação no hover. Sem a sombra o card fica
+              // chapado contra a página, que era a diferença visual maior.
+              className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-xl shadow-sh-sm transition-[background-color,border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default dark:hover:bg-bg-canvas"
             >
               <div className="flex items-start gap-gp-md">
                 <span
@@ -546,10 +580,16 @@ export function SolicitarComponenteDoc() {
                     <span className="text-body-md font-semibold text-fg-default">
                       {item.assunto}
                     </span>
+                    {/* `shape="pill"` no status e shape padrão no tipo não é
+                        capricho: é o que o JSDoc do próprio Badge prescreve —
+                        pílula para status chip, retângulo para tag inline. As
+                        duas formas também separam o que muda (status) do que
+                        descreve (tipo). */}
                     <Badge
                       color={corDoStatus(item.status)}
                       variant="soft"
-                      size="sm"
+                      size="md"
+                      shape="pill"
                     >
                       {item.status.trim() || STATUS_PADRAO}
                     </Badge>
@@ -557,7 +597,7 @@ export function SolicitarComponenteDoc() {
                       (() => {
                         const IconeTipo = iconeDoTipo(item.tipo);
                         return (
-                          <Badge color="secondary" variant="outline" size="sm">
+                          <Badge color="secondary" variant="outline" size="md">
                             <IconeTipo strokeWidth={1.8} aria-hidden={true} />
                             {item.tipo}
                           </Badge>
@@ -572,9 +612,11 @@ export function SolicitarComponenteDoc() {
                 {item.descricao}
               </p>
 
-              <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
+              <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
                 <Meta icone={<CalendarDays />}>
-                  <span className="tabular-nums">{formatarData(item.data)}</span>
+                  <span title={formatarData(item.data)}>
+                    {tempoRelativo(item.data)}
+                  </span>
                 </Meta>
                 {item.projeto && (
                   <Meta icone={<FolderOpen />}>{item.projeto}</Meta>
