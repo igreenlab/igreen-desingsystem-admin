@@ -15,6 +15,7 @@ import {
   CalendarDays,
   FolderOpen,
   Link2,
+  User,
   Package,
   Wrench,
   LayoutTemplate,
@@ -220,48 +221,6 @@ function iconeDoTipo(tipo: string): IconeLucide {
   if (t.includes("ajuste")) return Wrench;
   if (t.includes("exemplo") || t.includes("tela")) return LayoutTemplate;
   return CircleHelp;
-}
-
-/**
- * Avatar de iniciais.
- *
- * A cor sai de um par semântico do DS escolhido por hash do nome — não de um
- * valor calculado. Par do DS já vem com contraste casado em claro e escuro
- * (L-027 manda usar `getContrastTextColor` só quando o fundo é arbitrário, o
- * que não é o caso aqui). Hash simples basta: o objetivo é a mesma pessoa
- * receber sempre a mesma cor, não distribuição uniforme.
- */
-const CORES_AVATAR = [
-  "bg-bg-brand-subtle text-fg-brand",
-  "bg-bg-info-muted text-fg-info",
-  "bg-bg-success-muted text-fg-success",
-  "bg-bg-warning-muted text-fg-warning",
-  "bg-bg-muted text-fg-muted",
-];
-
-/**
- * Iniciais do nome.
- *
- * A pontuação vira espaço ANTES de separar as palavras — sem isso,
- * "Teste (validacao)" rendia `T(`, porque a última palavra começa com
- * parêntese. O campo é texto livre: parêntese, hífen e emoji chegam aqui, e uma
- * inicial que não é letra parece defeito de renderização.
- */
-function iniciais(nome: string): string {
-  const partes = nome
-    .replace(/[^\p{L}\p{N}]+/gu, " ")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  if (partes.length === 0) return "?";
-  if (partes.length === 1) return partes[0].slice(0, 2).toUpperCase();
-  return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
-}
-
-function corDoNome(nome: string): string {
-  let soma = 0;
-  for (let i = 0; i < nome.length; i++) soma += nome.charCodeAt(i);
-  return CORES_AVATAR[soma % CORES_AVATAR.length];
 }
 
 /** Item de metadado: ícone apagado + valor. Mesma receita do `renderOrderCard`
@@ -627,51 +586,38 @@ export function SolicitarComponenteDoc() {
                 {item.descricao}
               </p>
 
-              <div className="mt-gp-xs flex flex-col gap-gp-sm border-t border-border-subtle pt-pad-xl">
-                <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
-                  {/* Data de inserção por extenso. O relativo ("há 8 h") fica no
-                      `title`: numa fila que anda devagar, saber QUANDO entrou
-                      vale mais do que há quanto tempo — e o relativo some assim
-                      que passa de algumas semanas. */}
-                  <Meta icone={<CalendarDays />}>
-                    <span className="tabular-nums" title={tempoRelativo(item.data)}>
-                      {formatarData(item.data)}
-                    </span>
+              {/* Rodapé numa linha só, na ordem quem → quando → onde. O nome vem
+                  primeiro porque é o que a pessoa procura quando quer conversar
+                  sobre o pedido; o resto é contexto. */}
+              <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
+                <Meta icone={<User />}>
+                  <span className="font-medium text-fg-default">{item.nome}</span>
+                </Meta>
+                {/* Data de inserção por extenso. O relativo ("há 8 h") fica no
+                    `title`: numa fila que anda devagar, saber QUANDO entrou vale
+                    mais do que há quanto tempo — e o relativo perde resolução
+                    assim que passa de algumas semanas. */}
+                <Meta icone={<CalendarDays />}>
+                  <span className="tabular-nums" title={tempoRelativo(item.data)}>
+                    {formatarData(item.data)}
+                  </span>
+                </Meta>
+                {item.projeto && <Meta icone={<FolderOpen />}>{item.projeto}</Meta>}
+                {item.referencia && (
+                  <Meta icone={<Link2 />}>
+                    {/* `noopener` e `noreferrer` porque o link vem de terceiro:
+                        sem eles a página de destino recebe `window.opener` e
+                        pode navegar esta aba pra onde quiser. */}
+                    <a
+                      href={item.referencia}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="rounded-radius-sm text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+                    >
+                      referência
+                    </a>
                   </Meta>
-                  {item.projeto && (
-                    <Meta icone={<FolderOpen />}>{item.projeto}</Meta>
-                  )}
-                  {item.referencia && (
-                    <Meta icone={<Link2 />}>
-                      {/* `noopener` e `noreferrer` porque o link vem de
-                          terceiro: sem eles a página de destino recebe
-                          `window.opener` e pode navegar esta aba pra onde
-                          quiser. */}
-                      <a
-                        href={item.referencia}
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                        className="rounded-radius-sm text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
-                      >
-                        referência
-                      </a>
-                    </Meta>
-                  )}
-                </div>
-
-                {/* Avatar e nome andam juntos, sempre: iniciais separadas do
-                    nome que as gerou não significam nada. */}
-                <div className="flex items-center gap-gp-sm">
-                  <span
-                    aria-hidden="true"
-                    className={`grid size-comp-sm shrink-0 place-items-center rounded-radius-full text-caption-xs font-semibold ${corDoNome(item.nome)}`}
-                  >
-                    {iniciais(item.nome)}
-                  </span>
-                  <span className="text-body-sm font-medium text-fg-default">
-                    {item.nome}
-                  </span>
-                </div>
+                )}
               </div>
             </li>
           ))}
