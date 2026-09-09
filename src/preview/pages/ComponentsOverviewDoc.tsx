@@ -324,9 +324,17 @@ export function ComponentsOverviewDoc() {
             </InputGroupAddon>
           )}
         </InputGroup>
-        <span className="text-caption-md text-fg-muted tabular-nums">
-          {shown} de {TOTAL} componentes
-        </span>
+        <div className="flex flex-wrap items-center justify-between gap-gp-sm">
+          <span className="text-caption-md text-fg-muted tabular-nums">
+            {shown} de {TOTAL} componentes
+          </span>
+          <a
+            href="#/solicitar-componente"
+            className="text-caption-md font-medium text-fg-brand underline underline-offset-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand rounded-radius-sm"
+          >
+            Solicitar um componente
+          </a>
+        </div>
       </div>
 
       {groups.map((g) => (
@@ -354,6 +362,14 @@ export function ComponentsOverviewDoc() {
           <span className="text-body-sm text-fg-muted">
             Tente outro termo — buscamos por nome e descrição.
           </span>
+          {/* A busca sem resultado é o melhor momento pro pedido: a pessoa
+              acabou de descrever o que queria e não achou. */}
+          <a
+            href="#/solicitar-componente"
+            className="mt-gp-xs text-body-sm font-medium text-fg-brand underline underline-offset-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand rounded-radius-sm"
+          >
+            Solicitar “{query.trim()}”
+          </a>
         </div>
       )}
     </DocLayout>

@@ -239,7 +239,15 @@ const URL_DEMO =
 const ROTA_EXEMPLO_CRUD =
   CATALOGO_COMPLETO.find((i) => i.href === "clientes-showcase")?.href ?? "clientes-showcase";
 
-const CATALOGO = CATALOGO_COMPLETO.filter((i) => SECOES_COMPONENTE.includes(i.section));
+/**
+ * `solicitar-componente` mora na seção Components do nav (é onde ele precisa
+ * estar pra ser achado), mas NÃO é um componente — deixá-lo entrar aqui somaria
+ * +1 na contagem ao lado da busca e o transformaria num card igual aos outros.
+ * Ele aparece na landing pelo estado vazio da busca e pelo rodapé.
+ */
+const CATALOGO = CATALOGO_COMPLETO.filter(
+  (i) => SECOES_COMPONENTE.includes(i.section) && i.href !== "solicitar-componente",
+);
 const SECOES = getCatalogSections(["inicio"]).filter((s) => SECOES_COMPONENTE.includes(s));
 
 /* ═════════════════════════════════════════════════════════════════════════════
@@ -2613,6 +2621,7 @@ const GRADE_CATALOGO =
   "grid list-none grid-cols-1 gap-gp-md p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5";
 
 function Catalogo() {
+  const { onNavigate } = useDocNav();
   const [termo, setTermo] = useState("");
   const [secao, setSecao] = useState<string | null>(null);
 
@@ -2693,9 +2702,21 @@ function Catalogo() {
       </div>
 
       {grupos.length === 0 ? (
-        <p className="py-pad-4xl text-center text-body-md text-fg-muted">
-          Nada com esse termo. Tente “table”, “chart” ou “input”.
-        </p>
+        <div className="flex flex-col items-center gap-gp-sm py-pad-4xl text-center">
+          <p className="m-0 text-body-md text-fg-muted">
+            Nada com esse termo. Tente “table”, “chart” ou “input”.
+          </p>
+          {/* Busca sem resultado = a pessoa acabou de descrever o que queria e
+              não achou. É o melhor momento pro pedido, e o único lugar da
+              landing onde ele não compete com o resto. */}
+          <button
+            type="button"
+            onClick={() => onNavigate("solicitar-componente")}
+            className="rounded-radius-sm text-body-sm font-medium text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+          >
+            Não existe? Solicitar componente
+          </button>
+        </div>
       ) : secao ? (
         <ul className={GRADE_CATALOGO}>
           {grupos[0].itens.map((item) => (
@@ -3128,6 +3149,13 @@ export function LandingDoc() {
                 className="transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
               >
                 Changelog
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigate("solicitar-componente")}
+                className="transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+              >
+                Solicitar componente
               </button>
               <span>Uso interno iGreen · modelo evergreen</span>
             </div>

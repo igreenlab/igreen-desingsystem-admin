@@ -129,6 +129,9 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Toggle", href: "toggle" },
       { label: "Toggle Group", href: "toggle-group" },
       { label: "Tooltip", href: "tooltip" },
+      // Último item da lista DE PROPÓSITO: quem chegou até aqui percorreu o
+      // catálogo inteiro e não achou o que queria. É o momento exato do pedido.
+      { label: "Não encontrou? Solicitar", href: "solicitar-componente" },
     ],
   },
   {
