@@ -275,40 +275,6 @@ function Meta({ icone, children }: { icone: ReactNode; children: ReactNode }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   PROPOSTAS DE LAYOUT — TEMPORÁRIO
-
-   ⚠️ Este seletor existe só pra o mantenedor comparar as opções lado a lado com
-   dado real. Assim que ele escolher, as outras variantes e o seletor SAEM — não
-   deixe isto entrar em produção: quatro layouts pra uma lista é dívida, não
-   flexibilidade.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-type Proposta = "atual" | "tabela" | "faixa" | "split";
-
-const PROPOSTAS: { id: Proposta; label: string; nota: string }[] = [
-  {
-    id: "atual",
-    label: "Atual",
-    nota: "Card com avatar, descrição em superfície própria e rodapé de metadados.",
-  },
-  {
-    id: "tabela",
-    label: "A · Linha densa",
-    nota: "Gramática de tabela do DS: linhas, sem card, descrição em 1 linha truncada. Cabe muito mais na tela e o status vira coluna real. Custo: a descrição deixa de ser legível na lista.",
-  },
-  {
-    id: "faixa",
-    label: "B · Faixa de status",
-    nota: "O status vira uma faixa colorida na lateral, além do chip. Dá pra triar pela cor sem ler nada. Modelo de mercado: cartão de Jira/Trello.",
-  },
-  {
-    id: "split",
-    label: "C · Duas colunas",
-    nota: "Quem/quando numa coluna fixa à esquerda, conteúdo à direita. O olho separa metadado de conteúdo sem precisar de moldura. Modelo de mercado: lista de e-mail / thread.",
-  },
-];
-
 /** Chip de tipo — idêntico nas quatro propostas, pra a comparação isolar só o
  *  layout. */
 function ChipTipo({ tipo }: { tipo: string }) {
@@ -369,9 +335,7 @@ const CARD_BASE =
 const BLOCO_DESCRICAO =
   "rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-xl dark:bg-bg-canvas";
 
-/* ── Atual ──────────────────────────────────────────────────────────────── */
-
-function CardAtual({ item }: { item: Solicitacao }) {
+function CardPedido({ item }: { item: Solicitacao }) {
   return (
     <li className={`flex flex-col gap-gp-md p-pad-xl ${CARD_BASE}`}>
       <div className="flex items-start gap-gp-md">
@@ -401,159 +365,17 @@ function CardAtual({ item }: { item: Solicitacao }) {
         </p>
       </div>
 
-      {/* `mt-gp-lg` além do gap do card: com a descrição emoldurada, 8px
-          deixavam o rodapé colado na moldura. */}
-      <div className="mt-gp-lg flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
+      {/* MEDIDO e casado: o card tem `p-pad-xl` (12px), então abaixo do rodapé
+          sobram 12px até a borda. O gap do card sozinho dava 8px acima, e com
+          `mt-gp-lg` dava 18 — nos dois casos desigual. `mt-gp-xs` (4px) soma 12
+          com o gap e iguala os dois lados no mesmo ritmo do padding do card. */}
+      <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
         <Meta icone={<CalendarDays />}>
           <span className="tabular-nums" title={tempoRelativo(item.data)}>
             {formatarData(item.data)}
           </span>
         </Meta>
         {item.projeto && <Meta icone={<FolderOpen />}>{item.projeto}</Meta>}
-        {item.referencia && (
-          <Meta icone={<Link2 />}>
-            <LinkReferencia href={item.referencia} />
-          </Meta>
-        )}
-      </div>
-    </li>
-  );
-}
-
-/* ── A · Linha densa ────────────────────────────────────────────────────── */
-
-function LinhaDensa({ item }: { item: Solicitacao }) {
-  return (
-    <li className="flex items-center gap-gp-lg border-b border-border-subtle px-pad-md py-pad-lg transition-colors last:border-b-0 hover:bg-bg-muted">
-      <ChipStatus status={item.status} />
-
-      <div className="flex min-w-0 flex-1 flex-col gap-gp-2xs">
-        <div className="flex min-w-0 items-center gap-gp-sm">
-          <span className="truncate text-body-sm font-semibold text-fg-default">
-            {item.assunto}
-          </span>
-          {item.tipo && <ChipTipo tipo={item.tipo} />}
-        </div>
-        {/* `line-clamp-1` é o preço da densidade: cabe muito mais pedido na
-            tela, e a descrição deixa de ser legível sem abrir. */}
-        <span className="line-clamp-1 text-caption-md text-fg-muted">
-          {item.descricao}
-        </span>
-      </div>
-
-      <div className="hidden shrink-0 items-center gap-gp-2xl text-caption-md text-fg-muted md:flex">
-        <span className="truncate">{item.nome}</span>
-        <span className="tabular-nums" title={tempoRelativo(item.data)}>
-          {formatarData(item.data)}
-        </span>
-      </div>
-    </li>
-  );
-}
-
-/* ── B · Faixa de status ────────────────────────────────────────────────── */
-
-/** Faixa lateral por status. Classe de FUNDO, não de texto — o chip usa
- *  `text-fg-*`, aqui a cor precisa pintar a barra. */
-function faixaDoStatus(status: string): string {
-  switch (corDoStatus(status)) {
-    case "success":
-      return "bg-bg-success";
-    case "critical":
-      return "bg-bg-danger";
-    case "info":
-      return "bg-bg-info";
-    case "warning":
-      return "bg-bg-warning";
-    default:
-      return "bg-border-default";
-  }
-}
-
-function CardFaixa({ item }: { item: Solicitacao }) {
-  return (
-    <li className={`relative overflow-hidden p-pad-xl pl-pad-4xl ${CARD_BASE}`}>
-      {/* Barra fina posicionada — hardcode de 3px é exceção declarada no
-          CLAUDE.md (pseudo-elemento/decoração posicional fina). */}
-      <span
-        aria-hidden="true"
-        className={`absolute inset-y-0 left-0 w-[3px] ${faixaDoStatus(item.status)}`}
-      />
-
-      <div className="flex flex-col gap-gp-md">
-        <div className="flex items-start justify-between gap-gp-md">
-          <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
-            <span className="text-body-md font-semibold text-fg-default">
-              {item.assunto}
-            </span>
-            {item.tipo && <ChipTipo tipo={item.tipo} />}
-          </div>
-          <ChipStatus status={item.status} />
-        </div>
-
-        <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
-          {item.descricao}
-        </p>
-
-        <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
-          <span className="inline-flex items-center gap-gp-sm">
-            <Avatar nome={item.nome} />
-            <span className="text-caption-md text-fg-muted">{item.nome}</span>
-          </span>
-          <Meta icone={<CalendarDays />}>
-            <span className="tabular-nums">{formatarData(item.data)}</span>
-          </Meta>
-          {item.projeto && <Meta icone={<FolderOpen />}>{item.projeto}</Meta>}
-          {item.referencia && (
-            <Meta icone={<Link2 />}>
-              <LinkReferencia href={item.referencia} />
-            </Meta>
-          )}
-        </div>
-      </div>
-    </li>
-  );
-}
-
-/* ── C · Duas colunas ───────────────────────────────────────────────────── */
-
-function CardSplit({ item }: { item: Solicitacao }) {
-  return (
-    <li className={`flex flex-col gap-gp-lg p-pad-xl sm:flex-row sm:gap-gp-2xl ${CARD_BASE}`}>
-      {/* Coluna de metadado. `sm:w-1/4` (fração nativa do Tailwind) em vez de
-          largura arbitrária: não colide com nenhum prefixo do DS e acompanha o
-          card em qualquer largura. */}
-      <div className="flex shrink-0 flex-row items-center gap-gp-sm sm:w-1/4 sm:flex-col sm:items-start sm:gap-gp-xs sm:border-r sm:border-border-subtle sm:pr-pad-xl">
-        <Avatar nome={item.nome} />
-        <span className="text-caption-md font-medium text-fg-default">
-          {item.nome}
-        </span>
-        <span
-          className="text-caption-md tabular-nums text-fg-subtle"
-          title={tempoRelativo(item.data)}
-        >
-          {formatarData(item.data)}
-        </span>
-        {item.projeto && (
-          <span className="text-caption-md text-fg-subtle">{item.projeto}</span>
-        )}
-      </div>
-
-      <div className="flex min-w-0 flex-1 flex-col gap-gp-sm">
-        <div className="flex items-start justify-between gap-gp-md">
-          <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
-            <span className="text-body-md font-semibold text-fg-default">
-              {item.assunto}
-            </span>
-            {item.tipo && <ChipTipo tipo={item.tipo} />}
-          </div>
-          <ChipStatus status={item.status} />
-        </div>
-
-        <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
-          {item.descricao}
-        </p>
-
         {item.referencia && (
           <Meta icone={<Link2 />}>
             <LinkReferencia href={item.referencia} />
@@ -572,9 +394,6 @@ export function SolicitarComponenteDoc() {
 
   const [itens, setItens] = useState<Solicitacao[]>([]);
   const [lista, setLista] = useState<EstadoLista>("carregando");
-
-  // TEMPORÁRIO — sai junto com as propostas descartadas.
-  const [proposta, setProposta] = useState<Proposta>("atual");
 
   /** Armadilha de bot: fica fora do fluxo visual e do foco. Humano não
    *  preenche; robô que varre o HTML preenche. O endpoint responde "ok" e
@@ -829,31 +648,6 @@ export function SolicitarComponenteDoc() {
         </Button>
       </div>
 
-      {/* ⚠️ TEMPORÁRIO — seletor de proposta de layout, pra o mantenedor
-          comparar com dado real. Sai junto com as variantes descartadas. */}
-      <div className="mb-gp-lg flex flex-col gap-gp-sm rounded-radius-lg border border-dashed border-border-default bg-bg-subtle p-pad-xl dark:bg-bg-canvas">
-        <span className="text-caption-md font-semibold uppercase tracking-[0.06em] text-fg-muted">
-          Comparar propostas · temporário
-        </span>
-        <div className="flex flex-wrap gap-gp-sm">
-          {PROPOSTAS.map((p) => (
-            <Button
-              key={p.id}
-              type="button"
-              size="sm"
-              color={proposta === p.id ? "primary" : "secondary"}
-              variant={proposta === p.id ? "filled" : "outline"}
-              onClick={() => setProposta(p.id)}
-            >
-              {p.label}
-            </Button>
-          ))}
-        </div>
-        <span className="text-body-sm text-fg-muted">
-          {PROPOSTAS.find((p) => p.id === proposta)?.nota}
-        </span>
-      </div>
-
       {/* Falha de leitura não pode derrubar o formulário: quem veio pedir tem
           que conseguir pedir mesmo com a lista fora do ar. */}
       {lista === "erro" && (
@@ -888,21 +682,10 @@ export function SolicitarComponenteDoc() {
       )}
 
       {lista === "pronta" && itens.length > 0 && (
-        <ul
-          className={
-            proposta === "tabela"
-              ? "overflow-hidden rounded-radius-lg border border-border-subtle bg-bg-surface dark:border-border-default"
-              : "flex flex-col gap-gp-md"
-          }
-        >
-          {itens.map((item, i) => {
-            const chave = `${item.data}-${i}`;
-            if (proposta === "tabela")
-              return <LinhaDensa key={chave} item={item} />;
-            if (proposta === "faixa") return <CardFaixa key={chave} item={item} />;
-            if (proposta === "split") return <CardSplit key={chave} item={item} />;
-            return <CardAtual key={chave} item={item} />;
-          })}
+        <ul className="flex flex-col gap-gp-md">
+          {itens.map((item, i) => (
+            <CardPedido key={`${item.data}-${i}`} item={item} />
+          ))}
         </ul>
       )}
     </DocLayout>
