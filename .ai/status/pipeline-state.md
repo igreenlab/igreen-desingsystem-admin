@@ -35,6 +35,7 @@
 - [2026-09-05 — CONCLUÍDO · Gantt: rodada de revisão contra os componentes consolidados](#2026-09-05-concluído-gantt-rodada-de-revisão-contra-os-componentes-consolidados)
 - [2026-09-05 — CONCLUÍDO · v0.60.0 publicada nos 4 canais](#2026-09-05-concluído-v0600-publicada-nos-4-canais)
 - [2026-09-05 — CONCLUÍDO · v0.61.0 publicada · o Gantt ganha exemplo distribuível](#2026-09-05-concluído-v0610-publicada-o-gantt-ganha-exemplo-distribuível)
+- [2026-09-09 — CONCLUÍDO · Pedidos de componente no showcase, sem backend](#2026-09-09-concluído-pedidos-de-componente-no-showcase-sem-backend)
 
 <!-- doc-index:fim -->
 
@@ -5100,3 +5101,61 @@ removendo só o que é do shell.
 como `mapa-rede`/`finance` (o shell NÃO atravessa pro exemplo — é o *strip
 AppShell* da L-034), e a seção "Decisões" saiu da doc page (89 linhas; as cinco
 decisões já viviam nos gotchas do `USAGE.md` e no JSDoc do código).
+
+---
+
+## 2026-09-09 — CONCLUÍDO · Pedidos de componente no showcase, sem backend
+
+**Agente:** DS Dev · **Fluxo:** pedido do mantenedor → gate de abordagem → spike → implementação.
+
+**Problema:** pedidos de componente chegavam por mensagem privada ao mantenedor.
+Sem registro, sem fila visível, e a mesma coisa era pedida mais de uma vez por
+pessoas diferentes.
+
+**Entrega:** página `#/solicitar-componente` — formulário + fila pública. Três
+portas de entrada: fim do menu de Components (`Não encontrou? Solicitar`), o
+estado vazio da busca em `#/components-overview` (carregando o termo digitado) e
+o estado vazio + rodapé do `#/inicio`.
+
+**Restrição do mantenedor, e ela desenhou a solução:** *toda* a lógica em UM
+arquivo, sem componente novo, sem token novo, sem tocar em `src/components/`. O
+DS atual funciona e uma tela de recado não é motivo pra encostar nele.
+
+**Armazenamento sem backend:** Apps Script publicado como Web App, gravando numa
+planilha do Google. `POST` grava, `GET` lê. Zero custo, zero infra, zero conta
+nova. Documentado em `SOLICITACOES-SETUP.md`, que carrega a **cópia versionada do
+código do endpoint** — ele vive na conta Google do mantenedor, fora deste repo.
+
+**Por que Apps Script e não planilha publicada:** publicar a planilha exporia a
+planilha inteira. O `doGet` monta a resposta coluna por coluna, então as colunas
+`oculto` e `notas` **nunca saem do servidor**. A lista é pública; a planilha não.
+Isso também dá o gerenciamento de graça: escrever `status` ou `oculto` na planilha
+muda a tela, sem código e sem deploy.
+
+**Três armadilhas medidas na instalação** (todas em `SOLICITACOES-SETUP.md`):
+(1) `getActiveSpreadsheet()` devolve `null` em Web App anônimo — funciona no editor
+e falha publicado; (2) implantação publicada é imutável, salvar não republica —
+custou três idas e voltas até isolar com a URL `/dev`; (3) o `POST` tem que ir como
+`text/plain`, porque Apps Script não responde a preflight `OPTIONS`.
+
+**Decisão sobre dado pessoal:** só o **nome** é coletado, sem e-mail — a pessoa é
+encontrada no Teams. Menos dado pedido é menos dado exposto numa lista pública. A
+página avisa em destaque, ANTES do formulário, que tudo ali é visível.
+
+**Validação:** `tsc` 0 · 1.124 testes em 76 arquivos · 6/6 gates do `release:check`
+(o 7º, `npm audit` do `registry-app`, reprova por CVE pré-existente de Next/sharp,
+fora deste diff). Medido no browser: envio real pela tela, item aparecendo na lista,
+quebra de linha preservada, validação de obrigatório sem gravar, armadilha de bot
+não gravando, e injeção de fórmula neutralizada (`=IMPORTXML(...)` voltou como texto
+literal — se tivesse virado fórmula, a leitura traria o resultado, não o texto).
+
+**Assumption:** o volume é baixo o bastante pra dispensar gerenciamento — o
+mantenedor edita a planilha na mão. Se a fila crescer a ponto de precisar de
+atribuição, prazo ou prioridade, a planilha deixa de servir e a decisão inteira
+(sem banco) precisa ser reaberta. O sinal de quebra é o mantenedor querer filtrar
+ou ordenar a lista pela tela.
+
+**Dívida conhecida, registrada aqui porque ninguém vai lembrar:** a planilha, o
+Apps Script e o deploy do showcase estão numa **conta pessoal**. Se ela ficar
+indisponível, os pedidos param de ser gravados. O código está versionado; o acesso
+não. Mesma família de risco do npm e da Vercel.

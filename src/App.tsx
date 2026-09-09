@@ -26,6 +26,7 @@ import { FileUploadFieldDoc } from "./preview/pages/FileUploadFieldDoc";
 import { MonthYearPickerDoc } from "./preview/pages/MonthYearPickerDoc";
 import { ColorPickerDoc } from "./preview/pages/ColorPickerDoc";
 import { ComponentsOverviewDoc } from "./preview/pages/ComponentsOverviewDoc";
+import { SolicitarComponenteDoc } from "./preview/pages/SolicitarComponenteDoc";
 import { SonnerDoc } from "./preview/pages/SonnerDoc";
 import { ToastDoc } from "./preview/pages/ToastDoc";
 import { ComboboxDoc } from "./preview/pages/ComboboxDoc";
@@ -317,6 +318,7 @@ const DOC_PAGES = [
   "month-year-picker",
   "color-picker",
   "components-overview",
+  "solicitar-componente",
   "sonner",
   "toast",
   "combobox",
@@ -625,6 +627,7 @@ export function App() {
             {activePage === "month-year-picker" && <MonthYearPickerDoc />}
             {activePage === "color-picker" && <ColorPickerDoc />}
             {activePage === "components-overview" && <ComponentsOverviewDoc />}
+            {activePage === "solicitar-componente" && <SolicitarComponenteDoc />}
             {activePage === "sonner" && <SonnerDoc />}
             {activePage === "toast" && <ToastDoc />}
             {activePage === "combobox" && <ComboboxDoc />}
