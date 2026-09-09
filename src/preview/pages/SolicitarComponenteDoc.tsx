@@ -540,59 +540,62 @@ export function SolicitarComponenteDoc() {
               // chapado contra a página, que era a diferença visual maior.
               className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-xl shadow-sh-sm transition-[background-color,border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default dark:hover:bg-bg-canvas"
             >
-              {/* Assunto e tipo à esquerda, status encostado na direita. O
-                  status é a coluna que o olho percorre de cima a baixo pra
-                  triar a fila — alinhado, ele vira uma coluna de verdade; solto
-                  no meio do fluxo, muda de posição a cada card. */}
-              <div className="flex items-start justify-between gap-gp-md">
-                <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
-                  <span className="text-body-md font-semibold text-fg-default">
-                    {item.assunto}
-                  </span>
-                  {item.tipo &&
-                    (() => {
-                      const IconeTipo = iconeDoTipo(item.tipo);
-                      return (
-                        // `soft`, não `outline`: contorno fino com texto
-                        // discreto tem contraste baixo demais pra um rótulo
-                        // que a pessoa precisa ler de relance.
-                        <Badge
-                          color={corDoTipo(item.tipo)}
-                          variant="soft"
-                          size="sm"
-                        >
-                          <IconeTipo strokeWidth={1.8} aria-hidden={true} />
-                          {item.tipo}
-                        </Badge>
-                      );
-                    })()}
-                </div>
+              {/* Nome acima do título, colado nele (`gap-gp-2xs`), formando um
+                  bloco só: quem pediu é a primeira coisa que se lê, e o assunto
+                  vem logo abaixo com o peso. O gap maior do card separa esse
+                  bloco da descrição. */}
+              <div className="flex flex-col gap-gp-2xs">
+                <Meta icone={<User />}>{item.nome}</Meta>
 
-                {/* `shape="pill"` no status e shape padrão no tipo é o que o
-                    JSDoc do próprio Badge prescreve: pílula para status chip,
-                    retângulo para tag inline. */}
-                <Badge
-                  color={corDoStatus(item.status)}
-                  variant="soft"
-                  size="sm"
-                  shape="pill"
-                  className="shrink-0"
-                >
-                  {item.status.trim() || STATUS_PADRAO}
-                </Badge>
+                {/* Assunto e tipo à esquerda, status encostado na direita. O
+                    status é a coluna que o olho percorre de cima a baixo pra
+                    triar a fila — alinhado, ele vira uma coluna de verdade;
+                    solto no meio do fluxo, muda de posição a cada card. */}
+                <div className="flex items-start justify-between gap-gp-md">
+                  <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
+                    <span className="text-body-md font-semibold text-fg-default">
+                      {item.assunto}
+                    </span>
+                    {item.tipo &&
+                      (() => {
+                        const IconeTipo = iconeDoTipo(item.tipo);
+                        return (
+                          // `soft`, não `outline`: contorno fino com texto
+                          // discreto tem contraste baixo demais pra um rótulo
+                          // que a pessoa precisa ler de relance.
+                          <Badge
+                            color={corDoTipo(item.tipo)}
+                            variant="soft"
+                            size="sm"
+                          >
+                            <IconeTipo strokeWidth={1.8} aria-hidden={true} />
+                            {item.tipo}
+                          </Badge>
+                        );
+                      })()}
+                  </div>
+
+                  {/* `shape="pill"` no status e shape padrão no tipo é o que o
+                      JSDoc do próprio Badge prescreve: pílula para status chip,
+                      retângulo para tag inline. */}
+                  <Badge
+                    color={corDoStatus(item.status)}
+                    variant="soft"
+                    size="sm"
+                    shape="pill"
+                    className="shrink-0"
+                  >
+                    {item.status.trim() || STATUS_PADRAO}
+                  </Badge>
+                </div>
               </div>
 
               <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
                 {item.descricao}
               </p>
 
-              {/* Rodapé numa linha só, na ordem quem → quando → onde. O nome vem
-                  primeiro porque é o que a pessoa procura quando quer conversar
-                  sobre o pedido; o resto é contexto. */}
+              {/* Rodapé: quando e onde. O QUEM subiu pro topo do card. */}
               <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
-                <Meta icone={<User />}>
-                  <span className="font-medium text-fg-default">{item.nome}</span>
-                </Meta>
                 {/* Data de inserção por extenso. O relativo ("há 8 h") fica no
                     `title`: numa fila que anda devagar, saber QUANDO entrou vale
                     mais do que há quanto tempo — e o relativo perde resolução
