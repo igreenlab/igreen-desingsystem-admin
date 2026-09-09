@@ -179,13 +179,29 @@ function corDoStatus(
   status: string,
 ): "success" | "warning" | "critical" | "info" | "secondary" {
   const s = status.trim().toLowerCase();
-  if (!s || s === STATUS_PADRAO.toLowerCase()) return "secondary";
+  // "Aberto" é o estado que PEDE ação do mantenedor — ninguém triou ainda. Era
+  // neutro e sumia no card; âmbar é a cor certa e resolve o "muito apagado".
+  if (!s || s === STATUS_PADRAO.toLowerCase()) return "warning";
   if (s.includes("feito") || s.includes("pronto") || s.includes("entregue"))
     return "success";
   if (s.includes("recusad") || s.includes("cancelad")) return "critical";
   if (s.includes("andamento") || s.includes("fazendo")) return "info";
   if (s.includes("anális") || s.includes("analis") || s.includes("avaliando"))
-    return "warning";
+    return "info";
+  return "secondary";
+}
+
+/**
+ * Cor do badge de tipo.
+ *
+ * Status e tipo podem coexistir coloridos porque as FORMAS os separam: status é
+ * pílula, tipo é retângulo. Sem essa distinção, dois chips coloridos lado a lado
+ * viram uma faixa só e o olho não sabe qual é qual.
+ */
+function corDoTipo(tipo: string): "primary" | "info" | "secondary" {
+  const t = tipo.toLowerCase();
+  if (t.includes("novo")) return "primary";
+  if (t.includes("ajuste")) return "info";
   return "secondary";
 }
 
@@ -588,8 +604,12 @@ export function SolicitarComponenteDoc() {
                     <Badge
                       color={corDoStatus(item.status)}
                       variant="soft"
-                      size="md"
+                      size="lg"
                       shape="pill"
+                      // `size="lg"` traz `font-normal` embutido, e status chip
+                      // pede peso. O tailwind-merge resolve o conflito de
+                      // font-weight, então o override é seguro.
+                      className="font-semibold"
                     >
                       {item.status.trim() || STATUS_PADRAO}
                     </Badge>
@@ -597,7 +617,18 @@ export function SolicitarComponenteDoc() {
                       (() => {
                         const IconeTipo = iconeDoTipo(item.tipo);
                         return (
-                          <Badge color="secondary" variant="outline" size="md">
+                          // `soft`, não `outline`: contorno fino com texto
+                          // discreto tem contraste baixo demais pra um rótulo
+                          // que a pessoa precisa ler de relance.
+                          <Badge
+                            color={corDoTipo(item.tipo)}
+                            variant="soft"
+                            size="lg"
+                            // Peso 500 contra o `font-normal` que o `lg` traz:
+                            // 400 num chip curto fica mole. Fica abaixo do 600
+                            // do status de propósito — tipo é subordinado.
+                            className="font-medium"
+                          >
                             <IconeTipo strokeWidth={1.8} aria-hidden={true} />
                             {item.tipo}
                           </Badge>

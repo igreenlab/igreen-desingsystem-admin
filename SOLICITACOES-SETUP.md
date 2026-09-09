@@ -60,16 +60,29 @@ O texto é livre; a **cor** sai de um casamento por trecho, não por valor exato
 
 | Se o texto contiver | Cor |
 |---|---|
+| *(vazio)* → exibe `Aberto` | 🟠 âmbar |
+| `análise` · `analis` · `avaliando` · `andamento` · `fazendo` | 🔵 azul |
 | `feito` · `pronto` · `entregue` | 🟢 verde |
-| `andamento` · `fazendo` | 🔵 azul |
-| `análise` · `analis` · `avaliando` | 🟡 amarelo |
 | `recusado` · `cancelado` | 🔴 vermelho |
-| qualquer outra coisa, ou vazio | ⚪ neutro |
+| qualquer outra coisa | ⚪ neutro |
 
-Ou seja: `Feito na v0.62` fica verde, `Em análise` fica amarelo, `Recusado — usar DataList`
-fica vermelho. **Escrever algo que não bate em nada não quebra nada** — cai no neutro. É
-proposital: a planilha é editável na mão e um valor novo não pode nem derrubar a tela nem
-inventar uma semântica de cor que ninguém pediu.
+Ou seja: `Feito na v0.62` fica verde, `Em análise` fica azul, `Recusado — usar DataList`
+fica vermelho.
+
+**Por que `Aberto` é âmbar e não neutro:** é o único estado que pede ação **sua** — ninguém
+triou o pedido ainda. Em neutro ele sumia no card, e a fila inteira ficava sem nenhum ponto
+de atenção. Assim que você escreve qualquer coisa na coluna, o âmbar sai.
+
+**Escrever algo que não bate em nada não quebra nada** — cai no neutro. É proposital: a
+planilha é editável na mão, e um valor novo não pode nem derrubar a tela nem inventar uma
+semântica de cor que ninguém pediu.
+
+### E a coluna `tipo`
+
+Vira um segundo chip, com ícone e **forma retangular** — o status é pílula. As duas formas
+existem pra separar à vista o que **muda** (status) do que **descreve** (tipo); sem isso,
+dois chips coloridos lado a lado viram uma faixa só. Cor: verde para `componente novo`,
+azul para `ajuste`, neutro para o resto.
 
 ---
 
