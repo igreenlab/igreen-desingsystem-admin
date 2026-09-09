@@ -1,5 +1,25 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { RefreshCw, Send, CircleAlert, Inbox } from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ComponentType,
+  type ReactNode,
+} from "react";
+import {
+  RefreshCw,
+  Send,
+  CircleAlert,
+  Inbox,
+  CalendarDays,
+  FolderOpen,
+  Link2,
+  Package,
+  Wrench,
+  LayoutTemplate,
+  CircleHelp,
+} from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import {
   FormFieldInput,
@@ -107,15 +127,106 @@ function formatarData(iso: string): string {
   });
 }
 
-/** Cor do Badge por status. Status desconhecido cai no neutro — a planilha é
- *  livre, e um valor novo escrito lá não pode quebrar a tela. */
-function corDoStatus(status: string): "success" | "warning" | "critical" | "info" {
-  const s = status.toLowerCase();
+/**
+ * Status exibido quando a planilha não diz nada.
+ *
+ * Todo card carrega badge, sempre. Com o badge condicional, pedido sem status
+ * ficava sem nenhum — e a fila virava uma mistura de cards com e sem marcador,
+ * que é justamente o que atrapalha a leitura em varredura. "Aberto" também é a
+ * informação certa: ninguém olhou ainda.
+ */
+const STATUS_PADRAO = "Aberto";
+
+/**
+ * Cor do Badge por status.
+ *
+ * A planilha é texto livre — o mantenedor escreve o que quiser na coluna
+ * `status`. O casamento é por trecho, não por valor exato, e o que não bate cai
+ * no neutro: um valor novo escrito lá não pode quebrar a tela nem inventar
+ * semântica de cor que ninguém pediu.
+ */
+function corDoStatus(
+  status: string,
+): "success" | "warning" | "critical" | "info" | "secondary" {
+  const s = status.trim().toLowerCase();
+  if (!s || s === STATUS_PADRAO.toLowerCase()) return "secondary";
   if (s.includes("feito") || s.includes("pronto") || s.includes("entregue"))
     return "success";
   if (s.includes("recusad") || s.includes("cancelad")) return "critical";
   if (s.includes("andamento") || s.includes("fazendo")) return "info";
-  return "warning";
+  if (s.includes("anális") || s.includes("analis") || s.includes("avaliando"))
+    return "warning";
+  return "secondary";
+}
+
+/** Alias local, como no `ComponentsOverviewDoc`: o `LucideIcon` exportado pelo
+ *  pacote é namespace, não tipo — usá-lo em anotação dá TS2709. */
+type IconeLucide = ComponentType<{
+  strokeWidth?: number;
+  "aria-hidden"?: boolean;
+}>;
+
+/** Ícone por tipo. O tipo vem de um select fechado, mas a planilha é editável na
+ *  mão — então qualquer valor fora da lista cai no ponto de interrogação. */
+function iconeDoTipo(tipo: string): IconeLucide {
+  const t = tipo.toLowerCase();
+  if (t.includes("novo")) return Package;
+  if (t.includes("ajuste")) return Wrench;
+  if (t.includes("exemplo") || t.includes("tela")) return LayoutTemplate;
+  return CircleHelp;
+}
+
+/**
+ * Avatar de iniciais.
+ *
+ * A cor sai de um par semântico do DS escolhido por hash do nome — não de um
+ * valor calculado. Par do DS já vem com contraste casado em claro e escuro
+ * (L-027 manda usar `getContrastTextColor` só quando o fundo é arbitrário, o
+ * que não é o caso aqui). Hash simples basta: o objetivo é a mesma pessoa
+ * receber sempre a mesma cor, não distribuição uniforme.
+ */
+const CORES_AVATAR = [
+  "bg-bg-brand-subtle text-fg-brand",
+  "bg-bg-info-muted text-fg-info",
+  "bg-bg-success-muted text-fg-success",
+  "bg-bg-warning-muted text-fg-warning",
+  "bg-bg-muted text-fg-muted",
+];
+
+/**
+ * Iniciais do nome.
+ *
+ * A pontuação vira espaço ANTES de separar as palavras — sem isso,
+ * "Teste (validacao)" rendia `T(`, porque a última palavra começa com
+ * parêntese. O campo é texto livre: parêntese, hífen e emoji chegam aqui, e uma
+ * inicial que não é letra parece defeito de renderização.
+ */
+function iniciais(nome: string): string {
+  const partes = nome
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (partes.length === 0) return "?";
+  if (partes.length === 1) return partes[0].slice(0, 2).toUpperCase();
+  return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+}
+
+function corDoNome(nome: string): string {
+  let soma = 0;
+  for (let i = 0; i < nome.length; i++) soma += nome.charCodeAt(i);
+  return CORES_AVATAR[soma % CORES_AVATAR.length];
+}
+
+/** Item de metadado: ícone apagado + valor. Mesma receita do `renderOrderCard`
+ *  dos exemplos de List, pra fila e catálogo lerem igual. */
+function Meta({ icone, children }: { icone: ReactNode; children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-muted [&>svg]:size-icon-sm [&>svg]:shrink-0 [&>svg]:text-fg-subtle">
+      {icone}
+      {children}
+    </span>
+  );
 }
 
 export function SolicitarComponenteDoc() {
@@ -418,41 +529,58 @@ export function SolicitarComponenteDoc() {
           {itens.map((item, i) => (
             <li
               key={`${item.data}-${i}`}
-              className="flex flex-col gap-gp-sm rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl"
+              className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl transition-colors hover:border-border-default"
             >
-              <div className="flex flex-wrap items-center gap-gp-sm">
-                <span className="text-body-md font-semibold text-fg-default">
-                  {item.assunto}
+              <div className="flex items-start gap-gp-md">
+                <span
+                  aria-hidden="true"
+                  className={`grid size-comp-md shrink-0 place-items-center rounded-radius-full text-caption-sm font-semibold ${corDoNome(item.nome)}`}
+                >
+                  {iniciais(item.nome)}
                 </span>
-                {item.status && (
-                  <Badge color={corDoStatus(item.status)} variant="soft" size="sm">
-                    {item.status}
-                  </Badge>
-                )}
-                {item.tipo && (
-                  <Badge color="secondary" variant="outline" size="sm">
-                    {item.tipo}
-                  </Badge>
-                )}
+
+                {/* Título e nome empilhados ao lado do avatar: as iniciais só
+                    significam alguma coisa coladas no nome que as gerou. */}
+                <div className="flex min-w-0 flex-1 flex-col gap-gp-2xs">
+                  <div className="flex flex-wrap items-center gap-gp-sm">
+                    <span className="text-body-md font-semibold text-fg-default">
+                      {item.assunto}
+                    </span>
+                    <Badge
+                      color={corDoStatus(item.status)}
+                      variant="soft"
+                      size="sm"
+                    >
+                      {item.status.trim() || STATUS_PADRAO}
+                    </Badge>
+                    {item.tipo &&
+                      (() => {
+                        const IconeTipo = iconeDoTipo(item.tipo);
+                        return (
+                          <Badge color="secondary" variant="outline" size="sm">
+                            <IconeTipo strokeWidth={1.8} aria-hidden={true} />
+                            {item.tipo}
+                          </Badge>
+                        );
+                      })()}
+                  </div>
+                  <span className="text-caption-md text-fg-muted">{item.nome}</span>
+                </div>
               </div>
 
-              <p className="whitespace-pre-line text-body-sm text-fg-muted">
+              <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
                 {item.descricao}
               </p>
 
-              <div className="flex flex-wrap items-center gap-gp-sm text-caption-md text-fg-subtle">
-                <span>{item.nome}</span>
+              <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
+                <Meta icone={<CalendarDays />}>
+                  <span className="tabular-nums">{formatarData(item.data)}</span>
+                </Meta>
                 {item.projeto && (
-                  <>
-                    <span aria-hidden="true">·</span>
-                    <span>{item.projeto}</span>
-                  </>
+                  <Meta icone={<FolderOpen />}>{item.projeto}</Meta>
                 )}
-                <span aria-hidden="true">·</span>
-                <span className="tabular-nums">{formatarData(item.data)}</span>
                 {item.referencia && (
-                  <>
-                    <span aria-hidden="true">·</span>
+                  <Meta icone={<Link2 />}>
                     {/* `noopener` e `noreferrer` porque o link vem de terceiro:
                         sem eles a página de destino recebe `window.opener` e
                         pode navegar esta aba pra onde quiser. */}
@@ -460,11 +588,11 @@ export function SolicitarComponenteDoc() {
                       href={item.referencia}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="text-fg-brand underline underline-offset-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+                      className="rounded-radius-sm text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
                     >
                       referência
                     </a>
-                  </>
+                  </Meta>
                 )}
               </div>
             </li>

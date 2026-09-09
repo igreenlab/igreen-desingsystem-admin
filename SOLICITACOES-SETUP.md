@@ -51,6 +51,26 @@ O script cria a aba `solicitacoes` sozinho, com este cabeçalho:
 **Gerenciar pedidos = escrever na planilha.** Marcar como feito, recusar, esconder — tudo
 sem tocar em código e sem deploy.
 
+### A coluna `status` e as cores
+
+Todo card mostra um badge, sempre. Com `status` vazio ele exibe **`Aberto`** — não existe
+card sem marcador, porque a fila fica ilegível quando metade tem badge e metade não.
+
+O texto é livre; a **cor** sai de um casamento por trecho, não por valor exato:
+
+| Se o texto contiver | Cor |
+|---|---|
+| `feito` · `pronto` · `entregue` | 🟢 verde |
+| `andamento` · `fazendo` | 🔵 azul |
+| `análise` · `analis` · `avaliando` | 🟡 amarelo |
+| `recusado` · `cancelado` | 🔴 vermelho |
+| qualquer outra coisa, ou vazio | ⚪ neutro |
+
+Ou seja: `Feito na v0.62` fica verde, `Em análise` fica amarelo, `Recusado — usar DataList`
+fica vermelho. **Escrever algo que não bate em nada não quebra nada** — cai no neutro. É
+proposital: a planilha é editável na mão e um valor novo não pode nem derrubar a tela nem
+inventar uma semântica de cor que ninguém pediu.
+
 ---
 
 ## Proteções
