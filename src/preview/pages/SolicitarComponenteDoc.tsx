@@ -15,7 +15,6 @@ import {
   CalendarDays,
   FolderOpen,
   Link2,
-  User,
   Package,
   Wrench,
   LayoutTemplate,
@@ -221,6 +220,48 @@ function iconeDoTipo(tipo: string): IconeLucide {
   if (t.includes("ajuste")) return Wrench;
   if (t.includes("exemplo") || t.includes("tela")) return LayoutTemplate;
   return CircleHelp;
+}
+
+/**
+ * Avatar de iniciais.
+ *
+ * A cor sai de um par semântico do DS escolhido por hash do nome — não de um
+ * valor calculado. Par do DS já vem com contraste casado em claro e escuro
+ * (a L-027 manda usar `getContrastTextColor` só quando o fundo é arbitrário, o
+ * que não é o caso aqui). Hash simples basta: o objetivo é a mesma pessoa
+ * receber sempre a mesma cor, não distribuição uniforme.
+ */
+const CORES_AVATAR = [
+  "bg-bg-brand-subtle text-fg-brand",
+  "bg-bg-info-muted text-fg-info",
+  "bg-bg-success-muted text-fg-success",
+  "bg-bg-warning-muted text-fg-warning",
+  "bg-bg-muted text-fg-muted",
+];
+
+/**
+ * Iniciais do nome.
+ *
+ * A pontuação vira espaço ANTES de separar as palavras — sem isso,
+ * "Teste (validacao)" rendia `T(`, porque a última palavra começa com
+ * parêntese. O campo é texto livre: parêntese, hífen e emoji chegam aqui, e uma
+ * inicial que não é letra parece defeito de renderização.
+ */
+function iniciais(nome: string): string {
+  const partes = nome
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (partes.length === 0) return "?";
+  if (partes.length === 1) return partes[0].slice(0, 2).toUpperCase();
+  return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+}
+
+function corDoNome(nome: string): string {
+  let soma = 0;
+  for (let i = 0; i < nome.length; i++) soma += nome.charCodeAt(i);
+  return CORES_AVATAR[soma % CORES_AVATAR.length];
 }
 
 /** Item de metadado: ícone apagado + valor. Mesma receita do `renderOrderCard`
@@ -540,53 +581,66 @@ export function SolicitarComponenteDoc() {
               // chapado contra a página, que era a diferença visual maior.
               className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-xl shadow-sh-sm transition-[background-color,border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default dark:hover:bg-bg-canvas"
             >
-              {/* Nome acima do título, colado nele (`gap-gp-2xs`), formando um
-                  bloco só: quem pediu é a primeira coisa que se lê, e o assunto
-                  vem logo abaixo com o peso. O gap maior do card separa esse
-                  bloco da descrição. */}
-              <div className="flex flex-col gap-gp-2xs">
-                <Meta icone={<User />}>{item.nome}</Meta>
+              <div className="flex items-start gap-gp-md">
+                <span
+                  aria-hidden="true"
+                  className={`grid size-comp-md shrink-0 place-items-center rounded-radius-full text-caption-sm font-semibold ${corDoNome(item.nome)}`}
+                >
+                  {iniciais(item.nome)}
+                </span>
 
-                {/* Assunto e tipo à esquerda, status encostado na direita. O
-                    status é a coluna que o olho percorre de cima a baixo pra
-                    triar a fila — alinhado, ele vira uma coluna de verdade;
-                    solto no meio do fluxo, muda de posição a cada card. */}
-                <div className="flex items-start justify-between gap-gp-md">
-                  <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
-                    <span className="text-body-md font-semibold text-fg-default">
-                      {item.assunto}
-                    </span>
-                    {item.tipo &&
-                      (() => {
-                        const IconeTipo = iconeDoTipo(item.tipo);
-                        return (
-                          // `soft`, não `outline`: contorno fino com texto
-                          // discreto tem contraste baixo demais pra um rótulo
-                          // que a pessoa precisa ler de relance.
-                          <Badge
-                            color={corDoTipo(item.tipo)}
-                            variant="soft"
-                            size="sm"
-                          >
-                            <IconeTipo strokeWidth={1.8} aria-hidden={true} />
-                            {item.tipo}
-                          </Badge>
-                        );
-                      })()}
+                <div className="flex min-w-0 flex-1 flex-col gap-gp-2xs">
+                  {/* Assunto e tipo à esquerda, status encostado na direita. O
+                      status é a coluna que o olho percorre de cima a baixo pra
+                      triar a fila — alinhado, ele vira uma coluna de verdade;
+                      solto no meio do fluxo, muda de posição a cada card. */}
+                  <div className="flex items-start justify-between gap-gp-md">
+                    <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
+                      <span className="text-body-md font-semibold text-fg-default">
+                        {item.assunto}
+                      </span>
+                      {item.tipo &&
+                        (() => {
+                          const IconeTipo = iconeDoTipo(item.tipo);
+                          return (
+                            // `soft`, não `outline`: contorno fino com texto
+                            // discreto tem contraste baixo demais pra um rótulo
+                            // que a pessoa precisa ler de relance.
+                            <Badge
+                              color={corDoTipo(item.tipo)}
+                              variant="soft"
+                              size="sm"
+                            >
+                              <IconeTipo strokeWidth={1.8} aria-hidden={true} />
+                              {item.tipo}
+                            </Badge>
+                          );
+                        })()}
+                    </div>
+
+                    {/* `shape="pill"` no status e shape padrão no tipo é o que
+                        o JSDoc do próprio Badge prescreve: pílula para status
+                        chip, retângulo para tag inline. */}
+                    <Badge
+                      color={corDoStatus(item.status)}
+                      variant="soft"
+                      size="sm"
+                      shape="pill"
+                      className="shrink-0"
+                    >
+                      {item.status.trim() || STATUS_PADRAO}
+                    </Badge>
                   </div>
 
-                  {/* `shape="pill"` no status e shape padrão no tipo é o que o
-                      JSDoc do próprio Badge prescreve: pílula para status chip,
-                      retângulo para tag inline. */}
-                  <Badge
-                    color={corDoStatus(item.status)}
-                    variant="soft"
-                    size="sm"
-                    shape="pill"
-                    className="shrink-0"
-                  >
-                    {item.status.trim() || STATUS_PADRAO}
-                  </Badge>
+                  {/* "Escrito por" nomeia o que as iniciais do avatar
+                      representam — sem o rótulo, um nome solto sob o título
+                      pode ser lido como subtítulo do pedido. */}
+                  <span className="text-caption-md text-fg-muted">
+                    Escrito por{" "}
+                    <span className="font-medium text-fg-default">
+                      {item.nome}
+                    </span>
+                  </span>
                 </div>
               </div>
 
