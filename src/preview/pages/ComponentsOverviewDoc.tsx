@@ -76,6 +76,7 @@ import {
   ChartColumn,
   Map as MapIcon,
   ChevronsUpDown,
+  MessageSquarePlus,
 } from "lucide-react";
 import {
   InputGroup,
@@ -83,6 +84,7 @@ import {
   InputGroupInput,
   InputGroupButton,
 } from "@/components/shadcn/input-group";
+import { buttonVariants } from "@/components/ui/Button";
 import { DocLayout, DocHeader, DocSeparator } from "../components";
 
 /**
@@ -328,10 +330,19 @@ export function ComponentsOverviewDoc() {
           <span className="text-caption-md text-fg-muted tabular-nums">
             {shown} de {TOTAL} componentes
           </span>
+          {/* `<a>` com o recipe `buttonVariants`, não `<Button>`: o Button do DS
+              é `<button>` puro, sem `asChild`. Navegar por `onClick` mataria
+              ctrl/cmd+clique e botão do meio, que é o defeito da L-068 — e o
+              recipe mantém a verdade visual na fonte, sem copiar classe. */}
           <a
             href="#/solicitar-componente"
-            className="text-caption-md font-medium text-fg-brand underline underline-offset-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand rounded-radius-sm"
+            className={buttonVariants({
+              color: "secondary",
+              variant: "outline",
+              size: "sm",
+            })}
           >
+            <MessageSquarePlus strokeWidth={1.8} aria-hidden={true} />
             Solicitar um componente
           </a>
         </div>
@@ -363,11 +374,14 @@ export function ComponentsOverviewDoc() {
             Tente outro termo — buscamos por nome e descrição.
           </span>
           {/* A busca sem resultado é o melhor momento pro pedido: a pessoa
-              acabou de descrever o que queria e não achou. */}
+              acabou de descrever o que queria e não achou. Aqui vai `filled`,
+              e não `outline` como no cabeçalho: é o único caminho adiante na
+              tela, então é a ação primária do momento. */}
           <a
             href="#/solicitar-componente"
-            className="mt-gp-xs text-body-sm font-medium text-fg-brand underline underline-offset-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand rounded-radius-sm"
+            className={`mt-gp-sm ${buttonVariants({ color: "primary", variant: "filled" })}`}
           >
+            <MessageSquarePlus strokeWidth={1.8} aria-hidden={true} />
             Solicitar “{query.trim()}”
           </a>
         </div>

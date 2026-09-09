@@ -63,6 +63,10 @@ const BASE_NAV: DocNavSection[] = [
     title: "Components",
     items: [
       { label: "Todos os componentes", href: "components-overview" },
+      // Logo abaixo do índice, e não no fim da lista: quem abre "Todos os
+      // componentes" e não acha o que quer não rola 100 itens até o rodapé do
+      // menu — desiste antes. A porta de saída fica ao lado da porta de entrada.
+      { label: "Não encontrou? Solicitar", href: "solicitar-componente" },
       { label: "Accordion", href: "accordion" },
       { label: "Alert", href: "alert" },
       { label: "Alert Dialog", href: "alert-dialog" },
@@ -129,9 +133,6 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Toggle", href: "toggle" },
       { label: "Toggle Group", href: "toggle-group" },
       { label: "Tooltip", href: "tooltip" },
-      // Último item da lista DE PROPÓSITO: quem chegou até aqui percorreu o
-      // catálogo inteiro e não achou o que queria. É o momento exato do pedido.
-      { label: "Não encontrou? Solicitar", href: "solicitar-componente" },
     ],
   },
   {

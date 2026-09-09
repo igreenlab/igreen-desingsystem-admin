@@ -86,6 +86,7 @@ import {
   Receipt,
   Rocket,
   Search,
+  MessageSquarePlus,
   SlidersHorizontal,
   Split,
   Sparkles,
@@ -2675,6 +2676,20 @@ function Catalogo() {
         {/* O contador saiu daqui por pedido — a contagem já aparece no chip "Tudo" e
             em cada chip de categoria. `aria-live` foi pro chip pra a mudança de
             filtro continuar sendo anunciada. */}
+
+        {/* Presença permanente ao lado da busca, além do estado vazio: quem já
+            sabe que o componente não existe não vai digitar pra descobrir. Fica
+            `outline` — a busca é a ação principal desta faixa. */}
+        <Button
+          color="secondary"
+          variant="outline"
+          size="lg"
+          onClick={() => onNavigate("solicitar-componente")}
+          iconLeft={<MessageSquarePlus />}
+          className="shrink-0"
+        >
+          Solicitar componente
+        </Button>
       </div>
 
       {/* Chips de categoria — o filtro do wireframe. `Chip` do DS com contagem. */}
@@ -2707,15 +2722,16 @@ function Catalogo() {
             Nada com esse termo. Tente “table”, “chart” ou “input”.
           </p>
           {/* Busca sem resultado = a pessoa acabou de descrever o que queria e
-              não achou. É o melhor momento pro pedido, e o único lugar da
-              landing onde ele não compete com o resto. */}
-          <button
-            type="button"
+              não achou. É o melhor momento pro pedido, e o único caminho adiante
+              na tela — por isso botão primário, não link. */}
+          <Button
+            color="primary"
+            variant="filled"
             onClick={() => onNavigate("solicitar-componente")}
-            className="rounded-radius-sm text-body-sm font-medium text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+            iconLeft={<MessageSquarePlus />}
           >
             Não existe? Solicitar componente
-          </button>
+          </Button>
         </div>
       ) : secao ? (
         <ul className={GRADE_CATALOGO}>
