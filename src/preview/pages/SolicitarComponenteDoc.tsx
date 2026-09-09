@@ -275,6 +275,295 @@ function Meta({ icone, children }: { icone: ReactNode; children: ReactNode }) {
   );
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROPOSTAS DE LAYOUT — TEMPORÁRIO
+
+   ⚠️ Este seletor existe só pra o mantenedor comparar as opções lado a lado com
+   dado real. Assim que ele escolher, as outras variantes e o seletor SAEM — não
+   deixe isto entrar em produção: quatro layouts pra uma lista é dívida, não
+   flexibilidade.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+type Proposta = "atual" | "tabela" | "faixa" | "split";
+
+const PROPOSTAS: { id: Proposta; label: string; nota: string }[] = [
+  {
+    id: "atual",
+    label: "Atual",
+    nota: "Card com avatar, descrição em superfície própria e rodapé de metadados.",
+  },
+  {
+    id: "tabela",
+    label: "A · Linha densa",
+    nota: "Gramática de tabela do DS: linhas, sem card, descrição em 1 linha truncada. Cabe muito mais na tela e o status vira coluna real. Custo: a descrição deixa de ser legível na lista.",
+  },
+  {
+    id: "faixa",
+    label: "B · Faixa de status",
+    nota: "O status vira uma faixa colorida na lateral, além do chip. Dá pra triar pela cor sem ler nada. Modelo de mercado: cartão de Jira/Trello.",
+  },
+  {
+    id: "split",
+    label: "C · Duas colunas",
+    nota: "Quem/quando numa coluna fixa à esquerda, conteúdo à direita. O olho separa metadado de conteúdo sem precisar de moldura. Modelo de mercado: lista de e-mail / thread.",
+  },
+];
+
+/** Chip de tipo — idêntico nas quatro propostas, pra a comparação isolar só o
+ *  layout. */
+function ChipTipo({ tipo }: { tipo: string }) {
+  const IconeTipo = iconeDoTipo(tipo);
+  return (
+    <Badge color={corDoTipo(tipo)} variant="soft" size="sm">
+      <IconeTipo strokeWidth={1.8} aria-hidden={true} />
+      {tipo}
+    </Badge>
+  );
+}
+
+function ChipStatus({ status }: { status: string }) {
+  return (
+    <Badge
+      color={corDoStatus(status)}
+      variant="soft"
+      size="sm"
+      shape="pill"
+      className="shrink-0"
+    >
+      {status.trim() || STATUS_PADRAO}
+    </Badge>
+  );
+}
+
+function Avatar({ nome }: { nome: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`grid size-comp-md shrink-0 place-items-center rounded-radius-full text-caption-sm font-semibold ${corDoNome(nome)}`}
+    >
+      {iniciais(nome)}
+    </span>
+  );
+}
+
+function LinkReferencia({ href }: { href: string }) {
+  return (
+    // `noopener` e `noreferrer` porque o link vem de terceiro: sem eles a página
+    // de destino recebe `window.opener` e pode navegar esta aba pra onde quiser.
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+      className="rounded-radius-sm text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+    >
+      referência
+    </a>
+  );
+}
+
+const CARD_BASE =
+  "rounded-radius-lg border border-border-subtle bg-bg-surface shadow-sh-sm transition-[border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default";
+
+/** Superfície rebaixada da descrição. Dois tokens porque as escalas invertem —
+ *  ver o comentário longo na proposta Atual. */
+const BLOCO_DESCRICAO =
+  "rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-xl dark:bg-bg-canvas";
+
+/* ── Atual ──────────────────────────────────────────────────────────────── */
+
+function CardAtual({ item }: { item: Solicitacao }) {
+  return (
+    <li className={`flex flex-col gap-gp-md p-pad-xl ${CARD_BASE}`}>
+      <div className="flex items-start gap-gp-md">
+        <Avatar nome={item.nome} />
+        <div className="flex min-w-0 flex-1 flex-col gap-gp-2xs">
+          <div className="flex items-start justify-between gap-gp-md">
+            <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
+              <span className="text-body-md font-semibold text-fg-default">
+                {item.assunto}
+              </span>
+              {item.tipo && <ChipTipo tipo={item.tipo} />}
+            </div>
+            <ChipStatus status={item.status} />
+          </div>
+          <span className="text-caption-md text-fg-muted">{item.nome}</span>
+        </div>
+      </div>
+
+      {/* ⚠️ MEDIDO: no tema claro, `bg-bg-canvas` resolve para `oklch(1 0 0)` —
+          branco puro, IDÊNTICO ao `bg-bg-surface` do card. A hierarquia
+          `canvas < surface` da L-008 vale no escuro (0.205 vs 0.225) e empata
+          no claro. Por isso `subtle` no claro e `canvas` no escuro: um token só
+          falha num dos lados, e falha em silêncio — não quebra nada, só some. */}
+      <div className={BLOCO_DESCRICAO}>
+        <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
+          {item.descricao}
+        </p>
+      </div>
+
+      {/* `mt-gp-lg` além do gap do card: com a descrição emoldurada, 8px
+          deixavam o rodapé colado na moldura. */}
+      <div className="mt-gp-lg flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
+        <Meta icone={<CalendarDays />}>
+          <span className="tabular-nums" title={tempoRelativo(item.data)}>
+            {formatarData(item.data)}
+          </span>
+        </Meta>
+        {item.projeto && <Meta icone={<FolderOpen />}>{item.projeto}</Meta>}
+        {item.referencia && (
+          <Meta icone={<Link2 />}>
+            <LinkReferencia href={item.referencia} />
+          </Meta>
+        )}
+      </div>
+    </li>
+  );
+}
+
+/* ── A · Linha densa ────────────────────────────────────────────────────── */
+
+function LinhaDensa({ item }: { item: Solicitacao }) {
+  return (
+    <li className="flex items-center gap-gp-lg border-b border-border-subtle px-pad-md py-pad-lg transition-colors last:border-b-0 hover:bg-bg-muted">
+      <ChipStatus status={item.status} />
+
+      <div className="flex min-w-0 flex-1 flex-col gap-gp-2xs">
+        <div className="flex min-w-0 items-center gap-gp-sm">
+          <span className="truncate text-body-sm font-semibold text-fg-default">
+            {item.assunto}
+          </span>
+          {item.tipo && <ChipTipo tipo={item.tipo} />}
+        </div>
+        {/* `line-clamp-1` é o preço da densidade: cabe muito mais pedido na
+            tela, e a descrição deixa de ser legível sem abrir. */}
+        <span className="line-clamp-1 text-caption-md text-fg-muted">
+          {item.descricao}
+        </span>
+      </div>
+
+      <div className="hidden shrink-0 items-center gap-gp-2xl text-caption-md text-fg-muted md:flex">
+        <span className="truncate">{item.nome}</span>
+        <span className="tabular-nums" title={tempoRelativo(item.data)}>
+          {formatarData(item.data)}
+        </span>
+      </div>
+    </li>
+  );
+}
+
+/* ── B · Faixa de status ────────────────────────────────────────────────── */
+
+/** Faixa lateral por status. Classe de FUNDO, não de texto — o chip usa
+ *  `text-fg-*`, aqui a cor precisa pintar a barra. */
+function faixaDoStatus(status: string): string {
+  switch (corDoStatus(status)) {
+    case "success":
+      return "bg-bg-success";
+    case "critical":
+      return "bg-bg-danger";
+    case "info":
+      return "bg-bg-info";
+    case "warning":
+      return "bg-bg-warning";
+    default:
+      return "bg-border-default";
+  }
+}
+
+function CardFaixa({ item }: { item: Solicitacao }) {
+  return (
+    <li className={`relative overflow-hidden p-pad-xl pl-pad-4xl ${CARD_BASE}`}>
+      {/* Barra fina posicionada — hardcode de 3px é exceção declarada no
+          CLAUDE.md (pseudo-elemento/decoração posicional fina). */}
+      <span
+        aria-hidden="true"
+        className={`absolute inset-y-0 left-0 w-[3px] ${faixaDoStatus(item.status)}`}
+      />
+
+      <div className="flex flex-col gap-gp-md">
+        <div className="flex items-start justify-between gap-gp-md">
+          <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
+            <span className="text-body-md font-semibold text-fg-default">
+              {item.assunto}
+            </span>
+            {item.tipo && <ChipTipo tipo={item.tipo} />}
+          </div>
+          <ChipStatus status={item.status} />
+        </div>
+
+        <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
+          {item.descricao}
+        </p>
+
+        <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
+          <span className="inline-flex items-center gap-gp-sm">
+            <Avatar nome={item.nome} />
+            <span className="text-caption-md text-fg-muted">{item.nome}</span>
+          </span>
+          <Meta icone={<CalendarDays />}>
+            <span className="tabular-nums">{formatarData(item.data)}</span>
+          </Meta>
+          {item.projeto && <Meta icone={<FolderOpen />}>{item.projeto}</Meta>}
+          {item.referencia && (
+            <Meta icone={<Link2 />}>
+              <LinkReferencia href={item.referencia} />
+            </Meta>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
+/* ── C · Duas colunas ───────────────────────────────────────────────────── */
+
+function CardSplit({ item }: { item: Solicitacao }) {
+  return (
+    <li className={`flex flex-col gap-gp-lg p-pad-xl sm:flex-row sm:gap-gp-2xl ${CARD_BASE}`}>
+      {/* Coluna de metadado. `sm:w-1/4` (fração nativa do Tailwind) em vez de
+          largura arbitrária: não colide com nenhum prefixo do DS e acompanha o
+          card em qualquer largura. */}
+      <div className="flex shrink-0 flex-row items-center gap-gp-sm sm:w-1/4 sm:flex-col sm:items-start sm:gap-gp-xs sm:border-r sm:border-border-subtle sm:pr-pad-xl">
+        <Avatar nome={item.nome} />
+        <span className="text-caption-md font-medium text-fg-default">
+          {item.nome}
+        </span>
+        <span
+          className="text-caption-md tabular-nums text-fg-subtle"
+          title={tempoRelativo(item.data)}
+        >
+          {formatarData(item.data)}
+        </span>
+        {item.projeto && (
+          <span className="text-caption-md text-fg-subtle">{item.projeto}</span>
+        )}
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col gap-gp-sm">
+        <div className="flex items-start justify-between gap-gp-md">
+          <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
+            <span className="text-body-md font-semibold text-fg-default">
+              {item.assunto}
+            </span>
+            {item.tipo && <ChipTipo tipo={item.tipo} />}
+          </div>
+          <ChipStatus status={item.status} />
+        </div>
+
+        <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
+          {item.descricao}
+        </p>
+
+        {item.referencia && (
+          <Meta icone={<Link2 />}>
+            <LinkReferencia href={item.referencia} />
+          </Meta>
+        )}
+      </div>
+    </li>
+  );
+}
+
 export function SolicitarComponenteDoc() {
   const [form, setForm] = useState(VAZIO);
   const [envio, setEnvio] = useState<EstadoEnvio>("parado");
@@ -283,6 +572,9 @@ export function SolicitarComponenteDoc() {
 
   const [itens, setItens] = useState<Solicitacao[]>([]);
   const [lista, setLista] = useState<EstadoLista>("carregando");
+
+  // TEMPORÁRIO — sai junto com as propostas descartadas.
+  const [proposta, setProposta] = useState<Proposta>("atual");
 
   /** Armadilha de bot: fica fora do fluxo visual e do foco. Humano não
    *  preenche; robô que varre o HTML preenche. O endpoint responde "ok" e
@@ -537,6 +829,31 @@ export function SolicitarComponenteDoc() {
         </Button>
       </div>
 
+      {/* ⚠️ TEMPORÁRIO — seletor de proposta de layout, pra o mantenedor
+          comparar com dado real. Sai junto com as variantes descartadas. */}
+      <div className="mb-gp-lg flex flex-col gap-gp-sm rounded-radius-lg border border-dashed border-border-default bg-bg-subtle p-pad-xl dark:bg-bg-canvas">
+        <span className="text-caption-md font-semibold uppercase tracking-[0.06em] text-fg-muted">
+          Comparar propostas · temporário
+        </span>
+        <div className="flex flex-wrap gap-gp-sm">
+          {PROPOSTAS.map((p) => (
+            <Button
+              key={p.id}
+              type="button"
+              size="sm"
+              color={proposta === p.id ? "primary" : "secondary"}
+              variant={proposta === p.id ? "filled" : "outline"}
+              onClick={() => setProposta(p.id)}
+            >
+              {p.label}
+            </Button>
+          ))}
+        </div>
+        <span className="text-body-sm text-fg-muted">
+          {PROPOSTAS.find((p) => p.id === proposta)?.nota}
+        </span>
+      </div>
+
       {/* Falha de leitura não pode derrubar o formulário: quem veio pedir tem
           que conseguir pedir mesmo com a lista fora do ar. */}
       {lista === "erro" && (
@@ -571,131 +888,21 @@ export function SolicitarComponenteDoc() {
       )}
 
       {lista === "pronta" && itens.length > 0 && (
-        <ul className="flex flex-col gap-gp-md">
-          {itens.map((item, i) => (
-            <li
-              key={`${item.data}-${i}`}
-              // Receita do card do `#/list-rich`, medida no browser: sombra
-              // própria, borda mais forte no escuro (L-009 — `subtle` some no
-              // fundo escuro) e elevação no hover. Sem a sombra o card fica
-              // chapado contra a página, que era a diferença visual maior.
-              //
-              // ⚠️ O `dark:hover:bg-bg-canvas` da receita original SAIU: a
-              // descrição agora usa `bg-bg-canvas`, e com o card virando canvas
-              // no hover os dois se igualavam e o bloco da descrição sumia
-              // justo quando o mouse estava nele. Borda e sombra já dão o
-              // feedback de hover sozinhas.
-              className="flex flex-col gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-xl shadow-sh-sm transition-[border-color,box-shadow] duration-150 ease-out hover:border-border-default hover:shadow-sh-md dark:border-border-default"
-            >
-              <div className="flex items-start gap-gp-md">
-                <span
-                  aria-hidden="true"
-                  className={`grid size-comp-md shrink-0 place-items-center rounded-radius-full text-caption-sm font-semibold ${corDoNome(item.nome)}`}
-                >
-                  {iniciais(item.nome)}
-                </span>
-
-                <div className="flex min-w-0 flex-1 flex-col gap-gp-2xs">
-                  {/* Assunto e tipo à esquerda, status encostado na direita. O
-                      status é a coluna que o olho percorre de cima a baixo pra
-                      triar a fila — alinhado, ele vira uma coluna de verdade;
-                      solto no meio do fluxo, muda de posição a cada card. */}
-                  <div className="flex items-start justify-between gap-gp-md">
-                    <div className="flex min-w-0 flex-wrap items-center gap-gp-sm">
-                      <span className="text-body-md font-semibold text-fg-default">
-                        {item.assunto}
-                      </span>
-                      {item.tipo &&
-                        (() => {
-                          const IconeTipo = iconeDoTipo(item.tipo);
-                          return (
-                            // `soft`, não `outline`: contorno fino com texto
-                            // discreto tem contraste baixo demais pra um rótulo
-                            // que a pessoa precisa ler de relance.
-                            <Badge
-                              color={corDoTipo(item.tipo)}
-                              variant="soft"
-                              size="sm"
-                            >
-                              <IconeTipo strokeWidth={1.8} aria-hidden={true} />
-                              {item.tipo}
-                            </Badge>
-                          );
-                        })()}
-                    </div>
-
-                    {/* `shape="pill"` no status e shape padrão no tipo é o que
-                        o JSDoc do próprio Badge prescreve: pílula para status
-                        chip, retângulo para tag inline. */}
-                    <Badge
-                      color={corDoStatus(item.status)}
-                      variant="soft"
-                      size="sm"
-                      shape="pill"
-                      className="shrink-0"
-                    >
-                      {item.status.trim() || STATUS_PADRAO}
-                    </Badge>
-                  </div>
-
-                  {/* Nome em `fg-muted`: é contexto, não é o que se lê
-                      primeiro. Quem assina o pedido está a um passo de
-                      distância — as iniciais do avatar, ao lado. */}
-                  <span className="text-caption-md text-fg-muted">
-                    {item.nome}
-                  </span>
-                </div>
-              </div>
-
-              {/* Descrição recuada numa superfície própria, mais escura que o
-                  card nos DOIS temas — e por isso são dois tokens, não um.
-                  ⚠️ MEDIDO: no tema claro, `bg-bg-canvas` resolve para
-                  `oklch(1 0 0)` — branco puro, IDÊNTICO ao `bg-bg-surface` do
-                  card. A hierarquia `canvas < surface` da L-008 vale no escuro
-                  (0.205 vs 0.225) e não vale no claro, onde as duas empatam.
-                  Então: `subtle` no claro (cinza contra o branco) e `canvas` no
-                  escuro (mais escuro que o card). Um token só falha num dos
-                  lados — e falha em silêncio, porque não quebra nada, só some.
-                  A borda fica de reforço. */}
-              <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-xl dark:bg-bg-canvas">
-                <p className="whitespace-pre-line text-body-sm leading-relaxed text-fg-muted">
-                  {item.descricao}
-                </p>
-              </div>
-
-              {/* Rodapé: quando e onde. O QUEM está no topo do card.
-                  Sem `border-t`: a descrição agora tem moldura própria, e a
-                  linha divisória logo abaixo dela separava duas vezes a mesma
-                  quebra. O espaço sozinho já resolve. */}
-              <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
-                {/* Data de inserção por extenso. O relativo ("há 8 h") fica no
-                    `title`: numa fila que anda devagar, saber QUANDO entrou vale
-                    mais do que há quanto tempo — e o relativo perde resolução
-                    assim que passa de algumas semanas. */}
-                <Meta icone={<CalendarDays />}>
-                  <span className="tabular-nums" title={tempoRelativo(item.data)}>
-                    {formatarData(item.data)}
-                  </span>
-                </Meta>
-                {item.projeto && <Meta icone={<FolderOpen />}>{item.projeto}</Meta>}
-                {item.referencia && (
-                  <Meta icone={<Link2 />}>
-                    {/* `noopener` e `noreferrer` porque o link vem de terceiro:
-                        sem eles a página de destino recebe `window.opener` e
-                        pode navegar esta aba pra onde quiser. */}
-                    <a
-                      href={item.referencia}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="rounded-radius-sm text-fg-brand underline underline-offset-2 transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
-                    >
-                      referência
-                    </a>
-                  </Meta>
-                )}
-              </div>
-            </li>
-          ))}
+        <ul
+          className={
+            proposta === "tabela"
+              ? "overflow-hidden rounded-radius-lg border border-border-subtle bg-bg-surface dark:border-border-default"
+              : "flex flex-col gap-gp-md"
+          }
+        >
+          {itens.map((item, i) => {
+            const chave = `${item.data}-${i}`;
+            if (proposta === "tabela")
+              return <LinhaDensa key={chave} item={item} />;
+            if (proposta === "faixa") return <CardFaixa key={chave} item={item} />;
+            if (proposta === "split") return <CardSplit key={chave} item={item} />;
+            return <CardAtual key={chave} item={item} />;
+          })}
         </ul>
       )}
     </DocLayout>
