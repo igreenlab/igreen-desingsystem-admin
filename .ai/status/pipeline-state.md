@@ -37,6 +37,7 @@
 - [2026-09-05 — CONCLUÍDO · v0.61.0 publicada · o Gantt ganha exemplo distribuível](#2026-09-05-concluído-v0610-publicada-o-gantt-ganha-exemplo-distribuível)
 - [2026-09-09 — CONCLUÍDO · Pedidos de componente no showcase, sem backend](#2026-09-09-concluído-pedidos-de-componente-no-showcase-sem-backend)
 - [2026-09-15 — CONCLUÍDO · v0.62.0 publicada · o pipeline do DS legível fora do Claude Code](#2026-09-15-concluído-v0620-publicada-o-pipeline-do-ds-legível-fora-do-claude-code)
+- [2026-09-15 — CONCLUÍDO · v0.63.0 publicada · o pacote de IA entrega o que o índice promete](#2026-09-15-concluído-v0630-publicada-o-pacote-de-ia-entrega-o-que-o-índice-promete)
 
 <!-- doc-index:fim -->
 
@@ -5231,3 +5232,48 @@ com o nome da PASTA. `<ChartContainer>` não alcança `Chart/USAGE.md`, e
 `<KpiGroup>` não alcança `Kpi/`. Fechar isso exige alterar a resolução no
 `component-rules.mjs` — mecanismo em produção com 24 testes — por duas famílias.
 Não compensou; fica registrado pra quando compensar.
+
+---
+
+## 2026-09-15 — CONCLUÍDO · v0.63.0 publicada · o pacote de IA entrega o que o índice promete
+
+**Agente:** DS Dev · **Fluxo:** PR #323 → release #324.
+
+**Confirmado no pacote publicado**, não no que se supõe ter publicado: baixei o
+tarball do npm — **192 arquivos** em `dist-lib/ai/` (eram 64), carimbo
+`0.63.0 · d9db4cd`, 13 roteiros, 10 exemplos, 4 blocos, 47 componentes, 19 com
+regra injetável, 15 das 19 rotas resolvendo roteiro existente.
+
+**O defeito.** A v0.62.0 publicou o `indice.json` com 19 rotas e **um** roteiro.
+Quem roteasse "quero uma tabela" acharia `crud-builder` no índice, iria buscar o
+arquivo e não acharia — lacuna descoberta por falha, não por leitura.
+
+**A causa, e ela é de raciocínio, não de execução.** O argumento era "um roteiro
+só, pra não industrializar um formato antes de medir". Ele vale pra ADAPTAÇÃO de
+conteúdo e foi aplicado à CÓPIA, que é mecânica e quase sem custo. Pior: eu já
+sabia que entregaria um e ainda deixei o índice prometer treze. Promessa sem
+lastro é a mesma classe dos outros dois defeitos desta frente (exemplo com import
+quebrado, parse colhendo linha de outra tabela) — e foi o terceiro em três.
+
+**O que fecha a classe:** a lista de roteiros passou a ser DERIVADA da pasta de
+skills. Lista escrita à mão fica pra trás no primeiro item que o repo ganha — que
+é exatamente como isto nasceu. E um gate fail-closed derruba a geração se alguma
+rota citar skill sem roteiro no bundle: ou entrega o roteiro, ou tira a rota.
+
+**Assumption (inalterada desde a v0.62.0):** o consumidor implementa os quatro
+encaixes, e o quarto — o portão que não fecha o turno sem roteiro — é o que faz
+os outros três valerem. O bundle agora está completo do nosso lado; se a medição
+do consumidor não melhorar, olhe o portão antes de culpar o conteúdo.
+
+**Registry sem recarimbo, de propósito:** nenhum componente, token ou foundational
+mudou nesta release — só o gerador do bundle. O carimbo v0.62.0 do registry segue
+verdadeiro pro conteúdo dele. CLI idem, `cli/templates/**` intacto.
+
+⚠️ **Duas coisas ficam abertas, medidas e não pendentes de trabalho nosso:**
+(1) `residuoClaudeCode: 42` no manifesto — menções a `/ds-create-*` nos roteiros;
+cada um leva aviso de portabilidade explicando que aquilo descreve o acionamento
+no Claude Code. Reescrever prosa por script produz frase errada com cara de certa,
+então só faz sentido depois que o consumidor medir. (2) o gatilho do `ds:regras` é
+a TAG casar com o nome da PASTA: `<ChartContainer>` e `<KpiGroup>` não alcançam
+seus guias, e fechar exige mexer no `component-rules.mjs` — produção, 24 testes —
+por duas famílias.
