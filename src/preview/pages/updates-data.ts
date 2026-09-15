@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.62.0",
+    date: "2026-09-15",
+    tag: "preview",
+    title: "O pipeline do DS passa a ser legível fora do Claude Code",
+    summary:
+      "Até aqui, todo o pipeline — roteiros com entrevista e gate, regras de composição, exemplos de tela real, guias por componente — só era legível pelo Claude Code: skill com frontmatter, slash command, auto-load de `rules/`. Quem consome com loop próprio sobre a API não tem nenhum desses mecanismos, e o resultado medido é que um consumidor real GARIMPA o nosso código-fonte com uma lista de nomes escrita à mão do lado dele, enxergando 19 dos 48 componentes. O `dist-lib/ai/` é a mesma informação em arquivo simples, indexada e carimbada, viajando no pacote npm que ele já instala. A regra que define o desenho é que tudo ali é DERIVADO: não existe segunda fonte pra divergir, então componente novo entra sozinho e regra alterada propaga no próximo build.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`dist-lib/ai/` — o pipeline do DS num formato que qualquer modelo lê.** 64 arquivos: `manifest.json` (versão + commit), `indice.json` com 19 rotas sinal→roteiro derivadas da tabela do `ds-kit`, os globais de composição e vocabulário, o roteiro de painel em 3 estágios, o exemplo real íntegro, os 47 guias de componente, o `regras-por-componente.json` com os 19 blocos prontos pra injeção, e o verificador de padrão como função pura. Gerado no `closeBundle` do build da lib — **tem** que ser ali, porque `dist-lib/` é gitignored e o `lib-verify` exige que todo dir declarado em `files` exista e não esteja vazio. Um roteiro só, de propósito: montar os 11 antes de medir é industrializar um formato que vai mudar no primeiro contato com o consumidor.",
+          "**Bloco `ds:regras` em `DataTable`, `Kpi`, `card` e `alert-dialog`** — de 11 para 14 nos compostos e de 4 para 6 nos primitivos. É o único canal que ENTREGA a regra no instante em que a IA escreve o componente, em vez de pedir que ela leia antes: medido num consumidor real, ela abriu 6 de 14 guias, e pulou justamente onde achava que já sabia a API. Nenhuma regra nova — é conteúdo que já estava em prosa, exposto no canal que não depende de a IA decidir ler. ⚠️ O gatilho é a TAG casar com o nome da PASTA, então `<ChartContainer>` não alcança `Chart/USAGE.md`; está medido e documentado, não esquecido.",
+          "**`#/solicitar-componente`** — pedido de componente com fila pública, sem banco e sem backend nosso. Formulário e lista no showcase, gravação num Apps Script que escreve numa planilha; o mantenedor gerencia escrevendo na própria planilha (coluna `status` vira badge, `oculto` some da lista sem apagar o registro) e a coluna de anotação nunca sai do endpoint.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Mensagem de lint que mandava ler um arquivo que o consumidor não tem.** A regra de height/size terminava com \"ver `.ai/context/tokens/sizing-shape-elevation.md`\" — caminho que existe aqui e não existe no projeto de quem consome, porque o módulo é foundational e o `ds:link` o projeta lá. Mensagem apontando pro inalcançável faz a pessoa **parar de investigar**, achando que a resposta está noutro lugar. O ponteiro saiu e a msg não perdeu nada: ela já dizia a resposta.",
+          "**`input` e `select` estavam na tabela de gotchas E na lista \"sem gotcha, use direto\"** do índice dos primitivos. A do `select` é das mais caras que o arquivo documenta — a sentinela `value=\"\"` do Radix, que apaga um valor que ninguém tocou, em silêncio.",
+          "**Dois guias mandavam ler `.ai/context/…`** (`Chart` e `Kpi`), que não existe em quem consome por npm ou copy-in. A rota do catálogo hospedado, que sempre esteve na mesma frase, passou a vir primeiro.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**\"Não encontrou? Solicitar\" foi do fim da seção Components para logo abaixo de \"Todos os componentes\"**, e os CTAs de solicitação viraram botões — `filled` nos estados vazios (onde o pedido é o único caminho adiante) e `outline` ao lado das buscas. Quem abre o índice e não acha o que quer não rola 100 itens até o rodapé do menu: desiste antes.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.61.0",
     date: "2026-09-05",
     tag: "preview",
