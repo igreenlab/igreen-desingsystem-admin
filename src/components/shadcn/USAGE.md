@@ -28,10 +28,14 @@ tabela = API shadcn padrão, sem gotcha → use direto e veja o showcase.
 
 **Padrão sem gotcha** (use direto, doc no showcase): `accordion`, `alert`,
 `aspect-ratio`, `badge`, `breadcrumb`, `button`, `calendar`, `checkbox`,
-`collapsible`, `command`, `dialog`, `dropdown-menu`, `input`, `label`, `popover`,
-`progress`, `radio-group`, `scroll-area`, `select`, `separator`, `sheet`,
+`collapsible`, `command`, `dialog`, `dropdown-menu`, `label`, `popover`,
+`progress`, `radio-group`, `scroll-area`, `separator`, `sheet`,
 `skeleton`, `slider`, `switch`, `table`, `textarea`, `toggle`,
 `toggle-group`, `combobox`.
+
+> ⚠️ Id daqui **não pode** estar na tabela acima. `input` e `select` estavam nos dois
+> (corrigido em 2026-09-15) — quem lesse só esta lista usava direto um `select` cuja
+> sentinela `value=""` apaga valor em silêncio.
 
 ## Payload de injeção (lido pelo hook, não por você)
 
@@ -52,6 +56,16 @@ a célula do `tabs` tem 816 chars e não cabe num aviso. Primitivo sem bloco = s
 <!-- ds:regras select
 - ⛔ nunca `<SelectItem value="">` — é a sentinela do Radix e apaga valor em silêncio
 - em form, prefira `FormFieldSelect` (já trata a sentinela e o eco do valor)
+-->
+
+<!-- ds:regras card
+- `size` (`sm`/`md`/`lg`) declare SÓ no `<Card>` — Header/Content/Footer herdam por contexto; repetir nas partes é o que deixa uma seção com densidade diferente
+- `CardHeader variant="banded"` com ação à direita pede `className="flex …"`, NUNCA `flex-row`: o header é `grid` e `flex-row` não troca o display — o botão cai embaixo do título
+-->
+
+<!-- ds:regras alert-dialog
+- confirmação comum → use o composto `ui/AlertModal` (já monta tom + ícone + botões); o primitivo cru só pra caso fora do padrão
+- ⚠️ ESC FECHA (só o clique fora é bloqueado). Decisão inescapável exige `onEscapeKeyDown={(e) => e.preventDefault()}`
 -->
 
 <!-- ds:regras sonner
