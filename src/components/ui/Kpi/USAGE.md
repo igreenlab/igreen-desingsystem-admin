@@ -1,5 +1,11 @@
 # Kpi
 
+<!-- ds:regras
+- `tone` e `KpiDelta tone` são DECISÃO, não derivação: subir nem sempre é bom (tempo de espera ↑ é ruim). `signed` só quando o sinal é literalmente bom/ruim
+- o valor sai do preset `stat-*` pela prop `size` (default `md`=24px) — nunca `text-[Npx]` na unha; fora do `Kpi`, `text-stat-* tabular-nums`
+- `divided` no `KpiGroup` vira UM card com divisórias e os filhos viram `plain` — não empilhe card dentro de card pra conseguir isso
+-->
+
 **O que é** — Primitivos composáveis pra cards de KPI/estatística.
 **Categoria**: Templates / App-level. Doc viva: `#/kpi`.
 
@@ -82,8 +88,10 @@ import { Phone } from "lucide-react";
   Atalho: `<KpiDelta value="+458" signed />` deriva verde/vermelho + seta do sinal
   — use SÓ quando o delta é literalmente +/- bom/ruim.
 - **Composições de dashboard/lista** (Painel do Líder, fusão KPI+evolução,
-  chart-card, card dividido, distribuição de tabela/lista) → receitas canônicas em
-  `.ai/context/components/dashboard-patterns.md`. Doc viva: `#/dashboard-showcase`.
+  chart-card, card dividido, distribuição de tabela/lista) → receitas canônicas na
+  rota `#/dashboard-showcase` do catálogo hospedado. (Fonte no repo do DS:
+  `.ai/context/components/dashboard-patterns.md` — caminho **interno**, não existe
+  em quem consome por npm ou copy-in.)
 - **`divided` controla a superfície** dos `Kpi` filhos (viram `plain`); fora de um
   group `divided`, cada `Kpi` é um card. Override com a prop `surface` se preciso.
 - **Valor do KPI usa preset `stat-*`** (`size`, default `md`=24px). Números
