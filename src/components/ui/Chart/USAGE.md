@@ -88,5 +88,6 @@ Paleta verde-marca + harmônicas (teal/azul/âmbar/violeta), light/dark-aware.
 
 ## Composições de dashboard
 
-Catálogo + padrões de header/card/categoria/largura em
-`.ai/context/components/chart-patterns.md` (rota `#/chart-showcase`).
+Catálogo + padrões de header/card/categoria/largura na rota `#/chart-showcase` do
+catálogo hospedado. (Fonte no repo do DS: `.ai/context/components/chart-patterns.md`
+— caminho **interno**, não existe em quem consome por npm ou copy-in.)
