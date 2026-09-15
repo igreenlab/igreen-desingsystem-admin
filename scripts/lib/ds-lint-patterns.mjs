@@ -5,6 +5,13 @@
  *   - .claude/hooks/ds-lint-styles.sh   → aviso local, nunca bloqueia
  *   - scripts/lint-styles.mjs --ratchet → check de CI, bloqueia violação nova
  *
+ * ⚠️ E por um TERCEIRO, fora deste repo: este arquivo é foundational
+ * (`foundational-pairs.mjs`) e é copiado inteiro para
+ * `cli/templates/default/_claude/hooks/`, que o ds:link projeta no projeto do
+ * consumidor. Lá, `.ai/` e os caminhos internos do DS NÃO EXISTEM — os que
+ * aparecem nos comentários abaixo só resolvem aqui. Por isso nenhuma `msg`
+ * cita caminho: mensagem de lint tem que se bastar onde for lida.
+ *
  * ⚠️ Só entram aqui regras erradas INDEPENDENTE DE CONTEXTO (valor divergente
  * do token, classe que não existe). Regras que exigem contexto cross-elemento
  * ou julgamento de intenção — L-004 (afordância de foco pode estar no wrapper)
@@ -42,10 +49,17 @@ export const DS_LINT_PATTERNS = [
     re: /['"][^'"]*\b(px|py|pt|pb|pl|pr|p)-(1|2|3|4|5|6|7|8|10|12|16)\b[^'"]*['"]/,
     msg: "pad/space literal → use p-sp-* (space) ou px-pad-* (pad).",
   },
+  // ⚠️ Esta msg NÃO aponta pra arquivo, e é de propósito. Ela terminava com
+  // "ver .ai/context/tokens/sizing-shape-elevation.md" — caminho que existe aqui
+  // e que o CONSUMIDOR nunca recebe: este módulo é foundational (ver
+  // foundational-pairs.mjs) e roda também no `.claude/` projetado pelo ds:link,
+  // onde `.ai/` não existe. Mensagem que manda ler o inalcançável faz a pessoa
+  // parar de investigar achando que a resposta está em outro lugar (L-060).
+  // A regra aqui é: msg de lint se basta ou não cita caminho.
   {
     id: "L-002",
     re: /['"][^'"]*\b(h|min-h|size)-(7|8|9|10|11|12|13|14|16)\b[^'"]*['"]/,
-    msg: "height/size fixo → use min-h-form-* (h-9=form-md, h-10=form-lg, h-11=form-xl). Se for quadrado, size-comp-*. Se for maior (~h-12 a h-16, 48-64px), não é form — use token de layout (ex.: h-layout-navbar); ver .ai/context/tokens/sizing-shape-elevation.md.",
+    msg: "height/size fixo → use min-h-form-* (h-9=form-md, h-10=form-lg, h-11=form-xl). Se for quadrado, size-comp-*. Se for maior (~h-12 a h-16, 48-64px), não é form — use token de layout (ex.: h-layout-navbar).",
   },
   // `none` e `full` fora da alternação: são numericamente IDÊNTICOS ao token DS
   // (--radius-radius-full: 9999px, --radius-radius-none: 0px) → não podem ser
