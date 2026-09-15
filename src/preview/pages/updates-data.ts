@@ -46,6 +46,28 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.63.0",
+    date: "2026-09-15",
+    tag: "preview",
+    title: "O pacote de IA passa a entregar o que o índice promete",
+    summary:
+      "A v0.62.0 entregou o `dist-lib/ai/` com um `indice.json` de 19 rotas e **um** roteiro. Quem roteasse \"quero uma tabela\" acharia `crud-builder` no índice, iria buscar o arquivo e não acharia — descobrindo a lacuna por falha, não por leitura. O argumento que produziu isso (\"um roteiro só, pra não industrializar um formato antes de medir\") valia pra ADAPTAÇÃO de conteúdo e foi aplicado à CÓPIA, que é mecânica. Agora o bundle entrega os 13 roteiros, os 10 exemplos e os 4 blocos, e um gate fail-closed derruba a geração se alguma rota citar roteiro que não veio junto.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Os 13 roteiros, os 10 exemplos (108 arquivos) e os 4 blocos** no `dist-lib/ai/` — eram 1, 1 e 0. **15 das 19 rotas** passam a resolver o roteiro pelo id (`\"roteiro\": \"crud-builder\"`), em vez de o consumidor derivar o nome do arquivo a partir de uma frase em markdown; as outras 4 apontam pra componente ou exemplo direto, não pra skill, e por isso não têm roteiro. A lista de roteiros virou **derivada da pasta de skills**: skill nova entra sozinha, porque lista escrita à mão fica pra trás no primeiro item novo — que é exatamente como este defeito nasceu.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O `indice.json` prometia 19 rotas e o bundle servia 1 roteiro.** Promessa sem lastro, a mesma classe dos outros dois defeitos que os gates pegaram nesta frente (exemplo com import quebrado, parse colhendo linha de outra tabela). Agora há **gate fail-closed no build**: rota que cite skill sem roteiro no bundle derruba a geração — ou entrega o roteiro, ou tira a rota. E a verificação de import passou a cobrir `blocos/` além de `exemplos/`, porque o índice de blocos os cita por ID e índice apontando pra arquivo ausente é o mesmo defeito.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.62.0",
     date: "2026-09-15",
     tag: "preview",
