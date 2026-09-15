@@ -19,6 +19,7 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import path from "path";
 import fs from "fs";
+import { execFileSync } from "child_process";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -107,6 +108,24 @@ export default defineConfig({
           for (const f of overlays) fs.copyFileSync(path.join(themeDir, f), path.join(dst, f));
           console.log(`✓ ${overlays.length} overlay(s) de marca copiado(s) para dist-lib/theme/`);
         }
+
+        // Pacote de conteúdo para IA fora do Claude Code (roteiros, regras,
+        // exemplos, guias, versão). Derivado 100% de fontes que já existem no
+        // repo — ver o cabeçalho de `scripts/build-ai-bundle.mjs`.
+        //
+        // ⚠️ Roda AQUI, e não num script solto, porque `dist-lib/` é gitignored e
+        // o `lib-verify` exige que todo dir declarado em `files` exista e não
+        // esteja vazio. Gerado em outro passo, qualquer PR que toque o
+        // package.json reprovaria no CI com erro que não aponta pra causa.
+        //
+        // Subprocesso em vez de import: mantém este hook síncrono (é o mesmo
+        // padrão do `generated-artifacts`), e um exit != 0 do gerador — import
+        // quebrado num exemplo, tabela de roteamento que mudou de forma —
+        // derruba o build, que é o comportamento desejado.
+        execFileSync(process.execPath, [path.resolve(__dirname, "scripts/build-ai-bundle.mjs")], {
+          cwd: __dirname,
+          stdio: "inherit",
+        });
 
         // ⛔ Gate fail-closed: overlay que existe mas NÃO está no `exports` do
         // package.json é overlay que o consumidor npm não consegue importar — e

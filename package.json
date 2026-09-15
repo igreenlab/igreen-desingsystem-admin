@@ -19,8 +19,10 @@
     "dist-lib/chunks/**",
     "dist-lib/src/**",
     "dist-lib/tokens/**",
+    "dist-lib/ai/**",
     "README.md"
   ],
+  "//ai-bundle": "dist-lib/ai/ é o pacote de conteúdo pra IA fora do Claude Code (roteiros, regras, exemplos, guias, manifesto com versão+commit). É LIDO POR CAMINHO, não importado — por isso só o manifest.json tem entrada em exports, como âncora resolvível e verificada pelo lib-verify; os outros 60+ arquivos seguem o precedente de dist-lib/fonts/**, que está em files sem export e o gate aprova. Enumerar 60 markdowns em exports seria ruído, e wildcard não é verificado (ver //exports-theme-marcas). Gerado no closeBundle do vite.lib.config.ts.",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -44,6 +46,7 @@
       "import": "./dist-lib/shadcn.mjs",
       "require": "./dist-lib/shadcn.cjs"
     },
+    "./ai/manifest.json": "./dist-lib/ai/manifest.json",
     "./theme.css": "./dist-lib/theme.css",
     "./theme/brand-blue.css": "./dist-lib/theme/brand-blue.css",
     "./theme/brand-green.css": "./dist-lib/theme/brand-green.css",
