@@ -62,25 +62,49 @@ const PAYLOAD = p("cli", "templates", "default", "_claude");
 const UI = p("src", "components", "ui");
 
 /**
- * Roteiros portados nesta fase.
+ * Roteiros — DERIVADOS da pasta de skills, não escritos à mão.
  *
- * Deliberadamente UM. Montar os 11 antes de medir é industrializar um formato
- * que vai mudar assim que o primeiro roteiro real rodar no consumidor. Começa
- * pelo painel — foi onde os defeitos apareceram na avaliação do OS.
+ * ⚠️ A 1ª versão listava UM roteiro (painel) com o argumento de não industrializar
+ * um formato antes de medir. O argumento valia pra ADAPTAÇÃO de conteúdo; não
+ * valia pra cópia. E o custo foi um defeito real: o `indice.json` prometia 19
+ * rotas e o bundle servia 1 roteiro — o consumidor rotearia "quero uma tabela"
+ * pro `crud-builder` e não acharia arquivo nenhum. Promessa sem lastro, mesma
+ * classe dos outros dois defeitos que os gates pegaram aqui.
+ *
+ * Derivar da pasta também resolve o futuro: skill nova entra sozinha, sem
+ * ninguém lembrar de acrescentar numa lista.
+ *
+ * O `id` do roteiro é o NOME DA SKILL de propósito — é assim que a tabela de
+ * roteamento os cita (`skill \`crud-builder\``). Traduzir nome ali criaria uma
+ * tabela que diverge no primeiro ajuste.
  */
-const ROTEIROS = [
-  {
-    id: "dashboard",
-    origem: "dashboard-builder",
-    arquivos: {
-      "roteiro.md": "SKILL.md",
-      "entrevista.md": "interview.md",
-      "blueprint.md": "blueprint.md",
-      "geracao.md": "generate.md",
-    },
-    exemplo: "dashboard",
-  },
-];
+const ROTEIRO_FORA = new Set([
+  // é o roteador, não um roteiro: vira `indice.json` + `blocos/indice.md`
+  "ds-kit",
+]);
+
+/** `SKILL.md` → `roteiro.md`; o resto ganha nome em português. */
+const NOME_DO_ARQUIVO = {
+  "SKILL.md": "roteiro.md",
+  "interview.md": "entrevista.md",
+  "blueprint.md": "blueprint.md",
+  "generate.md": "geracao.md",
+};
+
+function lerRoteiros() {
+  const base = path.join(PAYLOAD, "skills");
+  return fs
+    .readdirSync(base)
+    .filter((nome) => !ROTEIRO_FORA.has(nome))
+    .filter((nome) => fs.statSync(path.join(base, nome)).isDirectory())
+    .map((nome) => ({
+      id: nome,
+      arquivos: fs
+        .readdirSync(path.join(base, nome))
+        .filter((f) => f.endsWith(".md"))
+        .map((f) => ({ de: f, para: NOME_DO_ARQUIVO[f] ?? f })),
+    }));
+}
 
 /**
  * ⚠️ NÃO existe lista de exclusão de arquivo de exemplo, e isso foi medido.
@@ -317,29 +341,47 @@ export function montarBundle(destino = p("dist-lib", "ai")) {
   );
 
   /* roteiros + o exemplo de cada um */
-  let arquivosDeExemplo = 0;
+  /* roteiros — todos */
   let residuoClaudeCode = 0;
-  for (const r of ROTEIROS) {
-    for (const [saida, entrada] of Object.entries(r.arquivos)) {
-      const de = path.join(PAYLOAD, "skills", r.origem, entrada);
-      const corpo = semFrontmatter(fs.readFileSync(de, "utf8"));
+  const roteiros = lerRoteiros();
+  for (const r of roteiros) {
+    for (const { de, para } of r.arquivos) {
+      const corpo = semFrontmatter(
+        fs.readFileSync(path.join(PAYLOAD, "skills", r.id, de), "utf8"),
+      );
       residuoClaudeCode += (corpo.match(RESIDUO_CLAUDE_CODE) ?? []).length;
-      escrever(destino, `roteiros/${r.id}/${saida}`, AVISO_ROTEIRO + corpo);
+      escrever(destino, `roteiros/${r.id}/${para}`, AVISO_ROTEIRO + corpo);
     }
-    arquivosDeExemplo += copiarArvore(
-      p("src", "examples", r.exemplo),
-      destino,
-      `exemplos/${r.exemplo}`,
-    );
   }
 
-  const quebrados = conferirImports(destino, "exemplos");
-  if (quebrados.length) {
-    throw new Error(
-      `exemplo com import relativo que não existe no bundle:\n  ` +
-        quebrados.join("\n  ") +
-        `\nExemplo quebrado é pior que exemplo ausente — o consumidor copia o padrão.`,
-    );
+  /* exemplos — todos. Um roteiro manda "adapte o exemplo mais próximo", então
+     entregar um subconjunto deixaria instrução sem lastro. */
+  let arquivosDeExemplo = 0;
+  const exemplos = fs.readdirSync(p("src", "examples")).filter((e) =>
+    fs.statSync(p("src", "examples", e)).isDirectory(),
+  );
+  for (const e of exemplos) {
+    arquivosDeExemplo += copiarArvore(p("src", "examples", e), destino, `exemplos/${e}`);
+  }
+
+  /* blocos — o índice do ds-kit os cita por ID, e índice apontando pra arquivo
+     ausente é a mesma promessa sem lastro do caso dos roteiros. */
+  const arquivosDeBloco = copiarArvore(p("src", "blocks"), destino, "blocos");
+  escrever(
+    destino,
+    "blocos/indice.md",
+    fs.readFileSync(path.join(PAYLOAD, "skills", "ds-kit", "blocks-index.md"), "utf8"),
+  );
+
+  for (const raiz of ["exemplos", "blocos"]) {
+    const quebrados = conferirImports(destino, raiz);
+    if (quebrados.length) {
+      throw new Error(
+        `${raiz}: import relativo que não existe no bundle:\n  ` +
+          quebrados.join("\n  ") +
+          `\nReferência quebrada é pior que ausente — o consumidor copia o padrão.`,
+      );
+    }
   }
 
   /* guias de componente */
@@ -370,8 +412,36 @@ export function montarBundle(destino = p("dist-lib", "ai")) {
     fs.readFileSync(p("scripts", "lib", "ds-lint-patterns.mjs"), "utf8"),
   );
 
-  /* roteamento */
-  const rotas = lerRoteamento();
+  /* roteamento — cada rota diz QUAL roteiro a serve, resolvido aqui e não pelo
+     consumidor. Sem isso ele teria que adivinhar o nome do arquivo a partir de
+     uma frase em markdown. */
+  const idsDeRoteiro = new Set(roteiros.map((r) => r.id));
+  const reSkill = new RegExp("skill `([a-z-]+)`");
+  const rotas = lerRoteamento().map((r) => {
+    const m = reSkill.exec(r.rota);
+    const roteiro = m && idsDeRoteiro.has(m[1]) ? m[1] : null;
+    return roteiro ? { ...r, roteiro } : r;
+  });
+
+  /* ⛔ Gate fail-closed: rota que cita uma skill cujo roteiro não veio no bundle.
+     Foi o defeito da 1ª versão — 19 rotas prometidas, 1 roteiro entregue. O
+     consumidor rotearia e não acharia arquivo, descobrindo por falha. */
+  const prometidosSemLastro = [
+    ...new Set(
+      lerRoteamento()
+        .map((r) => reSkill.exec(r.rota)?.[1])
+        .filter((id) => id && !idsDeRoteiro.has(id)),
+    ),
+  ];
+  if (prometidosSemLastro.length) {
+    throw new Error(
+      `indice.json citaria roteiro(s) que o bundle não entrega: ` +
+        prometidosSemLastro.join(", ") +
+        `\nOu entregue o roteiro, ou tire a rota — índice que promete sem lastro ` +
+        `manda o consumidor procurar arquivo que não existe.`,
+    );
+  }
+
   escrever(destino, "indice.json", JSON.stringify({ rotas }, null, 2) + "\n");
 
   /* manifesto — a versão fica AQUI, nunca dentro do conteúdo: carimbo por arquivo
@@ -382,11 +452,14 @@ export function montarBundle(destino = p("dist-lib", "ai")) {
     commit: commitCurto(),
     gerado: new Date().toISOString().slice(0, 10),
     conteudo: {
-      roteiros: ROTEIROS.map((r) => r.id),
+      roteiros: roteiros.map((r) => r.id),
+      exemplos,
       componentes: Object.keys(componentes).length,
       componentesComRegra: Object.keys(regras).length,
       rotas: rotas.length,
+      rotasComRoteiro: rotas.filter((r) => r.roteiro).length,
       arquivosDeExemplo,
+      arquivosDeBloco,
       /* Visível de propósito: é dívida de adaptação, e dívida contada é dívida
          que alguém fecha. Zero só acontece quando os roteiros forem reescritos
          na gramática do consumidor. */

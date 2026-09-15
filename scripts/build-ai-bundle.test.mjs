@@ -79,6 +79,55 @@ describe("roteamento", () => {
     expect(sinais).toContain("tabela");
     expect(sinais).toContain("dashboard");
   });
+
+  /**
+   * A 2ª regressão nomeada: o índice prometia 19 rotas e o bundle entregava UM
+   * roteiro. O consumidor rotearia "quero uma tabela" pro `crud-builder` e não
+   * acharia arquivo — descobrindo por falha, não por leitura.
+   */
+  it("nenhuma rota cita roteiro que o bundle não entrega", () => {
+    const { rotas } = JSON.parse(ler("indice.json"));
+    const naPasta = new Set(fs.readdirSync(path.join(destino, "roteiros")));
+    const re = new RegExp("skill `([a-z-]+)`");
+    const semLastro = [
+      ...new Set(
+        rotas.map((r) => re.exec(r.rota)?.[1]).filter((id) => id && !naPasta.has(id)),
+      ),
+    ];
+    expect(semLastro).toEqual([]);
+  });
+
+  it("a rota resolve o roteiro pelo id, sem o consumidor adivinhar o arquivo", () => {
+    const { rotas } = JSON.parse(ler("indice.json"));
+    const comRoteiro = rotas.filter((r) => r.roteiro);
+    expect(comRoteiro.length).toBeGreaterThan(0);
+    for (const r of comRoteiro) {
+      expect(existe(`roteiros/${r.roteiro}/roteiro.md`), `${r.roteiro}`).toBe(true);
+    }
+  });
+});
+
+describe("roteiros e exemplos — completude", () => {
+  /** Skill nova tem que entrar sozinha; lista escrita à mão fica pra trás. */
+  it("todo roteiro do payload (menos o roteador) chega no bundle", () => {
+    const base = path.resolve("cli/templates/default/_claude/skills");
+    const esperados = fs
+      .readdirSync(base)
+      .filter((d) => fs.statSync(path.join(base, d)).isDirectory())
+      .filter((d) => d !== "ds-kit");
+    const faltando = esperados.filter((d) => !existe(`roteiros/${d}/roteiro.md`));
+    expect(faltando).toEqual([]);
+  });
+
+  it("todo exemplo do repo chega no bundle", () => {
+    const base = path.resolve("src/examples");
+    const esperados = fs
+      .readdirSync(base)
+      .filter((d) => fs.statSync(path.join(base, d)).isDirectory());
+    const faltando = esperados.filter((d) => !existe(`exemplos/${d}`));
+    expect(faltando).toEqual([]);
+    expect(manifesto.conteudo.exemplos.sort()).toEqual(esperados.sort());
+  });
 });
 
 describe("exemplos", () => {
@@ -88,7 +137,7 @@ describe("exemplos", () => {
    * O exemplo chegava quebrado — pior que ausente, porque o consumidor copia o
    * padrão.
    */
-  it("nenhum import relativo aponta pra fora do bundle", () => {
+  it("nenhum import relativo aponta pra fora do bundle (exemplos e blocos)", () => {
     const quebrados = [];
     const varrer = (dir) => {
       for (const e of fs.readdirSync(dir)) {
@@ -106,6 +155,7 @@ describe("exemplos", () => {
       }
     };
     varrer(path.join(destino, "exemplos"));
+    varrer(path.join(destino, "blocos"));
     expect(quebrados).toEqual([]);
   });
 });
