@@ -36,6 +36,7 @@
 - [2026-09-05 — CONCLUÍDO · v0.60.0 publicada nos 4 canais](#2026-09-05-concluído-v0600-publicada-nos-4-canais)
 - [2026-09-05 — CONCLUÍDO · v0.61.0 publicada · o Gantt ganha exemplo distribuível](#2026-09-05-concluído-v0610-publicada-o-gantt-ganha-exemplo-distribuível)
 - [2026-09-09 — CONCLUÍDO · Pedidos de componente no showcase, sem backend](#2026-09-09-concluído-pedidos-de-componente-no-showcase-sem-backend)
+- [2026-09-15 — CONCLUÍDO · v0.62.0 publicada · o pipeline do DS legível fora do Claude Code](#2026-09-15-concluído-v0620-publicada-o-pipeline-do-ds-legível-fora-do-claude-code)
 
 <!-- doc-index:fim -->
 
@@ -5159,3 +5160,74 @@ ou ordenar a lista pela tela.
 Apps Script e o deploy do showcase estão numa **conta pessoal**. Se ela ficar
 indisponível, os pedidos param de ser gravados. O código está versionado; o acesso
 não. Mesma família de risco do npm e da Vercel.
+
+---
+
+## 2026-09-15 — CONCLUÍDO · v0.62.0 publicada · o pipeline do DS legível fora do Claude Code
+
+**Agente:** DS Dev · **Fluxo:** `/ds-release` completo (PRs #317–#320 → release #321).
+
+| Canal | Estado |
+|---|---|
+| npm (lib) | **0.62.0** — confirmado por `npm view` e por download do tarball |
+| npm (CLI) | **0.25.33** |
+| registry / copy-in | carimbo **v0.62.0**, 101 itens, embed em sync por conteúdo |
+| submódulo | segue o `main` |
+
+**O que a v0.62.0 entrega:** `dist-lib/ai/` — o pipeline do DS num formato que
+qualquer runtime e qualquer modelo leem. 64 arquivos confirmados no tarball
+publicado, manifesto carimbado `0.62.0 · 7cd6db7`.
+
+**O problema que motivou.** O pipeline (roteiros com entrevista e gate, regras de
+composição, exemplos, guias) só era legível pelo Claude Code. Consumidor com loop
+próprio sobre a API não tem skill, slash command nem auto-load de `rules/` — e o
+caso medido (iGreen OS) GARIMPA o nosso código-fonte com uma lista de 20 nomes
+escrita à mão do lado dele, enxergando **19 dos 48** componentes.
+
+**A decisão de desenho:** tudo no bundle é DERIVADO de fonte que já existe. Não é
+economia — é o que torna a dessincronização impossível, porque não há segunda
+fonte pra divergir. Componente novo entra sozinho; regra alterada propaga no
+próximo build. Roda no `closeBundle` do `vite.lib.config.ts`, e TEM que ser ali:
+`dist-lib/` é gitignored e o `lib-verify` exige dir declarado em `files` existindo
+e não-vazio — gerado em outro passo, toda PR que tocasse o `package.json`
+reprovaria no CI com erro que não aponta pra causa.
+
+**Assumption:** o consumidor implementa os quatro encaixes (ler, rotear, entregar
+por estágio, e o PORTÃO que não fecha o turno sem roteiro). Sem o portão, o bundle
+é biblioteca que ninguém abre — os três primeiros viram sugestão e o modelo cumpre
+"quase sempre". Se a medição do consumidor não melhorar, é aqui que se olha antes
+de culpar o conteúdo.
+
+**Dois defeitos meus que os gates pegaram, e viraram regressão nomeada:**
+(1) excluí o TopoJSON de 256 KB por "dado bruto não ensina nada" — e
+`dashboard-screen.tsx:41` importa dele; o exemplo iria com import quebrado, que é
+PIOR que ausente porque o consumidor copia o padrão. A lista de exclusão virou a
+invariante "nenhum import relativo aponta pra fora do bundle", que vale pros 10
+exemplos que ainda vão entrar. (2) o parse do roteamento varria o arquivo inteiro
+e colhia linha de outra tabela — a primeira "rota" era `[mode, submodule]`. Agora
+é delimitado e falha alto abaixo de 15 rotas.
+
+**Dívida contada, não escondida:** `residuoClaudeCode: 8` no manifesto — menções a
+`/ds-create-*` e `.claude/` que sobraram nos roteiros. Não reescrevi por script:
+reescrever prosa mecanicamente produz frase errada com cara de certa. Cada roteiro
+leva aviso de portabilidade no topo, e o número fica visível pra alguém fechar.
+
+**Segurança, fora do escopo e resolvida no caminho:** o `npm audit` do
+`registry-app` acusava 1 crítica + 1 alta (`sharp`, crítico via Next.js) e era o
+único gate que reprovava o `release:check` — gate que sempre falha por motivo
+conhecido é gate que ninguém lê. `npm audit fix` resolveu **sem `--force`** e **sem
+tocar o `package.json`**: só o lockfile, resolução dentro das faixas declaradas.
+Build do registry-app verificado depois. Apresentado ao mantenedor como decisão
+própria antes de aplicar. `release:check` **verde pela primeira vez**.
+
+**Também nesta rodada:** blocos `ds:regras` em `DataTable`, `Kpi`, `card` e
+`alert-dialog` (11→14 compostos, 4→6 primitivos); correção da mensagem de lint que
+mandava ler arquivo inexistente no consumidor; `input` e `select` que estavam ao
+mesmo tempo na tabela de gotchas e na lista "sem gotcha"; e `#/solicitar-componente`,
+fila pública de pedidos sem banco nem backend nosso.
+
+⚠️ **Limitação medida, não esquecimento:** o gatilho do `ds:regras` é a TAG casar
+com o nome da PASTA. `<ChartContainer>` não alcança `Chart/USAGE.md`, e
+`<KpiGroup>` não alcança `Kpi/`. Fechar isso exige alterar a resolução no
+`component-rules.mjs` — mecanismo em produção com 24 testes — por duas famílias.
+Não compensou; fica registrado pra quando compensar.
