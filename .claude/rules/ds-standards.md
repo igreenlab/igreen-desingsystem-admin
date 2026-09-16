@@ -305,6 +305,11 @@ motor reativo do componente (chips clicáveis/editáveis):
   (`defaultViews`/`presetView`/`filterModel` · DataList: `views`/`filterModel`) → chip aplicado.
 - **toolbar.actions/toolbarActions SÓ pra caso pequeno/simples não-coluna** (ex.: data),
   label curta, **máx ~2**. Mexe com coluna, grande ou muitos → **não** use o toolbar.
+- **precisa de um COMPONENTE no toolbar** (um `DatePicker` de período, um `Select`
+  composto)? → **`toolbar.customLeft`**, não `actions`: os kinds de `ToolbarAction` são
+  `button`/`dropdown`/`input` e nenhum recebe componente. Renderiza entre o refresh e a
+  busca. ⚠️ **Era inerte até 2026-09-16** — declarada, documentada em 3 superfícies e lida
+  por nada, então o TS aceitava e nada renderizava (PR #326; ainda não publicado em npm).
 - **muitos ou ligados a coluna** → sempre nativos **pré-aplicados (chips)**. As skills
   crud/list + ds-kit sugerem isso.
 

@@ -213,6 +213,12 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 > - **toolbar.actions é SÓ pra caso pequeno e simples que NÃO reage com coluna** (ex.:
 >   data/período, escopo global) — **label curta**, **máx ~2**. Se o controle mexe com
 >   coluna da tabela, é grande/complexo, ou são muitos → **NÃO use o toolbar.**
+> - **Componente no toolbar → `toolbar.customLeft`, não `actions`.** Os kinds de
+>   `ToolbarAction` são `button`/`dropdown`/`input`; nenhum recebe componente. Pra um
+>   `DatePicker mode="range"` de período, um `Select` composto ou um segmented custom,
+>   use `customLeft` — renderiza entre o refresh e a busca (antes das `actions` quando as
+>   duas vêm juntas). ⚠️ A prop **era inerte até 2026-09-16**: declarada, documentada e
+>   lida por nada, então o componente não aparecia e não havia erro (PR #326).
 > - **Muitos filtros, ou ligados a coluna** → SEMPRE os nativos **pré-aplicados** (chips
 >   no load) + drawer "Filtros". Nunca empilhar selects acima da grade.
 >
@@ -258,7 +264,8 @@ Oferecer a alternativa: se não precisa de controle externo do filterModel,
 | Views (presets)       | abas pré-definidas (`defaultViews` + `presetView`)? quais (nome + filtros + sort)?                                                                                                 | off                                         |
 | Views (usuário)       | usuário cria/salva/persiste as próprias? (`savedViewsService` + `persistId`)                                                                                                       | off                                         |
 | Refresh               | `toolbar.enableRefresh`                                                                                                                                                            | on (default da API)                         |
-| **toolbar.actions**   | ações custom no toolbar (`button`/`dropdown`/`input`, ex.: seletor de período). Inline no desktop; **colapsam no ⋯ no mobile**. Oferecer quando pedir botão/seletor extra na barra | off                                         |
+| **toolbar.actions**   | ações custom no toolbar (`button`/`dropdown`/`input`, ex.: seletor de período por dropdown de meses). Inline no desktop; **colapsam no ⋯ no mobile**. Oferecer quando pedir botão/seletor extra na barra | off                                         |
+| **toolbar.customLeft** | **componente** livre no toolbar, entre o refresh e a busca — o caminho pra `DatePicker mode="range"`, `Select` composto, segmented custom. É o único: `ToolbarAction` não tem kind que receba componente | off |
 | moreMenu              | items extras (⋯)?                                                                                                                                                                  | off                                         |
 | **Estados**           | loading (`renderLoading` skeleton) · vazio (`renderEmpty` + CTA _Adicionar_) · sem-resultado (`renderNoResults` + limpar) — **sempre definir os 3**                                | defaults sensatos                           |
 | **Form criar/editar** | campos (default = colunas editáveis) · obrigatório? · máscara (CNPJ/tel/CEP/moeda)? · validação? — via `FormField` (L-023) + `gap-form-gap` (L-024)                                | espelha colunas                             |
