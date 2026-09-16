@@ -703,7 +703,8 @@ tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (n
 - `enableExport?` (false) — `true` = dropdown Exportar com CSV default; objeto `{ formats?, items? }` pra formatos custom
 - `enableFullscreen?` (false) — botão ⤢ na toolbar (entre Filtros e Configurações) que expande a tabela pra viewport inteira; Esc volta
 - `moreMenu?` — `{ items: DataTableMoreMenuItem[] }` — MoreMenu (⋯) no canto direito
-- `customLeft?` — ReactNode livre após search/refresh (controls custom)
+- `customLeft?` — **ReactNode livre**, entre o refresh e a busca (mesma posição das `actions`, e antes delas quando as duas vêm juntas). É o único caminho pra um **componente** no toolbar: `actions` só aceita `ToolbarAction[]`, cujos kinds são `button`/`dropdown`/`input` e nenhum recebe componente. Use pra `DatePicker` de período, `Select` composto, segmented custom. ⚠️ Era **inerte** até 2026-09-16 (declarada, documentada, lida por nada — o TS aceitava e nada renderizava); gate: `datatable-toolbar-slots.test.tsx`
+- `customActions?` — ⛔ **@deprecated e sem efeito** — nunca foi lida. Use `customLeft` (componente) ou `moreMenu.items` (itens de menu)
 - `viewToggle?` — override/esconde o segmented table/kanban auto-renderizado
 
 > Bulk actions vão em `selectionConfig.actions` (não no toolbar). Preset views vão na prop

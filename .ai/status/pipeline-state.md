@@ -5277,3 +5277,47 @@ então só faz sentido depois que o consumidor medir. (2) o gatilho do `ds:regra
 a TAG casar com o nome da PASTA: `<ChartContainer>` e `<KpiGroup>` não alcançam
 seus guias, e fechar exige mexer no `component-rules.mjs` — produção, 24 testes —
 por duas famílias.
+
+---
+
+### 2026-09-16 | ds-dev | `DataTable.toolbar.customLeft` — a prop morta que prometia um slot | CONCLUÍDO
+
+**O defeito.** `toolbar.customLeft` existia no tipo desde sempre, documentada em TRÊS
+superfícies (`data-table.types.ts`, `USAGE.md`, `DataTableDoc.tsx`) como *"slot livre pra
+inserir custom controls"*, e `grep customLeft src/components/ui/DataTable/` retornava **uma
+linha**: a declaração. Nenhum render a consumia. O consumidor passava o componente, o TS
+aceitava (é `ReactNode`), build e teste passavam, e o toolbar renderizava sem ele — sem
+erro nenhum pra investigar.
+
+Achado em 2026-09-16 num consumidor real (réplica de CMS de recarga) tentando pôr um
+`DatePicker` de período ao lado da busca. A alternativa `toolbar.actions` não serve: os
+kinds de `ToolbarAction` são `button`/`dropdown`/`input` e nenhum recebe componente
+arbitrário. Sem a prop viva, não há caminho na API pública.
+
+**O fix é pequeno porque o slot já existia.** O `actions` do `TableToolbar` já renderiza
+entre o refresh e a busca — exatamente a posição que a doc prometia. Então `customLeft`
+entra no MESMO slot, antes das `actions`, em vez de ganhar slot próprio (que duplicaria a
+posição). Nenhuma mudança no `TableToolbar`.
+
+**A doc errava a posição** em todas as três superfícies ("na esquerda", quando o slot vive
+no cluster da direita). Corrigidas as três.
+
+**`customActions` segue inerte, de propósito.** Irmã da `customLeft`, também nunca lida.
+Removê-la é mudança de tipo, não correção de defeito — fica pra decisão do mantenedor. O
+que mudou foi a mensagem de `@deprecated`, que agora diz que ela não faz nada.
+
+**Não virou lição.** As 4 perguntas do protocolo reprovam na primeira: *dá gate?* → dá, e
+foi feito (`datatable-toolbar-slots.test.tsx`). Lição é pra quando não dá (L-059).
+
+**O gate foi validado pela L-064** — reproduzi o defeito antes de confiar no teste:
+revertido o fix, 2 dos 3 casos reprovam por o botão não existir no DOM, e o terceiro
+(controle, sem `customLeft`) passa. Na primeira tentativa o teste falhou por `matchMedia`
+ausente no jsdom, que é motivo alheio e não vale como evidência — daí os stubs de
+`matchMedia` + `ResizeObserver` no `beforeAll`.
+
+**Assumption:** que o slot `actions` do `TableToolbar` é a posição certa pra `customLeft`.
+Se alguém quiser o componente à ESQUERDA de verdade (junto das visões), aí sim precisa de
+slot novo — e a doc da prop teria que mudar junto, não o contrário.
+
+**Distribuição:** registry/changelog/bump NÃO vão neste PR (Regra 8) — consolidam no
+`/ds-release`. Anotado no corpo do PR.

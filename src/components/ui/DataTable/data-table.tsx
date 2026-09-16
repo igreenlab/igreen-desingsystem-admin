@@ -1609,9 +1609,26 @@ function DataTableInternal<T>(
                   />
                 ) : undefined
               }
+              /* `customLeft` entra AQUI, no mesmo slot do `actions`, e não num slot
+                 próprio: o `actions` do `TableToolbar` já renderiza imediatamente à
+                 esquerda da busca (`table-toolbar.tsx`, cluster da direita: refresh →
+                 actions → search), que é exatamente a posição que a doc da prop
+                 promete. Um slot novo duplicaria a posição.
+
+                 Até 2026-09-16 a prop era declarada, documentada e **lida por nada** —
+                 o consumidor passava um componente, o TS aceitava, e nada aparecia.
+                 Ela existe pro caso que `ToolbarAction` não cobre: os kinds são
+                 `button`/`dropdown`/`input`, nenhum recebe componente arbitrário (um
+                 `DatePicker` de período, por exemplo). */
               actions={
-                toolbarConfig.actions && toolbarConfig.actions.length > 0 ? (
-                  <ToolbarActions actions={toolbarConfig.actions} />
+                toolbarConfig.customLeft ||
+                (toolbarConfig.actions && toolbarConfig.actions.length > 0) ? (
+                  <>
+                    {toolbarConfig.customLeft}
+                    {toolbarConfig.actions && toolbarConfig.actions.length > 0 ? (
+                      <ToolbarActions actions={toolbarConfig.actions} />
+                    ) : null}
+                  </>
                 ) : undefined
               }
               fullscreen={
