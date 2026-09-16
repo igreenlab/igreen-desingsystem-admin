@@ -38,6 +38,7 @@
 - [2026-09-09 — CONCLUÍDO · Pedidos de componente no showcase, sem backend](#2026-09-09-concluído-pedidos-de-componente-no-showcase-sem-backend)
 - [2026-09-15 — CONCLUÍDO · v0.62.0 publicada · o pipeline do DS legível fora do Claude Code](#2026-09-15-concluído-v0620-publicada-o-pipeline-do-ds-legível-fora-do-claude-code)
 - [2026-09-15 — CONCLUÍDO · v0.63.0 publicada · o pacote de IA entrega o que o índice promete](#2026-09-15-concluído-v0630-publicada-o-pacote-de-ia-entrega-o-que-o-índice-promete)
+- [2026-09-16 — CONCLUÍDO · `topSlot` na sidebar single: o desvio do `searchCommand` corrigido](#2026-09-16-concluído-topslot-na-sidebar-single-o-desvio-do-searchcommand-corrigido)
 
 <!-- doc-index:fim -->
 
@@ -5367,3 +5368,45 @@ distintas. Se aparecer caso em que o escopo TAMBÉM troca rotas, é `sidebarModu
 `USAGE` já diz que passar os dois é erro de desenho.
 
 **Distribuição:** registry/embed/bump consolidam no `/ds-release`, não neste PR.
+
+---
+
+## 2026-09-16 — CONCLUÍDO · `topSlot` na sidebar single: o desvio do `searchCommand` corrigido
+
+### 2026-09-16 | DS DEV | SingleMenuSidebar + AppShell | CONCLUÍDO
+
+**O que mudou:** `topSlot?: ReactNode` no `SingleMenuSidebar`, entre o seletor de módulo e
+a busca, e `sidebarTopSlot` no `AppShell`. Slot livre — o componente reserva o lugar, quem
+consome monta o controle.
+
+**Isto é a correção de um desvio que EU introduzi horas antes, na v0.65.0.** Ali expus
+`sidebarSearchCommand` pra que um CMS multi-tenant montasse o multi-select de locais dentro
+da paleta da busca. Funcionava, e ficou ruim — o operador foi direto ao ponto: *"busca
+sempre é busca e recebe os children necessários para efetuar as buscas no sistema"*.
+
+**Por que ficou ruim, em concreto** (é o que justifica a prop nova, e não outra prop de
+estilo na busca):
+
+- o gatilho é um `<button>` com lupa + badge `⌘K` hard-coded em `search.tsx`, **sem prop
+  pra esconder nenhum dos dois** — então o controle de escopo se apresenta como busca;
+- o rodapé de ações ("Selecionar todas" / "Limpar") **rola junto com a lista**, porque vive
+  dentro do `CommandList`, que É a área de scroll. Não havia onde fixá-lo.
+
+A tentação era acrescentar `hideSearchIcon`/`hideShortcut`/`searchFooter` à busca. Isso
+resolve o sintoma e mantém o erro: três props novas num componente cuja função não é aquela.
+**Conteúdo arbitrário pede slot arbitrário.**
+
+**O gate** (`sidebar-single-escopo.test.tsx`, 4º caso) valida por L-064: revertido o
+passthrough pra `topSlot={undefined}`, com a reversão CONFERIDA em disco, o caso reprova; o
+assert que carrega o peso é `queryByRole("dialog")` ser nulo **sem** `sidebarShowSearch` —
+ele reprovaria também alguém "resolvendo" o slot por dentro da paleta, que é exatamente o
+desvio de origem.
+
+**Assumption:** que o topo da sidebar tem 3 papéis distintos e estáveis — identidade do
+escopo (`module`), recorte do escopo (`topSlot`), ação de busca (`showSearch`). Se aparecer
+um 4º pedindo lugar próprio, o slot já absorve; o que NÃO deve acontecer é um deles voltar
+a ser encenado por outro.
+
+**Superfícies:** código + tipos (2) · USAGE das duas (2) · `ds:regras` das duas (2) ·
+vocabulário do consumidor (`app-builder/SKILL.md`, repo + payload) · gate. Registry/embed/
+bump consolidam no `/ds-release`.

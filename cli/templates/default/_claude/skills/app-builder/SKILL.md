@@ -73,6 +73,13 @@ existe divisão, o rail da `"menu"` mostra as áreas todas de uma vez, enquanto 
 ficam atrás de um botão acima da busca. Quer conhecer as outras variações? Mande a página do
 componente — ampliar o leque na entrevista é o que produz escolha errada.
 
+**Terceira resposta possível: o app tem ESCOPO global** — uma empresa/unidade que recorta
+**todas** as páginas ("os dados são sempre dos locais selecionados no topo"). Aí é `"single"`
++ `sidebarModule` (o seletor de escopo — singular, **não** troca o menu) + `sidebarTopSlot`
+(o multi-select das unidades, que você monta). ⛔ **Não** use `sidebarSearchCommand` pra isso:
+aquele é o conteúdo da paleta da **busca**, cujo gatilho tem lupa e `⌘K` fixos — o controle se
+apresenta como busca e o rodapé de ações rola com a lista. Busca é busca.
+
 ```tsx
 <AppShell
   sidebar="single"

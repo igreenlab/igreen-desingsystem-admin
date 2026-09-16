@@ -2,7 +2,7 @@
 
 <!-- ds:regras
 - tem áreas separadas (Comercial, Financeiro…)? → `sidebar="menu"` + `contexts`. Não tem? → `"single"` + `categories`, sem `sidebarModules` nem `sidebarShowSearch`
-- **exceção: o app tem ESCOPO global** (empresa/unidade que recorta TODAS as páginas)? → `sidebarModule` (seletor, não troca menu) + `sidebarShowSearch` + `sidebarSearchCommand` (a paleta vira a seleção das unidades). NÃO é `sidebarModules`: aquele troca as `categories`
+- **exceção: o app tem ESCOPO global** (empresa/unidade que recorta TODAS as páginas)? → `sidebarModule` (seletor, não troca menu) + `sidebarTopSlot` (o multi-select das unidades, montado por você). NÃO é `sidebarModules` (troca as `categories`) nem `sidebarSearchCommand` (aquele é a paleta da BUSCA)
 - NÃO passe `sidebarLogo`: o default é a marca iGreen. Só com marca própria pedida explicitamente
 - `sidebarTitle` = nome do projeto (vai à direita da logo) — pergunte, não invente
 -->
@@ -69,14 +69,19 @@ sem erro nenhum.
 | `sidebarModule` | SingleMenuModule | — | **Seletor de ESCOPO** (empresa, workspace, unidade): ícone + título + subtítulo e, com `options`, dropdown. **Não troca o menu** — é a diferença com o plural acima. Use quando o menu é o mesmo em todas as opções; o plural, quando cada uma tem o seu. Passar os dois é erro: o seletor é um só |
 | `sidebarShowSearch` | boolean | — | Busca no topo da sidebar (é um botão que abre command palette, não um input) |
 | `sidebarSearchPlaceholder` | string | — | Placeholder da busca **da sidebar** — distinto do `searchPlaceholder`, que é do Header |
-| `sidebarSearchCommand` | ReactNode | itens do menu | Conteúdo do `CommandList` da paleta da busca. Com ele o campo deixa de ser busca de menu e vira **seleção de escopo** (locais, filiais, safras). Exige `sidebarShowSearch`; pareie com `sidebarSearchPlaceholder` pra renomear o gatilho |
+| `sidebarSearchCommand` | ReactNode | itens do menu | Conteúdo do `CommandList` da paleta da busca **da sidebar**. Troca a lista de itens do menu por outra lista **de busca**. Exige `sidebarShowSearch`. ⛔ **Não é o lugar de um controle de escopo** — pra isso é `sidebarTopSlot` |
+| `sidebarTopSlot` | ReactNode | — | **Slot livre no topo da sidebar**, entre o seletor de módulo e a busca. É aqui que vai controle de **escopo** que não é seletor único nem busca: multi-select de unidades, filtro de safra, período global. Você monta o controle; o shell reserva o lugar |
 
-> **`sidebarModule` + `sidebarSearchCommand` = escopo global sem componente novo.** É o
-> padrão "empresa no seletor, unidades na paleta" de CMS multi-tenant: o topo da sidebar
-> vira o recorte que todas as páginas obedecem. As duas props existiam no
-> `SingleMenuSidebar` desde sempre e **não eram repassadas** pelo shell até 2026-09-16 —
-> quem precisava era empurrado pro `sidebarModules` com N entradas de categorias
-> idênticas, que funciona por acidente. Gate: `sidebar-single-escopo.test.tsx`.
+> **`sidebarModule` + `sidebarTopSlot` = escopo global sem componente novo.** É o padrão
+> "empresa no seletor, unidades logo abaixo" de CMS multi-tenant: o topo da sidebar vira o
+> recorte que todas as páginas obedecem, encostado na navegação que ele recorta.
+>
+> ⚠️ **A primeira versão disto usou `sidebarSearchCommand` e ficou ruim.** O gatilho da
+> busca é um botão com lupa e badge `⌘K`, sem prop pra esconder nenhum dos dois: o controle
+> de escopo se apresentava como busca, e o rodapé "Selecionar todas / Limpar" rolava junto
+> com a lista (ele vive dentro do `CommandList`, que É a área de scroll). **Busca é busca.**
+> Conteúdo arbitrário pede slot arbitrário — daí o `sidebarTopSlot` (2026-09-16).
+> Gate: `sidebar-single-escopo.test.tsx`.
 | `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |
 | `activeContextId` | string | — | Workspace ativo (controlled) |
 | `onContextChange` | (id: string) => void | — | Callback de troca de workspace |

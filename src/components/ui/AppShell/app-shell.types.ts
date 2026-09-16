@@ -291,6 +291,19 @@ type AppShellSingleSidebarProps = {
    * `sidebarSearchPlaceholder`, transforma a busca num seletor sem componente novo.
    */
   sidebarSearchCommand?: ReactNode;
+  /**
+   * Slot livre no topo da sidebar, entre o seletor de módulo e a busca.
+   *
+   * É o caminho pra **controle de escopo** que não é seletor único (`sidebarModule` só
+   * escolhe um) nem busca: multi-select de unidades, filtro de safra, período global.
+   * Você monta o controle com os componentes que quiser; o shell só reserva o lugar.
+   *
+   * ⚠️ **Não use `sidebarSearchCommand` pra isso.** Aquele customiza o conteúdo da paleta
+   * da BUSCA, cujo gatilho é um botão fixo com lupa e badge `⌘K`: o controle se apresenta
+   * como busca, e o rodapé de ações rola junto com a lista (vive dentro do `CommandList`).
+   * Busca é busca. Medido num consumidor real em 2026-09-16.
+   */
+  sidebarTopSlot?: ReactNode;
 };
 
 export type AppShellProps = AppShellBaseProps &
