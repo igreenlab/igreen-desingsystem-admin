@@ -84,6 +84,7 @@ export function AppShell(props: AppShellProps) {
   sidebarShowSearch,
   sidebarSearchPlaceholder,
   sidebarSearchCommand,
+  sidebarTopSlot,
   className,
   } = props as AppShellInternalProps;
   /**
@@ -180,6 +181,16 @@ export function AppShell(props: AppShellProps) {
          * empresa no topo da sidebar e não tinha caminho pela API do `AppShell`.
          */
         module={sidebarModule}
+        /**
+         * Slot livre entre o seletor de módulo e a busca. É aqui que mora controle de
+         * ESCOPO que não é seletor único nem busca — multi-select de unidades, filtro de
+         * safra, período global.
+         *
+         * Existe porque a primeira tentativa desse caso usou `searchCommand`: funcionava e
+         * ficava ruim, porque o gatilho da busca é um botão com lupa e `⌘K` que não tem
+         * prop pra esconder nenhum dos dois. Conteúdo arbitrário pede slot arbitrário.
+         */
+        topSlot={sidebarTopSlot}
         activeItemId={activeItemId}
         onItemClick={onSidebarItemClick}
         renderLink={renderLink as never}

@@ -98,6 +98,25 @@ describe("AppShell — escopo na sidebar single", () => {
     expect(await screen.findByText("lista-de-locais")).toBeTruthy();
   });
 
+  it("repassa `sidebarTopSlot` e renderiza SEM depender da busca", () => {
+    montar({
+      sidebarTopSlot: <div>controle-de-escopo</div>,
+      // `sidebarShowSearch` ausente de propósito — é o que separa este caso do de cima.
+    });
+
+    /**
+     * ⚠️ O assert que importa é o segundo. O primeiro (conteúdo na tela) passaria se
+     * alguém "resolvesse" o slot roteando pro `searchCommand`, que foi exatamente o
+     * desvio que originou esta prop — e ali o conteúdo só existe DENTRO da paleta, que
+     * só monta aberta, atrás de um gatilho com lupa e `⌘K`.
+     *
+     * Sem `sidebarShowSearch`, a busca não existe: o conteúdo aparecer direto prova que
+     * ele tem lugar próprio no topo da sidebar.
+     */
+    expect(screen.getByText("controle-de-escopo")).toBeTruthy();
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
   it("não quebra a sidebar quando nenhuma das duas é passada", () => {
     montar();
 

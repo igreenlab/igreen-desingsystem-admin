@@ -49,6 +49,7 @@ export function SingleMenuSidebar({
   activeItemId,
   onItemClick,
   renderLink,
+  topSlot,
   user,
   defaultExpanded = true,
   expanded: controlledExpanded,
@@ -187,9 +188,32 @@ export function SingleMenuSidebar({
 
             <div className={styles.divider} />
 
-            {expanded && (moduleDisplay || showSearch) && (
+            {/**
+             * Bloco do topo: seletor de módulo · busca · slot livre.
+             *
+             * `topSlot` existe porque o que cabe aqui não é só módulo e busca. Um CMS
+             * multi-tenant precisa de um **controle de escopo** (multi-select de
+             * unidades, filtro de safra, seletor de período global) encostado na
+             * navegação que ele recorta — e isso não é um seletor único (o `module` só
+             * escolhe um) nem uma busca.
+             *
+             * ⚠️ **Nasceu de um desvio corrigido.** Em 2026-09-16 um consumidor usou
+             * `searchCommand` pra montar esse multi-select dentro da paleta da busca.
+             * Funcionava, e ficou ruim: o gatilho da busca é um `<button>` com lupa e
+             * badge `⌘K` (`search.tsx`), sem prop pra esconder nenhum dos dois, então o
+             * controle de escopo se apresentava como "busca" e o rodapé de ações rolava
+             * junto com a lista (ele vive dentro do `CommandList`, que É a área de
+             * scroll). **Busca é busca**, e recebe os `children` dela pra buscar no
+             * sistema. Conteúdo arbitrário pede slot arbitrário.
+             *
+             * Ordem: módulo → slot → busca. O escopo vem logo abaixo da identidade do
+             * módulo porque os dois respondem "sobre o que estou olhando"; a busca é
+             * ação, e fecha o bloco.
+             */}
+            {expanded && (moduleDisplay || topSlot || showSearch) && (
               <div className={cn(styles.sectionPadding, styles.textFadeIn)}>
                 {moduleDisplay && <SingleMenuModuleSelector {...moduleDisplay} />}
+                {topSlot}
                 {showSearch && (
                   <SingleMenuSearch
                     placeholder={searchPlaceholder}

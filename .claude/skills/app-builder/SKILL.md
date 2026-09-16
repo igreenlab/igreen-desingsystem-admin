@@ -72,6 +72,13 @@ os componentes — e foi assim que um consumidor escolheu errado sem querer (202
 
 **Regra de tendência:** existe divisão → `"menu"`. Não existe → `"single"` enxuta.
 
+**Terceira resposta possível: o app tem ESCOPO global** — uma empresa/unidade que recorta
+**todas** as páginas ("os dados são sempre dos locais selecionados no topo"). Aí é `"single"`
++ `sidebarModule` (o seletor de escopo — singular, **não** troca o menu) + `sidebarTopSlot`
+(o multi-select das unidades, que você monta). ⛔ **Não** use `sidebarSearchCommand` pra isso:
+aquele é o conteúdo da paleta da **busca**, cujo gatilho tem lupa e `⌘K` fixos — o controle se
+apresenta como busca e o rodapé de ações rola com a lista. Busca é busca.
+
 A sidebar única **também** aceita módulos (`sidebarModules`) — e é exatamente o que não
 oferecer na entrevista. Quando existe divisão, o rail da `"menu"` mostra as áreas todas de
 uma vez; na única elas ficam atrás de um botão acima da busca. Se o usuário quiser conhecer

@@ -4,6 +4,7 @@
 - NÃO passe `logo`: o default é a marca iGreen. Só com marca própria pedida explicitamente
 - `title` = nome do projeto (vai à direita da logo) — pergunte, não invente
 - é a escolha quando NÃO há divisão em áreas: `showSearch={false}`, sem `module`/`modules`
+- controle de ESCOPO no topo (multi-select de unidades, filtro de safra, período global)? → `topSlot`. NUNCA `searchCommand`: busca é busca
 -->
 
 **O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em
@@ -43,6 +44,7 @@ exibido à direita dela.
 | `showSearch`                    | `boolean`                     | `true`  |             |
 | `searchCommand`                 | `ReactNode`                   | —       |             |
 | `searchPlaceholder`             | `string`                      | —       |             |
+| `topSlot`                       | `ReactNode`                   | —       | slot livre entre o módulo e a busca |
 | `activeItemId`                  | `string`                      | —       |             |
 | `onItemClick`                   | `(id: string) => void`        | —       |             |
 | `defaultExpanded`               | `boolean`                     | `true`  |             |
@@ -54,6 +56,31 @@ existem** nesta API (estavam documentados aqui e nunca foram props do componente
 abre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o
 texto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem
 em `SingleMenuSearchProps`, que é subcomponente interno.
+
+### `topSlot` — escopo no topo, e por que não é a busca
+
+O bloco do topo tem três lugares, nesta ordem: **seletor de módulo → `topSlot` → busca**.
+
+`topSlot` é um slot livre. Ponha ali o controle que responde *"sobre o que estou olhando"*
+e não é um seletor único: multi-select de unidades/filiais, filtro de safra, período global.
+Você monta o controle com os componentes que quiser — o componente só reserva o lugar.
+
+```tsx
+<SingleMenuSidebar
+  title="iGreen MOB"
+  module={{ icon: <Building2 />, title: empresa, subtitle: "Empresa selecionada" }}
+  topSlot={<SeletorDeLocais valor={locais} onChange={setLocais} />}
+  showSearch={false}
+  categories={CATEGORIAS}
+/>
+```
+
+⛔ **Não use `searchCommand` pra isso.** Aquele troca o conteúdo da paleta da **busca**, e o
+gatilho dela é um `<button>` fixo com lupa e badge `⌘K` — sem prop pra esconder nenhum dos
+dois. Um controle de escopo ali **se apresenta como busca**, e um rodapé de ações ("Selecionar
+todas" / "Limpar") rola junto com a lista, porque ele vive dentro do `CommandList`, que É a
+área de scroll. Medido num consumidor real em 2026-09-16: foi esse desvio que originou o
+`topSlot`. Gate: `AppShell/sidebar-single-escopo.test.tsx`.
 
 ### Multi-módulo
 

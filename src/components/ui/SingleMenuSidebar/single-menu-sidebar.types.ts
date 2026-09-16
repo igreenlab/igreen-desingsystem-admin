@@ -245,6 +245,18 @@ export interface SingleMenuSidebarProps extends Omit<
   searchCommand?: ReactNode;
   /** Placeholder do campo de busca / da paleta Command */
   searchPlaceholder?: string;
+  /**
+   * Slot livre no topo, entre o seletor de módulo e a busca.
+   *
+   * Pra controle de ESCOPO que não é seletor único nem busca: multi-select de
+   * unidades, filtro de safra, período global. Encostado na navegação que ele recorta.
+   *
+   * ⚠️ NÃO use `searchCommand` pra isso. Aquele customiza o conteúdo da paleta da
+   * BUSCA, cujo gatilho é um botão fixo com lupa e badge `⌘K` — um controle de escopo
+   * ali se apresenta como busca, e ações de rodapé rolam junto com a lista (elas vivem
+   * dentro do `CommandList`). Medido num consumidor real em 2026-09-16.
+   */
+  topSlot?: ReactNode;
   /** Array de categorias de navegação. Opcional se `modules` for usado. */
   categories?: SingleMenuCategory[];
   /** Sub-item selecionado (global, entre todas as categorias) */
