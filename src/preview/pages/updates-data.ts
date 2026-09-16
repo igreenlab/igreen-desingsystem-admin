@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.65.0",
+    date: "2026-09-16",
+    tag: "preview",
+    title: "O shell deixa a sidebar ser o escopo do app",
+    summary:
+      "O `SingleMenuSidebar` sempre aceitou `module` — o seletor do topo, que mostra ícone + título + subtítulo e abre dropdown sem trocar o menu — e `searchCommand`, que substitui o conteúdo da paleta da busca. Nenhuma das duas era repassada pelo `AppShell`, que é **como se usa** a sidebar: ela raramente é montada standalone. Não é o caso da `customLeft` da v0.64.0, onde a prop existia e era lida por nada; aqui ela nem existia no tipo do shell, e o efeito no consumidor é ausência em vez de erro — ele lê o USAGE da sidebar, vê a prop, não acha equivalente e conclui que precisa contornar. Medido num CMS multi-tenant real: a única saída era `sidebarModules` com N entradas carregando `categories` idênticas, que funciona por acidente e quebra no dia em que um escopo precisar de menu diferente.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`sidebarModule` e `sidebarSearchCommand` no `AppShell`.** As duas juntas resolvem **escopo global** sem componente novo: o seletor no topo carrega a empresa (ou workspace, ou unidade) e a paleta da busca carrega as unidades daquele escopo — o padrão \"empresa no seletor, locais na paleta\" que faz todas as páginas internas obedecerem ao mesmo recorte. O critério entre singular e plural está no tipo e no USAGE: `sidebarModule` quando o menu é o mesmo em todas as opções, `sidebarModules` quando cada uma tem o seu. Passar os dois é erro de desenho — o seletor é um só.",
+          "**Gate `sidebar-single-escopo.test.tsx`** (3 casos). Ele quase nasceu falso: a primeira versão do caso de `searchCommand` afirmava o texto do `searchPlaceholder`, prop que JÁ era repassada, e passava com o defeito em pé. O assert real exige o conteúdo dentro da paleta — e paleta é `CommandDialog`, que só monta aberta.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O bloco `ds:regras` do `AppShell` deixou de contradizer a capacidade nova.** Ele dizia \"`single` + `categories`, sem `sidebarModules` nem `sidebarShowSearch`\" — regra que é injetada no contexto da IA no instante em que ela escreve o componente, e que passaria a mandar não usar justamente o caso de escopo. Ganhou a exceção explícita.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.64.0",
     date: "2026-09-16",
     tag: "preview",

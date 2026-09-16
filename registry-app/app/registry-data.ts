@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · accordion · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · alert-dialog · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · alert-modal · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · alert · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -143,7 +143,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/AppShell/USAGE.md",
-        "content": "# AppShell — USAGE\r\n\r\n<!-- ds:regras\r\n- tem áreas separadas (Comercial, Financeiro…)? → `sidebar=\"menu\"` + `contexts`. Não tem? → `\"single\"` + `categories`, sem `sidebarModules` nem `sidebarShowSearch`\r\n- NÃO passe `sidebarLogo`: o default é a marca iGreen. Só com marca própria pedida explicitamente\r\n- `sidebarTitle` = nome do projeto (vai à direita da logo) — pergunte, não invente\r\n-->\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Qual sidebar — `menu` (default) × `single`\r\n\r\nO shell monta **uma das duas** sidebars. O tipo é **união discriminada**: cada escolha exige\r\no seu próprio conjunto de dados, e o TS cobra no editor.\r\n\r\n| `sidebar` | quando | exige |\r\n|---|---|---|\r\n| `\"menu\"` (default) | app com **áreas distintas** (Comercial, Financeiro…), cada uma com menu próprio | `contexts` |\r\n| `\"single\"` | **sistema único**, um menu só — busca opcional | `categories` + `sidebarLogo` + `sidebarTitle` |\r\n\r\n```tsx\r\n<AppShell\r\n  sidebar=\"single\"\r\n  categories={CATEGORIES}\r\n  sidebarLogo={<MinhaLogo />}\r\n  sidebarTitle=\"Meu Sistema\"\r\n  sidebarShowSearch\r\n  activeItemId={ativo}\r\n  onSidebarItemClick={setAtivo}\r\n  breadcrumb={[{ label: \"Sistema\" }]}\r\n>…</AppShell>\r\n```\r\n\r\n**O toggle do Header funciona nas duas sem você cabear nada.** O mapeamento interno difere\r\nporque os componentes modelam o estado de formas diferentes — `MenuSidebar` tem\r\n`panelCollapsed` + drawer no mobile; a single tem `expanded`, e no mobile o `expanded` **é** a\r\nvisibilidade (expandida ocupa 100% da largura, recolhida some).\r\n\r\n⚠️ **`onSidebarItemClick` é separado do `onItemClick`**, e não é redundância: o `MenuSidebar`\r\nentrega o **item** (`SidebarMenuItem`), a single entrega o **`id`**. Mesmo nome faria você\r\nreceber um tipo e escrever pro outro.\r\n\r\n⚠️ **Por que união e não props opcionais:** deixar `contexts` opcional trocaria erro de\r\ncompilação por falha silenciosa — ausente com a sidebar de menu, o rail renderiza **vazio**,\r\nsem erro nenhum.\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `sidebar` | `\"menu\" \\| \"single\"` | `\"menu\"` | Qual menu lateral montar — ver a seção acima |\r\n| `fillHeight` | boolean | `false` | O shell obedece a altura do **pai** (`h-full`) em vez de 100vh. **Ligue quando embutir o shell em algo com altura** (layout com footer, aba, preview): sem isso ele transborda e o `overflow-hidden` do container corta o rodapé do body junto com o padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding. ⚠️ exige pai com altura |\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail (**só** com `sidebar=\"menu\"`) |\r\n| `categories` | SingleMenuCategory[] | — | Categorias do menu (**só** com `sidebar=\"single\"`) |\r\n| `sidebarLogo` | ReactNode | **marca iGreen** | Logo do header da sidebar single. **Omita** pra ficar com a marca — só passe se o app tem marca própria |\r\n| `sidebarTitle` | string | — | **Nome do projeto**, à direita da logo. Obrigatória de propósito: é o que o DS não adivinha |\r\n| `activeItemId` | string | — | Item ativo da single (a variante `menu` usa `activeItemHref`) |\r\n| `onSidebarItemClick` | (id: string) => void | — | Clique em item da single |\r\n| `sidebarModules` | SingleMenuModuleConfig[] | — | Módulos com menu próprio — o seletor troca o conjunto de categorias |\r\n| `sidebarShowSearch` | boolean | — | Busca no topo da sidebar (é um botão que abre command palette, não um input) |\r\n| `sidebarSearchPlaceholder` | string | — | Placeholder da busca **da sidebar** — distinto do `searchPlaceholder`, que é do Header |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item, event?) => void | — | Clique em item do panel. **2º arg é o `MouseEvent`** |\r\n| `renderLink` | (props) => ReactNode | — | ⭐ **Integração com router** — troca o `<a>` interno pelo `<Link>`. Ver `MenuSidebar/USAGE.md` §Integração com router |\r\n| `brandHref` | string | `\"/\"` | Destino do brand no rail; `\"\"` torna não-navegável |\r\n| `onBrandClick` | (e) => void | — | Clique no brand |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n- ⚠️ **Com react-router (ou qualquer router de history), passe `renderLink`**: `renderLink={(p) => <Link {...p} to={p.href} />}`. Sem isso, `href` de path fazia o browser recarregar a página inteira a cada clique de menu — bug real reportado em 2026-08-08, corrigido na v0.38.0. Detalhe e as 5 exceções em `MenuSidebar/USAGE.md` §Integração com router\r\n",
+        "content": "# AppShell — USAGE\r\n\r\n<!-- ds:regras\r\n- tem áreas separadas (Comercial, Financeiro…)? → `sidebar=\"menu\"` + `contexts`. Não tem? → `\"single\"` + `categories`, sem `sidebarModules` nem `sidebarShowSearch`\r\n- **exceção: o app tem ESCOPO global** (empresa/unidade que recorta TODAS as páginas)? → `sidebarModule` (seletor, não troca menu) + `sidebarShowSearch` + `sidebarSearchCommand` (a paleta vira a seleção das unidades). NÃO é `sidebarModules`: aquele troca as `categories`\r\n- NÃO passe `sidebarLogo`: o default é a marca iGreen. Só com marca própria pedida explicitamente\r\n- `sidebarTitle` = nome do projeto (vai à direita da logo) — pergunte, não invente\r\n-->\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Qual sidebar — `menu` (default) × `single`\r\n\r\nO shell monta **uma das duas** sidebars. O tipo é **união discriminada**: cada escolha exige\r\no seu próprio conjunto de dados, e o TS cobra no editor.\r\n\r\n| `sidebar` | quando | exige |\r\n|---|---|---|\r\n| `\"menu\"` (default) | app com **áreas distintas** (Comercial, Financeiro…), cada uma com menu próprio | `contexts` |\r\n| `\"single\"` | **sistema único**, um menu só — busca opcional | `categories` + `sidebarLogo` + `sidebarTitle` |\r\n\r\n```tsx\r\n<AppShell\r\n  sidebar=\"single\"\r\n  categories={CATEGORIES}\r\n  sidebarLogo={<MinhaLogo />}\r\n  sidebarTitle=\"Meu Sistema\"\r\n  sidebarShowSearch\r\n  activeItemId={ativo}\r\n  onSidebarItemClick={setAtivo}\r\n  breadcrumb={[{ label: \"Sistema\" }]}\r\n>…</AppShell>\r\n```\r\n\r\n**O toggle do Header funciona nas duas sem você cabear nada.** O mapeamento interno difere\r\nporque os componentes modelam o estado de formas diferentes — `MenuSidebar` tem\r\n`panelCollapsed` + drawer no mobile; a single tem `expanded`, e no mobile o `expanded` **é** a\r\nvisibilidade (expandida ocupa 100% da largura, recolhida some).\r\n\r\n⚠️ **`onSidebarItemClick` é separado do `onItemClick`**, e não é redundância: o `MenuSidebar`\r\nentrega o **item** (`SidebarMenuItem`), a single entrega o **`id`**. Mesmo nome faria você\r\nreceber um tipo e escrever pro outro.\r\n\r\n⚠️ **Por que união e não props opcionais:** deixar `contexts` opcional trocaria erro de\r\ncompilação por falha silenciosa — ausente com a sidebar de menu, o rail renderiza **vazio**,\r\nsem erro nenhum.\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `sidebar` | `\"menu\" \\| \"single\"` | `\"menu\"` | Qual menu lateral montar — ver a seção acima |\r\n| `fillHeight` | boolean | `false` | O shell obedece a altura do **pai** (`h-full`) em vez de 100vh. **Ligue quando embutir o shell em algo com altura** (layout com footer, aba, preview): sem isso ele transborda e o `overflow-hidden` do container corta o rodapé do body junto com o padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding. ⚠️ exige pai com altura |\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail (**só** com `sidebar=\"menu\"`) |\r\n| `categories` | SingleMenuCategory[] | — | Categorias do menu (**só** com `sidebar=\"single\"`) |\r\n| `sidebarLogo` | ReactNode | **marca iGreen** | Logo do header da sidebar single. **Omita** pra ficar com a marca — só passe se o app tem marca própria |\r\n| `sidebarTitle` | string | — | **Nome do projeto**, à direita da logo. Obrigatória de propósito: é o que o DS não adivinha |\r\n| `activeItemId` | string | — | Item ativo da single (a variante `menu` usa `activeItemHref`) |\r\n| `onSidebarItemClick` | (id: string) => void | — | Clique em item da single |\r\n| `sidebarModules` | SingleMenuModuleConfig[] | — | Módulos com menu próprio — o seletor troca o conjunto de categorias |\r\n| `sidebarModule` | SingleMenuModule | — | **Seletor de ESCOPO** (empresa, workspace, unidade): ícone + título + subtítulo e, com `options`, dropdown. **Não troca o menu** — é a diferença com o plural acima. Use quando o menu é o mesmo em todas as opções; o plural, quando cada uma tem o seu. Passar os dois é erro: o seletor é um só |\r\n| `sidebarShowSearch` | boolean | — | Busca no topo da sidebar (é um botão que abre command palette, não um input) |\r\n| `sidebarSearchPlaceholder` | string | — | Placeholder da busca **da sidebar** — distinto do `searchPlaceholder`, que é do Header |\r\n| `sidebarSearchCommand` | ReactNode | itens do menu | Conteúdo do `CommandList` da paleta da busca. Com ele o campo deixa de ser busca de menu e vira **seleção de escopo** (locais, filiais, safras). Exige `sidebarShowSearch`; pareie com `sidebarSearchPlaceholder` pra renomear o gatilho |\r\n\r\n> **`sidebarModule` + `sidebarSearchCommand` = escopo global sem componente novo.** É o\r\n> padrão \"empresa no seletor, unidades na paleta\" de CMS multi-tenant: o topo da sidebar\r\n> vira o recorte que todas as páginas obedecem. As duas props existiam no\r\n> `SingleMenuSidebar` desde sempre e **não eram repassadas** pelo shell até 2026-09-16 —\r\n> quem precisava era empurrado pro `sidebarModules` com N entradas de categorias\r\n> idênticas, que funciona por acidente. Gate: `sidebar-single-escopo.test.tsx`.\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item, event?) => void | — | Clique em item do panel. **2º arg é o `MouseEvent`** |\r\n| `renderLink` | (props) => ReactNode | — | ⭐ **Integração com router** — troca o `<a>` interno pelo `<Link>`. Ver `MenuSidebar/USAGE.md` §Integração com router |\r\n| `brandHref` | string | `\"/\"` | Destino do brand no rail; `\"\"` torna não-navegável |\r\n| `onBrandClick` | (e) => void | — | Clique no brand |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n- ⚠️ **Com react-router (ou qualquer router de history), passe `renderLink`**: `renderLink={(p) => <Link {...p} to={p.href} />}`. Sem isso, `href` de path fazia o browser recarregar a página inteira a cada clique de menu — bug real reportado em 2026-08-08, corrigido na v0.38.0. Detalhe e as 5 exceções em `MenuSidebar/USAGE.md` §Integração com router\r\n",
         "type": "registry:file",
         "target": "components/ui/AppShell/USAGE.md"
       },
@@ -155,13 +155,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/AppShell/app-shell.tsx",
-        "content": "import { useCallback, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Header } from \"@/components/ui/Header\";\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { UserMenu } from \"./user-menu\";\r\nimport * as s from \"./app-shell.styles\";\r\nimport type { AppShellProps, AppShellInternalProps } from \"./app-shell.types\";\r\n\r\n/**\r\n * `<AppShell>` — template de aplicação (rail + panel + header + body).\r\n *\r\n * Compõe os 3 primitives da família \"app skeleton\":\r\n * - `<MenuSidebar>` (rail + panel, full-height, à esquerda)\r\n * - `<Header>` (top bar com breadcrumb/search/notif/messages/theme)\r\n * - **Body slot** (children, `gap-gp-4xl p-pad-6xl`, scroll vertical interno)\r\n *\r\n * **Padrão controlled/uncontrolled** pra `menuCollapsed`:\r\n * - `menuCollapsed` prop → controlled (consumer gerencia state)\r\n * - `defaultMenuCollapsed` → uncontrolled initial value (vence a regra responsiva)\r\n * - Sem nenhum dos dois → uncontrolled com default **responsivo**: colapsado\r\n *   abaixo de 1536px, expandido acima (ver o `useState` do `internalCollapsed`)\r\n *\r\n * Todas as outras props são **passthrough 1:1** pros sub-componentes.\r\n * AppShell não impõe styling ao body além de gap/padding fixos — consumer\r\n * controla 100% do conteúdo (cards, tabelas, qualquer coisa).\r\n *\r\n * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados\r\n * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.\r\n */\r\nexport function AppShell(props: AppShellProps) {\r\n  // Ver AppShellInternalProps: a união vale na fronteira pública; aqui destruturo tudo.\r\n  const {\r\n  // Sidebar\r\n  contexts,\r\n  defaultActiveContextId,\r\n  activeContextId,\r\n  onContextChange,\r\n  defaultActiveItemHref,\r\n  activeItemHref,\r\n  onItemClick,\r\n  renderLink,\r\n  brandHref,\r\n  onBrandClick,\r\n  // Header\r\n  breadcrumb,\r\n  commandGroups,\r\n  commandPlaceholder,\r\n  commandEmptyMessage,\r\n  searchPlaceholder,\r\n  notifications,\r\n  messages,\r\n  theme,\r\n  onThemeChange,\r\n  themeOptions,\r\n  headerRightSlot,\r\n  // User menu\r\n  user,\r\n  layout,\r\n  onLayoutChange,\r\n  layoutOptions,\r\n  onSettings,\r\n  onLogout,\r\n  // Menu collapse (controlled/uncontrolled)\r\n  menuCollapsed: controlledCollapsed,\r\n  defaultMenuCollapsed,\r\n  onMenuCollapseChange,\r\n  // Body\r\n  children,\r\n  bodyClassName,\r\n  mobileEdgeToEdge,\r\n  fillHeight,\r\n  // Escolha da sidebar. SEM default aqui: um default literal estreitaria o tipo pra\r\n  // \"menu\" e o TS marcaria a comparação com \"single\" como morta (TS2367).\r\n  sidebar,\r\n  categories,\r\n  sidebarLogo,\r\n  sidebarTitle,\r\n  activeItemId,\r\n  onSidebarItemClick,\r\n  sidebarModules,\r\n  sidebarShowSearch,\r\n  sidebarSearchPlaceholder,\r\n  className,\r\n  } = props as AppShellInternalProps;\r\n  /**\r\n   * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.\r\n   *\r\n   * Mesma fronteira do padding do body (`max-2xl`) — uma história de breakpoint só.\r\n   * Notebook 1366/1440/1536 é onde o painel expandido custa caro: some ~200px de\r\n   * largura útil numa tela que já é estreita.\r\n   *\r\n   * Três decisões que valem estar escritas:\r\n   *\r\n   * 1. **Só no mount, não reativo.** Colapsar de novo a cada resize brigaria com o\r\n   *    usuário: depois que ele abre o menu na mão, não dá pra distinguir \"estado\r\n   *    inicial\" de \"ele quis assim\". `useMediaQuery` (reativo) é usado logo abaixo\r\n   *    pro `isMobile`, que decide COMPORTAMENTO do toggle — outra coisa.\r\n   * 2. **`defaultMenuCollapsed` explícito vence.** Por isso a prop perdeu o\r\n   *    `= false` na desestruturação: com valor default eu não conseguiria\r\n   *    distinguir \"consumer passou false\" de \"consumer não passou\". Só o `undefined`\r\n   *    cai na regra responsiva.\r\n   * 3. **Não precisa excluir mobile.** Abaixo de 768px o `MenuSidebar` força\r\n   *    `collapsed = false` internamente (o menu vira drawer overlay), então o valor\r\n   *    daqui é ignorado — verificado no browser, não deduzido da leitura.\r\n   *\r\n   * Lê síncrono no initializer pra não haver flash de menu expandido no 1º paint.\r\n   */\r\n  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {\r\n    if (defaultMenuCollapsed !== undefined) return defaultMenuCollapsed;\r\n    if (typeof window === \"undefined\") return false; // SSR: expandido, sem viewport\r\n    return window.matchMedia(\"(max-width: 1535px)\").matches;\r\n  });\r\n  const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;\r\n\r\n  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),\r\n  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no\r\n  // panelCollapsed → no mobile o menu nunca abria.\r\n  const isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\r\n\r\n  const toggleMenuCollapsed = useCallback(() => {\r\n    const next = !menuCollapsed;\r\n    if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n    onMenuCollapseChange?.(next);\r\n  }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);\r\n\r\n  const handleToggleMenu = useCallback(() => {\r\n    if (isMobile) setMobileMenuOpen((o) => !o);\r\n    else toggleMenuCollapsed();\r\n  }, [isMobile, toggleMenuCollapsed]);\r\n\r\n  const userNode = user ? (\r\n    <UserMenu\r\n      user={user}\r\n      layout={layout}\r\n      onLayoutChange={onLayoutChange}\r\n      layoutOptions={layoutOptions}\r\n      theme={theme}\r\n      onThemeChange={onThemeChange}\r\n      themeOptions={themeOptions}\r\n      onSettings={onSettings}\r\n      onLogout={onLogout}\r\n    />\r\n  ) : undefined;\r\n\r\n  /**\r\n   * A sidebar single modela o estado como `expanded`, não `collapsed` — e no mobile o\r\n   * `expanded` É a visibilidade (< md: expandida ocupa 100% da largura, recolhida some).\r\n   * Então o hamburger do Header mapeia assim:\r\n   *\r\n   *   desktop  expanded = !menuCollapsed\r\n   *   mobile   expanded = mobileMenuOpen   (o mesmo state que abre o drawer do MenuSidebar)\r\n   *\r\n   * Com isso o mesmo `handleToggleMenu` serve pras duas, e quem consome não precisa saber\r\n   * qual das duas está montada pra o botão funcionar.\r\n   */\r\n  const sidebarNode =\r\n    sidebar === \"single\" ? (\r\n      <SingleMenuSidebar\r\n        logo={sidebarLogo}\r\n        title={sidebarTitle ?? \"\"}\r\n        categories={categories}\r\n        modules={sidebarModules}\r\n        activeItemId={activeItemId}\r\n        onItemClick={onSidebarItemClick}\r\n        renderLink={renderLink as never}\r\n        /**\r\n         * ⚠️ `?? false` não é redundante: o `SingleMenuSidebar` tem `showSearch = true` como\r\n         * DEFAULT dele (faz sentido em uso standalone, onde não há Header). Dentro do shell\r\n         * há Header com `commandGroups`, então herdar esse default entrega **duas buscas na\r\n         * mesma tela** — pego na verificação visual, não na leitura.\r\n         *\r\n         * Aqui o default se inverte: desligada, e quem quiser uma busca de escopo próprio\r\n         * na sidebar liga com `sidebarShowSearch`.\r\n         */\r\n        showSearch={sidebarShowSearch ?? false}\r\n        searchPlaceholder={sidebarSearchPlaceholder}\r\n        /**\r\n         * `showToggleIndicator` fica FALSE (o default dela) de propósito.\r\n         *\r\n         * Ele desenha um botãozinho flutuante grudado na borda externa da sidebar recolhida\r\n         * (`absolute right-0 translate-x-1/2`, 26×26) — ruído visual num rail que já responde\r\n         * a **hover**: passar o mouse expande, e aí o toggle interno aparece pra travar.\r\n         *\r\n         * ⚠️ Eu havia forçado esta prop, argumentando que sem ela \"não haveria como expandir\r\n         * de novo\". Errado: ignorei o hover-expand, que é o mecanismo primário de abertura\r\n         * no desktop. No mobile, onde não há hover, quem abre é o botão do Header — que é\r\n         * exatamente por isso que ele NÃO é removido lá (ver `onCollapseMenu`).\r\n         */\r\n        expanded={isMobile ? mobileMenuOpen : !menuCollapsed}\r\n        onExpandedChange={(next) => {\r\n          if (isMobile) {\r\n            setMobileMenuOpen(next);\r\n            return;\r\n          }\r\n          const nextCollapsed = !next;\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(nextCollapsed);\r\n          onMenuCollapseChange?.(nextCollapsed);\r\n        }}\r\n        // O Single exige `user`; o AppShell o tem opcional e com outro shape. As ações do\r\n        // rodapé reaproveitam os callbacks que o shell já recebe pro user menu, pra não\r\n        // haver duas fontes de \"Configurações\"/\"Sair\" na mesma tela.\r\n        user={{\r\n          name: user?.name ?? \"\",\r\n          email: user?.email ?? \"\",\r\n          actions: [\r\n            ...(onSettings ? [{ id: \"settings\", label: \"Configurações\" }] : []),\r\n            ...(onLogout\r\n              ? [{ id: \"logout\", label: \"Sair\", variant: \"destructive\" as const }]\r\n              : []),\r\n          ],\r\n          onAction: (id) => {\r\n            if (id === \"settings\") onSettings?.();\r\n            if (id === \"logout\") onLogout?.();\r\n          },\r\n        }}\r\n      />\r\n    ) : (\r\n      <MenuSidebar\r\n        // A união pública EXIGE `contexts` quando a sidebar não é \"single\" — o shape\r\n        // interno é que relaxa. Um consumidor JS que burle os tipos quebra no\r\n        // MenuSidebar, alto e visível, em vez de renderizar um rail vazio em silêncio.\r\n        contexts={contexts as NonNullable<typeof contexts>}\r\n        activeContextId={activeContextId}\r\n        defaultActiveContextId={defaultActiveContextId}\r\n        onContextChange={onContextChange}\r\n        activeItemHref={activeItemHref}\r\n        defaultActiveItemHref={defaultActiveItemHref}\r\n        onItemClick={onItemClick}\r\n        renderLink={renderLink}\r\n        brandHref={brandHref}\r\n        onBrandClick={onBrandClick}\r\n        user={userNode}\r\n        panelCollapsed={menuCollapsed}\r\n        onPanelCollapseChange={(next) => {\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n          onMenuCollapseChange?.(next);\r\n        }}\r\n        mobileOpen={mobileMenuOpen}\r\n        onMobileOpenChange={setMobileMenuOpen}\r\n      />\r\n    );\r\n\r\n  return (\r\n    <div className={cn(s.root({ fillHeight: fillHeight ?? false }), className)}>\r\n      {sidebarNode}\r\n\r\n      <div className={s.main()}>\r\n        <Header\r\n          breadcrumb={breadcrumb}\r\n          /**\r\n           * A sidebar single tem o próprio botão de recolher, no header dela (é o desenho\r\n           * dela — logo + título + toggle). Manter também o do Header dá DOIS controles\r\n           * pra mesma coisa, lado a lado. O Header esconde o botão quando `onCollapseMenu`\r\n           * é omitido, então basta não passar.\r\n           *\r\n           * ⚠️ **Menos no mobile.** Abaixo de 768px a single fica `hidden` quando recolhida\r\n           * — o toggle dela desaparece junto, e não haveria como abrir o menu. Ali o botão\r\n           * do Header é a única entrada, então ele fica.\r\n           */\r\n          onCollapseMenu={sidebar === \"single\" && !isMobile ? undefined : handleToggleMenu}\r\n          /**\r\n           * No mobile o botão do Header controla a VISIBILIDADE (`mobileMenuOpen`), não o\r\n           * collapse de desktop — o `handleToggleMenu` acima já ramifica assim. Mas o\r\n           * rótulo vinha só de `menuCollapsed`, então com o menu fechado no celular o\r\n           * leitor de tela anunciava \"Colapsar menu\": a ação oposta à que o clique faz.\r\n           *\r\n           * Medido no Chrome em 420px de largura: sidebar `display: none` e o botão\r\n           * dizendo \"Colapsar\". Defeito pré-existente (vale pras duas sidebars), achado ao\r\n           * validar o mobile da variante single.\r\n           */\r\n          menuCollapsed={isMobile ? !mobileMenuOpen : menuCollapsed}\r\n          commandGroups={commandGroups}\r\n          commandPlaceholder={commandPlaceholder}\r\n          commandEmptyMessage={commandEmptyMessage}\r\n          searchPlaceholder={searchPlaceholder}\r\n          notifications={notifications}\r\n          messages={messages}\r\n          theme={theme}\r\n          onThemeChange={onThemeChange}\r\n          themeOptions={themeOptions}\r\n          rightSlot={headerRightSlot}\r\n        />\r\n\r\n        <main className={cn(s.body(), bodyClassName)}>\r\n          <div\r\n            className={s.bodyInner({\r\n              layout: layout === \"compact\" ? \"compact\" : \"fluid\",\r\n              mobileEdgeToEdge: mobileEdgeToEdge ?? false,\r\n            })}\r\n          >\r\n            {children}\r\n          </div>\r\n        </main>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nAppShell.displayName = \"AppShell\";\r\n",
+        "content": "import { useCallback, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Header } from \"@/components/ui/Header\";\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { UserMenu } from \"./user-menu\";\r\nimport * as s from \"./app-shell.styles\";\r\nimport type { AppShellProps, AppShellInternalProps } from \"./app-shell.types\";\r\n\r\n/**\r\n * `<AppShell>` — template de aplicação (rail + panel + header + body).\r\n *\r\n * Compõe os 3 primitives da família \"app skeleton\":\r\n * - `<MenuSidebar>` (rail + panel, full-height, à esquerda)\r\n * - `<Header>` (top bar com breadcrumb/search/notif/messages/theme)\r\n * - **Body slot** (children, `gap-gp-4xl p-pad-6xl`, scroll vertical interno)\r\n *\r\n * **Padrão controlled/uncontrolled** pra `menuCollapsed`:\r\n * - `menuCollapsed` prop → controlled (consumer gerencia state)\r\n * - `defaultMenuCollapsed` → uncontrolled initial value (vence a regra responsiva)\r\n * - Sem nenhum dos dois → uncontrolled com default **responsivo**: colapsado\r\n *   abaixo de 1536px, expandido acima (ver o `useState` do `internalCollapsed`)\r\n *\r\n * Todas as outras props são **passthrough 1:1** pros sub-componentes.\r\n * AppShell não impõe styling ao body além de gap/padding fixos — consumer\r\n * controla 100% do conteúdo (cards, tabelas, qualquer coisa).\r\n *\r\n * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados\r\n * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.\r\n */\r\nexport function AppShell(props: AppShellProps) {\r\n  // Ver AppShellInternalProps: a união vale na fronteira pública; aqui destruturo tudo.\r\n  const {\r\n  // Sidebar\r\n  contexts,\r\n  defaultActiveContextId,\r\n  activeContextId,\r\n  onContextChange,\r\n  defaultActiveItemHref,\r\n  activeItemHref,\r\n  onItemClick,\r\n  renderLink,\r\n  brandHref,\r\n  onBrandClick,\r\n  // Header\r\n  breadcrumb,\r\n  commandGroups,\r\n  commandPlaceholder,\r\n  commandEmptyMessage,\r\n  searchPlaceholder,\r\n  notifications,\r\n  messages,\r\n  theme,\r\n  onThemeChange,\r\n  themeOptions,\r\n  headerRightSlot,\r\n  // User menu\r\n  user,\r\n  layout,\r\n  onLayoutChange,\r\n  layoutOptions,\r\n  onSettings,\r\n  onLogout,\r\n  // Menu collapse (controlled/uncontrolled)\r\n  menuCollapsed: controlledCollapsed,\r\n  defaultMenuCollapsed,\r\n  onMenuCollapseChange,\r\n  // Body\r\n  children,\r\n  bodyClassName,\r\n  mobileEdgeToEdge,\r\n  fillHeight,\r\n  // Escolha da sidebar. SEM default aqui: um default literal estreitaria o tipo pra\r\n  // \"menu\" e o TS marcaria a comparação com \"single\" como morta (TS2367).\r\n  sidebar,\r\n  categories,\r\n  sidebarLogo,\r\n  sidebarTitle,\r\n  activeItemId,\r\n  onSidebarItemClick,\r\n  sidebarModules,\r\n  sidebarModule,\r\n  sidebarShowSearch,\r\n  sidebarSearchPlaceholder,\r\n  sidebarSearchCommand,\r\n  className,\r\n  } = props as AppShellInternalProps;\r\n  /**\r\n   * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.\r\n   *\r\n   * Mesma fronteira do padding do body (`max-2xl`) — uma história de breakpoint só.\r\n   * Notebook 1366/1440/1536 é onde o painel expandido custa caro: some ~200px de\r\n   * largura útil numa tela que já é estreita.\r\n   *\r\n   * Três decisões que valem estar escritas:\r\n   *\r\n   * 1. **Só no mount, não reativo.** Colapsar de novo a cada resize brigaria com o\r\n   *    usuário: depois que ele abre o menu na mão, não dá pra distinguir \"estado\r\n   *    inicial\" de \"ele quis assim\". `useMediaQuery` (reativo) é usado logo abaixo\r\n   *    pro `isMobile`, que decide COMPORTAMENTO do toggle — outra coisa.\r\n   * 2. **`defaultMenuCollapsed` explícito vence.** Por isso a prop perdeu o\r\n   *    `= false` na desestruturação: com valor default eu não conseguiria\r\n   *    distinguir \"consumer passou false\" de \"consumer não passou\". Só o `undefined`\r\n   *    cai na regra responsiva.\r\n   * 3. **Não precisa excluir mobile.** Abaixo de 768px o `MenuSidebar` força\r\n   *    `collapsed = false` internamente (o menu vira drawer overlay), então o valor\r\n   *    daqui é ignorado — verificado no browser, não deduzido da leitura.\r\n   *\r\n   * Lê síncrono no initializer pra não haver flash de menu expandido no 1º paint.\r\n   */\r\n  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {\r\n    if (defaultMenuCollapsed !== undefined) return defaultMenuCollapsed;\r\n    if (typeof window === \"undefined\") return false; // SSR: expandido, sem viewport\r\n    return window.matchMedia(\"(max-width: 1535px)\").matches;\r\n  });\r\n  const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;\r\n\r\n  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),\r\n  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no\r\n  // panelCollapsed → no mobile o menu nunca abria.\r\n  const isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\r\n\r\n  const toggleMenuCollapsed = useCallback(() => {\r\n    const next = !menuCollapsed;\r\n    if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n    onMenuCollapseChange?.(next);\r\n  }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);\r\n\r\n  const handleToggleMenu = useCallback(() => {\r\n    if (isMobile) setMobileMenuOpen((o) => !o);\r\n    else toggleMenuCollapsed();\r\n  }, [isMobile, toggleMenuCollapsed]);\r\n\r\n  const userNode = user ? (\r\n    <UserMenu\r\n      user={user}\r\n      layout={layout}\r\n      onLayoutChange={onLayoutChange}\r\n      layoutOptions={layoutOptions}\r\n      theme={theme}\r\n      onThemeChange={onThemeChange}\r\n      themeOptions={themeOptions}\r\n      onSettings={onSettings}\r\n      onLogout={onLogout}\r\n    />\r\n  ) : undefined;\r\n\r\n  /**\r\n   * A sidebar single modela o estado como `expanded`, não `collapsed` — e no mobile o\r\n   * `expanded` É a visibilidade (< md: expandida ocupa 100% da largura, recolhida some).\r\n   * Então o hamburger do Header mapeia assim:\r\n   *\r\n   *   desktop  expanded = !menuCollapsed\r\n   *   mobile   expanded = mobileMenuOpen   (o mesmo state que abre o drawer do MenuSidebar)\r\n   *\r\n   * Com isso o mesmo `handleToggleMenu` serve pras duas, e quem consome não precisa saber\r\n   * qual das duas está montada pra o botão funcionar.\r\n   */\r\n  const sidebarNode =\r\n    sidebar === \"single\" ? (\r\n      <SingleMenuSidebar\r\n        logo={sidebarLogo}\r\n        title={sidebarTitle ?? \"\"}\r\n        categories={categories}\r\n        modules={sidebarModules}\r\n        /**\r\n         * `module` (singular) é o seletor SEM troca de menu: ícone + título + subtítulo e,\r\n         * com `options`, um dropdown. Serve pra escopo — empresa, workspace, unidade de\r\n         * negócio — que muda o RECORTE dos dados e não o conjunto de rotas.\r\n         *\r\n         * Não é redundante com `modules`: aquele troca as `categories` junto. Sem este\r\n         * passthrough, quem precisa só do seletor era empurrado pro `modules` com N\r\n         * entradas carregando categorias idênticas — desvio semântico que funciona por\r\n         * acidente e quebra no dia em que um escopo precisar de menu diferente.\r\n         *\r\n         * Adicionado em 2026-09-16: o `SingleMenuSidebar` sempre teve a prop, e o shell\r\n         * não a repassava. Um consumidor real (CMS de recarga) precisava do seletor de\r\n         * empresa no topo da sidebar e não tinha caminho pela API do `AppShell`.\r\n         */\r\n        module={sidebarModule}\r\n        activeItemId={activeItemId}\r\n        onItemClick={onSidebarItemClick}\r\n        renderLink={renderLink as never}\r\n        /**\r\n         * ⚠️ `?? false` não é redundante: o `SingleMenuSidebar` tem `showSearch = true` como\r\n         * DEFAULT dele (faz sentido em uso standalone, onde não há Header). Dentro do shell\r\n         * há Header com `commandGroups`, então herdar esse default entrega **duas buscas na\r\n         * mesma tela** — pego na verificação visual, não na leitura.\r\n         *\r\n         * Aqui o default se inverte: desligada, e quem quiser uma busca de escopo próprio\r\n         * na sidebar liga com `sidebarShowSearch`.\r\n         */\r\n        showSearch={sidebarShowSearch ?? false}\r\n        searchPlaceholder={sidebarSearchPlaceholder}\r\n        /**\r\n         * Conteúdo do `CommandList` da busca da sidebar. Sem ele a paleta lista os itens\r\n         * do menu (o default, que serve pra navegar); com ele o campo passa a ser\r\n         * qualquer seleção de escopo — locais, filiais, safras.\r\n         *\r\n         * Pareia com `sidebarShowSearch`: o campo só existe quando aquele é `true`, e\r\n         * `sidebarSearchPlaceholder` renomeia o gatilho (\"Locais\" em vez de \"Buscar\").\r\n         * Os três juntos transformam a busca num seletor sem componente novo.\r\n         *\r\n         * Adicionado em 2026-09-16, mesma razão do `module`: a prop existia no\r\n         * `SingleMenuSidebar` e não chegava por aqui.\r\n         */\r\n        searchCommand={sidebarSearchCommand}\r\n        /**\r\n         * `showToggleIndicator` fica FALSE (o default dela) de propósito.\r\n         *\r\n         * Ele desenha um botãozinho flutuante grudado na borda externa da sidebar recolhida\r\n         * (`absolute right-0 translate-x-1/2`, 26×26) — ruído visual num rail que já responde\r\n         * a **hover**: passar o mouse expande, e aí o toggle interno aparece pra travar.\r\n         *\r\n         * ⚠️ Eu havia forçado esta prop, argumentando que sem ela \"não haveria como expandir\r\n         * de novo\". Errado: ignorei o hover-expand, que é o mecanismo primário de abertura\r\n         * no desktop. No mobile, onde não há hover, quem abre é o botão do Header — que é\r\n         * exatamente por isso que ele NÃO é removido lá (ver `onCollapseMenu`).\r\n         */\r\n        expanded={isMobile ? mobileMenuOpen : !menuCollapsed}\r\n        onExpandedChange={(next) => {\r\n          if (isMobile) {\r\n            setMobileMenuOpen(next);\r\n            return;\r\n          }\r\n          const nextCollapsed = !next;\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(nextCollapsed);\r\n          onMenuCollapseChange?.(nextCollapsed);\r\n        }}\r\n        // O Single exige `user`; o AppShell o tem opcional e com outro shape. As ações do\r\n        // rodapé reaproveitam os callbacks que o shell já recebe pro user menu, pra não\r\n        // haver duas fontes de \"Configurações\"/\"Sair\" na mesma tela.\r\n        user={{\r\n          name: user?.name ?? \"\",\r\n          email: user?.email ?? \"\",\r\n          actions: [\r\n            ...(onSettings ? [{ id: \"settings\", label: \"Configurações\" }] : []),\r\n            ...(onLogout\r\n              ? [{ id: \"logout\", label: \"Sair\", variant: \"destructive\" as const }]\r\n              : []),\r\n          ],\r\n          onAction: (id) => {\r\n            if (id === \"settings\") onSettings?.();\r\n            if (id === \"logout\") onLogout?.();\r\n          },\r\n        }}\r\n      />\r\n    ) : (\r\n      <MenuSidebar\r\n        // A união pública EXIGE `contexts` quando a sidebar não é \"single\" — o shape\r\n        // interno é que relaxa. Um consumidor JS que burle os tipos quebra no\r\n        // MenuSidebar, alto e visível, em vez de renderizar um rail vazio em silêncio.\r\n        contexts={contexts as NonNullable<typeof contexts>}\r\n        activeContextId={activeContextId}\r\n        defaultActiveContextId={defaultActiveContextId}\r\n        onContextChange={onContextChange}\r\n        activeItemHref={activeItemHref}\r\n        defaultActiveItemHref={defaultActiveItemHref}\r\n        onItemClick={onItemClick}\r\n        renderLink={renderLink}\r\n        brandHref={brandHref}\r\n        onBrandClick={onBrandClick}\r\n        user={userNode}\r\n        panelCollapsed={menuCollapsed}\r\n        onPanelCollapseChange={(next) => {\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n          onMenuCollapseChange?.(next);\r\n        }}\r\n        mobileOpen={mobileMenuOpen}\r\n        onMobileOpenChange={setMobileMenuOpen}\r\n      />\r\n    );\r\n\r\n  return (\r\n    <div className={cn(s.root({ fillHeight: fillHeight ?? false }), className)}>\r\n      {sidebarNode}\r\n\r\n      <div className={s.main()}>\r\n        <Header\r\n          breadcrumb={breadcrumb}\r\n          /**\r\n           * A sidebar single tem o próprio botão de recolher, no header dela (é o desenho\r\n           * dela — logo + título + toggle). Manter também o do Header dá DOIS controles\r\n           * pra mesma coisa, lado a lado. O Header esconde o botão quando `onCollapseMenu`\r\n           * é omitido, então basta não passar.\r\n           *\r\n           * ⚠️ **Menos no mobile.** Abaixo de 768px a single fica `hidden` quando recolhida\r\n           * — o toggle dela desaparece junto, e não haveria como abrir o menu. Ali o botão\r\n           * do Header é a única entrada, então ele fica.\r\n           */\r\n          onCollapseMenu={sidebar === \"single\" && !isMobile ? undefined : handleToggleMenu}\r\n          /**\r\n           * No mobile o botão do Header controla a VISIBILIDADE (`mobileMenuOpen`), não o\r\n           * collapse de desktop — o `handleToggleMenu` acima já ramifica assim. Mas o\r\n           * rótulo vinha só de `menuCollapsed`, então com o menu fechado no celular o\r\n           * leitor de tela anunciava \"Colapsar menu\": a ação oposta à que o clique faz.\r\n           *\r\n           * Medido no Chrome em 420px de largura: sidebar `display: none` e o botão\r\n           * dizendo \"Colapsar\". Defeito pré-existente (vale pras duas sidebars), achado ao\r\n           * validar o mobile da variante single.\r\n           */\r\n          menuCollapsed={isMobile ? !mobileMenuOpen : menuCollapsed}\r\n          commandGroups={commandGroups}\r\n          commandPlaceholder={commandPlaceholder}\r\n          commandEmptyMessage={commandEmptyMessage}\r\n          searchPlaceholder={searchPlaceholder}\r\n          notifications={notifications}\r\n          messages={messages}\r\n          theme={theme}\r\n          onThemeChange={onThemeChange}\r\n          themeOptions={themeOptions}\r\n          rightSlot={headerRightSlot}\r\n        />\r\n\r\n        <main className={cn(s.body(), bodyClassName)}>\r\n          <div\r\n            className={s.bodyInner({\r\n              layout: layout === \"compact\" ? \"compact\" : \"fluid\",\r\n              mobileEdgeToEdge: mobileEdgeToEdge ?? false,\r\n            })}\r\n          >\r\n            {children}\r\n          </div>\r\n        </main>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nAppShell.displayName = \"AppShell\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.tsx"
       },
       {
         "path": "src/components/ui/AppShell/app-shell.types.ts",
-        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  SingleMenuCategory,\r\n  SingleMenuModuleConfig,\r\n} from \"@/components/ui/SingleMenuSidebar\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type {\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarLinkRenderer,\r\n} from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\ntype AppShellBaseProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  /**\r\n   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`\r\n   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).\r\n   */\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n\r\n  /**\r\n   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu\r\n   * router — é o que faz a navegação ser client-side em vez de recarregar a página.\r\n   *\r\n   * ```tsx\r\n   * import { Link } from \"react-router-dom\";\r\n   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />\r\n   * ```\r\n   *\r\n   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —\r\n   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.\r\n   */\r\n  renderLink?: SidebarLinkRenderer;\r\n\r\n  /** Destino do brand no topo do rail. Default `\"/\"`; `\"\"` torna não-navegável. */\r\n  brandHref?: string;\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Qual sidebar ───────────────────────────────────────── */\r\n\r\n  /**\r\n   * Qual menu lateral o shell monta.\r\n   *\r\n   *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n   *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n   *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n   *                      único, com busca opcional.\r\n   *\r\n   * Default preservado em `menu` de propósito: não muda nada de quem já usa.\r\n   *\r\n   * O shell coordena o colapso e o hamburger do Header nos DOIS casos. O mapeamento é\r\n   * diferente porque os componentes modelam o estado de formas diferentes:\r\n   *\r\n   *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n   *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n   *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n   */\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n\r\n  /**\r\n   * O shell obedece a altura do CONTAINER PAI em vez de ocupar 100vh.\r\n   *\r\n   * Default `false` = comportamento histórico (`h-screen`), preservado.\r\n   *\r\n   * Ligue quando o AppShell estiver embutido em algo com altura definida — um layout\r\n   * com footer próprio, um painel de aba, um preview. Sem isso o shell mede 100vh,\r\n   * transborda o container e o `overflow-hidden` corta o rodapé do body junto com o\r\n   * padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding.\r\n   *\r\n   * ⚠️ Exige que o pai tenha altura. `h-full` sem pai medido colapsa pra zero.\r\n   */\r\n  fillHeight?: boolean;\r\n\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n\r\n/**\r\n * Qual menu lateral o shell monta — e **o que cada escolha exige**.\r\n *\r\n *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n *                      único, com busca opcional.\r\n *\r\n * Default preservado em `menu`: quem já usa não muda nada, e continua obrigado a passar\r\n * `contexts` como antes.\r\n *\r\n * ## Por que UNIÃO DISCRIMINADA e não props opcionais\r\n *\r\n * A alternativa era deixar `contexts` opcional e documentar \"obrigatório quando\r\n * sidebar='menu'\". Isso trocaria um erro de compilação por uma **falha silenciosa**:\r\n * `contexts` ausente com a sidebar de menu renderiza um rail vazio, sem erro nenhum. Com a\r\n * união, o TS exige exatamente o conjunto certo pra cada escolha — e o consumidor descobre\r\n * no editor, não olhando a tela.\r\n *\r\n * ## O que o shell coordena nos dois casos\r\n *\r\n * O toggle do Header funciona igual pras duas, sem o consumidor cabear nada. O mapeamento\r\n * interno difere porque os componentes modelam o estado de formas diferentes:\r\n *\r\n *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n */\r\ntype AppShellMenuSidebarProps = {\r\n  sidebar?: \"menu\";\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório nesta variante. */\r\n  contexts: SidebarContext[];\r\n};\r\n\r\ntype AppShellSingleSidebarProps = {\r\n  sidebar: \"single\";\r\n  /** Categorias do menu de nível único. */\r\n  categories: SingleMenuCategory[];\r\n  /**\r\n   * Logo no header da sidebar. **Omita pra ficar com a marca iGreen** (default da\r\n   * `SingleMenuSidebar`). Era obrigatória até 2026-08-22, e por isso trocar pra sidebar\r\n   * única forçava quem montava a inventar uma logo — a da iGreen sumia na troca.\r\n   */\r\n  sidebarLogo?: ReactNode;\r\n  /**\r\n   * **Nome do projeto**, exibido à direita da logo. Segue obrigatório de propósito: é a\r\n   * única coisa aqui que o DS não tem como adivinhar, e o TS cobrando força a pergunta.\r\n   */\r\n  sidebarTitle: string;\r\n  /** Item ativo (a variante `menu` usa `activeItemHref`). */\r\n  activeItemId?: string;\r\n  /**\r\n   * Clique em item. Prop SEPARADA do `onItemClick` de propósito: os dois modelos de dados\r\n   * são diferentes — o MenuSidebar entrega o ITEM (`SidebarMenuItem`), a single entrega o\r\n   * `id`. Reaproveitar o mesmo nome faria o consumidor receber um tipo e escrever pro outro.\r\n   */\r\n  onSidebarItemClick?: (id: string) => void;\r\n  /** Módulos com menu próprio — o seletor troca o conjunto de categorias. */\r\n  sidebarModules?: SingleMenuModuleConfig[];\r\n  /** Mostra a busca no topo da sidebar. */\r\n  sidebarShowSearch?: boolean;\r\n  /**\r\n   * Placeholder da busca DA SIDEBAR — separado do `searchPlaceholder`, que é do Header.\r\n   * Nomes distintos de propósito: são dois campos de busca diferentes na mesma tela.\r\n   */\r\n  sidebarSearchPlaceholder?: string;\r\n};\r\n\r\nexport type AppShellProps = AppShellBaseProps &\r\n  (AppShellMenuSidebarProps | AppShellSingleSidebarProps);\r\n\r\n/**\r\n * Uso **interno** do `app-shell.tsx`, não da API pública.\r\n *\r\n * Destruturar uma união não dá acesso a membro que existe em só um dos ramos (TS2339), e\r\n * fazer `if (props.sidebar === \"single\")` antes de cada acesso espalharia narrowing por\r\n * todo o componente. Então a fronteira pública é a união — é ela que guia o consumidor no\r\n * editor — e a implementação lê deste shape relaxado, onde tudo é opcional.\r\n *\r\n * A correção de verdade fica no render: o ramo `sidebar === \"single\"` só usa as props da\r\n * single, e o outro só as de menu. O `as` abaixo não esconde nada que a união já não\r\n * garanta na entrada.\r\n */\r\nexport type AppShellInternalProps = AppShellBaseProps &\r\n  Partial<AppShellMenuSidebarProps> &\r\n  Partial<AppShellSingleSidebarProps>;\r\n",
+        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  SingleMenuCategory,\r\n  SingleMenuModule,\r\n  SingleMenuModuleConfig,\r\n} from \"@/components/ui/SingleMenuSidebar\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type {\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarLinkRenderer,\r\n} from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\ntype AppShellBaseProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  /**\r\n   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`\r\n   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).\r\n   */\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n\r\n  /**\r\n   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu\r\n   * router — é o que faz a navegação ser client-side em vez de recarregar a página.\r\n   *\r\n   * ```tsx\r\n   * import { Link } from \"react-router-dom\";\r\n   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />\r\n   * ```\r\n   *\r\n   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —\r\n   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.\r\n   */\r\n  renderLink?: SidebarLinkRenderer;\r\n\r\n  /** Destino do brand no topo do rail. Default `\"/\"`; `\"\"` torna não-navegável. */\r\n  brandHref?: string;\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Qual sidebar ───────────────────────────────────────── */\r\n\r\n  /**\r\n   * Qual menu lateral o shell monta.\r\n   *\r\n   *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n   *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n   *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n   *                      único, com busca opcional.\r\n   *\r\n   * Default preservado em `menu` de propósito: não muda nada de quem já usa.\r\n   *\r\n   * O shell coordena o colapso e o hamburger do Header nos DOIS casos. O mapeamento é\r\n   * diferente porque os componentes modelam o estado de formas diferentes:\r\n   *\r\n   *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n   *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n   *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n   */\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n\r\n  /**\r\n   * O shell obedece a altura do CONTAINER PAI em vez de ocupar 100vh.\r\n   *\r\n   * Default `false` = comportamento histórico (`h-screen`), preservado.\r\n   *\r\n   * Ligue quando o AppShell estiver embutido em algo com altura definida — um layout\r\n   * com footer próprio, um painel de aba, um preview. Sem isso o shell mede 100vh,\r\n   * transborda o container e o `overflow-hidden` corta o rodapé do body junto com o\r\n   * padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding.\r\n   *\r\n   * ⚠️ Exige que o pai tenha altura. `h-full` sem pai medido colapsa pra zero.\r\n   */\r\n  fillHeight?: boolean;\r\n\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n\r\n/**\r\n * Qual menu lateral o shell monta — e **o que cada escolha exige**.\r\n *\r\n *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n *                      único, com busca opcional.\r\n *\r\n * Default preservado em `menu`: quem já usa não muda nada, e continua obrigado a passar\r\n * `contexts` como antes.\r\n *\r\n * ## Por que UNIÃO DISCRIMINADA e não props opcionais\r\n *\r\n * A alternativa era deixar `contexts` opcional e documentar \"obrigatório quando\r\n * sidebar='menu'\". Isso trocaria um erro de compilação por uma **falha silenciosa**:\r\n * `contexts` ausente com a sidebar de menu renderiza um rail vazio, sem erro nenhum. Com a\r\n * união, o TS exige exatamente o conjunto certo pra cada escolha — e o consumidor descobre\r\n * no editor, não olhando a tela.\r\n *\r\n * ## O que o shell coordena nos dois casos\r\n *\r\n * O toggle do Header funciona igual pras duas, sem o consumidor cabear nada. O mapeamento\r\n * interno difere porque os componentes modelam o estado de formas diferentes:\r\n *\r\n *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n */\r\ntype AppShellMenuSidebarProps = {\r\n  sidebar?: \"menu\";\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório nesta variante. */\r\n  contexts: SidebarContext[];\r\n};\r\n\r\ntype AppShellSingleSidebarProps = {\r\n  sidebar: \"single\";\r\n  /** Categorias do menu de nível único. */\r\n  categories: SingleMenuCategory[];\r\n  /**\r\n   * Logo no header da sidebar. **Omita pra ficar com a marca iGreen** (default da\r\n   * `SingleMenuSidebar`). Era obrigatória até 2026-08-22, e por isso trocar pra sidebar\r\n   * única forçava quem montava a inventar uma logo — a da iGreen sumia na troca.\r\n   */\r\n  sidebarLogo?: ReactNode;\r\n  /**\r\n   * **Nome do projeto**, exibido à direita da logo. Segue obrigatório de propósito: é a\r\n   * única coisa aqui que o DS não tem como adivinhar, e o TS cobrando força a pergunta.\r\n   */\r\n  sidebarTitle: string;\r\n  /** Item ativo (a variante `menu` usa `activeItemHref`). */\r\n  activeItemId?: string;\r\n  /**\r\n   * Clique em item. Prop SEPARADA do `onItemClick` de propósito: os dois modelos de dados\r\n   * são diferentes — o MenuSidebar entrega o ITEM (`SidebarMenuItem`), a single entrega o\r\n   * `id`. Reaproveitar o mesmo nome faria o consumidor receber um tipo e escrever pro outro.\r\n   */\r\n  onSidebarItemClick?: (id: string) => void;\r\n  /** Módulos com menu próprio — o seletor troca o conjunto de categorias. */\r\n  sidebarModules?: SingleMenuModuleConfig[];\r\n  /**\r\n   * Seletor no topo da sidebar que **NÃO** troca o menu: ícone + título + subtítulo e,\r\n   * com `options`, um dropdown. É pra ESCOPO — empresa, workspace, unidade — que muda o\r\n   * recorte dos dados e não o conjunto de rotas.\r\n   *\r\n   * Distinto de `sidebarModules`, que troca as `categories` junto. Use este quando o\r\n   * menu é o mesmo em todas as opções; use o plural quando cada uma tem menu próprio.\r\n   * Passar os dois é erro de desenho: o seletor é um só.\r\n   */\r\n  sidebarModule?: SingleMenuModule;\r\n  /** Mostra a busca no topo da sidebar. */\r\n  sidebarShowSearch?: boolean;\r\n  /**\r\n   * Placeholder da busca DA SIDEBAR — separado do `searchPlaceholder`, que é do Header.\r\n   * Nomes distintos de propósito: são dois campos de busca diferentes na mesma tela.\r\n   */\r\n  sidebarSearchPlaceholder?: string;\r\n  /**\r\n   * Conteúdo do `CommandList` da paleta da busca da sidebar. Sem ele a paleta lista os\r\n   * itens do menu (default, serve pra navegar); com ele o campo vira qualquer seleção de\r\n   * escopo — locais, filiais, safras.\r\n   *\r\n   * Exige `sidebarShowSearch` (o campo só existe com ele). Pareado com\r\n   * `sidebarSearchPlaceholder`, transforma a busca num seletor sem componente novo.\r\n   */\r\n  sidebarSearchCommand?: ReactNode;\r\n};\r\n\r\nexport type AppShellProps = AppShellBaseProps &\r\n  (AppShellMenuSidebarProps | AppShellSingleSidebarProps);\r\n\r\n/**\r\n * Uso **interno** do `app-shell.tsx`, não da API pública.\r\n *\r\n * Destruturar uma união não dá acesso a membro que existe em só um dos ramos (TS2339), e\r\n * fazer `if (props.sidebar === \"single\")` antes de cada acesso espalharia narrowing por\r\n * todo o componente. Então a fronteira pública é a união — é ela que guia o consumidor no\r\n * editor — e a implementação lê deste shape relaxado, onde tudo é opcional.\r\n *\r\n * A correção de verdade fica no render: o ramo `sidebar === \"single\"` só usa as props da\r\n * single, e o outro só as de menu. O `as` abaixo não esconde nada que a união já não\r\n * garanta na entrada.\r\n */\r\nexport type AppShellInternalProps = AppShellBaseProps &\r\n  Partial<AppShellMenuSidebarProps> &\r\n  Partial<AppShellSingleSidebarProps>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.types.ts"
       },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · app-shell · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · aspect-ratio · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · avatar-ig · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · avatar · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · badge · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · breadcrumb · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · button-group · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · button · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · calendar · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · card-checkbox · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · card-option · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · card · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · carousel · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · chart · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · checkbox · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · chip · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · choropleth-map · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · collapsible · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · color-picker · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · combobox · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · command · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · context-menu · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · data-list · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · data-table · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · date-picker · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · dialog · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · drawer · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · dropdown-menu · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · empty-state · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-app-shell · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-chat · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-clientes · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-dashboard · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-edit-page · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-finance · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2765,7 +2765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-gantt · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-gantt · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2795,7 +2795,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-login · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-mapa-rede · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2933,7 +2933,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · example-order-detail · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -2983,7 +2983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · file-upload-field · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3051,7 +3051,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · floating-panel · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · footer-table · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · form-field · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3319,7 +3319,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · gantt · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3411,7 +3411,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · header · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3435,7 +3435,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · hover-card · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3488,7 +3488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · icon · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3512,7 +3512,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · input-group · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3537,7 +3537,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · input-otp · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3561,7 +3561,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · input · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3620,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · kanban · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3682,7 +3682,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · kpi · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3707,7 +3707,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · label · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3814,7 +3814,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · list · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · markdown-text · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3970,7 +3970,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · menu-sidebar · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -3995,7 +3995,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · menubar · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4039,7 +4039,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · modal · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4088,7 +4088,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · month-year-picker · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4114,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · navigation-menu · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4161,7 +4161,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · page-header · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4186,7 +4186,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · pagination · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4261,7 +4261,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · panel · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4285,7 +4285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · popover · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4309,7 +4309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · progress · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4333,7 +4333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · radio-group · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4473,7 +4473,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · scheduler · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4521,7 +4521,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · screen-loader · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4545,7 +4545,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · scroll-area · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · select · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · separator · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4620,7 +4620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · sheet · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4733,7 +4733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4755,7 +4755,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · skeleton · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4779,7 +4779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · slider · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4802,7 +4802,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · sonner · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4848,7 +4848,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · spinner · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4872,7 +4872,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · switch · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -4951,7 +4951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · table · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5014,7 +5014,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · tabs-navigation · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5038,7 +5038,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · tabs · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5062,7 +5062,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · textarea · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5080,7 +5080,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · theme-blue · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   },
@@ -5098,7 +5098,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · theme-green · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   },
@@ -5116,7 +5116,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · theme-pay · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   },
@@ -5134,7 +5134,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · theme-vibrant · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   },
@@ -5156,7 +5156,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · theme · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   },
@@ -5207,7 +5207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · toast · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5233,7 +5233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · toggle-group · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5258,7 +5258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · toggle · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5282,7 +5282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · tooltip · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:ui"
   },
@@ -5303,7 +5303,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · tv · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   },
@@ -5325,7 +5325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.64.0 · 607ae55 · 2026-09-16"
+      "stamp": "igreen-ds · utils · v0.65.0 · ccbe076 · 2026-09-16"
     },
     "type": "registry:file"
   }
