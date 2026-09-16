@@ -80,8 +80,10 @@ export function AppShell(props: AppShellProps) {
   activeItemId,
   onSidebarItemClick,
   sidebarModules,
+  sidebarModule,
   sidebarShowSearch,
   sidebarSearchPlaceholder,
+  sidebarSearchCommand,
   className,
   } = props as AppShellInternalProps;
   /**
@@ -163,6 +165,21 @@ export function AppShell(props: AppShellProps) {
         title={sidebarTitle ?? ""}
         categories={categories}
         modules={sidebarModules}
+        /**
+         * `module` (singular) é o seletor SEM troca de menu: ícone + título + subtítulo e,
+         * com `options`, um dropdown. Serve pra escopo — empresa, workspace, unidade de
+         * negócio — que muda o RECORTE dos dados e não o conjunto de rotas.
+         *
+         * Não é redundante com `modules`: aquele troca as `categories` junto. Sem este
+         * passthrough, quem precisa só do seletor era empurrado pro `modules` com N
+         * entradas carregando categorias idênticas — desvio semântico que funciona por
+         * acidente e quebra no dia em que um escopo precisar de menu diferente.
+         *
+         * Adicionado em 2026-09-16: o `SingleMenuSidebar` sempre teve a prop, e o shell
+         * não a repassava. Um consumidor real (CMS de recarga) precisava do seletor de
+         * empresa no topo da sidebar e não tinha caminho pela API do `AppShell`.
+         */
+        module={sidebarModule}
         activeItemId={activeItemId}
         onItemClick={onSidebarItemClick}
         renderLink={renderLink as never}
@@ -177,6 +194,19 @@ export function AppShell(props: AppShellProps) {
          */
         showSearch={sidebarShowSearch ?? false}
         searchPlaceholder={sidebarSearchPlaceholder}
+        /**
+         * Conteúdo do `CommandList` da busca da sidebar. Sem ele a paleta lista os itens
+         * do menu (o default, que serve pra navegar); com ele o campo passa a ser
+         * qualquer seleção de escopo — locais, filiais, safras.
+         *
+         * Pareia com `sidebarShowSearch`: o campo só existe quando aquele é `true`, e
+         * `sidebarSearchPlaceholder` renomeia o gatilho ("Locais" em vez de "Buscar").
+         * Os três juntos transformam a busca num seletor sem componente novo.
+         *
+         * Adicionado em 2026-09-16, mesma razão do `module`: a prop existia no
+         * `SingleMenuSidebar` e não chegava por aqui.
+         */
+        searchCommand={sidebarSearchCommand}
         /**
          * `showToggleIndicator` fica FALSE (o default dela) de propósito.
          *

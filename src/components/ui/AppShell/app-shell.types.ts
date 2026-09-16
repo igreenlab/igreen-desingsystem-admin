@@ -2,6 +2,7 @@ import type { ReactNode, MouseEvent } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
 import type {
   SingleMenuCategory,
+  SingleMenuModule,
   SingleMenuModuleConfig,
 } from "@/components/ui/SingleMenuSidebar";
 import type {
@@ -264,6 +265,16 @@ type AppShellSingleSidebarProps = {
   onSidebarItemClick?: (id: string) => void;
   /** Módulos com menu próprio — o seletor troca o conjunto de categorias. */
   sidebarModules?: SingleMenuModuleConfig[];
+  /**
+   * Seletor no topo da sidebar que **NÃO** troca o menu: ícone + título + subtítulo e,
+   * com `options`, um dropdown. É pra ESCOPO — empresa, workspace, unidade — que muda o
+   * recorte dos dados e não o conjunto de rotas.
+   *
+   * Distinto de `sidebarModules`, que troca as `categories` junto. Use este quando o
+   * menu é o mesmo em todas as opções; use o plural quando cada uma tem menu próprio.
+   * Passar os dois é erro de desenho: o seletor é um só.
+   */
+  sidebarModule?: SingleMenuModule;
   /** Mostra a busca no topo da sidebar. */
   sidebarShowSearch?: boolean;
   /**
@@ -271,6 +282,15 @@ type AppShellSingleSidebarProps = {
    * Nomes distintos de propósito: são dois campos de busca diferentes na mesma tela.
    */
   sidebarSearchPlaceholder?: string;
+  /**
+   * Conteúdo do `CommandList` da paleta da busca da sidebar. Sem ele a paleta lista os
+   * itens do menu (default, serve pra navegar); com ele o campo vira qualquer seleção de
+   * escopo — locais, filiais, safras.
+   *
+   * Exige `sidebarShowSearch` (o campo só existe com ele). Pareado com
+   * `sidebarSearchPlaceholder`, transforma a busca num seletor sem componente novo.
+   */
+  sidebarSearchCommand?: ReactNode;
 };
 
 export type AppShellProps = AppShellBaseProps &

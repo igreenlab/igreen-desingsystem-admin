@@ -5321,3 +5321,49 @@ slot novo — e a doc da prop teria que mudar junto, não o contrário.
 
 **Distribuição:** registry/changelog/bump NÃO vão neste PR (Regra 8) — consolidam no
 `/ds-release`. Anotado no corpo do PR.
+
+---
+
+### 2026-09-16 | ds-dev | `AppShell` repassa `module` e `searchCommand` da sidebar single | CONCLUÍDO
+
+**A lacuna.** O `SingleMenuSidebar` sempre aceitou `module` (seletor de escopo que **não**
+troca o menu) e `searchCommand` (conteúdo da paleta da busca). O `AppShell` — que é **como
+se usa** a sidebar, porque ela raramente é montada standalone — expunha só
+`sidebarModules` (plural, que troca as `categories`) e o par `showSearch`/`searchPlaceholder`.
+
+Não é defeito como a `toolbar.customLeft` (declarada e lida por nada): aqui a prop nem
+existia no tipo do shell. O efeito no consumidor é **ausência**, não erro — ele lê o
+`USAGE.md` da sidebar, vê a prop, não acha equivalente, e conclui que precisa contornar.
+
+**Medido num consumidor real** (CMS de recarga, `02-projects/igreen/mob-cms`): queria o
+seletor de empresa no topo da sidebar e os locais no campo de busca — exatamente o desenho
+que a sidebar suporta. A única saída disponível era `sidebarModules` com N entradas
+carregando `categories` idênticas: funciona por acidente e quebra no dia em que um escopo
+precisar de menu diferente.
+
+**O par resolve escopo global sem componente novo.** `sidebarModule` +
+`sidebarShowSearch` + `sidebarSearchCommand` = o padrão "empresa no seletor, unidades na
+paleta" de CMS multi-tenant. O topo da sidebar vira o recorte que todas as páginas obedecem.
+
+**É o TERCEIRO caso do mesmo padrão nesta sessão** — o shell não alcançando capacidade
+documentada do componente que embrulha. Os outros dois: `toolbar.customLeft` do
+`DataTable` (v0.64.0) e o `showSearch` do `Header`, que **segue inalcançável** pelo shell e
+não entrou aqui (escopo diferente: é o Header, não a sidebar). Vale auditar o `AppShell`
+inteiro contra os dois componentes que ele compõe, em vez de fechar por demanda — mas isso
+é frente própria, com medição antes.
+
+**O gate quase nasceu falso.** A primeira versão do caso de `searchCommand` afirmava
+`getByText("Locais")`, que vem do `searchPlaceholder` — prop que JÁ era repassada. Passava
+com o defeito em pé. O assert real exige o conteúdo DENTRO da paleta, e a paleta é um
+`CommandDialog`: só monta aberta. Daí o clique antes do assert.
+
+**E o primeiro experimento de reversão foi inválido**, não o teste: o `replace` das linhas
+de passthrough falhou em silêncio (indentação), os 3 casos passaram, e quase concluí que o
+teste era inútil. Conferir que a reversão ACONTECEU é parte da L-064, não detalhe — sem
+isso o "vi reprovar" mede outra coisa.
+
+**Assumption:** que escopo global e troca de menu são intenções distintas e merecem props
+distintas. Se aparecer caso em que o escopo TAMBÉM troca rotas, é `sidebarModules` — e o
+`USAGE` já diz que passar os dois é erro de desenho.
+
+**Distribuição:** registry/embed/bump consolidam no `/ds-release`, não neste PR.
