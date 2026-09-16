@@ -462,7 +462,12 @@ export type DataTableToolbarConfig = {
    * próprio no mobile. Veja `ToolbarAction` (`<ToolbarActions>`).
    */
   actions?: ToolbarAction[];
-  /** @deprecated — use `moreMenu.items` em vez disso. */
+  /**
+   * @deprecated **Nao faz nada** — declarada e lida por nenhum render (verificado em
+   * 2026-09-16). Pra um componente no toolbar use `customLeft`, que ocupa a posicao
+   * que esta prop prometia; pra itens de menu use `moreMenu.items`. Mantida so pra
+   * nao quebrar tipo de consumidor que a passa (sem efeito, como sempre foi).
+   */
   customActions?: ReactNode;
   /**
    * Toggle de tela cheia na toolbar (botão ⤢). Quando `true`, o DataTable
@@ -471,7 +476,20 @@ export type DataTableToolbarConfig = {
    * Default `false`.
    */
   enableFullscreen?: boolean;
-  /** Slot livre na esquerda apos search/refresh. Use pra inserir custom controls. */
+  /**
+   * Slot livre pra um componente arbitrario no toolbar. Renderiza no cluster da
+   * DIREITA, entre o refresh e o campo de busca — a mesma posicao das `actions`,
+   * e antes delas quando as duas vem juntas.
+   *
+   * Existe pro caso que `actions` nao cobre: `ToolbarAction` tem tres kinds
+   * (`button`/`dropdown`/`input`) e nenhum recebe componente. Use aqui um
+   * `DatePicker` de periodo, um `Select` composto, um segmented custom.
+   *
+   * ⚠️ Ate 2026-09-16 esta prop era declarada, documentada e **lida por nada**: o
+   * consumidor passava o componente, o TS aceitava, e o toolbar renderizava sem
+   * ele. A doc antiga tambem errava a posicao ("na esquerda"), quando o slot vive
+   * no cluster da direita. Gate: `datatable-toolbar-slots.test.tsx`.
+   */
   customLeft?: ReactNode;
   /**
    * View toggle slot (table/kanban segmented control). Quando `viewMode` +

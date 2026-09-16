@@ -238,7 +238,11 @@ const TOOLBAR_PROPS = [
     type: "ReactNode",
     defaultVal: "auto (se viewMode + kanbanConfig)",
   },
-  { name: "toolbar.customLeft", type: "ReactNode", defaultVal: "—" },
+  {
+    name: "toolbar.customLeft",
+    type: "ReactNode — componente livre, entre o refresh e a busca",
+    defaultVal: "—",
+  },
 ];
 
 const COLUMN_DEF_PROPS = [
