@@ -76,7 +76,7 @@ const TooltipContent = React.forwardRef<
         "rounded-radius-md px-pad-lg py-pad-xs",
         "text-caption-sm",
         "shadow-sh-md",
-        "origin-[--radix-tooltip-content-transform-origin]",
+        "origin-[var(--radix-tooltip-content-transform-origin)]",
         "data-[state=delayed-open]:animate-in data-[state=instant-open]:animate-in data-[state=closed]:animate-out",
         "data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=instant-open]:fade-in-0",
         "data-[state=closed]:zoom-out-95 data-[state=delayed-open]:zoom-in-95 data-[state=instant-open]:zoom-in-95",
