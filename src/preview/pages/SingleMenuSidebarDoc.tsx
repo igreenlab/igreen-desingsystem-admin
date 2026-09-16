@@ -9,6 +9,7 @@ import {
   PropsTable,
 } from "../components";
 import { Button } from "../../components/ui/Button/button";
+import { Badge } from "../../components/shadcn/badge";
 import { SingleMenuSidebar } from "../../components/ui/SingleMenuSidebar";
 import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 import type {
@@ -33,6 +34,8 @@ import {
   Leaf,
   Sun,
   Moon,
+  MapPin,
+  ChevronDown,
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -45,6 +48,7 @@ const TOC = [
   { id: "ex-accordion", label: "Accordion (sub-itens)" },
   { id: "ex-interactive", label: "Toggle controlado" },
   { id: "ex-mobile", label: "Responsivo (mobile)" },
+  { id: "ex-topslot", label: "Escopo global no topo (topSlot)" },
   { id: "ex-minimal", label: "Sem módulo / sem busca" },
   { id: "api", label: "API Reference" },
   { id: "api-sidebar", label: "<SingleMenuSidebar>" },
@@ -204,6 +208,31 @@ const LOGO = (
 );
 
 /* ── Preview container ───────────────────────────────────────────────────── */
+/**
+ * Conteúdo de exemplo pro `topSlot` — um controle de escopo.
+ *
+ * Estático de propósito: o que a página precisa mostrar é que o SLOT existe e onde ele
+ * cai no bloco do topo, não uma implementação de multi-select. A casca copia os tokens do
+ * campo de busca da própria sidebar (`styles.search`) porque é o vizinho dele, e é isso
+ * que faz o controle parecer parte da sidebar em vez de enxerto.
+ */
+function EscopoDemo() {
+  return (
+    <div className="flex min-h-form-md w-full items-center justify-between gap-gp-md rounded-radius-lg border border-transparent bg-bg-muted py-pad-sm px-pad-lg text-body-sm font-medium text-fg-default">
+      <MapPin className="size-icon-sm shrink-0 text-fg-muted" />
+      <span className="flex min-h-comp-xs min-w-0 flex-1 items-center gap-gp-xs">
+        <Badge className="min-w-0">
+          <span className="truncate">Usina Vinhedo</span>
+        </Badge>
+        <Badge color="primary" className="shrink-0 tabular-nums font-bold">
+          +6
+        </Badge>
+      </span>
+      <ChevronDown className="size-icon-sm shrink-0 text-fg-muted" />
+    </div>
+  );
+}
+
 function SidebarDemo({ children }: { children: React.ReactNode }) {
   return (
     <div className="h-[680px] w-full overflow-hidden rounded-radius-base bg-bg-canvas ring-1 ring-border-subtle">
@@ -235,6 +264,7 @@ const PROPS_SIDEBAR = [
     type: "ReactNode (custom da busca)",
     defaultVal: "auto",
   },
+  { name: "topSlot", type: "ReactNode (slot livre)", defaultVal: "—" },
   { name: "activeItemId", type: "string", defaultVal: "—" },
   { name: "onItemClick", type: "(id: string) => void", defaultVal: "—" },
   { name: "defaultExpanded", type: "boolean", defaultVal: "true" },
@@ -474,6 +504,32 @@ function AppNav({ mobileOpen, onClose, ...props }) {
             />
           </div>
         </div>
+      </ExampleSection>
+
+      {/* topSlot — escopo global */}
+      <ExampleSection
+        id="ex-topslot"
+        title="Escopo global no topo (`topSlot`)"
+        description="Slot livre entre o seletor de módulo e a busca, pro controle que responde *'sobre o que estou olhando'* e não é seletor único nem busca: multi-select de unidades, filtro de safra, período global. O DS reserva o lugar; o controle é seu. ⛔ **Não use `searchCommand` pra isso** — ele customiza a paleta da BUSCA, cujo gatilho tem lupa e `⌘K` fixos, e o conteúdo dele vive dentro da área de scroll."
+        code={`<SingleMenuSidebar
+  title="iGreen System"
+  module={{ icon: <Zap />, title: "Créditos", subtitle: "Módulo selecionado" }}
+  topSlot={<SeuControleDeEscopo />}   /* qualquer ReactNode */
+  showSearch={false}
+  categories={CATEGORIES}
+  user={USER}
+/>`}
+      >
+        <SidebarDemo>
+          <SingleMenuSidebar
+            title="iGreen System"
+            module={MOCK_MODULE}
+            topSlot={<EscopoDemo />}
+            showSearch={false}
+            categories={MOCK_CATEGORIES}
+            user={demoUser}
+          />
+        </SidebarDemo>
       </ExampleSection>
 
       {/* Minimal */}
