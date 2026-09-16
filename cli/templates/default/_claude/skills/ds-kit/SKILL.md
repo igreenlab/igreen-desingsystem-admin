@@ -116,8 +116,8 @@ editáveis, zero código). Sugira automaticamente:
   use o toolbar.
 - **Componente na barra?** Só o `data-table` tem slot: `toolbar.customLeft: ReactNode`,
   entre o refresh e a busca — os kinds de `ToolbarAction` (`button`/`dropdown`/`input`)
-  não recebem componente. O `data-list` **não tem** equivalente. ⚠️ Exige a versão do DS
-  com o PR #326: antes dela a prop é declarada, aceita pelo TS, e **não renderiza**.
+  não recebem componente. O `data-list` **não tem** equivalente. ⚠️ Exige o DS `0.64.0` ou
+  mais novo: antes dele a prop é declarada, aceita pelo TS, e **não renderiza**.
 - **Muitos filtros, ou ligados a coluna/campo** → SEMPRE os nativos **pré-aplicados**
   (chips no load) + drawer "Filtros". Nunca empilhar selects.
 

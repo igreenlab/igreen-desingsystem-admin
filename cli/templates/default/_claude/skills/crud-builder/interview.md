@@ -87,7 +87,7 @@ em lote ("CNPJ sem copyable"). Critério completo e limites: `generate.md` item 
 > - **Componente na barra → `toolbar.customLeft`, não `actions`.** Os kinds de
 >   `ToolbarAction` são `button`/`dropdown`/`input` e nenhum recebe componente; pra um
 >   `DatePicker mode="range"` de período use `customLeft`, que renderiza entre o refresh e
->   a busca. ⚠️ **Exige a versão do DS que carrega o PR #326** — em `0.63.0` e anteriores a
+>   a busca. ⚠️ **Exige o DS `0.64.0` ou mais novo** — em `0.63.0` e anteriores a
 >   prop existe no tipo, o TS aceita e **nada renderiza**. Confira a versão antes de
 >   prometer o controle.
 > - **toolbar.actions é SÓ pra caso pequeno e simples que NÃO reage com coluna** (ex.:
@@ -106,7 +106,7 @@ em lote ("CNPJ sem copyable"). Critério completo e limites: `generate.md` item 
 - Seleção + ações em massa (exportar, etc.)? (`selectionConfig` + bulk actions).
 - Export: escopo (tudo / filtrado / selecionado) + formato (csv)? (`toolbar.enableExport`).
 - Ação custom no toolbar (ex.: seletor de período por dropdown de meses, botão extra)? `toolbar.actions: ToolbarAction[]` (`button`/`dropdown`/`input`) — inline no desktop, colapsa no ⋯ no mobile. Oferecer só se o usuário pedir.
-- **Componente** na barra (calendário de período, `Select` composto)? `toolbar.customLeft: ReactNode` — entre o refresh e a busca, antes das `actions`. É o único caminho: `ToolbarAction` não tem kind que receba componente. ⚠️ Exige a versão com o PR #326; antes dela a prop é inerte e falha em silêncio.
+- **Componente** na barra (calendário de período, `Select` composto)? `toolbar.customLeft: ReactNode` — entre o refresh e a busca, antes das `actions`. É o único caminho: `ToolbarAction` não tem kind que receba componente. ⚠️ Exige o DS `0.64.0`+; antes dele a prop é inerte e falha em silêncio.
 
 ## Fase 4 — Views, paginação & densidade
 

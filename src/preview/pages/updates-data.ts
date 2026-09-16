@@ -46,6 +46,43 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.64.0",
+    date: "2026-09-16",
+    tag: "preview",
+    title: "O slot de componente no toolbar do DataTable existe de verdade",
+    summary:
+      "`toolbar.customLeft` estava no tipo do `DataTable`, documentada em **três** superfícies como \"slot livre pra inserir custom controls\" — e `grep` na pasta do componente devolvia **uma linha**: a declaração. Nenhum render a consumia. O consumidor passava o componente, o TS aceitava (é `ReactNode`), build e teste passavam, e o toolbar renderizava sem ele: nenhum erro pra investigar, só a conclusão errada de que o `DataTable` não suporta aquilo. E não havia alternativa — `toolbar.actions` só aceita `ToolbarAction[]`, cujos kinds são `button`/`dropdown`/`input`, e nenhum recebe componente. Achado num consumidor real tentando pôr um seletor de período ao lado da busca; **dois preview pages do nosso próprio showcase** já passavam a prop e tinham controles invisíveis desde que foram escritos.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**`toolbar.customLeft` renderiza.** O fix é pequeno porque o slot já existia: o `actions` do `TableToolbar` renderiza entre o refresh e a busca, que é exatamente a posição que a doc prometia — então `customLeft` entra no MESMO slot, antes das `actions`, em vez de ganhar slot próprio que duplicaria a posição. `TableToolbar` intocado. É o único caminho pra um **componente** no toolbar (um `DatePicker mode=\"range\"` de período, um `Select` composto, um segmented custom).",
+          "**Dois preview pages do showcase voltaram a mostrar os controles que declaravam.** `ClientsTreePreview` e `ClientsGroupedPreview` passavam `customLeft` com um toggle \"Estado inicial: Expandido / Colapsado\" que **nunca** renderizou. Ninguém tinha notado — é o modo de falha da prop inerte aplicado à nossa própria casa.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Gate `datatable-toolbar-slots.test.tsx`** (3 casos), validado reproduzindo o defeito antes de confiar no teste: com o fix revertido, 2 dos 3 reprovam por o botão não existir no DOM e o terceiro (controle, sem `customLeft`) passa. O teste renderiza o `DataTable` inteiro e não o `TableToolbar` de propósito — o slot `actions` do primitivo **sempre funcionou**, o defeito morava só na fiação entre os dois, e um teste do `TableToolbar` isolado passaria com o bug em pé.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**A doc da prop errava a posição nas três superfícies** (\"na esquerda\", quando o slot vive no cluster da direita). Corrigidas as três, e agora explicam *por que* a prop existe: o caso que `ToolbarAction` não cobre.",
+          "**`toolbar.customActions` passa a dizer que não faz nada.** Irmã da `customLeft`, também nunca lida. O `@deprecated` dela mandava usar `moreMenu.items` *como se a prop funcionasse*. Removê-la é mudança de tipo, não correção de defeito — fica pra decisão do mantenedor; o que mudou foi a mensagem. O `inventory.md` também deixou de listá-la ao lado da `customLeft` como se as duas fossem equivalentes.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**A capacidade chegou nas superfícies que ENSINAM tabela e CRUD**, não só nas do componente. A L-051 do `ds-standards` implicava que `actions` era a única saída; `crud-builder` e `ds-kit` também. Doc que omite a saída certa não é doc incompleta — ela manda a IA compor na unha (L-060). Atualizadas: `ds-standards`, `crud-builder`, `list-builder`, `TableToolbar/USAGE` + as 4 do payload do consumidor (`ds-components`, `crud-builder`, `list-builder`, `ds-kit`).",
+          "**O `list-builder` avisa a assimetria em vez de fingir paridade.** O `DataList` **não tem** slot de componente — só `toolbarActions`. Seletor de período com calendário numa lista vai **fora** do componente. Documentar simetria inexistente seria o defeito do `customLeft` ao contrário.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.63.0",
     date: "2026-09-15",
     tag: "preview",

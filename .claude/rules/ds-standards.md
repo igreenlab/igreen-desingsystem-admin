@@ -309,7 +309,7 @@ motor reativo do componente (chips clicáveis/editáveis):
   composto)? → **`toolbar.customLeft`**, não `actions`: os kinds de `ToolbarAction` são
   `button`/`dropdown`/`input` e nenhum recebe componente. Renderiza entre o refresh e a
   busca. ⚠️ **Era inerte até 2026-09-16** — declarada, documentada em 3 superfícies e lida
-  por nada, então o TS aceitava e nada renderizava (PR #326; ainda não publicado em npm).
+  por nada, então o TS aceitava e nada renderizava. Corrigido na **v0.64.0**.
 - **muitos ou ligados a coluna** → sempre nativos **pré-aplicados (chips)**. As skills
   crud/list + ds-kit sugerem isso.
 

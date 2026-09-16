@@ -432,7 +432,11 @@ Hooks expostos:
 Props principais:
   rows: T[]
   columns: DataTableColumnDef<T>[]
-  toolbar:           { enableSearch, enableFilters, enableColumns, enableDensity, enableExport, customLeft, customActions }
+  toolbar:           { enableSearch, enableFilters, enableColumns, enableDensity, enableExport, customLeft }
+                     // customLeft (v0.64.0+) = ReactNode livre entre refresh e busca —
+                     //   unico caminho pra COMPONENTE no toolbar (DatePicker, Select composto):
+                     //   os kinds de ToolbarAction (button/dropdown/input) nao recebem componente
+                     // customActions existe no tipo e NAO FAZ NADA (@deprecated, nunca foi lida)
   paginationConfig:  { enabled, initialPageSize, pageSizeOptions }
   selectionConfig:   { enabled, enableGlobal, actions }
   density:           controlled prop (TableDensity)

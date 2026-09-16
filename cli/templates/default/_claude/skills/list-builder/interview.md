@@ -133,7 +133,7 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 >   abrir já filtrado? **pré-aplique** via `views` ou `filterModel` → abre com o **chip
 >   aplicado**, editável, reativo. Pode pré-setar **vários** de uma vez.
 > - ⛔ **O `data-list` NÃO tem slot pra componente no toolbar.** O `data-table` ganhou
->   `toolbar.customLeft` (PR #326); o `data-list` só tem `toolbarActions`, cujos kinds são
+>   `toolbar.customLeft` (`0.64.0`+); o `data-list` só tem `toolbarActions`, cujos kinds são
 >   `button`/`dropdown`/`input`. Seletor de período com calendário numa lista vai **fora**
 >   do componente (`PageHeader` ou linha própria). Não tente `customLeft` aqui — não
 >   existe e o TS reprova.

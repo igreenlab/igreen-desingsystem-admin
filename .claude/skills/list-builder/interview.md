@@ -132,7 +132,7 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 >   data/período, escopo) — **label curta**, **máx ~2**. Se mexe com os campos da lista,
 >   é grande, ou são muitos → **NÃO use o toolbar.**
 > - ⛔ **O `DataList` NÃO tem slot pra componente no toolbar.** O `DataTable` ganhou
->   `toolbar.customLeft` (PR #326), que aceita um `DatePicker`/`Select` composto — o
+>   `toolbar.customLeft` (v0.64.0+), que aceita um `DatePicker`/`Select` composto — o
 >   `DataList` só tem `toolbarActions?: ToolbarAction[]`, cujos kinds são
 >   `button`/`dropdown`/`input`. Se a lista precisa de um seletor de período com
 >   calendário, ele vai **fora** do componente (no `PageHeader` ou numa linha própria),
