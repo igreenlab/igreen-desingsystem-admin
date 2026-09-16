@@ -218,7 +218,8 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 >   `DatePicker mode="range"` de período, um `Select` composto ou um segmented custom,
 >   use `customLeft` — renderiza entre o refresh e a busca (antes das `actions` quando as
 >   duas vêm juntas). ⚠️ A prop **era inerte até 2026-09-16**: declarada, documentada e
->   lida por nada, então o componente não aparecia e não havia erro (PR #326).
+>   lida por nada, então o componente não aparecia e não havia erro. Corrigido na
+>   **v0.64.0** — em versão anterior, não use.
 > - **Muitos filtros, ou ligados a coluna** → SEMPRE os nativos **pré-aplicados** (chips
 >   no load) + drawer "Filtros". Nunca empilhar selects acima da grade.
 >

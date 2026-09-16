@@ -139,7 +139,7 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    **Precisa de um COMPONENTE na barra** (um `DatePicker mode="range"` de período)? →
    `toolbar.customLeft` do `data-table`, que renderiza entre o refresh e a busca —
    `toolbar.actions` não serve, seus kinds são `button/dropdown/input` e nenhum recebe
-   componente. ⚠️ **Exige a versão que carrega o PR #326**: em `0.63.0` e anteriores a
+   componente. ⚠️ **Exige o DS `0.64.0` ou mais novo**: em `0.63.0` e anteriores a
    prop existe no tipo, o TS aceita e **nada renderiza** (era declarada e lida por nada).
    Confira sua versão antes de prometer o controle — e note que o `data-list` **não tem**
    esse slot, só `toolbarActions`.
