@@ -46,6 +46,36 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.66.0",
+    date: "2026-09-16",
+    tag: "preview",
+    title: "A sidebar ganha um slot, e a busca volta a ser busca",
+    summary:
+      "A v0.65.0 expos `sidebarSearchCommand` pra que um CMS multi-tenant montasse o multi-select de unidades dentro da paleta da busca. Funcionava, e era o desenho errado — o gatilho da busca e um botao com lupa e badge Cmd+K hard-coded, sem prop pra esconder nenhum dos dois, entao o controle de escopo se apresentava como busca; e o rodape de acoes (\"Selecionar todas\" / \"Limpar\") rolava junto com a lista, porque vive dentro do `CommandList`, que E a area de scroll. A saida tentadora era acrescentar `hideSearchIcon`/`hideShortcut`/`searchFooter`: resolve o sintoma e mantem o erro, tres props novas num componente cuja funcao nao e aquela. Conteudo arbitrario pede slot arbitrario. Esta versao tambem carrega um fix de scroll que atingia toda tela com Select ou Context Menu.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`topSlot` no `SingleMenuSidebar` e `sidebarTopSlot` no `AppShell`.** Slot livre entre o seletor de modulo e a busca: o componente reserva o lugar, quem consome monta o controle. E o caminho pra escopo que nao e seletor unico (`module` escolhe um) nem busca — multi-select de unidades, filtro de safra, periodo global. Ordem do bloco do topo: identidade do escopo, recorte do escopo, acao. `searchCommand` continua existindo e continua sendo o conteudo da paleta da BUSCA.",
+          "**Gate `sidebar-single-escopo.test.tsx`, 4o caso**, validado por L-064: revertido o passthrough pra `topSlot={undefined}` — com a reversao conferida em disco, nao presumida — o caso reprova. O assert que carrega o peso e `queryByRole(\"dialog\")` nulo SEM `sidebarShowSearch`: ele tambem reprovaria alguem \"resolvendo\" o slot por dentro da paleta, que e o desvio de origem.",
+          "**Exemplo vivo `Escopo global no topo` + linha na `PropsTable`** do showcase da sidebar. O pre-commit check achou esta lacuna: a tabela listava `module`, `showSearch` e `searchCommand`, os tres vizinhos do slot, e nao ele — exatamente o modo de falha que originou a cascata, onde quem le a doc nao acha a prop e contorna.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**CSS var do Radix precisava de `var()` no Tailwind v4** — 10 ocorrencias em 6 componentes shadcn. No v4 o `[--minha-var]` deixou de virar `var(--minha-var)`: emite `max-height: --radix-...`, valor invalido que o browser descarta. No `Select` e no `ContextMenu` isso removia o `max-height`, e o `overflow-y-auto` nunca tinha o que rolar — lista longa transbordava a tela sem scroll, relatado num app real. As outras 8 eram `transform-origin` da animacao. O `DropdownMenu` ja usava a forma certa, e por isso o defeito nao aparecia nele. Vale pra toda tela que usa esses componentes.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O USAGE das duas e o `app-builder` (repo + payload do consumidor) passaram a dizer que `searchCommand` NAO e o lugar de escopo**, com o porque medido — o gatilho fixo com lupa e Cmd+K, e o rodape que rola junto com a lista. Sem isso a doc seguiria ensinando o desvio que esta versao corrige, e doc e load-bearing (L-060): quem le para de investigar.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.65.0",
     date: "2026-09-16",
     tag: "preview",
