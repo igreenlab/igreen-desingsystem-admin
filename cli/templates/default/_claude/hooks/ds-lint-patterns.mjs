@@ -56,10 +56,15 @@ export const DS_LINT_PATTERNS = [
   // onde `.ai/` não existe. Mensagem que manda ler o inalcançável faz a pessoa
   // parar de investigar achando que a resposta está em outro lugar (L-060).
   // A regra aqui é: msg de lint se basta ou não cita caminho.
+  // ⚠️ A faixa PARA em h-11 (44px) desde 2026-09-23. Ela ia até h-16 e a mensagem
+  // sugeria `h-layout-navbar` — token de ALTURA DE NAVBAR — pra um `h-16` de skeleton.
+  // Mesmo valor, semântica errada: o lint proibia algo pra que o DS não tem resposta e
+  // ainda entregava a resposta errada, que é pior que não responder (L-060). Altura de
+  // bloco é decisão de tela, não de sistema; não vira token por pressão de projeto.
   {
     id: "L-002",
-    re: /['"][^'"]*\b(h|min-h|size)-(7|8|9|10|11|12|13|14|16)\b[^'"]*['"]/,
-    msg: "height/size fixo → use min-h-form-* (h-9=form-md, h-10=form-lg, h-11=form-xl). Se for quadrado, size-comp-*. Se for maior (~h-12 a h-16, 48-64px), não é form — use token de layout (ex.: h-layout-navbar).",
+    re: /['"][^'"]*\b(h|min-h|size)-(7|8|9|10|11)\b[^'"]*['"]/,
+    msg: "height/size de FORM fixo → use min-h-form-* (h-9=form-md, h-10=form-lg, h-11=form-xl). Se for quadrado, size-comp-*. Altura de BLOCO (skeleton, placeholder, área de carregamento) não tem token no DS e pode ficar literal — não empurre um token de form nem de layout pra ela.",
   },
   // `none` e `full` fora da alternação: são numericamente IDÊNTICOS ao token DS
   // (--radius-radius-full: 9999px, --radius-radius-none: 0px) → não podem ser
