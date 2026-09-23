@@ -203,3 +203,21 @@ export { useBrand, BRANDS } from "../hooks/useBrand";
 export type { Brand, BrandOption, UseBrandOptions } from "../hooks/useBrand";
 export { useTheme } from "../hooks/useTheme";
 export type { Theme } from "../hooks/useTheme";
+
+/* ── Utilitários de classe ────────────────────────────────────────────────────
+ * `cn` e `tv` saem no pacote porque a config de merge NÃO é genérica: ela ensina o
+ * tailwind-merge a reconhecer os tokens do DS (escala de container, presets
+ * tipográficos, pad-/sp-/gp-/radius-/sh-/form-). Um `cn` de fora resolve conflito
+ * errado — `max-w-modal-sm` não vence `max-w-modal-lg`, `text-title-md` colide com
+ * `text-fg-default`, `p-pad-4xl` não é apagado por `p-0`.
+ *
+ * Até aqui cada consumidor mantinha uma cópia sincronizada à mão, e sincronizar à mão
+ * é o modo de falha que este próprio arquivo acabou de corrigir dentro do DS (havia
+ * duas configs divergentes aqui). Config em `src/utils/tw-merge-config.ts`.
+ *
+ * ⚠️ Importe `tv` daqui (ou de `@/utils/tv` dentro do DS) — NUNCA de
+ * `tailwind-variants` direto: sem o wrapper não há config nenhuma.
+ */
+export { cn } from "../lib/utils";
+export { tv } from "../utils/tv";
+export type { VariantProps } from "../utils/tv";

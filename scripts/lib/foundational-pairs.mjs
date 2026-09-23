@@ -18,6 +18,11 @@ import { readdirSync, existsSync } from "node:fs";
 const FIXOS = [
   ["src/lib/utils.ts", "cli/templates/default/src/lib/utils.ts"],
   ["src/utils/tv.ts", "cli/templates/default/src/utils/tv.ts"],
+  // A config do tailwind-merge, que `utils.ts` e `tv.ts` agora IMPORTAM em vez de cada
+  // um declarar a sua (2026-09-23). Sem estar aqui, os dois chegam no scaffold com um
+  // import pendurado e o projeto nem compila — a classe de defeito da L-065, que só
+  // aparece no consumidor real.
+  ["src/utils/tw-merge-config.ts", "cli/templates/default/src/utils/tw-merge-config.ts"],
   ["src/lib/lucide-types.ts", "cli/templates/default/src/lib/lucide-types.ts"],
   ["src/styles/theme/tailwind-theme.css", "cli/templates/default/src/styles/theme/tailwind-theme.css"],
   // A tabela de anti-patterns vira o lint de conteúdo do consumidor (hook

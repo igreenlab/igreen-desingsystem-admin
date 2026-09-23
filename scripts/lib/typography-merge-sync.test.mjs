@@ -7,11 +7,15 @@ import {
 } from "./typography-merge-sync.mjs";
 
 const TEMA = "src/styles/theme/tailwind-theme.css";
+/** Fonte única da config de merge (desde 2026-09-23). */
+const CFG = "src/utils/tw-merge-config.ts";
+/** Os dois caminhos de merge — devem só IMPORTAR a fonte única, sem lista própria. */
 const TV = "src/utils/tv.ts";
 const CN = "src/lib/utils.ts";
+const ANCORA = "DS_TYPOGRAPHY_PRESETS = [";
 
 const lerTema = () => presetsDoTema(readFileSync(TEMA, "utf8"));
-const lerMerge = (p) => presetsDoMerge(readFileSync(p, "utf8"));
+const lerMerge = (p, ancora) => presetsDoMerge(readFileSync(p, "utf8"), ancora);
 
 describe("typography-merge-sync — lógica pura", () => {
   it("acusa preset do tema ausente de um dos merges", () => {
@@ -73,27 +77,45 @@ describe("typography-merge-sync — o repo hoje", () => {
   // devolveria listas vazias dos dois lados e o gate passaria vazio (L-064).
   it("os parsers encontram os presets de verdade", () => {
     expect(lerTema().length, `nenhum @utility text-* em ${TEMA}`).toBeGreaterThan(20);
-    expect(lerMerge(TV).length, `bloco text: [] não encontrado em ${TV}`).toBeGreaterThan(20);
-    expect(lerMerge(CN).length, `bloco text: [] não encontrado em ${CN}`).toBeGreaterThan(20);
+    expect(
+      lerMerge(CFG, ANCORA).length,
+      `array ${ANCORA} não encontrado em ${CFG}`,
+    ).toBeGreaterThan(20);
   });
 
-  it("todo preset do tema está nos DOIS merges (L-016)", () => {
+  it("a config de merge é ÚNICA — tv.ts e utils.ts não declaram lista própria", () => {
+    // Foi assim que a L-016 nasceu duas vezes: duas listas, um comentário pedindo
+    // sincronia manual, e o `cn()` ficando 4 presets atrás sem ninguém notar.
+    for (const arq of [TV, CN]) {
+      expect(
+        lerMerge(arq),
+        `${arq} voltou a declarar um bloco text: [] próprio. A config mora em ${CFG} — ` +
+          "duas listas divergem, e a divergência não dá erro em lugar nenhum.",
+      ).toEqual([]);
+      expect(
+        readFileSync(arq, "utf8"),
+        `${arq} não importa a config de ${CFG}`,
+      ).toContain("tw-merge-config");
+    }
+  });
+
+  it("todo preset do tema está registrado (L-016)", () => {
     const { faltando } = checkTypographyMergeSync({
       tema: lerTema(),
-      consumidores: { [TV]: lerMerge(TV), [CN]: lerMerge(CN) },
+      consumidores: { [CFG]: lerMerge(CFG, ANCORA) },
     });
     expect(
       faltando.map((f) => `${f.arquivo}: falta "${f.preset}"`),
-      "preset emitido pelo tema e ausente de um merge — o tailwind-merge REMOVE a classe " +
-        "em silêncio quando o elemento também tem cor (text-fg-*). Adicione o nome ao " +
-        `bloco text: [] do arquivo apontado. Se o preset saiu do DS, remova-o do transform.`,
+      "preset emitido pelo tema e ausente do merge — o tailwind-merge REMOVE a classe " +
+        "em silêncio quando o elemento também tem cor (text-fg-*). Adicione o nome a " +
+        `DS_TYPOGRAPHY_PRESETS em ${CFG}. Se o preset saiu do DS, remova-o do transform.`,
     ).toEqual([]);
   });
 
-  it("nenhum merge registra preset que o tema não emite", () => {
+  it("o merge não registra preset que o tema não emite", () => {
     const { mortos } = checkTypographyMergeSync({
       tema: lerTema(),
-      consumidores: { [TV]: lerMerge(TV), [CN]: lerMerge(CN) },
+      consumidores: { [CFG]: lerMerge(CFG, ANCORA) },
     });
     expect(
       mortos.map((m) => `${m.arquivo}: "${m.preset}" não existe no tema`),
@@ -101,18 +123,18 @@ describe("typography-merge-sync — o repo hoje", () => {
     ).toEqual([]);
   });
 
-  it("o gate REPROVA quando um preset sai de um merge de verdade (L-064)", () => {
+  it("o gate REPROVA quando um preset sai do merge de verdade (L-064)", () => {
     // Fixture sintética não prova nada sobre o repo: aqui eu tiro o `stat-lg` do
     // arquivo REAL — reproduzindo o defeito exatamente como ele estava — e confiro
     // que acusa, no arquivo certo.
-    const real = readFileSync(CN, "utf8");
+    const real = readFileSync(CFG, "utf8");
     const semStat = real.replace('"stat-lg", ', "");
     expect(semStat, "o formato da linha dos stat mudou — ajuste o teste").not.toBe(real);
 
     const { faltando } = checkTypographyMergeSync({
       tema: lerTema(),
-      consumidores: { [TV]: lerMerge(TV), [CN]: presetsDoMerge(semStat) },
+      consumidores: { [CFG]: presetsDoMerge(semStat, ANCORA) },
     });
-    expect(faltando).toEqual([{ arquivo: CN, preset: "stat-lg" }]);
+    expect(faltando).toEqual([{ arquivo: CFG, preset: "stat-lg" }]);
   });
 });

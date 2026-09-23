@@ -14,13 +14,15 @@
  * no default do browser. Sem erro de `tsc`, sem warning, sem teste falhando,
  * sem diff. Só o pixel errado.
  *
- * ## Por que DUAS listas, e não uma
+ * ## Era DUAS listas; desde 2026-09-23 é UMA
  *
- * O DS tem dois caminhos de merge, e um preset precisa estar nos dois:
+ * O DS tem dois caminhos de merge — `tv()` (usado por *.styles.ts) e `cn()` (usado no
+ * .tsx, nas telas, e é o que o consumidor recebe baked) — e cada um mantinha a sua
+ * lista, sincronizadas à mão. A config virou fonte única em
+ * `src/utils/tw-merge-config.ts`; `tv.ts` e `utils.ts` só a importam.
  *
- *   - `src/utils/tv.ts`   → `twMergeConfig` do `tv()`  — usado por *.styles.ts
- *   - `src/lib/utils.ts`  → `extendTailwindMerge` do `cn()` — usado no .tsx,
- *                            nas telas, e é o que o consumidor recebe baked
+ * Este gate passou a olhar a fonte única E a checar que ninguém reintroduziu uma
+ * segunda lista — que é a forma como o defeito nasceu das duas vezes.
  *
  * A defesa até 2026-08-14 era um `diff <(grep …) <(grep …)` dentro de um
  * checklist que alguém precisava lembrar de rodar. O `pre-commit-check.md`
@@ -58,13 +60,16 @@ export function presetsDoTema(cssTema) {
 }
 
 /**
- * Presets registrados no bloco `text: [ … ]` de um config de merge.
- * Casa o PRIMEIRO bloco `text: [`, que é o do grupo `font-size` nos dois
- * arquivos. Só aceita nome no formato `<role>-<degrau>` — o mesmo shape que o
- * transform emite.
+ * Presets registrados num array literal do config de merge.
+ *
+ * `ancora` diz onde o array começa: hoje é `DS_TYPOGRAPHY_PRESETS = [` na fonte única.
+ * O default `text: [` continua servindo pra perguntar o inverso — se `tv.ts` ou
+ * `utils.ts` voltaram a declarar lista PRÓPRIA (deve dar vazio nos dois).
+ *
+ * Só aceita nome no formato `<role>-<degrau>` — o mesmo shape que o transform emite.
  */
-export function presetsDoMerge(codigo) {
-  const i = codigo.indexOf("text: [");
+export function presetsDoMerge(codigo, ancora = "text: [") {
+  const i = codigo.indexOf(ancora);
   if (i === -1) return [];
   const j = codigo.indexOf("]", i);
   if (j === -1) return [];
