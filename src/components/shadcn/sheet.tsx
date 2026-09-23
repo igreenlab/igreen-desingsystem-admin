@@ -50,8 +50,9 @@ const sheetVariants = cva(
        * compoundVariant, e não na variante solta: aplicar largura a um sheet
        * superior é o tipo de acerto que ninguém percebe estar errado.
        *
-       * Até 2026-09-23 a base era `sm:max-w-sm`, que com a escala de container
-       * sobrescrita dava 640px — o degrau mais largo da escala, como default.
+       * Default `lg` (640px) = a largura que o sheet lateral sempre teve: a base era
+       * `sm:max-w-sm`, que com a escala de container sobrescrita dava 640. O nome é que
+       * estava errado — tokenizar não é motivo pra mudar o que a tela mostra.
        */
       size: { sm: "", md: "", lg: "" },
     },
@@ -62,7 +63,7 @@ const sheetVariants = cva(
     ],
     defaultVariants: {
       side: "right",
-      size: "md",
+      size: "lg",
     },
   }
 )
@@ -77,7 +78,7 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", size = "md", className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
+>(({ side = "right", size = "lg", className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content

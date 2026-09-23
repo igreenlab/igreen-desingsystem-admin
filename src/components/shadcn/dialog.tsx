@@ -28,20 +28,21 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 /**
- * Largura do conteúdo, na escala de modal do DS (480 / 640 / 800).
+ * Largura do conteúdo, na escala de modal do DS.
  *
- * Até 2026-09-23 a base era `sm:max-w-md`, que com a escala de container sobrescrita
- * resolvia pra 768px — nem o 512 do shadcn original, nem nenhum degrau da escala
- * `modal-*` que o próprio DS define. Todo diálogo sem largura própria abria com 768.
+ * A base era `sm:max-w-md`, que com a escala de container sobrescrita resolvia pra
+ * 768px — um valor que ninguém tinha escolhido e que não aparecia em token nenhum.
+ * O NOME estava errado; o tamanho, não. O default continua **768px**, agora dito em
+ * voz alta (`modal-lg`), porque tokenizar não é motivo pra mudar o que a tela mostra.
  *
  * Prefira `size` a `className`: um `max-w-*` sem variante NÃO vence o `sm:` daqui —
  * são breakpoints diferentes, o tailwind-merge não funde, e a media query ganha acima
  * de 640px. Era isso que obrigava o consumidor a escrever `sm:max-w-modal-lg`.
  */
 const DIALOG_SIZE = {
-  sm: "sm:max-w-modal-sm", // 480px — default
+  sm: "sm:max-w-modal-sm", // 480px
   md: "sm:max-w-modal-md", // 640px
-  lg: "sm:max-w-modal-lg", // 800px
+  lg: "sm:max-w-modal-lg", // 768px — default, a largura que o Dialog sempre teve
 } as const;
 
 export type DialogSize = keyof typeof DIALOG_SIZE;
@@ -51,10 +52,10 @@ const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     /** Esconde o botão "X" (Close) no canto superior direito. Default: false. */
     hideClose?: boolean;
-    /** Largura na escala de modal do DS: sm 480 (default) · md 640 · lg 800. */
+    /** Largura na escala de modal do DS: sm 480 · md 640 · lg 768 (default). */
     size?: DialogSize;
   }
->(({ className, children, hideClose, size = "sm", onPointerDownOutside, ...props }, ref) => (
+>(({ className, children, hideClose, size = "lg", onPointerDownOutside, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content

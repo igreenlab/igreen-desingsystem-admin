@@ -50,7 +50,7 @@ export const DS_CONTAINER_SCALE = [
   "dropdown-sm", "dropdown-md", "dropdown-lg",
   "sidebar-sm", "sidebar-md", "sidebar-lg",
   "drawer-sm", "drawer-md", "drawer-lg",
-  "modal-sm", "modal-md", "modal-lg",
+  "modal-xs", "modal-sm", "modal-md", "modal-lg",
 ] as const;
 
 /**

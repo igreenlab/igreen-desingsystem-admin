@@ -89,9 +89,21 @@ export const container = {
   "drawer-sm": "320px",
   "drawer-md": "480px",
   "drawer-lg": "640px",
+  // Escala de MODAL — os degraus saem das larguras que os overlays do DS já
+  // renderizavam antes de 2026-09-23, quando a escala de container sobrescrevia os
+  // nomes do Tailwind e ninguém via o valor real:
+  //   AlertDialog 420 · Dialog 768 (era `sm:max-w-md`) · Sheet 640 (era `sm:max-w-sm`)
+  //
+  // O nome estava errado, não o tamanho. Tokenizar NÃO era motivo pra mudar o que a
+  // tela mostra — o 480/640/800 anterior era uma escala inventada que nenhum overlay
+  // do DS usava.
+  //
+  // ⚠️ `modal-lg` era 800px. Nada no DS o usava (só o código escrito nesta rodada),
+  // mas consumidor que escreveu `max-w-modal-lg` esperando 800 recebe 768 — 32px.
+  "modal-xs": "420px",
   "modal-sm": "480px",
   "modal-md": "640px",
-  "modal-lg": "800px",
+  "modal-lg": "768px",
 } as const;
 
 // ─── Scrollbar (larguras de scrollbar custom) ───────────────────────────────

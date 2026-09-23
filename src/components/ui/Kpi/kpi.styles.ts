@@ -91,9 +91,21 @@ export const kpiGroup = tv({
       7: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-7",
       8: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-8",
     },
+    /**
+     * 1 card único, com divisória entre os KPIs.
+     *
+     * ⚠️ As divisórias seguem o MESMO breakpoint das colunas — `@md:`, de container —,
+     * não o `sm:` de viewport que havia aqui. Com as colunas quebrando por container e
+     * as divisórias por janela, o caso que o P1.4 conserta era justamente o que ficava
+     * errado: container estreito (ao lado da sidebar) com viewport largo dava UMA coluna
+     * empilhada recebendo `divide-x` — divisória VERTICAL numa pilha vertical, ou seja,
+     * nenhuma linha visível entre os KPIs.
+     *
+     * Empilhado (1 coluna) → `divide-y`: a linha aparece no rodapé de cada KPI, menos o
+     * último. Lado a lado → `divide-x`.
+     */
     divided: {
-      // 1 card único com divisórias (linha no mobile, coluna no sm+)
-      true: "overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface shadow-sh-sm divide-y divide-border-subtle sm:divide-y-0 sm:divide-x",
+      true: "overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface shadow-sh-sm divide-y divide-border-subtle @md:divide-y-0 @md:divide-x",
       false: "gap-gp-2xl",
     },
   },

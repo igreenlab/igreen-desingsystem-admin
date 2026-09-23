@@ -242,9 +242,10 @@ body {
   --container-drawer-sm: 320px;
   --container-drawer-md: 480px;
   --container-drawer-lg: 640px;
+  --container-modal-xs: 420px;
   --container-modal-sm: 480px;
   --container-modal-md: 640px;
-  --container-modal-lg: 800px;
+  --container-modal-lg: 768px;
   --spacing-pad-card-sm: 16px;
   --spacing-pad-card-md: 20px;
   --spacing-pad-card-lg: 24px;
