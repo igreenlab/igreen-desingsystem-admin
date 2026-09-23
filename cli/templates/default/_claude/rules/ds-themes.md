@@ -96,7 +96,7 @@ que "o pacote está quebrado".
 @import "tailwindcss";
 
 /* Sem esta linha, zero classes do DS. Tem que cobrir `dist-lib/**`, não só o
-   index.mjs — as classes dos componentes flutuantes vivem nos *chunks*. */
+   index.mjs — cada componente é um módulo próprio em `dist-lib/src/**`. */
 @source "../node_modules/@snksergio/design-system/dist-lib/**/*.mjs";
 
 @import "@snksergio/design-system/theme.css";                 /* obrigatório */

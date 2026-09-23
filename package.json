@@ -8,6 +8,13 @@
   "main": "./dist-lib/index.cjs",
   "module": "./dist-lib/index.mjs",
   "types": "./dist-lib/index.d.ts",
+  "//sideEffects": "Diz ao bundler do CONSUMIDOR npm quais módulos de dist-lib/ rodam código no import; todo o resto pode ser descartado INTEIRO quando nenhum export dele é usado. Junto com o preserveModules do vite.lib.config.ts, é o que faz `import { MenuSidebar, Header }` gerar ~0,64 MB de JS em vez de 5,7 MB (medido 2026-09-23, consumidor Vite) — antes, qualquer import arrastava a lib inteira, inclusive o mapa de 2.404 ícones. Um único módulo publicado tem efeito de topo que PRECISA rodar: `DataTable/column-types/index` registra os 16 tipos de coluna default (`columnTypeRegistry.registerMany`) e é importado só pelo efeito — fora desta lista, a chamada some do bundle de produção do consumidor e o DataTable perde filtro/formatação, sem erro. Gate: `scripts/lib/side-effects-declared.mjs` (no `npm test`) varre os módulos publicados e reprova efeito de topo sem entrada aqui, ou entrada sem efeito. `./src/**` e `./tokens/**` ficam como 'tem efeito' DE PROPÓSITO: o Vite aplica o `sideEffects` do package.json mais próximo também a import RELATIVO, então sem essas duas linhas o build do showcase (e o do consumidor por submódulo, que importa o fonte) passaria a descartar módulo — medido: o showcase perdia a mesma chamada `registerMany`. Com elas o showcase sai byte a byte igual a antes. No tarball não casam nada (src/ e tokens/ não são publicados). `*.css` pelo mesmo motivo conservador.",
+  "sideEffects": [
+    "*.css",
+    "./src/**",
+    "./tokens/**",
+    "./dist-lib/src/components/ui/DataTable/column-types/index.*"
+  ],
   "files": [
     "dist-lib/index.*",
     "dist-lib/shadcn.*",
@@ -16,7 +23,6 @@
     "dist-lib/theme/**",
     "dist-lib/fonts/**",
     "dist-lib/preview/**",
-    "dist-lib/chunks/**",
     "dist-lib/src/**",
     "dist-lib/tokens/**",
     "dist-lib/ai/**",

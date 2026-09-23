@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { FormField } from "@/components/ui/FormField";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
-import { Icon } from "@/components/ui/Icon";
+import { IconSvg } from "@/components/ui/Icon/icon-svg";
+import { lineBin, lineCloudUpload, lineFile } from "@/components/ui/Icon/icon-glyphs";
 import { fileUploadFieldStyles } from "./file-upload-field.styles";
 import type {
   FileUploadFieldProps,
@@ -153,7 +154,7 @@ export function FileUploadField({
               aria-label={label ? `${label}: clique para anexar` : "Clique para anexar"}
               className={styles.dropzone()}
             >
-              <Icon name="line-cloud-upload" size="lg" className={styles.dropIcon()} />
+              <IconSvg glyph={lineCloudUpload} size="lg" className={styles.dropIcon()} />
               <span className={styles.dropTexts()}>
                 <span className={styles.dropText()}>Clique para anexar</span>
                 {hint && <span className={styles.dropHint()}>{hint}</span>}
@@ -166,7 +167,7 @@ export function FileUploadField({
               ) : (
                 <div className={styles.fileChipWrap()}>
                   <Chip color="neutral" variant="soft" size="lg" className="max-w-full">
-                    <Icon name="line-file" size="sm" />
+                    <IconSvg glyph={lineFile} size="sm" />
                     <span className={styles.fileName()}>{displayName}</span>
                   </Chip>
                 </div>
@@ -181,7 +182,7 @@ export function FileUploadField({
                   aria-label="Remover arquivo"
                   onClick={handleRemove}
                 >
-                  <Icon name="line-bin" size="sm" />
+                  <IconSvg glyph={lineBin} size="sm" />
                 </Button>
               </div>
             </div>

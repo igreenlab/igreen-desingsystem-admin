@@ -2,6 +2,7 @@
 
 Biblioteca de ícones própria da iGreen. O SVG é fixo; só o `d` do path muda via
 prop `name` (mapa de tokens em `icons.ts`). Categoria: data-display / foundation.
+⚠️ `<Icon name>` carrega o mapa inteiro no bundle — ver "Peso no bundle".
 
 ## Quando usar
 
@@ -56,6 +57,32 @@ import { Icon } from "@/components/ui/Icon";
 2. O `IconName` atualiza sozinho (deriva das chaves). Sem mais nada.
 3. **Multi-path**: o valor pode ser `string` (1 path) **ou** `string[]` (vários paths
    sobrepostos — ex.: `igreen-club`). Remova `fill=` hardcoded do SVG (herda `currentColor`).
+
+## Peso no bundle — quem paga o mapa
+
+`<Icon name>` resolve por **nome** (`icons[name]`), e bundler nenhum poda chave de objeto:
+quem importa o `Icon` leva o mapa **inteiro** (2.404 ícones, ~4,3 MB de path, ~1 MB
+gzip). É o contrato da API por nome — e por isso ela é **opt-in**: só paga quem usa.
+
+Quem paga hoje: uso direto de `<Icon name>` e o `DateSeparatorChip` (a prop `icon` dele é
+um `IconName` escolhido pelo consumidor). **Nenhum outro componente do DS** — gate em
+`icon-poda.test.tsx`.
+
+**Ícone fixo dentro de componente do DS** → nunca `<Icon name>`. Desenhe com `IconSvg` +
+a constante de `icon-glyphs.ts` (mesmas props do `Icon`, com `glyph` no lugar de `name`):
+
+```tsx
+import { IconSvg } from "@/components/ui/Icon/icon-svg";
+import { lineBin } from "@/components/ui/Icon/icon-glyphs";
+
+<IconSvg glyph={lineBin} size="sm" />   {/* = <Icon name="line-bin" size="sm" /> */}
+```
+
+Ícone que ainda não está em `icon-glyphs.ts`: **mova** o path do `icons.ts` pra lá e troque
+a entrada do mapa pela referência (`"line-foo": lineFoo.d`). O path mora num lugar só; o
+teste confere que mapa e constante batem e que os dois desenham o mesmo svg.
+
+`IconSvg` e `icon-glyphs` são peças **internas** — não saem no barrel do pacote npm.
 
 ## Gotchas
 
