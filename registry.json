@@ -2372,6 +2372,7 @@
       "description": "Primitivos composáveis de KPI: Kpi (card) + KpiGroup (layout columns/divided) + KpiDelta (pílula de variação). Theme-aware; sparkline via slot.",
       "registryDependencies": [
         "@igreen/chip",
+        "@igreen/tooltip",
         "@igreen/tv",
         "@igreen/utils"
       ],
@@ -2379,11 +2380,6 @@
         "lucide-react@^1.7.0"
       ],
       "files": [
-        {
-          "path": "src/components/ui/Kpi/USAGE.md",
-          "type": "registry:file",
-          "target": "components/ui/Kpi/USAGE.md"
-        },
         {
           "path": "src/components/ui/Kpi/index.ts",
           "type": "registry:ui",
@@ -2413,6 +2409,16 @@
           "path": "src/components/ui/Kpi/kpi.types.ts",
           "type": "registry:ui",
           "target": "components/ui/Kpi/kpi.types.ts"
+        },
+        {
+          "path": "src/components/ui/Kpi/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Kpi/USAGE.md"
+        },
+        {
+          "path": "src/utils/nav-link.ts",
+          "type": "registry:file",
+          "target": "src/utils/nav-link.ts"
         }
       ],
       "meta": {
