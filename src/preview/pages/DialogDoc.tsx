@@ -56,7 +56,7 @@ export function DialogDoc() {
   <DialogTrigger asChild>
     <Button color="secondary" variant="outline" size="sm">Open Dialog</Button>
   </DialogTrigger>
-  <DialogContent className="sm:max-w-page-sm">
+  <DialogContent size="md">
     <DialogHeader>
       <DialogTitle>Dialog Title</DialogTitle>
       <DialogDescription>
@@ -78,7 +78,7 @@ export function DialogDoc() {
               Open Dialog
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-page-sm">
+          <DialogContent size="md">
             <DialogHeader>
               <DialogTitle>Dialog Title</DialogTitle>
               <DialogDescription>
@@ -180,7 +180,7 @@ export function DialogDoc() {
   <DialogTrigger asChild>
     <Button color="critical" variant="outline" size="sm">Delete Account</Button>
   </DialogTrigger>
-  <DialogContent className="sm:max-w-page-sm">
+  <DialogContent size="md">
     <DialogHeader>
       <DialogTitle>Are you sure?</DialogTitle>
       <DialogDescription>
@@ -203,7 +203,7 @@ export function DialogDoc() {
               Delete Account
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-page-sm">
+          <DialogContent size="md">
             <DialogHeader>
               <DialogTitle>Are you sure?</DialogTitle>
               <DialogDescription>
@@ -234,7 +234,7 @@ export function DialogDoc() {
   <DialogTrigger asChild>
     <Button color="secondary" variant="outline" size="sm">View License</Button>
   </DialogTrigger>
-  <DialogContent className="sm:max-w-page-md">
+  <DialogContent size="lg">
     <DialogHeader>
       <DialogTitle>Software License Agreement</DialogTitle>
       <DialogDescription>
@@ -261,7 +261,7 @@ export function DialogDoc() {
               View License
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-page-md">
+          <DialogContent size="lg">
             <DialogHeader>
               <DialogTitle>Software License Agreement</DialogTitle>
               <DialogDescription>

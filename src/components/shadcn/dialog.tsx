@@ -27,13 +27,34 @@ const DialogOverlay = React.forwardRef<
 ))
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
+/**
+ * Largura do conteúdo, na escala de modal do DS (480 / 640 / 800).
+ *
+ * Até 2026-09-23 a base era `sm:max-w-md`, que com a escala de container sobrescrita
+ * resolvia pra 768px — nem o 512 do shadcn original, nem nenhum degrau da escala
+ * `modal-*` que o próprio DS define. Todo diálogo sem largura própria abria com 768.
+ *
+ * Prefira `size` a `className`: um `max-w-*` sem variante NÃO vence o `sm:` daqui —
+ * são breakpoints diferentes, o tailwind-merge não funde, e a media query ganha acima
+ * de 640px. Era isso que obrigava o consumidor a escrever `sm:max-w-modal-lg`.
+ */
+const DIALOG_SIZE = {
+  sm: "sm:max-w-modal-sm", // 480px — default
+  md: "sm:max-w-modal-md", // 640px
+  lg: "sm:max-w-modal-lg", // 800px
+} as const;
+
+export type DialogSize = keyof typeof DIALOG_SIZE;
+
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     /** Esconde o botão "X" (Close) no canto superior direito. Default: false. */
     hideClose?: boolean;
+    /** Largura na escala de modal do DS: sm 480 (default) · md 640 · lg 800. */
+    size?: DialogSize;
   }
->(({ className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
+>(({ className, children, hideClose, size = "sm", onPointerDownOutside, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
@@ -53,11 +74,12 @@ const DialogContent = React.forwardRef<
         onPointerDownOutside?.(event);
       }}
       className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-gp-4xl rounded-radius-base bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-xl outline-float duration-200 sm:max-w-page-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-gp-4xl rounded-radius-base bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-xl outline-float duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
         // Teto de altura + rolagem interna: sem isto, conteúdo alto passa da tela e o
         // rodapé fica inalcançável. Mesma margem de viewport do `max-w` acima (não há
         // token pra ela); `dvh` por causa da barra do navegador no mobile.
         "max-h-[calc(100dvh-2rem)] overflow-y-auto",
+        DIALOG_SIZE[size],
         className
       )}
       {...props}
