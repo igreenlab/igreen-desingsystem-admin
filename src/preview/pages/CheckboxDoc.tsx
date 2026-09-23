@@ -108,7 +108,7 @@ export function CheckboxDoc() {
   {items.map((item) => (
     <div key={item.id} className="flex items-center gap-gp-xl">
       <Checkbox id={item.id} defaultChecked={item.checked} />
-      <Label htmlFor={item.id} className="font-normal">{item.label}</Label>
+      <Label htmlFor={item.id} weight="regular">{item.label}</Label>
     </div>
   ))}
 </div>`}
@@ -124,7 +124,7 @@ export function CheckboxDoc() {
           ].map((item) => (
             <div key={item.id} className="flex items-center gap-gp-xl">
               <Checkbox id={item.id} defaultChecked={item.checked} />
-              <Label htmlFor={item.id} className="font-normal">{item.label}</Label>
+              <Label htmlFor={item.id} weight="regular">{item.label}</Label>
             </div>
           ))}
         </div>
