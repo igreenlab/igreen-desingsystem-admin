@@ -33,20 +33,40 @@ const DialogContent = React.forwardRef<
     /** Esconde o botão "X" (Close) no canto superior direito. Default: false. */
     hideClose?: boolean;
   }
->(({ className, children, hideClose, ...props }, ref) => (
+>(({ className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
       ref={ref}
+      onPointerDownOutside={(event) => {
+        // O Radix só reconhece como "dentro" o clique que atravessa a árvore REACT deste
+        // conteúdo. Popover/Select/DropdownMenu portalado que não é filho React dele chega
+        // aqui como "fora" e fecharia o dialog no meio da interação.
+        // Regressão: dialog-sheet-popper.test.tsx.
+        if (
+          event.target instanceof Element &&
+          event.target.closest("[data-radix-popper-content-wrapper]")
+        ) {
+          event.preventDefault();
+          return;
+        }
+        onPointerDownOutside?.(event);
+      }}
       className={cn(
         "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-gp-4xl rounded-radius-base bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-xl outline-float duration-200 sm:max-w-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        // Teto de altura + rolagem interna: sem isto, conteúdo alto passa da tela e o
+        // rodapé fica inalcançável. Mesma margem de viewport do `max-w` acima (não há
+        // token pra ela); `dvh` por causa da barra do navegador no mobile.
+        "max-h-[calc(100dvh-2rem)] overflow-y-auto",
         className
       )}
       {...props}
     >
       {children}
       {!hideClose && (
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-radius-sm opacity-70 transition-opacity hover:opacity-100 outline-none ring-0 ring-ring-brand focus-visible:ring-4 disabled:pointer-events-none data-[state=open]:bg-bg-muted data-[state=open]:text-fg-muted">
+        // Alinhado ao padding do conteúdo (p-pad-4xl) e com caixa de 24px = entrelinha do
+        // `text-title-md` → centrado na 1ª linha do título.
+        <DialogPrimitive.Close className="absolute right-pad-4xl top-pad-4xl flex size-comp-xs items-center justify-center rounded-radius-sm opacity-70 transition-opacity hover:opacity-100 outline-none ring-0 ring-ring-brand focus-visible:ring-4 disabled:pointer-events-none data-[state=open]:bg-bg-muted data-[state=open]:text-fg-muted">
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -61,7 +81,9 @@ const DialogHeader = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("flex flex-col gap-gp-sm", className)}
+    // `pr-pad-6xl` (32px) reserva a faixa do X (24px) + folga — sem isso, título longo
+    // corre por baixo do botão de fechar.
+    className={cn("flex flex-col gap-gp-sm pr-pad-6xl", className)}
     {...props}
   />
 )
@@ -87,8 +109,11 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
+    // Sem `leading-*`: a entrelinha vem do preset (title-md = 24px). O `leading-none` que
+    // havia aqui a esmagava pra 16px e o título quebrado em 2 linhas encostava/sobrepunha
+    // a descrição.
     className={cn(
-      "text-title-md font-medium text-fg-default leading-none",
+      "text-title-md font-medium text-fg-default",
       className
     )}
     {...props}
