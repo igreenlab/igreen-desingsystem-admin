@@ -657,6 +657,16 @@
           "path": "src/components/shadcn/card.tsx",
           "type": "registry:ui",
           "target": "components/ui/card.tsx"
+        },
+        {
+          "path": "src/components/shadcn/clickable-surface.tsx",
+          "type": "registry:file",
+          "target": "src/components/shadcn/clickable-surface.tsx"
+        },
+        {
+          "path": "src/utils/nav-link.ts",
+          "type": "registry:file",
+          "target": "src/utils/nav-link.ts"
         }
       ],
       "meta": {
@@ -2380,6 +2390,11 @@
         "lucide-react@^1.7.0"
       ],
       "files": [
+        {
+          "path": "src/components/shadcn/clickable-surface.tsx",
+          "type": "registry:file",
+          "target": "src/components/shadcn/clickable-surface.tsx"
+        },
         {
           "path": "src/components/ui/Kpi/index.ts",
           "type": "registry:ui",

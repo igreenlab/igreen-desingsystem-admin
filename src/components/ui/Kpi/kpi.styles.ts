@@ -24,16 +24,6 @@ export const kpi = tv({
     value:
       "min-w-0 truncate leading-none text-fg-default [font-variant-numeric:tabular-nums]",
     hint: "text-caption-sm text-fg-subtle",
-    /**
-     * Superfície de clique — `<a>`/`<button>` esticado sobre o card inteiro.
-     *
-     * É este o motivo de NÃO trocar a raiz por `<button>`: o conteúdo do botão é
-     * "phrasing content", e a raiz tem `<h3>`. Um `<h3>` dentro de `<button>` é HTML
-     * inválido, e leitor de tela perde o heading. O overlay mantém a semântica do card
-     * e ainda dá foco e teclado de graça.
-     */
-    overlay:
-      "absolute inset-0 z-0 rounded-[inherit] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     chart: "mt-gp-xs",
     footnote:
       "mt-pad-md border-t border-border-subtle pt-pad-lg text-caption-md text-fg-muted",

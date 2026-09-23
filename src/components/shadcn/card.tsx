@@ -1,6 +1,10 @@
 ﻿import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import {
+  ClickableSurface,
+  type ClickableSurfaceProps,
+} from "./clickable-surface"
 
 /**
  * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as
@@ -83,22 +87,60 @@ const PULL_TOP: Record<CardSize, string> = {
 
 /* ── Card ────────────────────────────────────────────────────────────────── */
 
+/**
+ * Card clicável — `onClick` e/ou `href` transformam a superfície inteira em alvo.
+ *
+ * Um `onClick` solto numa `<div>` (que é o que o consumidor escrevia) não tem foco,
+ * não responde a Enter/Space, não é anunciado como controle e não existe pra quem
+ * navega por teclado. Aqui o alvo é um `<button>`/`<a>` esticado por cima — ver
+ * `ClickableSurface` pra por que não trocamos a raiz. A `<div>` continua `<div>`,
+ * então nada do que já existe muda.
+ *
+ * `surfaceLabel` é o nome acessível e é obrigatório quando há clique: o alvo é vazio,
+ * e sem ele o leitor anuncia "botão" e mais nada. Controle DENTRO do card (um menu,
+ * um botão secundário) precisa de `relative z-10` pra ficar acima do overlay.
+ */
+type CardClickProps =
+  | { onClick?: never; href?: never; surfaceLabel?: never; target?: never; renderLink?: never }
+  | ({ surfaceLabel: string } & Pick<
+      ClickableSurfaceProps,
+      "onClick" | "href" | "target" | "renderLink"
+    >);
+
 const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { size?: CardSize }
->(({ className, size = "md", ...props }, ref) => (
+  Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> & { size?: CardSize } & CardClickProps
+>((
+  { className, size = "md", children, onClick, href, surfaceLabel, target, renderLink, ...props },
+  ref,
+) => {
+  const clicavel = Boolean(onClick || href);
+  return (
   <CardSizeContext.Provider value={size}>
     <div
       ref={ref}
       className={cn(
         "flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10",
         PAD_Y[size],
+        clicavel && "relative transition-colors hover:bg-bg-subtle",
         className
       )}
       {...props}
-    />
+    >
+      {children}
+      {clicavel && (
+        <ClickableSurface
+          label={surfaceLabel as string}
+          onClick={onClick}
+          href={href}
+          target={target}
+          renderLink={renderLink}
+        />
+      )}
+    </div>
   </CardSizeContext.Provider>
-))
+  );
+})
 Card.displayName = "Card"
 
 /* ── CardHeader ──────────────────────────────────────────────────────────── */
