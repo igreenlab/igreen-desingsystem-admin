@@ -281,7 +281,7 @@ import { Plus, Download } from "lucide-react";
   <Input className="pl-10" placeholder="Search..." />
 </div>`}
       >
-        <div className="flex flex-col gap-gp-xl w-full max-w-sm">
+        <div className="flex flex-col gap-gp-xl w-full max-w-page-sm">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-icon-md text-fg-subtle" />
             <Input className="pl-10" placeholder="Search..." />
@@ -301,7 +301,7 @@ import { Plus, Download } from "lucide-react";
             placeholder="Filter icons..."
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="max-w-xs"
+            className="max-w-page-xs"
           />
           <span className="text-caption-sm text-fg-subtle">
             {ICON_GROUPS.flatMap((g) => g.icons).filter((i) => i.name.toLowerCase().includes(filter.toLowerCase())).length} icons

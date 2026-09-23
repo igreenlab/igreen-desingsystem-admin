@@ -33,9 +33,9 @@ export function TabsDoc() {
         id="ex-default"
         title="Default"
         description="Basic tabs with content panels. Click a tab to reveal its content."
-        code={`<Tabs defaultValue="account" className="w-full max-w-md">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="password">Password</TabsTrigger>\n    <TabsTrigger value="settings">Settings</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">\n    Account details here.\n  </TabsContent>\n  <TabsContent value="password">\n    Password settings here.\n  </TabsContent>\n  <TabsContent value="settings">\n    General settings here.\n  </TabsContent>\n</Tabs>`}
+        code={`<Tabs defaultValue="account" className="w-full max-w-page-md">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="password">Password</TabsTrigger>\n    <TabsTrigger value="settings">Settings</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">\n    Account details here.\n  </TabsContent>\n  <TabsContent value="password">\n    Password settings here.\n  </TabsContent>\n  <TabsContent value="settings">\n    General settings here.\n  </TabsContent>\n</Tabs>`}
       >
-        <Tabs defaultValue="account" className="w-full max-w-md">
+        <Tabs defaultValue="account" className="w-full max-w-page-md">
           <TabsList>
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="password">Password</TabsTrigger>
@@ -67,9 +67,9 @@ export function TabsDoc() {
         id="ex-line"
         title="Line variant"
         description="Underline tabs (variant line) — sem chrome de pill, com borda inferior na aba ativa (border-brand). Ideal pra navegação de página/seção e headers de painel."
-        code={`<Tabs defaultValue="overview" variant="line" className="w-full max-w-md">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsTrigger value="members">Members</TabsTrigger>\n  </TabsList>\n  <TabsContent value="overview">...</TabsContent>\n  <TabsContent value="activity">...</TabsContent>\n  <TabsContent value="members">...</TabsContent>\n</Tabs>`}
+        code={`<Tabs defaultValue="overview" variant="line" className="w-full max-w-page-md">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsTrigger value="members">Members</TabsTrigger>\n  </TabsList>\n  <TabsContent value="overview">...</TabsContent>\n  <TabsContent value="activity">...</TabsContent>\n  <TabsContent value="members">...</TabsContent>\n</Tabs>`}
       >
-        <Tabs defaultValue="overview" variant="line" className="w-full max-w-md">
+        <Tabs defaultValue="overview" variant="line" className="w-full max-w-page-md">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="activity">Activity</TabsTrigger>
@@ -103,7 +103,7 @@ export function TabsDoc() {
         description="A variant line combina com ícones e `fullWidth` — comum em headers de página."
         code={`<Tabs defaultValue="preview" variant="line" fullWidth>\n  <TabsList>\n    <TabsTrigger value="preview"><Eye /> Preview</TabsTrigger>\n    <TabsTrigger value="code"><Code /> Code</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
       >
-        <Tabs defaultValue="preview" variant="line" fullWidth className="max-w-lg">
+        <Tabs defaultValue="preview" variant="line" fullWidth className="max-w-page-lg">
           <TabsList>
             <TabsTrigger value="preview">
               <Eye className="size-4" />
@@ -134,7 +134,7 @@ export function TabsDoc() {
         description="Place an icon alongside the tab label for better scannability."
         code={`import { Eye, Code } from "lucide-react";\n\n<Tabs defaultValue="preview">\n  <TabsList>\n    <TabsTrigger value="preview">\n      <Eye className="size-4" />\n      Preview\n    </TabsTrigger>\n    <TabsTrigger value="code">\n      <Code className="size-4" />\n      Code\n    </TabsTrigger>\n  </TabsList>\n  <TabsContent value="preview">...</TabsContent>\n  <TabsContent value="code">...</TabsContent>\n</Tabs>`}
       >
-        <Tabs defaultValue="preview" className="w-full max-w-md">
+        <Tabs defaultValue="preview" className="w-full max-w-page-md">
           <TabsList>
             <TabsTrigger value="preview">
               <Eye className="size-4" />
@@ -165,7 +165,7 @@ export function TabsDoc() {
         description="Disabled tabs are visually muted and non-interactive. Users cannot focus or click them."
         code={`<Tabs defaultValue="general">\n  <TabsList>\n    <TabsTrigger value="general">General</TabsTrigger>\n    <TabsTrigger value="security" disabled>Security</TabsTrigger>\n    <TabsTrigger value="notifications">Notifications</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
       >
-        <Tabs defaultValue="general" className="w-full max-w-md">
+        <Tabs defaultValue="general" className="w-full max-w-page-md">
           <TabsList>
             <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="security" disabled>Security</TabsTrigger>
@@ -191,7 +191,7 @@ export function TabsDoc() {
         description="`fullWidth` no <Tabs> faz as três camadas de uma vez: root, list e triggers. Use em superfície compacta — Panel, FloatingPanel, Modal até lg, card, bloco. Em toolbar ou página livre, deixe hug (o DataTable usa hug de propósito)."
         code={`<Tabs defaultValue="overview" fullWidth>\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="analytics">Analytics</TabsTrigger>\n    <TabsTrigger value="reports">Reports</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
       >
-        <Tabs defaultValue="overview" fullWidth className="max-w-lg">
+        <Tabs defaultValue="overview" fullWidth className="max-w-page-lg">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -222,7 +222,7 @@ export function TabsDoc() {
         description="Five tabs to demonstrate overflow behavior. Horizontal scroll may activate on smaller viewports."
         code={`<Tabs defaultValue="profile">\n  <TabsList>\n    <TabsTrigger value="profile"><User /> Profile</TabsTrigger>\n    <TabsTrigger value="notifications"><Bell /> Alerts</TabsTrigger>\n    <TabsTrigger value="security"><Shield /> Security</TabsTrigger>\n    <TabsTrigger value="appearance"><Palette /> Theme</TabsTrigger>\n    <TabsTrigger value="settings"><Settings /> Settings</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
       >
-        <Tabs defaultValue="profile" className="w-full max-w-lg">
+        <Tabs defaultValue="profile" className="w-full max-w-page-lg">
           <TabsList>
             <TabsTrigger value="profile">
               <User className="size-4" />

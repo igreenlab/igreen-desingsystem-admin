@@ -53,7 +53,7 @@ const DialogContent = React.forwardRef<
         onPointerDownOutside?.(event);
       }}
       className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-gp-4xl rounded-radius-base bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-xl outline-float duration-200 sm:max-w-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-gp-4xl rounded-radius-base bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-xl outline-float duration-200 sm:max-w-page-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
         // Teto de altura + rolagem interna: sem isto, conteúdo alto passa da tela e o
         // rodapé fica inalcançável. Mesma margem de viewport do `max-w` acima (não há
         // token pra ela); `dvh` por causa da barra do navegador no mobile.

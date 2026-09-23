@@ -45,7 +45,7 @@ export function SelectDoc() {
   </SelectContent>
 </Select>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Select a framework" />
@@ -78,7 +78,7 @@ export function SelectDoc() {
   </Select>
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Label htmlFor="framework-demo">Framework</Label>
           <Select>
             <SelectTrigger id="framework-demo">
@@ -125,7 +125,7 @@ export function SelectDoc() {
   </SelectContent>
 </Select>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Pick a fruit" />
@@ -199,7 +199,7 @@ export function SelectDoc() {
   </SelectContent>
 </Select>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Select a timezone" />
@@ -255,7 +255,7 @@ export function SelectDoc() {
   </SelectContent>
 </Select>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Select disabled>
             <SelectTrigger>
               <SelectValue placeholder="Select a framework" />
@@ -272,7 +272,7 @@ export function SelectDoc() {
         id="ex-form"
         title="Form"
         description="Select as part of a mini form with other inputs and a submit button."
-        code={`<Card className="max-w-sm w-full">
+        code={`<Card className="max-w-page-sm w-full">
   <CardHeader>
     <CardTitle>Team member</CardTitle>
     <CardDescription>Add a new member to your team.</CardDescription>
@@ -306,7 +306,7 @@ export function SelectDoc() {
   </CardFooter>
 </Card>`}
       >
-        <Card className="max-w-sm w-full">
+        <Card className="max-w-page-sm w-full">
           <CardHeader>
             <CardTitle>Team member</CardTitle>
             <CardDescription>Add a new member to your team.</CardDescription>

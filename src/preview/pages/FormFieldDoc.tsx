@@ -78,7 +78,7 @@ export function FormFieldDoc() {
   helperText="Usamos pra te enviar updates."
 />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <FormFieldInput
             label="Email"
             placeholder="you@example.com"
@@ -97,7 +97,7 @@ export function FormFieldDoc() {
   placeholder="Seu nome"
 />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <FormFieldInput label="Nome" required placeholder="Seu nome" />
         </div>
       </ExampleSection>
@@ -111,7 +111,7 @@ export function FormFieldDoc() {
 <FormFieldInput state="warning"  label="Warning"  warningMessage="Verifique se está correto" />
 <FormFieldInput state="success"  label="Success"  successMessage="Email confirmado" />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <FormFieldInput
             state="default"
             label="Default"
@@ -148,7 +148,7 @@ export function FormFieldDoc() {
 <FormFieldInput size="sm"  label="Size SM"  placeholder="36px" />
 <FormFieldInput size="md"  label="Size MD"  placeholder="40px (default)" />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <FormFieldInput size="xxs" label="Size XXS" placeholder="28px" />
           <FormFieldInput size="xs" label="Size XS" placeholder="32px" />
           <FormFieldInput size="sm" label="Size SM" placeholder="36px" />
@@ -179,7 +179,7 @@ export function FormFieldDoc() {
   endAddon="@igreen.com"
 />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <FormFieldInput
             label="Busca"
             placeholder="Pesquisar..."
@@ -214,7 +214,7 @@ export function FormFieldDoc() {
   ]}
 />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <FormFieldSelect
             label="País"
             required
@@ -249,7 +249,7 @@ export function FormFieldDoc() {
   placeholder="Conte mais sobre seu projeto..."
 />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <FormFieldTextarea
             label="Observações"
             helperText="Máximo 500 caracteres"
@@ -273,7 +273,7 @@ export function FormFieldDoc() {
   errorMessage="Confirmação obrigatória"
 />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <FormFieldCheckbox
             label="Aceito os termos de uso"
             helperText="Você pode revogar a qualquer momento"
@@ -301,7 +301,7 @@ export function FormFieldDoc() {
   defaultChecked
 />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <FormFieldSwitch
             label="Modo escuro"
             helperText="Mude o tema do dashboard"
@@ -327,7 +327,7 @@ export function FormFieldDoc() {
   )}
 </FormField>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <FormField
             label="Campo custom"
             helperText="Use FormField pra fields não cobertos"
@@ -376,7 +376,7 @@ export function FormFieldDoc() {
 </form>`}
       >
         <form
-          className="flex flex-col gap-gp-xl max-w-sm w-full"
+          className="flex flex-col gap-gp-xl max-w-page-sm w-full"
           onSubmit={(e) => e.preventDefault()}
         >
           <FormFieldInput

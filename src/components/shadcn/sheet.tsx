@@ -38,9 +38,9 @@ const sheetVariants = cva(
         top: "inset-x-0 top-0 max-h-dvh border-b border-border-default data-[state=closed]:slide-out-to-top-12 data-[state=open]:slide-in-from-top-12",
         bottom:
           "inset-x-0 bottom-0 max-h-dvh border-t border-border-default data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12",
-        left: "inset-y-0 left-0 h-full w-3/4 border-r border-border-default data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12 sm:max-w-sm",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r border-border-default data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12 sm:max-w-page-sm",
         right:
-          "inset-y-0 right-0 h-full w-3/4 border-l border-border-default data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12 sm:max-w-sm",
+          "inset-y-0 right-0 h-full w-3/4 border-l border-border-default data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12 sm:max-w-page-sm",
       },
     },
     defaultVariants: {

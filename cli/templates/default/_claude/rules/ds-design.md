@@ -34,7 +34,7 @@ shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-i
 - Cor só por token semântico (`bg-bg-brand`, `text-fg-default`...). Zero hex em className. Destrutivo na API = `color="critical"`.
 
 - ⚠️ **`max-w-container-*` NÃO existe** — `container` é o único namespace que não dobra o
-  prefixo. `max-w-md` já é os **768px do DS** (não os 448px do Tailwind); use `max-w-lg`,
+  prefixo. `max-w-page-md` já é os **768px do DS** (não os 448px do Tailwind); use `max-w-page-lg`,
   `max-w-drawer-md`, `max-w-modal-sm`. A forma com `container` não emite CSS e some em silêncio.
 - ⚠️ **`bg-bg-scrollbar-thumb` / `-hover` são de uso interno** dos `@utility scrollbar-*`
   (alpha neutro, pra barra ter contraste próprio). Não use como fundo de elemento.

@@ -58,7 +58,7 @@ export function CardDoc() {
   </CardFooter>
 </Card>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Card>
             <CardHeader>
               <CardTitle>Card Title</CardTitle>
@@ -115,7 +115,7 @@ export function CardDoc() {
   </CardContent>
 </Card>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Card>
             <CardHeader>
               <CardTitle>Login</CardTitle>
@@ -169,7 +169,7 @@ export function CardDoc() {
   </CardFooter>
 </Card>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Card className="overflow-hidden">
             <div className="bg-bg-muted h-48 flex items-center justify-center">
               <span className="text-body-md font-medium text-fg-subtle">Image placeholder</span>
@@ -205,7 +205,7 @@ export function CardDoc() {
   </CardContent>
 </Card>`}
       >
-        <div className="max-w-xs w-full">
+        <div className="max-w-page-xs w-full">
           <Card>
             <CardHeader>
               <CardDescription>Total Revenue</CardDescription>
@@ -244,7 +244,7 @@ export function CardDoc() {
   </CardFooter>
 </Card>`}
       >
-        <div className="max-w-md w-full">
+        <div className="max-w-page-md w-full">
           <Card>
             <CardHeader>
               <CardTitle>Confirm changes</CardTitle>

@@ -104,7 +104,7 @@ export function RadioGroupDoc() {
       >
         {/* Consome o CardOption em vez de repetir markup: era esta cópia solta que divergia
             do CardCheckbox em 11 dimensões (items-start, padding 20px, presets errados…). */}
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-page-sm">
           <CardOptionGroup type="radio" defaultValue="standard">
             <CardOption value="standard" label="Standard" description="4-10 business days" />
             <CardOption value="express" label="Express" description="2-3 business days" />

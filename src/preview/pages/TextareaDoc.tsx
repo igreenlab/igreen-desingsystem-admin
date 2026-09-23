@@ -30,7 +30,7 @@ export function TextareaDoc() {
         description="Basic textarea with placeholder."
         code={`<Textarea placeholder="Type your message here." />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Textarea placeholder="Type your message here." />
         </div>
       </ExampleSection>
@@ -47,7 +47,7 @@ export function TextareaDoc() {
   </p>
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Label htmlFor="message-demo">Your message</Label>
           <Textarea id="message-demo" placeholder="Type your message here." />
           <p className="text-caption-sm text-fg-muted">
@@ -62,7 +62,7 @@ export function TextareaDoc() {
         description="Disabled textareas prevent user interaction."
         code={`<Textarea disabled placeholder="This textarea is disabled." />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Textarea disabled placeholder="This textarea is disabled." />
         </div>
       </ExampleSection>
@@ -78,7 +78,7 @@ export function TextareaDoc() {
   </Button>
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Textarea placeholder="Write your comment..." />
           <Button type="button" color="primary" variant="filled" size="sm">Send message</Button>
         </div>

@@ -238,7 +238,8 @@ TIER 2.5 — Component tokens — em components/
 | form height | `min-h-form-lg` (40px) | `h-10` |
 | form height | `min-h-form-md` (36px) | `h-9` |
 | icon | `size-icon-md` | `size-5` |
-| container | `max-w-md` (escala do DS: 768px) | — **única exceção: não dobra prefixo** |
+| container (página) | `max-w-page-md` (768px) | `max-w-md` — desde 2026-09-23 é o Tailwind (448px) |
+| container (overlay) | `max-w-modal-sm` · `max-w-drawer-md` | `max-w-[480px]` |
 
 ---
 

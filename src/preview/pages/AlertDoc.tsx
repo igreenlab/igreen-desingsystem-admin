@@ -50,7 +50,7 @@ export function AlertDoc() {
   </AlertDescription>
 </Alert>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Alert>
             <Info className="size-4" />
             <AlertTitle>Software update available</AlertTitle>
@@ -76,7 +76,7 @@ export function AlertDoc() {
   </AlertDescription>
 </Alert>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Alert variant="destructive">
             <AlertCircle className="size-4" />
             <AlertTitle>Payment processing failed</AlertTitle>
@@ -102,7 +102,7 @@ export function AlertDoc() {
   </AlertDescription>
 </Alert>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Alert className="border-border-success-muted/50 text-fg-success [&>svg]:text-fg-success">
             <CheckCircle className="size-4" />
             <AlertTitle>Changes saved successfully</AlertTitle>
@@ -128,7 +128,7 @@ export function AlertDoc() {
   </AlertDescription>
 </Alert>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Alert className="border-border-warning-muted/50 text-fg-warning [&>svg]:text-fg-warning">
             <AlertTriangle className="size-4" />
             <AlertTitle>Storage almost full</AlertTitle>
@@ -162,7 +162,7 @@ export function AlertDoc() {
   </AlertDescription>
 </Alert>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Alert>
             <Rocket className="size-4" />
             <AlertTitle>New version available</AlertTitle>

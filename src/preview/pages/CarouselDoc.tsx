@@ -51,7 +51,7 @@ export function CarouselDoc() {
         id="ex-basic"
         title="Básico"
         description="Um slide por vez, com setas anterior/próxima."
-        code={`<Carousel className="w-full max-w-xs">
+        code={`<Carousel className="w-full max-w-page-xs">
   <CarouselContent>
     {items.map((i) => (
       <CarouselItem key={i}>…</CarouselItem>
@@ -62,7 +62,7 @@ export function CarouselDoc() {
 </Carousel>`}
       >
         <div className="px-12">
-          <Carousel className="w-full max-w-xs">
+          <Carousel className="w-full max-w-page-xs">
             <CarouselContent>
               {Array.from({ length: 5 }, (_, i) => (
                 <CarouselItem key={i}>
@@ -82,7 +82,7 @@ export function CarouselDoc() {
         id="ex-dots"
         title="Indicador de posição"
         description="<CarouselDots /> mostra em qual card você está e leva pra qualquer um no clique. Vai FORA do CarouselContent — normalmente abaixo."
-        code={`<Carousel className="w-full max-w-xs">
+        code={`<Carousel className="w-full max-w-page-xs">
   <CarouselContent>…</CarouselContent>
   <CarouselPrevious />
   <CarouselNext />
@@ -90,7 +90,7 @@ export function CarouselDoc() {
 </Carousel>`}
       >
         <div className="px-12">
-          <Carousel className="w-full max-w-xs">
+          <Carousel className="w-full max-w-page-xs">
             <CarouselContent>
               {Array.from({ length: 5 }, (_, i) => (
                 <CarouselItem key={i}>
@@ -121,7 +121,7 @@ export function CarouselDoc() {
 </Carousel>`}
       >
         <div className="px-12">
-          <Carousel className="w-full max-w-sm" opts={{ slidesToScroll: 2 }}>
+          <Carousel className="w-full max-w-page-sm" opts={{ slidesToScroll: 2 }}>
             <CarouselContent>
               {Array.from({ length: 6 }, (_, i) => (
                 <CarouselItem key={i} className="basis-1/2">

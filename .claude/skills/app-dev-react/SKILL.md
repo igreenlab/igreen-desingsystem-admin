@@ -71,7 +71,7 @@ src/
 "flex items-center justify-between gap-gp-xl"
 
 // Content max-width
-"max-w-xl mx-auto"
+"max-w-page-xl mx-auto"
 ```
 
 ## Como ativar esta skill

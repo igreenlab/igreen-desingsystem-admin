@@ -49,14 +49,27 @@ export const icon = {
 
 // ─── Container (larguras de containers e overlays) ───────────────────────────
 export const container = {
-  // Page containers
-  xs: "480px",
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px",
-  "2xl": "1440px",
-  "3xl": "1920px",
+  // Page containers — o prefixo `page-` NÃO é decorativo.
+  //
+  // O transform emite cada chave como `--container-<chave>`, e no Tailwind v4 essa é a
+  // MESMA variável que alimenta `max-w-*`, `min-w-*`, `w-*`, `basis-*` e as variantes de
+  // container query (`@lg:`). Enquanto estas chaves se chamavam `xs`…`3xl`, elas
+  // SOBRESCREVIAM a escala nativa: `max-w-lg` valia 1024px em vez de 512, `max-w-md` 768
+  // em vez de 448, `max-w-3xl` 1920 em vez de 768. Sem erro, sem lint, sem teste — e a
+  // escala ficava fora de ordem, porque `4xl` em diante continuava sendo a do Tailwind
+  // (`@3xl` = 1920 disparava DEPOIS de `@4xl` = 896).
+  //
+  // Medido no consumidor igreen-tickets em 2026-09-23: 70 diálogos, sheets e cards de
+  // página renderizaram com o dobro da largura pretendida desde a adoção do DS.
+  //
+  // Não remova o prefixo. Se precisar de um degrau novo de página, ele nasce `page-*`.
+  "page-xs": "480px",
+  "page-sm": "640px",
+  "page-md": "768px",
+  "page-lg": "1024px",
+  "page-xl": "1280px",
+  "page-2xl": "1440px",
+  "page-3xl": "1920px",
   full: "100%",
   prose: "65ch",
   // Max-width do body do AppShell em modo `layout=compact`. Centraliza o

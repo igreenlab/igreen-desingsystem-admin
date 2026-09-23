@@ -345,7 +345,7 @@ export function CommandDoc() {
         id="ex-inline"
         title="Inline (sem Dialog)"
         description="Use `<Command>` direto, sem wrapper Dialog, pra embed em qualquer lugar (sidebar de busca, dropdown custom, etc)."
-        code={`<Command className="rounded-radius-base border border-border-default w-full max-w-md">
+        code={`<Command className="rounded-radius-base border border-border-default w-full max-w-page-md">
   <CommandInput placeholder="Buscar..." />
   <CommandList>
     <CommandGroup heading="Sugestões">
@@ -355,7 +355,7 @@ export function CommandDoc() {
   </CommandList>
 </Command>`}
       >
-        <Command className="rounded-radius-base border border-border-default w-full max-w-md">
+        <Command className="rounded-radius-base border border-border-default w-full max-w-page-md">
           <CommandInput placeholder="Buscar..." />
           <CommandList>
             <CommandEmpty>Nenhum resultado.</CommandEmpty>

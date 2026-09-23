@@ -1124,36 +1124,58 @@ Regra pra IA: paridade de experiência entre canais de distribuição (npm CLI v
 requisito, não bônus — ao mexer no kit do consumidor, lembre que o submódulo é um 3º canal
 que consome o MESMO payload por um caminho diferente. Doc humana: `SUBMODULE-SETUP.md`.
 
-## [L-057] `container` é a ÚNICA exceção do duplo-prefixo — e a doc ensinava a classe morta
+## [L-057] A escala de container do DS ocupava os nomes do Tailwind — e o defeito era o override, não a doc
+
+> **Revisada em 2026-09-23.** A lição original concluía que o código estava certo e a doc
+> errada. Estava invertido: a doc descrevia o código com fidelidade, e o **código** é que
+> carregava a armadilha. O registro dos dois momentos fica abaixo porque o erro de
+> julgamento é a parte reaproveitável.
+
+### O que se achou primeiro (correto, e continua valendo)
 
 Todo namespace do DS dobra o prefixo (`--spacing-gp-*` → `gap-gp-md`, `--radius-radius-*` →
-`rounded-radius-base`, `--shadow-sh-*` → `shadow-sh-md`) para não colidir com o Tailwind
-nativo. **`container` não** — o transform emite `--container-md`, que no Tailwind v4
-**sobrescreve** a escala nativa de max-width. Logo a classe correta é **`max-w-md`** (768px
-do DS, não os 448px do Tailwind), e **`max-w-container-md` não existe**.
+`rounded-radius-base`) para não colidir com o Tailwind nativo. `container` era a exceção: o
+transform emitia `--container-md`, então **`max-w-container-md` não existia** — e 11 arquivos
+de doc/skill/README a ensinavam como a forma certa, com 7 usos reais no código, inclusive no
+`cli/templates/default/src/App.tsx` (todo app novo nascia com uma classe morta).
 
-Mesmo assim, 11 arquivos de doc/skill/README ensinavam `max-w-container-*` como a forma
-certa, e havia 7 usos reais no código — inclusive `max-w-container-tooltip-lg` no popover
-"Ler mais" do DataTable (**tooltip sem max-width em todo consumidor**) e no
-`cli/templates/default/src/App.tsx`, ou seja **todo app novo criado pelo CLI nascia com uma
-classe morta**.
+Por que passou tanto tempo: no Tailwind v4 classe cujo token não existe **não gera erro** —
+não emite CSS. Não quebra build, `tsc` nem lint. Só some na tela.
 
-Por que passou tanto tempo: no Tailwind v4 uma classe cujo token não existe **não gera erro**
-— simplesmente não emite CSS. Não quebra build, não quebra `tsc`, não aparece em lint. Só
-some na tela. Foi encontrada por auditoria que cruza as classes usadas contra o tema gerado
-(`src/styles/theme/tailwind-theme.css`), e confirmada no CSS buildado: `.max-w-container-` →
-0 ocorrências.
+### O que se concluiu errado
 
-Por que NÃO "consertamos o transform" para o duplo-prefixo funcionar: 195 usos de
-`max-w-{xs,sm,md,lg,xl,full}` (122 no próprio DS, 41 no academy, 19 no eventos, 11 no VO)
-dependem hoje do override. Passar a emitir `--container-container-*` faria todos reverterem
-em silêncio pro valor nativo — `max-w-sm` de 640px para 384px em 79 lugares. O código estava
-certo; a doc, errada.
+Que não dava pra consertar, porque 195 usos de `max-w-{xs,sm,md,lg,xl}` dependiam do override
+e reverteriam em silêncio (`max-w-sm` de 640 para 384 em 79 lugares). A frase escrita foi
+*"o código estava certo; a doc, errada"*.
 
-Regra pra IA: (1) `max-w-md`/`max-w-tooltip-lg`/`max-w-modal-sm` — **nunca** `max-w-container-*`;
-(2) ao documentar um namespace, valide a classe contra o tema **gerado**, não contra a
-convenção presumida; (3) classe DS que "não faz nada" na tela = suspeite de token inexistente
-antes de suspeitar de especificidade.
+O custo do override nunca foi medido — só o custo de mexer nele. E ele era maior: no
+consumidor **igreen-tickets**, 70 diálogos, sheets e cards de página renderizaram com **o
+dobro** da largura pretendida desde a adoção do DS (card de login com 768 em vez de 448),
+corrigidos um a um. Quem escrevia `max-w-lg` esperando 512 recebia 1024, sem sinal nenhum.
+A escala ainda ficava **fora de ordem**, porque `4xl` em diante continuava sendo a do
+Tailwind: `@3xl` (1920) disparava depois de `@4xl` (896).
+
+O que mascarou: no showcase tudo foi escrito já sabendo o valor. A régua e o objeto medido
+eram o mesmo — o defeito só existia para quem chegava de fora.
+
+### O que se fez (2026-09-23)
+
+A escala de página virou `--container-page-xs…3xl` e os nomes nativos voltaram ao Tailwind.
+Os 151 usos foram reescritos por codemod, preservando o pixel (`max-w-sm` → `max-w-page-sm`,
+ainda 640). Com isso `container` **deixa de ser exceção**: todo token de container passa a
+ter prefixo de papel (`page-`, `modal-`, `drawer-`, `tooltip-`, `dropdown-`, `sidebar-`),
+como `gp-`/`sp-`/`pad-`.
+
+### Regra pra IA
+
+1. Largura de página é **`max-w-page-md`**; overlay é `max-w-modal-sm`/`max-w-drawer-md`/
+   `max-w-tooltip-lg`. **`max-w-md` agora é o Tailwind (448px)** — se você queria 768, é
+   `max-w-page-md`. `max-w-container-*` continua não existindo.
+2. Ao documentar um namespace, valide a classe contra o tema **gerado**, não contra a
+   convenção presumida.
+3. Antes de declarar que uma decisão fica como está por causa do custo de mudá-la, **meça o
+   custo de mantê-la** — e meça fora do repositório que a criou. Override silencioso não
+   aparece em nenhum gate: nem build, nem `tsc`, nem lint, nem teste.
 
 ---
 
@@ -1739,7 +1761,9 @@ equivaleria a ~38 lições, então a política envelheceu em vez de ser desobede
 
 Encurtar as lições seria o conserto errado. A densidade é deliberada: as recentes
 carregam a medição, o contra-exemplo e o porquê — é exatamente isso que impede alguém
-"consertar" uma decisão intencional depois (L-057, L-059 existem só pra isso).
+"consertar" uma decisão intencional depois (L-059 existe só pra isso). ⚠️ A L-057 virou
+o contra-exemplo em 2026-09-23: densidade também blinda decisão ERRADA quando o texto mede só
+o custo de mudar e nunca o de manter.
 
 Arquivar também não resolve o tamanho: quase nenhuma lição de Radix, dark mode ou
 release virou código, então poucas se qualificam pelo critério "absorvida em gate".

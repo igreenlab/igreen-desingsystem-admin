@@ -245,9 +245,9 @@ export function TokensOverviewDoc() {
               <PrefixRow prefix="form" cssVar="--spacing-form-*" cssClass="min-h-form-lg" example="Input/button height" avoid="h-10" />
               <PrefixRow prefix="icon" cssVar="--spacing-icon-*" cssClass="size-icon-md" example="Icon size" avoid="size-5" />
               {/* Exceção do sistema: container NÃO dobra o prefixo. O DS sobrescreve
-                  a escala nativa do Tailwind, então `max-w-md` JÁ É o token do DS
+                  a escala nativa do Tailwind, então `max-w-page-md` JÁ É o token do DS
                   (768px, não os 448px do Tailwind). `max-w-container-md` não existe. */}
-              <PrefixRow prefix="container" cssVar="--container-*" cssClass="max-w-md" example="Page container (768px — sobrescreve o nativo)" avoid="— (não dobra prefixo)" />
+              <PrefixRow prefix="container" cssVar="--container-*" cssClass="max-w-page-md" example="Page container (768px — sobrescreve o nativo)" avoid="— (não dobra prefixo)" />
             </tbody>
           </table>
         </div>

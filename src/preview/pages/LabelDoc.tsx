@@ -15,7 +15,7 @@ export function LabelDoc() {
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
       <ExampleSection id="ex-default" title="Default" description="Label paired with an input.">
-        <div className="flex flex-col gap-gp-lg max-w-sm w-full">
+        <div className="flex flex-col gap-gp-lg max-w-page-sm w-full">
           <Label htmlFor="email">Email</Label>
           <Input id="email" size="sm" placeholder="you@example.com" />
         </div>
