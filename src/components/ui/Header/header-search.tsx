@@ -28,6 +28,19 @@ export type HeaderSearchProps = {
   commandEmptyMessage?: string;
   /** Atalho de teclado pra abrir (default: cmd/ctrl + k) */
   hotkey?: { key: string; meta?: boolean; ctrl?: boolean };
+  /**
+   * Delega a abertura: quando passado, o clique no campo e o atalho chamam ISTO em vez
+   * de abrir a paleta interna — e o `CommandDialog` do componente não é montado.
+   *
+   * Existe porque o `open` era `useState` interno, sem saída: um app que já tem a
+   * própria paleta global (Ctrl+K com busca assíncrona, histórico, navegação por rota)
+   * não conseguia reaproveitá-la. Só dava pra preencher a NOSSA paleta por
+   * `commandGroups`, que é dado estático — sem busca assíncrona nem render custom.
+   *
+   * Com `onOpen`, o header entrega só o campo falso (que é o que ele faz de melhor:
+   * aparência e atalho consistentes) e a paleta é sua.
+   */
+  onOpen?: () => void;
   className?: string;
 };
 
@@ -42,9 +55,12 @@ export function HeaderSearch({
   commandPlaceholder = "Digite um comando ou busque...",
   commandEmptyMessage = "Nenhum resultado encontrado.",
   hotkey = { key: "k", meta: true, ctrl: true },
+  onOpen,
   className,
 }: HeaderSearchProps) {
   const [open, setOpen] = useState(false);
+  const delegado = Boolean(onOpen);
+  const abrir = () => (onOpen ? onOpen() : setOpen(true));
 
   // Atalho global (⌘K / Ctrl+K)
   useEffect(() => {
@@ -54,12 +70,13 @@ export function HeaderSearch({
       const ctrl = hotkey.ctrl && e.ctrlKey;
       if (meta || ctrl) {
         e.preventDefault();
-        setOpen((o) => !o);
+        if (onOpen) onOpen();
+        else setOpen((o) => !o);
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [hotkey.key, hotkey.meta, hotkey.ctrl]);
+  }, [hotkey.key, hotkey.meta, hotkey.ctrl, onOpen]);
 
   return (
     <>
@@ -67,7 +84,7 @@ export function HeaderSearch({
       <button
         type="button"
         className={cn(searchFakeInput(), "hidden md:inline-flex", className)}
-        onClick={() => setOpen(true)}
+        onClick={abrir}
         aria-label="Abrir busca"
       >
         <Search className={searchFakeInputIcon()} strokeWidth={1.8} />
@@ -81,13 +98,15 @@ export function HeaderSearch({
         variant="outline"
         size="icon-sm"
         className="md:hidden rounded-radius-md"
-        onClick={() => setOpen(true)}
+        onClick={abrir}
         aria-label="Abrir busca"
         title={`Buscar (${shortcut})`}
       >
         <Search />
       </Button>
 
+      {/* Com `onOpen` a paleta é do consumidor — não montamos a nossa. */}
+      {!delegado && (
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder={commandPlaceholder} />
         <CommandList>
@@ -102,6 +121,7 @@ export function HeaderSearch({
           ))}
         </CommandList>
       </CommandDialog>
+      )}
     </>
   );
 }

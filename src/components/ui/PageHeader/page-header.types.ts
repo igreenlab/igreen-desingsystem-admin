@@ -23,6 +23,17 @@ export type PageHeaderProps = {
   children?: ReactNode;
 
   /**
+   * Deixa o título quebrar em várias linhas em vez de truncar. Default `false`.
+   * Use quando o título carrega identificação (nome de projeto, de cliente) — truncar
+   * ali tira a informação que dá contexto à página inteira.
+   */
+  titleWrap?: boolean;
+  /**
+   * Linhas da descrição antes de cortar: 1 (default, igual ao anterior), 2 ou 3.
+   */
+  descriptionLines?: 1 | 2 | 3;
+
+  /**
    * Em mobile (<md), esconde o bloco title/description/badge.
    *  - Default: `true` (pq o AppShell global já mostra o breadcrumb/título
    *    no Header — duplicação prejudica espaço vertical em telas pequenas).
