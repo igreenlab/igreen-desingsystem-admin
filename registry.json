@@ -1769,10 +1769,11 @@
       "title": "Combobox",
       "description": "Select com busca (autocomplete) — Popover+Command (cmdk).",
       "registryDependencies": [
-        "@igreen/utils",
-        "@igreen/tv",
+        "@igreen/chip",
         "@igreen/command",
-        "@igreen/popover"
+        "@igreen/popover",
+        "@igreen/tv",
+        "@igreen/utils"
       ],
       "dependencies": [
         "lucide-react@^1.7.0"
