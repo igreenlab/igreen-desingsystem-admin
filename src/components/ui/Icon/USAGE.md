@@ -68,10 +68,25 @@ Quem paga hoje: uso direto de `<Icon name>` e o `DateSeparatorChip` (a prop `ico
 um `IconName` escolhido pelo consumidor). **Nenhum outro componente do DS** — gate em
 `icon-poda.test.tsx`.
 
-**Ícone fixo dentro de componente do DS** → nunca `<Icon name>`. Desenhe com `IconSvg` +
-a constante de `icon-glyphs.ts` (mesmas props do `Icon`, com `glyph` no lugar de `name`):
+## ⛔ Daqui pra baixo é só para quem DESENVOLVE este repositório
+
+> **Consome o Design System (npm, copy-in, submódulo)?** Pare aqui. Sua API é
+> `<Icon name="...">`, já descrita acima, e ela não mudou. **Não copie o código desta
+> seção**: `IconSvg` e `icon-glyphs` são peças **internas**, ficam fora do barrel, e
+> `import { IconSvg } from "@/components/ui/Icon/icon-svg"` **não resolve** num projeto
+> que instalou o pacote — o caminho não existe lá.
+>
+> Esta ressalva vem antes do exemplo de propósito: o `USAGE.md` é copiado inteiro para
+> `dist-lib/ai/componentes/Icon.md` (`build-ai-bundle.mjs`), que é o que a IA do
+> consumidor lê. Ressalva depois do bloco de código chega tarde — agente copia o
+> exemplo antes de ler o rodapé.
+
+**Ícone fixo dentro de um componente deste repositório** (`src/components/**`) → nunca
+`<Icon name>`. Desenhe com `IconSvg` + a constante de `icon-glyphs.ts` (mesmas props do
+`Icon`, com `glyph` no lugar de `name`):
 
 ```tsx
+// ⚠️ uso INTERNO do repositório do DS — indisponível para quem consome o pacote
 import { IconSvg } from "@/components/ui/Icon/icon-svg";
 import { lineBin } from "@/components/ui/Icon/icon-glyphs";
 
@@ -81,8 +96,6 @@ import { lineBin } from "@/components/ui/Icon/icon-glyphs";
 Ícone que ainda não está em `icon-glyphs.ts`: **mova** o path do `icons.ts` pra lá e troque
 a entrada do mapa pela referência (`"line-foo": lineFoo.d`). O path mora num lugar só; o
 teste confere que mapa e constante batem e que os dois desenham o mesmo svg.
-
-`IconSvg` e `icon-glyphs` são peças **internas** — não saem no barrel do pacote npm.
 
 ## Gotchas
 
