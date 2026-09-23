@@ -38,11 +38,24 @@
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { createRequire } from "node:module";
+import { dirname, join } from "node:path";
 import { brandsDoCatalogo } from "./brand-surfaces.mjs";
 
 const THEME_DIR = "src/styles/theme";
-/** CLI do tsx por path — ver a nota de plataforma em `regenerate()`. */
-const TSX_CLI = "node_modules/tsx/dist/cli.mjs";
+/**
+ * CLI do tsx por path — ver a nota de plataforma em `regenerate()`.
+ *
+ * Resolvido pelo `require.resolve`, NÃO por `"node_modules/tsx/dist/cli.mjs"` relativo ao
+ * cwd: num git worktree o `node_modules` fica no checkout-pai, e o caminho relativo não
+ * existe. O sintoma era `MODULE_NOT_FOUND` derrubando os DOIS testes deste gate — inclusive
+ * o de controle, que adultera o tema de propósito. Gate que só roda no checkout principal
+ * é gate que não roda quando mais importa.
+ */
+const TSX_CLI = join(
+  dirname(createRequire(import.meta.url).resolve("tsx/package.json")),
+  "dist/cli.mjs"
+);
 
 /** Normaliza só o que varia por checkout/plataforma. */
 export const norm = (s) => String(s ?? "").replace(/\r/g, "").replace(/^﻿/, "");
