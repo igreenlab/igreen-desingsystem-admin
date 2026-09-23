@@ -28,14 +28,16 @@ const SheetOverlay = React.forwardRef<
 ))
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
+// `overflow-y-auto` na base: conteúdo mais alto que o painel rola dentro dele em vez de
+// sumir. Laterais já têm teto (`h-full`); top/bottom ganham `max-h-dvh`.
 const sheetVariants = cva(
-  "fixed z-50 bg-bg-surface dark:bg-bg-canvas text-fg-default shadow-sh-2xl ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-[220ms] data-[state=open]:duration-[220ms] data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
+  "fixed z-50 overflow-y-auto bg-bg-surface dark:bg-bg-canvas text-fg-default shadow-sh-2xl ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-[220ms] data-[state=open]:duration-[220ms] data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
   {
     variants: {
       side: {
-        top: "inset-x-0 top-0 border-b border-border-default data-[state=closed]:slide-out-to-top-12 data-[state=open]:slide-in-from-top-12",
+        top: "inset-x-0 top-0 max-h-dvh border-b border-border-default data-[state=closed]:slide-out-to-top-12 data-[state=open]:slide-in-from-top-12",
         bottom:
-          "inset-x-0 bottom-0 border-t border-border-default data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12",
+          "inset-x-0 bottom-0 max-h-dvh border-t border-border-default data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12",
         left: "inset-y-0 left-0 h-full w-3/4 border-r border-border-default data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12 sm:max-w-sm",
         right:
           "inset-y-0 right-0 h-full w-3/4 border-l border-border-default data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12 sm:max-w-sm",
@@ -57,11 +59,23 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, hideClose, ...props }, ref) => (
+>(({ side = "right", className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
+      onPointerDownOutside={(event) => {
+        // Mesma proteção do DialogContent: overlay Radix portalado que não é filho React
+        // deste conteúdo não pode fechar o sheet. Regressão: dialog-sheet-popper.test.tsx.
+        if (
+          event.target instanceof Element &&
+          event.target.closest("[data-radix-popper-content-wrapper]")
+        ) {
+          event.preventDefault();
+          return;
+        }
+        onPointerDownOutside?.(event);
+      }}
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >

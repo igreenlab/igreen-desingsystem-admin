@@ -59,6 +59,8 @@ const AlertDialogContent = React.forwardRef<
       className={cn(
         "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]",
         "translate-x-[-50%] translate-y-[-50%]",
+        // Teto de altura + rolagem interna — mesma regra e margem do DialogContent.
+        "max-h-[calc(100dvh-2rem)] overflow-y-auto",
         "rounded-radius-2xl bg-bg-surface text-fg-default",
         "border border-border-default shadow-sh-2xl outline-float",
         "duration-200",

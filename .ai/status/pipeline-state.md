@@ -39,6 +39,7 @@
 - [2026-09-15 — CONCLUÍDO · v0.62.0 publicada · o pipeline do DS legível fora do Claude Code](#2026-09-15-concluído-v0620-publicada-o-pipeline-do-ds-legível-fora-do-claude-code)
 - [2026-09-15 — CONCLUÍDO · v0.63.0 publicada · o pacote de IA entrega o que o índice promete](#2026-09-15-concluído-v0630-publicada-o-pacote-de-ia-entrega-o-que-o-índice-promete)
 - [2026-09-16 — CONCLUÍDO · `topSlot` na sidebar single: o desvio do `searchCommand` corrigido](#2026-09-16-concluído-topslot-na-sidebar-single-o-desvio-do-searchcommand-corrigido)
+- [2026-09-23 — CONCLUÍDO · Dialog/Sheet/AlertDialog: teto de altura, overlay portalado e X alinhado](#2026-09-23-concluído-dialogsheetalertdialog-teto-de-altura-overlay-portalado-e-x-alinhado)
 
 <!-- doc-index:fim -->
 
@@ -5410,3 +5411,60 @@ a ser encenado por outro.
 **Superfícies:** código + tipos (2) · USAGE das duas (2) · `ds:regras` das duas (2) ·
 vocabulário do consumidor (`app-builder/SKILL.md`, repo + payload) · gate. Registry/embed/
 bump consolidam no `/ds-release`.
+
+## 2026-09-23 — CONCLUÍDO · Dialog/Sheet/AlertDialog: teto de altura, overlay portalado e X alinhado
+
+### 2026-09-23 | DS DEV | dialog + sheet + alert-dialog (shadcn) | CONCLUÍDO
+
+**Origem:** consumidor **igreen-tickets**, que vai passar a consumir o DS pelo npm e carregava
+3 correções nas cópias locais destes primitivos (commits `e51b6a4`, `635075a` e a proteção de
+popper de `11ab5b8` no repo dele). O dono decidiu subir as três pro DS por PR.
+
+**O que mudou:**
+1. **Teto + rolagem** — `DialogContent` e `AlertDialogContent` ganham
+   `max-h-[calc(100dvh-2rem)] overflow-y-auto`; `SheetContent` ganha `overflow-y-auto` na base e
+   `max-h-dvh` em `top`/`bottom` (laterais já têm `h-full`). Sem isso, conteúdo alto passava da
+   tela e o rodapé ficava inalcançável.
+2. **Overlay portalado não fecha** — `onPointerDownOutside` de `DialogContent`/`SheetContent`
+   ignora alvo dentro de `[data-radix-popper-content-wrapper]` e repassa ao handler do consumidor
+   nos demais casos. O Radix só reconhece como "dentro" o clique que atravessa a árvore REACT do
+   conteúdo; popover que não é filho React dele fechava o dialog.
+3. **Título × descrição × X** — removido o `leading-none` do `DialogTitle` (a entrelinha volta a
+   ser a do preset `title-md`, 24px); X em `right-pad-4xl top-pad-4xl` (= padding do conteúdo,
+   antes 16px contra 24) com caixa `size-comp-xs` centrada na 1ª linha do título;
+   `DialogHeader` com `pr-pad-6xl` pra o título não correr por baixo do X.
+
+**Decisões (onde divergi da cópia do tickets, e por quê):**
+- Margem de viewport `2rem`, não os `4rem` do tickets: espelha o `max-w-[calc(100%-2rem)]` do
+  mesmo elemento e o `100dvh-32px` do `ui/Modal`. **Não existe token** pra essa margem — seguido o
+  precedente literal em vez de abrir cascata; se o mantenedor quiser o token, cobre largura e
+  altura de dialog/alert-dialog/Modal juntos.
+- Sem `leading-6`/`leading-5` explícitos: o preset já carrega a entrelinha, e fixar 24px
+  quebraria quem troca o título pra outro preset. No tickets o `leading-6` compensava o `cn` de lá,
+  que descartava o `text-title-md`; o `cn` do DS registra os presets (L-016).
+- Sem `shrink-0` em header/título/descrição: item de grid/flex já tem mínimo pelo conteúdo;
+  medido no browser, sem sobreposição.
+- `pr-pad-6xl` (32px), não o `pr-pad-2xl` do tickets: com X de 24px alinhado ao padding, 16px
+  deixavam 8px de título por baixo do botão.
+- `gap-gp-sm` do header mantido (o tickets foi a 8px): a entrelinha corrigida já soma ~4px.
+
+**Efeito colateral medido:** `add-view-modal` (TableToolbar) usa `<DialogTitle asChild>` com
+`leading-[1.3]` próprio; o `asChild` concatena classes sem merge e o `.leading-none` vinha depois
+no CSS, então vencia. Agora vale o `leading-[1.3]` que o componente declara (~+5px no header).
+`ui/Modal`, `command` e `toolbar-mobile-sheet` passam `overflow-hidden` e o `cn` o mantém — sem
+mudança.
+
+**Assumption:** que o clique dentro de `[data-radix-popper-content-wrapper]` nunca é uma
+intenção de fechar o dialog/sheet por baixo. Se surgir um overlay portalado cujo clique DEVA
+dispensar o dialog, o consumidor não tem como optar — o handler dele não é chamado nesse caso.
+
+**Validação:** `dialog-sheet-popper.test.tsx` (8 casos) reprovou no caso do popover ANTES da
+correção, com os pares de controle verdes (L-064). ⚠️ Desde o dismissable-layer 1.1.13 o
+dismiss do botão esquerdo espera o `click` (`deferPointerDownOutside`): teste que dispara só
+`pointerDown` não fecha nada e o controle mente — o helper dispara a sequência completa.
+`npm test` 80 arquivos / 1154 ✓ · `lint:styles` 0 nova · `lib:verify` ok · `check-foundationals`
+11/11 (USAGE → `cli:rebake`) · medido no browser (X 24/24px, centro = 1ª linha do título; teto
+e rolagem em dialog, sheet e alert-dialog com viewport de 200–300px).
+
+**Distribuição pendente (no `/ds-release`):** embed do registry (`registry-check` já acusa
+`dialog`/`sheet`/`alert-dialog`) + bump do CLI pelo `shadcn-gotchas.md` re-bakeado.
