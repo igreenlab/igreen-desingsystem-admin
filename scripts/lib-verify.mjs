@@ -163,5 +163,41 @@ if (quebrados.length) {
   console.log(`  ✓ tipos: ${dts.length} .d.ts, todas as referências relativas resolvem dentro do tarball.`);
 }
 
+// ── 6. FECHAMENTO dos módulos JS (mesma pergunta do passo 5, pro runtime) ─────────
+//
+// Desde o `preserveModules` (vite.lib.config.ts) o pacote é um grafo de ~380 módulos
+// ligados por import relativo, não um `index.mjs` único. Um import que aponte pra fora
+// do tarball quebra o build do consumidor — e o modo de falha concreto é silencioso:
+// dependência que não está no `external` sai em `dist-lib/node_modules/…`, pasta que o
+// `npm pack` IGNORA sempre. O passo 5 não pega (olha só `.d.ts`). O Rollup emite o
+// caminho com extensão, então a checagem é por caminho exato.
+const js = [...noTarball].filter((p) => /\.(mjs|cjs)$/.test(p));
+const jsQuebrados = [];
+for (const f of js) {
+  let conteudo;
+  try {
+    conteudo = readFileSync(f, "utf8");
+  } catch {
+    continue;
+  }
+  for (const spec of dtsSpecifiers(conteudo)) {
+    const alvo = resolveDtsCandidates(f, spec)[0];
+    if (!noTarball.has(alvo)) jsQuebrados.push({ de: f, spec });
+  }
+}
+if (jsQuebrados.length) {
+  console.error(
+    `  ✗ ${jsQuebrados.length} import(s) de módulo JS apontam pra FORA do tarball — o build do consumidor quebra:`,
+  );
+  for (const q of jsQuebrados.slice(0, 6)) console.error(`      ${q.de}  →  "${q.spec}"`);
+  if (jsQuebrados.length > 6) console.error(`      … e ${jsQuebrados.length - 6} outro(s).`);
+  console.error(
+    `      → se o alvo está em node_modules/, falta a dependência no \`external\` do vite.lib.config.ts.`,
+  );
+  fail = 1;
+} else {
+  console.log(`  ✓ módulos: ${js.length} .mjs/.cjs, todos os imports relativos resolvem dentro do tarball.`);
+}
+
 console.log(fail ? "\n✗ lib-verify REPROVOU — não publique." : "\n✓ lib-verify ok — pronto pro publish.");
 process.exit(fail);

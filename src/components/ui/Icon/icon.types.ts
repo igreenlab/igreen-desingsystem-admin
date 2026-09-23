@@ -31,3 +31,18 @@ export interface IconProps
   /** Texto acessível → vira `<title>` + `role="img"`. Sem isso o ícone é decorativo (`aria-hidden`). */
   title?: string;
 }
+
+/**
+ * Ícone como DADO, fora do mapa por nome: o path (ou paths, multi-path) + o nome,
+ * de onde sai o `viewBox`. As constantes vivem em `icon-glyphs.ts`.
+ */
+export interface IconGlyph {
+  name: string;
+  d: string | string[];
+}
+
+/** Props do `IconSvg` — as mesmas do `Icon`, com `glyph` no lugar de `name`. */
+export interface IconSvgProps extends Omit<IconProps, "name"> {
+  /** O ícone a desenhar (constante de `icon-glyphs.ts`). */
+  glyph: IconGlyph;
+}

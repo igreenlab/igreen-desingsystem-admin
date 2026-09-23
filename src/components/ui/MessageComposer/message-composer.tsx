@@ -10,7 +10,8 @@ import {
 import { Textarea } from "@/components/shadcn/textarea";
 import { Separator } from "@/components/shadcn/separator";
 import { Button } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
+import { IconSvg } from "@/components/ui/Icon/icon-svg";
+import { lineTelegram } from "@/components/ui/Icon/icon-glyphs";
 
 import { messageComposerStyles } from "./message-composer.styles";
 import type { MessageComposerProps } from "./message-composer.types";
@@ -140,7 +141,7 @@ export const MessageComposer = forwardRef<
                   if (canSend) onSend();
                 }}
               >
-                <Icon name="line-telegram" />
+                <IconSvg glyph={lineTelegram} />
               </Button>
             )}
           </div>

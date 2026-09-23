@@ -1930,6 +1930,16 @@
           "target": "components/ui/Icon/USAGE.md"
         },
         {
+          "path": "src/components/ui/Icon/icon-glyphs.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/icon-glyphs.ts"
+        },
+        {
+          "path": "src/components/ui/Icon/icon-svg.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/icon-svg.tsx"
+        },
+        {
           "path": "src/components/ui/Icon/icon.styles.ts",
           "type": "registry:ui",
           "target": "components/ui/Icon/icon.styles.ts"
