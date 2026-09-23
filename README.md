@@ -158,8 +158,9 @@ que "o pacote está quebrado".
 @import "@snksergio/design-system/theme.css";
 ```
 
-O `@source` precisa cobrir `dist-lib/**`, não só o `index.mjs`: as classes dos componentes
-flutuantes (Modal, Panel, dropdown, popover) vivem nos **chunks**.
+O `@source` precisa cobrir `dist-lib/**`, não só o `index.mjs`: cada componente é um módulo
+próprio em `dist-lib/src/**` (build com `preserveModules`), e o `index.mjs` só reexporta —
+nele não há classe nenhuma.
 
 O `theme.css` já traz tudo que o runtime precisa — `@font-face` do Geist, `--font-sans`,
 `@custom-variant dark` (dark por classe, não por `prefers-color-scheme`), `body` e as

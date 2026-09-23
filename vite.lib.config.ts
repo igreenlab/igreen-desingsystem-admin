@@ -217,19 +217,47 @@ export default defineConfig({
         "input-otp",
         "sonner",
         "@hello-pangea/dnd",
+        /**
+         * Deps do ChoroplethMap. Estavam em `dependencies` mas fora daqui, então o
+         * Rollup as embutia no bundle único. Com `preserveModules` (abaixo) uma dep
+         * embutida vira arquivo em `dist-lib/node_modules/…` — e o `npm pack` IGNORA
+         * qualquer pasta `node_modules`, então o tarball sairia com import quebrado.
+         */
+        "d3-geo",
+        "topojson-client",
       ],
-      // 2 outputs separados — cada um com sua extensão correta nos entries E nos chunks
+      /**
+       * `preserveModules` — um arquivo de saída por módulo-fonte, em vez de um
+       * `index.mjs` único de ~4,9 MB.
+       *
+       * Por quê: o tree-shaking do bundler do CONSUMIDOR só descarta o que ele
+       * consegue provar que não tem efeito colateral. Num arquivo único, todo
+       * `forwardRef(...)`, `tv(...)` e `X.displayName = ...` de topo conta como
+       * efeito — então importar só o `Button` arrastava a lib INTEIRA, incluindo o
+       * mapa `Icon/icons.ts` (2.404 ícones, ~4,3 MB). Medido: consumidor Vite com
+       * `import { Button }` gerava 5,6 MB de JS. Com um módulo por arquivo + o
+       * `sideEffects` do package.json, o bundler descarta o MÓDULO inteiro que não
+       * é alcançado — sem precisar provar nada statement a statement.
+       *
+       * Os módulos saem espelhando o fonte (`dist-lib/src/components/ui/<Nome>/…`),
+       * ao lado dos `.d.ts` que o `vite-plugin-dts` já emitia ali — e que o `files`
+       * já cobre (`dist-lib/src/**`, `dist-lib/tokens/**`). Os entries continuam com
+       * o nome da chave em `lib.entry` (`index.mjs`, `shadcn.mjs`, `preview/chat.mjs`…),
+       * então `exports`/`main`/`module` não mudam.
+       */
       output: [
         {
           format: "es",
+          preserveModules: true,
+          preserveModulesRoot: __dirname,
           entryFileNames: "[name].mjs",
-          chunkFileNames: "chunks/[name]-[hash].mjs",
           exports: "named",
         },
         {
           format: "cjs",
+          preserveModules: true,
+          preserveModulesRoot: __dirname,
           entryFileNames: "[name].cjs",
-          chunkFileNames: "chunks/[name]-[hash].cjs",
           exports: "named",
         },
       ],

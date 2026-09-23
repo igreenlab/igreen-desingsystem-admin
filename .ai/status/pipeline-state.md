@@ -39,6 +39,7 @@
 - [2026-09-15 — CONCLUÍDO · v0.62.0 publicada · o pipeline do DS legível fora do Claude Code](#2026-09-15-concluído-v0620-publicada-o-pipeline-do-ds-legível-fora-do-claude-code)
 - [2026-09-15 — CONCLUÍDO · v0.63.0 publicada · o pacote de IA entrega o que o índice promete](#2026-09-15-concluído-v0630-publicada-o-pacote-de-ia-entrega-o-que-o-índice-promete)
 - [2026-09-16 — CONCLUÍDO · `topSlot` na sidebar single: o desvio do `searchCommand` corrigido](#2026-09-16-concluído-topslot-na-sidebar-single-o-desvio-do-searchcommand-corrigido)
+- [2026-09-23 — CONCLUÍDO · Pacote npm podável: `preserveModules` + `sideEffects` + ícones fora do mapa](#2026-09-23-concluído-pacote-npm-podável-preservemodules-sideeffects-ícones-fora-do-mapa)
 
 <!-- doc-index:fim -->
 
@@ -5410,3 +5411,63 @@ a ser encenado por outro.
 **Superfícies:** código + tipos (2) · USAGE das duas (2) · `ds:regras` das duas (2) ·
 vocabulário do consumidor (`app-builder/SKILL.md`, repo + payload) · gate. Registry/embed/
 bump consolidam no `/ds-release`.
+
+---
+
+## 2026-09-23 — CONCLUÍDO · Pacote npm podável: `preserveModules` + `sideEffects` + ícones fora do mapa
+
+### 2026-09-23 | DS DEV | build de lib + Icon + 4 consumidores internos | CONCLUÍDO
+
+**Input:** medição num consumidor real (igreen-tickets, npm 0.66.0 + Vite): importar
+`MenuSidebar`/`Header`/`UserMenu` da raiz punha no bundle o mapa `Icon/icons.ts` inteiro.
+
+**O diagnóstico mudou no caminho.** A hipótese de partida era "o `Icon` resolve por nome e
+bundler não poda chave de objeto". Verdade, mas não é o que arrastava o mapa pra esses três:
+**nenhum deles usa o `Icon`** (usam lucide). Um consumidor mínimo com `import { Button }`
+gerava os mesmos 5,6 MB. Causa: `dist-lib/index.mjs` era um arquivo único, e dentro dele todo
+`forwardRef(...)` / `X.displayName = ...` de topo conta como efeito — o tree-shaking do
+consumidor não descartava nada, e junto ia o mapa.
+
+**Output:**
+- `vite.lib.config.ts`: `preserveModules` (um módulo por arquivo-fonte, em `dist-lib/src/**`,
+  ao lado dos `.d.ts` que já estavam lá) + `d3-geo`/`topojson-client` no `external` (embutidos,
+  iriam pra `dist-lib/node_modules/`, que o `npm pack` ignora).
+- `package.json`: `sideEffects` (+ `//sideEffects`) e `files` sem `dist-lib/chunks/**` (a pasta
+  deixou de existir; o `lib-verify` reprova diretório de `files` vazio).
+- `Icon`: o desenho saiu pra `IconSvg` (dado → svg, sem mapa); `Icon` virou lookup + `IconSvg`.
+  Os 8 ícones que componentes do DS usam moram em `icon-glyphs.ts` e o `icons.ts` os
+  referencia — path num lugar só. `FileUploadField`, `MessageBubble`, `MessageComposer` e
+  `MessageVariablesPicker` passaram a `IconSvg glyph={…}`. API pública intocada: `Icon`,
+  `icons`, `IconName`, os 7 entries com a mesma lista de exports (ESM e CJS, conferido).
+- Gates: `icon-poda.test.tsx` (mapa ↔ constante, mesmo svg, e nenhum componente do DS volta a
+  importar `Icon` por nome — só `DateSeparatorChip`, cuja prop é `IconName`);
+  `scripts/lib/side-effects-declared.mjs` (efeito de topo sem entrada no `sideEffects`);
+  `lib-verify` passo 6 (import relativo de `.mjs/.cjs` fora do tarball).
+
+**Números (consumidor Vite mínimo, JS minificado · gzip):** `MenuSidebar+Header` 5.662 → 644 kB
+(1.428 → 191 kB gz) · `+UserMenu` 5.667 → 652 kB · `Button` 5.637 → 541 kB · `FileUploadField`
+5.639 → 553 kB · `MessageBubble` 5.643 → 560 kB · `<Icon name>` direto 5.637 → 4.806 kB (paga o
+mapa — é o contrato) · piso React+ReactDOM 218 kB.
+
+**Decisões:** (a) + (c) juntas; (b) import dinâmico do mapa descartado (ver PR). `IconSvg` e
+`icon-glyphs` ficam INTERNOS — ícone podável no código do consumidor pediria exportar as 2.404
+constantes (subpath próprio), frente separada. `./src/**` e `./tokens/**` no `sideEffects`
+mantêm showcase/submódulo como estavam (medido: sem elas o showcase perdia o `registerMany`;
+com elas, build byte a byte igual).
+
+**Achado fora do escopo, medido:** o `column-types/index` (efeito legítimo) é importado pelo
+barrel do `DataTable`, então TODO consumidor paga ~140–260 kB (16 tipos + react-day-picker +
+date-fns + select) mesmo sem usar tabela. Reexportar `columnTypeRegistry` direto de
+`column-type-registry` tiraria isso, mas muda a ordem de registro no caso de `DataTable` lazy
+com tipo custom sobrescrevendo um default — frente própria.
+
+**Assumption:** que nenhum consumidor npm dependa de um módulo de `dist-lib/` rodar só por ter
+sido importado além do `column-types` — a varredura AST dos módulos publicados diz que não, e
+o gate `side-effects-declared` mantém isso verdade.
+
+**Distribuição:** `registry.json` ganhou os 2 arquivos novos no item `icon` (sem eles o
+`igreen:add file-upload-field` receberia import que não resolve — gate `registry-imports`);
+embed, bump e publish consolidam no `/ds-release`. `cli/templates/.../ds-themes.md` teve só
+a frase sobre "chunks" corrigida — sobe no próximo bump do CLI.
+
+- Lições novas: nenhuma (as 3 viraram gate).

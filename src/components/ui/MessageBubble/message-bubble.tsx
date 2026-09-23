@@ -7,7 +7,8 @@ import {
   PopoverContent,
 } from "@/components/shadcn/popover";
 import { Button } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
+import { IconSvg } from "@/components/ui/Icon/icon-svg";
+import { lineDownload01, lineFile, linePin, lineUser } from "@/components/ui/Icon/icon-glyphs";
 import { MessageAck } from "@/components/ui/MessageAck";
 import { MarkdownText } from "@/components/ui/MarkdownText";
 
@@ -148,8 +149,8 @@ function MessageMediaRenderer({
             : {})}
           className={styles.mediaDoc()}
         >
-          <Icon
-            name="line-file"
+          <IconSvg
+            glyph={lineFile}
             size="lg"
             className={styles.mediaDocIcon()}
           />
@@ -160,8 +161,8 @@ function MessageMediaRenderer({
             </span>
           </div>
           {abrivel ? (
-            <Icon
-              name="line-download-01"
+            <IconSvg
+              glyph={lineDownload01}
               size="sm"
               className={styles.mediaDocIcon()}
             />
@@ -179,8 +180,8 @@ function MessageMediaRenderer({
           className={styles.mediaLocation()}
           onClick={onMediaClick}
         >
-          <Icon
-            name="line-pin"
+          <IconSvg
+            glyph={linePin}
             size="md"
             className={styles.mediaLocationIcon()}
           />
@@ -188,8 +189,8 @@ function MessageMediaRenderer({
         </a>
       ) : (
         <div className={styles.mediaLocation()}>
-          <Icon
-            name="line-pin"
+          <IconSvg
+            glyph={linePin}
             size="md"
             className={styles.mediaLocationIcon()}
           />
@@ -201,8 +202,8 @@ function MessageMediaRenderer({
     case "contact":
       return (
         <div className={styles.mediaContact()}>
-          <Icon
-            name="line-user"
+          <IconSvg
+            glyph={lineUser}
             size="lg"
             className={styles.mediaDocIcon()}
           />

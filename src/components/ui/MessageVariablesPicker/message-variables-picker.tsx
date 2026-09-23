@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "../Button";
 import { Chip } from "../Chip";
-import { Icon } from "../Icon";
+import { IconSvg } from "../Icon/icon-svg";
+import { lineCode } from "../Icon/icon-glyphs";
 import {
   Popover,
   PopoverTrigger,
@@ -67,7 +68,7 @@ export function MessageVariablesPicker({
             aria-label="Inserir variável"
             aria-haspopup="dialog"
           >
-            <Icon name="line-code" />
+            <IconSvg glyph={lineCode} />
           </Button>
         ) : (
           <Button
@@ -78,7 +79,7 @@ export function MessageVariablesPicker({
             disabled={disabled}
             className={className}
             aria-haspopup="dialog"
-            iconLeft={<Icon name="line-code" />}
+            iconLeft={<IconSvg glyph={lineCode} />}
           >
             {label}
           </Button>
