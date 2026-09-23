@@ -7,6 +7,7 @@ export {
   TableCell,
 } from "./table";
 export { TableCardRow } from "./table-card-row";
+export { TableSpanRow } from "./table-span-row";
 export { useColumnWidths } from "./use-column-widths";
 export { useColumnResize } from "./use-column-resize";
 export {
@@ -27,6 +28,7 @@ export type {
   CellPurpose,
 } from "./table.types";
 export type { TableCardRowProps } from "./table-card-row";
+export type { TableSpanRowProps } from "./table-span-row";
 export type {
   WidthColumnInput,
   ColumnWidthsResult,

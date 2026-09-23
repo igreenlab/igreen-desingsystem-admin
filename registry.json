@@ -2130,9 +2130,9 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/Table/USAGE.md",
+          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
           "type": "registry:file",
-          "target": "components/ui/Table/USAGE.md"
+          "target": "components/ui/MenuSidebar/use-media-query.ts"
         },
         {
           "path": "src/components/ui/Table/index.ts",
@@ -2143,6 +2143,11 @@
           "path": "src/components/ui/Table/table-card-row.tsx",
           "type": "registry:ui",
           "target": "components/ui/Table/table-card-row.tsx"
+        },
+        {
+          "path": "src/components/ui/Table/table-span-row.tsx",
+          "type": "registry:file",
+          "target": "src/components/ui/Table/table-span-row.tsx"
         },
         {
           "path": "src/components/ui/Table/table.constants.ts",
@@ -2165,6 +2170,11 @@
           "target": "components/ui/Table/table.types.ts"
         },
         {
+          "path": "src/components/ui/Table/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Table/USAGE.md"
+        },
+        {
           "path": "src/components/ui/Table/use-column-resize.ts",
           "type": "registry:ui",
           "target": "components/ui/Table/use-column-resize.ts"
@@ -2173,11 +2183,6 @@
           "path": "src/components/ui/Table/use-column-widths.ts",
           "type": "registry:ui",
           "target": "components/ui/Table/use-column-widths.ts"
-        },
-        {
-          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
-          "type": "registry:file",
-          "target": "components/ui/MenuSidebar/use-media-query.ts"
         }
       ],
       "meta": {

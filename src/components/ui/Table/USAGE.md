@@ -190,3 +190,27 @@ const { widths, offsets } = useColumnWidths(cols);
 - Pagination → consumer fatia rows antes de mapear
 
 O Table guarda **apenas** estado visual interno (resize hover, scroll detection) — via `TableContext` privado, nunca exposto.
+
+## `TableSpanRow` — a linha que atravessa (2026-09-23)
+
+Aqui a tabela é um grid de `<div>`, então **não existe `colSpan`**. Pra "nenhum
+resultado", "carregando" e cabeçalho de grupo, use `TableSpanRow` — uma linha com uma
+célula de largura total.
+
+Antes disso a saída era uma `TableRow` com uma célula só, que respeita a largura da
+PRIMEIRA coluna: o texto ficava espremido num canto e o resto da linha vazio.
+
+```tsx
+<TableBody>
+  {carregando && <TableSpanRow><Spinner /> Carregando…</TableSpanRow>}
+  {!carregando && rows.length === 0 && <TableSpanRow>Nenhum resultado</TableSpanRow>}
+  {rows.map((r) => <TableRow key={r.id}>…</TableRow>)}
+</TableBody>
+```
+
+- **`sticky` (default `true`)** mantém o texto visível na rolagem horizontal. O sticky
+  fica no CONTEÚDO, não na célula: a célula tem a largura total do grid, que pode ser
+  muito maior que a tela — grudá-la não adianta.
+- **`height`**: `"row"` (default) usa a altura de linha da densidade; `"auto"` deixa
+  crescer (ex.: estado vazio com ilustração e botão).
+- **`align`**: `"center"` (default) ou `"left"`.
