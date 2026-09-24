@@ -46,6 +46,48 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.68.0",
+    date: "2026-09-24",
+    tag: "preview",
+    title: "O consumidor leu o codigo, nao a nota",
+    summary:
+      "O igreen-tickets migrou pra 0.67.0 e, em vez de seguir a nota de release, leu o codigo do pacote. Voltou com 12 divergencias. Cinco delas nao eram pedido: eram defeito do que a propria 0.67.0 entregou — inclusive um guia de migracao que mandava apagar os `sm:` dos overlays e teria quebrado a margem lateral no celular em 51 lugares. As outras sete sao defeito do DS que existiria com ou sem eles: alvo clicavel que nao anunciava selecao, seta de delta invisivel pra leitor de tela, `disabled` que nao alcancava os botoes do Chip, calendario em ingles num DS todo em pt-BR. Esta versao fecha 11 dos 12. Nenhum default muda, com uma excecao dita em voz alta: o locale do calendario.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**`ClickableSurface` nao repassava estado.** 19 cards de selecao do consumidor (lote, pipeline, ranking, nav de categoria) viraram superficie clicavel e a escolha ficou SO VISUAL — o alvo nao carregava `aria-pressed`, `aria-current` nem `aria-expanded`. Agora repassa os tres, mais `aria-describedby` e `disabled`. Em `<a>` o `disabled` nao existe: vira `aria-disabled` + `pointer-events-none` + `tabIndex={-1}`, senao o Tab para num controle que nao faz nada.",
+          "**A seta do `KpiDelta` e `aria-hidden`**, entao \"subiu\" ou \"caiu\" existia so em cor e icone — invisivel pra leitor de tela e pra quem nao distingue as cores. Ganhou texto acessivel: \"aumento de 18%\", \"queda de 12s\".",
+          "**`disabled` no `Chip` nao alcancava os botoes.** Defeito introduzido na 0.67.0 junto com a anatomia do `onRemove`: a pilula deixou de ser `<button>` e o `disabled` passou a cair no `<span>` externo, onde nao e atributo valido. Nas 9 tags que o consumidor desabilitava durante o salvamento, o x seguia clicavel.",
+          "**O snippet do `renderLink` estava errado em 10 lugares** — `(p) => <Link {...p} to={p.href} />` repassa `href` ao `Link`, que nao tem essa prop. Funciona por acidente no react-router e nao funciona em router que trate `href` como entrada. Agora: `({ href, ...p }) => <Link {...p} to={href} />`.",
+          "**O USAGE do Dialog se contradizia na mesma linha** — dizia que o `DialogHeader` reserva `pr-pad-6xl` E que nao reserva mais, porque o texto novo da reversao da #333 entrou sem apagar o velho. Doc que se contradiz e pior que doc velha: quem le escolhe a metade errada.",
+          "**O `title` do Kpi nascia incondicional** (achado na auditoria da propria entrega): resolvia ler o rotulo cortado e criava tooltip nativo em TODO hover, inclusive onde o texto cabe. Agora o corte e medido de verdade (`scrollWidth`/`scrollHeight`) e re-medido em resize — o mesmo rotulo corta ou nao conforme a coluna, que no `KpiGroup` muda por container query.",
+          "**O `date-fns/locale` escapava do tarball.** No `external` do build da lib, uma string casa o specifier INTEIRO: `date-fns` nao cobre `date-fns/locale`, que pro Rollup e outro modulo — o que nao e externo vira bundle, e o import saia apontando pra `../../../../node_modules/date-fns/locale/pt-BR.mjs`, caminho que so existe na maquina que buildou. O build do consumidor quebraria (classe da L-017). Pego pelo `lib:verify` no CI; o local tinha rodado ANTES do import entrar. Junto veio o gate `lib-externals`, que faz a mesma pergunta em milissegundos no `npm test` em vez de so no build de 30s.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**`size` no `AlertDialogContent`** — a nota da 0.67.0 dizia \"a prop `size` nos tres\" e ele nao tinha nenhuma. Default `xs` = os 420px de hoje. A escala comeca em `xs` aqui e em `lg` no Dialog porque o default de cada um e a largura que ELE ja tinha; os nomes sao os mesmos, entao `size=\"md\"` da 640 nos dois.",
+          "**`surfaceClassName` no `Card`** — o anel de foco e `ring` externo e SOME quando o card esta em container com `overflow-hidden` ou `content-visibility`. Sem a prop nao havia como alcancar o alvo pra trocar por `ring-inset`.",
+          "**`CommandDialog` com `size`, `contentClassName`, `commandProps` e `title`, e `CommandLoading` exportado.** Sem `shouldFilter={false}` a busca no SERVIDOR era impossivel por ele — o cmdk filtra do lado do cliente e escondia o que veio da API. O consumidor montou a busca global com `Dialog` + `Command` na mao; composicao legitima, mas nao deveria ser obrigatoria pra algo tao comum.",
+          "**`Combobox`: `group` e `hint` na opcao, `closeOnSelect`.** O `group` e chave na OPCAO e nao mudanca na forma de `options` — lista plana continua funcionando —, e os grupos saem na ordem da primeira opcao de cada um, porque ordenar por nome seria decidir pelo consumidor.",
+          "**`DatePicker`: periodo de UM DIA.** O `min={1}` tornava `from === to` impossivel. Ele existia por um motivo real (sem ele o react-day-picker fecha o popover no primeiro clique), entao a troca nao foi apagar a protecao: foi mover o controle do fechamento pro componente, que agora fecha no segundo clique mesmo quando os dois sao o mesmo dia.",
+          "**`HeaderSearch`: `ariaLabel` e `hotkey={false}`.** O nome acessivel era fixo em portugues, e nao havia como desligar o Cmd+K quando o app ja registra o proprio — dois listeners no mesmo atalho brigam.",
+          "**`PageHeader`: `description` aceita `ReactNode` e `descriptionLines=\"none\"`.** A linha secundaria costuma ter link, chip de status ou seletor de periodo; com `string` apenas, o consumidor recriava o header por causa de um `<a>`.",
+          "**`Kpi`: `helperSide` e `helperMaxWidth`** — ajuda longa num tooltip de 320px vira coluna alta e ilegivel.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O calendario do `DatePicker` vem em pt-BR.** Era o unico texto em ingles do DS: o trigger ja formatava \"12 de marco de 2026\" e o calendario abria com \"March\" e \"Mo Tu We\". Nao era escolha — o `Calendar` nunca recebeu `locale`. O `date-fns` ja era dependencia direta, entao o default custa zero byte. **Este e o unico item da versao que muda texto visivel**; passe `locale` pra outro idioma.",
+          "**`Combobox`: o `CommandItem` passou a receber `value={option.value}`** no lugar do label, que e o que o cmdk espera pra indexar. ⚠️ Nao consegui reproduzir o sintoma relatado (rotulos repetidos colidindo): os 7 casos novos passam IGUAL com o codigo antigo, porque o nosso `onSelect` fecha sobre a opcao e nunca le o value do cmdk. A troca fica porque valor unico e o correto e nao custa nada, mas os testes cobrem o comportamento, nao a regressao — e dizem isso.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.67.0",
     date: "2026-09-23",
     tag: "preview",

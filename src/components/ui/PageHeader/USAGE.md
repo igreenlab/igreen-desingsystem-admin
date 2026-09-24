@@ -153,3 +153,9 @@ Duas props que destravam o header sem mudar o default.
 `line-clamp-1` equivalente: o line-clamp troca o `display` para `-webkit-box`, e
 trocar o display de um filho de flex por uma equivalência "visualmente igual" é o
 tipo de detalhe que só aparece numa tela específica.
+
+- **`description` aceita `ReactNode`** (2026-09-24), não só texto: a linha secundária
+  costuma ter link, `Chip` de status ou seletor de período. Com `string` apenas, o
+  consumidor recriava o header por causa de um `<a>`.
+- **`descriptionLines="none"`** solta a descrição sem corte — use quando ela for
+  composta.

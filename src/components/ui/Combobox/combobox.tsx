@@ -1,3 +1,4 @@
+import * as React from "react";
 import { forwardRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/shadcn/command";
+import { Separator } from "@/components/shadcn/separator";
 import { Chip } from "@/components/ui/Chip";
 import { comboboxStyles } from "./combobox.styles";
 import type { ComboboxOption, ComboboxProps } from "./combobox.types";
@@ -55,6 +57,8 @@ export const Combobox = forwardRef<HTMLButtonElement, ComboboxProps>(
       value?: string | string[];
       onValueChange?: (v: never) => void;
     };
+    const fechaAoEscolher =
+      props.multiple === true ? false : (props.closeOnSelect ?? true);
     const { maxChips = 2, renderSummary } =
       props.multiple === true ? props : ({} as { maxChips?: number; renderSummary?: never });
 
@@ -82,7 +86,7 @@ export const Combobox = forwardRef<HTMLButtonElement, ComboboxProps>(
     const escolher = (o: ComboboxOption) => {
       if (!multiple) {
         (onValueChange as ((v: string) => void) | undefined)?.(o.value);
-        setOpen(false);
+        if (fechaAoEscolher) setOpen(false);
         return;
       }
       // Toggle, e o dropdown FICA ABERTO: escolher várias de uma lista longa com o
@@ -93,6 +97,21 @@ export const Combobox = forwardRef<HTMLButtonElement, ComboboxProps>(
         : [...atual, o.value];
       (onValueChange as ((v: string[]) => void) | undefined)?.(proximo);
     };
+
+    /**
+     * Agrupa preservando a ORDEM de `options`: as sem `group` vêm primeiro (sem
+     * cabeçalho) e cada grupo aparece na posição da sua primeira opção. Ordenar por nome
+     * aqui seria decidir pelo consumidor — a ordem da lista é dele.
+     */
+    const grupos = React.useMemo(() => {
+      const out: { heading?: string; itens: ComboboxOption[] }[] = [];
+      for (const o of options) {
+        const atual = out.find((g) => g.heading === o.group);
+        if (atual) atual.itens.push(o);
+        else out.push({ heading: o.group, itens: [o] });
+      }
+      return out;
+    }, [options]);
 
     const conteudoTrigger = () => {
       if (selecionados.length === 0) return placeholder;
@@ -144,30 +163,47 @@ export const Combobox = forwardRef<HTMLButtonElement, ComboboxProps>(
             <CommandInput placeholder={searchPlaceholder} />
             <CommandList>
               <CommandEmpty>{emptyMessage}</CommandEmpty>
-              <CommandGroup>
-                {options.map((option) => {
-                  const isSelected = estaSelecionada(option);
-                  return (
-                    <CommandItem
-                      key={option.value}
-                      value={option.label}
-                      keywords={[option.value, ...(option.keywords ?? [])]}
-                      // `aria-selected` é do cmdk (item ativo do teclado). Em multi,
-                      // quem diz "marcado" é `aria-checked` + role de opção múltipla.
-                      role={multiple ? "option" : undefined}
-                      aria-checked={multiple ? isSelected : undefined}
-                      onSelect={() => escolher(option)}
-                      className={cn(
-                        isSelected &&
-                          "text-fg-default font-medium [&_svg]:text-fg-brand",
-                      )}
-                    >
-                      <span className={styles.itemLabel()}>{option.label}</span>
-                      {isSelected && <Check aria-hidden="true" />}
-                    </CommandItem>
-                  );
-                })}
-              </CommandGroup>
+              {grupos.map(({ heading, itens }, i) => (
+                <CommandGroup key={heading ?? "__sem-grupo"} heading={heading}>
+                  {i > 0 && !heading && <Separator className="my-pad-xs" />}
+                  {itens.map((option) => {
+                    const isSelected = estaSelecionada(option);
+                    return (
+                      <CommandItem
+                        key={option.value}
+                        // `value` = o VALUE da opção, não o label. Com o label, duas
+                        // opções de mesmo rótulo (duas "Matriz", em unidades
+                        // diferentes) colidem no cmdk: ele casa pelo value, então uma
+                        // some da lista filtrada e a outra recebe o clique das duas.
+                        // O label continua pesquisável por `keywords`.
+                        value={option.value}
+                        keywords={[
+                          option.label,
+                          ...(option.hint ? [option.hint] : []),
+                          ...(option.keywords ?? []),
+                        ]}
+                        // `aria-selected` é do cmdk (item ativo do teclado). Em multi,
+                        // quem diz "marcado" é `aria-checked` + role de opção múltipla.
+                        role={multiple ? "option" : undefined}
+                        aria-checked={multiple ? isSelected : undefined}
+                        onSelect={() => escolher(option)}
+                        className={cn(
+                          isSelected &&
+                            "text-fg-default font-medium [&_svg]:text-fg-brand",
+                        )}
+                      >
+                        <span className={styles.itemTexto()}>
+                          <span className={styles.itemLabel()}>{option.label}</span>
+                          {option.hint && (
+                            <span className={styles.itemHint()}>{option.hint}</span>
+                          )}
+                        </span>
+                        {isSelected && <Check aria-hidden="true" />}
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              ))}
             </CommandList>
           </Command>
         </PopoverContent>

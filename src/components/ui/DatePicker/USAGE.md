@@ -107,3 +107,18 @@ const [dates, setDates] = useState<Date[]>();
   clearLabel="Limpar período"
 />
 ```
+
+## Locale e período de um dia (2026-09-24)
+
+- **`locale`** — default **`ptBR`**. O calendário renderizava meses e dias em inglês
+  enquanto o trigger já formatava pt-BR ("12 de março de 2026"); era o único texto em
+  inglês do DS, e não era escolha — o `Calendar` nunca recebeu `locale`. Passe outro
+  locale do `date-fns` se precisar.
+- **Período de UM DIA agora é possível** no `mode="range"`: clique duas vezes no mesmo
+  dia. Antes havia `min={1}` no Calendar e isso limpava a seleção.
+
+⚠️ **O popover do range fecha no SEGUNDO clique, e quem controla isso é o componente.**
+O `min={1}` existia por um motivo real — sem ele o react-day-picker completa o range já
+no primeiro clique e o popover fechava antes de escolher o fim. A troca foi mover o
+controle do fechamento pra um estado nosso. Se for mexer na seleção de range, os dois
+caminhos (dia único e período normal) estão em `datepicker-range-locale.test.tsx`.

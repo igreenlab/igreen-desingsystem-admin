@@ -37,5 +37,9 @@ export const comboboxStyles = tv({
     content: "w-[var(--radix-popover-trigger-width)] overflow-hidden p-0",
     // Item da lista: ocupa a largura e trunca rótulos longos.
     itemLabel: "min-w-0 flex-1 truncate",
+    /** Coluna label + hint, pra o check ficar alinhado à direita. */
+    itemTexto: "flex min-w-0 flex-1 flex-col gap-gp-2xs",
+    /** Linha secundária da opção — código, e-mail, unidade. */
+    itemHint: "truncate text-caption-sm text-fg-subtle",
   },
 });

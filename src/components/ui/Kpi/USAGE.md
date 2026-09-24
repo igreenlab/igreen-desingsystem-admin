@@ -134,7 +134,20 @@ import { Phone } from "lucide-react";
     value="1.284"
     helperText="Conta tickets sem resolução no fim do dia."
     href="/tickets?status=open"
-    renderLink={(p) => <Link {...p} to={p.href} />}
+    renderLink={({ href, ...p }) => <Link {...p} to={href} />}
   />
 </KpiGroup>
 ```
+
+## Texto cortado e tooltip (2026-09-24)
+
+- **`title` automático** no rótulo e no valor quando são texto. Eles têm `line-clamp-2`
+  e `truncate`; cortados, não havia NENHUMA forma de ler o resto.
+- **`helperSide`** (default `top`) e **`helperMaxWidth`** no tooltip do `helperText` —
+  texto de ajuda longo num tooltip de 320px vira coluna alta e ilegível.
+- **`KpiDelta` anuncia a direção**: a seta é `aria-hidden` (decorativa), então sem isso
+  "subiu" ou "caiu" existia só em cor e ícone. Agora há um `sr-only` antes do valor —
+  "aumento de 18%", "queda de 12s".
+
+⚠️ O `label` continua sendo `string`, e não `ReactNode`: ele é o nome acessível do alvo
+de drill-down (`onClick`/`href`) e a fonte do `title`. Nó arbitrário quebra os dois.

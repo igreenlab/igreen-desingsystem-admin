@@ -87,7 +87,7 @@ type AppShellBaseProps = {
    *
    * ```tsx
    * import { Link } from "react-router-dom";
-   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />
+   * <AppShell renderLink={({ href, ...p }) => <Link {...p} to={href} />} … />
    * ```
    *
    * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —

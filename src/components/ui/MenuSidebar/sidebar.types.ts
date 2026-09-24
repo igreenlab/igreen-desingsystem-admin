@@ -46,7 +46,7 @@ export type SidebarLinkRenderProps = {
  *
  * ```tsx
  * import { Link } from "react-router-dom";
- * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} />
+ * <AppShell renderLink={({ href, ...p }) => <Link {...p} to={href} />} />
  * ```
  *
  * ⚠️ **É render-prop, não `linkComponent`, de propósito.** Um prop que recebe *tipo de

@@ -70,6 +70,10 @@ export const Chip = forwardRef<HTMLElement, ChipProps>(function Chip(
     asButton,
     onRemove,
     removeLabel,
+    // Extraído do rest de propósito: com `onRemove` a pílula é um <span>, e `disabled`
+    // num <span> é atributo inválido — não desabilita nada e ainda vaza pro DOM. Aqui
+    // ele vai pros BOTÕES, que é onde significa alguma coisa.
+    disabled: desabilitado,
     className,
     type,
     ...rest
@@ -98,6 +102,7 @@ export const Chip = forwardRef<HTMLElement, ChipProps>(function Chip(
             onClick={onClick}
             className={chipLabel()}
             aria-pressed={selected}
+            disabled={desabilitado}
           >
             {children}
           </button>
@@ -109,6 +114,7 @@ export const Chip = forwardRef<HTMLElement, ChipProps>(function Chip(
           onClick={onRemove}
           className={chipRemove({ size })}
           aria-label={nome}
+          disabled={desabilitado}
         >
           <X aria-hidden />
         </button>
@@ -124,6 +130,7 @@ export const Chip = forwardRef<HTMLElement, ChipProps>(function Chip(
         onClick={onClick}
         className={classes}
         aria-pressed={selected}
+        disabled={desabilitado}
         {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         {children}

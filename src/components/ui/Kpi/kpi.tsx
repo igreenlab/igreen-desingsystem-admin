@@ -10,6 +10,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/shadcn/tooltip";
+import { useTitleSeTruncado } from "@/utils/use-title-se-truncado";
 import { kpi } from "./kpi.styles";
 import { KpiSurfaceContext } from "./kpi-group";
 import type { KpiProps } from "./kpi.types";
@@ -28,6 +29,8 @@ export function Kpi({
   delta,
   hint,
   helperText,
+  helperSide = "top",
+  helperMaxWidth,
   icon,
   tone = "neutral",
   size = "md",
@@ -41,6 +44,8 @@ export function Kpi({
   className,
 }: KpiProps) {
   const inherited = useContext(KpiSurfaceContext);
+  const rotulo = useTitleSeTruncado<HTMLHeadingElement>(label);
+  const valor = useTitleSeTruncado<HTMLSpanElement>(value);
   const interactive = Boolean(onClick || href);
   const s = kpi({ size, surface: surface ?? inherited, tone, interactive });
 
@@ -48,7 +53,14 @@ export function Kpi({
     <article className={cn(s.root(), className)}>
       <header className={s.header()}>
         <div className="flex min-w-0 items-start gap-gp-xs">
-          <h3 className={s.label()}>{label}</h3>
+          {/*
+            `title` SÓ quando o texto está de fato cortado — ver `useTitleSeTruncado`.
+            Incondicional (a 1ª versão disto) põe tooltip nativo em TODO hover, inclusive
+            nos casos em que o rótulo cabe inteiro. Numa grade de 8 KPIs vira ruído.
+          */}
+          <h3 ref={rotulo.ref} className={s.label()} title={rotulo.title}>
+            {label}
+          </h3>
           {helperText && (
             <Tooltip>
               <TooltipTrigger
@@ -58,7 +70,9 @@ export function Kpi({
               >
                 <HelpCircle aria-hidden />
               </TooltipTrigger>
-              <TooltipContent>{helperText}</TooltipContent>
+              <TooltipContent side={helperSide} className={helperMaxWidth}>
+                {helperText}
+              </TooltipContent>
             </Tooltip>
           )}
         </div>
@@ -70,7 +84,9 @@ export function Kpi({
       </header>
       <div className={s.main()}>
         <div className={s.valueRow()}>
-          <span className={s.value()}>{value}</span>
+          <span ref={valor.ref} className={s.value()} title={valor.title}>
+            {value}
+          </span>
           {delta}
         </div>
         {hint && <span className={s.hint()}>{hint}</span>}

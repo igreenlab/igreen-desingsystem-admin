@@ -10,6 +10,7 @@ import {
 } from "../components";
 
 const TOC = [
+  { id: "ex-grupos", label: "Grupos, hint e closeOnSelect" },
   { id: "ex-multiple", label: "Multi-seleção" },
   { id: "examples", label: "Examples" },
   { id: "ex-basic", label: "Básico" },
@@ -73,6 +74,7 @@ function KeywordsExample() {
 }
 
 export function ComboboxDoc() {
+  const [coluna, setColuna] = useState<string>();
   const [varios, setVarios] = useState<string[]>([]);
   return (
     <DocLayout toc={TOC}>
@@ -85,6 +87,39 @@ export function ComboboxDoc() {
       <DocSeparator />
 
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-grupos"
+        title="Grupos, hint e closeOnSelect"
+        description="\`group\` é chave na OPÇÃO, não mudança na forma de \`options\`: lista plana continua funcionando. Os grupos saem na ordem da primeira opção de cada um — ordenar por nome seria decidir pelo consumidor. \`hint\` é a linha secundária e entra na busca. \`closeOnSelect={false}\` mantém aberto pra comparar alternativas."
+        code={`<Combobox
+  options={[
+    { value: "todas", label: "Todas as colunas" },          // sem grupo: vem antes
+    { value: "nome",  label: "Nome", group: "Cliente" },
+    { value: "doc",   label: "CNPJ", hint: "14 dígitos", group: "Cliente" },
+    { value: "sla",   label: "SLA",  group: "Contrato" },
+  ]}
+  closeOnSelect={false}
+/>`}
+      >
+        <div className="max-w-page-xs">
+          <Combobox
+            value={coluna}
+            onValueChange={setColuna}
+            closeOnSelect={false}
+            placeholder="Escolha a coluna…"
+            aria-label="Coluna"
+            options={[
+              { value: "todas", label: "Todas as colunas" },
+              { value: "nome", label: "Nome", group: "Cliente" },
+              { value: "doc", label: "CNPJ", hint: "14 dígitos", group: "Cliente" },
+              { value: "sla", label: "SLA", hint: "em horas", group: "Contrato" },
+              { value: "valor", label: "Valor", group: "Contrato" },
+            ]}
+          />
+        </div>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-multiple"

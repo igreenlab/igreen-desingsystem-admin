@@ -7,6 +7,20 @@ export type ComboboxOption = {
   value: string;
   label: string;
   keywords?: string[];
+  /**
+   * Linha secundária na opção (código, e-mail, unidade). NÃO entra na busca por si —
+   * se quiser que o texto seja pesquisável, repita em `keywords`.
+   */
+  hint?: string;
+  /**
+   * Cabeçalho do grupo a que a opção pertence. Opções com o mesmo `group` são
+   * renderizadas juntas, sob esse título.
+   *
+   * É chave na OPÇÃO, e não uma mudança na forma de `options`, de propósito: quem já
+   * passa uma lista plana não muda nada, e agrupar vira acrescentar um campo. Opções
+   * sem `group` aparecem primeiro, sem cabeçalho.
+   */
+  group?: string;
 };
 
 export interface ComboboxBaseProps
@@ -44,6 +58,13 @@ export interface ComboboxSingleProps extends ComboboxBaseProps {
   value?: string;
   /** Disparado ao escolher uma opção — recebe o `value` da opção. */
   onValueChange?: (value: string) => void;
+  /**
+   * Fecha o dropdown ao escolher. Default `true`.
+   *
+   * `false` mantém aberto — útil quando a escolha alimenta uma prévia ao lado e o
+   * usuário compara alternativas antes de sair.
+   */
+  closeOnSelect?: boolean;
 }
 
 /**

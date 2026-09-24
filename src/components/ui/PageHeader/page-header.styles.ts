@@ -59,6 +59,9 @@ export const pageHeaderStyles = tv({
       1: { description: "whitespace-nowrap overflow-hidden text-ellipsis" },
       2: { description: "line-clamp-2" },
       3: { description: "line-clamp-3" },
+      // Sem corte: a descrição cresce. Não é o default porque header é âncora de
+      // leitura — mas com conteúdo composto (link, chip, seletor) cortar é pior.
+      none: { description: "" },
     },
     hideTextOnMobile: {
       true: { textCol: "max-md:hidden" },

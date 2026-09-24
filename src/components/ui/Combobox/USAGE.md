@@ -78,3 +78,26 @@ lista longa):
 ali dentro seria botão aninhado: HTML inválido, o navegador desaninha e o × passa a
 abrir o dropdown. Pra dar remoção com ×, renderize `<Chip onRemove>` **abaixo** do
 campo, a partir do mesmo estado.
+
+## Grupos, hint e closeOnSelect (2026-09-24)
+
+```tsx
+<Combobox
+  options={[
+    { value: "todas", label: "Todas as colunas" },              // sem grupo: vem antes
+    { value: "nome", label: "Nome", group: "Cliente" },
+    { value: "doc",  label: "CNPJ", hint: "14 dígitos", group: "Cliente" },
+    { value: "sla",  label: "SLA",  group: "Contrato" },
+  ]}
+/>
+```
+
+- **`group`** é chave na OPÇÃO, não uma mudança na forma de `options`: quem já passa
+  lista plana não muda nada. Os grupos aparecem na ordem da primeira opção de cada um —
+  ordenar por nome seria decidir pelo consumidor.
+- **`hint`** é a linha secundária (código, e-mail, unidade). Entra na busca.
+- **`closeOnSelect={false}`** (só no modo simples) mantém o dropdown aberto.
+
+⚠️ **O `value` do `CommandItem` é o `option.value`, não o label.** O cmdk indexa por
+`value`; com o label, rótulos repetidos (duas "Matriz", em unidades diferentes)
+compartilham a mesma chave. O label segue pesquisável porque vai em `keywords`.

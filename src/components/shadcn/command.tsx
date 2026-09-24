@@ -46,7 +46,49 @@ const Command = React.forwardRef<
 ))
 Command.displayName = CommandPrimitive.displayName
 
-const CommandDialog = ({ children, ...props }: DialogProps) => {
+/**
+ * Largura da paleta. Era `sm:max-w-[384px]` fixo — arbitrário, sem token, e sem saída:
+ * paleta com resultado rico (ícone + título + descrição + atalho) não cabe em 384px.
+ */
+const COMMAND_DIALOG_SIZE = {
+  // 384px — o DEFAULT, e é a largura que a paleta sempre teve. Era
+  // `sm:max-w-[384px]` hardcoded; `max-w-sm` é o mesmo valor pelo nome do Tailwind
+  // (24rem), agora que a escala nativa voltou a valer. Tokenizar não muda pixel.
+  sm: "sm:max-w-sm",
+  md: "sm:max-w-drawer-md", // 480px
+  lg: "sm:max-w-modal-md",  // 640px
+} as const;
+
+export type CommandDialogSize = keyof typeof COMMAND_DIALOG_SIZE;
+
+type CommandDialogProps = DialogProps & {
+  /** Largura da paleta: sm 384 (default, a de sempre) · md 480 · lg 640. */
+  size?: CommandDialogSize;
+  /** className do `DialogContent` — altura máxima, sombra, o que for. */
+  contentClassName?: string;
+  /**
+   * Props repassadas ao `<Command>` do cmdk: `shouldFilter`, `filter`, `loop`,
+   * `value`, `onValueChange`.
+   *
+   * Sem isto, busca no SERVIDOR era impossível pelo `CommandDialog` — o cmdk filtra do
+   * lado do cliente por default, e não havia como passar `shouldFilter={false}`. O
+   * consumidor igreen-tickets montou a busca global dele com `Dialog` + `Command` na
+   * mão por causa disso, o que é uma composição legítima, mas não deveria ser
+   * obrigatória pra algo tão comum.
+   */
+  commandProps?: React.ComponentPropsWithoutRef<typeof CommandPrimitive>;
+  /** Título acessível da paleta (sr-only). Default "Comando". */
+  title?: string;
+};
+
+const CommandDialog = ({
+  children,
+  size = "sm",
+  contentClassName,
+  commandProps,
+  title = "Comando",
+  ...props
+}: CommandDialogProps) => {
   return (
     <Dialog {...props}>
       <DialogContent
@@ -55,18 +97,29 @@ const CommandDialog = ({ children, ...props }: DialogProps) => {
         // header visível) e opt-out de descrição.
         aria-describedby={undefined}
         className={cn(
-          "overflow-hidden p-0 gap-0 sm:max-w-[384px]",
+          "overflow-hidden p-0 gap-0",
+          COMMAND_DIALOG_SIZE[size],
           "rounded-[12px] border border-border-default",
           // Outline padrão de elementos flutuantes
-          "outline-float"
+          "outline-float",
+          contentClassName
         )}
       >
-        <DialogTitle className="sr-only">Comando</DialogTitle>
-        <Command>{children}</Command>
+        <DialogTitle className="sr-only">{title}</DialogTitle>
+        <Command {...commandProps}>{children}</Command>
       </DialogContent>
     </Dialog>
   )
 }
+
+/**
+ * Estado de carregando do cmdk, reexportado sem casca própria.
+ *
+ * O pacote não o exportava, então busca assíncrona pelo `CommandDialog` não tinha como
+ * mostrar progresso — o consumidor importava do `cmdk` direto, o que fura o contrato de
+ * "o DS é a fonte" e prende a versão do cmdk no projeto dele.
+ */
+const CommandLoading = CommandPrimitive.Loading;
 
 /* ── Input boxed (igual views-popover search) ─────────────────────────────── */
 const CommandInput = React.forwardRef<
@@ -200,6 +253,7 @@ CommandShortcut.displayName = "CommandShortcut"
 export {
   Command,
   CommandDialog,
+  CommandLoading,
   CommandInput,
   CommandList,
   CommandEmpty,

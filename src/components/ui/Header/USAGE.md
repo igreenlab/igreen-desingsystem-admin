@@ -125,3 +125,12 @@ import {
 ```
 
 Sem elas o campo é reconstruído na unha e diverge no primeiro ajuste de token.
+
+### `ariaLabel` e `hotkey={false}` (2026-09-24)
+
+- **`ariaLabel`** — nome acessível do campo e do botão-ícone. Default `"Abrir busca"`,
+  que era **fixo**: não dava pra traduzir nem pra dizer o que a busca busca
+  (`ariaLabel="Buscar tickets"`).
+- **`hotkey={false}`** desliga o listener global de ⌘K. Use quando o app já registra o
+  próprio — dois listeners no mesmo atalho brigam, e antes não havia como desligar o
+  nosso. Com `false` o `title` do botão também para de anunciar o atalho.

@@ -58,6 +58,15 @@ export interface KpiProps {
    * Use pra explicar COMO a métrica é calculada; não repita o rótulo.
    */
   helperText?: ReactNode;
+  /** Lado do tooltip do `helperText`. Default "top". */
+  helperSide?: "top" | "right" | "bottom" | "left";
+  /**
+   * Largura máxima do tooltip do `helperText`. Default `max-w-tooltip-lg` (320px).
+   *
+   * Existe porque texto de ajuda longo num tooltip estreito vira uma coluna alta e
+   * difícil de ler — passe `max-w-page-xs` e similares pra soltar.
+   */
+  helperMaxWidth?: string;
   /** Ícone (lucide etc.) — renderizado num container colorido por `tone`. */
   icon?: ReactNode;
   /** Tom do container do ícone. Default: "neutral". */

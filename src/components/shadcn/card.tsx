@@ -101,17 +101,51 @@ const PULL_TOP: Record<CardSize, string> = {
  * um botão secundário) precisa de `relative z-10` pra ficar acima do overlay.
  */
 type CardClickProps =
-  | { onClick?: never; href?: never; surfaceLabel?: never; target?: never; renderLink?: never }
-  | ({ surfaceLabel: string } & Pick<
+  | {
+      onClick?: never; href?: never; surfaceLabel?: never; target?: never;
+      renderLink?: never; surfaceClassName?: never; disabled?: never;
+    }
+  | ({
+      surfaceLabel: string;
+      /**
+       * className do ALVO esticado, não do card. Existe porque o anel de foco é externo
+       * (`ring`) e some quando o card está dentro de um container com
+       * `overflow-hidden` ou `content-visibility` — reportado pelo consumidor, que
+       * resolveu com `ring-inset`. Sem esta prop, não havia como alcançar o alvo.
+       */
+      surfaceClassName?: string;
+    } & Pick<
       ClickableSurfaceProps,
-      "onClick" | "href" | "target" | "renderLink"
+      | "onClick"
+      | "href"
+      | "target"
+      | "renderLink"
+      | "aria-pressed"
+      | "aria-current"
+      | "aria-expanded"
+      | "disabled"
     >);
 
 const Card = React.forwardRef<
   HTMLDivElement,
   Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> & { size?: CardSize } & CardClickProps
 >((
-  { className, size = "md", children, onClick, href, surfaceLabel, target, renderLink, ...props },
+  {
+    className,
+    size = "md",
+    children,
+    onClick,
+    href,
+    surfaceLabel,
+    surfaceClassName,
+    target,
+    renderLink,
+    "aria-pressed": ariaPressed,
+    "aria-current": ariaCurrent,
+    "aria-expanded": ariaExpanded,
+    disabled,
+    ...props
+  },
   ref,
 ) => {
   const clicavel = Boolean(onClick || href);
@@ -135,6 +169,11 @@ const Card = React.forwardRef<
           href={href}
           target={target}
           renderLink={renderLink}
+          className={surfaceClassName}
+          aria-pressed={ariaPressed}
+          aria-current={ariaCurrent}
+          aria-expanded={ariaExpanded}
+          disabled={disabled}
         />
       )}
     </div>
