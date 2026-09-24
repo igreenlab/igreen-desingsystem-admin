@@ -37,7 +37,32 @@ export type ClickableSurfaceLinkProps = {
   "aria-label": string;
 };
 
-export type ClickableSurfaceProps = {
+/**
+ * Atributos de ESTADO que o alvo precisa carregar quando a superfície representa uma
+ * seleção, e não só um link.
+ *
+ * Reportado pelo consumidor igreen-tickets: 19 superfícies (card de lote, pipeline,
+ * ranking, nav de categoria) viraram `ClickableSurface`, e a seleção ficou **só
+ * visual** — o alvo não anunciava estado nenhum. Sem isto, quem usa leitor de tela não
+ * sabe qual card está escolhido.
+ */
+export type ClickableSurfaceStateProps = {
+  /** Botão de alternância — o card está "ligado"? */
+  "aria-pressed"?: React.AriaAttributes["aria-pressed"];
+  /** Item selecionado dentro de um conjunto (nav, ranking, pipeline). */
+  "aria-current"?: React.AriaAttributes["aria-current"];
+  /** A superfície abre/fecha algo. */
+  "aria-expanded"?: React.AriaAttributes["aria-expanded"];
+  /** Descreve o alvo por outro elemento (ex.: o título do card). */
+  "aria-describedby"?: string;
+  /**
+   * Desabilita o alvo. Em `<a>` não existe `disabled`: vira
+   * `aria-disabled` + `pointer-events-none` + `tabIndex={-1}`, que é a forma correta.
+   */
+  disabled?: boolean;
+};
+
+export type ClickableSurfaceProps = ClickableSurfaceStateProps & {
   /** Nome acessível do alvo. Obrigatório — o elemento não tem conteúdo. */
   label: string;
   /** Clique. Sem `href`, o alvo é `<button type="button">`. */
@@ -61,10 +86,23 @@ export function ClickableSurface({
   target,
   renderLink,
   className,
+  disabled,
+  ...estado
 }: ClickableSurfaceProps) {
   if (!onClick && !href) return null;
 
-  const classes = cn(CLICKABLE_SURFACE_CLASS, className);
+  const classes = cn(
+    CLICKABLE_SURFACE_CLASS,
+    // `<a>` não tem `disabled`; e mesmo no `<button>` o alvo precisa sair da ordem de
+    // foco, senão o Tab para num controle que não faz nada.
+    disabled && "pointer-events-none",
+    className,
+  );
+  const aria = {
+    ...estado,
+    "aria-disabled": disabled || undefined,
+    tabIndex: disabled ? -1 : undefined,
+  };
 
   if (href) {
     const aoClicar = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -90,6 +128,7 @@ export function ClickableSurface({
       onClick: aoClicar,
       target,
       "aria-label": label,
+      ...aria,
     };
 
     // Com `renderLink`, quem decide a navegação é o `<Link>` do router — o DS não mexe
@@ -102,7 +141,14 @@ export function ClickableSurface({
   }
 
   return (
-    <button type="button" className={classes} onClick={onClick} aria-label={label} />
+    <button
+      type="button"
+      className={classes}
+      onClick={onClick}
+      aria-label={label}
+      disabled={disabled}
+      {...aria}
+    />
   );
 }
 

@@ -48,10 +48,32 @@ const AlertDialogOverlay = React.forwardRef<
 ));
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 
+/**
+ * Largura do conteúdo, na mesma escala `modal-*` do `Dialog`.
+ *
+ * O default `xs` são os 420px que o AlertDialog sempre teve. Os degraus existem pra o
+ * caso de confirmação com corpo maior (lista do que será apagado, diff, preview).
+ *
+ * ⚠️ A escala começa em `xs` aqui e em `lg` no `Dialog` — não é descuido: o default de
+ * cada um é a largura que ELE já tinha, e alert é estreito de propósito. Os NOMES são os
+ * mesmos, então `size="md"` dá 640 nos dois.
+ */
+const ALERT_DIALOG_SIZE = {
+  xs: "sm:max-w-modal-xs", // 420px — default
+  sm: "sm:max-w-modal-sm", // 480px
+  md: "sm:max-w-modal-md", // 640px
+  lg: "sm:max-w-modal-lg", // 768px
+} as const;
+
+export type AlertDialogSize = keyof typeof ALERT_DIALOG_SIZE;
+
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> & {
+    /** Largura na escala de modal do DS: xs 420 (default) · sm 480 · md 640 · lg 768. */
+    size?: AlertDialogSize;
+  }
+>(({ className, size = "xs", ...props }, ref) => (
   <AlertDialogPortal>
     <AlertDialogOverlay />
     <AlertDialogPrimitive.Content
@@ -60,7 +82,8 @@ const AlertDialogContent = React.forwardRef<
         // `modal-xs` = 420px: o MESMO valor de antes, que era `sm:max-w-[420px]` — um
         // hardcode que a primeira regra crítica do CLAUDE.md proíbe. O degrau nasceu
         // pra ele; tokenizar não muda pixel.
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-modal-xs",
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)]",
+        ALERT_DIALOG_SIZE[size],
         "translate-x-[-50%] translate-y-[-50%]",
         // Teto de altura + rolagem interna — mesma regra e margem do DialogContent.
         "max-h-[calc(100dvh-2rem)] overflow-y-auto",

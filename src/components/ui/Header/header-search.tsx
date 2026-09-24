@@ -26,8 +26,19 @@ export type HeaderSearchProps = {
   commandGroups?: HeaderCommandGroup[];
   commandPlaceholder?: string;
   commandEmptyMessage?: string;
-  /** Atalho de teclado pra abrir (default: cmd/ctrl + k) */
-  hotkey?: { key: string; meta?: boolean; ctrl?: boolean };
+  /**
+   * Atalho de teclado pra abrir (default: cmd/ctrl + k).
+   *
+   * `false` desliga o listener global — use quando o app JÁ registra o próprio ⌘K: dois
+   * listeners no mesmo atalho brigam, e o consumidor não tinha como desligar o nosso.
+   */
+  hotkey?: { key: string; meta?: boolean; ctrl?: boolean } | false;
+  /**
+   * Nome acessível do campo e do botão-ícone. Default "Abrir busca".
+   * Era fixo em português — não dava pra traduzir nem pra dizer o que a busca busca
+   * ("Buscar tickets").
+   */
+  ariaLabel?: string;
   /**
    * Delega a abertura: quando passado, o clique no campo e o atalho chamam ISTO em vez
    * de abrir a paleta interna — e o `CommandDialog` do componente não é montado.
@@ -56,6 +67,7 @@ export function HeaderSearch({
   commandEmptyMessage = "Nenhum resultado encontrado.",
   hotkey = { key: "k", meta: true, ctrl: true },
   onOpen,
+  ariaLabel = "Abrir busca",
   className,
 }: HeaderSearchProps) {
   const [open, setOpen] = useState(false);
@@ -64,6 +76,7 @@ export function HeaderSearch({
 
   // Atalho global (⌘K / Ctrl+K)
   useEffect(() => {
+    if (hotkey === false) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() !== hotkey.key.toLowerCase()) return;
       const meta = hotkey.meta && e.metaKey;
@@ -76,7 +89,7 @@ export function HeaderSearch({
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [hotkey.key, hotkey.meta, hotkey.ctrl, onOpen]);
+  }, [hotkey, onOpen]);
 
   return (
     <>
@@ -85,7 +98,7 @@ export function HeaderSearch({
         type="button"
         className={cn(searchFakeInput(), "hidden md:inline-flex", className)}
         onClick={abrir}
-        aria-label="Abrir busca"
+        aria-label={ariaLabel}
       >
         <Search className={searchFakeInputIcon()} strokeWidth={1.8} />
         <span className={searchFakeInputText()}>{placeholder}</span>
@@ -99,8 +112,8 @@ export function HeaderSearch({
         size="icon-sm"
         className="md:hidden rounded-radius-md"
         onClick={abrir}
-        aria-label="Abrir busca"
-        title={`Buscar (${shortcut})`}
+        aria-label={ariaLabel}
+        title={hotkey === false ? ariaLabel : `${ariaLabel} (${shortcut})`}
       >
         <Search />
       </Button>
