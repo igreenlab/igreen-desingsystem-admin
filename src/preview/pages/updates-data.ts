@@ -46,6 +46,53 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.67.0",
+    date: "2026-09-23",
+    tag: "preview",
+    title: "A escala de container para de mentir",
+    summary:
+      "O DS chamava a propria escala de largura de `xs`…`3xl` — os MESMOS nomes do Tailwind. No v4 esses nomes sao a var `--container-*`, que alimenta `max-w-*`, `w-*` e as variantes de container query, entao o DS sobrescrevia a escala nativa: `max-w-lg` valia 1024px em vez de 512. Sem erro, sem lint, sem teste. Nao aparecia aqui porque o showcase foi escrito sabendo o valor — a regua e o objeto medido eram o mesmo. Apareceu no consumidor igreen-tickets: 70 dialogos, sheets e cards de pagina com o DOBRO da largura pretendida desde a adocao, corrigidos um a um. Esta versao devolve os nomes ao Tailwind (a escala do DS virou `max-w-page-*`), ensina o tailwind-merge a reconhecer os tokens de container, e responde ao resto do documento de pedidos do Tickets: 13 itens aceitos, 7 recusados com motivo. Tambem engloba as PRs #333, #334 e #335, que estavam na main e nunca foram publicadas.",
+    changes: [
+      {
+        type: "breaking",
+        items: [
+          "**`max-w-lg` voltou a ser 512px** (e `sm`/`md`/`xl`/`2xl`/`3xl`, idem). A escala de pagina do DS agora se chama **`max-w-page-*`** — `max-w-page-lg` e os 1024px de antes. Quem escreveu `max-w-lg` esperando o valor do DS troca pelo `page-`; quem escreveu esperando o Tailwind nao precisa fazer nada, e provavelmente estava recebendo o dobro sem perceber. `container` deixa de ser a excecao do duplo-prefixo: todo degrau tem prefixo de papel (`page-`, `modal-`, `drawer-`, `tooltip-`, `dropdown-`, `sidebar-`), como `gp-`/`sp-`/`pad-`. Os 151 usos internos foram reescritos por codemod preservando o pixel.",
+          "**`max-w-modal-lg` era 800px e virou 768px.** A escala `modal-*` foi reconstruida a partir das larguras que os overlays JA renderizavam (420/480/640/768) em vez do 480/640/800 anterior, que nenhum overlay do DS usava. Dialog, Sheet e AlertDialog **nao mudam de tamanho** — mudou o nome do que eles pedem. Quem usava `max-w-modal-lg` esperando 800 perde 32px.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O tailwind-merge nao conhecia NENHUM token de container.** `max-w-modal-sm` nao vencia nem `max-w-modal-lg` — token do DS contra token do DS: as duas classes sobreviviam no elemento e quem decidia era a ordem do CSS, nunca um erro. O consumidor prefixou 51 overlays com `sm:` pra contornar, sem saber a causa. Entra por `theme.container`, que cobre `max-w`, `min-w`, `w` e `basis` de uma vez.",
+          "**`cn` e `tv` tinham DUAS configs de merge divergentes**, com um comentario pedindo sincronia manual que nunca existiu: a de `tv` so conhecia os presets tipograficos. Componente que fazia merge por `tv()` e componente que fazia por `cn()` resolviam conflito de formas diferentes. Agora ha uma so (`src/utils/tw-merge-config.ts`), e os dois saem no barrel — a config nao e generica, entao um `cn` de fora resolve errado.",
+          "**`KpiGroup` quebrava por viewport, e o grupo quase nunca ocupa o viewport.** Ao lado de uma sidebar de 280px, oito KPIs numa janela de 1280 recebiam 6 colunas num espaco de ~700px: o numero passava da borda e o rotulo quebrava em quatro linhas. Agora quebra por container query, com teto de 4 por linha ate 1024px, e o card e a prova de estouro (`min-w-0`, `line-clamp-2` no rotulo, `truncate` no valor).",
+          "**As divisorias do `KpiGroup divided` nao separavam as fileiras.** O `divide-x`/`divide-y` do Tailwind aplica borda por ORDEM DO DOM e nao sabe nada de grid: num grid de 2 colunas x 3 fileiras desenhava so as verticais. Trocado por uma tecnica grid-aware que independe de quantas colunas e fileiras existam, e em que fileira incompleta nao vira bloco pintado.",
+          "**O gate `generated-artifacts` nao rodava em nenhum git worktree.** Resolvia o `tsx` por caminho relativo ao cwd, e num worktree o `node_modules` fica no checkout-pai: os DOIS testes morriam com MODULE_NOT_FOUND, inclusive o de controle que adultera o tema de proposito. O gate que compara o CSS commitado com os tokens estava desligado justamente onde o trabalho de token acontece.",
+          "**O lint proibia altura de bloco e sugeria um token de navbar.** Pra um `h-16` de skeleton a mensagem mandava usar `h-layout-navbar` — mesmo valor, semantica errada. O DS nao tem token de altura de bloco e nao vai ter; a regra agora cobre so a faixa de FORM (h-7 a h-11), onde o token existe.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**`Chip onRemove`** — o x ganha alvo proprio, com `removeLabel` pro nome acessivel. A receita que o proprio USAGE ensinava era `<Chip onClick={remover}>Status: Ativo x</Chip>`: o x digitado no texto, o chip inteiro removendo, e sem jeito de ter \"editar o filtro\" e \"tirar o filtro\" no mesmo chip. Com `onRemove` a pilula vira `<span>` e a label ganha o proprio botao — botao dentro de botao e HTML invalido.",
+          "**`Card` clicavel** (`onClick`/`href` + `surfaceLabel`) e a peca `ClickableSurface` que o implementa, reusada pelo `Kpi`. O que o consumidor escrevia era `<div onClick>`: sem foco, sem Enter/Space, sem papel de controle. O alvo e um botao esticado por cima, e nao a raiz trocada por `<button>`, porque conteudo de button e phrasing content.",
+          "**`Combobox multiple`** — multi-selecao com busca. O dropdown NAO fecha a cada escolha, clicar de novo desmarca, e o trigger resume em \"+N\" a partir de `maxChips`. O consumidor mantinha `react-select` em 70 arquivos so por isto.",
+          "**`DatePicker` `minValue`/`maxValue`/`clearable`** — os limites desabilitam o dia no calendario (nao so a navegacao de mes), entao \"nao deixar escolher data futura\" para de ser validacao DEPOIS do clique.",
+          "**`TableSpanRow`** — a linha de largura total. Aqui a tabela e um grid de `<div>`, entao nao existe `colSpan`; sem esta peca, \"nenhum resultado\" e \"carregando\" respeitavam a largura da PRIMEIRA coluna.",
+          "**`Kpi helperText` + drill-down** (`onClick`/`href`/`renderLink`), **`Label weight`**, **`Textarea rows` que realmente diminui**, **`PageHeader titleWrap`/`descriptionLines`**, **`FileUploadField texts`**, **`HeaderSearch onOpen`** (a paleta pode ser a do app) e **`size` no Dialog/Sheet/AlertDialog**. Nenhuma muda default.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**A geometria do header do Dialog voltou a ser a de antes.** A #333 reposicionou o X (16px -> 24px com caixa de 24), trocou o `leading-none` do titulo pelos 24px do preset e pos `pr-32px` no `DialogHeader` — somando +8px de header em todo dialogo de titulo curto, e o `pr` valia ate com `hideClose`. As duas correcoes funcionais da #333 ficam: teto de altura com rolagem interna, e clique em popover portalado que nao fecha mais o dialog.",
+          "**#334 — pacote npm podavel** (`preserveModules` + `sideEffects`, icones fora do mapa) e **#335 — USAGE do Icon** separando o que e do consumidor do que e interno. Estavam na main desde 23/09 e nunca foram publicados.",
+          "**Vocabulario do consumidor ganhou a tabela \"quando voce ia escrever X, use Y\"** com as props novas, e os avisos que mais vao morder: a escala de pagina mudou de nome, e `cn`/`tv` tem que vir do DS.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.66.0",
     date: "2026-09-16",
     tag: "preview",
