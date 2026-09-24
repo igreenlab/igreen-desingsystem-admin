@@ -541,6 +541,30 @@ claro. Nunca `echo` de token, nunca `.npmrc` commitado, nunca token em `pipeline
 npm view @snksergio/design-system version    # tem que bater com o bump
 ```
 
+⛔ **`npm view` dá FALSO NEGATIVO por minutos depois do publish.** O caminho de LEITURA
+do npm (`npm view`, `registry.npmjs.org/<pkg>` e até `registry.npmjs.org/<pkg>/<versão>`)
+serve cache de CDN; o de ESCRITA já sabe. Medido em 2026-09-24, na v0.67.0: o publish
+tinha passado, e por ~6 minutos os três responderam a versão ANTERIOR — o endpoint da
+versão exata devolvendo `404 version not found`. A conclusão errada foi "não publicou",
+e ela quase virou um pedido de republicar pro mantenedor.
+
+**Não conclua "não publicou" por leitura.** Quando o `npm view` discordar do esperado,
+pergunte pra ESCRITA:
+
+```bash
+npm publish        # o registro consulta a escrita, não o cache
+```
+
+`You cannot publish over the previously published versions: <X.Y.Z>` **é a confirmação
+de que subiu** — e é uma pergunta segura de fazer, porque o registro RECUSA o
+sobrescrito em vez de aceitar. Se ainda assim quiser ler, `npm cache clean --force`
+antes do `npm view`.
+
+⚠️ **Mate o dev server antes do publish da raiz.** O `prepublishOnly` roda `build:lib`,
+que escreve em `dist-lib/` — e o watcher do Vite segura os arquivos de lá. No Windows
+isso derruba o dev server com `EBUSY: resource busy or locked` e pode fazer o build
+falhar no meio. O publish do `cli/` não sofre, porque não toca em `dist-lib`.
+
 Reporte e **lembre explicitamente o mantenedor de revogar o token**. Registre no
 `pipeline-state.md` apenas *que* foi publicado e a versão — jamais o token.
 

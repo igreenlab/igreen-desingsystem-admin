@@ -5622,5 +5622,21 @@ vai no minor, e as 3 entries anteriores que tiveram `breaking` também foram min
 projeto nunca declarou 1.0. Declarar 1.0 é decisão de estabilidade de API, não
 consequência mecânica de um breaking.
 
-**Pendente e só humano:** `npm publish` (raiz e `cli/`) — esta conta exige 2FA, token
-clássico sai E403 — e o merge da PR.
+**PUBLICADO em 2026-09-24:** merge da #336 (`03ca176`) + `@snksergio/design-system@0.67.0`
+e `@snksergio/create-design-system@0.25.36` no npm. Os dois confirmados depois de
+`npm cache clean --force`.
+
+⚠️ **Falso negativo na confirmação, e ele custou tempo.** Por ~6 minutos depois do
+publish, o `npm view`, o `registry.npmjs.org/<pkg>` e até o endpoint da versão exata
+(que devolveu `404 version not found`) responderam a versão ANTERIOR — cache de CDN no
+caminho de LEITURA. Li isso como "não publicou" e reportei falha ao mantenedor. Quem
+desfez foi o próprio `npm publish`, que consulta a ESCRITA:
+`cannot publish over the previously published versions: 0.67.0`.
+
+A correção foi pro PONTO DE USO — passo 7.4 do `ds-dev/release.md`, que mandava
+confirmar exatamente pelo caminho que mente —, e não pra uma lição nova: pelas 4
+perguntas do auto-update protocol, ela reprova na segunda ("já está no ponto de uso?").
+
+Achado paralelo, anotado no mesmo passo: o dev server do showcase segurava `dist-lib/`
+e caiu com `EBUSY` quando o `prepublishOnly` rodou o `build:lib`. Não bloqueou a
+publicação, mas mata o dev server e pode quebrar o build no meio.
