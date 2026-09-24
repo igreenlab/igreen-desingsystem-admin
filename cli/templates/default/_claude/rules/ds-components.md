@@ -255,7 +255,7 @@ dobro ou a metade do esperado, é isto. Overlay usa `max-w-modal-*`/`max-w-drawe
 tokens (escala de container, presets tipográficos, **pad-**/**gp-**/**sh-**…). Um `cn` de
 fora resolve conflito errado e a classe perde em silêncio.
 
-## Acessibilidade e saídas (vNEXT)
+## Acessibilidade e saídas (v0.68.0)
 
 | Quando você ia escrever | Use |
 |---|---|
