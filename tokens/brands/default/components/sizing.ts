@@ -49,20 +49,11 @@ export const icon = {
 
 // ─── Container (larguras de containers e overlays) ───────────────────────────
 export const container = {
-  // Page containers — o prefixo `page-` NÃO é decorativo.
-  //
-  // O transform emite cada chave como `--container-<chave>`, e no Tailwind v4 essa é a
-  // MESMA variável que alimenta `max-w-*`, `min-w-*`, `w-*`, `basis-*` e as variantes de
-  // container query (`@lg:`). Enquanto estas chaves se chamavam `xs`…`3xl`, elas
-  // SOBRESCREVIAM a escala nativa: `max-w-lg` valia 1024px em vez de 512, `max-w-md` 768
-  // em vez de 448, `max-w-3xl` 1920 em vez de 768. Sem erro, sem lint, sem teste — e a
-  // escala ficava fora de ordem, porque `4xl` em diante continuava sendo a do Tailwind
-  // (`@3xl` = 1920 disparava DEPOIS de `@4xl` = 896).
-  //
-  // Medido no consumidor igreen-tickets em 2026-09-23: 70 diálogos, sheets e cards de
-  // página renderizaram com o dobro da largura pretendida desde a adoção do DS.
-  //
-  // Não remova o prefixo. Se precisar de um degrau novo de página, ele nasce `page-*`.
+  // Page containers — o prefixo `page-` NÃO é decorativo: cada chave vira
+  // `--container-<chave>`, a mesma var que no Tailwind v4 alimenta `max-w-*`, `w-*` e as
+  // variantes de container query. Sem o prefixo, `xs`…`3xl` SOBRESCREVEM a escala nativa
+  // (`max-w-lg` = 1024 em vez de 512), em silêncio. Detalhe e medição: L-057.
+  // Degrau novo de página nasce `page-*`.
   "page-xs": "480px",
   "page-sm": "640px",
   "page-md": "768px",
@@ -86,20 +77,14 @@ export const container = {
   "sidebar-sm": "240px",
   "sidebar-md": "280px",
   "sidebar-lg": "320px",
+  // Drawer — `lg` (640) é a base do Sheet lateral.
   "drawer-sm": "320px",
   "drawer-md": "480px",
   "drawer-lg": "640px",
-  // Escala de MODAL — os degraus saem das larguras que os overlays do DS já
-  // renderizavam antes de 2026-09-23, quando a escala de container sobrescrevia os
-  // nomes do Tailwind e ninguém via o valor real:
-  //   AlertDialog 420 · Dialog 768 (era `sm:max-w-md`) · Sheet 640 (era `sm:max-w-sm`)
-  //
-  // O nome estava errado, não o tamanho. Tokenizar NÃO era motivo pra mudar o que a
-  // tela mostra — o 480/640/800 anterior era uma escala inventada que nenhum overlay
-  // do DS usava.
-  //
-  // ⚠️ `modal-lg` era 800px. Nada no DS o usava (só o código escrito nesta rodada),
-  // mas consumidor que escreveu `max-w-modal-lg` esperando 800 recebe 768 — 32px.
+  // Modal — degraus tirados das larguras que os overlays JÁ renderizavam: AlertDialog
+  // 420 (`xs`) e Dialog 768 (`lg`). O 480/640/800 anterior era escala inventada, que
+  // nenhum overlay do DS usava; o nome é que estava errado, não o tamanho.
+  // ⚠️ `modal-lg` era 800px — consumidor que o escreveu esperando 800 recebe 768.
   "modal-xs": "420px",
   "modal-sm": "480px",
   "modal-md": "640px",

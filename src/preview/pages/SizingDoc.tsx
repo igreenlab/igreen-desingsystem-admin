@@ -1,5 +1,6 @@
 ﻿import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
 import { Badge } from "../../components/shadcn/badge";
+import { componentSizing } from "../../../tokens/brands/default/components/sizing";
 
 const TOC = [
   { id: "comp", label: "Component (comp)" },
@@ -97,16 +98,17 @@ export function SizingDoc() {
       <SectionH2 id="container" title="Container Widths" />
       <p className="text-body-md text-fg-muted mb-gp-4xl">Max-width breakpoints and overlay widths.</p>
       <div className="grid grid-cols-2 gap-gp-xl mb-14">
-        {[
-          { name: "xs", val: "480px" }, { name: "sm", val: "640px" }, { name: "md", val: "768px" },
-          { name: "lg", val: "1024px" }, { name: "xl", val: "1280px" }, { name: "2xl", val: "1440px" },
-          { name: "3xl", val: "1920px" }, { name: "prose", val: "65ch" }, { name: "full", val: "100%" },
-          { name: "modal-sm", val: "480px" }, { name: "modal-md", val: "640px" }, { name: "modal-lg", val: "800px" },
-          { name: "sidebar-sm", val: "240px" }, { name: "sidebar-md", val: "280px" }, { name: "sidebar-lg", val: "320px" },
-        ].map(c => (
-          <div key={c.name} className="flex items-center gap-gp-md">
-            <span className="text-body-xs text-fg-default font-mono w-24">{c.name}</span>
-            <span className="text-caption-sm text-fg-subtle">{c.val}</span>
+        {/*
+          Derivado do TOKEN, não digitado. Esta lista era mantida à mão e drifou: ficou
+          com os nomes de chave antigos (`xs`…`3xl`, hoje `page-*`) e com `modal-lg` em
+          800px depois do degrau virar 768. Página de doc de token que repete o valor
+          em vez de lê-lo mente no primeiro ajuste — e é a página onde a pessoa vai
+          conferir justamente o valor.
+        */}
+        {Object.entries(componentSizing.container).map(([name, val]) => (
+          <div key={name} className="flex items-center gap-gp-md">
+            <span className="text-body-xs text-fg-default font-mono w-32">{name}</span>
+            <span className="text-caption-sm text-fg-subtle">{val}</span>
           </div>
         ))}
       </div>
