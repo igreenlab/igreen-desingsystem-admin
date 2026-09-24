@@ -5608,7 +5608,19 @@ e o grid do KpiGroup em 400px→1 coluna, 500px→2, 800px→4.
 ⚠️ **Medição durante animação mente:** o dialog lido no meio do `zoom-in-95` dava 608px
 pra um elemento de 640. Só o valor pós-transição vale.
 
-**Distribuição pendente (no `/ds-release`):** embed do registry — o `registry-check`
-acusa 36 arquivos defasados em 560 — + bump do CLI (5 foundationals re-bakeados:
-`utils`, `tv`, `tw-merge-config`, `ds-lint-patterns`, `shadcn-gotchas`) + entrada na
-timeline de Updates.
+**Distribuição: FEITA na mesma PR** (2026-09-23, a pedido do mantenedor — "resolver tudo
+nessa PR"). O `/ds-release` rodou por dentro da #336 em vez de abrir branch própria:
+entry v0.67.0 na timeline · bump 0.66.0 → 0.67.0 · `registry:build` + `copy-registry`
+(101 itens, embed em sync por conteúdo, 569 arquivos, carimbo v0.67.0) · `cli:rebake` +
+bump do CLI 0.25.35 → 0.25.36. `release:check` todos verdes, `npm audit` 0.
+
+A release engloba **#333, #334 e #335**, que estavam na `main` e nunca foram publicadas —
+é a P0.1 do documento do Tickets, com o npm parado na 0.66.0 desde 16/09.
+
+**Bump MINOR com breaking**, e não MAJOR como a tabela do skill sugere: em 0.x o breaking
+vai no minor, e as 3 entries anteriores que tiveram `breaking` também foram minor — o
+projeto nunca declarou 1.0. Declarar 1.0 é decisão de estabilidade de API, não
+consequência mecânica de um breaking.
+
+**Pendente e só humano:** `npm publish` (raiz e `cli/`) — esta conta exige 2FA, token
+clássico sai E403 — e o merge da PR.
