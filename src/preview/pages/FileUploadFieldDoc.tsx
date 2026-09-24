@@ -15,6 +15,7 @@ const TOC = [
   { id: "ex-accept", label: "Accept + tamanho máximo" },
   { id: "ex-url", label: "Editar (value como URL)" },
   { id: "ex-erro", label: "Estados (erro / disabled)" },
+  { id: "ex-texts", label: "Textos (texts)" },
   { id: "api", label: "API Reference" },
 ];
 
@@ -25,6 +26,11 @@ const PROPS = [
   { name: "maxSizeMB", type: "number", defaultVal: "—" },
   { name: "preview", type: "\"image\" | \"file\" | \"auto\"", defaultVal: "\"auto\"" },
   { name: "fileName", type: "string — nome quando value é URL", defaultVal: "—" },
+  {
+    name: "texts",
+    type: "{ drop?, fallbackFileName?, remove?, hint? }",
+    defaultVal: "PT-BR",
+  },
   { name: "label", type: "string", defaultVal: "—" },
   { name: "required", type: "boolean", defaultVal: "—" },
   { name: "state", type: "\"default\" | \"error\" | \"warning\" | \"success\"", defaultVal: "\"default\"" },
@@ -123,6 +129,41 @@ function StatesUploadDemo() {
   );
 }
 
+/**
+ * Os dois lado a lado mostram POR QUE o `texts.hint` existe: o de cima é a dica derivada
+ * do `accept` — que com 2 MIME types já é ilegível — e o de baixo é a mesma restrição
+ * escrita para gente.
+ */
+function TextsUploadDemo() {
+  const [semHint, setSemHint] = useState<File | string | null>(null);
+  const [comHint, setComHint] = useState<File | string | null>(null);
+  const accept = "text/csv,application/vnd.ms-excel";
+
+  return (
+    <div className="flex flex-col gap-form-gap w-full max-w-[420px]">
+      <FileUploadField
+        label="Sem texts.hint — a dica é o accept cru"
+        value={semHint}
+        onChange={setSemHint}
+        accept={accept}
+        maxSizeMB={10}
+      />
+      <FileUploadField
+        label="Importação em lote"
+        value={comHint}
+        onChange={setComHint}
+        accept={accept}
+        maxSizeMB={10}
+        texts={{
+          drop: "Selecionar planilha",
+          hint: "CSV ou XLS · até 10MB · uma linha por cliente",
+          remove: "Remover planilha",
+        }}
+      />
+    </div>
+  );
+}
+
 export function FileUploadFieldDoc() {
   return (
     <DocLayout toc={TOC}>
@@ -215,6 +256,26 @@ const [rejeicao, setRejeicao] = useState<string | null>(null);
 />`}
       >
         <StatesUploadDemo />
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-texts"
+        title="Textos (texts)"
+        description="Os rótulos não são cravados. texts.hint troca a dica menor, que por default é derivada de accept + maxSizeMB — o que vira a lista de MIME crua quando o accept é longo. String vazia esconde a linha; o hint customizado substitui a dica INTEIRA, o 'máx. NMB' incluído."
+        code={`<FileUploadField
+  label="Importação em lote"
+  value={file}
+  onChange={setFile}
+  accept="text/csv,application/vnd.ms-excel"
+  maxSizeMB={10}
+  texts={{
+    drop: "Selecionar planilha",
+    hint: "CSV ou XLS · até 10MB · uma linha por cliente",
+    remove: "Remover planilha",
+  }}
+/>`}
+      >
+        <TextsUploadDemo />
       </ExampleSection>
 
       <DocSeparator />

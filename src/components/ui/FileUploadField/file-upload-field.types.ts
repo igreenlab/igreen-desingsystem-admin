@@ -34,6 +34,12 @@ export interface FileUploadFieldProps {
     fallbackFileName?: string;
     /** Nome acessível do botão de remover. Default: "Remover arquivo". */
     remove?: string;
+    /**
+     * Dica abaixo da chamada. Default: derivada de `accept` + `maxSizeMB`
+     * — que é literalmente a lista de MIME types (`text/csv,application/vnd...`),
+     * ilegível quando `accept` é longo. String vazia esconde a linha.
+     */
+    hint?: string;
   };
   /** Label do campo (renderizado pelo FormField). */
   label?: string;

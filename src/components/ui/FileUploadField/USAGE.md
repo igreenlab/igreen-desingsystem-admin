@@ -116,3 +116,26 @@ que aceitar o nosso texto ou refazer o campo.
 Só as chaves passadas mudam; o resto segue o default. `texts.remove` é o nome
 acessível do botão — numa tela com vários uploads, três botões "Remover arquivo" são
 indistinguíveis no leitor de tela.
+
+### `texts.hint` — a dica, quando `accept` não serve de dica (2026-09-24)
+
+A linha menor abaixo da chamada é derivada de `accept` + `maxSizeMB`. Isso funciona pra
+`accept=".pdf"` e **não** funciona pra importação em lote, onde `accept` é a lista de MIME
+crua:
+
+```
+text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument... · máx. 10MB
+```
+
+```tsx
+<FileUploadField
+  accept="text/csv,application/vnd.ms-excel"
+  maxSizeMB={10}
+  texts={{ hint: "CSV ou XLS · até 10MB · uma linha por cliente" }}
+/>
+
+<FileUploadField texts={{ hint: "" }} />  {/* esconde a linha */}
+```
+
+⚠️ `texts.hint` substitui a dica **inteira**, incluindo o `máx. NMB`. Se o limite importa
+pro usuário, repita-o no texto — o componente não concatena.
