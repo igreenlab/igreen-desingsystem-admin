@@ -3,6 +3,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import type { DateRange, Matcher } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
+import { ptBR } from "date-fns/locale";
 import { X } from "lucide-react";
 
 import { Calendar } from "@/components/shadcn/calendar";
@@ -23,6 +24,15 @@ interface BaseDatePickerProps {
   align?: "start" | "center" | "end";
   /** Nº de meses no calendário. Default: 1 (single/multiple), 2 (range). */
   numberOfMonths?: number;
+  /**
+   * Locale do CALENDÁRIO (meses, dias da semana). Default `ptBR`.
+   *
+   * Era o único texto em inglês do DS: o trigger já formatava em pt-BR
+   * ("12 de março de 2026") enquanto o calendário abria com "March" e "Mo Tu We".
+   * Não era escolha — o `Calendar` nunca recebeu `locale`. O `date-fns` já é
+   * dependência, então o default custa zero.
+   */
+  locale?: typeof ptBR;
   /**
    * Data mínima selecionável. Dias anteriores ficam desabilitados no calendário.
    *
@@ -99,6 +109,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       placeholder,
       disabled,
       align = "start",
+      locale = ptBR,
       minValue,
       maxValue,
       clearable,
@@ -106,6 +117,18 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       className,
     } = props;
     const [open, setOpen] = React.useState(false);
+    /**
+     * O range fecha no SEGUNDO clique, não no primeiro.
+     *
+     * Antes havia `min={1}` no Calendar, justamente pra o RDP não completar o range no
+     * primeiro clique e fechar o popover antes de escolher o fim. O efeito colateral era
+     * tornar impossível um período de UM DIA (`from === to`) — reportado pelo consumidor,
+     * que manteve o date-range-picker local por causa disso.
+     *
+     * Sem o `min`, o primeiro clique já devolve `{ from, to }` iguais; quem segura o
+     * popover aberto passa a ser este estado, e não o RDP.
+     */
+    const [aguardandoFim, setAguardandoFim] = React.useState(false);
 
     // O react-day-picker recebe os limites como MATCHERS de dia desabilitado; passar
     // `fromDate`/`toDate` só moveria a navegação de mês e continuaria deixando clicar.
@@ -128,16 +151,24 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
         : null;
       calendar = (
         <Calendar
-          mode="range"
+          mode="range"
+          locale={locale}
           disabled={desabilitados}
-          // min=1: sem isso o RDP completa o range no PRIMEIRO clique
-          // ({from,to} iguais), fechando o popover e impedindo escolher o fim.
-          min={1}
           numberOfMonths={props.numberOfMonths ?? 2}
           selected={v}
           onSelect={(range) => {
             props.onValueChange?.(range);
-            if (range?.from && range?.to) setOpen(false);
+            if (!range?.from) {
+              // Seleção limpa pelo próprio RDP — recomeça a contagem.
+              setAguardandoFim(false);
+              return;
+            }
+            if (!aguardandoFim) {
+              setAguardandoFim(true); // 1º clique: segura o popover aberto
+              return;
+            }
+            setAguardandoFim(false);
+            setOpen(false); // 2º clique fecha, mesmo com from === to
           }}
           autoFocus
         />
@@ -155,6 +186,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       calendar = (
         <Calendar
           mode="multiple"
+          locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths}
           selected={v}
@@ -168,6 +200,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       calendar = (
         <Calendar
           mode="single"
+          locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths}
           selected={v}
@@ -178,6 +211,11 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
         />
       );
     }
+
+    const aoAbrirFechar = (proximo: boolean) => {
+      setOpen(proximo);
+      if (!proximo) setAguardandoFim(false);
+    };
 
     const limpar = () => {
       // O union de props impede chamar `onValueChange` sem estreitar o mode antes.
@@ -192,7 +230,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       (props.mode === "range" ? "Selecione o período" : "Selecione a data");
 
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={aoAbrirFechar}>
         <PopoverTrigger asChild>
           <button
             ref={ref}
