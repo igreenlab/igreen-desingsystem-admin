@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · accordion · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · alert-dialog · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · alert-modal · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · alert · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · app-shell · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · aspect-ratio · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · avatar-ig · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · avatar · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · badge · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · breadcrumb · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · button-group · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · button · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · calendar · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · card-checkbox · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · card-option · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -623,13 +623,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/card.tsx",
-        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport {\r\n  ClickableSurface,\r\n  type ClickableSurfaceProps,\r\n} from \"./clickable-surface\"\r\n\r\n/**\r\n * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as\r\n * partes e um `variant` de header em faixa.\r\n *\r\n * ## `size` — 3 densidades, propagadas por contexto\r\n *\r\n *     lg  →  24px  (pad-4xl)\r\n *     md  →  20px  (pad-3xl)   ← DEFAULT\r\n *     sm  →  16px  (pad-2xl)\r\n *\r\n * O valor é declarado **uma vez no `<Card>`** e chega em `CardHeader`/`CardContent`/\r\n * `CardFooter` por `CardSizeContext` — o mesmo mecanismo que o `Tabs` usa pro\r\n * `variant`. Repetir `size` nas partes é o erro que deixa uma seção com densidade\r\n * diferente do resto do card.\r\n *\r\n * ⚠️ **`md` (20px) é o default, e antes era 24px.** Mudança deliberada de 2026-08-19:\r\n * 24 virou o `lg`. Card que dependia dos 24px passa `size=\"lg\"`.\r\n *\r\n * ⚠️ Não existe 18px na escala de `pad` (vai 16 → 20 → 24), então `sm` é **16px**.\r\n *\r\n * ## O padding é dividido entre o Card e as partes — e é de propósito\r\n *\r\n * O `Card` carrega o padding **vertical** (`py-*`); cada parte carrega o\r\n * **horizontal** (`px-*`). Assim o `gap` do Card controla o respiro ENTRE seções sem\r\n * somar com padding de cada uma, e uma parte pode ser full-bleed (tabela que encosta\r\n * nas bordas, imagem de topo) só zerando o próprio `px`.\r\n *\r\n * ## `CardHeader variant=\"banded\"` — header em faixa\r\n *\r\n * Fundo `bg-subtle` + borda embaixo, encostado nas bordas do card. Espelha o padrão\r\n * das seções de `#/order-detail` e `?app=edit-page`, que era composição local do\r\n * showcase e agora é variante do componente.\r\n *\r\n * Mecânica: a faixa precisa **cancelar o padding vertical do Card** pra encostar no\r\n * topo (`-mt-*` do mesmo tamanho do `size`) e arredondar as quinas de cima\r\n * (`rounded-t-*`) — em vez de `overflow-hidden` no Card, que clipa qualquer coisa que\r\n * precise vazar. Ela também troca o `px-*` por padding nos 4 lados, senão o texto\r\n * cola na borda de cima.\r\n */\r\n\r\n/* ── size: contexto ──────────────────────────────────────────────────────── */\r\n\r\ntype CardSize = \"sm\" | \"md\" | \"lg\"\r\n\r\nconst CardSizeContext = React.createContext<CardSize>(\"md\")\r\n\r\n/**\r\n * Padding interno por size — via `pad-card-*`, a família de token **dedicada a\r\n * padding de card** (`tokens/.../components/spacing.ts`), não a escala genérica\r\n * `pad-*`. Os valores são iguais (16/20/24), mas o semântico existe pra isto: mudar\r\n * a densidade de card no futuro é mexer em `padCard`, num lugar, sem caçar\r\n * `pad-3xl` espalhado.\r\n *\r\n * A família é simétrica desde 2026-08-19 (`sm`/`md`/`lg`). O nome antigo `pad-card-base`\r\n * continua existindo como **alias de `md`**, só pra não quebrar quem já o consome — não\r\n * usar aqui nem em código novo. Ver o cabeçalho de `components/spacing.ts`.\r\n */\r\nconst PAD_X: Record<CardSize, string> = {\r\n  sm: \"px-pad-card-sm\",\r\n  md: \"px-pad-card-md\",\r\n  lg: \"px-pad-card-lg\",\r\n}\r\nconst PAD_Y: Record<CardSize, string> = {\r\n  sm: \"py-pad-card-sm\",\r\n  md: \"py-pad-card-md\",\r\n  lg: \"py-pad-card-lg\",\r\n}\r\nconst PAD_ALL: Record<CardSize, string> = {\r\n  sm: \"p-pad-card-sm\",\r\n  md: \"p-pad-card-md\",\r\n  lg: \"p-pad-card-lg\",\r\n}\r\n/** Cancela o `py` do Card, pra faixa encostar no topo. */\r\nconst PULL_TOP: Record<CardSize, string> = {\r\n  sm: \"-mt-pad-card-sm\",\r\n  md: \"-mt-pad-card-md\",\r\n  lg: \"-mt-pad-card-lg\",\r\n}\r\n\r\n/* ── Card ────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Card clicável — `onClick` e/ou `href` transformam a superfície inteira em alvo.\r\n *\r\n * Um `onClick` solto numa `<div>` (que é o que o consumidor escrevia) não tem foco,\r\n * não responde a Enter/Space, não é anunciado como controle e não existe pra quem\r\n * navega por teclado. Aqui o alvo é um `<button>`/`<a>` esticado por cima — ver\r\n * `ClickableSurface` pra por que não trocamos a raiz. A `<div>` continua `<div>`,\r\n * então nada do que já existe muda.\r\n *\r\n * `surfaceLabel` é o nome acessível e é obrigatório quando há clique: o alvo é vazio,\r\n * e sem ele o leitor anuncia \"botão\" e mais nada. Controle DENTRO do card (um menu,\r\n * um botão secundário) precisa de `relative z-10` pra ficar acima do overlay.\r\n */\r\ntype CardClickProps =\r\n  | {\n      onClick?: never; href?: never; surfaceLabel?: never; target?: never;\n      renderLink?: never; surfaceClassName?: never; disabled?: never;\n    }\r\n  | ({\r\n      surfaceLabel: string;\r\n      /**\r\n       * className do ALVO esticado, não do card. Existe porque o anel de foco é externo\r\n       * (`ring`) e some quando o card está dentro de um container com\r\n       * `overflow-hidden` ou `content-visibility` — reportado pelo consumidor, que\r\n       * resolveu com `ring-inset`. Sem esta prop, não havia como alcançar o alvo.\r\n       */\r\n      surfaceClassName?: string;\r\n    } & Pick<\r\n      ClickableSurfaceProps,\r\n      | \"onClick\"\r\n      | \"href\"\r\n      | \"target\"\r\n      | \"renderLink\"\r\n      | \"aria-pressed\"\r\n      | \"aria-current\"\r\n      | \"aria-expanded\"\r\n      | \"disabled\"\r\n    >);\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  Omit<React.HTMLAttributes<HTMLDivElement>, \"onClick\"> & { size?: CardSize } & CardClickProps\r\n>((\r\n  {\r\n    className,\r\n    size = \"md\",\r\n    children,\r\n    onClick,\r\n    href,\r\n    surfaceLabel,\r\n    surfaceClassName,\r\n    target,\r\n    renderLink,\r\n    \"aria-pressed\": ariaPressed,\r\n    \"aria-current\": ariaCurrent,\r\n    \"aria-expanded\": ariaExpanded,\r\n    disabled,\r\n    ...props\r\n  },\r\n  ref,\r\n) => {\r\n  const clicavel = Boolean(onClick || href);\r\n  return (\r\n  <CardSizeContext.Provider value={size}>\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n        PAD_Y[size],\r\n        clicavel && \"relative transition-colors hover:bg-bg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {clicavel && (\r\n        <ClickableSurface\r\n          label={surfaceLabel as string}\r\n          onClick={onClick}\r\n          href={href}\r\n          target={target}\r\n          renderLink={renderLink}\r\n          className={surfaceClassName}\r\n          aria-pressed={ariaPressed}\r\n          aria-current={ariaCurrent}\r\n          aria-expanded={ariaExpanded}\r\n          disabled={disabled}\r\n        />\r\n      )}\r\n    </div>\r\n  </CardSizeContext.Provider>\r\n  );\r\n})\r\nCard.displayName = \"Card\"\r\n\r\n/* ── CardHeader ──────────────────────────────────────────────────────────── */\r\n\r\ntype CardHeaderVariant = \"plain\" | \"banded\"\r\n\r\n/**\r\n * Não há contexto de variante aqui de propósito. Houve um, por ~20 minutos em\r\n * 2026-08-19, pra a faixa deixar o título semibold enquanto o header plano ficava\r\n * medium — até descobrir que o preset `text-title-md` **já é 600** e que o `medium`\r\n * era um override indevido no `CardTitle`. Removido o override, o peso é o mesmo nas\r\n * duas variantes e o contexto virou código morto.\r\n */\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & { variant?: CardHeaderVariant }\r\n>(({ className, variant = \"plain\", ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        // `gap-gp-2xs` (2px) e não `gp-sm` (6px): título e subtítulo de card são UMA\r\n        // unidade de leitura, não dois blocos. Com 6px o subtítulo lê como parágrafo\r\n        // solto sob o título; com 2px lê como legenda dele. É o valor que o showcase\r\n        // já aplicava no helper local dos cards de gráfico — a diferença apareceu ao\r\n        // comparar o mesmo card montado com o helper e com este componente, e o\r\n        // mantenedor escolheu o compacto como padrão (2026-08-19).\r\n        //\r\n        // ⚠️ Divergência DELIBERADA do shadcn upstream, que usa 6px: ao re-sincronizar\r\n        // este primitivo, não reverter (mesma classe de cuidado da L-040).\r\n        \"grid auto-rows-min items-start gap-gp-2xs\",\r\n        variant === \"banded\"\r\n          ? cn(\r\n              // Faixa: padding nos 4 lados (o `px` sozinho deixaria o texto colado no\r\n              // topo), fundo, divisória, e o `-mt` que cancela o `py` do Card pra\r\n              // encostar na borda. `rounded-t` em vez de `overflow-hidden` no Card —\r\n              // clipar o Card quebraria qualquer coisa que precise vazar dele.\r\n              PAD_ALL[size],\r\n              PULL_TOP[size],\r\n              // `bg-subtle` + `border-subtle`: os mesmos tokens da referência\r\n              // (`SectionCard` do order-detail / `?app=edit-page`), escolhidos pelo\r\n              // mantenedor em 2026-08-19.\r\n              //\r\n              // ⚠️ Medido, pra quem for mexer não achar que é descuido: no **dark** o\r\n              // `bg-subtle` é 1% de branco sobre um surface de 0.225 — ~0,8pp de\r\n              // diferença, uma faixa **muito** discreta. No light são 0.973 sobre\r\n              // 1.0, que lê normalmente. É restrição intencional, não bug: a decisão\r\n              // veio de quem desenhou a tela de referência. Se um dia o dark precisar\r\n              // de mais presença, `bg-muted` é 3× (e no light é idêntico ao subtle).\r\n              \"rounded-t-radius-base border-b border-border-subtle bg-bg-subtle\"\r\n            )\r\n          : PAD_X[size],\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // SEM `font-*`: o peso vem do preset. `text-title-md` já emite `font-weight: 600`\r\n    // (conferido no tema gerado), o token declara *\"title: 600 (semibold) — mais usado\r\n    // no projeto\"*, e o `DESIGN.md` lista `title-md · 600 · Card title (default)`.\r\n    //\r\n    // Aqui havia um `font-medium` que **anulava o próprio preset** e derrubava o título\r\n    // pra 500 — sem estar documentado em lugar nenhum, e contra o spec do DS. Foi achado\r\n    // em 2026-08-19 comparando o mesmo card montado com o helper local do showcase (que\r\n    // acertava, `font-semibold`) e com este componente. Não reintroduzir: quem quer outro\r\n    // peso passa `font-*` no `className`, que é o caminho de exceção.\r\n    className={cn(\"text-title-md text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // `caption-md` (12px/400) e não `body-md` (14/400) — decisão do mantenedor\r\n    // 2026-08-19: 14 competia com o conteúdo do card.\r\n    //\r\n    // Entre os dois presets de 12px, `caption-md` e não `body-xs`, por PESO: `body-xs`\r\n    // é 12/**500**, o que deixaria o subtítulo mais pesado que os 400 de hoje e pediria\r\n    // um `font-normal` por cima — reintroduzindo o override de preset que acabou de sair\r\n    // do `CardTitle`. `caption-md` é 12/400: só o tamanho muda. E é o que o\r\n    // `CardCheckbox.description` já usa, que é o análogo mais próximo no DS.\r\n    className={cn(\"text-caption-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\n/* ── CardContent · CardFooter ────────────────────────────────────────────── */\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return <div ref={ref} className={cn(PAD_X[size], className)} {...props} />\r\n})\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\"flex items-center\", PAD_X[size], className)}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\nexport type { CardSize, CardHeaderVariant }\r\n",
+        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport {\r\n  ClickableSurface,\r\n  type ClickableSurfaceProps,\r\n} from \"./clickable-surface\"\r\n\r\n/**\r\n * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as\r\n * partes e um `variant` de header em faixa.\r\n *\r\n * ## `size` — 3 densidades, propagadas por contexto\r\n *\r\n *     lg  →  24px  (pad-4xl)\r\n *     md  →  20px  (pad-3xl)   ← DEFAULT\r\n *     sm  →  16px  (pad-2xl)\r\n *\r\n * O valor é declarado **uma vez no `<Card>`** e chega em `CardHeader`/`CardContent`/\r\n * `CardFooter` por `CardSizeContext` — o mesmo mecanismo que o `Tabs` usa pro\r\n * `variant`. Repetir `size` nas partes é o erro que deixa uma seção com densidade\r\n * diferente do resto do card.\r\n *\r\n * ⚠️ **`md` (20px) é o default, e antes era 24px.** Mudança deliberada de 2026-08-19:\r\n * 24 virou o `lg`. Card que dependia dos 24px passa `size=\"lg\"`.\r\n *\r\n * ⚠️ Não existe 18px na escala de `pad` (vai 16 → 20 → 24), então `sm` é **16px**.\r\n *\r\n * ## O padding é dividido entre o Card e as partes — e é de propósito\r\n *\r\n * O `Card` carrega o padding **vertical** (`py-*`); cada parte carrega o\r\n * **horizontal** (`px-*`). Assim o `gap` do Card controla o respiro ENTRE seções sem\r\n * somar com padding de cada uma, e uma parte pode ser full-bleed (tabela que encosta\r\n * nas bordas, imagem de topo) só zerando o próprio `px`.\r\n *\r\n * ## `CardHeader variant=\"banded\"` — header em faixa\r\n *\r\n * Fundo `bg-subtle` + borda embaixo, encostado nas bordas do card. Espelha o padrão\r\n * das seções de `#/order-detail` e `?app=edit-page`, que era composição local do\r\n * showcase e agora é variante do componente.\r\n *\r\n * Mecânica: a faixa precisa **cancelar o padding vertical do Card** pra encostar no\r\n * topo (`-mt-*` do mesmo tamanho do `size`) e arredondar as quinas de cima\r\n * (`rounded-t-*`) — em vez de `overflow-hidden` no Card, que clipa qualquer coisa que\r\n * precise vazar. Ela também troca o `px-*` por padding nos 4 lados, senão o texto\r\n * cola na borda de cima.\r\n */\r\n\r\n/* ── size: contexto ──────────────────────────────────────────────────────── */\r\n\r\ntype CardSize = \"sm\" | \"md\" | \"lg\"\r\n\r\nconst CardSizeContext = React.createContext<CardSize>(\"md\")\r\n\r\n/**\r\n * Padding interno por size — via `pad-card-*`, a família de token **dedicada a\r\n * padding de card** (`tokens/.../components/spacing.ts`), não a escala genérica\r\n * `pad-*`. Os valores são iguais (16/20/24), mas o semântico existe pra isto: mudar\r\n * a densidade de card no futuro é mexer em `padCard`, num lugar, sem caçar\r\n * `pad-3xl` espalhado.\r\n *\r\n * A família é simétrica desde 2026-08-19 (`sm`/`md`/`lg`). O nome antigo `pad-card-base`\r\n * continua existindo como **alias de `md`**, só pra não quebrar quem já o consome — não\r\n * usar aqui nem em código novo. Ver o cabeçalho de `components/spacing.ts`.\r\n */\r\nconst PAD_X: Record<CardSize, string> = {\r\n  sm: \"px-pad-card-sm\",\r\n  md: \"px-pad-card-md\",\r\n  lg: \"px-pad-card-lg\",\r\n}\r\nconst PAD_Y: Record<CardSize, string> = {\r\n  sm: \"py-pad-card-sm\",\r\n  md: \"py-pad-card-md\",\r\n  lg: \"py-pad-card-lg\",\r\n}\r\nconst PAD_ALL: Record<CardSize, string> = {\r\n  sm: \"p-pad-card-sm\",\r\n  md: \"p-pad-card-md\",\r\n  lg: \"p-pad-card-lg\",\r\n}\r\n/** Cancela o `py` do Card, pra faixa encostar no topo. */\r\nconst PULL_TOP: Record<CardSize, string> = {\r\n  sm: \"-mt-pad-card-sm\",\r\n  md: \"-mt-pad-card-md\",\r\n  lg: \"-mt-pad-card-lg\",\r\n}\r\n\r\n/* ── Card ────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Card clicável — `onClick` e/ou `href` transformam a superfície inteira em alvo.\r\n *\r\n * Um `onClick` solto numa `<div>` (que é o que o consumidor escrevia) não tem foco,\r\n * não responde a Enter/Space, não é anunciado como controle e não existe pra quem\r\n * navega por teclado. Aqui o alvo é um `<button>`/`<a>` esticado por cima — ver\r\n * `ClickableSurface` pra por que não trocamos a raiz. A `<div>` continua `<div>`,\r\n * então nada do que já existe muda.\r\n *\r\n * `surfaceLabel` é o nome acessível e é obrigatório quando há clique: o alvo é vazio,\r\n * e sem ele o leitor anuncia \"botão\" e mais nada. Controle DENTRO do card (um menu,\r\n * um botão secundário) precisa de `relative z-10` pra ficar acima do overlay.\r\n */\r\ntype CardClickProps =\r\n  | {\r\n      onClick?: never; href?: never; surfaceLabel?: never; target?: never;\r\n      renderLink?: never; surfaceClassName?: never; disabled?: never;\r\n    }\r\n  | ({\r\n      surfaceLabel: string;\r\n      /**\r\n       * className do ALVO esticado, não do card. Existe porque o anel de foco é externo\r\n       * (`ring`) e some quando o card está dentro de um container com\r\n       * `overflow-hidden` ou `content-visibility` — reportado pelo consumidor, que\r\n       * resolveu com `ring-inset`. Sem esta prop, não havia como alcançar o alvo.\r\n       */\r\n      surfaceClassName?: string;\r\n    } & Pick<\r\n      ClickableSurfaceProps,\r\n      | \"onClick\"\r\n      | \"href\"\r\n      | \"target\"\r\n      | \"renderLink\"\r\n      | \"aria-pressed\"\r\n      | \"aria-current\"\r\n      | \"aria-expanded\"\r\n      | \"disabled\"\r\n    >);\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  Omit<React.HTMLAttributes<HTMLDivElement>, \"onClick\"> & { size?: CardSize } & CardClickProps\r\n>((\r\n  {\r\n    className,\r\n    size = \"md\",\r\n    children,\r\n    onClick,\r\n    href,\r\n    surfaceLabel,\r\n    surfaceClassName,\r\n    target,\r\n    renderLink,\r\n    \"aria-pressed\": ariaPressed,\r\n    \"aria-current\": ariaCurrent,\r\n    \"aria-expanded\": ariaExpanded,\r\n    disabled,\r\n    ...props\r\n  },\r\n  ref,\r\n) => {\r\n  const clicavel = Boolean(onClick || href);\r\n  return (\r\n  <CardSizeContext.Provider value={size}>\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n        PAD_Y[size],\r\n        clicavel && \"relative transition-colors hover:bg-bg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {clicavel && (\r\n        <ClickableSurface\r\n          label={surfaceLabel as string}\r\n          onClick={onClick}\r\n          href={href}\r\n          target={target}\r\n          renderLink={renderLink}\r\n          className={surfaceClassName}\r\n          aria-pressed={ariaPressed}\r\n          aria-current={ariaCurrent}\r\n          aria-expanded={ariaExpanded}\r\n          disabled={disabled}\r\n        />\r\n      )}\r\n    </div>\r\n  </CardSizeContext.Provider>\r\n  );\r\n})\r\nCard.displayName = \"Card\"\r\n\r\n/* ── CardHeader ──────────────────────────────────────────────────────────── */\r\n\r\ntype CardHeaderVariant = \"plain\" | \"banded\"\r\n\r\n/**\r\n * Não há contexto de variante aqui de propósito. Houve um, por ~20 minutos em\r\n * 2026-08-19, pra a faixa deixar o título semibold enquanto o header plano ficava\r\n * medium — até descobrir que o preset `text-title-md` **já é 600** e que o `medium`\r\n * era um override indevido no `CardTitle`. Removido o override, o peso é o mesmo nas\r\n * duas variantes e o contexto virou código morto.\r\n */\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & { variant?: CardHeaderVariant }\r\n>(({ className, variant = \"plain\", ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        // `gap-gp-2xs` (2px) e não `gp-sm` (6px): título e subtítulo de card são UMA\r\n        // unidade de leitura, não dois blocos. Com 6px o subtítulo lê como parágrafo\r\n        // solto sob o título; com 2px lê como legenda dele. É o valor que o showcase\r\n        // já aplicava no helper local dos cards de gráfico — a diferença apareceu ao\r\n        // comparar o mesmo card montado com o helper e com este componente, e o\r\n        // mantenedor escolheu o compacto como padrão (2026-08-19).\r\n        //\r\n        // ⚠️ Divergência DELIBERADA do shadcn upstream, que usa 6px: ao re-sincronizar\r\n        // este primitivo, não reverter (mesma classe de cuidado da L-040).\r\n        \"grid auto-rows-min items-start gap-gp-2xs\",\r\n        variant === \"banded\"\r\n          ? cn(\r\n              // Faixa: padding nos 4 lados (o `px` sozinho deixaria o texto colado no\r\n              // topo), fundo, divisória, e o `-mt` que cancela o `py` do Card pra\r\n              // encostar na borda. `rounded-t` em vez de `overflow-hidden` no Card —\r\n              // clipar o Card quebraria qualquer coisa que precise vazar dele.\r\n              PAD_ALL[size],\r\n              PULL_TOP[size],\r\n              // `bg-subtle` + `border-subtle`: os mesmos tokens da referência\r\n              // (`SectionCard` do order-detail / `?app=edit-page`), escolhidos pelo\r\n              // mantenedor em 2026-08-19.\r\n              //\r\n              // ⚠️ Medido, pra quem for mexer não achar que é descuido: no **dark** o\r\n              // `bg-subtle` é 1% de branco sobre um surface de 0.225 — ~0,8pp de\r\n              // diferença, uma faixa **muito** discreta. No light são 0.973 sobre\r\n              // 1.0, que lê normalmente. É restrição intencional, não bug: a decisão\r\n              // veio de quem desenhou a tela de referência. Se um dia o dark precisar\r\n              // de mais presença, `bg-muted` é 3× (e no light é idêntico ao subtle).\r\n              \"rounded-t-radius-base border-b border-border-subtle bg-bg-subtle\"\r\n            )\r\n          : PAD_X[size],\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // SEM `font-*`: o peso vem do preset. `text-title-md` já emite `font-weight: 600`\r\n    // (conferido no tema gerado), o token declara *\"title: 600 (semibold) — mais usado\r\n    // no projeto\"*, e o `DESIGN.md` lista `title-md · 600 · Card title (default)`.\r\n    //\r\n    // Aqui havia um `font-medium` que **anulava o próprio preset** e derrubava o título\r\n    // pra 500 — sem estar documentado em lugar nenhum, e contra o spec do DS. Foi achado\r\n    // em 2026-08-19 comparando o mesmo card montado com o helper local do showcase (que\r\n    // acertava, `font-semibold`) e com este componente. Não reintroduzir: quem quer outro\r\n    // peso passa `font-*` no `className`, que é o caminho de exceção.\r\n    className={cn(\"text-title-md text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // `caption-md` (12px/400) e não `body-md` (14/400) — decisão do mantenedor\r\n    // 2026-08-19: 14 competia com o conteúdo do card.\r\n    //\r\n    // Entre os dois presets de 12px, `caption-md` e não `body-xs`, por PESO: `body-xs`\r\n    // é 12/**500**, o que deixaria o subtítulo mais pesado que os 400 de hoje e pediria\r\n    // um `font-normal` por cima — reintroduzindo o override de preset que acabou de sair\r\n    // do `CardTitle`. `caption-md` é 12/400: só o tamanho muda. E é o que o\r\n    // `CardCheckbox.description` já usa, que é o análogo mais próximo no DS.\r\n    className={cn(\"text-caption-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\n/* ── CardContent · CardFooter ────────────────────────────────────────────── */\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return <div ref={ref} className={cn(PAD_X[size], className)} {...props} />\r\n})\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\"flex items-center\", PAD_X[size], className)}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\nexport type { CardSize, CardHeaderVariant }\r\n",
         "type": "registry:ui",
         "target": "components/ui/card.tsx"
       },
       {
         "path": "src/components/shadcn/clickable-surface.tsx",
-        "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { shouldPreventNavigation } from \"@/utils/nav-link\";\n\n/**\n * ClickableSurface — o alvo esticado que transforma um card inteiro em botão ou link.\n *\n * ## Por que um elemento por cima, e não trocar a raiz por `<button>`\n *\n * O conteúdo permitido dentro de `<button>` é *phrasing content*. Um card tem `<h3>`,\n * parágrafos, às vezes uma tabela — HTML inválido, e o leitor de tela perde o heading\n * (deixa de anunciar a estrutura e passa a ler tudo como rótulo do botão). Trocar a raiz\n * por `<a>` tem o mesmo problema e ainda torna todo o texto interno parte do nome do link.\n *\n * A saída é um `<button>`/`<a>` vazio, absoluto, cobrindo a superfície: a árvore\n * semântica do card fica intacta e o alvo ganha foco, Enter/Space e — com `href` —\n * ctrl+clique, \"abrir em nova aba\" e \"copiar endereço\" de graça.\n *\n * ## Contrato de quem usa\n *\n * 1. O container precisa ser `relative` (senão o `inset-0` escapa pro ancestral posicionado).\n * 2. `label` é obrigatório: o alvo é vazio, então sem ele o leitor anuncia \"botão\" e nada mais.\n * 3. Controle que fica ACIMA do card (um menu, um botão de ajuda) precisa de `relative z-10`,\n *    senão o overlay o cobre e o clique vai pro card.\n *\n * Usado por `Card` (`onClick`/`href`) e por `Kpi`. Existe como peça própria porque a\n * segunda cópia de um padrão de acessibilidade sutil é onde ele começa a divergir.\n */\nexport type ClickableSurfaceLinkProps = {\n  href: string;\n  className: string;\n  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;\n  target?: string;\n  \"aria-label\": string;\n};\n\n/**\n * Atributos de ESTADO que o alvo precisa carregar quando a superfície representa uma\n * seleção, e não só um link.\n *\n * Reportado pelo consumidor igreen-tickets: 19 superfícies (card de lote, pipeline,\n * ranking, nav de categoria) viraram `ClickableSurface`, e a seleção ficou **só\n * visual** — o alvo não anunciava estado nenhum. Sem isto, quem usa leitor de tela não\n * sabe qual card está escolhido.\n */\nexport type ClickableSurfaceStateProps = {\n  /** Botão de alternância — o card está \"ligado\"? */\n  \"aria-pressed\"?: React.AriaAttributes[\"aria-pressed\"];\n  /** Item selecionado dentro de um conjunto (nav, ranking, pipeline). */\n  \"aria-current\"?: React.AriaAttributes[\"aria-current\"];\n  /** A superfície abre/fecha algo. */\n  \"aria-expanded\"?: React.AriaAttributes[\"aria-expanded\"];\n  /** Descreve o alvo por outro elemento (ex.: o título do card). */\n  \"aria-describedby\"?: string;\n  /**\n   * Desabilita o alvo. Em `<a>` não existe `disabled`: vira\n   * `aria-disabled` + `pointer-events-none` + `tabIndex={-1}`, que é a forma correta.\n   */\n  disabled?: boolean;\n};\n\nexport type ClickableSurfaceProps = ClickableSurfaceStateProps & {\n  /** Nome acessível do alvo. Obrigatório — o elemento não tem conteúdo. */\n  label: string;\n  /** Clique. Sem `href`, o alvo é `<button type=\"button\">`. */\n  onClick?: (e: React.MouseEvent<HTMLElement>) => void;\n  /** Destino. Com `href`, o alvo é `<a>`. */\n  href?: string;\n  /** `target` do anchor. `\"_blank\"` desliga o cancelamento da navegação. */\n  target?: string;\n  /** Substitui o `<a>` interno pelo link do seu router (L-068). */\n  renderLink?: (props: ClickableSurfaceLinkProps) => React.ReactNode;\n  className?: string;\n};\n\nexport const CLICKABLE_SURFACE_CLASS =\n  \"absolute inset-0 z-0 rounded-[inherit] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\";\n\nexport function ClickableSurface({\n  label,\n  onClick,\n  href,\n  target,\n  renderLink,\n  className,\n  disabled,\n  ...estado\n}: ClickableSurfaceProps) {\n  if (!onClick && !href) return null;\n\n  const classes = cn(\n    CLICKABLE_SURFACE_CLASS,\n    // `<a>` não tem `disabled`; e mesmo no `<button>` o alvo precisa sair da ordem de\n    // foco, senão o Tab para num controle que não faz nada.\n    disabled && \"pointer-events-none\",\n    className,\n  );\n  const aria = {\n    ...estado,\n    \"aria-disabled\": disabled || undefined,\n    tabIndex: disabled ? -1 : undefined,\n  };\n\n  if (href) {\n    const aoClicar = (e: React.MouseEvent<HTMLAnchorElement>) => {\n      // As 5 exceções que não podem cancelar a navegação (clique modificado, target,\n      // href externo, href de hash, ausência de handler) estão medidas na L-068 — não\n      // reimplemente aqui.\n      if (\n        shouldPreventNavigation({\n          href,\n          hasHandler: Boolean(onClick),\n          target,\n          event: e,\n        })\n      ) {\n        e.preventDefault();\n      }\n      onClick?.(e);\n    };\n\n    const props: ClickableSurfaceLinkProps = {\n      href,\n      className: classes,\n      onClick: aoClicar,\n      target,\n      \"aria-label\": label,\n      ...aria,\n    };\n\n    // Com `renderLink`, quem decide a navegação é o `<Link>` do router — o DS não mexe\n    // em preventDefault (mesma regra do AppShell).\n    return renderLink ? (\n      <>{renderLink({ ...props, onClick: (e) => onClick?.(e) })}</>\n    ) : (\n      <a {...props} />\n    );\n  }\n\n  return (\n    <button\n      type=\"button\"\n      className={classes}\n      onClick={onClick}\n      aria-label={label}\n      disabled={disabled}\n      {...aria}\n    />\n  );\n}\n\nClickableSurface.displayName = \"ClickableSurface\";\n",
+        "content": "\"use client\";\r\n\r\nimport * as React from \"react\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\nimport { shouldPreventNavigation } from \"@/utils/nav-link\";\r\n\r\n/**\r\n * ClickableSurface — o alvo esticado que transforma um card inteiro em botão ou link.\r\n *\r\n * ## Por que um elemento por cima, e não trocar a raiz por `<button>`\r\n *\r\n * O conteúdo permitido dentro de `<button>` é *phrasing content*. Um card tem `<h3>`,\r\n * parágrafos, às vezes uma tabela — HTML inválido, e o leitor de tela perde o heading\r\n * (deixa de anunciar a estrutura e passa a ler tudo como rótulo do botão). Trocar a raiz\r\n * por `<a>` tem o mesmo problema e ainda torna todo o texto interno parte do nome do link.\r\n *\r\n * A saída é um `<button>`/`<a>` vazio, absoluto, cobrindo a superfície: a árvore\r\n * semântica do card fica intacta e o alvo ganha foco, Enter/Space e — com `href` —\r\n * ctrl+clique, \"abrir em nova aba\" e \"copiar endereço\" de graça.\r\n *\r\n * ## Contrato de quem usa\r\n *\r\n * 1. O container precisa ser `relative` (senão o `inset-0` escapa pro ancestral posicionado).\r\n * 2. `label` é obrigatório: o alvo é vazio, então sem ele o leitor anuncia \"botão\" e nada mais.\r\n * 3. Controle que fica ACIMA do card (um menu, um botão de ajuda) precisa de `relative z-10`,\r\n *    senão o overlay o cobre e o clique vai pro card.\r\n *\r\n * Usado por `Card` (`onClick`/`href`) e por `Kpi`. Existe como peça própria porque a\r\n * segunda cópia de um padrão de acessibilidade sutil é onde ele começa a divergir.\r\n */\r\nexport type ClickableSurfaceLinkProps = {\r\n  href: string;\r\n  className: string;\r\n  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;\r\n  target?: string;\r\n  \"aria-label\": string;\r\n};\r\n\r\n/**\r\n * Atributos de ESTADO que o alvo precisa carregar quando a superfície representa uma\r\n * seleção, e não só um link.\r\n *\r\n * Reportado pelo consumidor igreen-tickets: 19 superfícies (card de lote, pipeline,\r\n * ranking, nav de categoria) viraram `ClickableSurface`, e a seleção ficou **só\r\n * visual** — o alvo não anunciava estado nenhum. Sem isto, quem usa leitor de tela não\r\n * sabe qual card está escolhido.\r\n */\r\nexport type ClickableSurfaceStateProps = {\r\n  /** Botão de alternância — o card está \"ligado\"? */\r\n  \"aria-pressed\"?: React.AriaAttributes[\"aria-pressed\"];\r\n  /** Item selecionado dentro de um conjunto (nav, ranking, pipeline). */\r\n  \"aria-current\"?: React.AriaAttributes[\"aria-current\"];\r\n  /** A superfície abre/fecha algo. */\r\n  \"aria-expanded\"?: React.AriaAttributes[\"aria-expanded\"];\r\n  /** Descreve o alvo por outro elemento (ex.: o título do card). */\r\n  \"aria-describedby\"?: string;\r\n  /**\r\n   * Desabilita o alvo. Em `<a>` não existe `disabled`: vira\r\n   * `aria-disabled` + `pointer-events-none` + `tabIndex={-1}`, que é a forma correta.\r\n   */\r\n  disabled?: boolean;\r\n};\r\n\r\nexport type ClickableSurfaceProps = ClickableSurfaceStateProps & {\r\n  /** Nome acessível do alvo. Obrigatório — o elemento não tem conteúdo. */\r\n  label: string;\r\n  /** Clique. Sem `href`, o alvo é `<button type=\"button\">`. */\r\n  onClick?: (e: React.MouseEvent<HTMLElement>) => void;\r\n  /** Destino. Com `href`, o alvo é `<a>`. */\r\n  href?: string;\r\n  /** `target` do anchor. `\"_blank\"` desliga o cancelamento da navegação. */\r\n  target?: string;\r\n  /** Substitui o `<a>` interno pelo link do seu router (L-068). */\r\n  renderLink?: (props: ClickableSurfaceLinkProps) => React.ReactNode;\r\n  className?: string;\r\n};\r\n\r\nexport const CLICKABLE_SURFACE_CLASS =\r\n  \"absolute inset-0 z-0 rounded-[inherit] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\";\r\n\r\nexport function ClickableSurface({\r\n  label,\r\n  onClick,\r\n  href,\r\n  target,\r\n  renderLink,\r\n  className,\r\n  disabled,\r\n  ...estado\r\n}: ClickableSurfaceProps) {\r\n  if (!onClick && !href) return null;\r\n\r\n  const classes = cn(\r\n    CLICKABLE_SURFACE_CLASS,\r\n    // `<a>` não tem `disabled`; e mesmo no `<button>` o alvo precisa sair da ordem de\r\n    // foco, senão o Tab para num controle que não faz nada.\r\n    disabled && \"pointer-events-none\",\r\n    className,\r\n  );\r\n  const aria = {\r\n    ...estado,\r\n    \"aria-disabled\": disabled || undefined,\r\n    tabIndex: disabled ? -1 : undefined,\r\n  };\r\n\r\n  if (href) {\r\n    const aoClicar = (e: React.MouseEvent<HTMLAnchorElement>) => {\r\n      // As 5 exceções que não podem cancelar a navegação (clique modificado, target,\r\n      // href externo, href de hash, ausência de handler) estão medidas na L-068 — não\r\n      // reimplemente aqui.\r\n      if (\r\n        shouldPreventNavigation({\r\n          href,\r\n          hasHandler: Boolean(onClick),\r\n          target,\r\n          event: e,\r\n        })\r\n      ) {\r\n        e.preventDefault();\r\n      }\r\n      onClick?.(e);\r\n    };\r\n\r\n    const props: ClickableSurfaceLinkProps = {\r\n      href,\r\n      className: classes,\r\n      onClick: aoClicar,\r\n      target,\r\n      \"aria-label\": label,\r\n      ...aria,\r\n    };\r\n\r\n    // Com `renderLink`, quem decide a navegação é o `<Link>` do router — o DS não mexe\r\n    // em preventDefault (mesma regra do AppShell).\r\n    return renderLink ? (\r\n      <>{renderLink({ ...props, onClick: (e) => onClick?.(e) })}</>\r\n    ) : (\r\n      <a {...props} />\r\n    );\r\n  }\r\n\r\n  return (\r\n    <button\r\n      type=\"button\"\r\n      className={classes}\r\n      onClick={onClick}\r\n      aria-label={label}\r\n      disabled={disabled}\r\n      {...aria}\r\n    />\r\n  );\r\n}\r\n\r\nClickableSurface.displayName = \"ClickableSurface\";\r\n",
         "type": "registry:file",
         "target": "src/components/shadcn/clickable-surface.tsx"
       },
@@ -641,7 +641,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · card · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -667,7 +667,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · carousel · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -703,7 +703,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · chart · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · checkbox · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -759,7 +759,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Chip/chip.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Chip styles — pílula compacta pra status, tags, filtros, abas.\r\n *\r\n * Pode ser estático (span) ou interativo (button via `onClick` / dentro de ChipGroup).\r\n *\r\n * Variantes:\r\n *   - color: primary | neutral | danger | warning | success | info\r\n *   - variant: solid | outline | soft\r\n *   - size: sm (24px) | md (28px = form-xs) | lg (32px = form-sm)\r\n *\r\n * Padding/font-size escalam por size — alturas coerentes com o sistema (sm < form-xs\r\n * pra ficar mais compacto que o menor botão; md/lg alinham com Button).\r\n */\r\nexport const chipVariants = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center gap-gp-xs shrink-0\",\r\n    \"font-semibold whitespace-nowrap select-none\",\r\n    \"transition-[background-color,color,border-color,box-shadow] duration-150\",\r\n    \"[&_svg]:shrink-0\",\r\n  ],\r\n  variants: {\r\n    size: {\r\n      sm: \"h-[24px] px-pad-md text-caption-sm [&_svg]:size-[12px]\",\r\n      md: \"h-form-xs px-pad-lg text-body-xs font-normal [&_svg]:size-[12px]\",  // 28px\r\n      lg: \"h-form-sm px-pad-xl text-body-sm font-normal [&_svg]:size-[14px]\",  // 32px\r\n      xl: \"h-form-md px-pad-xl text-body-sm font-normal [&_svg]:size-[14px]\",  // 36px (= Button md)\r\n    },\r\n    /**\r\n     * `pill` = rounded-full (default — chip pílula clássico).\r\n     * `rounded` = canto arredondado igual ao Button (radius-md em sm/md, radius-lg em lg/xl).\r\n     */\r\n    shape: {\r\n      pill:    \"rounded-radius-full\",\r\n      rounded: \"\",  // aplica via compoundVariants por size\r\n    },\r\n    color: {\r\n      primary:  \"\",\r\n      neutral:  \"\",\r\n      danger:   \"\",\r\n      warning:  \"\",\r\n      success:  \"\",\r\n      info:     \"\",\r\n    },\r\n    variant: {\r\n      solid:        \"\",\r\n      outline:      \"border\",\r\n      soft:         \"\",\r\n      \"soft-outline\": \"border\",\r\n    },\r\n    interactive: {\r\n      true:  \"cursor-pointer outline-none focus-visible:shadow-sh-ring\",\r\n      false: \"\",\r\n    },\r\n    selected: {\r\n      true:  \"\",\r\n      false: \"\",\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    /* ── Shape rounded × size — radius proporcional ao Button ──── */\r\n    { shape: \"rounded\", size: \"sm\", class: \"rounded-radius-md\" },\r\n    { shape: \"rounded\", size: \"md\", class: \"rounded-radius-md\" },\r\n    { shape: \"rounded\", size: \"lg\", class: \"rounded-radius-lg\" },\r\n    { shape: \"rounded\", size: \"xl\", class: \"rounded-radius-lg\" },\r\n\r\n    /* ── Solid ──────────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"solid\", class: \"bg-bg-brand text-fg-on-brand\" },\r\n    { color: \"neutral\", variant: \"solid\", class: \"bg-bg-muted text-fg-default\" },\r\n    { color: \"danger\",  variant: \"solid\", class: \"bg-bg-danger text-fg-on-danger\" },\r\n    { color: \"warning\", variant: \"solid\", class: \"bg-bg-warning text-fg-on-warning\" },\r\n    { color: \"success\", variant: \"solid\", class: \"bg-bg-success text-fg-on-success\" },\r\n    { color: \"info\",    variant: \"solid\", class: \"bg-bg-info text-fg-on-info\" },\r\n\r\n    /* ── Outline ────────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"outline\", class: \"bg-transparent border-border-brand text-fg-brand\" },\r\n    { color: \"neutral\", variant: \"outline\", class: \"bg-transparent border-border-default text-fg-default\" },\r\n    { color: \"danger\",  variant: \"outline\", class: \"bg-transparent border-border-danger-muted text-fg-danger\" },\r\n    { color: \"warning\", variant: \"outline\", class: \"bg-transparent border-border-warning-muted text-fg-warning\" },\r\n    { color: \"success\", variant: \"outline\", class: \"bg-transparent border-border-success-muted text-fg-success\" },\r\n    { color: \"info\",    variant: \"outline\", class: \"bg-transparent border-border-info-muted text-fg-info\" },\r\n\r\n    /* ── Soft ───────────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"soft\", class: \"bg-bg-brand-subtle text-fg-brand\" },\r\n    { color: \"neutral\", variant: \"soft\", class: \"bg-bg-muted text-fg-muted\" },\r\n    { color: \"danger\",  variant: \"soft\", class: \"bg-bg-danger-muted text-fg-danger\" },\r\n    { color: \"warning\", variant: \"soft\", class: \"bg-bg-warning-muted text-fg-warning\" },\r\n    { color: \"success\", variant: \"soft\", class: \"bg-bg-success-muted text-fg-success\" },\r\n    { color: \"info\",    variant: \"soft\", class: \"bg-bg-info-muted text-fg-info\" },\r\n\r\n    /* ── Soft + Outline (bg sutil + borda definida) ─────────────── */\r\n    { color: \"primary\", variant: \"soft-outline\", class: \"bg-bg-brand-subtle border-border-brand text-fg-brand\" },\r\n    { color: \"neutral\", variant: \"soft-outline\", class: \"bg-bg-muted border-border-default text-fg-muted\" },\r\n    { color: \"danger\",  variant: \"soft-outline\", class: \"bg-bg-danger-muted border-border-danger-muted text-fg-danger\" },\r\n    { color: \"warning\", variant: \"soft-outline\", class: \"bg-bg-warning-muted border-border-warning-muted text-fg-warning\" },\r\n    { color: \"success\", variant: \"soft-outline\", class: \"bg-bg-success-muted border-border-success-muted text-fg-success\" },\r\n    { color: \"info\",    variant: \"soft-outline\", class: \"bg-bg-info-muted border-border-info-muted text-fg-info\" },\r\n\r\n    /* ── Hover (somente quando interactive) ────────────────────── */\r\n    { interactive: true, color: \"primary\", variant: \"solid\", class: \"hover:bg-bg-brand-hover\" },\r\n    { interactive: true, color: \"neutral\", variant: \"solid\", class: \"hover:bg-bg-muted-hover\" },\r\n    { interactive: true, color: \"danger\",  variant: \"solid\", class: \"hover:bg-bg-danger-hover\" },\r\n    { interactive: true, color: \"warning\", variant: \"solid\", class: \"hover:bg-bg-warning-hover\" },\r\n    { interactive: true, color: \"success\", variant: \"solid\", class: \"hover:bg-bg-success-hover\" },\r\n    { interactive: true, color: \"info\",    variant: \"solid\", class: \"hover:bg-bg-info-hover\" },\r\n\r\n    { interactive: true, color: \"primary\", variant: \"outline\", class: \"hover:bg-bg-brand-subtle\" },\r\n    { interactive: true, color: \"neutral\", variant: \"outline\", class: \"hover:bg-bg-muted\" },\r\n    { interactive: true, color: \"danger\",  variant: \"outline\", class: \"hover:bg-bg-danger-muted\" },\r\n    { interactive: true, color: \"warning\", variant: \"outline\", class: \"hover:bg-bg-warning-muted\" },\r\n    { interactive: true, color: \"success\", variant: \"outline\", class: \"hover:bg-bg-success-muted\" },\r\n    { interactive: true, color: \"info\",    variant: \"outline\", class: \"hover:bg-bg-info-muted\" },\r\n\r\n    { interactive: true, color: \"primary\", variant: \"soft\", class: \"hover:bg-bg-brand-subtle-hover\" },\r\n    { interactive: true, color: \"neutral\", variant: \"soft\", class: \"hover:bg-bg-muted-hover hover:text-fg-default\" },\r\n    { interactive: true, color: \"danger\",  variant: \"soft\", class: \"hover:bg-bg-danger-muted-hover\" },\r\n    { interactive: true, color: \"warning\", variant: \"soft\", class: \"hover:bg-bg-warning-muted-hover\" },\r\n    { interactive: true, color: \"success\", variant: \"soft\", class: \"hover:bg-bg-success-muted-hover\" },\r\n    { interactive: true, color: \"info\",    variant: \"soft\", class: \"hover:bg-bg-info-muted-hover\" },\r\n\r\n    { interactive: true, color: \"primary\", variant: \"soft-outline\", class: \"hover:bg-bg-brand-subtle-hover\" },\r\n    { interactive: true, color: \"neutral\", variant: \"soft-outline\", class: \"hover:bg-bg-muted-hover hover:text-fg-default\" },\r\n    { interactive: true, color: \"danger\",  variant: \"soft-outline\", class: \"hover:bg-bg-danger-muted-hover\" },\r\n    { interactive: true, color: \"warning\", variant: \"soft-outline\", class: \"hover:bg-bg-warning-muted-hover\" },\r\n    { interactive: true, color: \"success\", variant: \"soft-outline\", class: \"hover:bg-bg-success-muted-hover\" },\r\n    { interactive: true, color: \"info\",    variant: \"soft-outline\", class: \"hover:bg-bg-info-muted-hover\" },\r\n\r\n    /* ── Selected (ChipGroup) — força \"soft\" da color como visual ativo ── */\r\n    { selected: true, color: \"primary\", class: \"bg-bg-brand-subtle text-fg-brand border-transparent\" },\r\n    { selected: true, color: \"neutral\", class: \"bg-bg-accent text-fg-default font-semibold border-transparent shadow-sh-sm\" },\r\n    { selected: true, color: \"danger\",  class: \"bg-bg-danger-muted text-fg-danger border-transparent\" },\r\n    { selected: true, color: \"warning\", class: \"bg-bg-warning-muted text-fg-warning border-transparent\" },\r\n    { selected: true, color: \"success\", class: \"bg-bg-success-muted text-fg-success border-transparent\" },\r\n    { selected: true, color: \"info\",    class: \"bg-bg-info-muted text-fg-info border-transparent\" },\r\n  ],\r\n  defaultVariants: {\r\n    color: \"neutral\",\r\n    variant: \"soft\",\r\n    size: \"md\",\r\n    shape: \"pill\",\r\n    interactive: false,\r\n    selected: false,\r\n  },\r\n});\r\n\r\nexport type ChipVariantProps = VariantProps<typeof chipVariants>;\r\n\r\n/** Contador inline pra usar como adornment no Chip (ex: \"Não lidas (3)\") */\r\nexport const chipCount = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center min-w-[16px] h-[16px] px-[4px]\",\r\n    \"rounded-radius-full text-caption-xs font-semibold leading-none\",\r\n    \"bg-bg-muted text-fg-default\",\r\n  ],\r\n});\r\n\n/**\n * Área de LABEL quando o chip tem `onRemove`.\n *\n * Com `onRemove` a pílula deixa de ser `<button>` e vira `<span>`, porque um botão\n * dentro de outro é HTML inválido — o navegador desaninha, e o clique no X passa a\n * disparar também o clique do chip. São duas ações distintas (\"filtrar por isto\" e\n * \"tirar isto\"), então são dois alvos.\n */\nexport const chipLabel = tv({\n  base: [\n    \"inline-flex min-w-0 items-center gap-gp-xs rounded-radius-full\",\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\n  ],\n});\n\n/** Botão de remover dentro do chip. O tamanho do X acompanha o tamanho do chip. */\nexport const chipRemove = tv({\n  base: [\n    \"-mr-[2px] grid shrink-0 place-items-center rounded-radius-full\",\n    \"opacity-70 transition-opacity hover:opacity-100\",\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\n  ],\n  variants: {\n    size: {\n      sm: \"size-[14px] [&_svg]:size-[10px]\",\n      md: \"size-icon-sm [&_svg]:size-[12px]\",\n      lg: \"size-icon-sm [&_svg]:size-[14px]\",\n      xl: \"size-icon-md [&_svg]:size-[14px]\",\n    },\n  },\n  defaultVariants: { size: \"md\" },\n});\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Chip styles — pílula compacta pra status, tags, filtros, abas.\r\n *\r\n * Pode ser estático (span) ou interativo (button via `onClick` / dentro de ChipGroup).\r\n *\r\n * Variantes:\r\n *   - color: primary | neutral | danger | warning | success | info\r\n *   - variant: solid | outline | soft\r\n *   - size: sm (24px) | md (28px = form-xs) | lg (32px = form-sm)\r\n *\r\n * Padding/font-size escalam por size — alturas coerentes com o sistema (sm < form-xs\r\n * pra ficar mais compacto que o menor botão; md/lg alinham com Button).\r\n */\r\nexport const chipVariants = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center gap-gp-xs shrink-0\",\r\n    \"font-semibold whitespace-nowrap select-none\",\r\n    \"transition-[background-color,color,border-color,box-shadow] duration-150\",\r\n    \"[&_svg]:shrink-0\",\r\n  ],\r\n  variants: {\r\n    size: {\r\n      sm: \"h-[24px] px-pad-md text-caption-sm [&_svg]:size-[12px]\",\r\n      md: \"h-form-xs px-pad-lg text-body-xs font-normal [&_svg]:size-[12px]\",  // 28px\r\n      lg: \"h-form-sm px-pad-xl text-body-sm font-normal [&_svg]:size-[14px]\",  // 32px\r\n      xl: \"h-form-md px-pad-xl text-body-sm font-normal [&_svg]:size-[14px]\",  // 36px (= Button md)\r\n    },\r\n    /**\r\n     * `pill` = rounded-full (default — chip pílula clássico).\r\n     * `rounded` = canto arredondado igual ao Button (radius-md em sm/md, radius-lg em lg/xl).\r\n     */\r\n    shape: {\r\n      pill:    \"rounded-radius-full\",\r\n      rounded: \"\",  // aplica via compoundVariants por size\r\n    },\r\n    color: {\r\n      primary:  \"\",\r\n      neutral:  \"\",\r\n      danger:   \"\",\r\n      warning:  \"\",\r\n      success:  \"\",\r\n      info:     \"\",\r\n    },\r\n    variant: {\r\n      solid:        \"\",\r\n      outline:      \"border\",\r\n      soft:         \"\",\r\n      \"soft-outline\": \"border\",\r\n    },\r\n    interactive: {\r\n      true:  \"cursor-pointer outline-none focus-visible:shadow-sh-ring\",\r\n      false: \"\",\r\n    },\r\n    selected: {\r\n      true:  \"\",\r\n      false: \"\",\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    /* ── Shape rounded × size — radius proporcional ao Button ──── */\r\n    { shape: \"rounded\", size: \"sm\", class: \"rounded-radius-md\" },\r\n    { shape: \"rounded\", size: \"md\", class: \"rounded-radius-md\" },\r\n    { shape: \"rounded\", size: \"lg\", class: \"rounded-radius-lg\" },\r\n    { shape: \"rounded\", size: \"xl\", class: \"rounded-radius-lg\" },\r\n\r\n    /* ── Solid ──────────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"solid\", class: \"bg-bg-brand text-fg-on-brand\" },\r\n    { color: \"neutral\", variant: \"solid\", class: \"bg-bg-muted text-fg-default\" },\r\n    { color: \"danger\",  variant: \"solid\", class: \"bg-bg-danger text-fg-on-danger\" },\r\n    { color: \"warning\", variant: \"solid\", class: \"bg-bg-warning text-fg-on-warning\" },\r\n    { color: \"success\", variant: \"solid\", class: \"bg-bg-success text-fg-on-success\" },\r\n    { color: \"info\",    variant: \"solid\", class: \"bg-bg-info text-fg-on-info\" },\r\n\r\n    /* ── Outline ────────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"outline\", class: \"bg-transparent border-border-brand text-fg-brand\" },\r\n    { color: \"neutral\", variant: \"outline\", class: \"bg-transparent border-border-default text-fg-default\" },\r\n    { color: \"danger\",  variant: \"outline\", class: \"bg-transparent border-border-danger-muted text-fg-danger\" },\r\n    { color: \"warning\", variant: \"outline\", class: \"bg-transparent border-border-warning-muted text-fg-warning\" },\r\n    { color: \"success\", variant: \"outline\", class: \"bg-transparent border-border-success-muted text-fg-success\" },\r\n    { color: \"info\",    variant: \"outline\", class: \"bg-transparent border-border-info-muted text-fg-info\" },\r\n\r\n    /* ── Soft ───────────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"soft\", class: \"bg-bg-brand-subtle text-fg-brand\" },\r\n    { color: \"neutral\", variant: \"soft\", class: \"bg-bg-muted text-fg-muted\" },\r\n    { color: \"danger\",  variant: \"soft\", class: \"bg-bg-danger-muted text-fg-danger\" },\r\n    { color: \"warning\", variant: \"soft\", class: \"bg-bg-warning-muted text-fg-warning\" },\r\n    { color: \"success\", variant: \"soft\", class: \"bg-bg-success-muted text-fg-success\" },\r\n    { color: \"info\",    variant: \"soft\", class: \"bg-bg-info-muted text-fg-info\" },\r\n\r\n    /* ── Soft + Outline (bg sutil + borda definida) ─────────────── */\r\n    { color: \"primary\", variant: \"soft-outline\", class: \"bg-bg-brand-subtle border-border-brand text-fg-brand\" },\r\n    { color: \"neutral\", variant: \"soft-outline\", class: \"bg-bg-muted border-border-default text-fg-muted\" },\r\n    { color: \"danger\",  variant: \"soft-outline\", class: \"bg-bg-danger-muted border-border-danger-muted text-fg-danger\" },\r\n    { color: \"warning\", variant: \"soft-outline\", class: \"bg-bg-warning-muted border-border-warning-muted text-fg-warning\" },\r\n    { color: \"success\", variant: \"soft-outline\", class: \"bg-bg-success-muted border-border-success-muted text-fg-success\" },\r\n    { color: \"info\",    variant: \"soft-outline\", class: \"bg-bg-info-muted border-border-info-muted text-fg-info\" },\r\n\r\n    /* ── Hover (somente quando interactive) ────────────────────── */\r\n    { interactive: true, color: \"primary\", variant: \"solid\", class: \"hover:bg-bg-brand-hover\" },\r\n    { interactive: true, color: \"neutral\", variant: \"solid\", class: \"hover:bg-bg-muted-hover\" },\r\n    { interactive: true, color: \"danger\",  variant: \"solid\", class: \"hover:bg-bg-danger-hover\" },\r\n    { interactive: true, color: \"warning\", variant: \"solid\", class: \"hover:bg-bg-warning-hover\" },\r\n    { interactive: true, color: \"success\", variant: \"solid\", class: \"hover:bg-bg-success-hover\" },\r\n    { interactive: true, color: \"info\",    variant: \"solid\", class: \"hover:bg-bg-info-hover\" },\r\n\r\n    { interactive: true, color: \"primary\", variant: \"outline\", class: \"hover:bg-bg-brand-subtle\" },\r\n    { interactive: true, color: \"neutral\", variant: \"outline\", class: \"hover:bg-bg-muted\" },\r\n    { interactive: true, color: \"danger\",  variant: \"outline\", class: \"hover:bg-bg-danger-muted\" },\r\n    { interactive: true, color: \"warning\", variant: \"outline\", class: \"hover:bg-bg-warning-muted\" },\r\n    { interactive: true, color: \"success\", variant: \"outline\", class: \"hover:bg-bg-success-muted\" },\r\n    { interactive: true, color: \"info\",    variant: \"outline\", class: \"hover:bg-bg-info-muted\" },\r\n\r\n    { interactive: true, color: \"primary\", variant: \"soft\", class: \"hover:bg-bg-brand-subtle-hover\" },\r\n    { interactive: true, color: \"neutral\", variant: \"soft\", class: \"hover:bg-bg-muted-hover hover:text-fg-default\" },\r\n    { interactive: true, color: \"danger\",  variant: \"soft\", class: \"hover:bg-bg-danger-muted-hover\" },\r\n    { interactive: true, color: \"warning\", variant: \"soft\", class: \"hover:bg-bg-warning-muted-hover\" },\r\n    { interactive: true, color: \"success\", variant: \"soft\", class: \"hover:bg-bg-success-muted-hover\" },\r\n    { interactive: true, color: \"info\",    variant: \"soft\", class: \"hover:bg-bg-info-muted-hover\" },\r\n\r\n    { interactive: true, color: \"primary\", variant: \"soft-outline\", class: \"hover:bg-bg-brand-subtle-hover\" },\r\n    { interactive: true, color: \"neutral\", variant: \"soft-outline\", class: \"hover:bg-bg-muted-hover hover:text-fg-default\" },\r\n    { interactive: true, color: \"danger\",  variant: \"soft-outline\", class: \"hover:bg-bg-danger-muted-hover\" },\r\n    { interactive: true, color: \"warning\", variant: \"soft-outline\", class: \"hover:bg-bg-warning-muted-hover\" },\r\n    { interactive: true, color: \"success\", variant: \"soft-outline\", class: \"hover:bg-bg-success-muted-hover\" },\r\n    { interactive: true, color: \"info\",    variant: \"soft-outline\", class: \"hover:bg-bg-info-muted-hover\" },\r\n\r\n    /* ── Selected (ChipGroup) — força \"soft\" da color como visual ativo ── */\r\n    { selected: true, color: \"primary\", class: \"bg-bg-brand-subtle text-fg-brand border-transparent\" },\r\n    { selected: true, color: \"neutral\", class: \"bg-bg-accent text-fg-default font-semibold border-transparent shadow-sh-sm\" },\r\n    { selected: true, color: \"danger\",  class: \"bg-bg-danger-muted text-fg-danger border-transparent\" },\r\n    { selected: true, color: \"warning\", class: \"bg-bg-warning-muted text-fg-warning border-transparent\" },\r\n    { selected: true, color: \"success\", class: \"bg-bg-success-muted text-fg-success border-transparent\" },\r\n    { selected: true, color: \"info\",    class: \"bg-bg-info-muted text-fg-info border-transparent\" },\r\n  ],\r\n  defaultVariants: {\r\n    color: \"neutral\",\r\n    variant: \"soft\",\r\n    size: \"md\",\r\n    shape: \"pill\",\r\n    interactive: false,\r\n    selected: false,\r\n  },\r\n});\r\n\r\nexport type ChipVariantProps = VariantProps<typeof chipVariants>;\r\n\r\n/** Contador inline pra usar como adornment no Chip (ex: \"Não lidas (3)\") */\r\nexport const chipCount = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center min-w-[16px] h-[16px] px-[4px]\",\r\n    \"rounded-radius-full text-caption-xs font-semibold leading-none\",\r\n    \"bg-bg-muted text-fg-default\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Área de LABEL quando o chip tem `onRemove`.\r\n *\r\n * Com `onRemove` a pílula deixa de ser `<button>` e vira `<span>`, porque um botão\r\n * dentro de outro é HTML inválido — o navegador desaninha, e o clique no X passa a\r\n * disparar também o clique do chip. São duas ações distintas (\"filtrar por isto\" e\r\n * \"tirar isto\"), então são dois alvos.\r\n */\r\nexport const chipLabel = tv({\r\n  base: [\r\n    \"inline-flex min-w-0 items-center gap-gp-xs rounded-radius-full\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n});\r\n\r\n/** Botão de remover dentro do chip. O tamanho do X acompanha o tamanho do chip. */\r\nexport const chipRemove = tv({\r\n  base: [\r\n    \"-mr-[2px] grid shrink-0 place-items-center rounded-radius-full\",\r\n    \"opacity-70 transition-opacity hover:opacity-100\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n  variants: {\r\n    size: {\r\n      sm: \"size-[14px] [&_svg]:size-[10px]\",\r\n      md: \"size-icon-sm [&_svg]:size-[12px]\",\r\n      lg: \"size-icon-sm [&_svg]:size-[14px]\",\r\n      xl: \"size-icon-md [&_svg]:size-[14px]\",\r\n    },\r\n  },\r\n  defaultVariants: { size: \"md\" },\r\n});\r\n",
         "type": "registry:ui",
         "target": "components/ui/Chip/chip.styles.ts"
       },
@@ -777,7 +777,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · chip · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -830,7 +830,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · choropleth-map · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -852,7 +852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · collapsible · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -917,7 +917,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · color-picker · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -952,7 +952,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Combobox/combobox.tsx",
-        "content": "import * as React from \"react\";\nimport { forwardRef, useState } from \"react\";\nimport { Check, ChevronDown } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/shadcn/popover\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/shadcn/command\";\nimport { Separator } from \"@/components/shadcn/separator\";\nimport { Chip } from \"@/components/ui/Chip\";\nimport { comboboxStyles } from \"./combobox.styles\";\nimport type { ComboboxOption, ComboboxProps } from \"./combobox.types\";\n\n/**\n * Combobox — select com BUSCA (autocomplete) e lista ROLÁVEL, em escolha única\n * (default) ou múltipla (`multiple`).\n *\n * Compõe `Popover` + `Command` (cmdk): o trigger imita o `SelectTrigger` (parear\n * com Selects irmãos) e o dropdown traz `CommandInput` no topo + `CommandList`\n * com `max-h`/scroll. Use no lugar de um `Select` quando a lista é longa e o\n * usuário precisa digitar pra achar a opção (ex.: escolher uma coluna entre 30).\n *\n * Selação robusta: o `onSelect` do cmdk passa um valor normalizado, então o\n * componente NÃO depende dele — fecha via closure sobre `option.value`. A busca\n * casa por `label` + `keywords` (que inclui o `value` da opção).\n */\nexport const Combobox = forwardRef<HTMLButtonElement, ComboboxProps>(\n  function Combobox(props, ref) {\n    const {\n      options,\n      placeholder = \"Selecione…\",\n      searchPlaceholder = \"Buscar…\",\n      emptyMessage = \"Nenhum resultado.\",\n      open: openProp,\n      defaultOpen,\n      onOpenChange,\n      align = \"start\",\n      className,\n      contentClassName,\n      disabled,\n      \"aria-label\": ariaLabel,\n      multiple,\n      value,\n      onValueChange,\n      ...rest\n    } = props as ComboboxProps & {\n      multiple?: boolean;\n      value?: string | string[];\n      onValueChange?: (v: never) => void;\n    };\n    const fechaAoEscolher =\n      props.multiple === true ? false : (props.closeOnSelect ?? true);\n    const { maxChips = 2, renderSummary } =\n      props.multiple === true ? props : ({} as { maxChips?: number; renderSummary?: never });\n\n    const [uncontrolledOpen, setUncontrolledOpen] = useState(\n      defaultOpen ?? false,\n    );\n    const isControlled = openProp !== undefined;\n    const open = isControlled ? openProp : uncontrolledOpen;\n    const setOpen = (next: boolean) => {\n      if (!isControlled) setUncontrolledOpen(next);\n      onOpenChange?.(next);\n    };\n\n    const styles = comboboxStyles();\n\n    const selecionados: ComboboxOption[] = multiple\n      ? options.filter((o) => (value as string[] | undefined)?.includes(o.value))\n      : options.filter((o) => o.value === value);\n\n    const estaSelecionada = (o: ComboboxOption) =>\n      multiple\n        ? Boolean((value as string[] | undefined)?.includes(o.value))\n        : o.value === value;\n\n    const escolher = (o: ComboboxOption) => {\n      if (!multiple) {\n        (onValueChange as ((v: string) => void) | undefined)?.(o.value);\n        if (fechaAoEscolher) setOpen(false);\n        return;\n      }\n      // Toggle, e o dropdown FICA ABERTO: escolher várias de uma lista longa com o\n      // popover fechando a cada clique custa um reabrir + re-buscar por item.\n      const atual = (value as string[] | undefined) ?? [];\n      const proximo = atual.includes(o.value)\n        ? atual.filter((v) => v !== o.value)\n        : [...atual, o.value];\n      (onValueChange as ((v: string[]) => void) | undefined)?.(proximo);\n    };\n\n    /**\n     * Agrupa preservando a ORDEM de `options`: as sem `group` vêm primeiro (sem\n     * cabeçalho) e cada grupo aparece na posição da sua primeira opção. Ordenar por nome\n     * aqui seria decidir pelo consumidor — a ordem da lista é dele.\n     */\n    const grupos = React.useMemo(() => {\n      const out: { heading?: string; itens: ComboboxOption[] }[] = [];\n      for (const o of options) {\n        const atual = out.find((g) => g.heading === o.group);\n        if (atual) atual.itens.push(o);\n        else out.push({ heading: o.group, itens: [o] });\n      }\n      return out;\n    }, [options]);\n\n    const conteudoTrigger = () => {\n      if (selecionados.length === 0) return placeholder;\n      if (!multiple) return selecionados[0].label;\n      if (renderSummary) return renderSummary(selecionados);\n      const visiveis = selecionados.slice(0, maxChips);\n      const resto = selecionados.length - visiveis.length;\n      return (\n        // Chips SEM × de propósito: o trigger é um <button>, e um botão de remover\n        // aqui dentro seria botão aninhado — HTML inválido, e o navegador desaninha,\n        // fazendo o × abrir o dropdown. Pra remover com ×, renderize <Chip onRemove>\n        // ABAIXO do campo.\n        <span className=\"flex min-w-0 items-center gap-gp-xs\">\n          {visiveis.map((o) => (\n            <Chip key={o.value} size=\"sm\" color=\"neutral\" variant=\"soft\">\n              {o.label}\n            </Chip>\n          ))}\n          {resto > 0 && (\n            <span className=\"shrink-0 text-fg-muted\">+{resto}</span>\n          )}\n        </span>\n      );\n    };\n\n    return (\n      <Popover open={open} onOpenChange={setOpen}>\n        <PopoverTrigger asChild>\n          <button\n            ref={ref}\n            type=\"button\"\n            role=\"combobox\"\n            aria-expanded={open}\n            aria-label={ariaLabel}\n            disabled={disabled}\n            data-placeholder={selecionados.length > 0 ? undefined : \"\"}\n            className={styles.trigger({ className })}\n            {...rest}\n          >\n            <span className={styles.value()}>{conteudoTrigger()}</span>\n            <ChevronDown className={styles.icon()} aria-hidden=\"true\" />\n          </button>\n        </PopoverTrigger>\n        <PopoverContent\n          align={align}\n          className={styles.content({ className: contentClassName })}\n        >\n          <Command>\n            <CommandInput placeholder={searchPlaceholder} />\n            <CommandList>\n              <CommandEmpty>{emptyMessage}</CommandEmpty>\n              {grupos.map(({ heading, itens }, i) => (\n                <CommandGroup key={heading ?? \"__sem-grupo\"} heading={heading}>\n                  {i > 0 && !heading && <Separator className=\"my-pad-xs\" />}\n                  {itens.map((option) => {\n                    const isSelected = estaSelecionada(option);\n                    return (\n                      <CommandItem\n                        key={option.value}\n                        // `value` = o VALUE da opção, não o label. Com o label, duas\n                        // opções de mesmo rótulo (duas \"Matriz\", em unidades\n                        // diferentes) colidem no cmdk: ele casa pelo value, então uma\n                        // some da lista filtrada e a outra recebe o clique das duas.\n                        // O label continua pesquisável por `keywords`.\n                        value={option.value}\n                        keywords={[\n                          option.label,\n                          ...(option.hint ? [option.hint] : []),\n                          ...(option.keywords ?? []),\n                        ]}\n                        // `aria-selected` é do cmdk (item ativo do teclado). Em multi,\n                        // quem diz \"marcado\" é `aria-checked` + role de opção múltipla.\n                        role={multiple ? \"option\" : undefined}\n                        aria-checked={multiple ? isSelected : undefined}\n                        onSelect={() => escolher(option)}\n                        className={cn(\n                          isSelected &&\n                            \"text-fg-default font-medium [&_svg]:text-fg-brand\",\n                        )}\n                      >\n                        <span className={styles.itemTexto()}>\n                          <span className={styles.itemLabel()}>{option.label}</span>\n                          {option.hint && (\n                            <span className={styles.itemHint()}>{option.hint}</span>\n                          )}\n                        </span>\n                        {isSelected && <Check aria-hidden=\"true\" />}\n                      </CommandItem>\n                    );\n                  })}\n                </CommandGroup>\n              ))}\n            </CommandList>\n          </Command>\n        </PopoverContent>\n      </Popover>\n    );\n  },\n);\nCombobox.displayName = \"Combobox\";\n",
+        "content": "import * as React from \"react\";\r\nimport { forwardRef, useState } from \"react\";\r\nimport { Check, ChevronDown } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  Popover,\r\n  PopoverContent,\r\n  PopoverTrigger,\r\n} from \"@/components/shadcn/popover\";\r\nimport {\r\n  Command,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandInput,\r\n  CommandItem,\r\n  CommandList,\r\n} from \"@/components/shadcn/command\";\r\nimport { Separator } from \"@/components/shadcn/separator\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { comboboxStyles } from \"./combobox.styles\";\r\nimport type { ComboboxOption, ComboboxProps } from \"./combobox.types\";\r\n\r\n/**\r\n * Combobox — select com BUSCA (autocomplete) e lista ROLÁVEL, em escolha única\r\n * (default) ou múltipla (`multiple`).\r\n *\r\n * Compõe `Popover` + `Command` (cmdk): o trigger imita o `SelectTrigger` (parear\r\n * com Selects irmãos) e o dropdown traz `CommandInput` no topo + `CommandList`\r\n * com `max-h`/scroll. Use no lugar de um `Select` quando a lista é longa e o\r\n * usuário precisa digitar pra achar a opção (ex.: escolher uma coluna entre 30).\r\n *\r\n * Selação robusta: o `onSelect` do cmdk passa um valor normalizado, então o\r\n * componente NÃO depende dele — fecha via closure sobre `option.value`. A busca\r\n * casa por `label` + `keywords` (que inclui o `value` da opção).\r\n */\r\nexport const Combobox = forwardRef<HTMLButtonElement, ComboboxProps>(\r\n  function Combobox(props, ref) {\r\n    const {\r\n      options,\r\n      placeholder = \"Selecione…\",\r\n      searchPlaceholder = \"Buscar…\",\r\n      emptyMessage = \"Nenhum resultado.\",\r\n      open: openProp,\r\n      defaultOpen,\r\n      onOpenChange,\r\n      align = \"start\",\r\n      className,\r\n      contentClassName,\r\n      disabled,\r\n      \"aria-label\": ariaLabel,\r\n      multiple,\r\n      value,\r\n      onValueChange,\r\n      ...rest\r\n    } = props as ComboboxProps & {\r\n      multiple?: boolean;\r\n      value?: string | string[];\r\n      onValueChange?: (v: never) => void;\r\n    };\r\n    const fechaAoEscolher =\r\n      props.multiple === true ? false : (props.closeOnSelect ?? true);\r\n    const { maxChips = 2, renderSummary } =\r\n      props.multiple === true ? props : ({} as { maxChips?: number; renderSummary?: never });\r\n\r\n    const [uncontrolledOpen, setUncontrolledOpen] = useState(\r\n      defaultOpen ?? false,\r\n    );\r\n    const isControlled = openProp !== undefined;\r\n    const open = isControlled ? openProp : uncontrolledOpen;\r\n    const setOpen = (next: boolean) => {\r\n      if (!isControlled) setUncontrolledOpen(next);\r\n      onOpenChange?.(next);\r\n    };\r\n\r\n    const styles = comboboxStyles();\r\n\r\n    const selecionados: ComboboxOption[] = multiple\r\n      ? options.filter((o) => (value as string[] | undefined)?.includes(o.value))\r\n      : options.filter((o) => o.value === value);\r\n\r\n    const estaSelecionada = (o: ComboboxOption) =>\r\n      multiple\r\n        ? Boolean((value as string[] | undefined)?.includes(o.value))\r\n        : o.value === value;\r\n\r\n    const escolher = (o: ComboboxOption) => {\r\n      if (!multiple) {\r\n        (onValueChange as ((v: string) => void) | undefined)?.(o.value);\r\n        if (fechaAoEscolher) setOpen(false);\r\n        return;\r\n      }\r\n      // Toggle, e o dropdown FICA ABERTO: escolher várias de uma lista longa com o\r\n      // popover fechando a cada clique custa um reabrir + re-buscar por item.\r\n      const atual = (value as string[] | undefined) ?? [];\r\n      const proximo = atual.includes(o.value)\r\n        ? atual.filter((v) => v !== o.value)\r\n        : [...atual, o.value];\r\n      (onValueChange as ((v: string[]) => void) | undefined)?.(proximo);\r\n    };\r\n\r\n    /**\r\n     * Agrupa preservando a ORDEM de `options`: as sem `group` vêm primeiro (sem\r\n     * cabeçalho) e cada grupo aparece na posição da sua primeira opção. Ordenar por nome\r\n     * aqui seria decidir pelo consumidor — a ordem da lista é dele.\r\n     */\r\n    const grupos = React.useMemo(() => {\r\n      const out: { heading?: string; itens: ComboboxOption[] }[] = [];\r\n      for (const o of options) {\r\n        const atual = out.find((g) => g.heading === o.group);\r\n        if (atual) atual.itens.push(o);\r\n        else out.push({ heading: o.group, itens: [o] });\r\n      }\r\n      return out;\r\n    }, [options]);\r\n\r\n    const conteudoTrigger = () => {\r\n      if (selecionados.length === 0) return placeholder;\r\n      if (!multiple) return selecionados[0].label;\r\n      if (renderSummary) return renderSummary(selecionados);\r\n      const visiveis = selecionados.slice(0, maxChips);\r\n      const resto = selecionados.length - visiveis.length;\r\n      return (\r\n        // Chips SEM × de propósito: o trigger é um <button>, e um botão de remover\r\n        // aqui dentro seria botão aninhado — HTML inválido, e o navegador desaninha,\r\n        // fazendo o × abrir o dropdown. Pra remover com ×, renderize <Chip onRemove>\r\n        // ABAIXO do campo.\r\n        <span className=\"flex min-w-0 items-center gap-gp-xs\">\r\n          {visiveis.map((o) => (\r\n            <Chip key={o.value} size=\"sm\" color=\"neutral\" variant=\"soft\">\r\n              {o.label}\r\n            </Chip>\r\n          ))}\r\n          {resto > 0 && (\r\n            <span className=\"shrink-0 text-fg-muted\">+{resto}</span>\r\n          )}\r\n        </span>\r\n      );\r\n    };\r\n\r\n    return (\r\n      <Popover open={open} onOpenChange={setOpen}>\r\n        <PopoverTrigger asChild>\r\n          <button\r\n            ref={ref}\r\n            type=\"button\"\r\n            role=\"combobox\"\r\n            aria-expanded={open}\r\n            aria-label={ariaLabel}\r\n            disabled={disabled}\r\n            data-placeholder={selecionados.length > 0 ? undefined : \"\"}\r\n            className={styles.trigger({ className })}\r\n            {...rest}\r\n          >\r\n            <span className={styles.value()}>{conteudoTrigger()}</span>\r\n            <ChevronDown className={styles.icon()} aria-hidden=\"true\" />\r\n          </button>\r\n        </PopoverTrigger>\r\n        <PopoverContent\r\n          align={align}\r\n          className={styles.content({ className: contentClassName })}\r\n        >\r\n          <Command>\r\n            <CommandInput placeholder={searchPlaceholder} />\r\n            <CommandList>\r\n              <CommandEmpty>{emptyMessage}</CommandEmpty>\r\n              {grupos.map(({ heading, itens }, i) => (\r\n                <CommandGroup key={heading ?? \"__sem-grupo\"} heading={heading}>\r\n                  {i > 0 && !heading && <Separator className=\"my-pad-xs\" />}\r\n                  {itens.map((option) => {\r\n                    const isSelected = estaSelecionada(option);\r\n                    return (\r\n                      <CommandItem\r\n                        key={option.value}\r\n                        // `value` = o VALUE da opção, não o label. Com o label, duas\r\n                        // opções de mesmo rótulo (duas \"Matriz\", em unidades\r\n                        // diferentes) colidem no cmdk: ele casa pelo value, então uma\r\n                        // some da lista filtrada e a outra recebe o clique das duas.\r\n                        // O label continua pesquisável por `keywords`.\r\n                        value={option.value}\r\n                        keywords={[\r\n                          option.label,\r\n                          ...(option.hint ? [option.hint] : []),\r\n                          ...(option.keywords ?? []),\r\n                        ]}\r\n                        // `aria-selected` é do cmdk (item ativo do teclado). Em multi,\r\n                        // quem diz \"marcado\" é `aria-checked` + role de opção múltipla.\r\n                        role={multiple ? \"option\" : undefined}\r\n                        aria-checked={multiple ? isSelected : undefined}\r\n                        onSelect={() => escolher(option)}\r\n                        className={cn(\r\n                          isSelected &&\r\n                            \"text-fg-default font-medium [&_svg]:text-fg-brand\",\r\n                        )}\r\n                      >\r\n                        <span className={styles.itemTexto()}>\r\n                          <span className={styles.itemLabel()}>{option.label}</span>\r\n                          {option.hint && (\r\n                            <span className={styles.itemHint()}>{option.hint}</span>\r\n                          )}\r\n                        </span>\r\n                        {isSelected && <Check aria-hidden=\"true\" />}\r\n                      </CommandItem>\r\n                    );\r\n                  })}\r\n                </CommandGroup>\r\n              ))}\r\n            </CommandList>\r\n          </Command>\r\n        </PopoverContent>\r\n      </Popover>\r\n    );\r\n  },\r\n);\r\nCombobox.displayName = \"Combobox\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Combobox/combobox.tsx"
       },
@@ -970,7 +970,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · combobox · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -997,7 +997,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · command · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1022,7 +1022,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · context-menu · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1099,7 +1099,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · data-list · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1784,7 +1784,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · data-table · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1822,7 +1822,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · date-picker · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1847,7 +1847,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · dialog · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1871,7 +1871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · drawer · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1896,7 +1896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · dropdown-menu · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -1925,7 +1925,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:block"
   },
@@ -1954,7 +1954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:block"
   },
@@ -1985,7 +1985,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:block"
   },
@@ -2015,7 +2015,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:block"
   },
@@ -2068,7 +2068,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · empty-state · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2109,7 +2109,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-app-shell · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2411,7 +2411,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-chat · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2507,7 +2507,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-clientes · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2553,7 +2553,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-dashboard · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2604,7 +2604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-edit-page · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2740,7 +2740,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-finance · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2779,7 +2779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-gantt · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-gantt · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2809,7 +2809,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-login · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2866,7 +2866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-mapa-rede · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2947,7 +2947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · example-order-detail · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -2967,7 +2967,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/FileUploadField/USAGE.md",
-        "content": "# FileUploadField — USAGE\r\n\r\nCaptura de **um** arquivo com preview. Componente **dumb**: só captura o `File` e\r\nmostra preview — o **consumidor faz o upload**. Categoria: form / data-input.\r\n\r\nComposto de `FormField` (label/estado/erro) + `Button` + `Chip` + `Icon` + `tv()`.\r\n\r\n## Quando usar\r\n\r\n- Anexar avatar, logo, comprovante, documento único em um formulário.\r\n- Quando o upload é responsabilidade do consumer (envia o `File` pra API depois).\r\n- Para **múltiplos** arquivos ou drag & drop, NÃO use este (single-file; D&D é fase 2).\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { FileUploadField } from \"@/components/ui/FileUploadField\";\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|---|---|---|---|\r\n| `value` | `File \\| string \\| null` | — (req) | `File` recém-selecionado, `string` (URL hospedada) ou `null` (vazio) |\r\n| `onChange` | `(file: File \\| null) => void` | — (req) | Selecionar → `File`; remover → `null` |\r\n| `accept` | `string` | — | Filtro do seletor + validação (`\"image/*\"`, `\".pdf,.png\"`) |\r\n| `maxSizeMB` | `number` | — | Tamanho máximo; acima → rejeitado via `onError(\"size\")` |\r\n| `preview` | `\"image\" \\| \"file\" \\| \"auto\"` | `\"auto\"` | Modo de preview; `auto` infere por accept/MIME |\r\n| `fileName` | `string` | — | Nome exibido quando `value` é uma URL |\r\n| `label` | `string` | — | Label (renderizado pelo FormField) |\r\n| `required` | `boolean` | — | Asterisco no label |\r\n| `state` | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"` | `\"default\"` | Estado semântico do FormField |\r\n| `errorMessage` | `string` | — | Mensagem quando `state=\"error\"` |\r\n| `helperText` | `string` | — | Texto auxiliar abaixo do campo |\r\n| `onError` | `(reason: \"type\" \\| \"size\") => void` | — | Disparado quando arquivo é rejeitado |\r\n| `disabled` | `boolean` | — | Desabilita dropzone + remover |\r\n| `id` | `string` | — | id do input (linka label↔input) |\r\n| `className` | `string` | — | className do container (FormField) |\r\n\r\n## Estados visuais\r\n\r\n| value | Render |\r\n|---|---|\r\n| `null` | Dropzone `<button>` full-width (`min-h-form-xl`, dashed) com ícone + \"Clique para anexar\" + hint accept/maxSize |\r\n| `File`/URL imagem | Row: thumbnail (`size-icon-2xl`, object-cover) + botão remover |\r\n| `File`/URL arquivo | Row: Chip soft (ícone file + nome truncate) + botão remover |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nconst [file, setFile] = useState<File | null>(null);\r\n\r\n<FileUploadField\r\n  label=\"Comprovante\"\r\n  required\r\n  value={file}\r\n  onChange={setFile}\r\n  accept=\"image/*,.pdf\"\r\n  maxSizeMB={5}\r\n  onError={(reason) =>\r\n    toast.error(reason === \"size\" ? \"Arquivo muito grande\" : \"Tipo inválido\")\r\n  }\r\n/>\r\n```\r\n\r\n### Editar registro existente (value como URL)\r\n\r\n```tsx\r\n<FileUploadField\r\n  label=\"Logo\"\r\n  value={logoUrl}            // string (URL já hospedada)\r\n  fileName=\"logo.png\"\r\n  onChange={(f) => setNewLogo(f)}  // null = remover, File = trocar\r\n  accept=\"image/*\"\r\n  preview=\"image\"\r\n/>\r\n```\r\n\r\n## Gotchas / cuidados\r\n\r\n- **Dumb component**: não envia nada à rede. O `onChange(File)` te dá o `File`;\r\n  faça `FormData`/upload no consumer e persista a URL retornada.\r\n- Arquivo rejeitado (tipo/tamanho) **não** vira `value` — só dispara `onError`.\r\n  Para feedback visual no campo, controle `state=\"error\"` + `errorMessage` no consumer.\r\n- Preview de `File` usa `URL.createObjectURL` (revogado automaticamente). Para URL\r\n  string, o `src` é o próprio value.\r\n- Single-file: o input não tem `multiple`. Drag & drop é fase 2 (API preservada).\r\n- A11y: dropzone é `<button>` (Enter/Space abrem o seletor); input file hidden com\r\n  `id` do FormField; thumbnail tem `alt`; remover é icon-only com `aria-label`.\r\n\r\n## Fonte de verdade\r\n\r\n- Estilos: `file-upload-field.styles.ts` (tv())\r\n- Lógica: `file-upload-field.tsx`\r\n- Tipos: `file-upload-field.types.ts`\r\n\r\n## `texts` — os rótulos deixam de ser cravados (2026-09-23)\r\n\r\nTrês literais em português estavam no código: \"Clique para anexar\", \"Arquivo\" e\r\n\"Remover arquivo\". Quem importa planilha em lote precisa de \"Selecionar CSV\" e tinha\r\nque aceitar o nosso texto ou refazer o campo.\r\n\r\n```tsx\r\n<FileUploadField\r\n  value={arquivo}\r\n  onChange={setArquivo}\r\n  accept=\".csv\"\r\n  texts={{\r\n    drop: \"Selecionar planilha\",\r\n    fallbackFileName: \"Planilha\",\r\n    remove: \"Remover planilha\",\r\n  }}\r\n/>\r\n```\r\n\r\nSó as chaves passadas mudam; o resto segue o default. `texts.remove` é o nome\r\nacessível do botão — numa tela com vários uploads, três botões \"Remover arquivo\" são\r\nindistinguíveis no leitor de tela.\r\n",
+        "content": "# FileUploadField — USAGE\r\n\r\nCaptura de **um** arquivo com preview. Componente **dumb**: só captura o `File` e\r\nmostra preview — o **consumidor faz o upload**. Categoria: form / data-input.\r\n\r\nComposto de `FormField` (label/estado/erro) + `Button` + `Chip` + `Icon` + `tv()`.\r\n\r\n## Quando usar\r\n\r\n- Anexar avatar, logo, comprovante, documento único em um formulário.\r\n- Quando o upload é responsabilidade do consumer (envia o `File` pra API depois).\r\n- Para **múltiplos** arquivos ou drag & drop, NÃO use este (single-file; D&D é fase 2).\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { FileUploadField } from \"@/components/ui/FileUploadField\";\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|---|---|---|---|\r\n| `value` | `File \\| string \\| null` | — (req) | `File` recém-selecionado, `string` (URL hospedada) ou `null` (vazio) |\r\n| `onChange` | `(file: File \\| null) => void` | — (req) | Selecionar → `File`; remover → `null` |\r\n| `accept` | `string` | — | Filtro do seletor + validação (`\"image/*\"`, `\".pdf,.png\"`) |\r\n| `maxSizeMB` | `number` | — | Tamanho máximo; acima → rejeitado via `onError(\"size\")` |\r\n| `preview` | `\"image\" \\| \"file\" \\| \"auto\"` | `\"auto\"` | Modo de preview; `auto` infere por accept/MIME |\r\n| `fileName` | `string` | — | Nome exibido quando `value` é uma URL |\r\n| `label` | `string` | — | Label (renderizado pelo FormField) |\r\n| `required` | `boolean` | — | Asterisco no label |\r\n| `state` | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"` | `\"default\"` | Estado semântico do FormField |\r\n| `errorMessage` | `string` | — | Mensagem quando `state=\"error\"` |\r\n| `helperText` | `string` | — | Texto auxiliar abaixo do campo |\r\n| `onError` | `(reason: \"type\" \\| \"size\") => void` | — | Disparado quando arquivo é rejeitado |\r\n| `disabled` | `boolean` | — | Desabilita dropzone + remover |\r\n| `id` | `string` | — | id do input (linka label↔input) |\r\n| `className` | `string` | — | className do container (FormField) |\r\n\r\n## Estados visuais\r\n\r\n| value | Render |\r\n|---|---|\r\n| `null` | Dropzone `<button>` full-width (`min-h-form-xl`, dashed) com ícone + \"Clique para anexar\" + hint accept/maxSize |\r\n| `File`/URL imagem | Row: thumbnail (`size-icon-2xl`, object-cover) + botão remover |\r\n| `File`/URL arquivo | Row: Chip soft (ícone file + nome truncate) + botão remover |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nconst [file, setFile] = useState<File | null>(null);\r\n\r\n<FileUploadField\r\n  label=\"Comprovante\"\r\n  required\r\n  value={file}\r\n  onChange={setFile}\r\n  accept=\"image/*,.pdf\"\r\n  maxSizeMB={5}\r\n  onError={(reason) =>\r\n    toast.error(reason === \"size\" ? \"Arquivo muito grande\" : \"Tipo inválido\")\r\n  }\r\n/>\r\n```\r\n\r\n### Editar registro existente (value como URL)\r\n\r\n```tsx\r\n<FileUploadField\r\n  label=\"Logo\"\r\n  value={logoUrl}            // string (URL já hospedada)\r\n  fileName=\"logo.png\"\r\n  onChange={(f) => setNewLogo(f)}  // null = remover, File = trocar\r\n  accept=\"image/*\"\r\n  preview=\"image\"\r\n/>\r\n```\r\n\r\n## Gotchas / cuidados\r\n\r\n- **Dumb component**: não envia nada à rede. O `onChange(File)` te dá o `File`;\r\n  faça `FormData`/upload no consumer e persista a URL retornada.\r\n- Arquivo rejeitado (tipo/tamanho) **não** vira `value` — só dispara `onError`.\r\n  Para feedback visual no campo, controle `state=\"error\"` + `errorMessage` no consumer.\r\n- Preview de `File` usa `URL.createObjectURL` (revogado automaticamente). Para URL\r\n  string, o `src` é o próprio value.\r\n- Single-file: o input não tem `multiple`. Drag & drop é fase 2 (API preservada).\r\n- A11y: dropzone é `<button>` (Enter/Space abrem o seletor); input file hidden com\r\n  `id` do FormField; thumbnail tem `alt`; remover é icon-only com `aria-label`.\r\n\r\n## Fonte de verdade\r\n\r\n- Estilos: `file-upload-field.styles.ts` (tv())\r\n- Lógica: `file-upload-field.tsx`\r\n- Tipos: `file-upload-field.types.ts`\r\n\r\n## `texts` — os rótulos deixam de ser cravados (2026-09-23)\r\n\r\nTrês literais em português estavam no código: \"Clique para anexar\", \"Arquivo\" e\r\n\"Remover arquivo\". Quem importa planilha em lote precisa de \"Selecionar CSV\" e tinha\r\nque aceitar o nosso texto ou refazer o campo.\r\n\r\n```tsx\r\n<FileUploadField\r\n  value={arquivo}\r\n  onChange={setArquivo}\r\n  accept=\".csv\"\r\n  texts={{\r\n    drop: \"Selecionar planilha\",\r\n    fallbackFileName: \"Planilha\",\r\n    remove: \"Remover planilha\",\r\n  }}\r\n/>\r\n```\r\n\r\nSó as chaves passadas mudam; o resto segue o default. `texts.remove` é o nome\r\nacessível do botão — numa tela com vários uploads, três botões \"Remover arquivo\" são\r\nindistinguíveis no leitor de tela.\r\n\r\n### `texts.hint` — a dica, quando `accept` não serve de dica (2026-09-24)\r\n\r\nA linha menor abaixo da chamada é derivada de `accept` + `maxSizeMB`. Isso funciona pra\r\n`accept=\".pdf\"` e **não** funciona pra importação em lote, onde `accept` é a lista de MIME\r\ncrua:\r\n\r\n```\r\ntext/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument... · máx. 10MB\r\n```\r\n\r\n```tsx\r\n<FileUploadField\r\n  accept=\"text/csv,application/vnd.ms-excel\"\r\n  maxSizeMB={10}\r\n  texts={{ hint: \"CSV ou XLS · até 10MB · uma linha por cliente\" }}\r\n/>\r\n\r\n<FileUploadField texts={{ hint: \"\" }} />  {/* esconde a linha */}\r\n```\r\n\r\n⚠️ `texts.hint` substitui a dica **inteira**, incluindo o `máx. NMB`. Se o limite importa\r\npro usuário, repita-o no texto — o componente não concatena.\r\n",
         "type": "registry:file",
         "target": "components/ui/FileUploadField/USAGE.md"
       },
@@ -2979,13 +2979,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/FileUploadField/file-upload-field.tsx",
-        "content": "import { useEffect, useRef, useState } from \"react\";\r\nimport { FormField } from \"@/components/ui/FormField\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { IconSvg } from \"@/components/ui/Icon/icon-svg\";\r\nimport { lineBin, lineCloudUpload, lineFile } from \"@/components/ui/Icon/icon-glyphs\";\r\nimport { fileUploadFieldStyles } from \"./file-upload-field.styles\";\r\nimport type {\r\n  FileUploadFieldProps,\r\n  FileUploadPreview,\r\n} from \"./file-upload-field.types\";\r\n\r\n/** Decide se o value deve ser exibido como imagem (thumbnail) ou como chip de arquivo. */\r\nfunction resolveIsImage(\r\n  value: File | string,\r\n  preview: FileUploadPreview,\r\n  accept?: string,\r\n): boolean {\r\n  if (preview === \"image\") return true;\r\n  if (preview === \"file\") return false;\r\n  // auto — infere por MIME (File) ou por accept (URL string)\r\n  if (value instanceof File) return value.type.startsWith(\"image/\");\r\n  if (accept) return /image\\//.test(accept) || /\\.(png|jpe?g|gif|webp|svg|avif)/i.test(accept);\r\n  return /\\.(png|jpe?g|gif|webp|svg|avif)(\\?|$)/i.test(value);\r\n}\r\n\r\n/** Valida tipo contra `accept` (suporta `image/*`, `image/png`, `.pdf`). */\r\nfunction matchesAccept(file: File, accept?: string): boolean {\r\n  if (!accept) return true;\r\n  const tokens = accept.split(\",\").map((t) => t.trim().toLowerCase());\r\n  const name = file.name.toLowerCase();\r\n  const mime = file.type.toLowerCase();\r\n  return tokens.some((token) => {\r\n    if (!token) return false;\r\n    if (token.startsWith(\".\")) return name.endsWith(token);\r\n    if (token.endsWith(\"/*\")) return mime.startsWith(token.slice(0, token.length - 1));\r\n    return mime === token;\r\n  });\r\n}\r\n\r\n/**\r\n * FileUploadField — captura de UM arquivo (dumb: só captura File + preview).\r\n * O consumidor é responsável pelo upload. Composto de FormField + Button + Chip + Icon.\r\n *\r\n * - Estado VAZIO (`value == null`): dropzone `<button>` que abre o seletor nativo.\r\n * - Estado COM-ARQUIVO: preview (thumbnail de imagem ou Chip de arquivo) + remover.\r\n * - Rejeição por tipo/tamanho: arquivo NÃO vira value; dispara `onError(\"type\"|\"size\")`.\r\n *\r\n * A11y: dropzone é `<button>` (Enter/Space abrem o seletor); input file hidden\r\n * com id linkado ao FormField; thumbnail com `alt`; remover icon-only com aria-label.\r\n * Drag & drop é fase 2 (não implementado — API preservada).\r\n */\r\nexport function FileUploadField({\r\n  value,\r\n  onChange,\r\n  accept,\r\n  maxSizeMB,\r\n  preview = \"auto\",\r\r\n  fileName,\r\n  texts,\r\n  label,\r\n  required,\r\n  state,\r\n  errorMessage,\r\n  helperText,\r\n  onError,\r\n  disabled,\r\n  id,\r\n  className,\r\n}: FileUploadFieldProps) {\r\n  const inputRef = useRef<HTMLInputElement>(null);\r\n  const styles = fileUploadFieldStyles({ disabled });\r\n\r\n  // Object URL pra preview de File (revogado ao trocar/desmontar).\r\n  const [objectUrl, setObjectUrl] = useState<string | null>(null);\r\n  useEffect(() => {\r\n    if (value instanceof File) {\r\n      const url = URL.createObjectURL(value);\r\n      setObjectUrl(url);\r\n      return () => URL.revokeObjectURL(url);\r\n    }\r\n    setObjectUrl(null);\r\n    return undefined;\r\n  }, [value]);\r\n\r\n  const openPicker = () => {\r\n    if (disabled) return;\r\n    inputRef.current?.click();\r\n  };\r\n\r\n  const handleFiles = (file: File | undefined) => {\r\n    if (!file) return;\r\n    if (!matchesAccept(file, accept)) {\r\n      onError?.(\"type\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    if (maxSizeMB != null && file.size > maxSizeMB * 1024 * 1024) {\r\n      onError?.(\"size\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    onChange(file);\r\n  };\r\n\r\n  const resetInput = () => {\r\n    if (inputRef.current) inputRef.current.value = \"\";\r\n  };\r\n\r\n  const handleRemove = () => {\r\n    onChange(null);\r\n    resetInput();\r\n  };\r\n\r\n  const hint = [\r\n    accept ? accept : null,\r\n    maxSizeMB != null ? `máx. ${maxSizeMB}MB` : null,\r\n  ]\r\n    .filter(Boolean)\r\n    .join(\" · \");\r\n\r\n  /** Chamada da área de drop. Literal PT-BR era cravado aqui até 2026-09-23. */\r\n  const chamada = texts?.drop ?? \"Clique para anexar\";\r\n\r\n  const displayName =\r\n    value instanceof File\r\n      ? value.name\r\n      : (fileName ?? texts?.fallbackFileName ?? \"Arquivo\");\r\n  const isImage = value != null && resolveIsImage(value, preview, accept);\r\n  const imageSrc = value instanceof File ? objectUrl : (value as string | null);\r\n\r\n  return (\r\n    <FormField\r\n      label={label}\r\n      required={required}\r\n      state={state}\r\n      errorMessage={errorMessage}\r\n      helperText={helperText}\r\n      className={className}\r\n      id={id}\r\n      disabled={disabled}\r\n    >\r\n      {({ id: fieldId }) => (\r\n        <div>\r\n          <input\r\n            ref={inputRef}\r\n            id={fieldId}\r\n            type=\"file\"\r\n            accept={accept}\r\n            disabled={disabled}\r\n            className=\"hidden\"\r\n            onChange={(e) => handleFiles(e.target.files?.[0])}\r\n          />\r\n\r\n          {value == null ? (\r\n            <button\r\n              type=\"button\"\r\n              onClick={openPicker}\r\n              disabled={disabled}\r\n              aria-label={\r\n                label ? `${label}: ${chamada.toLowerCase()}` : chamada\r\n              }\r\n              className={styles.dropzone()}\r\n            >\r\n              <IconSvg glyph={lineCloudUpload} size=\"lg\" className={styles.dropIcon()} />\r\n              <span className={styles.dropTexts()}>\r\n                <span className={styles.dropText()}>{chamada}</span>\r\n                {hint && <span className={styles.dropHint()}>{hint}</span>}\r\n              </span>\r\n            </button>\r\n          ) : (\r\n            <div className={styles.fileRow()}>\r\n              {isImage && imageSrc ? (\r\n                <img src={imageSrc} alt={displayName} className={styles.thumb()} />\r\n              ) : (\r\n                <div className={styles.fileChipWrap()}>\r\n                  <Chip color=\"neutral\" variant=\"soft\" size=\"lg\" className=\"max-w-full\">\r\n                    <IconSvg glyph={lineFile} size=\"sm\" />\r\n                    <span className={styles.fileName()}>{displayName}</span>\r\n                  </Chip>\r\n                </div>\r\n              )}\r\n              <div className={styles.removeWrap()}>\r\n                <Button\r\n                  type=\"button\"\r\n                  color=\"critical\"\r\n                  variant=\"ghost\"\r\n                  size=\"icon-sm\"\r\n                  disabled={disabled}\r\n                  aria-label={texts?.remove ?? \"Remover arquivo\"}\r\n                  onClick={handleRemove}\r\n                >\r\n                  <IconSvg glyph={lineBin} size=\"sm\" />\r\n                </Button>\r\n              </div>\r\n            </div>\r\n          )}\r\n        </div>\r\n      )}\r\n    </FormField>\r\n  );\r\n}\r\n",
+        "content": "import { useEffect, useRef, useState } from \"react\";\r\nimport { FormField } from \"@/components/ui/FormField\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { IconSvg } from \"@/components/ui/Icon/icon-svg\";\r\nimport { lineBin, lineCloudUpload, lineFile } from \"@/components/ui/Icon/icon-glyphs\";\r\nimport { fileUploadFieldStyles } from \"./file-upload-field.styles\";\r\nimport type {\r\n  FileUploadFieldProps,\r\n  FileUploadPreview,\r\n} from \"./file-upload-field.types\";\r\n\r\n/** Decide se o value deve ser exibido como imagem (thumbnail) ou como chip de arquivo. */\r\nfunction resolveIsImage(\r\n  value: File | string,\r\n  preview: FileUploadPreview,\r\n  accept?: string,\r\n): boolean {\r\n  if (preview === \"image\") return true;\r\n  if (preview === \"file\") return false;\r\n  // auto — infere por MIME (File) ou por accept (URL string)\r\n  if (value instanceof File) return value.type.startsWith(\"image/\");\r\n  if (accept) return /image\\//.test(accept) || /\\.(png|jpe?g|gif|webp|svg|avif)/i.test(accept);\r\n  return /\\.(png|jpe?g|gif|webp|svg|avif)(\\?|$)/i.test(value);\r\n}\r\n\r\n/** Valida tipo contra `accept` (suporta `image/*`, `image/png`, `.pdf`). */\r\nfunction matchesAccept(file: File, accept?: string): boolean {\r\n  if (!accept) return true;\r\n  const tokens = accept.split(\",\").map((t) => t.trim().toLowerCase());\r\n  const name = file.name.toLowerCase();\r\n  const mime = file.type.toLowerCase();\r\n  return tokens.some((token) => {\r\n    if (!token) return false;\r\n    if (token.startsWith(\".\")) return name.endsWith(token);\r\n    if (token.endsWith(\"/*\")) return mime.startsWith(token.slice(0, token.length - 1));\r\n    return mime === token;\r\n  });\r\n}\r\n\r\n/**\r\n * FileUploadField — captura de UM arquivo (dumb: só captura File + preview).\r\n * O consumidor é responsável pelo upload. Composto de FormField + Button + Chip + Icon.\r\n *\r\n * - Estado VAZIO (`value == null`): dropzone `<button>` que abre o seletor nativo.\r\n * - Estado COM-ARQUIVO: preview (thumbnail de imagem ou Chip de arquivo) + remover.\r\n * - Rejeição por tipo/tamanho: arquivo NÃO vira value; dispara `onError(\"type\"|\"size\")`.\r\n *\r\n * A11y: dropzone é `<button>` (Enter/Space abrem o seletor); input file hidden\r\n * com id linkado ao FormField; thumbnail com `alt`; remover icon-only com aria-label.\r\n * Drag & drop é fase 2 (não implementado — API preservada).\r\n */\r\nexport function FileUploadField({\r\n  value,\r\n  onChange,\r\n  accept,\r\n  maxSizeMB,\r\n  preview = \"auto\",\r\n  fileName,\r\n  texts,\r\n  label,\r\n  required,\r\n  state,\r\n  errorMessage,\r\n  helperText,\r\n  onError,\r\n  disabled,\r\n  id,\r\n  className,\r\n}: FileUploadFieldProps) {\r\n  const inputRef = useRef<HTMLInputElement>(null);\r\n  const styles = fileUploadFieldStyles({ disabled });\r\n\r\n  // Object URL pra preview de File (revogado ao trocar/desmontar).\r\n  const [objectUrl, setObjectUrl] = useState<string | null>(null);\r\n  useEffect(() => {\r\n    if (value instanceof File) {\r\n      const url = URL.createObjectURL(value);\r\n      setObjectUrl(url);\r\n      return () => URL.revokeObjectURL(url);\r\n    }\r\n    setObjectUrl(null);\r\n    return undefined;\r\n  }, [value]);\r\n\r\n  const openPicker = () => {\r\n    if (disabled) return;\r\n    inputRef.current?.click();\r\n  };\r\n\r\n  const handleFiles = (file: File | undefined) => {\r\n    if (!file) return;\r\n    if (!matchesAccept(file, accept)) {\r\n      onError?.(\"type\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    if (maxSizeMB != null && file.size > maxSizeMB * 1024 * 1024) {\r\n      onError?.(\"size\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    onChange(file);\r\n  };\r\n\r\n  const resetInput = () => {\r\n    if (inputRef.current) inputRef.current.value = \"\";\r\n  };\r\n\r\n  const handleRemove = () => {\r\n    onChange(null);\r\n    resetInput();\r\n  };\r\n\r\n  /**\r\n   * A dica derivada é `accept` cru — ou seja, a lista de MIME types. Serve pra\r\n   * `accept=\".pdf\"`, e não serve pra importação em lote, onde `accept` tem 3 MIME\r\n   * longos. `texts.hint` sobrescreve; `\"\"` esconde a linha.\r\n   */\r\n  const hint =\r\n    texts?.hint ??\r\n    [accept ? accept : null, maxSizeMB != null ? `máx. ${maxSizeMB}MB` : null]\r\n      .filter(Boolean)\r\n      .join(\" · \");\r\n\r\n  /** Chamada da área de drop. Literal PT-BR era cravado aqui até 2026-09-23. */\r\n  const chamada = texts?.drop ?? \"Clique para anexar\";\r\n\r\n  const displayName =\r\n    value instanceof File\r\n      ? value.name\r\n      : (fileName ?? texts?.fallbackFileName ?? \"Arquivo\");\r\n  const isImage = value != null && resolveIsImage(value, preview, accept);\r\n  const imageSrc = value instanceof File ? objectUrl : (value as string | null);\r\n\r\n  return (\r\n    <FormField\r\n      label={label}\r\n      required={required}\r\n      state={state}\r\n      errorMessage={errorMessage}\r\n      helperText={helperText}\r\n      className={className}\r\n      id={id}\r\n      disabled={disabled}\r\n    >\r\n      {({ id: fieldId }) => (\r\n        <div>\r\n          <input\r\n            ref={inputRef}\r\n            id={fieldId}\r\n            type=\"file\"\r\n            accept={accept}\r\n            disabled={disabled}\r\n            className=\"hidden\"\r\n            onChange={(e) => handleFiles(e.target.files?.[0])}\r\n          />\r\n\r\n          {value == null ? (\r\n            <button\r\n              type=\"button\"\r\n              onClick={openPicker}\r\n              disabled={disabled}\r\n              aria-label={\r\n                label ? `${label}: ${chamada.toLowerCase()}` : chamada\r\n              }\r\n              className={styles.dropzone()}\r\n            >\r\n              <IconSvg glyph={lineCloudUpload} size=\"lg\" className={styles.dropIcon()} />\r\n              <span className={styles.dropTexts()}>\r\n                <span className={styles.dropText()}>{chamada}</span>\r\n                {hint && <span className={styles.dropHint()}>{hint}</span>}\r\n              </span>\r\n            </button>\r\n          ) : (\r\n            <div className={styles.fileRow()}>\r\n              {isImage && imageSrc ? (\r\n                <img src={imageSrc} alt={displayName} className={styles.thumb()} />\r\n              ) : (\r\n                <div className={styles.fileChipWrap()}>\r\n                  <Chip color=\"neutral\" variant=\"soft\" size=\"lg\" className=\"max-w-full\">\r\n                    <IconSvg glyph={lineFile} size=\"sm\" />\r\n                    <span className={styles.fileName()}>{displayName}</span>\r\n                  </Chip>\r\n                </div>\r\n              )}\r\n              <div className={styles.removeWrap()}>\r\n                <Button\r\n                  type=\"button\"\r\n                  color=\"critical\"\r\n                  variant=\"ghost\"\r\n                  size=\"icon-sm\"\r\n                  disabled={disabled}\r\n                  aria-label={texts?.remove ?? \"Remover arquivo\"}\r\n                  onClick={handleRemove}\r\n                >\r\n                  <IconSvg glyph={lineBin} size=\"sm\" />\r\n                </Button>\r\n              </div>\r\n            </div>\r\n          )}\r\n        </div>\r\n      )}\r\n    </FormField>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/FileUploadField/file-upload-field.tsx"
       },
       {
         "path": "src/components/ui/FileUploadField/file-upload-field.types.ts",
-        "content": "import type { FieldState } from \"@/components/ui/FormField\";\r\n\r\n/** Modo de preview do arquivo selecionado. `auto` infere por accept/MIME. */\r\nexport type FileUploadPreview = \"image\" | \"file\" | \"auto\";\r\n\r\n/** Motivo da rejeição de um arquivo (não vira value). */\r\nexport type FileUploadError = \"type\" | \"size\";\r\n\r\nexport interface FileUploadFieldProps {\r\n  /**\r\n   * Arquivo atual. `File` (recém-selecionado), `string` (URL já hospedada),\r\n   * ou `null` (vazio). Componente é dumb: não faz upload, só captura/preview.\r\n   */\r\n  value: File | string | null;\r\n  /** Callback ao selecionar (`File`) ou remover (`null`). */\r\n  onChange: (file: File | null) => void;\r\n  /** Filtro do seletor nativo + validação de tipo (ex: `\"image/*\"`, `\".pdf,.png\"`). */\r\n  accept?: string;\r\n  /** Tamanho máximo em MB. Arquivo acima é rejeitado via `onError(\"size\")`. */\r\n  maxSizeMB?: number;\r\n  /** Modo de preview. `auto` (default) infere por `accept`/MIME do value. */\r\n  preview?: FileUploadPreview;\r\n  /** Nome exibido quando `value` é uma URL (string). */\r\n  fileName?: string;\r\n  /**\r\n   * Textos da UI. Cada chave sobrescreve um literal em português que estava cravado no\r\n   * componente — quem importa planilha em lote (\"Selecionar CSV\") tinha que aceitar\r\n   * \"Clique para anexar\" ou recriar o campo. Só as chaves passadas mudam.\r\n   */\r\n  texts?: {\r\n    /** Chamada na área de drop. Default: \"Clique para anexar\". */\r\n    drop?: string;\r\n    /** Nome mostrado quando `value` é string sem `fileName`. Default: \"Arquivo\". */\r\n    fallbackFileName?: string;\r\n    /** Nome acessível do botão de remover. Default: \"Remover arquivo\". */\r\n    remove?: string;\r\n  };\r\n  /** Label do campo (renderizado pelo FormField). */\r\n  label?: string;\r\n  /** Marca como obrigatório (asterisco no label). */\r\n  required?: boolean;\r\n  /** Estado semântico — `error` pinta borda/mensagem do FormField. */\r\n  state?: FieldState;\r\n  /** Mensagem exibida quando `state=\"error\"`. */\r\n  errorMessage?: string;\r\n  /** Texto auxiliar abaixo do campo. */\r\n  helperText?: string;\r\n  /** Chamado quando um arquivo é rejeitado por tipo ou tamanho. */\r\n  onError?: (reason: FileUploadError) => void;\r\n  /** Desabilita o campo (dropzone e remover). */\r\n  disabled?: boolean;\r\n  /** id do input (linka label↔input via htmlFor). */\r\n  id?: string;\r\n  /** className do container externo (FormField). */\r\n  className?: string;\r\n}\r\n",
+        "content": "import type { FieldState } from \"@/components/ui/FormField\";\r\n\r\n/** Modo de preview do arquivo selecionado. `auto` infere por accept/MIME. */\r\nexport type FileUploadPreview = \"image\" | \"file\" | \"auto\";\r\n\r\n/** Motivo da rejeição de um arquivo (não vira value). */\r\nexport type FileUploadError = \"type\" | \"size\";\r\n\r\nexport interface FileUploadFieldProps {\r\n  /**\r\n   * Arquivo atual. `File` (recém-selecionado), `string` (URL já hospedada),\r\n   * ou `null` (vazio). Componente é dumb: não faz upload, só captura/preview.\r\n   */\r\n  value: File | string | null;\r\n  /** Callback ao selecionar (`File`) ou remover (`null`). */\r\n  onChange: (file: File | null) => void;\r\n  /** Filtro do seletor nativo + validação de tipo (ex: `\"image/*\"`, `\".pdf,.png\"`). */\r\n  accept?: string;\r\n  /** Tamanho máximo em MB. Arquivo acima é rejeitado via `onError(\"size\")`. */\r\n  maxSizeMB?: number;\r\n  /** Modo de preview. `auto` (default) infere por `accept`/MIME do value. */\r\n  preview?: FileUploadPreview;\r\n  /** Nome exibido quando `value` é uma URL (string). */\r\n  fileName?: string;\r\n  /**\r\n   * Textos da UI. Cada chave sobrescreve um literal em português que estava cravado no\r\n   * componente — quem importa planilha em lote (\"Selecionar CSV\") tinha que aceitar\r\n   * \"Clique para anexar\" ou recriar o campo. Só as chaves passadas mudam.\r\n   */\r\n  texts?: {\r\n    /** Chamada na área de drop. Default: \"Clique para anexar\". */\r\n    drop?: string;\r\n    /** Nome mostrado quando `value` é string sem `fileName`. Default: \"Arquivo\". */\r\n    fallbackFileName?: string;\r\n    /** Nome acessível do botão de remover. Default: \"Remover arquivo\". */\r\n    remove?: string;\r\n    /**\r\n     * Dica abaixo da chamada. Default: derivada de `accept` + `maxSizeMB`\r\n     * — que é literalmente a lista de MIME types (`text/csv,application/vnd...`),\r\n     * ilegível quando `accept` é longo. String vazia esconde a linha.\r\n     */\r\n    hint?: string;\r\n  };\r\n  /** Label do campo (renderizado pelo FormField). */\r\n  label?: string;\r\n  /** Marca como obrigatório (asterisco no label). */\r\n  required?: boolean;\r\n  /** Estado semântico — `error` pinta borda/mensagem do FormField. */\r\n  state?: FieldState;\r\n  /** Mensagem exibida quando `state=\"error\"`. */\r\n  errorMessage?: string;\r\n  /** Texto auxiliar abaixo do campo. */\r\n  helperText?: string;\r\n  /** Chamado quando um arquivo é rejeitado por tipo ou tamanho. */\r\n  onError?: (reason: FileUploadError) => void;\r\n  /** Desabilita o campo (dropzone e remover). */\r\n  disabled?: boolean;\r\n  /** id do input (linka label↔input via htmlFor). */\r\n  id?: string;\r\n  /** className do container externo (FormField). */\r\n  className?: string;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/FileUploadField/file-upload-field.types.ts"
       },
@@ -2997,7 +2997,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · file-upload-field · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3065,7 +3065,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · floating-panel · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3107,7 +3107,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · footer-table · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3193,7 +3193,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · form-field · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3333,7 +3333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · gantt · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3413,7 +3413,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Header/index.ts",
-        "content": "/* All-in-one */\r\nexport { Header } from \"./header\";\r\n\r\n/* Composição manual */\r\nexport { HeaderBreadcrumb } from \"./header-breadcrumb\";\r\nexport type { HeaderBreadcrumbProps } from \"./header-breadcrumb\";\r\n\r\nexport { HeaderSearch } from \"./header-search\";\r\nexport type { HeaderSearchProps } from \"./header-search\";\r\n\r\nexport { HeaderNotifications } from \"./header-notifications\";\r\nexport type { HeaderNotificationsProps } from \"./header-notifications\";\r\n\r\nexport { HeaderMessages } from \"./header-messages\";\r\nexport type { HeaderMessagesProps } from \"./header-messages\";\r\n\r\nexport { HeaderThemeSwitcher } from \"./header-theme-switcher\";\r\nexport type { HeaderThemeSwitcherProps } from \"./header-theme-switcher\";\r\n\r\n/* Tipos do data model */\r\nexport type {\r\n  HeaderProps,\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandItem,\r\n  HeaderCommandGroup,\r\n  HeaderNotification,\r\n  HeaderNotificationFilter,\r\n  HeaderNotificationsConfig,\r\n  HeaderMessage,\r\n  HeaderMessageFilter,\r\n  HeaderMessagesConfig,\r\n  HeaderThemeOption,\r\n} from \"./header.types\";\r\n\n/* Receita do campo falso de busca ────────────────────────────────────────────\n * Exportada porque um app com paleta própria (ver `onOpen` do `HeaderSearch`)\n * ainda quer o MESMO campo: altura, ícone, placeholder e a tecla de atalho no\n * canto. Sem isto ele reconstruía a aparência na unha e ela divergia no primeiro\n * ajuste de token. */\nexport {\n  searchFakeInput,\n  searchFakeInputIcon,\n  searchFakeInputText,\n  searchFakeInputKbd,\n} from \"./header.styles\";\n",
+        "content": "/* All-in-one */\r\nexport { Header } from \"./header\";\r\n\r\n/* Composição manual */\r\nexport { HeaderBreadcrumb } from \"./header-breadcrumb\";\r\nexport type { HeaderBreadcrumbProps } from \"./header-breadcrumb\";\r\n\r\nexport { HeaderSearch } from \"./header-search\";\r\nexport type { HeaderSearchProps } from \"./header-search\";\r\n\r\nexport { HeaderNotifications } from \"./header-notifications\";\r\nexport type { HeaderNotificationsProps } from \"./header-notifications\";\r\n\r\nexport { HeaderMessages } from \"./header-messages\";\r\nexport type { HeaderMessagesProps } from \"./header-messages\";\r\n\r\nexport { HeaderThemeSwitcher } from \"./header-theme-switcher\";\r\nexport type { HeaderThemeSwitcherProps } from \"./header-theme-switcher\";\r\n\r\n/* Tipos do data model */\r\nexport type {\r\n  HeaderProps,\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandItem,\r\n  HeaderCommandGroup,\r\n  HeaderNotification,\r\n  HeaderNotificationFilter,\r\n  HeaderNotificationsConfig,\r\n  HeaderMessage,\r\n  HeaderMessageFilter,\r\n  HeaderMessagesConfig,\r\n  HeaderThemeOption,\r\n} from \"./header.types\";\r\n\r\n/* Receita do campo falso de busca ────────────────────────────────────────────\r\n * Exportada porque um app com paleta própria (ver `onOpen` do `HeaderSearch`)\r\n * ainda quer o MESMO campo: altura, ícone, placeholder e a tecla de atalho no\r\n * canto. Sem isto ele reconstruía a aparência na unha e ela divergia no primeiro\r\n * ajuste de token. */\r\nexport {\r\n  searchFakeInput,\r\n  searchFakeInputIcon,\r\n  searchFakeInputText,\r\n  searchFakeInputKbd,\r\n} from \"./header.styles\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Header/index.ts"
       },
@@ -3425,7 +3425,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · header · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3449,7 +3449,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · hover-card · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3514,7 +3514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · icon · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3538,7 +3538,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · input-group · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3563,7 +3563,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · input-otp · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3587,7 +3587,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · input · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3646,7 +3646,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · kanban · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3667,7 +3667,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/clickable-surface.tsx",
-        "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { shouldPreventNavigation } from \"@/utils/nav-link\";\n\n/**\n * ClickableSurface — o alvo esticado que transforma um card inteiro em botão ou link.\n *\n * ## Por que um elemento por cima, e não trocar a raiz por `<button>`\n *\n * O conteúdo permitido dentro de `<button>` é *phrasing content*. Um card tem `<h3>`,\n * parágrafos, às vezes uma tabela — HTML inválido, e o leitor de tela perde o heading\n * (deixa de anunciar a estrutura e passa a ler tudo como rótulo do botão). Trocar a raiz\n * por `<a>` tem o mesmo problema e ainda torna todo o texto interno parte do nome do link.\n *\n * A saída é um `<button>`/`<a>` vazio, absoluto, cobrindo a superfície: a árvore\n * semântica do card fica intacta e o alvo ganha foco, Enter/Space e — com `href` —\n * ctrl+clique, \"abrir em nova aba\" e \"copiar endereço\" de graça.\n *\n * ## Contrato de quem usa\n *\n * 1. O container precisa ser `relative` (senão o `inset-0` escapa pro ancestral posicionado).\n * 2. `label` é obrigatório: o alvo é vazio, então sem ele o leitor anuncia \"botão\" e nada mais.\n * 3. Controle que fica ACIMA do card (um menu, um botão de ajuda) precisa de `relative z-10`,\n *    senão o overlay o cobre e o clique vai pro card.\n *\n * Usado por `Card` (`onClick`/`href`) e por `Kpi`. Existe como peça própria porque a\n * segunda cópia de um padrão de acessibilidade sutil é onde ele começa a divergir.\n */\nexport type ClickableSurfaceLinkProps = {\n  href: string;\n  className: string;\n  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;\n  target?: string;\n  \"aria-label\": string;\n};\n\n/**\n * Atributos de ESTADO que o alvo precisa carregar quando a superfície representa uma\n * seleção, e não só um link.\n *\n * Reportado pelo consumidor igreen-tickets: 19 superfícies (card de lote, pipeline,\n * ranking, nav de categoria) viraram `ClickableSurface`, e a seleção ficou **só\n * visual** — o alvo não anunciava estado nenhum. Sem isto, quem usa leitor de tela não\n * sabe qual card está escolhido.\n */\nexport type ClickableSurfaceStateProps = {\n  /** Botão de alternância — o card está \"ligado\"? */\n  \"aria-pressed\"?: React.AriaAttributes[\"aria-pressed\"];\n  /** Item selecionado dentro de um conjunto (nav, ranking, pipeline). */\n  \"aria-current\"?: React.AriaAttributes[\"aria-current\"];\n  /** A superfície abre/fecha algo. */\n  \"aria-expanded\"?: React.AriaAttributes[\"aria-expanded\"];\n  /** Descreve o alvo por outro elemento (ex.: o título do card). */\n  \"aria-describedby\"?: string;\n  /**\n   * Desabilita o alvo. Em `<a>` não existe `disabled`: vira\n   * `aria-disabled` + `pointer-events-none` + `tabIndex={-1}`, que é a forma correta.\n   */\n  disabled?: boolean;\n};\n\nexport type ClickableSurfaceProps = ClickableSurfaceStateProps & {\n  /** Nome acessível do alvo. Obrigatório — o elemento não tem conteúdo. */\n  label: string;\n  /** Clique. Sem `href`, o alvo é `<button type=\"button\">`. */\n  onClick?: (e: React.MouseEvent<HTMLElement>) => void;\n  /** Destino. Com `href`, o alvo é `<a>`. */\n  href?: string;\n  /** `target` do anchor. `\"_blank\"` desliga o cancelamento da navegação. */\n  target?: string;\n  /** Substitui o `<a>` interno pelo link do seu router (L-068). */\n  renderLink?: (props: ClickableSurfaceLinkProps) => React.ReactNode;\n  className?: string;\n};\n\nexport const CLICKABLE_SURFACE_CLASS =\n  \"absolute inset-0 z-0 rounded-[inherit] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\";\n\nexport function ClickableSurface({\n  label,\n  onClick,\n  href,\n  target,\n  renderLink,\n  className,\n  disabled,\n  ...estado\n}: ClickableSurfaceProps) {\n  if (!onClick && !href) return null;\n\n  const classes = cn(\n    CLICKABLE_SURFACE_CLASS,\n    // `<a>` não tem `disabled`; e mesmo no `<button>` o alvo precisa sair da ordem de\n    // foco, senão o Tab para num controle que não faz nada.\n    disabled && \"pointer-events-none\",\n    className,\n  );\n  const aria = {\n    ...estado,\n    \"aria-disabled\": disabled || undefined,\n    tabIndex: disabled ? -1 : undefined,\n  };\n\n  if (href) {\n    const aoClicar = (e: React.MouseEvent<HTMLAnchorElement>) => {\n      // As 5 exceções que não podem cancelar a navegação (clique modificado, target,\n      // href externo, href de hash, ausência de handler) estão medidas na L-068 — não\n      // reimplemente aqui.\n      if (\n        shouldPreventNavigation({\n          href,\n          hasHandler: Boolean(onClick),\n          target,\n          event: e,\n        })\n      ) {\n        e.preventDefault();\n      }\n      onClick?.(e);\n    };\n\n    const props: ClickableSurfaceLinkProps = {\n      href,\n      className: classes,\n      onClick: aoClicar,\n      target,\n      \"aria-label\": label,\n      ...aria,\n    };\n\n    // Com `renderLink`, quem decide a navegação é o `<Link>` do router — o DS não mexe\n    // em preventDefault (mesma regra do AppShell).\n    return renderLink ? (\n      <>{renderLink({ ...props, onClick: (e) => onClick?.(e) })}</>\n    ) : (\n      <a {...props} />\n    );\n  }\n\n  return (\n    <button\n      type=\"button\"\n      className={classes}\n      onClick={onClick}\n      aria-label={label}\n      disabled={disabled}\n      {...aria}\n    />\n  );\n}\n\nClickableSurface.displayName = \"ClickableSurface\";\n",
+        "content": "\"use client\";\r\n\r\nimport * as React from \"react\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\nimport { shouldPreventNavigation } from \"@/utils/nav-link\";\r\n\r\n/**\r\n * ClickableSurface — o alvo esticado que transforma um card inteiro em botão ou link.\r\n *\r\n * ## Por que um elemento por cima, e não trocar a raiz por `<button>`\r\n *\r\n * O conteúdo permitido dentro de `<button>` é *phrasing content*. Um card tem `<h3>`,\r\n * parágrafos, às vezes uma tabela — HTML inválido, e o leitor de tela perde o heading\r\n * (deixa de anunciar a estrutura e passa a ler tudo como rótulo do botão). Trocar a raiz\r\n * por `<a>` tem o mesmo problema e ainda torna todo o texto interno parte do nome do link.\r\n *\r\n * A saída é um `<button>`/`<a>` vazio, absoluto, cobrindo a superfície: a árvore\r\n * semântica do card fica intacta e o alvo ganha foco, Enter/Space e — com `href` —\r\n * ctrl+clique, \"abrir em nova aba\" e \"copiar endereço\" de graça.\r\n *\r\n * ## Contrato de quem usa\r\n *\r\n * 1. O container precisa ser `relative` (senão o `inset-0` escapa pro ancestral posicionado).\r\n * 2. `label` é obrigatório: o alvo é vazio, então sem ele o leitor anuncia \"botão\" e nada mais.\r\n * 3. Controle que fica ACIMA do card (um menu, um botão de ajuda) precisa de `relative z-10`,\r\n *    senão o overlay o cobre e o clique vai pro card.\r\n *\r\n * Usado por `Card` (`onClick`/`href`) e por `Kpi`. Existe como peça própria porque a\r\n * segunda cópia de um padrão de acessibilidade sutil é onde ele começa a divergir.\r\n */\r\nexport type ClickableSurfaceLinkProps = {\r\n  href: string;\r\n  className: string;\r\n  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;\r\n  target?: string;\r\n  \"aria-label\": string;\r\n};\r\n\r\n/**\r\n * Atributos de ESTADO que o alvo precisa carregar quando a superfície representa uma\r\n * seleção, e não só um link.\r\n *\r\n * Reportado pelo consumidor igreen-tickets: 19 superfícies (card de lote, pipeline,\r\n * ranking, nav de categoria) viraram `ClickableSurface`, e a seleção ficou **só\r\n * visual** — o alvo não anunciava estado nenhum. Sem isto, quem usa leitor de tela não\r\n * sabe qual card está escolhido.\r\n */\r\nexport type ClickableSurfaceStateProps = {\r\n  /** Botão de alternância — o card está \"ligado\"? */\r\n  \"aria-pressed\"?: React.AriaAttributes[\"aria-pressed\"];\r\n  /** Item selecionado dentro de um conjunto (nav, ranking, pipeline). */\r\n  \"aria-current\"?: React.AriaAttributes[\"aria-current\"];\r\n  /** A superfície abre/fecha algo. */\r\n  \"aria-expanded\"?: React.AriaAttributes[\"aria-expanded\"];\r\n  /** Descreve o alvo por outro elemento (ex.: o título do card). */\r\n  \"aria-describedby\"?: string;\r\n  /**\r\n   * Desabilita o alvo. Em `<a>` não existe `disabled`: vira\r\n   * `aria-disabled` + `pointer-events-none` + `tabIndex={-1}`, que é a forma correta.\r\n   */\r\n  disabled?: boolean;\r\n};\r\n\r\nexport type ClickableSurfaceProps = ClickableSurfaceStateProps & {\r\n  /** Nome acessível do alvo. Obrigatório — o elemento não tem conteúdo. */\r\n  label: string;\r\n  /** Clique. Sem `href`, o alvo é `<button type=\"button\">`. */\r\n  onClick?: (e: React.MouseEvent<HTMLElement>) => void;\r\n  /** Destino. Com `href`, o alvo é `<a>`. */\r\n  href?: string;\r\n  /** `target` do anchor. `\"_blank\"` desliga o cancelamento da navegação. */\r\n  target?: string;\r\n  /** Substitui o `<a>` interno pelo link do seu router (L-068). */\r\n  renderLink?: (props: ClickableSurfaceLinkProps) => React.ReactNode;\r\n  className?: string;\r\n};\r\n\r\nexport const CLICKABLE_SURFACE_CLASS =\r\n  \"absolute inset-0 z-0 rounded-[inherit] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\";\r\n\r\nexport function ClickableSurface({\r\n  label,\r\n  onClick,\r\n  href,\r\n  target,\r\n  renderLink,\r\n  className,\r\n  disabled,\r\n  ...estado\r\n}: ClickableSurfaceProps) {\r\n  if (!onClick && !href) return null;\r\n\r\n  const classes = cn(\r\n    CLICKABLE_SURFACE_CLASS,\r\n    // `<a>` não tem `disabled`; e mesmo no `<button>` o alvo precisa sair da ordem de\r\n    // foco, senão o Tab para num controle que não faz nada.\r\n    disabled && \"pointer-events-none\",\r\n    className,\r\n  );\r\n  const aria = {\r\n    ...estado,\r\n    \"aria-disabled\": disabled || undefined,\r\n    tabIndex: disabled ? -1 : undefined,\r\n  };\r\n\r\n  if (href) {\r\n    const aoClicar = (e: React.MouseEvent<HTMLAnchorElement>) => {\r\n      // As 5 exceções que não podem cancelar a navegação (clique modificado, target,\r\n      // href externo, href de hash, ausência de handler) estão medidas na L-068 — não\r\n      // reimplemente aqui.\r\n      if (\r\n        shouldPreventNavigation({\r\n          href,\r\n          hasHandler: Boolean(onClick),\r\n          target,\r\n          event: e,\r\n        })\r\n      ) {\r\n        e.preventDefault();\r\n      }\r\n      onClick?.(e);\r\n    };\r\n\r\n    const props: ClickableSurfaceLinkProps = {\r\n      href,\r\n      className: classes,\r\n      onClick: aoClicar,\r\n      target,\r\n      \"aria-label\": label,\r\n      ...aria,\r\n    };\r\n\r\n    // Com `renderLink`, quem decide a navegação é o `<Link>` do router — o DS não mexe\r\n    // em preventDefault (mesma regra do AppShell).\r\n    return renderLink ? (\r\n      <>{renderLink({ ...props, onClick: (e) => onClick?.(e) })}</>\r\n    ) : (\r\n      <a {...props} />\r\n    );\r\n  }\r\n\r\n  return (\r\n    <button\r\n      type=\"button\"\r\n      className={classes}\r\n      onClick={onClick}\r\n      aria-label={label}\r\n      disabled={disabled}\r\n      {...aria}\r\n    />\r\n  );\r\n}\r\n\r\nClickableSurface.displayName = \"ClickableSurface\";\r\n",
         "type": "registry:file",
         "target": "src/components/shadcn/clickable-surface.tsx"
       },
@@ -3685,7 +3685,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Kpi/kpi-group.tsx",
-        "content": "\"use client\";\n\nimport { createContext } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { kpiGroup } from \"./kpi.styles\";\nimport type { KpiGroupProps } from \"./kpi.types\";\n\n/** Superfície herdada pelos `Kpi` filhos (card normal vs plain dentro de divided). */\nexport const KpiSurfaceContext = createContext<\"card\" | \"plain\">(\"card\");\n\n/**\n * KpiGroup — layout de composição pros `Kpi`. `columns` (responsivo por CONTAINER\n * QUERY) e `divided` (vira 1 card único com divisórias entre os KPIs).\n *\n * ⚠️ O `@container` vive num wrapper em volta do grid, e não no próprio grid: em CSS\n * um elemento NÃO consulta o próprio tamanho — `@container` marca o contexto pros\n * DESCENDENTES. Grid e wrapper no mesmo nó fariam as variantes `@md:`/`@3xl:` lerem o\n * container de fora (ou nenhum), e o layout voltaria a quebrar pelo motivo errado.\n *\n * O `className` continua indo pro GRID, como antes — ninguém precisa mudar chamada.\n */\nexport function KpiGroup({\n  columns = 4,\n  divided = false,\n  children,\n  className,\n}: KpiGroupProps) {\n  const s = kpiGroup({ columns, divided });\n\n  return (\n    <KpiSurfaceContext.Provider value={divided ? \"plain\" : \"card\"}>\n      <div className={s.wrapper()}>\n        <div className={cn(s.grid(), className)}>\n          {children}\n        </div>\n      </div>\n    </KpiSurfaceContext.Provider>\n  );\n}\n\nKpiGroup.displayName = \"KpiGroup\";\n",
+        "content": "\"use client\";\r\n\r\nimport { createContext } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { kpiGroup } from \"./kpi.styles\";\r\nimport type { KpiGroupProps } from \"./kpi.types\";\r\n\r\n/** Superfície herdada pelos `Kpi` filhos (card normal vs plain dentro de divided). */\r\nexport const KpiSurfaceContext = createContext<\"card\" | \"plain\">(\"card\");\r\n\r\n/**\r\n * KpiGroup — layout de composição pros `Kpi`. `columns` (responsivo por CONTAINER\r\n * QUERY) e `divided` (vira 1 card único com divisórias entre os KPIs).\r\n *\r\n * ⚠️ O `@container` vive num wrapper em volta do grid, e não no próprio grid: em CSS\r\n * um elemento NÃO consulta o próprio tamanho — `@container` marca o contexto pros\r\n * DESCENDENTES. Grid e wrapper no mesmo nó fariam as variantes `@md:`/`@3xl:` lerem o\r\n * container de fora (ou nenhum), e o layout voltaria a quebrar pelo motivo errado.\r\n *\r\n * O `className` continua indo pro GRID, como antes — ninguém precisa mudar chamada.\r\n */\r\nexport function KpiGroup({\r\n  columns = 4,\r\n  divided = false,\r\n  children,\r\n  className,\r\n}: KpiGroupProps) {\r\n  const s = kpiGroup({ columns, divided });\r\n\r\n  return (\r\n    <KpiSurfaceContext.Provider value={divided ? \"plain\" : \"card\"}>\r\n      <div className={s.wrapper()}>\r\n        <div className={cn(s.grid(), className)}>\r\n          {children}\r\n        </div>\r\n      </div>\r\n    </KpiSurfaceContext.Provider>\r\n  );\r\n}\r\n\r\nKpiGroup.displayName = \"KpiGroup\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Kpi/kpi-group.tsx"
       },
@@ -3697,7 +3697,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Kpi/kpi.tsx",
-        "content": "\"use client\";\n\nimport { useContext } from \"react\";\nimport { HelpCircle } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { ClickableSurface } from \"@/components/shadcn/clickable-surface\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/shadcn/tooltip\";\nimport { useTitleSeTruncado } from \"@/utils/use-title-se-truncado\";\nimport { kpi } from \"./kpi.styles\";\nimport { KpiSurfaceContext } from \"./kpi-group\";\nimport type { KpiProps } from \"./kpi.types\";\n\n/**\n * Kpi — card de KPI composável: header (label + ícone por tone), valor +\n * delta, hint, slot livre (sparkline/chart) e footnote. Use dentro de\n * `KpiGroup` pra rows/grids; dentro de `KpiGroup divided` ele vira \"plain\".\n *\n * Com `onClick`/`href` o card inteiro vira alvo de drill-down — ver `ClickableSurface`\n * pra por que a raiz continua `<article>`.\n */\nexport function Kpi({\n  label,\n  value,\n  delta,\n  hint,\n  helperText,\n  helperSide = \"top\",\n  helperMaxWidth,\n  icon,\n  tone = \"neutral\",\n  size = \"md\",\n  footnote,\n  children,\n  surface,\n  onClick,\n  href,\n  target,\n  renderLink,\n  className,\n}: KpiProps) {\n  const inherited = useContext(KpiSurfaceContext);\n  const rotulo = useTitleSeTruncado<HTMLHeadingElement>(label);\n  const valor = useTitleSeTruncado<HTMLSpanElement>(value);\n  const interactive = Boolean(onClick || href);\n  const s = kpi({ size, surface: surface ?? inherited, tone, interactive });\n\n  return (\n    <article className={cn(s.root(), className)}>\n      <header className={s.header()}>\n        <div className=\"flex min-w-0 items-start gap-gp-xs\">\n          {/*\n            `title` SÓ quando o texto está de fato cortado — ver `useTitleSeTruncado`.\n            Incondicional (a 1ª versão disto) põe tooltip nativo em TODO hover, inclusive\n            nos casos em que o rótulo cabe inteiro. Numa grade de 8 KPIs vira ruído.\n          */}\n          <h3 ref={rotulo.ref} className={s.label()} title={rotulo.title}>\n            {label}\n          </h3>\n          {helperText && (\n            <Tooltip>\n              <TooltipTrigger\n                type=\"button\"\n                className={s.helpButton()}\n                aria-label={`Ajuda sobre ${label}`}\n              >\n                <HelpCircle aria-hidden />\n              </TooltipTrigger>\n              <TooltipContent side={helperSide} className={helperMaxWidth}>\n                {helperText}\n              </TooltipContent>\n            </Tooltip>\n          )}\n        </div>\n        {icon && (\n          <span className={s.iconBox()} aria-hidden>\n            {icon}\n          </span>\n        )}\n      </header>\n      <div className={s.main()}>\n        <div className={s.valueRow()}>\n          <span ref={valor.ref} className={s.value()} title={valor.title}>\n            {value}\n          </span>\n          {delta}\n        </div>\n        {hint && <span className={s.hint()}>{hint}</span>}\n      </div>\n      {children && <div className={s.chart()}>{children}</div>}\n      {footnote && <div className={s.footnote()}>{footnote}</div>}\n      <ClickableSurface\n        label={label}\n        onClick={onClick}\n        href={href}\n        target={target}\n        renderLink={renderLink}\n      />\n    </article>\n  );\n}\n\nKpi.displayName = \"Kpi\";\n",
+        "content": "\"use client\";\r\n\r\nimport { useContext } from \"react\";\r\nimport { HelpCircle } from \"lucide-react\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\nimport { ClickableSurface } from \"@/components/shadcn/clickable-surface\";\r\nimport {\r\n  Tooltip,\r\n  TooltipContent,\r\n  TooltipTrigger,\r\n} from \"@/components/shadcn/tooltip\";\r\nimport { useTitleSeTruncado } from \"@/utils/use-title-se-truncado\";\r\nimport { kpi } from \"./kpi.styles\";\r\nimport { KpiSurfaceContext } from \"./kpi-group\";\r\nimport type { KpiProps } from \"./kpi.types\";\r\n\r\n/**\r\n * Kpi — card de KPI composável: header (label + ícone por tone), valor +\r\n * delta, hint, slot livre (sparkline/chart) e footnote. Use dentro de\r\n * `KpiGroup` pra rows/grids; dentro de `KpiGroup divided` ele vira \"plain\".\r\n *\r\n * Com `onClick`/`href` o card inteiro vira alvo de drill-down — ver `ClickableSurface`\r\n * pra por que a raiz continua `<article>`.\r\n */\r\nexport function Kpi({\r\n  label,\r\n  value,\r\n  delta,\r\n  hint,\r\n  helperText,\r\n  helperSide = \"top\",\r\n  helperMaxWidth,\r\n  icon,\r\n  tone = \"neutral\",\r\n  size = \"md\",\r\n  footnote,\r\n  children,\r\n  surface,\r\n  onClick,\r\n  href,\r\n  target,\r\n  renderLink,\r\n  className,\r\n}: KpiProps) {\r\n  const inherited = useContext(KpiSurfaceContext);\r\n  const rotulo = useTitleSeTruncado<HTMLHeadingElement>(label);\r\n  const valor = useTitleSeTruncado<HTMLSpanElement>(value);\r\n  const interactive = Boolean(onClick || href);\r\n  const s = kpi({ size, surface: surface ?? inherited, tone, interactive });\r\n\r\n  return (\r\n    <article className={cn(s.root(), className)}>\r\n      <header className={s.header()}>\r\n        <div className=\"flex min-w-0 items-start gap-gp-xs\">\r\n          {/*\r\n            `title` SÓ quando o texto está de fato cortado — ver `useTitleSeTruncado`.\r\n            Incondicional (a 1ª versão disto) põe tooltip nativo em TODO hover, inclusive\r\n            nos casos em que o rótulo cabe inteiro. Numa grade de 8 KPIs vira ruído.\r\n          */}\r\n          <h3 ref={rotulo.ref} className={s.label()} title={rotulo.title}>\r\n            {label}\r\n          </h3>\r\n          {helperText && (\r\n            <Tooltip>\r\n              <TooltipTrigger\r\n                type=\"button\"\r\n                className={s.helpButton()}\r\n                aria-label={`Ajuda sobre ${label}`}\r\n              >\r\n                <HelpCircle aria-hidden />\r\n              </TooltipTrigger>\r\n              <TooltipContent side={helperSide} className={helperMaxWidth}>\r\n                {helperText}\r\n              </TooltipContent>\r\n            </Tooltip>\r\n          )}\r\n        </div>\r\n        {icon && (\r\n          <span className={s.iconBox()} aria-hidden>\r\n            {icon}\r\n          </span>\r\n        )}\r\n      </header>\r\n      <div className={s.main()}>\r\n        <div className={s.valueRow()}>\r\n          <span ref={valor.ref} className={s.value()} title={valor.title}>\r\n            {value}\r\n          </span>\r\n          {delta}\r\n        </div>\r\n        {hint && <span className={s.hint()}>{hint}</span>}\r\n      </div>\r\n      {children && <div className={s.chart()}>{children}</div>}\r\n      {footnote && <div className={s.footnote()}>{footnote}</div>}\r\n      <ClickableSurface\r\n        label={label}\r\n        onClick={onClick}\r\n        href={href}\r\n        target={target}\r\n        renderLink={renderLink}\r\n      />\r\n    </article>\r\n  );\r\n}\r\n\r\nKpi.displayName = \"Kpi\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Kpi/kpi.tsx"
       },
@@ -3721,13 +3721,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/utils/use-title-se-truncado.ts",
-        "content": "import { useCallback, useEffect, useRef, useState } from \"react\";\n\n/**\n * Devolve o `title` só quando o elemento está REALMENTE cortado.\n *\n * ## Por que não `title` sempre\n *\n * A primeira versão disto punha `title={label}` incondicional. Resolve o caso do texto\n * cortado e cria outro: tooltip nativo do browser em TODO hover, inclusive nos 90% em que\n * o texto cabe inteiro. Numa grade de 8 KPIs isso é ruído constante — e ruído que o\n * consumidor não tem como desligar.\n *\n * ## Como decide\n *\n * `scrollWidth > clientWidth` pega `truncate` (uma linha); `scrollHeight > clientHeight`\n * pega `line-clamp-N` (várias). Os dois são medidas de LAYOUT, então não sofrem com\n * `transform` — diferente de `getBoundingClientRect`, que mente enquanto uma animação\n * de entrada está em curso.\n *\n * Re-mede em resize do elemento (`ResizeObserver`), porque o mesmo rótulo corta ou não\n * conforme a coluna — que é exatamente o caso do `KpiGroup`, cujo grid muda por\n * container query.\n *\n * @example\n * const { ref, title } = useTitleSeTruncado(label);\n * <h3 ref={ref} className=\"line-clamp-2\" title={title}>{label}</h3>\n */\nexport function useTitleSeTruncado<T extends HTMLElement = HTMLElement>(\n  texto: unknown,\n): { ref: (el: T | null) => void; title: string | undefined } {\n  const elRef = useRef<T | null>(null);\n  const [cortado, setCortado] = useState(false);\n\n  const medir = useCallback(() => {\n    const el = elRef.current;\n    if (!el) return;\n    setCortado(el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight);\n  }, []);\n\n  useEffect(() => {\n    const el = elRef.current;\n    if (!el || typeof ResizeObserver === \"undefined\") {\n      medir();\n      return;\n    }\n    const ro = new ResizeObserver(medir);\n    ro.observe(el);\n    medir();\n    return () => ro.disconnect();\n    // `texto` entra porque trocar o conteúdo muda o corte sem mudar o tamanho do box.\n  }, [medir, texto]);\n\n  const ref = useCallback(\n    (el: T | null) => {\n      elRef.current = el;\n      if (el) medir();\n    },\n    [medir],\n  );\n\n  const ehTexto = typeof texto === \"string\" || typeof texto === \"number\";\n  return { ref, title: cortado && ehTexto ? String(texto) : undefined };\n}\n",
+        "content": "import { useCallback, useEffect, useRef, useState } from \"react\";\r\n\r\n/**\r\n * Devolve o `title` só quando o elemento está REALMENTE cortado.\r\n *\r\n * ## Por que não `title` sempre\r\n *\r\n * A primeira versão disto punha `title={label}` incondicional. Resolve o caso do texto\r\n * cortado e cria outro: tooltip nativo do browser em TODO hover, inclusive nos 90% em que\r\n * o texto cabe inteiro. Numa grade de 8 KPIs isso é ruído constante — e ruído que o\r\n * consumidor não tem como desligar.\r\n *\r\n * ## Como decide\r\n *\r\n * `scrollWidth > clientWidth` pega `truncate` (uma linha); `scrollHeight > clientHeight`\r\n * pega `line-clamp-N` (várias). Os dois são medidas de LAYOUT, então não sofrem com\r\n * `transform` — diferente de `getBoundingClientRect`, que mente enquanto uma animação\r\n * de entrada está em curso.\r\n *\r\n * Re-mede em resize do elemento (`ResizeObserver`), porque o mesmo rótulo corta ou não\r\n * conforme a coluna — que é exatamente o caso do `KpiGroup`, cujo grid muda por\r\n * container query.\r\n *\r\n * @example\r\n * const { ref, title } = useTitleSeTruncado(label);\r\n * <h3 ref={ref} className=\"line-clamp-2\" title={title}>{label}</h3>\r\n */\r\nexport function useTitleSeTruncado<T extends HTMLElement = HTMLElement>(\r\n  texto: unknown,\r\n): { ref: (el: T | null) => void; title: string | undefined } {\r\n  const elRef = useRef<T | null>(null);\r\n  const [cortado, setCortado] = useState(false);\r\n\r\n  const medir = useCallback(() => {\r\n    const el = elRef.current;\r\n    if (!el) return;\r\n    setCortado(el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight);\r\n  }, []);\r\n\r\n  useEffect(() => {\r\n    const el = elRef.current;\r\n    if (!el || typeof ResizeObserver === \"undefined\") {\r\n      medir();\r\n      return;\r\n    }\r\n    const ro = new ResizeObserver(medir);\r\n    ro.observe(el);\r\n    medir();\r\n    return () => ro.disconnect();\r\n    // `texto` entra porque trocar o conteúdo muda o corte sem mudar o tamanho do box.\r\n  }, [medir, texto]);\r\n\r\n  const ref = useCallback(\r\n    (el: T | null) => {\r\n      elRef.current = el;\r\n      if (el) medir();\r\n    },\r\n    [medir],\r\n  );\r\n\r\n  const ehTexto = typeof texto === \"string\" || typeof texto === \"number\";\r\n  return { ref, title: cortado && ehTexto ? String(texto) : undefined };\r\n}\r\n",
         "type": "registry:file",
         "target": "src/utils/use-title-se-truncado.ts"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · kpi · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3752,7 +3752,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · label · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3859,7 +3859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · list · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · markdown-text · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4015,7 +4015,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · menu-sidebar · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4040,7 +4040,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · menubar · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4084,7 +4084,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · modal · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4133,7 +4133,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · month-year-picker · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4159,7 +4159,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · navigation-menu · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4206,7 +4206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · page-header · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4231,7 +4231,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · pagination · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4306,7 +4306,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · panel · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4330,7 +4330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · popover · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4354,7 +4354,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · progress · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4378,7 +4378,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · radio-group · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4518,7 +4518,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · scheduler · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4566,7 +4566,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · screen-loader · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4590,7 +4590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · scroll-area · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4615,7 +4615,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · select · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4639,7 +4639,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · separator · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4665,7 +4665,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · sheet · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4778,7 +4778,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4800,7 +4800,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · skeleton · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4824,7 +4824,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · slider · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4847,7 +4847,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · sonner · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4893,7 +4893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · spinner · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4917,7 +4917,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · switch · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -4954,7 +4954,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Table/table-span-row.tsx",
-        "content": "\"use client\";\n\nimport { forwardRef, type ReactNode } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { useTableContext } from \"./table\";\n\n/**\n * TableSpanRow — a linha que ocupa a largura inteira da tabela.\n *\n * É a resposta do `Table` ao `colSpan`: aqui a tabela é um grid de `<div>`, não um\n * `<table>`, então não existe atributo `colSpan` pra esticar uma célula. Sem esta peça,\n * \"nenhum resultado\", \"carregando\" e cabeçalho de grupo eram montados com uma `TableRow`\n * de uma célula só — que respeita a largura da PRIMEIRA coluna e deixa o texto espremido\n * num canto, com o resto da linha vazio.\n *\n * `sticky` gruda a linha à esquerda no scroll horizontal: numa tabela larga, o \"nenhum\n * resultado\" sumia de vista ao rolar pro lado.\n */\nexport type TableSpanRowProps = {\n  children: ReactNode;\n  /** Altura mínima. Default: `\"row\"` (a altura de linha da densidade). */\n  height?: \"row\" | \"auto\";\n  /**\n   * Mantém o conteúdo visível na rolagem horizontal. Default `true` — numa tabela mais\n   * larga que a viewport, o texto centralizado some ao rolar.\n   */\n  sticky?: boolean;\n  /** Alinhamento horizontal do conteúdo. Default `\"center\"`. */\n  align?: \"left\" | \"center\";\n  className?: string;\n};\n\nconst ALTURA = {\n  compact: \"min-h-[40px]\",\n  standard: \"min-h-[56px]\",\n  comfortable: \"min-h-[72px]\",\n} as const;\n\nexport const TableSpanRow = forwardRef<HTMLDivElement, TableSpanRowProps>(\n  function TableSpanRow(\n    { children, height = \"row\", sticky = true, align = \"center\", className },\n    ref,\n  ) {\n    const { density } = useTableContext();\n\n    return (\n      <div\n        ref={ref}\n        role=\"row\"\n        className={cn(\n          \"flex w-full border-b border-border-table bg-bg-table last:border-b-0\",\n          height === \"row\" && ALTURA[density],\n        )}\n      >\n        <div\n          role=\"cell\"\n          className={cn(\n            \"flex w-full items-center px-pad-2xl py-pad-xl\",\n            \"text-body-sm text-fg-muted\",\n            align === \"center\" ? \"justify-center\" : \"justify-start\",\n            className,\n          )}\n        >\n          {/*\n            O `sticky` fica no CONTEÚDO, não na célula: a célula tem a largura total do\n            grid (que pode ser bem maior que a tela), então grudá-la não adianta. É o\n            texto que precisa acompanhar a rolagem lateral.\n          */}\n          <span className={cn(\"min-w-0\", sticky && \"sticky left-pad-2xl\")}>{children}</span>\n        </div>\n      </div>\n    );\n  },\n);\n",
+        "content": "\"use client\";\r\n\r\nimport { forwardRef, type ReactNode } from \"react\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\nimport { useTableContext } from \"./table\";\r\n\r\n/**\r\n * TableSpanRow — a linha que ocupa a largura inteira da tabela.\r\n *\r\n * É a resposta do `Table` ao `colSpan`: aqui a tabela é um grid de `<div>`, não um\r\n * `<table>`, então não existe atributo `colSpan` pra esticar uma célula. Sem esta peça,\r\n * \"nenhum resultado\", \"carregando\" e cabeçalho de grupo eram montados com uma `TableRow`\r\n * de uma célula só — que respeita a largura da PRIMEIRA coluna e deixa o texto espremido\r\n * num canto, com o resto da linha vazio.\r\n *\r\n * `sticky` gruda a linha à esquerda no scroll horizontal: numa tabela larga, o \"nenhum\r\n * resultado\" sumia de vista ao rolar pro lado.\r\n */\r\nexport type TableSpanRowProps = {\r\n  children: ReactNode;\r\n  /** Altura mínima. Default: `\"row\"` (a altura de linha da densidade). */\r\n  height?: \"row\" | \"auto\";\r\n  /**\r\n   * Mantém o conteúdo visível na rolagem horizontal. Default `true` — numa tabela mais\r\n   * larga que a viewport, o texto centralizado some ao rolar.\r\n   */\r\n  sticky?: boolean;\r\n  /** Alinhamento horizontal do conteúdo. Default `\"center\"`. */\r\n  align?: \"left\" | \"center\";\r\n  className?: string;\r\n};\r\n\r\nconst ALTURA = {\r\n  compact: \"min-h-[40px]\",\r\n  standard: \"min-h-[56px]\",\r\n  comfortable: \"min-h-[72px]\",\r\n} as const;\r\n\r\nexport const TableSpanRow = forwardRef<HTMLDivElement, TableSpanRowProps>(\r\n  function TableSpanRow(\r\n    { children, height = \"row\", sticky = true, align = \"center\", className },\r\n    ref,\r\n  ) {\r\n    const { density } = useTableContext();\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        role=\"row\"\r\n        className={cn(\r\n          \"flex w-full border-b border-border-table bg-bg-table last:border-b-0\",\r\n          height === \"row\" && ALTURA[density],\r\n        )}\r\n      >\r\n        <div\r\n          role=\"cell\"\r\n          className={cn(\r\n            \"flex w-full items-center px-pad-2xl py-pad-xl\",\r\n            \"text-body-sm text-fg-muted\",\r\n            align === \"center\" ? \"justify-center\" : \"justify-start\",\r\n            className,\r\n          )}\r\n        >\r\n          {/*\r\n            O `sticky` fica no CONTEÚDO, não na célula: a célula tem a largura total do\r\n            grid (que pode ser bem maior que a tela), então grudá-la não adianta. É o\r\n            texto que precisa acompanhar a rolagem lateral.\r\n          */}\r\n          <span className={cn(\"min-w-0\", sticky && \"sticky left-pad-2xl\")}>{children}</span>\r\n        </div>\r\n      </div>\r\n    );\r\n  },\r\n);\r\n",
         "type": "registry:file",
         "target": "src/components/ui/Table/table-span-row.tsx"
       },
@@ -5002,7 +5002,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · table · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5065,7 +5065,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · tabs-navigation · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5089,7 +5089,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · tabs · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5113,7 +5113,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · textarea · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5131,7 +5131,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · theme-blue · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   },
@@ -5149,7 +5149,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · theme-green · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   },
@@ -5167,7 +5167,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · theme-pay · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   },
@@ -5185,7 +5185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · theme-vibrant · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   },
@@ -5207,7 +5207,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · theme · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   },
@@ -5258,7 +5258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · toast · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5284,7 +5284,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · toggle-group · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5309,7 +5309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · toggle · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5333,7 +5333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · tooltip · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:ui"
   },
@@ -5349,19 +5349,19 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/utils/tw-merge-config.ts",
-        "content": "// src/utils/tw-merge-config.ts\n//\n// FONTE ÚNICA da config do `tailwind-merge` no DS.\n//\n// Existia duplicada: `cn` (src/lib/utils.ts) e `tv` (src/utils/tv.ts) mantinham cada um a\n// sua, com um comentário em `utils.ts` pedindo \"manter sincronizado com src/utils/tv.ts\".\n// Não estavam: a de `tv` tinha só `font-size`, a de `cn` tinha também pad/gap/radius/\n// shadow/form. Componente que fazia merge por `tv()` e componente que fazia por `cn()`\n// resolviam conflito de formas diferentes — e ninguém tinha como saber qual.\n//\n// ⚠️ O que o tailwind-merge NÃO sabe sozinho ele deixa passar em SILÊNCIO: as duas classes\n// sobrevivem no elemento e quem decide é a ordem do CSS, não a ordem do argumento. Nunca\n// dá erro. É a L-016 (onde a classe some) pelo avesso, e a L-072 no caso do `tv()`.\n\nimport { type ClassValidator } from \"tailwind-merge\";\n\n/** Padding/Margin spacing: pad-* (padding contexts), sp-* (geral) */\nconst isDsPad: ClassValidator = (v) => /^(pad|sp)-/.test(v);\n/** Gap: gp-* */\nconst isDsGap: ClassValidator = (v) => /^gp-/.test(v);\n/** Border-radius: radius-* */\nconst isDsRadius: ClassValidator = (v) => /^radius-/.test(v);\n/** Shadow: sh-* */\nconst isDsShadow: ClassValidator = (v) => /^sh-/.test(v);\n/** Form heights: form-* (min-h, h, w, size) */\nconst isDsForm: ClassValidator = (v) => /^form-/.test(v);\n\n/**\n * Escala de container do DS — 1:1 com a chave `container` de\n * `tokens/brands/default/components/sizing.ts`, menos `full` e `prose`, que têm os MESMOS\n * nomes e valores do Tailwind nativo e já são reconhecidos.\n *\n * Entra por `theme.container` (e não por `classGroups`) porque no Tailwind v4 a mesma var\n * `--container-*` alimenta `max-w-*`, `min-w-*`, `w-*`, `basis-*` e as variantes de\n * container query: registrar no tema cobre os cinco de uma vez.\n *\n * Sem isto, `<DialogContent className=\"max-w-modal-sm\">` NÃO vencia o `sm:max-w-[420px]`\n * da base — e nem `max-w-modal-sm` vencia `max-w-modal-lg`, token do DS contra token do\n * DS. O consumidor igreen-tickets precisou prefixar 51 overlays com `sm:` pra contornar,\n * sem saber por quê.\n *\n * Gate que impede drift com o token: `tw-merge-config.test.ts`.\n */\nexport const DS_CONTAINER_SCALE = [\n  // Page containers\n  \"page-xs\", \"page-sm\", \"page-md\", \"page-lg\", \"page-xl\", \"page-2xl\", \"page-3xl\",\n  \"main-content-max\",\n  // Component overlays\n  \"tooltip-sm\", \"tooltip-md\", \"tooltip-lg\",\n  \"dropdown-sm\", \"dropdown-md\", \"dropdown-lg\",\n  \"sidebar-sm\", \"sidebar-md\", \"sidebar-lg\",\n  \"drawer-sm\", \"drawer-md\", \"drawer-lg\",\n  \"modal-xs\", \"modal-sm\", \"modal-md\", \"modal-lg\",\n] as const;\n\n/**\n * Presets tipográficos — 1:1 com `tokens/brands/default/semantic/typography.ts`.\n * Sem isto o tailwind-merge lê `text-title-md` como text-COLOR, colide com\n * `text-fg-default` e remove uma das duas em silêncio (L-016).\n *\n * Gate: `dead-typography-presets` + `tw-merge-config.test.ts`.\n */\nexport const DS_TYPOGRAPHY_PRESETS = [\n  // Displays (fluid clamp)\n  \"display-2xl\", \"display-xl\", \"display-lg\", \"display-md\",\n  // Headings (xs estático, sm-xl fluid clamp)\n  \"heading-xl\", \"heading-lg\", \"heading-md\", \"heading-sm\", \"heading-xs\",\n  // Titles (weight 600 default)\n  \"title-lg\", \"title-md\", \"title-sm\",\n  // Body (xs/sm = weight 500 interactive; md-2xl = 400 corrido)\n  \"body-2xl\", \"body-xl\", \"body-lg\", \"body-md\", \"body-sm\", \"body-xs\",\n  // Captions (weight 400)\n  \"caption-md\", \"caption-sm\", \"caption-xs\",\n  // Stat (número de métrica/KPI — estático, bold, leading tight)\n  \"stat-xl\", \"stat-lg\", \"stat-md\", \"stat-sm\",\n  // Code (mono regular)\n  \"code-md\", \"code-sm\",\n] as const;\n\n/**\n * Config passada a `extendTailwindMerge` (pelo `cn`) e a `tv()` (pelo wrapper do DS).\n * Os dois caminhos de merge do DS usam ESTE objeto — não há segunda cópia.\n */\nexport const twMergeConfig = {\n  extend: {\n    theme: {\n      container: [...DS_CONTAINER_SCALE],\n    },\n    classGroups: {\n      \"font-size\": [{ text: [...DS_TYPOGRAPHY_PRESETS] }],\n\n      /* ── Padding ──────────────────────────────────────────────────────── */\n      p:  [{ p:  [isDsPad] }],\n      px: [{ px: [isDsPad] }],\n      py: [{ py: [isDsPad] }],\n      pt: [{ pt: [isDsPad] }],\n      pr: [{ pr: [isDsPad] }],\n      pb: [{ pb: [isDsPad] }],\n      pl: [{ pl: [isDsPad] }],\n      ps: [{ ps: [isDsPad] }],\n      pe: [{ pe: [isDsPad] }],\n\n      /* ── Margin (usa mesmo sp-*) ──────────────────────────────────────── */\n      m:  [{ m:  [isDsPad] }],\n      mx: [{ mx: [isDsPad] }],\n      my: [{ my: [isDsPad] }],\n      mt: [{ mt: [isDsPad] }],\n      mr: [{ mr: [isDsPad] }],\n      mb: [{ mb: [isDsPad] }],\n      ml: [{ ml: [isDsPad] }],\n      ms: [{ ms: [isDsPad] }],\n      me: [{ me: [isDsPad] }],\n\n      /* ── Inset / position (top/right/bottom/left) ─────────────────────── */\n      inset:          [{ inset:          [isDsPad] }],\n      \"inset-x\":      [{ \"inset-x\":      [isDsPad] }],\n      \"inset-y\":      [{ \"inset-y\":      [isDsPad] }],\n      \"top\":          [{ top:            [isDsPad] }],\n      \"right\":        [{ right:          [isDsPad] }],\n      \"bottom\":       [{ bottom:         [isDsPad] }],\n      \"left\":         [{ left:           [isDsPad] }],\n      \"start\":        [{ start:          [isDsPad] }],\n      \"end\":          [{ end:            [isDsPad] }],\n\n      /* ── Gap ──────────────────────────────────────────────────────────── */\n      gap:     [{ gap:     [isDsGap] }],\n      \"gap-x\": [{ \"gap-x\": [isDsGap] }],\n      \"gap-y\": [{ \"gap-y\": [isDsGap] }],\n\n      /* ── Rounded (todas as cantos) ────────────────────────────────────── */\n      rounded:       [{ rounded:       [isDsRadius] }],\n      \"rounded-s\":   [{ \"rounded-s\":   [isDsRadius] }],\n      \"rounded-e\":   [{ \"rounded-e\":   [isDsRadius] }],\n      \"rounded-t\":   [{ \"rounded-t\":   [isDsRadius] }],\n      \"rounded-r\":   [{ \"rounded-r\":   [isDsRadius] }],\n      \"rounded-b\":   [{ \"rounded-b\":   [isDsRadius] }],\n      \"rounded-l\":   [{ \"rounded-l\":   [isDsRadius] }],\n      \"rounded-ss\":  [{ \"rounded-ss\":  [isDsRadius] }],\n      \"rounded-se\":  [{ \"rounded-se\":  [isDsRadius] }],\n      \"rounded-ee\":  [{ \"rounded-ee\":  [isDsRadius] }],\n      \"rounded-es\":  [{ \"rounded-es\":  [isDsRadius] }],\n      \"rounded-tl\":  [{ \"rounded-tl\":  [isDsRadius] }],\n      \"rounded-tr\":  [{ \"rounded-tr\":  [isDsRadius] }],\n      \"rounded-br\":  [{ \"rounded-br\":  [isDsRadius] }],\n      \"rounded-bl\":  [{ \"rounded-bl\":  [isDsRadius] }],\n\n      /* ── Shadow ───────────────────────────────────────────────────────── */\n      shadow: [{ shadow: [isDsShadow] }],\n\n      /* ── Form sizes (min-h, h, w, size) ───────────────────────────────────\n       * `w` e `size` recebem TAMBÉM a escala de container pelo `theme` acima;\n       * as duas extensões convivem (validator + tema no mesmo grupo).            */\n      \"min-h\": [{ \"min-h\": [isDsForm] }],\n      h:       [{ h:       [isDsForm] }],\n      w:       [{ w:       [isDsForm] }],\n      size:    [{ size:    [isDsForm] }],\n    },\n  },\n};\n",
+        "content": "// src/utils/tw-merge-config.ts\r\n//\r\n// FONTE ÚNICA da config do `tailwind-merge` no DS.\r\n//\r\n// Existia duplicada: `cn` (src/lib/utils.ts) e `tv` (src/utils/tv.ts) mantinham cada um a\r\n// sua, com um comentário em `utils.ts` pedindo \"manter sincronizado com src/utils/tv.ts\".\r\n// Não estavam: a de `tv` tinha só `font-size`, a de `cn` tinha também pad/gap/radius/\r\n// shadow/form. Componente que fazia merge por `tv()` e componente que fazia por `cn()`\r\n// resolviam conflito de formas diferentes — e ninguém tinha como saber qual.\r\n//\r\n// ⚠️ O que o tailwind-merge NÃO sabe sozinho ele deixa passar em SILÊNCIO: as duas classes\r\n// sobrevivem no elemento e quem decide é a ordem do CSS, não a ordem do argumento. Nunca\r\n// dá erro. É a L-016 (onde a classe some) pelo avesso, e a L-072 no caso do `tv()`.\r\n\r\nimport { type ClassValidator } from \"tailwind-merge\";\r\n\r\n/** Padding/Margin spacing: pad-* (padding contexts), sp-* (geral) */\r\nconst isDsPad: ClassValidator = (v) => /^(pad|sp)-/.test(v);\r\n/** Gap: gp-* */\r\nconst isDsGap: ClassValidator = (v) => /^gp-/.test(v);\r\n/** Border-radius: radius-* */\r\nconst isDsRadius: ClassValidator = (v) => /^radius-/.test(v);\r\n/** Shadow: sh-* */\r\nconst isDsShadow: ClassValidator = (v) => /^sh-/.test(v);\r\n/** Form heights: form-* (min-h, h, w, size) */\r\nconst isDsForm: ClassValidator = (v) => /^form-/.test(v);\r\n\r\n/**\r\n * Escala de container do DS — 1:1 com a chave `container` de\r\n * `tokens/brands/default/components/sizing.ts`, menos `full` e `prose`, que têm os MESMOS\r\n * nomes e valores do Tailwind nativo e já são reconhecidos.\r\n *\r\n * Entra por `theme.container` (e não por `classGroups`) porque no Tailwind v4 a mesma var\r\n * `--container-*` alimenta `max-w-*`, `min-w-*`, `w-*`, `basis-*` e as variantes de\r\n * container query: registrar no tema cobre os cinco de uma vez.\r\n *\r\n * Sem isto, `<DialogContent className=\"max-w-modal-sm\">` NÃO vencia o `sm:max-w-[420px]`\r\n * da base — e nem `max-w-modal-sm` vencia `max-w-modal-lg`, token do DS contra token do\r\n * DS. O consumidor igreen-tickets precisou prefixar 51 overlays com `sm:` pra contornar,\r\n * sem saber por quê.\r\n *\r\n * Gate que impede drift com o token: `tw-merge-config.test.ts`.\r\n */\r\nexport const DS_CONTAINER_SCALE = [\r\n  // Page containers\r\n  \"page-xs\", \"page-sm\", \"page-md\", \"page-lg\", \"page-xl\", \"page-2xl\", \"page-3xl\",\r\n  \"main-content-max\",\r\n  // Component overlays\r\n  \"tooltip-sm\", \"tooltip-md\", \"tooltip-lg\",\r\n  \"dropdown-sm\", \"dropdown-md\", \"dropdown-lg\",\r\n  \"sidebar-sm\", \"sidebar-md\", \"sidebar-lg\",\r\n  \"drawer-sm\", \"drawer-md\", \"drawer-lg\",\r\n  \"modal-xs\", \"modal-sm\", \"modal-md\", \"modal-lg\",\r\n] as const;\r\n\r\n/**\r\n * Presets tipográficos — 1:1 com `tokens/brands/default/semantic/typography.ts`.\r\n * Sem isto o tailwind-merge lê `text-title-md` como text-COLOR, colide com\r\n * `text-fg-default` e remove uma das duas em silêncio (L-016).\r\n *\r\n * Gate: `dead-typography-presets` + `tw-merge-config.test.ts`.\r\n */\r\nexport const DS_TYPOGRAPHY_PRESETS = [\r\n  // Displays (fluid clamp)\r\n  \"display-2xl\", \"display-xl\", \"display-lg\", \"display-md\",\r\n  // Headings (xs estático, sm-xl fluid clamp)\r\n  \"heading-xl\", \"heading-lg\", \"heading-md\", \"heading-sm\", \"heading-xs\",\r\n  // Titles (weight 600 default)\r\n  \"title-lg\", \"title-md\", \"title-sm\",\r\n  // Body (xs/sm = weight 500 interactive; md-2xl = 400 corrido)\r\n  \"body-2xl\", \"body-xl\", \"body-lg\", \"body-md\", \"body-sm\", \"body-xs\",\r\n  // Captions (weight 400)\r\n  \"caption-md\", \"caption-sm\", \"caption-xs\",\r\n  // Stat (número de métrica/KPI — estático, bold, leading tight)\r\n  \"stat-xl\", \"stat-lg\", \"stat-md\", \"stat-sm\",\r\n  // Code (mono regular)\r\n  \"code-md\", \"code-sm\",\r\n] as const;\r\n\r\n/**\r\n * Config passada a `extendTailwindMerge` (pelo `cn`) e a `tv()` (pelo wrapper do DS).\r\n * Os dois caminhos de merge do DS usam ESTE objeto — não há segunda cópia.\r\n */\r\nexport const twMergeConfig = {\r\n  extend: {\r\n    theme: {\r\n      container: [...DS_CONTAINER_SCALE],\r\n    },\r\n    classGroups: {\r\n      \"font-size\": [{ text: [...DS_TYPOGRAPHY_PRESETS] }],\r\n\r\n      /* ── Padding ──────────────────────────────────────────────────────── */\r\n      p:  [{ p:  [isDsPad] }],\r\n      px: [{ px: [isDsPad] }],\r\n      py: [{ py: [isDsPad] }],\r\n      pt: [{ pt: [isDsPad] }],\r\n      pr: [{ pr: [isDsPad] }],\r\n      pb: [{ pb: [isDsPad] }],\r\n      pl: [{ pl: [isDsPad] }],\r\n      ps: [{ ps: [isDsPad] }],\r\n      pe: [{ pe: [isDsPad] }],\r\n\r\n      /* ── Margin (usa mesmo sp-*) ──────────────────────────────────────── */\r\n      m:  [{ m:  [isDsPad] }],\r\n      mx: [{ mx: [isDsPad] }],\r\n      my: [{ my: [isDsPad] }],\r\n      mt: [{ mt: [isDsPad] }],\r\n      mr: [{ mr: [isDsPad] }],\r\n      mb: [{ mb: [isDsPad] }],\r\n      ml: [{ ml: [isDsPad] }],\r\n      ms: [{ ms: [isDsPad] }],\r\n      me: [{ me: [isDsPad] }],\r\n\r\n      /* ── Inset / position (top/right/bottom/left) ─────────────────────── */\r\n      inset:          [{ inset:          [isDsPad] }],\r\n      \"inset-x\":      [{ \"inset-x\":      [isDsPad] }],\r\n      \"inset-y\":      [{ \"inset-y\":      [isDsPad] }],\r\n      \"top\":          [{ top:            [isDsPad] }],\r\n      \"right\":        [{ right:          [isDsPad] }],\r\n      \"bottom\":       [{ bottom:         [isDsPad] }],\r\n      \"left\":         [{ left:           [isDsPad] }],\r\n      \"start\":        [{ start:          [isDsPad] }],\r\n      \"end\":          [{ end:            [isDsPad] }],\r\n\r\n      /* ── Gap ──────────────────────────────────────────────────────────── */\r\n      gap:     [{ gap:     [isDsGap] }],\r\n      \"gap-x\": [{ \"gap-x\": [isDsGap] }],\r\n      \"gap-y\": [{ \"gap-y\": [isDsGap] }],\r\n\r\n      /* ── Rounded (todas as cantos) ────────────────────────────────────── */\r\n      rounded:       [{ rounded:       [isDsRadius] }],\r\n      \"rounded-s\":   [{ \"rounded-s\":   [isDsRadius] }],\r\n      \"rounded-e\":   [{ \"rounded-e\":   [isDsRadius] }],\r\n      \"rounded-t\":   [{ \"rounded-t\":   [isDsRadius] }],\r\n      \"rounded-r\":   [{ \"rounded-r\":   [isDsRadius] }],\r\n      \"rounded-b\":   [{ \"rounded-b\":   [isDsRadius] }],\r\n      \"rounded-l\":   [{ \"rounded-l\":   [isDsRadius] }],\r\n      \"rounded-ss\":  [{ \"rounded-ss\":  [isDsRadius] }],\r\n      \"rounded-se\":  [{ \"rounded-se\":  [isDsRadius] }],\r\n      \"rounded-ee\":  [{ \"rounded-ee\":  [isDsRadius] }],\r\n      \"rounded-es\":  [{ \"rounded-es\":  [isDsRadius] }],\r\n      \"rounded-tl\":  [{ \"rounded-tl\":  [isDsRadius] }],\r\n      \"rounded-tr\":  [{ \"rounded-tr\":  [isDsRadius] }],\r\n      \"rounded-br\":  [{ \"rounded-br\":  [isDsRadius] }],\r\n      \"rounded-bl\":  [{ \"rounded-bl\":  [isDsRadius] }],\r\n\r\n      /* ── Shadow ───────────────────────────────────────────────────────── */\r\n      shadow: [{ shadow: [isDsShadow] }],\r\n\r\n      /* ── Form sizes (min-h, h, w, size) ───────────────────────────────────\r\n       * `w` e `size` recebem TAMBÉM a escala de container pelo `theme` acima;\r\n       * as duas extensões convivem (validator + tema no mesmo grupo).            */\r\n      \"min-h\": [{ \"min-h\": [isDsForm] }],\r\n      h:       [{ h:       [isDsForm] }],\r\n      w:       [{ w:       [isDsForm] }],\r\n      size:    [{ size:    [isDsForm] }],\r\n    },\r\n  },\r\n};\r\n",
         "type": "registry:file",
         "target": "src/utils/tw-merge-config.ts"
       },
       {
         "path": "src/utils/tv.ts",
-        "content": "// src/utils/tv.ts\n// tv() do DS — mesmo `tailwind-variants`, com a config de merge do design system.\n//\n// Importe SEMPRE daqui, nunca de \"tailwind-variants\" direto (gate: regra IMPORT do\n// ds-lint-patterns). Sem o wrapper, o merge não reconhece nenhum token do DS.\nimport { tv as tvBase, type TVConfig } from \"tailwind-variants\";\n\nimport { twMergeConfig } from \"./tw-merge-config\";\n\nexport const tv: typeof tvBase = (options, config) =>\n  tvBase(options, {\n    ...config,\n    twMergeConfig,\n  } as TVConfig);\n\nexport type { VariantProps } from \"tailwind-variants\";\n",
+        "content": "// src/utils/tv.ts\r\n// tv() do DS — mesmo `tailwind-variants`, com a config de merge do design system.\r\n//\r\n// Importe SEMPRE daqui, nunca de \"tailwind-variants\" direto (gate: regra IMPORT do\r\n// ds-lint-patterns). Sem o wrapper, o merge não reconhece nenhum token do DS.\r\nimport { tv as tvBase, type TVConfig } from \"tailwind-variants\";\r\n\r\nimport { twMergeConfig } from \"./tw-merge-config\";\r\n\r\nexport const tv: typeof tvBase = (options, config) =>\r\n  tvBase(options, {\r\n    ...config,\r\n    twMergeConfig,\r\n  } as TVConfig);\r\n\r\nexport type { VariantProps } from \"tailwind-variants\";\r\n",
         "type": "registry:file",
         "target": "src/utils/tv.ts"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · tv · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   },
@@ -5377,19 +5377,19 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/utils/tw-merge-config.ts",
-        "content": "// src/utils/tw-merge-config.ts\n//\n// FONTE ÚNICA da config do `tailwind-merge` no DS.\n//\n// Existia duplicada: `cn` (src/lib/utils.ts) e `tv` (src/utils/tv.ts) mantinham cada um a\n// sua, com um comentário em `utils.ts` pedindo \"manter sincronizado com src/utils/tv.ts\".\n// Não estavam: a de `tv` tinha só `font-size`, a de `cn` tinha também pad/gap/radius/\n// shadow/form. Componente que fazia merge por `tv()` e componente que fazia por `cn()`\n// resolviam conflito de formas diferentes — e ninguém tinha como saber qual.\n//\n// ⚠️ O que o tailwind-merge NÃO sabe sozinho ele deixa passar em SILÊNCIO: as duas classes\n// sobrevivem no elemento e quem decide é a ordem do CSS, não a ordem do argumento. Nunca\n// dá erro. É a L-016 (onde a classe some) pelo avesso, e a L-072 no caso do `tv()`.\n\nimport { type ClassValidator } from \"tailwind-merge\";\n\n/** Padding/Margin spacing: pad-* (padding contexts), sp-* (geral) */\nconst isDsPad: ClassValidator = (v) => /^(pad|sp)-/.test(v);\n/** Gap: gp-* */\nconst isDsGap: ClassValidator = (v) => /^gp-/.test(v);\n/** Border-radius: radius-* */\nconst isDsRadius: ClassValidator = (v) => /^radius-/.test(v);\n/** Shadow: sh-* */\nconst isDsShadow: ClassValidator = (v) => /^sh-/.test(v);\n/** Form heights: form-* (min-h, h, w, size) */\nconst isDsForm: ClassValidator = (v) => /^form-/.test(v);\n\n/**\n * Escala de container do DS — 1:1 com a chave `container` de\n * `tokens/brands/default/components/sizing.ts`, menos `full` e `prose`, que têm os MESMOS\n * nomes e valores do Tailwind nativo e já são reconhecidos.\n *\n * Entra por `theme.container` (e não por `classGroups`) porque no Tailwind v4 a mesma var\n * `--container-*` alimenta `max-w-*`, `min-w-*`, `w-*`, `basis-*` e as variantes de\n * container query: registrar no tema cobre os cinco de uma vez.\n *\n * Sem isto, `<DialogContent className=\"max-w-modal-sm\">` NÃO vencia o `sm:max-w-[420px]`\n * da base — e nem `max-w-modal-sm` vencia `max-w-modal-lg`, token do DS contra token do\n * DS. O consumidor igreen-tickets precisou prefixar 51 overlays com `sm:` pra contornar,\n * sem saber por quê.\n *\n * Gate que impede drift com o token: `tw-merge-config.test.ts`.\n */\nexport const DS_CONTAINER_SCALE = [\n  // Page containers\n  \"page-xs\", \"page-sm\", \"page-md\", \"page-lg\", \"page-xl\", \"page-2xl\", \"page-3xl\",\n  \"main-content-max\",\n  // Component overlays\n  \"tooltip-sm\", \"tooltip-md\", \"tooltip-lg\",\n  \"dropdown-sm\", \"dropdown-md\", \"dropdown-lg\",\n  \"sidebar-sm\", \"sidebar-md\", \"sidebar-lg\",\n  \"drawer-sm\", \"drawer-md\", \"drawer-lg\",\n  \"modal-xs\", \"modal-sm\", \"modal-md\", \"modal-lg\",\n] as const;\n\n/**\n * Presets tipográficos — 1:1 com `tokens/brands/default/semantic/typography.ts`.\n * Sem isto o tailwind-merge lê `text-title-md` como text-COLOR, colide com\n * `text-fg-default` e remove uma das duas em silêncio (L-016).\n *\n * Gate: `dead-typography-presets` + `tw-merge-config.test.ts`.\n */\nexport const DS_TYPOGRAPHY_PRESETS = [\n  // Displays (fluid clamp)\n  \"display-2xl\", \"display-xl\", \"display-lg\", \"display-md\",\n  // Headings (xs estático, sm-xl fluid clamp)\n  \"heading-xl\", \"heading-lg\", \"heading-md\", \"heading-sm\", \"heading-xs\",\n  // Titles (weight 600 default)\n  \"title-lg\", \"title-md\", \"title-sm\",\n  // Body (xs/sm = weight 500 interactive; md-2xl = 400 corrido)\n  \"body-2xl\", \"body-xl\", \"body-lg\", \"body-md\", \"body-sm\", \"body-xs\",\n  // Captions (weight 400)\n  \"caption-md\", \"caption-sm\", \"caption-xs\",\n  // Stat (número de métrica/KPI — estático, bold, leading tight)\n  \"stat-xl\", \"stat-lg\", \"stat-md\", \"stat-sm\",\n  // Code (mono regular)\n  \"code-md\", \"code-sm\",\n] as const;\n\n/**\n * Config passada a `extendTailwindMerge` (pelo `cn`) e a `tv()` (pelo wrapper do DS).\n * Os dois caminhos de merge do DS usam ESTE objeto — não há segunda cópia.\n */\nexport const twMergeConfig = {\n  extend: {\n    theme: {\n      container: [...DS_CONTAINER_SCALE],\n    },\n    classGroups: {\n      \"font-size\": [{ text: [...DS_TYPOGRAPHY_PRESETS] }],\n\n      /* ── Padding ──────────────────────────────────────────────────────── */\n      p:  [{ p:  [isDsPad] }],\n      px: [{ px: [isDsPad] }],\n      py: [{ py: [isDsPad] }],\n      pt: [{ pt: [isDsPad] }],\n      pr: [{ pr: [isDsPad] }],\n      pb: [{ pb: [isDsPad] }],\n      pl: [{ pl: [isDsPad] }],\n      ps: [{ ps: [isDsPad] }],\n      pe: [{ pe: [isDsPad] }],\n\n      /* ── Margin (usa mesmo sp-*) ──────────────────────────────────────── */\n      m:  [{ m:  [isDsPad] }],\n      mx: [{ mx: [isDsPad] }],\n      my: [{ my: [isDsPad] }],\n      mt: [{ mt: [isDsPad] }],\n      mr: [{ mr: [isDsPad] }],\n      mb: [{ mb: [isDsPad] }],\n      ml: [{ ml: [isDsPad] }],\n      ms: [{ ms: [isDsPad] }],\n      me: [{ me: [isDsPad] }],\n\n      /* ── Inset / position (top/right/bottom/left) ─────────────────────── */\n      inset:          [{ inset:          [isDsPad] }],\n      \"inset-x\":      [{ \"inset-x\":      [isDsPad] }],\n      \"inset-y\":      [{ \"inset-y\":      [isDsPad] }],\n      \"top\":          [{ top:            [isDsPad] }],\n      \"right\":        [{ right:          [isDsPad] }],\n      \"bottom\":       [{ bottom:         [isDsPad] }],\n      \"left\":         [{ left:           [isDsPad] }],\n      \"start\":        [{ start:          [isDsPad] }],\n      \"end\":          [{ end:            [isDsPad] }],\n\n      /* ── Gap ──────────────────────────────────────────────────────────── */\n      gap:     [{ gap:     [isDsGap] }],\n      \"gap-x\": [{ \"gap-x\": [isDsGap] }],\n      \"gap-y\": [{ \"gap-y\": [isDsGap] }],\n\n      /* ── Rounded (todas as cantos) ────────────────────────────────────── */\n      rounded:       [{ rounded:       [isDsRadius] }],\n      \"rounded-s\":   [{ \"rounded-s\":   [isDsRadius] }],\n      \"rounded-e\":   [{ \"rounded-e\":   [isDsRadius] }],\n      \"rounded-t\":   [{ \"rounded-t\":   [isDsRadius] }],\n      \"rounded-r\":   [{ \"rounded-r\":   [isDsRadius] }],\n      \"rounded-b\":   [{ \"rounded-b\":   [isDsRadius] }],\n      \"rounded-l\":   [{ \"rounded-l\":   [isDsRadius] }],\n      \"rounded-ss\":  [{ \"rounded-ss\":  [isDsRadius] }],\n      \"rounded-se\":  [{ \"rounded-se\":  [isDsRadius] }],\n      \"rounded-ee\":  [{ \"rounded-ee\":  [isDsRadius] }],\n      \"rounded-es\":  [{ \"rounded-es\":  [isDsRadius] }],\n      \"rounded-tl\":  [{ \"rounded-tl\":  [isDsRadius] }],\n      \"rounded-tr\":  [{ \"rounded-tr\":  [isDsRadius] }],\n      \"rounded-br\":  [{ \"rounded-br\":  [isDsRadius] }],\n      \"rounded-bl\":  [{ \"rounded-bl\":  [isDsRadius] }],\n\n      /* ── Shadow ───────────────────────────────────────────────────────── */\n      shadow: [{ shadow: [isDsShadow] }],\n\n      /* ── Form sizes (min-h, h, w, size) ───────────────────────────────────\n       * `w` e `size` recebem TAMBÉM a escala de container pelo `theme` acima;\n       * as duas extensões convivem (validator + tema no mesmo grupo).            */\n      \"min-h\": [{ \"min-h\": [isDsForm] }],\n      h:       [{ h:       [isDsForm] }],\n      w:       [{ w:       [isDsForm] }],\n      size:    [{ size:    [isDsForm] }],\n    },\n  },\n};\n",
+        "content": "// src/utils/tw-merge-config.ts\r\n//\r\n// FONTE ÚNICA da config do `tailwind-merge` no DS.\r\n//\r\n// Existia duplicada: `cn` (src/lib/utils.ts) e `tv` (src/utils/tv.ts) mantinham cada um a\r\n// sua, com um comentário em `utils.ts` pedindo \"manter sincronizado com src/utils/tv.ts\".\r\n// Não estavam: a de `tv` tinha só `font-size`, a de `cn` tinha também pad/gap/radius/\r\n// shadow/form. Componente que fazia merge por `tv()` e componente que fazia por `cn()`\r\n// resolviam conflito de formas diferentes — e ninguém tinha como saber qual.\r\n//\r\n// ⚠️ O que o tailwind-merge NÃO sabe sozinho ele deixa passar em SILÊNCIO: as duas classes\r\n// sobrevivem no elemento e quem decide é a ordem do CSS, não a ordem do argumento. Nunca\r\n// dá erro. É a L-016 (onde a classe some) pelo avesso, e a L-072 no caso do `tv()`.\r\n\r\nimport { type ClassValidator } from \"tailwind-merge\";\r\n\r\n/** Padding/Margin spacing: pad-* (padding contexts), sp-* (geral) */\r\nconst isDsPad: ClassValidator = (v) => /^(pad|sp)-/.test(v);\r\n/** Gap: gp-* */\r\nconst isDsGap: ClassValidator = (v) => /^gp-/.test(v);\r\n/** Border-radius: radius-* */\r\nconst isDsRadius: ClassValidator = (v) => /^radius-/.test(v);\r\n/** Shadow: sh-* */\r\nconst isDsShadow: ClassValidator = (v) => /^sh-/.test(v);\r\n/** Form heights: form-* (min-h, h, w, size) */\r\nconst isDsForm: ClassValidator = (v) => /^form-/.test(v);\r\n\r\n/**\r\n * Escala de container do DS — 1:1 com a chave `container` de\r\n * `tokens/brands/default/components/sizing.ts`, menos `full` e `prose`, que têm os MESMOS\r\n * nomes e valores do Tailwind nativo e já são reconhecidos.\r\n *\r\n * Entra por `theme.container` (e não por `classGroups`) porque no Tailwind v4 a mesma var\r\n * `--container-*` alimenta `max-w-*`, `min-w-*`, `w-*`, `basis-*` e as variantes de\r\n * container query: registrar no tema cobre os cinco de uma vez.\r\n *\r\n * Sem isto, `<DialogContent className=\"max-w-modal-sm\">` NÃO vencia o `sm:max-w-[420px]`\r\n * da base — e nem `max-w-modal-sm` vencia `max-w-modal-lg`, token do DS contra token do\r\n * DS. O consumidor igreen-tickets precisou prefixar 51 overlays com `sm:` pra contornar,\r\n * sem saber por quê.\r\n *\r\n * Gate que impede drift com o token: `tw-merge-config.test.ts`.\r\n */\r\nexport const DS_CONTAINER_SCALE = [\r\n  // Page containers\r\n  \"page-xs\", \"page-sm\", \"page-md\", \"page-lg\", \"page-xl\", \"page-2xl\", \"page-3xl\",\r\n  \"main-content-max\",\r\n  // Component overlays\r\n  \"tooltip-sm\", \"tooltip-md\", \"tooltip-lg\",\r\n  \"dropdown-sm\", \"dropdown-md\", \"dropdown-lg\",\r\n  \"sidebar-sm\", \"sidebar-md\", \"sidebar-lg\",\r\n  \"drawer-sm\", \"drawer-md\", \"drawer-lg\",\r\n  \"modal-xs\", \"modal-sm\", \"modal-md\", \"modal-lg\",\r\n] as const;\r\n\r\n/**\r\n * Presets tipográficos — 1:1 com `tokens/brands/default/semantic/typography.ts`.\r\n * Sem isto o tailwind-merge lê `text-title-md` como text-COLOR, colide com\r\n * `text-fg-default` e remove uma das duas em silêncio (L-016).\r\n *\r\n * Gate: `dead-typography-presets` + `tw-merge-config.test.ts`.\r\n */\r\nexport const DS_TYPOGRAPHY_PRESETS = [\r\n  // Displays (fluid clamp)\r\n  \"display-2xl\", \"display-xl\", \"display-lg\", \"display-md\",\r\n  // Headings (xs estático, sm-xl fluid clamp)\r\n  \"heading-xl\", \"heading-lg\", \"heading-md\", \"heading-sm\", \"heading-xs\",\r\n  // Titles (weight 600 default)\r\n  \"title-lg\", \"title-md\", \"title-sm\",\r\n  // Body (xs/sm = weight 500 interactive; md-2xl = 400 corrido)\r\n  \"body-2xl\", \"body-xl\", \"body-lg\", \"body-md\", \"body-sm\", \"body-xs\",\r\n  // Captions (weight 400)\r\n  \"caption-md\", \"caption-sm\", \"caption-xs\",\r\n  // Stat (número de métrica/KPI — estático, bold, leading tight)\r\n  \"stat-xl\", \"stat-lg\", \"stat-md\", \"stat-sm\",\r\n  // Code (mono regular)\r\n  \"code-md\", \"code-sm\",\r\n] as const;\r\n\r\n/**\r\n * Config passada a `extendTailwindMerge` (pelo `cn`) e a `tv()` (pelo wrapper do DS).\r\n * Os dois caminhos de merge do DS usam ESTE objeto — não há segunda cópia.\r\n */\r\nexport const twMergeConfig = {\r\n  extend: {\r\n    theme: {\r\n      container: [...DS_CONTAINER_SCALE],\r\n    },\r\n    classGroups: {\r\n      \"font-size\": [{ text: [...DS_TYPOGRAPHY_PRESETS] }],\r\n\r\n      /* ── Padding ──────────────────────────────────────────────────────── */\r\n      p:  [{ p:  [isDsPad] }],\r\n      px: [{ px: [isDsPad] }],\r\n      py: [{ py: [isDsPad] }],\r\n      pt: [{ pt: [isDsPad] }],\r\n      pr: [{ pr: [isDsPad] }],\r\n      pb: [{ pb: [isDsPad] }],\r\n      pl: [{ pl: [isDsPad] }],\r\n      ps: [{ ps: [isDsPad] }],\r\n      pe: [{ pe: [isDsPad] }],\r\n\r\n      /* ── Margin (usa mesmo sp-*) ──────────────────────────────────────── */\r\n      m:  [{ m:  [isDsPad] }],\r\n      mx: [{ mx: [isDsPad] }],\r\n      my: [{ my: [isDsPad] }],\r\n      mt: [{ mt: [isDsPad] }],\r\n      mr: [{ mr: [isDsPad] }],\r\n      mb: [{ mb: [isDsPad] }],\r\n      ml: [{ ml: [isDsPad] }],\r\n      ms: [{ ms: [isDsPad] }],\r\n      me: [{ me: [isDsPad] }],\r\n\r\n      /* ── Inset / position (top/right/bottom/left) ─────────────────────── */\r\n      inset:          [{ inset:          [isDsPad] }],\r\n      \"inset-x\":      [{ \"inset-x\":      [isDsPad] }],\r\n      \"inset-y\":      [{ \"inset-y\":      [isDsPad] }],\r\n      \"top\":          [{ top:            [isDsPad] }],\r\n      \"right\":        [{ right:          [isDsPad] }],\r\n      \"bottom\":       [{ bottom:         [isDsPad] }],\r\n      \"left\":         [{ left:           [isDsPad] }],\r\n      \"start\":        [{ start:          [isDsPad] }],\r\n      \"end\":          [{ end:            [isDsPad] }],\r\n\r\n      /* ── Gap ──────────────────────────────────────────────────────────── */\r\n      gap:     [{ gap:     [isDsGap] }],\r\n      \"gap-x\": [{ \"gap-x\": [isDsGap] }],\r\n      \"gap-y\": [{ \"gap-y\": [isDsGap] }],\r\n\r\n      /* ── Rounded (todas as cantos) ────────────────────────────────────── */\r\n      rounded:       [{ rounded:       [isDsRadius] }],\r\n      \"rounded-s\":   [{ \"rounded-s\":   [isDsRadius] }],\r\n      \"rounded-e\":   [{ \"rounded-e\":   [isDsRadius] }],\r\n      \"rounded-t\":   [{ \"rounded-t\":   [isDsRadius] }],\r\n      \"rounded-r\":   [{ \"rounded-r\":   [isDsRadius] }],\r\n      \"rounded-b\":   [{ \"rounded-b\":   [isDsRadius] }],\r\n      \"rounded-l\":   [{ \"rounded-l\":   [isDsRadius] }],\r\n      \"rounded-ss\":  [{ \"rounded-ss\":  [isDsRadius] }],\r\n      \"rounded-se\":  [{ \"rounded-se\":  [isDsRadius] }],\r\n      \"rounded-ee\":  [{ \"rounded-ee\":  [isDsRadius] }],\r\n      \"rounded-es\":  [{ \"rounded-es\":  [isDsRadius] }],\r\n      \"rounded-tl\":  [{ \"rounded-tl\":  [isDsRadius] }],\r\n      \"rounded-tr\":  [{ \"rounded-tr\":  [isDsRadius] }],\r\n      \"rounded-br\":  [{ \"rounded-br\":  [isDsRadius] }],\r\n      \"rounded-bl\":  [{ \"rounded-bl\":  [isDsRadius] }],\r\n\r\n      /* ── Shadow ───────────────────────────────────────────────────────── */\r\n      shadow: [{ shadow: [isDsShadow] }],\r\n\r\n      /* ── Form sizes (min-h, h, w, size) ───────────────────────────────────\r\n       * `w` e `size` recebem TAMBÉM a escala de container pelo `theme` acima;\r\n       * as duas extensões convivem (validator + tema no mesmo grupo).            */\r\n      \"min-h\": [{ \"min-h\": [isDsForm] }],\r\n      h:       [{ h:       [isDsForm] }],\r\n      w:       [{ w:       [isDsForm] }],\r\n      size:    [{ size:    [isDsForm] }],\r\n    },\r\n  },\r\n};\r\n",
         "type": "registry:file",
         "target": "src/utils/tw-merge-config.ts"
       },
       {
         "path": "src/lib/utils.ts",
-        "content": "import { type ClassValue, clsx } from \"clsx\";\nimport { extendTailwindMerge } from \"tailwind-merge\";\n\nimport { twMergeConfig } from \"@/utils/tw-merge-config\";\n\n/**\n * `cn` — junta classes (clsx) e resolve conflito (tailwind-merge).\n *\n * A config do merge mora em `src/utils/tw-merge-config.ts` e é a MESMA usada pelo `tv()`\n * do DS. Antes cada um tinha a sua, com um comentário aqui pedindo sincronia manual que\n * nunca existiu — a de `tv` só conhecia os presets tipográficos.\n */\nconst twMerge = extendTailwindMerge(twMergeConfig);\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n",
+        "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { extendTailwindMerge } from \"tailwind-merge\";\r\n\r\nimport { twMergeConfig } from \"@/utils/tw-merge-config\";\r\n\r\n/**\r\n * `cn` — junta classes (clsx) e resolve conflito (tailwind-merge).\r\n *\r\n * A config do merge mora em `src/utils/tw-merge-config.ts` e é a MESMA usada pelo `tv()`\r\n * do DS. Antes cada um tinha a sua, com um comentário aqui pedindo sincronia manual que\r\n * nunca existiu — a de `tv` só conhecia os presets tipográficos.\r\n */\r\nconst twMerge = extendTailwindMerge(twMergeConfig);\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n",
         "type": "registry:file",
         "target": "src/lib/utils.ts"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.68.0 · 8a5f219 · 2026-09-24"
+      "stamp": "igreen-ds · utils · v0.68.0 · dcacf95 · 2026-09-24"
     },
     "type": "registry:file"
   }
