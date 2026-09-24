@@ -76,6 +76,7 @@ export const RELEASES: ReleaseEntry[] = [
           "**`HeaderSearch`: `ariaLabel` e `hotkey={false}`.** O nome acessivel era fixo em portugues, e nao havia como desligar o Cmd+K quando o app ja registra o proprio — dois listeners no mesmo atalho brigam.",
           "**`PageHeader`: `description` aceita `ReactNode` e `descriptionLines=\"none\"`.** A linha secundaria costuma ter link, chip de status ou seletor de periodo; com `string` apenas, o consumidor recriava o header por causa de um `<a>`.",
           "**`Kpi`: `helperSide` e `helperMaxWidth`** — ajuda longa num tooltip de 320px vira coluna alta e ilegivel.",
+          "**`texts.hint` no `FileUploadField`.** A dica menor da dropzone era derivada de `accept` + `maxSizeMB`, sem saida — o que serve pra `accept=\".pdf\"` e vira lista de MIME ilegivel numa importacao em lote. ⚠️ Estava na lista de ACEITOS do retorno (R.11) e **nao tinha sido implementada**: achado ao conferir a propria entrega, prop por prop, contra o texto da PR. Substitui a dica inteira, o `max. NMB` incluido; `\"\"` esconde a linha.",
         ],
       },
       {
