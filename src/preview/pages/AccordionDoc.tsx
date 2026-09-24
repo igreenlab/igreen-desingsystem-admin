@@ -56,7 +56,7 @@ export function AccordionDoc() {
   </AccordionItem>
 </Accordion>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Accordion type="single" collapsible defaultValue="item-1">
             <AccordionItem value="item-1">
               <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -104,7 +104,7 @@ export function AccordionDoc() {
   </AccordionItem>
 </Accordion>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Accordion type="multiple" defaultValue={["item-1", "item-2"]}>
             <AccordionItem value="item-1">
               <AccordionTrigger>First section</AccordionTrigger>
@@ -148,7 +148,7 @@ export function AccordionDoc() {
   </AccordionItem>
 </Accordion>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger>Available section</AccordionTrigger>
@@ -183,7 +183,7 @@ export function AccordionDoc() {
   </Accordion>
 </div>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <div className="rounded-radius-base border border-border-subtle overflow-hidden">
             <Accordion type="single" collapsible defaultValue="item-1">
               <AccordionItem value="item-1" className="border-b border-border-subtle px-pad-3xl">
@@ -241,7 +241,7 @@ export function AccordionDoc() {
   </AccordionItem>
 </Accordion>`}
       >
-        <div className="max-w-lg w-full">
+        <div className="max-w-page-lg w-full">
           <Accordion type="single" collapsible defaultValue="item-1">
             <AccordionItem value="item-1">
               <AccordionTrigger>Supported energy plans</AccordionTrigger>

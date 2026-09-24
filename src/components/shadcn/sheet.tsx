@@ -38,13 +38,32 @@ const sheetVariants = cva(
         top: "inset-x-0 top-0 max-h-dvh border-b border-border-default data-[state=closed]:slide-out-to-top-12 data-[state=open]:slide-in-from-top-12",
         bottom:
           "inset-x-0 bottom-0 max-h-dvh border-t border-border-default data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12",
-        left: "inset-y-0 left-0 h-full w-3/4 border-r border-border-default data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12 sm:max-w-sm",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r border-border-default data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12",
         right:
-          "inset-y-0 right-0 h-full w-3/4 border-l border-border-default data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12 sm:max-w-sm",
+          "inset-y-0 right-0 h-full w-3/4 border-l border-border-default data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12",
       },
+      /**
+       * Largura na escala de drawer do DS (320 / 480 / 640).
+       *
+       * Só vale em `side` left/right — em top/bottom o painel é `inset-x-0` e um
+       * `max-w` o estreitaria em vez de mudar a altura. Por isso vem por
+       * compoundVariant, e não na variante solta: aplicar largura a um sheet
+       * superior é o tipo de acerto que ninguém percebe estar errado.
+       *
+       * Default `lg` (640px) = a largura que o sheet lateral sempre teve: a base era
+       * `sm:max-w-sm`, que com a escala de container sobrescrita dava 640. O nome é que
+       * estava errado — tokenizar não é motivo pra mudar o que a tela mostra.
+       */
+      size: { sm: "", md: "", lg: "" },
     },
+    compoundVariants: [
+      { side: ["left", "right"], size: "sm", class: "sm:max-w-drawer-sm" }, // 320
+      { side: ["left", "right"], size: "md", class: "sm:max-w-drawer-md" }, // 480
+      { side: ["left", "right"], size: "lg", class: "sm:max-w-drawer-lg" }, // 640
+    ],
     defaultVariants: {
       side: "right",
+      size: "lg",
     },
   }
 )
@@ -59,7 +78,7 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
+>(({ side = "right", size = "lg", className, children, hideClose, onPointerDownOutside, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content
@@ -76,7 +95,7 @@ const SheetContent = React.forwardRef<
         }
         onPointerDownOutside?.(event);
       }}
-      className={cn(sheetVariants({ side }), className)}
+      className={cn(sheetVariants({ side, size }), className)}
       {...props}
     >
       {children}

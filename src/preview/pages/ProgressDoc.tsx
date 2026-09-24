@@ -35,7 +35,7 @@ export function ProgressDoc() {
         description="Basic progress bar at a fixed value."
         code={`<Progress value={66} />`}
       >
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-page-sm">
           <Progress value={66} />
         </div>
       </ExampleSection>
@@ -45,9 +45,9 @@ export function ProgressDoc() {
         id="ex-with-label"
         title="With Label"
         description="Progress bar with a descriptive label and percentage readout."
-        code={`<div className="w-full max-w-sm flex flex-col gap-gp-md">\n  <div className="flex items-center justify-between">\n    <Label>Upload progress</Label>\n    <span className="text-body-md font-medium text-fg-muted tabular-nums">66%</span>\n  </div>\n  <Progress value={66} />\n</div>`}
+        code={`<div className="w-full max-w-page-sm flex flex-col gap-gp-md">\n  <div className="flex items-center justify-between">\n    <Label>Upload progress</Label>\n    <span className="text-body-md font-medium text-fg-muted tabular-nums">66%</span>\n  </div>\n  <Progress value={66} />\n</div>`}
       >
-        <div className="w-full max-w-sm flex flex-col gap-gp-md">
+        <div className="w-full max-w-page-sm flex flex-col gap-gp-md">
           <div className="flex items-center justify-between">
             <Label>Upload progress</Label>
             <span className="text-body-md font-medium text-fg-muted tabular-nums">66%</span>
@@ -63,7 +63,7 @@ export function ProgressDoc() {
         description="Use state to drive the progress value with increment and decrement controls."
         code={`const [val, setVal] = useState(40);\n\n<Progress value={val} />\n<div className="flex items-center gap-gp-xl justify-center">\n  <Button color="secondary" variant="outline" size="2xs"\n    onClick={() => setVal(Math.max(0, val - 10))}>-10</Button>\n  <span className="text-body-md font-medium text-fg-muted tabular-nums">{val}%</span>\n  <Button color="secondary" variant="outline" size="2xs"\n    onClick={() => setVal(Math.min(100, val + 10))}>+10</Button>\n</div>`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <Progress value={val} />
           <div className="flex items-center gap-gp-xl justify-center">
             <Button color="secondary" variant="outline" size="2xs" onClick={() => setVal(Math.max(0, val - 10))}>-10</Button>
@@ -80,7 +80,7 @@ export function ProgressDoc() {
         description="Override the height via className to create thinner or thicker bars. Progress has no built-in size token."
         code={`<Progress value={60} className="h-1" />\n<Progress value={60} className="h-2" />\n<Progress value={60} className="h-3" />\n<Progress value={60} className="h-4" />`}
       >
-        <div className="flex flex-col gap-gp-3xl w-full max-w-sm">
+        <div className="flex flex-col gap-gp-3xl w-full max-w-page-sm">
           <div className="flex flex-col gap-gp-xs">
             <span className="text-body-xs text-fg-subtle">h-1 (4px)</span>
             <Progress value={60} className="h-1" />
@@ -107,7 +107,7 @@ export function ProgressDoc() {
         description="The indicator inherits the primary brand color by default. Custom indicator colors require overriding the indicator's className through a wrapper approach or direct style."
         code={`{/* Default — uses primary brand color */}\n<Progress value={75} />`}
       >
-        <div className="flex flex-col gap-gp-3xl w-full max-w-sm">
+        <div className="flex flex-col gap-gp-3xl w-full max-w-page-sm">
           <div className="flex flex-col gap-gp-xs">
             <span className="text-body-xs text-fg-subtle">Default (primary)</span>
             <Progress value={75} />

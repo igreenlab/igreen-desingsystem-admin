@@ -43,11 +43,15 @@ export function PageHeader({
   badge,
   actions,
   children,
+  titleWrap = true,
+  descriptionLines = 1,
   hideTextOnMobile = true,
   fluidPrimaryOnMobile = true,
   className,
 }: PageHeaderProps) {
   const s = pageHeaderStyles({
+    titleWrap,
+    descriptionLines,
     hideTextOnMobile,
     mobileFluid: fluidPrimaryOnMobile,
   });

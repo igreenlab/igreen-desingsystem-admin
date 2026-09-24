@@ -4,7 +4,7 @@ Pílula compacta para status, tags, filtros — dual-mode (span estático ou but
 
 ## Quando usar
 - Tags / categorias (status, prioridade, label)
-- Filtros aplicados (com onClick = remove)
+- Filtros aplicados (use `onRemove` — o × ganha alvo próprio)
 - Chips de seleção (selected state)
 - Counters inline
 
@@ -51,8 +51,13 @@ Seleção via `@radix-ui/react-toggle-group`. Visual ativo/inativo configurável
 // Tag estática
 <Chip color="warning" variant="soft">Royal</Chip>
 
-// Filtro com remove
-<Chip color="primary" onClick={removeFilter}>Status: Ativo ×</Chip>
+// Filtro aplicado: clicar edita, × remove (dois alvos)
+<Chip color="primary" onClick={editarFiltro} onRemove={removerFiltro}>
+  Status: Ativo
+</Chip>
+
+// Só removível
+<Chip onRemove={removerFiltro}>Status: Ativo</Chip>
 
 // Group multi-select
 <ChipGroup type="multiple" value={selected} onValueChange={setSelected}>
@@ -66,3 +71,18 @@ Seleção via `@radix-ui/react-toggle-group`. Visual ativo/inativo configurável
 - O visual interativo (cursor pointer + focus ring) é calculado internamente a partir de `onClick`/`asButton` — não existe prop `interactive` no Chip
 - `selected=true` força visual "soft" da cor mesmo se `variant="outline"`
 - Pra counter inline, usar `chipCount` slot (10px font-semibold)
+
+## `onRemove` — o × é um alvo, não um caractere (2026-09-23)
+
+Até aqui a receita desta própria página era `<Chip onClick={remover}>Status: Ativo ×</Chip>`:
+o "×" era um caractere digitado no texto, o chip inteiro removia, e não havia como ter as
+duas ações — "editar este filtro" e "tirar este filtro" — no mesmo chip.
+
+- Com `onRemove`, a pílula vira `<span>` e a label ganha o próprio `<button>` quando há
+  `onClick`. **Botão dentro de botão é HTML inválido**: o navegador desaninha e o clique
+  no × passa a disparar o do chip junto. Por isso são dois irmãos, nunca um dentro do outro.
+- Chip **sem** `onRemove` não mudou em nada: estático continua `<span>`, clicável continua
+  `<button>`.
+- **`removeLabel`**: o nome acessível do × sai do texto do chip ("Remover Status: Ativo").
+  Quando `children` não é texto simples, o default vira só "Remover" — e cinco botões
+  "Remover" numa barra de filtros são indistinguíveis no leitor de tela. Passe o nome.

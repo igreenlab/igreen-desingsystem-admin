@@ -6,6 +6,7 @@ import { Badge } from "../../components/shadcn/badge";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
+  { id: "ex-clicavel", label: "Superfície clicável" },
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
   { id: "ex-login-form", label: "Login Form" },
@@ -38,6 +39,27 @@ export function CardDoc() {
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
 
+      <ExampleSection
+        id="ex-clicavel"
+        title="Superfície clicável"
+        description="\`onClick\`/\`href\` + \`surfaceLabel\` tornam o card inteiro um alvo — com foco, Enter/Space e hover. Navegue por Tab até ele. Um \`onClick\` solto na div não tem nada disso. O alvo é um botão esticado por cima: a árvore do card fica intacta, porque conteúdo de \`<button>\` é phrasing content."
+        code={`<Card onClick={abrir} surfaceLabel="Abrir lote 42">
+  <CardHeader><CardTitle>Lote 42</CardTitle></CardHeader>
+  <CardContent>120 unidades · Em processamento</CardContent>
+</Card>`}
+      >
+        <div className="max-w-page-sm">
+          <Card onClick={() => {}} surfaceLabel="Abrir lote 42">
+            <CardHeader>
+              <CardTitle>Lote 42</CardTitle>
+              <CardDescription>Aberto em 12/03</CardDescription>
+            </CardHeader>
+            <CardContent>120 unidades · Em processamento</CardContent>
+          </Card>
+        </div>
+      </ExampleSection>
+
+
       {/* Default */}
       <ExampleSection
         id="ex-default"
@@ -58,7 +80,7 @@ export function CardDoc() {
   </CardFooter>
 </Card>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Card>
             <CardHeader>
               <CardTitle>Card Title</CardTitle>
@@ -115,7 +137,7 @@ export function CardDoc() {
   </CardContent>
 </Card>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Card>
             <CardHeader>
               <CardTitle>Login</CardTitle>
@@ -169,7 +191,7 @@ export function CardDoc() {
   </CardFooter>
 </Card>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Card className="overflow-hidden">
             <div className="bg-bg-muted h-48 flex items-center justify-center">
               <span className="text-body-md font-medium text-fg-subtle">Image placeholder</span>
@@ -205,7 +227,7 @@ export function CardDoc() {
   </CardContent>
 </Card>`}
       >
-        <div className="max-w-xs w-full">
+        <div className="max-w-page-xs w-full">
           <Card>
             <CardHeader>
               <CardDescription>Total Revenue</CardDescription>
@@ -244,7 +266,7 @@ export function CardDoc() {
   </CardFooter>
 </Card>`}
       >
-        <div className="max-w-md w-full">
+        <div className="max-w-page-md w-full">
           <Card>
             <CardHeader>
               <CardTitle>Confirm changes</CardTitle>

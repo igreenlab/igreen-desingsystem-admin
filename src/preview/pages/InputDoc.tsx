@@ -35,7 +35,7 @@ export function InputDoc() {
         description="Basic text input with placeholder."
         code={`<Input placeholder="Email" />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Input placeholder="Email" />
         </div>
       </ExampleSection>
@@ -49,7 +49,7 @@ export function InputDoc() {
   <Input id="email" placeholder="you@example.com" />
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Label htmlFor="email-demo">Email</Label>
           <Input id="email-demo" placeholder="you@example.com" />
         </div>
@@ -64,7 +64,7 @@ export function InputDoc() {
 <Input size="sm" placeholder="Size SM (36px)" />
 <Input size="md" placeholder="Size MD (40px)" />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <Input size="xxs" placeholder="Size XXS (28px)" />
           <Input size="xs" placeholder="Size XS (32px)" />
           <Input size="sm" placeholder="Size SM (36px)" />
@@ -81,7 +81,7 @@ export function InputDoc() {
   <Input id="picture" type="file" />
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Label htmlFor="picture-demo">Picture</Label>
           <Input id="picture-demo" type="file" />
         </div>
@@ -93,7 +93,7 @@ export function InputDoc() {
         description="Disabled inputs prevent user interaction."
         code={`<Input disabled placeholder="Disabled" />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Input disabled placeholder="Disabled" />
         </div>
       </ExampleSection>
@@ -109,7 +109,7 @@ export function InputDoc() {
   </Button>
 </div>`}
       >
-        <div className="flex gap-gp-md max-w-md w-full">
+        <div className="flex gap-gp-md max-w-page-md w-full">
           <Input placeholder="Search..." />
           <Button color="primary" variant="filled" size="sm">Search</Button>
         </div>
@@ -119,7 +119,7 @@ export function InputDoc() {
         id="ex-form"
         title="Form"
         description="Mini form card combining multiple inputs with labels and a submit button."
-        code={`<Card className="max-w-sm w-full">
+        code={`<Card className="max-w-page-sm w-full">
   <CardHeader>
     <CardTitle>Create account</CardTitle>
     <CardDescription>Enter your details below.</CardDescription>
@@ -143,7 +143,7 @@ export function InputDoc() {
   </CardFooter>
 </Card>`}
       >
-        <Card className="max-w-sm w-full">
+        <Card className="max-w-page-sm w-full">
           <CardHeader>
             <CardTitle>Create account</CardTitle>
             <CardDescription>Enter your details below.</CardDescription>

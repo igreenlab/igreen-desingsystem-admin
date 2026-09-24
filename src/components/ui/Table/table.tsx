@@ -38,7 +38,7 @@ const TableContext = createContext<TableContextValue>({
   isScrolled: false,
 });
 
-function useTableContext(): TableContextValue {
+export function useTableContext(): TableContextValue {
   return useContext(TableContext);
 }
 

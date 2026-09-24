@@ -82,3 +82,28 @@ const [dates, setDates] = useState<Date[]>();
   o trigger inteiro, não datas específicas do calendário.
 - O label do trigger é formatado em pt-BR fixo (`toLocaleDateString("pt-BR", ...)`); não
   existe prop de formato customizável.
+
+## Limites e limpar (2026-09-23)
+
+- **`minValue` / `maxValue`** desabilitam os dias fora da janela no próprio calendário.
+  Vale nos 3 modes (`single`, `range`, `multiple`). Sem eles, "não deixar escolher data
+  futura" ou "não passar do prazo" virava validação DEPOIS do clique — o usuário
+  escolhia e só então recebia o erro.
+  ⚠️ Entram como matcher de dia DESABILITADO, não como `fromDate`/`toDate`: aqueles só
+  limitam a navegação de mês e continuam deixando clicar.
+- **`clearable`** mostra um × no trigger quando há valor; limpar emite
+  `onValueChange(undefined)`. `clearLabel` nomeia o botão.
+  ⚠️ O × é `<span role="button">`, não `<button>`: o trigger do Popover já é um button,
+  e button dentro de button é HTML inválido — o navegador desaninha e o × passa a abrir
+  o calendário junto. Mesmo motivo da anatomia do `Chip` com `onRemove`.
+
+```tsx
+<DatePicker
+  mode="range"
+  value={periodo}
+  onValueChange={setPeriodo}
+  maxValue={new Date()}        // nada no futuro
+  clearable
+  clearLabel="Limpar período"
+/>
+```

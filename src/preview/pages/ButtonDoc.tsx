@@ -267,7 +267,7 @@ export function ButtonDoc() {
         description="Expands to fill the parent container. Use for primary actions inside cards, dialogs and forms."
         code={`<Button fullWidth>Full Width Button</Button>`}
       >
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-page-sm">
           <Button fullWidth>Full Width Button</Button>
         </div>
       </ExampleSection>

@@ -69,26 +69,31 @@
 
 | Token | Valor | Classe |
 |-------|-------|--------|
-| `container.xs` | 480px | `max-w-xs` |
-| `container.sm` | 640px | `max-w-sm` |
-| `container.md` | 768px | `max-w-md` |
-| `container.lg` | 1024px | `max-w-lg` |
-| `container.xl` | 1280px | `max-w-xl` |
-| `container.2xl` | 1440px | `max-w-2xl` |
-| `container.3xl` | 1920px | `max-w-3xl` |
+| `container.page-xs` | 480px | `max-w-page-xs` |
+| `container.page-sm` | 640px | `max-w-page-sm` |
+| `container.page-md` | 768px | `max-w-page-md` |
+| `container.page-lg` | 1024px | `max-w-page-lg` |
+| `container.page-xl` | 1280px | `max-w-page-xl` |
+| `container.page-2xl` | 1440px | `max-w-page-2xl` |
+| `container.page-3xl` | 1920px | `max-w-page-3xl` |
 | `container.main-content-max` | 1368px | `max-w-main-content-max` — body do AppShell em `layout="compact"` |
 | `container.prose` | 65ch | `max-w-prose` |
 | `container.sidebar-sm` / `-lg` | — | `max-w-sidebar-sm` / `-lg` |
-| `container.modal-sm` / `-lg` | — | `max-w-modal-sm` / `-lg` |
+| `container.modal-xs` / `-sm` / `-md` / `-lg` | 420 / 480 / 640 / 768px | `max-w-modal-*` — base do AlertDialog (`xs`) e do Dialog (`lg`) |
 | `container.dropdown-sm` / `-lg` | — | `max-w-dropdown-sm` / `-lg` |
 | `container.tooltip-sm` / `-md` / `-lg` | — | `max-w-tooltip-*` |
-| `container.drawer-sm` / `-md` / `-lg` | — | `max-w-drawer-*` (o `-md` é 480px) |
+| `container.drawer-sm` / `-md` / `-lg` | 320 / 480 / 640px | `max-w-drawer-*` — base do Sheet lateral (`lg`) |
 | `container.full` | — | `max-w-full` |
 
-⚠️ **`container` é a ÚNICA exceção que não dobra o prefixo (L-057).** O transform emite
-`--container-md`, que **sobrescreve** a escala nativa do Tailwind — então a classe é
-`max-w-md` (768px do DS), e **`max-w-container-md` não existe**: não emite CSS e falha em
-silêncio, sem quebrar build, `tsc` nem teste.
+⚠️ **`container` deixou de ser exceção em 2026-09-23 (L-057).** Todo degrau tem prefixo de
+papel — `page-`, `modal-`, `drawer-`, `tooltip-`, `dropdown-`, `sidebar-` —, como `gp-`/`sp-`/
+`pad-`. Antes, os degraus de página se chamavam `xs`…`3xl` e **sobrescreviam** a escala nativa:
+`max-w-lg` valia 1024px em vez de 512. Hoje `max-w-lg` é o Tailwind (512) e a escala do DS é
+`max-w-page-lg`.
+
+**`max-w-container-*` nunca existiu** e continua não existindo: classe cujo token não existe
+não emite CSS e falha em silêncio, sem quebrar build, `tsc` nem teste. Gate:
+`dead-theme-classes`.
 
 ---
 

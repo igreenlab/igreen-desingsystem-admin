@@ -57,7 +57,10 @@ const AlertDialogContent = React.forwardRef<
     <AlertDialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]",
+        // `modal-xs` = 420px: o MESMO valor de antes, que era `sm:max-w-[420px]` — um
+        // hardcode que a primeira regra crítica do CLAUDE.md proíbe. O degrau nasceu
+        // pra ele; tokenizar não muda pixel.
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-modal-xs",
         "translate-x-[-50%] translate-y-[-50%]",
         // Teto de altura + rolagem interna — mesma regra e margem do DialogContent.
         "max-h-[calc(100dvh-2rem)] overflow-y-auto",

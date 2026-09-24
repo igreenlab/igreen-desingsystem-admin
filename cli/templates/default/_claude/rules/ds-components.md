@@ -227,3 +227,30 @@ código.
 `/ds-create-list` (cards) ou `/ds-create-dashboard` (painel) — eles entrevistam e montam a
 tela no padrão, e existem `example-*` prontos pra adaptar. Adaptar sempre ganha de escrever
 do zero.
+
+## Mudanças de API (2026-09-23)
+
+Props novas que trocam um override por uma escolha. Nenhuma muda o default — mas se
+você estava contornando algum destes na unha, pare de contornar.
+
+| Quando você ia escrever | Use |
+|---|---|
+| um `×` no texto do chip, com o chip inteiro removendo | **`<Chip onRemove>`** — o × ganha alvo próprio, com `removeLabel` para nomeá-lo |
+| `onClick` numa `<div>` de card | **`<Card onClick surfaceLabel>`** — vira alvo com foco e teclado; `onClick` na div não é alcançável |
+| **react-select** para escolher vários | **`<Combobox multiple>`** — **value** vira `string[]`, o dropdown não fecha a cada escolha |
+| validar data depois do clique | **`minValue`/`maxValue`** no `DatePicker` — desabilita o dia no calendário. E ****clearable**** para o × de limpar |
+| `<table>` cru para "nenhum resultado" | **`<TableSpanRow>`** — linha de largura total (o `colSpan` que um grid de **div** não tem) |
+| `className="font-normal"` num `<Label>` | **`weight="regular"`** — para rótulo de OPÇÃO em grupo (checkbox, radio, switch) |
+| anular o **min-h** do `<Textarea>` | ****rows**** — agora encolhe de verdade |
+| recriar o header porque o título trunca | **`titleWrap`** (default **true**) e **`descriptionLines`** no `PageHeader` |
+| aceitar os textos em PT do upload | ****texts**** no `FileUploadField` |
+| reimplementar a paleta de busca | **`onOpen`** no `HeaderSearch` — o clique e o atalho chamam a SUA paleta |
+| `sm:max-w-modal-lg` para vencer a base do overlay | ****size**** no `Dialog`/`Sheet`/`AlertDialog` |
+
+⚠️ **Largura de página mudou de nome.** A escala do DS agora é `max-w-page-*`;
+**max-w-lg** voltou a ser o Tailwind (512px, não 1024). Se um container ficou com o
+dobro ou a metade do esperado, é isto. Overlay usa `max-w-modal-*`/`max-w-drawer-*`.
+
+⚠️ **Importe `cn` e `tv` do DS**, não do seu projeto: a config de merge conhece os
+tokens (escala de container, presets tipográficos, **pad-**/**gp-**/**sh-**…). Um `cn` de
+fora resolve conflito errado e a classe perde em silêncio.

@@ -22,6 +22,19 @@ export interface FileUploadFieldProps {
   preview?: FileUploadPreview;
   /** Nome exibido quando `value` é uma URL (string). */
   fileName?: string;
+  /**
+   * Textos da UI. Cada chave sobrescreve um literal em português que estava cravado no
+   * componente — quem importa planilha em lote ("Selecionar CSV") tinha que aceitar
+   * "Clique para anexar" ou recriar o campo. Só as chaves passadas mudam.
+   */
+  texts?: {
+    /** Chamada na área de drop. Default: "Clique para anexar". */
+    drop?: string;
+    /** Nome mostrado quando `value` é string sem `fileName`. Default: "Arquivo". */
+    fallbackFileName?: string;
+    /** Nome acessível do botão de remover. Default: "Remover arquivo". */
+    remove?: string;
+  };
   /** Label do campo (renderizado pelo FormField). */
   label?: string;
   /** Marca como obrigatório (asterisco no label). */

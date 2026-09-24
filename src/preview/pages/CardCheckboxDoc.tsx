@@ -53,7 +53,7 @@ export function CardCheckboxDoc() {
 
       {/* Hero */}
       <ExampleSection id="ex-hero" title="" description="">
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-page-xs">
           <CardCheckbox
             label="Salvar essa conta pra usar depois"
             description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
@@ -72,7 +72,7 @@ export function CardCheckboxDoc() {
         description="Uso padrão — estado controlado via checked + onCheckedChange. O callback recebe boolean | 'indeterminate'; normalize com v === true antes de gravar num setState<boolean>."
         code={`const [save, setSave] = useState(true);\n\n<CardCheckbox\n  label="Salvar essa conta pra usar depois"\n  description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."\n  checked={save}\n  onCheckedChange={(v) => setSave(v === true)}\n/>`}
       >
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-page-xs">
           <CardCheckbox
             label="Salvar essa conta pra usar depois"
             description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
@@ -89,7 +89,7 @@ export function CardCheckboxDoc() {
         description="ReactNode opcional renderizado à esquerda do body (depois do checkbox). É decorativo — vai dentro de um <span aria-hidden>, não use como controle clicável."
         code={`<CardCheckbox\n  icon={<Save className="size-icon-md text-fg-muted" />}\n  label="Salvar como modelo"\n  description="Reutilize esse preenchimento em novas transferências."\n  checked={favorite}\n  onCheckedChange={(v) => setFavorite(v === true)}\n/>`}
       >
-        <div className="flex w-full max-w-xs flex-col gap-form-gap">
+        <div className="flex w-full max-w-page-xs flex-col gap-form-gap">
           <CardCheckbox
             icon={<Save className="size-icon-md text-fg-muted" />}
             label="Salvar como modelo"
@@ -114,7 +114,7 @@ export function CardCheckboxDoc() {
         description="description é opcional — só o label também funciona. Pra aceite legal compacto (terms & conditions) prefira FormFieldCheckbox."
         code={`<CardCheckbox\n  icon={<Star className="size-icon-md text-fg-muted" />}\n  label="Marcar como favorito"\n  checked={simple}\n  onCheckedChange={(v) => setSimple(v === true)}\n/>`}
       >
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-page-xs">
           <CardCheckbox
             icon={<Star className="size-icon-md text-fg-muted" />}
             label="Marcar como favorito"
@@ -131,7 +131,7 @@ export function CardCheckboxDoc() {
         description="Desativa o card inteiro — opacity 50% + pointer-events none. Funciona checked ou não."
         code={`<CardCheckbox label="..." description="..." checked disabled />\n<CardCheckbox label="..." description="..." checked={false} disabled />`}
       >
-        <div className="flex w-full max-w-xs flex-col gap-form-gap">
+        <div className="flex w-full max-w-page-xs flex-col gap-form-gap">
           <CardCheckbox
             label="Opção selecionada e bloqueada"
             description="Incluída no plano atual — não pode ser removida."

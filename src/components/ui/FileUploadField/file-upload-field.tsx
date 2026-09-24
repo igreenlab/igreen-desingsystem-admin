@@ -55,8 +55,9 @@ export function FileUploadField({
   onChange,
   accept,
   maxSizeMB,
-  preview = "auto",
+  preview = "auto",
   fileName,
+  texts,
   label,
   required,
   state,
@@ -118,8 +119,13 @@ export function FileUploadField({
     .filter(Boolean)
     .join(" · ");
 
+  /** Chamada da área de drop. Literal PT-BR era cravado aqui até 2026-09-23. */
+  const chamada = texts?.drop ?? "Clique para anexar";
+
   const displayName =
-    value instanceof File ? value.name : (fileName ?? "Arquivo");
+    value instanceof File
+      ? value.name
+      : (fileName ?? texts?.fallbackFileName ?? "Arquivo");
   const isImage = value != null && resolveIsImage(value, preview, accept);
   const imageSrc = value instanceof File ? objectUrl : (value as string | null);
 
@@ -151,12 +157,14 @@ export function FileUploadField({
               type="button"
               onClick={openPicker}
               disabled={disabled}
-              aria-label={label ? `${label}: clique para anexar` : "Clique para anexar"}
+              aria-label={
+                label ? `${label}: ${chamada.toLowerCase()}` : chamada
+              }
               className={styles.dropzone()}
             >
               <IconSvg glyph={lineCloudUpload} size="lg" className={styles.dropIcon()} />
               <span className={styles.dropTexts()}>
-                <span className={styles.dropText()}>Clique para anexar</span>
+                <span className={styles.dropText()}>{chamada}</span>
                 {hint && <span className={styles.dropHint()}>{hint}</span>}
               </span>
             </button>
@@ -179,7 +187,7 @@ export function FileUploadField({
                   variant="ghost"
                   size="icon-sm"
                   disabled={disabled}
-                  aria-label="Remover arquivo"
+                  aria-label={texts?.remove ?? "Remover arquivo"}
                   onClick={handleRemove}
                 >
                   <IconSvg glyph={lineBin} size="sm" />

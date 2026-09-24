@@ -9,7 +9,7 @@ export type ComboboxOption = {
   keywords?: string[];
 };
 
-export interface ComboboxProps
+export interface ComboboxBaseProps
   extends Omit<
     ComponentPropsWithoutRef<"button">,
     "value" | "defaultValue" | "onChange"
@@ -17,9 +17,6 @@ export interface ComboboxProps
   /** Opções selecionáveis (a busca filtra por `label` + `keywords`). */
   options: ComboboxOption[];
   /** Valor selecionado (controlado). */
-  value?: string;
-  /** Disparado ao escolher uma opção — recebe o `value` da opção. */
-  onValueChange?: (value: string) => void;
   /** Texto do trigger quando nada está selecionado. */
   placeholder?: ReactNode;
   /** Placeholder do input de busca dentro do dropdown. */
@@ -39,3 +36,40 @@ export interface ComboboxProps
   /** className aplicada ao dropdown (PopoverContent). */
   contentClassName?: string;
 }
+
+/** Escolha única — o comportamento default, inalterado. */
+export interface ComboboxSingleProps extends ComboboxBaseProps {
+  multiple?: false;
+  /** Valor selecionado (controlado). */
+  value?: string;
+  /** Disparado ao escolher uma opção — recebe o `value` da opção. */
+  onValueChange?: (value: string) => void;
+}
+
+/**
+ * Multi-seleção com busca.
+ *
+ * Diferenças de comportamento em relação ao single, todas por causa do fluxo real
+ * (escolher várias de uma lista longa):
+ *
+ * - o dropdown **não fecha** ao selecionar; fecha no clique fora ou no Esc;
+ * - clicar numa opção já marcada **desmarca**;
+ * - o trigger mostra chips das escolhidas, e resume em "+N" a partir de `maxChips`.
+ *
+ * ⚠️ Os chips do trigger NÃO têm × — o trigger é um `<button>`, e o × seria um botão
+ * dentro de outro (HTML inválido, o navegador desaninha e o × passa a abrir o dropdown).
+ * Pra remover com × fora do campo, renderize `<Chip onRemove>` ABAIXO do Combobox.
+ */
+export interface ComboboxMultipleProps extends ComboboxBaseProps {
+  multiple: true;
+  /** Valores selecionados (controlado). */
+  value?: string[];
+  /** Recebe a lista COMPLETA de selecionados a cada toggle. */
+  onValueChange?: (values: string[]) => void;
+  /** Quantos chips aparecem antes de resumir em "+N". Default 2. */
+  maxChips?: number;
+  /** Substitui o conteúdo do trigger quando há seleção. */
+  renderSummary?: (selecionados: ComboboxOption[]) => ReactNode;
+}
+
+export type ComboboxProps = ComboboxSingleProps | ComboboxMultipleProps;

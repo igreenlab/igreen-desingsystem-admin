@@ -31,3 +31,15 @@ export type {
   HeaderMessagesConfig,
   HeaderThemeOption,
 } from "./header.types";
+
+/* Receita do campo falso de busca ────────────────────────────────────────────
+ * Exportada porque um app com paleta própria (ver `onOpen` do `HeaderSearch`)
+ * ainda quer o MESMO campo: altura, ícone, placeholder e a tecla de atalho no
+ * canto. Sem isto ele reconstruía a aparência na unha e ela divergia no primeiro
+ * ajuste de token. */
+export {
+  searchFakeInput,
+  searchFakeInputIcon,
+  searchFakeInputText,
+  searchFakeInputKbd,
+} from "./header.styles";

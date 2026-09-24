@@ -10,6 +10,7 @@ import {
 } from "../components";
 
 const TOC = [
+  { id: "ex-multiple", label: "Multi-seleção" },
   { id: "examples", label: "Examples" },
   { id: "ex-basic", label: "Básico" },
   { id: "ex-keywords", label: "Keywords" },
@@ -72,6 +73,7 @@ function KeywordsExample() {
 }
 
 export function ComboboxDoc() {
+  const [varios, setVarios] = useState<string[]>([]);
   return (
     <DocLayout toc={TOC}>
       <DocHeader
@@ -83,6 +85,32 @@ export function ComboboxDoc() {
       <DocSeparator />
 
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-multiple"
+        title="Multi-seleção"
+        description="\`multiple\` mantém o dropdown ABERTO a cada escolha (fechar a cada clique custa um reabrir e re-buscar por item), clicar de novo desmarca, e o trigger resume em “+N” a partir de \`maxChips\`. Os chips do trigger não têm × de propósito: o trigger é um botão."
+        code={`<Combobox
+  multiple
+  options={opcoes}
+  value={selecionados}        // string[]
+  onValueChange={setSelecionados}
+  maxChips={2}
+/>`}
+      >
+        <div className="max-w-page-xs">
+          <Combobox
+            multiple
+            options={COLS}
+            value={varios}
+            onValueChange={setVarios}
+            maxChips={2}
+            placeholder="Selecione as colunas…"
+            aria-label="Colunas"
+          />
+        </div>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-basic"

@@ -148,7 +148,7 @@ export function ComponentsPreview() {
       {/* ── Input ───────────────────────────────────────────────────────── */}
       <Section title="Input">
         <Example label="Sizes">
-          <div className="flex flex-col gap-gp-lg max-w-sm">
+          <div className="flex flex-col gap-gp-lg max-w-page-sm">
             <Input size="md" placeholder="Size MD" />
             <Input size="sm" placeholder="Size SM" />
             <Input size="xs" placeholder="Size XS" />
@@ -156,7 +156,7 @@ export function ComponentsPreview() {
           </div>
         </Example>
         <Example label="States">
-          <div className="flex flex-col gap-gp-lg max-w-sm">
+          <div className="flex flex-col gap-gp-lg max-w-page-sm">
             <Input size="sm" placeholder="Default" />
             <Input size="sm" defaultValue="With value" />
             <Input size="sm" placeholder="Disabled" disabled />
@@ -170,7 +170,7 @@ export function ComponentsPreview() {
       {/* ── Label ───────────────────────────────────────────────────────── */}
       <Section title="Label">
         <Example>
-          <div className="flex flex-col gap-gp-lg max-w-sm">
+          <div className="flex flex-col gap-gp-lg max-w-page-sm">
             <Label>Email Address</Label>
             <Input size="sm" placeholder="you@example.com" />
           </div>
@@ -182,7 +182,7 @@ export function ComponentsPreview() {
       {/* ── Textarea ────────────────────────────────────────────────────── */}
       <Section title="Textarea">
         <Example>
-          <div className="max-w-sm">
+          <div className="max-w-page-sm">
             <Textarea placeholder="Write your message here..." />
           </div>
         </Example>
@@ -193,7 +193,7 @@ export function ComponentsPreview() {
       {/* ── Select ──────────────────────────────────────────────────────── */}
       <Section title="Select">
         <Example>
-          <div className="max-w-sm">
+          <div className="max-w-page-sm">
             <Select defaultValue="react">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -292,7 +292,7 @@ export function ComponentsPreview() {
       {/* ── Slider ──────────────────────────────────────────────────────── */}
       <Section title="Slider">
         <Example>
-          <div className="max-w-sm flex flex-col gap-gp-lg">
+          <div className="max-w-page-sm flex flex-col gap-gp-lg">
             <Slider value={sliderVal} onValueChange={setSliderVal} />
             <p className="text-body-md text-fg-muted">Value: {sliderVal[0]}</p>
           </div>
@@ -304,7 +304,7 @@ export function ComponentsPreview() {
       {/* ── Progress ────────────────────────────────────────────────────── */}
       <Section title="Progress">
         <Example>
-          <div className="max-w-sm flex flex-col gap-gp-lg">
+          <div className="max-w-page-sm flex flex-col gap-gp-lg">
             <Progress value={progress} />
             <div className="flex gap-gp-lg">
               <Button color="secondary" variant="outline" size="2xs" onClick={() => setProgress(Math.max(0, progress - 10))}>-10</Button>
@@ -338,7 +338,7 @@ export function ComponentsPreview() {
       {/* ── Card ────────────────────────────────────────────────────────── */}
       <Section title="Card">
         <Example>
-          <div className="max-w-sm">
+          <div className="max-w-page-sm">
             <Card>
               <CardHeader>
                 <CardTitle>Card Title</CardTitle>
@@ -360,7 +360,7 @@ export function ComponentsPreview() {
       {/* ── Accordion ───────────────────────────────────────────────────── */}
       <Section title="Accordion">
         <Example>
-          <div className="max-w-lg">
+          <div className="max-w-page-lg">
             <Accordion type="single" collapsible defaultValue="item-1">
               <AccordionItem value="item-1">
                 <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -384,7 +384,7 @@ export function ComponentsPreview() {
       {/* ── Alert ───────────────────────────────────────────────────────── */}
       <Section title="Alert">
         <Example>
-          <div className="flex flex-col gap-gp-2xl max-w-lg">
+          <div className="flex flex-col gap-gp-2xl max-w-page-lg">
             <Alert>
               <AlertTitle>Default alert</AlertTitle>
               <AlertDescription>This is an informational alert message.</AlertDescription>
@@ -407,7 +407,7 @@ export function ComponentsPreview() {
             <DialogTrigger asChild>
               <Button color="secondary" variant="outline" size="sm">Open Dialog</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-sm">
+            <DialogContent className="sm:max-w-page-sm">
               <DialogHeader>
                 <DialogTitle>Dialog Title</DialogTitle>
                 <DialogDescription>This is a description of the dialog content.</DialogDescription>
@@ -494,7 +494,7 @@ export function ComponentsPreview() {
       {/* ── Calendar ────────────────────────────────────────────────────── */}
       <Section title="Calendar">
         <Example>
-          <div className="max-w-sm border border-border-subtle rounded-radius-base p-pad-4xl">
+          <div className="max-w-page-sm border border-border-subtle rounded-radius-base p-pad-4xl">
             <Calendar mode="single" selected={new Date()} className="w-full" />
           </div>
         </Example>
@@ -505,7 +505,7 @@ export function ComponentsPreview() {
       {/* ── Command (search palette) ────────────────────────────────────── */}
       <Section title="Command">
         <Example label="Command palette (⌘K)">
-          <div className="flex flex-col gap-gp-xl max-w-md">
+          <div className="flex flex-col gap-gp-xl max-w-page-md">
             <Button
               color="secondary"
               variant="outline"

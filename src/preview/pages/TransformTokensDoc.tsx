@@ -128,7 +128,7 @@ export function TransformTokensDoc() {
               <PrefixRow token="icon" cssVar="--spacing-icon-*" cssClass="size-icon-md" avoids="—" />
               {/* Exceção: container é o único namespace que NÃO dobra o prefixo —
                   o DS sobrescreve a escala nativa em vez de criar uma paralela. */}
-              <PrefixRow token="container" cssVar="--container-*" cssClass="max-w-md" avoids="— (sobrescreve o nativo)" />
+              <PrefixRow token="container" cssVar="--container-*" cssClass="max-w-page-md" avoids="— (sobrescreve o nativo)" />
             </tbody>
           </table>
         </div>

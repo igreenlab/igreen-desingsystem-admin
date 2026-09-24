@@ -58,7 +58,7 @@ export function SwitchDoc() {
   <Switch id="sw-desc" />
 </div>`}
       >
-        <div className="flex items-start gap-gp-3xl w-full max-w-sm">
+        <div className="flex items-start gap-gp-3xl w-full max-w-page-sm">
           <div className="flex flex-col gap-gp-xs flex-1">
             <Label htmlFor="sw-desc">Share across devices</Label>
             <p className="text-body-md text-fg-muted">Focus mode is shared across all your signed-in devices.</p>
@@ -80,7 +80,7 @@ export function SwitchDoc() {
         {/* Consome o CardOption: este markup solto era uma das 3 versões divergentes do mesmo
             padrão. `layout="list"` traz borda e divisórias; o switch vai à direita e sem
             destaque de selecionado porque os dois derivam do type. */}
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-page-sm">
           <CardOptionGroup type="switch" layout="list">
             <CardOption label="Wi-Fi" description="Connect to wireless networks." defaultChecked />
             <CardOption label="Bluetooth" description="Allow Bluetooth connections." />

@@ -403,7 +403,7 @@ export function ComponentDocTemplate() {
         </ExampleSection>
 
         <ExampleSection id="ex-fullwidth" title="Full Width" description="Use fullWidth for primary actions inside cards, dialogs and forms.">
-          <div className="w-full max-w-sm">
+          <div className="w-full max-w-page-sm">
             <Button fullWidth>Full Width Button</Button>
           </div>
         </ExampleSection>

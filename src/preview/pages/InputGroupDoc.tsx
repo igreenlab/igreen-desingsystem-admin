@@ -79,7 +79,7 @@ export function InputGroupDoc() {
   <InputGroupInput placeholder="0,00" />
 </InputGroup>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <InputGroup>
             <InputGroupAddon align="inline-start">
               <InputGroupText>R$</InputGroupText>
@@ -100,7 +100,7 @@ export function InputGroupDoc() {
   <InputGroupInput placeholder="Buscar..." />
 </InputGroup>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <InputGroup>
             <InputGroupAddon align="inline-start">
               <Search />
@@ -124,7 +124,7 @@ export function InputGroupDoc() {
   </InputGroupAddon>
 </InputGroup>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <InputGroup>
             <InputGroupAddon align="inline-start">
               <Mail />
@@ -171,7 +171,7 @@ export function InputGroupDoc() {
   </InputGroupAddon>
 </InputGroup>`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <InputGroup>
             <InputGroupInput
               type="password"
@@ -217,7 +217,7 @@ export function InputGroupDoc() {
   <InputGroupTextarea placeholder="Conte mais..." rows={4} />
 </InputGroup>`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <InputGroup>
             <InputGroupTextarea placeholder="Conte mais..." rows={4} />
           </InputGroup>
@@ -233,7 +233,7 @@ export function InputGroupDoc() {
 <InputGroup state="warning"> ... </InputGroup>
 <InputGroup state="success"> ... </InputGroup>`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <InputGroup state="default">
             <InputGroupAddon align="inline-start">
               <InputGroupText>R$</InputGroupText>

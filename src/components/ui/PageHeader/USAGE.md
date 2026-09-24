@@ -127,3 +127,29 @@ const s = pageHeaderStyles();
   {/* sua estrutura custom */}
 </header>
 ```
+
+## `titleWrap` e `descriptionLines` (2026-09-23)
+
+Duas props que destravam o header sem mudar o default.
+
+- **`titleWrap`** (default `true`) — o título quebra em várias linhas, que é como
+  sempre foi. Passe `false` para truncar em uma linha, quando a altura do header for
+  crítica e o título for previsível.
+  ⚠️ Não use `false` em título que carrega identificação (nome de projeto, de
+  cliente): truncar ali tira a informação que dá contexto à página inteira. Foi
+  exatamente esse caso que levou um consumidor a recriar o header por fora.
+- **`descriptionLines`** — `1` (default, uma linha com reticências, igual ao
+  anterior), `2` ou `3`.
+
+```tsx
+<PageHeader
+  title="Relatório de atendimento por operador e turno"
+  description="Consolida os atendimentos do período, por operador, com SLA."
+  descriptionLines={2}
+/>
+```
+
+⚠️ O degrau `1` mantém as classes originais (`whitespace-nowrap` + ellipsis) em vez do
+`line-clamp-1` equivalente: o line-clamp troca o `display` para `-webkit-box`, e
+trocar o display de um filho de flex por uma equivalência "visualmente igual" é o
+tipo de detalhe que só aparece numa tela específica.

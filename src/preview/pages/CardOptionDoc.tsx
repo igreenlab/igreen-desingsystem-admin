@@ -203,7 +203,7 @@ export function CardOptionDoc() {
   onCheckedChange={setSalvar}
 />`}
       >
-        <div className="flex w-full max-w-md flex-col gap-gp-lg">
+        <div className="flex w-full max-w-page-md flex-col gap-gp-lg">
           <CardOption
             label="Salvar essa conta pra usar depois"
             description="Aparece na lista de contas favoritas"
@@ -229,7 +229,7 @@ export function CardOptionDoc() {
   <CardOption value="overnight" label="Overnight" description="Próximo dia útil" />
 </CardOptionGroup>`}
       >
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-page-md">
           <CardOptionGroup type="radio" value={frete} onValueChange={setFrete}>
             <CardOption value="standard" label="Standard" description="4 a 10 dias úteis" />
             <CardOption value="express" label="Express" description="2 a 3 dias úteis" />
@@ -247,7 +247,7 @@ export function CardOptionDoc() {
   <CardOption label="Bluetooth" description="Permitir conexões Bluetooth" checked={bt} onCheckedChange={setBt} />
 </CardOptionGroup>`}
       >
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-page-md">
           <CardOptionGroup type="switch" layout="list">
             <CardOption
               label="Wi-Fi"
@@ -283,7 +283,7 @@ export function CardOptionDoc() {
   <CardOption value="pro" label="Pro" description="Projetos ilimitados" />
 </CardOptionGroup>`}
       >
-        <div className="flex w-full max-w-md flex-col gap-gp-2xl">
+        <div className="flex w-full max-w-page-md flex-col gap-gp-2xl">
           <CardOptionGroup type="radio" layout="list" value={plano} onValueChange={setPlano}>
             <CardOption value="free" label="Gratuito" description="Até 3 projetos" />
             <CardOption value="pro" label="Pro" description="Projetos ilimitados" />
@@ -307,7 +307,7 @@ export function CardOptionDoc() {
 {/* pintado: liga no grupo (ou item por item) */}
 <CardOptionGroup type="radio" layout="list" highlightSelected>…</CardOptionGroup>`}
       >
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-page-md">
           <CardOptionGroup
             type="radio"
             layout="list"
@@ -330,7 +330,7 @@ export function CardOptionDoc() {
 <CardOption label="…" />          {/* md */}
 <CardOption size="lg" label="…" />`}
       >
-        <div className="flex w-full max-w-md flex-col gap-gp-lg">
+        <div className="flex w-full max-w-page-md flex-col gap-gp-lg">
           {(["sm", "md", "lg"] as const).map((s) => (
             <CardOption
               key={s}
@@ -354,7 +354,7 @@ export function CardOptionDoc() {
   description="Chega em 2 dias úteis"
 />`}
       >
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-page-md">
           <CardOption
             icon={<Truck className="size-icon-sm text-fg-subtle" />}
             label="Entrega expressa"
@@ -372,7 +372,7 @@ export function CardOptionDoc() {
         code={`<CardOption label="…" disabled />
 <CardOptionGroup type="switch" layout="list" disabled>…</CardOptionGroup>`}
       >
-        <div className="flex w-full max-w-md flex-col gap-gp-lg">
+        <div className="flex w-full max-w-page-md flex-col gap-gp-lg">
           <CardOption label="Opção indisponível" description="Requer plano superior" disabled />
           <CardOption label="Já selecionada e travada" description="Definida pelo administrador" checked disabled />
         </div>

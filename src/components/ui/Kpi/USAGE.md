@@ -101,3 +101,40 @@ import { Phone } from "lucide-react";
 - **Sparkline via `Chart`** (Recharts) no slot `children` — id de `linearGradient`
   sem espaço/`&` (use índice), senão o `url(#...)` não resolve.
 - Cores 100% por token (tones via `bg-bg-*-muted`/`fg-*`). Sem hardcode.
+
+## Responsividade, estouro e drill-down (2026-09-23)
+
+- **`KpiGroup` quebra por CONTAINER, não por viewport.** As colunas usam `@md:`/`@3xl:`/
+  `@5xl:`, e o `@container` mora num wrapper em volta do grid (elemento não consulta o
+  próprio tamanho). Antes era `sm:`/`lg:`, que lê a JANELA: ao lado de uma sidebar de
+  280px, oito KPIs num viewport de 1280 recebiam 6 colunas num espaço de ~700px — o
+  número passava da borda e o rótulo quebrava em 4 linhas.
+- **Teto de 4 por linha** até o container passar de 1024px. `columns` aceita 2…8.
+- **`divided` separa TODAS as fileiras.** Não usa `divide-x`/`divide-y`: aqueles aplicam
+  borda por ORDEM DO DOM e não sabem nada de grid — num grid de 2 colunas × 3 fileiras
+  desenhavam só as verticais, e as fileiras ficavam sem separação. Agora cada filho
+  desenha borda à direita e embaixo, e o grid é puxado 1px pra fora pra o
+  `overflow-hidden` do wrapper comer as externas. Funciona com qualquer nº de colunas e
+  fileiras, e fileira incompleta não vira bloco pintado.
+- **Rótulo e valor não estouram**: `line-clamp-2` no rótulo, `truncate` no valor,
+  `min-w-0` na raiz e no corpo. Sem o `min-w-0`, item de grid tem largura mínima igual
+  ao conteúdo e o card ESTOURA a coluna em vez de truncar.
+- **`helperText`** vira um "?" ao lado do rótulo, com tooltip. Explique COMO a métrica é
+  calculada; não repita o rótulo.
+- **`onClick` / `href`** tornam o card inteiro alvo de drill-down. A raiz continua
+  `<article>` e o alvo é um `<button>`/`<a>` esticado por cima: o conteúdo de `<button>`
+  é phrasing content, e um `<h3>` dentro dele é HTML inválido — o leitor de tela perde o
+  heading. O nome acessível sai do `label`.
+- Com `href` + router, passe **`renderLink`** (render-prop, nunca `linkComponent` — L-068).
+
+```tsx
+<KpiGroup columns={8}>
+  <Kpi
+    label="Tickets abertos"
+    value="1.284"
+    helperText="Conta tickets sem resolução no fim do dia."
+    href="/tickets?status=open"
+    renderLink={(p) => <Link {...p} to={p.href} />}
+  />
+</KpiGroup>
+```

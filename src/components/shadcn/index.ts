@@ -32,6 +32,11 @@ export * from "./checkbox";
 export * from "./collapsible";
 export * from "./command";
 export * from "./context-menu";
+// Alvo esticado que torna um card inteiro clicável sem quebrar a semântica dele.
+// Sai no barrel porque é o padrão que Card e Kpi usam — consumidor que quer o mesmo
+// na peça dele não deve reimplementar (é acessibilidade sutil: overlay, aria-label,
+// e as 5 exceções de cancelamento de navegação da L-068).
+export * from "./clickable-surface";
 export * from "./dialog";
 export * from "./drawer";
 export * from "./dropdown-menu";

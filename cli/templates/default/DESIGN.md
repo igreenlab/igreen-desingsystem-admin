@@ -65,7 +65,7 @@ O DS tem tokens orientados a composição — prefira-os a `h-10`/`gap-4`/`size-
 | **Padding de card** | `p-pad-card-sm`(16) `p-pad-card-md`(20 ⭐) `p-pad-card-lg`(24) | Padding interno de Card/Panel/Modal/Drawer. No `<Card>` vem pela prop `size` (sm/md/lg) — não escreva a classe na mão ali. ⚠️ `p-pad-card-base` existe e é **alias de `md`** (20px) só por compatibilidade — era 24 até 2026-08-19. Não usar em código novo. |
 | **Gutter de página** | `px-pad-page-sm`(16, mobile) `base`(24) `lg`(40, wide) | Margem lateral do conteúdo (o AppShell normalmente já aplica). |
 | **Altura de chrome** | `h-layout-navbar`(64) `h-layout-toolbar`(48) `h-layout-tab-bar`(56) `h-layout-header-{sm,md,lg}` | Topbar, toolbar de tabela, tab-bar mobile, hero de página. |
-| **Largura/container** | `max-w-{lg,xl,2xl}`(1024/1280/1440) · `max-w-drawer-{sm,md,lg}` · `max-w-dropdown-*` · `max-w-modal-*` · `max-w-tooltip-*` | Cap de conteúdo / largura de drawer/dropdown. ⚠️ **`container` é o ÚNICO namespace que NÃO dobra o prefixo** — `max-w-container-*` **não existe** e não emite CSS. O transform emite `--container-md`, que **sobrescreve** a escala nativa do Tailwind: `max-w-md` já é os **768px do DS**, não os 448px do Tailwind. |
+| **Largura/container** | `max-w-{lg,xl,2xl}`(1024/1280/1440) · `max-w-drawer-{sm,md,lg}` · `max-w-dropdown-*` · `max-w-modal-*` · `max-w-tooltip-*` | Cap de conteúdo / largura de drawer/dropdown. ⚠️ **`container` é o ÚNICO namespace que NÃO dobra o prefixo** — `max-w-container-*` **não existe** e não emite CSS. O transform emite `--container-md`, que **sobrescreve** a escala nativa do Tailwind: `max-w-page-md` já é os **768px do DS**, não os 448px do Tailwind. |
 | **Genéricos** | `gap-gp-*` (gaps) · `p-sp-*` (margin/offset) · `px-pad-*` (padding) | Só quando não há token de componente acima. |
 
 Regra: **se existe token de componente pra aquilo (form/icon/padCard/padPage/layout/container), use ele**; o genérico é fallback.
@@ -162,7 +162,7 @@ Puxe com `npm run igreen:add -- <item>`. Catálogo visual: **https://igreen-desi
 ## 8. Responsividade
 
 - Mobile <640px: gutter 16px; FloatingPanel/Sheet vira sheet full; PageHeader empilha ações em overflow; DataTable rola horizontal; CTA primário = `min-h-form-xl` (44px, WCAG).
-- Desktop default = `min-h-form-lg` (40px). Containers: `max-w-lg`(1024)/`max-w-xl`(1280) conforme densidade — **sem** o prefixo `container`, que não existe (ver tabela acima).
+- Desktop default = `min-h-form-lg` (40px). Containers: `max-w-page-lg`(1024)/`max-w-page-xl`(1280) conforme densidade — **sem** o prefixo `container`, que não existe (ver tabela acima).
 - **AppShell**: o body tem 3 patamares de padding — 18px (<768) · 24px (768–1535) · **32px (≥1536)**, corte no breakpoint `2xl`. E o **menu nasce COLAPSADO abaixo de 1536px**: notebook 1366/1440 abre com o rail, ganhando ~264px de largura útil. Quer sempre aberto? passe **`defaultMenuCollapsed={false}` explícito** — o default responsivo só vale quando a prop é omitida, e é aplicado **só no mount** (não reage a resize, pra não brigar com quem abriu o menu na mão).
 - Os exemplos já são responsivos — herde o comportamento ao adaptar.
 

@@ -4,6 +4,7 @@ import { Button } from "../../components/ui/Button/button";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
+  { id: "ex-rows", label: "rows diminui a altura" },
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
   { id: "ex-with-label", label: "With Label" },
@@ -25,12 +26,26 @@ export function TextareaDoc() {
       <SectionH2 id="examples" title="Examples" />
 
       <ExampleSection
+        id="ex-rows"
+        title="rows diminui a altura"
+        description="O piso de 100px só vale na AUSÊNCIA de \`rows\`. Antes ele estava na base, então \`rows={2}\` não encolhia nada e o consumidor anulava na mão. Com \`rows\`, manda o browser."
+        code={`<Textarea placeholder="Sem rows — piso de 100px" />
+<Textarea rows={2} placeholder="rows={2} — duas linhas" />`}
+      >
+        <div className="flex flex-col gap-gp-lg max-w-page-sm">
+          <Textarea placeholder="Sem rows — piso de 100px" />
+          <Textarea rows={2} placeholder="rows={2} — duas linhas" />
+        </div>
+      </ExampleSection>
+
+
+      <ExampleSection
         id="ex-default"
         title="Default"
         description="Basic textarea with placeholder."
         code={`<Textarea placeholder="Type your message here." />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Textarea placeholder="Type your message here." />
         </div>
       </ExampleSection>
@@ -47,7 +62,7 @@ export function TextareaDoc() {
   </p>
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Label htmlFor="message-demo">Your message</Label>
           <Textarea id="message-demo" placeholder="Type your message here." />
           <p className="text-caption-sm text-fg-muted">
@@ -62,7 +77,7 @@ export function TextareaDoc() {
         description="Disabled textareas prevent user interaction."
         code={`<Textarea disabled placeholder="This textarea is disabled." />`}
       >
-        <div className="max-w-sm w-full">
+        <div className="max-w-page-sm w-full">
           <Textarea disabled placeholder="This textarea is disabled." />
         </div>
       </ExampleSection>
@@ -78,7 +93,7 @@ export function TextareaDoc() {
   </Button>
 </div>`}
       >
-        <div className="grid gap-gp-md max-w-sm w-full">
+        <div className="grid gap-gp-md max-w-page-sm w-full">
           <Textarea placeholder="Write your comment..." />
           <Button type="button" color="primary" variant="filled" size="sm">Send message</Button>
         </div>

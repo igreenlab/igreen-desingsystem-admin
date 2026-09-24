@@ -14,7 +14,7 @@ export function SeparatorDoc() {
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
       <ExampleSection id="ex-default" title="Default" description="Horizontal separator between text blocks.">
-        <div className="flex flex-col gap-gp-2xl w-full max-w-sm">
+        <div className="flex flex-col gap-gp-2xl w-full max-w-page-sm">
           <p className="text-body-md">Content above</p>
           <Separator />
           <p className="text-body-md">Content below</p>

@@ -1,4 +1,22 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode, Ref } from "react";
+
+/**
+ * Props que o Kpi entrega ao renderizador de link — são exatamente as de um `<a>`.
+ * Mesma convenção do AppShell/MenuSidebar (L-068): render-prop, nunca `linkComponent`,
+ * porque um prop que recebe TIPO de componente escrito inline cria um tipo novo a cada
+ * render e o React desmonta a subárvore.
+ */
+export type KpiLinkRenderProps = {
+  href: string;
+  className: string;
+  onClick: (e: MouseEvent<HTMLAnchorElement>) => void;
+  target?: string;
+  "aria-label": string;
+  children?: ReactNode;
+  ref?: Ref<HTMLAnchorElement>;
+};
+
+export type KpiLinkRenderer = (props: KpiLinkRenderProps) => ReactNode;
 
 /** Tom semântico do container de ícone do KPI. */
 export type KpiTone =
@@ -35,6 +53,11 @@ export interface KpiProps {
   delta?: ReactNode;
   /** Sublabel sob o valor (ex.: "vs ontem", "Last 7 days"). */
   hint?: ReactNode;
+  /**
+   * Texto de ajuda do indicador — vira um "?" ao lado do rótulo, com tooltip.
+   * Use pra explicar COMO a métrica é calculada; não repita o rótulo.
+   */
+  helperText?: ReactNode;
   /** Ícone (lucide etc.) — renderizado num container colorido por `tone`. */
   icon?: ReactNode;
   /** Tom do container do ícone. Default: "neutral". */
@@ -54,12 +77,34 @@ export interface KpiProps {
    * Quando omitido, herda do `KpiGroup` (default "card").
    */
   surface?: "card" | "plain";
+
+  /* ── Drill-down: o card inteiro vira alvo ──────────────────────────────────
+   * Com `onClick` ou `href` o Kpi ganha um `<button>`/`<a>` esticado sobre toda a
+   * superfície. A raiz continua `<article>`: o conteúdo de `<button>` é phrasing
+   * content, e um `<h3>` dentro dele é HTML inválido (o leitor de tela perde o
+   * heading). O overlay dá foco, Enter/Space e "abrir em nova aba" de graça.
+   *
+   * O nome acessível vem do `label` — não precisa `aria-label`.                  */
+
+  /** Clique no card. Sem `href`, renderiza `<button type="button">`. */
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  /** Destino. Com `href` o alvo é `<a>` (ctrl+clique, nova aba, copiar link). */
+  href?: string;
+  /** `target` do anchor. `"_blank"` desliga o cancelamento da navegação. */
+  target?: string;
+  /** Substitui o `<a>` interno pelo link do seu router (L-068). */
+  renderLink?: KpiLinkRenderer;
+
   className?: string;
 }
 
 export interface KpiGroupProps {
-  /** Nº de colunas no desktop (responsivo abaixo). Default: 4. */
-  columns?: 2 | 3 | 4 | 5 | 6;
+  /**
+   * Nº de colunas quando o CONTAINER é largo (responsivo abaixo, por container query
+   * — não por viewport). Default: 4. Teto de 4 por linha até o container passar de
+   * 1024px, porque 8 colunas em 768px dão 96px por KPI.
+   */
+  columns?: 2 | 3 | 4 | 5 | 6 | 7 | 8;
   /** Divisórias entre os KPIs (vira 1 card único). Default: false. */
   divided?: boolean;
   children?: ReactNode;

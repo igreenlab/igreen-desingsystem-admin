@@ -154,3 +154,36 @@ export const chipCount = tv({
     "bg-bg-muted text-fg-default",
   ],
 });
+
+/**
+ * Área de LABEL quando o chip tem `onRemove`.
+ *
+ * Com `onRemove` a pílula deixa de ser `<button>` e vira `<span>`, porque um botão
+ * dentro de outro é HTML inválido — o navegador desaninha, e o clique no X passa a
+ * disparar também o clique do chip. São duas ações distintas ("filtrar por isto" e
+ * "tirar isto"), então são dois alvos.
+ */
+export const chipLabel = tv({
+  base: [
+    "inline-flex min-w-0 items-center gap-gp-xs rounded-radius-full",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+  ],
+});
+
+/** Botão de remover dentro do chip. O tamanho do X acompanha o tamanho do chip. */
+export const chipRemove = tv({
+  base: [
+    "-mr-[2px] grid shrink-0 place-items-center rounded-radius-full",
+    "opacity-70 transition-opacity hover:opacity-100",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+  ],
+  variants: {
+    size: {
+      sm: "size-[14px] [&_svg]:size-[10px]",
+      md: "size-icon-sm [&_svg]:size-[12px]",
+      lg: "size-icon-sm [&_svg]:size-[14px]",
+      xl: "size-icon-md [&_svg]:size-[14px]",
+    },
+  },
+  defaultVariants: { size: "md" },
+});

@@ -47,7 +47,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · choropleth-map · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · choropleth-map · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -82,7 +82,7 @@
         "@igreen/page-header"
       ],
       "meta": {
-        "stamp": "igreen-ds · example-gantt · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-gantt · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -201,7 +201,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · gantt · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · gantt · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -321,7 +321,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · scheduler · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · scheduler · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -376,19 +376,24 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tabs-navigation · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · tabs-navigation · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
       "name": "utils",
       "type": "registry:file",
       "title": "cn (tailwind-merge configurado p/ DS)",
-      "description": "cn() com extendTailwindMerge: presets tipograficos como font-size (L-016) + prefixos DS (pad/sp/gp/radius/sh/form) resolvidos como conflitantes. NAO e o cn padrao do shadcn.",
+      "description": "cn() com a config de merge do DS: escala de container (max-w-modal-*, page-*, drawer-*), presets tipograficos como font-size (L-016) e prefixos DS (pad/sp/gp/radius/sh/form) resolvidos como conflitantes. NAO e o cn padrao do shadcn.",
       "dependencies": [
         "clsx@^2.1.1",
         "tailwind-merge@^3.0.0"
       ],
       "files": [
+        {
+          "path": "src/utils/tw-merge-config.ts",
+          "type": "registry:file",
+          "target": "src/utils/tw-merge-config.ts"
+        },
         {
           "path": "src/lib/utils.ts",
           "type": "registry:file",
@@ -396,18 +401,24 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · utils · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · utils · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
       "name": "tv",
       "type": "registry:file",
       "title": "tv (tailwind-variants + twMergeConfig DS)",
-      "description": "tv() que injeta os 27 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
+      "description": "tv() com a MESMA config de merge do cn (src/utils/tw-merge-config.ts): presets tipograficos no classGroup font-size (L-016) + escala de container no theme. Sem ele, text-body-* vira cor e some, e max-w-modal-* nao vence override.",
       "dependencies": [
-        "tailwind-variants@^3.0.0"
+        "tailwind-variants@^3.0.0",
+        "tailwind-merge@^3.0.0"
       ],
       "files": [
+        {
+          "path": "src/utils/tw-merge-config.ts",
+          "type": "registry:file",
+          "target": "src/utils/tw-merge-config.ts"
+        },
         {
           "path": "src/utils/tv.ts",
           "type": "registry:file",
@@ -415,7 +426,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tv · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · tv · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -435,7 +446,7 @@
       ],
       "meta": {
         "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-        "stamp": "igreen-ds · theme · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · theme · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -451,7 +462,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · theme-blue · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · theme-blue · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -467,7 +478,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · theme-green · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · theme-green · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -483,7 +494,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · theme-pay · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · theme-pay · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -499,7 +510,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · theme-vibrant · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · theme-vibrant · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -539,7 +550,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · button · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -561,7 +572,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · input · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -584,7 +595,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · label · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · label · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -606,7 +617,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · textarea · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · textarea · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -629,7 +640,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · select · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · select · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -646,10 +657,20 @@
           "path": "src/components/shadcn/card.tsx",
           "type": "registry:ui",
           "target": "components/ui/card.tsx"
+        },
+        {
+          "path": "src/components/shadcn/clickable-surface.tsx",
+          "type": "registry:file",
+          "target": "src/components/shadcn/clickable-surface.tsx"
+        },
+        {
+          "path": "src/utils/nav-link.ts",
+          "type": "registry:file",
+          "target": "src/utils/nav-link.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · card · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · card · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -669,7 +690,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · badge · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · badge · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -691,7 +712,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · separator · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · separator · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -714,7 +735,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · checkbox · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · checkbox · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -737,7 +758,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · accordion · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · accordion · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -759,7 +780,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · alert · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · alert · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -781,7 +802,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · alert-dialog · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · alert-dialog · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -803,7 +824,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · avatar · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · avatar · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -869,7 +890,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · breadcrumb · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · breadcrumb · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -892,7 +913,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · calendar · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · calendar · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -917,7 +938,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · command · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · command · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -940,7 +961,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dialog · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · dialog · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -963,7 +984,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dropdown-menu · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · dropdown-menu · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -985,7 +1006,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input-group · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · input-group · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1008,7 +1029,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · pagination · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · pagination · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1030,7 +1051,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · popover · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · popover · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1052,7 +1073,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · progress · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · progress · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1074,7 +1095,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · radio-group · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · radio-group · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1098,7 +1119,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · sheet · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · sheet · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1120,7 +1141,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · slider · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · slider · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1142,7 +1163,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · switch · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · switch · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1164,7 +1185,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tabs · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · tabs · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1239,7 +1260,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · form-field · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · form-field · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1283,7 +1304,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · alert-modal · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · alert-modal · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1328,7 +1349,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button-group · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · button-group · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1387,7 +1408,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · floating-panel · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · floating-panel · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1426,7 +1447,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · modal · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · modal · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1491,7 +1512,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · panel · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · panel · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1528,7 +1549,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · footer-table · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · footer-table · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1580,7 +1601,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · kanban · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · kanban · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1672,7 +1693,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · list · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · list · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1739,7 +1760,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · data-list · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · data-list · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1748,10 +1769,11 @@
       "title": "Combobox",
       "description": "Select com busca (autocomplete) — Popover+Command (cmdk).",
       "registryDependencies": [
-        "@igreen/utils",
-        "@igreen/tv",
+        "@igreen/chip",
         "@igreen/command",
-        "@igreen/popover"
+        "@igreen/popover",
+        "@igreen/tv",
+        "@igreen/utils"
       ],
       "dependencies": [
         "lucide-react@^1.7.0"
@@ -1784,7 +1806,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · combobox · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · combobox · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1823,7 +1845,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · card-checkbox · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · card-checkbox · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1867,7 +1889,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · card-option · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · card-option · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1910,7 +1932,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · chip · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · chip · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -1966,7 +1988,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · icon · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · icon · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2007,7 +2029,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · page-header · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · page-header · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2060,7 +2082,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · avatar-ig · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · avatar-ig · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2092,7 +2114,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · chart · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · chart · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2109,9 +2131,9 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/Table/USAGE.md",
+          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
           "type": "registry:file",
-          "target": "components/ui/Table/USAGE.md"
+          "target": "components/ui/MenuSidebar/use-media-query.ts"
         },
         {
           "path": "src/components/ui/Table/index.ts",
@@ -2122,6 +2144,11 @@
           "path": "src/components/ui/Table/table-card-row.tsx",
           "type": "registry:ui",
           "target": "components/ui/Table/table-card-row.tsx"
+        },
+        {
+          "path": "src/components/ui/Table/table-span-row.tsx",
+          "type": "registry:file",
+          "target": "src/components/ui/Table/table-span-row.tsx"
         },
         {
           "path": "src/components/ui/Table/table.constants.ts",
@@ -2144,6 +2171,11 @@
           "target": "components/ui/Table/table.types.ts"
         },
         {
+          "path": "src/components/ui/Table/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Table/USAGE.md"
+        },
+        {
           "path": "src/components/ui/Table/use-column-resize.ts",
           "type": "registry:ui",
           "target": "components/ui/Table/use-column-resize.ts"
@@ -2152,15 +2184,10 @@
           "path": "src/components/ui/Table/use-column-widths.ts",
           "type": "registry:ui",
           "target": "components/ui/Table/use-column-widths.ts"
-        },
-        {
-          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
-          "type": "registry:file",
-          "target": "components/ui/MenuSidebar/use-media-query.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · table · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · table · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2254,7 +2281,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · menu-sidebar · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · menu-sidebar · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2351,7 +2378,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · single-menu-sidebar · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · single-menu-sidebar · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2361,6 +2388,7 @@
       "description": "Primitivos composáveis de KPI: Kpi (card) + KpiGroup (layout columns/divided) + KpiDelta (pílula de variação). Theme-aware; sparkline via slot.",
       "registryDependencies": [
         "@igreen/chip",
+        "@igreen/tooltip",
         "@igreen/tv",
         "@igreen/utils"
       ],
@@ -2369,9 +2397,9 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/Kpi/USAGE.md",
+          "path": "src/components/shadcn/clickable-surface.tsx",
           "type": "registry:file",
-          "target": "components/ui/Kpi/USAGE.md"
+          "target": "src/components/shadcn/clickable-surface.tsx"
         },
         {
           "path": "src/components/ui/Kpi/index.ts",
@@ -2402,10 +2430,20 @@
           "path": "src/components/ui/Kpi/kpi.types.ts",
           "type": "registry:ui",
           "target": "components/ui/Kpi/kpi.types.ts"
+        },
+        {
+          "path": "src/components/ui/Kpi/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Kpi/USAGE.md"
+        },
+        {
+          "path": "src/utils/nav-link.ts",
+          "type": "registry:file",
+          "target": "src/utils/nav-link.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · kpi · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · kpi · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2485,7 +2523,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · header · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · header · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -2543,7 +2581,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · app-shell · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · app-shell · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3120,7 +3158,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · data-table · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · data-table · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3203,7 +3241,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-clientes · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-clientes · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3320,7 +3358,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-finance · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-finance · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3370,7 +3408,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-mapa-rede · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-mapa-rede · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3397,7 +3435,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-login · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-login · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3433,7 +3471,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-app-shell · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-app-shell · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3478,7 +3516,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-edit-page · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-edit-page · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3548,7 +3586,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-order-detail · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-order-detail · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3589,7 +3627,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-dashboard · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-dashboard · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3843,7 +3881,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-chat · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · example-chat · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3865,7 +3903,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tooltip · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · tooltip · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3885,7 +3923,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · skeleton · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · skeleton · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3906,7 +3944,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · sonner · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · sonner · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3951,7 +3989,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · toast · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · toast · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3971,7 +4009,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · collapsible · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · collapsible · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -3993,7 +4031,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · scroll-area · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · scroll-area · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4016,7 +4054,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · toggle · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · toggle · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4040,7 +4078,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · toggle-group · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · toggle-group · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4063,7 +4101,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input-otp · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · input-otp · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4086,7 +4124,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · context-menu · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · context-menu · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4108,7 +4146,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · hover-card · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · hover-card · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4131,7 +4169,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · menubar · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · menubar · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4155,7 +4193,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · navigation-menu · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · navigation-menu · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4179,7 +4217,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · carousel · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · carousel · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4199,7 +4237,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · aspect-ratio · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · aspect-ratio · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4221,7 +4259,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · drawer · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · drawer · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4255,7 +4293,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · date-picker · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · date-picker · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4295,7 +4333,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · spinner · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · spinner · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4341,7 +4379,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · empty-state · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · empty-state · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4383,7 +4421,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · screen-loader · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · screen-loader · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4423,7 +4461,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · markdown-text · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · markdown-text · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4467,7 +4505,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · file-upload-field · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · file-upload-field · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4510,7 +4548,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · month-year-picker · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · month-year-picker · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4567,7 +4605,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · color-picker · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · color-picker · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4594,7 +4632,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dsgreen-chart-1 · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · dsgreen-chart-1 · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4621,7 +4659,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4650,7 +4688,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     },
     {
@@ -4678,7 +4716,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.66.0 · 5f7edda · 2026-09-16"
+        "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.67.0 · cbf9eaa · 2026-09-24"
       }
     }
   ]

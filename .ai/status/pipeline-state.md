@@ -5531,3 +5531,96 @@ e rolagem em dialog, sheet e alert-dialog com viewport de 200–300px).
 
 **Distribuição pendente (no `/ds-release`):** embed do registry (`registry-check` já acusa
 `dialog`/`sheet`/`alert-dialog`) + bump do CLI pelo `shadcn-gotchas.md` re-bakeado.
+
+---
+
+### 2026-09-23 | DS DEV | pedidos do igreen-tickets — 13 itens numa PR | CONCLUÍDO
+
+Resposta ao documento "Pedidos do Tickets ao DS" (medido no `main @ abb4ecd` deles).
+O que foi ACEITO virou commit; o que foi RECUSADO está registrado abaixo com o porquê,
+porque recusa sem motivo volta como pedido na próxima rodada.
+
+**As 7 afirmações verificáveis do documento bateram com o código, número por número.**
+A correção que eu trouxe foi de rótulo, não de fato: os "7 componentes ausentes" eram
+**3 peças novas + 7 extensões de API** — `DatePicker` já tinha `mode="range"`, `Table`,
+`Combobox`, `Chip`, `FileUploadField` e `PageHeader` já existiam. Isso muda o gate
+(Regra 4 não se aplica a edição de existente) e muda o custo.
+
+#### Aceitos
+
+| # | O quê | Breaking |
+|---|---|---|
+| P1.1 | escala de página → `page-*`, nomes nativos devolvidos ao Tailwind | **sim** |
+| P1.2 | `theme.container` no twMerge + config única de `cn`/`tv` + export dos dois | não |
+| P1.3 | base dos overlays na escala `modal-*`/`drawer-*` + prop `size` | **sim** |
+| P1.4 | `KpiGroup` por container query; `Kpi` com helperText/onClick/href | não |
+| P1.5 | `Label weight`, `Textarea` com `rows` que encolhe | não |
+| P2 | `Chip onRemove` · `Card` clicável · `Combobox multiple` · `DatePicker` min/max+clear · `TableSpanRow` · `PageHeader` wrap · `FileUploadField texts` · `HeaderSearch onOpen` | não |
+| L.1 | lint de altura para em h-11 e deixa de sugerir token de navbar | não |
+| — | `generated-artifacts` resolve o tsx por `require` (não rodava em worktree) | não |
+
+#### Recusados, com o motivo
+
+- **Presets `*-strong` (14/500, 12/600) e `text-overline`.** O `ds-standards` prescreve
+  `text-body-md font-medium` como a forma CERTA. Criar o preset contradiz a própria
+  regra e multiplica 27 presets por N pesos.
+- **Presets de 11 e 10px.** Já existem: `caption-sm` = 11px, `caption-xs` = 10px. O que
+  se pedia era o PESO, que é `font-semibold` por cima.
+- **`transition-surface`.** O pedido dizia que `transition-[box-shadow,border-color]` é
+  "o padrão do próprio DS". Medido: 48 ocorrências com box-shadow em **6+ listas de
+  propriedades diferentes**. Não há um padrão — uma utility única não cobriria nem o
+  nosso código. (Fica como dívida NOSSA de consistência, não como token.)
+- **`block-*`, `scroll-*`, `col-*`.** Altura de skeleton e largura de campo curto são
+  decisão de tela. O que havia de legítimo no pedido era o LINT empurrando pra
+  `h-layout-navbar` — isso foi consertado (L.1), sem token novo.
+- **`Button size="icon-3xs|4xs"` (20/16px).** Alvo de 16px reprova em qualquer critério
+  de acessibilidade. Quem deve ser o alvo é o chip, com o × dentro — foi o que o
+  `Chip onRemove` entregou.
+- **`Label` default `font-normal`.** Rótulo de campo ficaria mais fraco que o helper
+  text em formulário denso. A prop `weight="regular"` cobre o caso de rótulo de OPÇÃO,
+  que era o caso real por trás do pedido.
+- **Regra de peso sobre preset no lint (L.1, 1ª metade).** As 257 ocorrências vêm do
+  lint DELES: o nosso oficial tem 8 regras e nenhuma de peso — L-004 e L-007 ficaram
+  deliberadamente de fora (L-059).
+
+#### As duas quebras, e o mapa medido antes
+
+`max-w-lg` volta a 512px (era 1024) e diálogo/sheet sem largura própria vão de 768/640
+para 480. Antes de escrever, contei os usos da escala nativa: **3 em `src/components/`**
+(e eram justamente o dialog e o sheet que o P1.3 reescreve), **0 em `src/blocks/`**, 129
+no showcase e 6 na doc do consumidor. Zero container queries `@Nxl:` no repo inteiro.
+Os 151 usos foram reescritos por codemod preservando o PIXEL.
+
+**Assumption:** que nenhum consumidor dependa dos valores SOBRESCRITOS da escala nativa
+(`max-w-lg` = 1024) nem da largura de 768px do dialog — ou seja, que quem escreveu
+`max-w-lg` queria os 512 do Tailwind e recebeu o dobro sem perceber. Verdade medida no
+igreen-tickets (70 overlays com o dobro da largura, corrigidos à mão). **Não verificada
+no igreen-hub**, que consome o DS como código-fonte: se lá alguém calibrou um layout
+CONTANDO com os 1024, a quebra aparece como largura pela metade. É o primeiro lugar a
+olhar se surgir relato depois da release.
+
+**Validação:** `npm test` 91 arquivos / 1229 ✓ · `tsc` 0 · `lint:styles` ratchet 0
+violação nova em 1759 linhas adicionadas · `brand:check` 5×10 ✓ · `examples-drift` ✓ ·
+`blocks:check` ✓ · `distribution-debt` ✓. Medido no browser: `--container-lg` = 32rem
+(nativo de volta), `--container-page-lg` = 1024, modal 480/640/800, drawer 320/480/640,
+e o grid do KpiGroup em 400px→1 coluna, 500px→2, 800px→4.
+
+⚠️ **Medição durante animação mente:** o dialog lido no meio do `zoom-in-95` dava 608px
+pra um elemento de 640. Só o valor pós-transição vale.
+
+**Distribuição: FEITA na mesma PR** (2026-09-23, a pedido do mantenedor — "resolver tudo
+nessa PR"). O `/ds-release` rodou por dentro da #336 em vez de abrir branch própria:
+entry v0.67.0 na timeline · bump 0.66.0 → 0.67.0 · `registry:build` + `copy-registry`
+(101 itens, embed em sync por conteúdo, 569 arquivos, carimbo v0.67.0) · `cli:rebake` +
+bump do CLI 0.25.35 → 0.25.36. `release:check` todos verdes, `npm audit` 0.
+
+A release engloba **#333, #334 e #335**, que estavam na `main` e nunca foram publicadas —
+é a P0.1 do documento do Tickets, com o npm parado na 0.66.0 desde 16/09.
+
+**Bump MINOR com breaking**, e não MAJOR como a tabela do skill sugere: em 0.x o breaking
+vai no minor, e as 3 entries anteriores que tiveram `breaking` também foram minor — o
+projeto nunca declarou 1.0. Declarar 1.0 é decisão de estabilidade de API, não
+consequência mecânica de um breaking.
+
+**Pendente e só humano:** `npm publish` (raiz e `cli/`) — esta conta exige 2FA, token
+clássico sai E403 — e o merge da PR.

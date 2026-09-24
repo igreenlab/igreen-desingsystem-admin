@@ -198,7 +198,7 @@ Container widths (`--container-*` → `max-w-*`):
 `dropdown-sm/lg` · `tooltip-sm/md/lg` · `drawer-sm/md/lg`
 
 ⚠️ **`container` é a ÚNICA exceção que não dobra o prefixo** (L-057): a classe é
-`max-w-md` (768px do DS), **não** `max-w-container-md` — esta não existe e não emite CSS.
+`max-w-page-md` (768px do DS), **não** `max-w-container-md` — esta não existe e não emite CSS.
 
 Layout heights: `navbar` 64px · `toolbar` 48px · `tab-bar` 56px · `header-sm/md/lg` 80/96/128px
 

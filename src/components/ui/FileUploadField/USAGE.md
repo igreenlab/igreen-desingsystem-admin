@@ -93,3 +93,26 @@ const [file, setFile] = useState<File | null>(null);
 - Estilos: `file-upload-field.styles.ts` (tv())
 - Lógica: `file-upload-field.tsx`
 - Tipos: `file-upload-field.types.ts`
+
+## `texts` — os rótulos deixam de ser cravados (2026-09-23)
+
+Três literais em português estavam no código: "Clique para anexar", "Arquivo" e
+"Remover arquivo". Quem importa planilha em lote precisa de "Selecionar CSV" e tinha
+que aceitar o nosso texto ou refazer o campo.
+
+```tsx
+<FileUploadField
+  value={arquivo}
+  onChange={setArquivo}
+  accept=".csv"
+  texts={{
+    drop: "Selecionar planilha",
+    fallbackFileName: "Planilha",
+    remove: "Remover planilha",
+  }}
+/>
+```
+
+Só as chaves passadas mudam; o resto segue o default. `texts.remove` é o nome
+acessível do botão — numa tela com vários uploads, três botões "Remover arquivo" são
+indistinguíveis no leitor de tela.

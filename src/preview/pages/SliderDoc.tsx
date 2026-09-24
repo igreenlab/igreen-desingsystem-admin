@@ -42,7 +42,7 @@ export function SliderDoc() {
         description="Drag the thumb to set a value."
         code={`<Slider defaultValue={[33]} max={100} step={1} />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <Slider value={val} onValueChange={setVal} />
           <p className="text-body-md font-medium text-fg-muted text-center tabular-nums">Value: {val[0]}</p>
         </div>
@@ -55,7 +55,7 @@ export function SliderDoc() {
         description="Pass two values to create a min/max range selector. Useful for price filters or time ranges."
         code={`const [range, setRange] = useState([25, 75]);\n\n<Slider\n  value={range}\n  onValueChange={setRange}\n  max={100}\n  step={1}\n/>\n<p>Range: {range[0]} — {range[1]}</p>`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <Slider value={range} onValueChange={setRange} max={100} step={1} />
           <p className="text-body-md font-medium text-fg-muted text-center tabular-nums">
             Range: {range[0]} — {range[1]}
@@ -70,7 +70,7 @@ export function SliderDoc() {
         description="Three or more thumbs for complex segmentation like audio equalization or multi-point ranges."
         code={`<Slider defaultValue={[10, 50, 90]} max={100} step={1} />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <Slider defaultValue={[10, 50, 90]} max={100} step={1} />
         </div>
       </ExampleSection>
@@ -82,7 +82,7 @@ export function SliderDoc() {
         description="Bind the slider to state and display the value in real-time. Great for settings like temperature or volume."
         code={`const [temp, setTemp] = useState([0.7]);\n\n<Label>Temperature: {temp[0].toFixed(1)}</Label>\n<Slider\n  value={temp}\n  onValueChange={setTemp}\n  min={0}\n  max={2}\n  step={0.1}\n/>`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <div className="flex items-center justify-between">
             <Label>Temperature</Label>
             <span className="text-body-md font-medium text-fg-muted tabular-nums">{temp[0].toFixed(1)}</span>
@@ -98,7 +98,7 @@ export function SliderDoc() {
         description="Prevents user interaction. The thumb and track are visually muted."
         code={`<Slider defaultValue={[50]} disabled />`}
       >
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-page-sm">
           <Slider defaultValue={[50]} disabled />
         </div>
       </ExampleSection>
@@ -110,7 +110,7 @@ export function SliderDoc() {
         description="Use step to create discrete jumps. The thumb snaps to each increment."
         code={`<Slider defaultValue={[50]} max={100} step={10} />`}
       >
-        <div className="flex flex-col gap-gp-xl max-w-sm w-full">
+        <div className="flex flex-col gap-gp-xl max-w-page-sm w-full">
           <div className="flex items-center justify-between">
             <Label>Volume</Label>
             <span className="text-body-xs text-fg-subtle">step=10</span>

@@ -25,12 +25,20 @@ describe("DS_LINT_PATTERNS — deve PEGAR (erradas independente de contexto)", (
     expect(scan1('"px-3 py-2"').length).toBeGreaterThanOrEqual(1);
   });
 
-  it("L-002: height/size fixo", () => {
+  it("L-002: height/size de FORM fixo (h-7..h-11)", () => {
     expect(scan1('"h-9"')).toHaveLength(1);
     expect(scan1('"min-h-10"')).toHaveLength(1);
     expect(scan1('"size-9"')).toHaveLength(1); // w-9 h-9 escrito como size-9
-    expect(scan1('"h-14"')).toHaveLength(1);
-    expect(scan1('"flex h-16 items-center"')).toHaveLength(1); // 64px → h-layout-navbar
+    expect(scan1('"h-11"')).toHaveLength(1); // 44px, o maior que ainda é form
+  });
+
+  it("L-002: altura de BLOCO não é acusada — o DS não tem token pra ela", () => {
+    // Até 2026-09-23 a faixa ia até h-16 e a mensagem mandava usar `h-layout-navbar`
+    // num skeleton: mesmo valor, semântica de navbar. Gate que proíbe sem ter resposta,
+    // e ainda dá a resposta errada, treina a pessoa a ignorar o gate (L-059/L-060).
+    for (const c of ['"h-12"', '"h-14"', '"flex h-16 items-center"', '"h-24"', '"h-64"']) {
+      expect(scan1(c), c).toHaveLength(0);
+    }
   });
 
   it("L-002: rounded nativo com valor divergente, inclusive side variants", () => {
