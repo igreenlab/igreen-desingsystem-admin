@@ -33,22 +33,30 @@ export const pageHeaderStyles = tv({
     /**
      * Título em uma linha (default, `false`) ou quebrando em várias.
      *
-     * O default segue sendo uma linha: header de página é âncora de leitura, e título
-     * que cresce empurra o conteúdo. Mas truncar SEM alternativa é o que levou um
-     * consumidor a recriar o header por fora pra duas telas — nome longo de projeto
-     * virava "Relatório de atendimento por…" e a página perdia a identificação.
+     * ⚠️ Default `true` = o comportamento que o PageHeader SEMPRE teve. O título nunca
+     * teve truncate (só a descrição tinha), então um título longo quebrava. A primeira
+     * versão desta prop veio com default `false` e teria truncado todo título longo já
+     * existente — mudança de default que ninguém pediu, num PR que já carrega uma quebra
+     * deliberada. Quem quer uma linha só pede `titleWrap={false}`.
+     *
+     * O caso que originou a prop era o inverso: um consumidor recriou o header por fora
+     * porque nome longo de projeto virava "Relatório de atendimento por…". Com o default
+     * certo, esse caso já estava atendido — o que faltava era poder DESLIGAR.
      */
     titleWrap: {
       true: { titleRow: "flex-wrap", title: "[overflow-wrap:anywhere]" },
       false: { title: "truncate" },
     },
     /**
-     * Quantas linhas a descrição ocupa antes de cortar. Default 1 = o comportamento
-     * anterior (`whitespace-nowrap` + reticências), agora expresso como `line-clamp-1`,
-     * que corta igual e aceita crescer.
+     * Quantas linhas a descrição ocupa antes de cortar.
+     *
+     * O degrau 1 mantém as classes ORIGINAIS (`whitespace-nowrap` + ellipsis) em vez do
+     * `line-clamp-1` equivalente: o line-clamp troca o `display` pra `-webkit-box`, e
+     * trocar o display de um filho de flex por uma equivalência "visualmente igual" é o
+     * tipo de detalhe que só aparece numa tela específica.
      */
     descriptionLines: {
-      1: { description: "line-clamp-1" },
+      1: { description: "whitespace-nowrap overflow-hidden text-ellipsis" },
       2: { description: "line-clamp-2" },
       3: { description: "line-clamp-3" },
     },
@@ -71,7 +79,7 @@ export const pageHeaderStyles = tv({
     },
   },
   defaultVariants: {
-    titleWrap: false,
+    titleWrap: true,
     descriptionLines: 1,
     hideTextOnMobile: true,
     mobileFluid: true,

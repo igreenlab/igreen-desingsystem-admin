@@ -43,7 +43,7 @@ export function PageHeader({
   badge,
   actions,
   children,
-  titleWrap = false,
+  titleWrap = true,
   descriptionLines = 1,
   hideTextOnMobile = true,
   fluidPrimaryOnMobile = true,

@@ -23,9 +23,12 @@ export type PageHeaderProps = {
   children?: ReactNode;
 
   /**
-   * Deixa o título quebrar em várias linhas em vez de truncar. Default `false`.
-   * Use quando o título carrega identificação (nome de projeto, de cliente) — truncar
-   * ali tira a informação que dá contexto à página inteira.
+   * O título quebra em várias linhas (default `true`, que é como sempre foi) ou trunca
+   * em uma só (`false`).
+   *
+   * Use `false` quando a altura do header for crítica e o título for previsível. Não o
+   * use em título que carrega identificação (nome de projeto, de cliente): truncar ali
+   * tira a informação que dá contexto à página inteira.
    */
   titleWrap?: boolean;
   /**
