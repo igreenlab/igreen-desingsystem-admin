@@ -15,6 +15,7 @@ import {
 } from "../components";
 
 const TOC = [
+  { id: "ex-remove", label: "Removível (onRemove)" },
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
   { id: "ex-colors", label: "Colors" },
@@ -56,6 +57,7 @@ const VARIANTS = ["solid", "outline", "soft", "soft-outline"] as const;
 const SIZES = ["sm", "md", "lg", "xl"] as const;
 
 export function ChipDoc() {
+  const [filtros, setFiltros] = useState(["Status: Ativo", "Plano: Pro", "SP"]);
   const [singleValue, setSingleValue] = useState("all");
   const [multipleValue, setMultipleValue] = useState<string[]>(["all"]);
 
@@ -68,6 +70,37 @@ export function ChipDoc() {
       />
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-remove"
+        title="Removível (onRemove)"
+        description="O × ganha alvo PRÓPRIO. A pílula vira \`<span>\` e a label ganha o próprio botão quando há \`onClick\` — botão dentro de botão é HTML inválido, e o × passaria a disparar o clique do chip junto. Antes a receita era digitar o × no texto e remover pelo chip inteiro."
+        code={`// clicar edita o filtro, × remove — dois alvos
+<Chip color="primary" onClick={editar} onRemove={remover}>
+  Status: Ativo
+</Chip>
+
+// só removível
+<Chip onRemove={remover}>SP</Chip>`}
+      >
+        <div className="flex flex-wrap items-center gap-gp-md">
+          {filtros.map((f) => (
+            <Chip
+              key={f}
+              color="primary"
+              onRemove={() => setFiltros((a) => a.filter((x) => x !== f))}
+            >
+              {f}
+            </Chip>
+          ))}
+          {filtros.length === 0 && (
+            <span className="text-body-sm text-fg-muted">
+              Todos removidos — recarregue a página para repor.
+            </span>
+          )}
+        </div>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-default"

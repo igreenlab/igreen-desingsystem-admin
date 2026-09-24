@@ -4,6 +4,7 @@ import { Button } from "../../components/ui/Button/button";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
+  { id: "ex-rows", label: "rows diminui a altura" },
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
   { id: "ex-with-label", label: "With Label" },
@@ -23,6 +24,20 @@ export function TextareaDoc() {
       <DocHeader category="Form Controls" title="Textarea" description="Multi-line text input for longer content." />
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-rows"
+        title="rows diminui a altura"
+        description="O piso de 100px só vale na AUSÊNCIA de \`rows\`. Antes ele estava na base, então \`rows={2}\` não encolhia nada e o consumidor anulava na mão. Com \`rows\`, manda o browser."
+        code={`<Textarea placeholder="Sem rows — piso de 100px" />
+<Textarea rows={2} placeholder="rows={2} — duas linhas" />`}
+      >
+        <div className="flex flex-col gap-gp-lg max-w-page-sm">
+          <Textarea placeholder="Sem rows — piso de 100px" />
+          <Textarea rows={2} placeholder="rows={2} — duas linhas" />
+        </div>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-default"

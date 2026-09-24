@@ -20,6 +20,7 @@ import {
 } from "../components";
 
 const TOC = [
+  { id: "ex-limites", label: "Limites e limpar" },
   { id: "examples", label: "Examples" },
   { id: "ex-basic", label: "Básico" },
   { id: "ex-states", label: "Estados" },
@@ -303,6 +304,7 @@ function RestrictExample() {
 }
 
 export function DatePickerDoc() {
+  const [comLimite, setComLimite] = useState<Date | undefined>(new Date());
   return (
     <DocLayout toc={TOC}>
       <DocHeader
@@ -313,6 +315,30 @@ export function DatePickerDoc() {
       <DocSeparator />
 
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-limites"
+        title="Limites e limpar"
+        description="\`maxValue\` desabilita os dias fora da janela no próprio calendário — sem isso, “não deixar escolher data futura” virava validação DEPOIS do clique. \`clearable\` mostra o × quando há valor; ele é um \`<span role=button>\`, porque o trigger do popover já é um botão."
+        code={`<DatePicker
+  value={data}
+  onValueChange={setData}
+  maxValue={new Date()}     // nada no futuro
+  clearable
+  clearLabel="Limpar data"
+/>`}
+      >
+        <div className="max-w-page-xs">
+          <DatePicker
+            value={comLimite}
+            onValueChange={setComLimite}
+            maxValue={new Date()}
+            clearable
+            clearLabel="Limpar data"
+          />
+        </div>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-basic"

@@ -6,6 +6,7 @@ import { Badge } from "../../components/shadcn/badge";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
+  { id: "ex-clicavel", label: "Superfície clicável" },
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
   { id: "ex-login-form", label: "Login Form" },
@@ -37,6 +38,27 @@ export function CardDoc() {
       <DocHeader category="Layout" title="Card" description="Container with header, content, and footer. Composes with other DS components." />
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-clicavel"
+        title="Superfície clicável"
+        description="\`onClick\`/\`href\` + \`surfaceLabel\` tornam o card inteiro um alvo — com foco, Enter/Space e hover. Navegue por Tab até ele. Um \`onClick\` solto na div não tem nada disso. O alvo é um botão esticado por cima: a árvore do card fica intacta, porque conteúdo de \`<button>\` é phrasing content."
+        code={`<Card onClick={abrir} surfaceLabel="Abrir lote 42">
+  <CardHeader><CardTitle>Lote 42</CardTitle></CardHeader>
+  <CardContent>120 unidades · Em processamento</CardContent>
+</Card>`}
+      >
+        <div className="max-w-page-sm">
+          <Card onClick={() => {}} surfaceLabel="Abrir lote 42">
+            <CardHeader>
+              <CardTitle>Lote 42</CardTitle>
+              <CardDescription>Aberto em 12/03</CardDescription>
+            </CardHeader>
+            <CardContent>120 unidades · Em processamento</CardContent>
+          </Card>
+        </div>
+      </ExampleSection>
+
 
       {/* Default */}
       <ExampleSection
