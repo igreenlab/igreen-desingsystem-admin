@@ -200,6 +200,12 @@ export default defineConfig({
         "geist",
         /^geist\//,
         "date-fns",
+        // ⚠️ O par regex NÃO é redundante: string exata casa só o specifier inteiro, e
+        // `date-fns/locale` é OUTRO módulo. Sem isto o Rollup o BUNDLA, e o import sai
+        // do tarball como `../../../../node_modules/date-fns/locale/pt-BR.mjs` — o build
+        // do consumidor quebra. Pego pelo `lib:verify` no CI em 2026-09-24, ao entrar o
+        // locale pt-BR do DatePicker. Gate que impede o próximo: `lib-externals.test.mjs`.
+        /^date-fns\//,
         "react-day-picker",
         "recharts",
         "tw-animate-css",
