@@ -2441,6 +2441,11 @@
           "path": "src/utils/nav-link.ts",
           "type": "registry:file",
           "target": "src/utils/nav-link.ts"
+        },
+        {
+          "path": "src/utils/use-title-se-truncado.ts",
+          "type": "registry:file",
+          "target": "src/utils/use-title-se-truncado.ts"
         }
       ],
       "meta": {

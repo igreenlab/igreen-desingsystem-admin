@@ -10,6 +10,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/shadcn/tooltip";
+import { useTitleSeTruncado } from "@/utils/use-title-se-truncado";
 import { kpi } from "./kpi.styles";
 import { KpiSurfaceContext } from "./kpi-group";
 import type { KpiProps } from "./kpi.types";
@@ -43,6 +44,8 @@ export function Kpi({
   className,
 }: KpiProps) {
   const inherited = useContext(KpiSurfaceContext);
+  const rotulo = useTitleSeTruncado<HTMLHeadingElement>(label);
+  const valor = useTitleSeTruncado<HTMLSpanElement>(value);
   const interactive = Boolean(onClick || href);
   const s = kpi({ size, surface: surface ?? inherited, tone, interactive });
 
@@ -51,11 +54,11 @@ export function Kpi({
       <header className={s.header()}>
         <div className="flex min-w-0 items-start gap-gp-xs">
           {/*
-            `title` só quando o rótulo é texto: ele tem `line-clamp-2` e, cortado, não
-            havia NENHUMA forma de ler o resto. O nativo é feio, mas é o único que não
-            exige interação prévia — e some sozinho quando o texto cabe.
+            `title` SÓ quando o texto está de fato cortado — ver `useTitleSeTruncado`.
+            Incondicional (a 1ª versão disto) põe tooltip nativo em TODO hover, inclusive
+            nos casos em que o rótulo cabe inteiro. Numa grade de 8 KPIs vira ruído.
           */}
-          <h3 className={s.label()} title={typeof label === "string" ? label : undefined}>
+          <h3 ref={rotulo.ref} className={s.label()} title={rotulo.title}>
             {label}
           </h3>
           {helperText && (
@@ -81,10 +84,7 @@ export function Kpi({
       </header>
       <div className={s.main()}>
         <div className={s.valueRow()}>
-          <span
-            className={s.value()}
-            title={typeof value === "string" || typeof value === "number" ? String(value) : undefined}
-          >
+          <span ref={valor.ref} className={s.value()} title={valor.title}>
             {value}
           </span>
           {delta}
