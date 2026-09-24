@@ -24,6 +24,13 @@ export function KpiDelta({
     signed && typeof value === "string" && value.trim().startsWith("-");
   const resolvedTone = tone ?? (signed ? (isNegative ? "danger" : "success") : "success");
   const resolvedDirection = direction ?? (signed ? (isNegative ? "down" : "up") : undefined);
+  /**
+   * A seta é `aria-hidden` (decorativa), então sem isto a direção existia SÓ em cor e
+   * ícone — invisível pra leitor de tela e pra quem não distingue as cores. O texto vai
+   * antes do valor porque é assim que se lê: "aumento de 18%".
+   */
+  const direcaoAcessivel =
+    resolvedDirection === "up" ? "aumento de" : resolvedDirection === "down" ? "queda de" : null;
 
   return (
     <Chip
@@ -33,6 +40,7 @@ export function KpiDelta({
       shape="pill"
       className={className}
     >
+      {direcaoAcessivel && <span className="sr-only">{direcaoAcessivel} </span>}
       {resolvedDirection && (
         <TrendingUp
           className={cn("size-[12px]", resolvedDirection === "down" && "rotate-180")}

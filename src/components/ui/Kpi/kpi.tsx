@@ -28,6 +28,8 @@ export function Kpi({
   delta,
   hint,
   helperText,
+  helperSide = "top",
+  helperMaxWidth,
   icon,
   tone = "neutral",
   size = "md",
@@ -48,7 +50,14 @@ export function Kpi({
     <article className={cn(s.root(), className)}>
       <header className={s.header()}>
         <div className="flex min-w-0 items-start gap-gp-xs">
-          <h3 className={s.label()}>{label}</h3>
+          {/*
+            `title` só quando o rótulo é texto: ele tem `line-clamp-2` e, cortado, não
+            havia NENHUMA forma de ler o resto. O nativo é feio, mas é o único que não
+            exige interação prévia — e some sozinho quando o texto cabe.
+          */}
+          <h3 className={s.label()} title={typeof label === "string" ? label : undefined}>
+            {label}
+          </h3>
           {helperText && (
             <Tooltip>
               <TooltipTrigger
@@ -58,7 +67,9 @@ export function Kpi({
               >
                 <HelpCircle aria-hidden />
               </TooltipTrigger>
-              <TooltipContent>{helperText}</TooltipContent>
+              <TooltipContent side={helperSide} className={helperMaxWidth}>
+                {helperText}
+              </TooltipContent>
             </Tooltip>
           )}
         </div>
@@ -70,7 +81,12 @@ export function Kpi({
       </header>
       <div className={s.main()}>
         <div className={s.valueRow()}>
-          <span className={s.value()}>{value}</span>
+          <span
+            className={s.value()}
+            title={typeof value === "string" || typeof value === "number" ? String(value) : undefined}
+          >
+            {value}
+          </span>
           {delta}
         </div>
         {hint && <span className={s.hint()}>{hint}</span>}

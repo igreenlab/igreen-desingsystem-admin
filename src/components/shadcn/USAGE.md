@@ -76,3 +76,10 @@ a célula do `tabs` tem 816 chars e não cabe num aviso. Primitivo sem bloco = s
 - `<Toaster/>` **1× no root**, senão o toast não aparece e não há erro
 - card ergonômico (title/description/action) → use o composto `ui/Toast`
 -->
+
+> **`command`** — `CommandDialog` aceita `size` (sm 384 default · md 480 · lg 640),
+> `contentClassName`, `commandProps` (repassadas ao cmdk: `shouldFilter`, `filter`,
+> `loop`, `value`) e `title`. O `commandProps` é o que destrava **busca no servidor**:
+> sem `shouldFilter={false}` o cmdk filtra do lado do cliente e esconde o que veio da
+> API. `CommandLoading` agora é exportado pelo DS — não importe do `cmdk` direto, isso
+> prende a versão dele no seu projeto.

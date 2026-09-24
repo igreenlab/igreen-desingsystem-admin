@@ -3,8 +3,14 @@ import type { ReactNode } from "react";
 export type PageHeaderProps = {
   /** Título principal da página (h1, text-title-md). */
   title?: string;
-  /** Descrição/subtítulo logo abaixo do title. */
-  description?: string;
+  /**
+   * Descrição/subtítulo logo abaixo do title.
+   *
+   * Aceita nó, e não só texto: a linha secundária de uma página costuma ter um link, um
+   * `Chip` de status ou um seletor de período junto. Com `string` apenas, o consumidor
+   * recriava o header inteiro por causa de um `<a>`.
+   */
+  description?: ReactNode;
   /**
    * Chip/badge inline ao lado do title (ex: contador de registros, status).
    * Aceita qualquer ReactNode mas normalmente é um `<Chip>` do DS.
@@ -32,9 +38,10 @@ export type PageHeaderProps = {
    */
   titleWrap?: boolean;
   /**
-   * Linhas da descrição antes de cortar: 1 (default, igual ao anterior), 2 ou 3.
+   * Linhas da descrição antes de cortar: 1 (default, igual ao anterior), 2, 3 ou
+   * `"none"` (sem corte — a descrição cresce o quanto precisar).
    */
-  descriptionLines?: 1 | 2 | 3;
+  descriptionLines?: 1 | 2 | 3 | "none";
 
   /**
    * Em mobile (<md), esconde o bloco title/description/badge.
