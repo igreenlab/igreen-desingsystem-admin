@@ -96,3 +96,32 @@ no `trailing` **não** abre a lista do seletor.
 - Breadcrumb com 1 único item renderiza automaticamente como título standalone (15px); 2+ items viram cadeia (13px). Último item nunca é link
 - Search é fake-input que abre o Command palette interno (⌘K / Ctrl+K) — popular via `commandGroups`, senão o palette abre vazio
 - Badge dot no icon button: `kind="brand"` (mensagens) vs `kind="danger"` (alertas)
+
+## `HeaderSearch onOpen` — a paleta pode ser a sua (2026-09-23)
+
+O `open` do `HeaderSearch` era `useState` interno, sem saída: um app que já tem a
+própria paleta global (Ctrl+K com busca assíncrona, histórico, navegação por rota)
+não conseguia reaproveitá-la. Dava só para PREENCHER a nossa paleta por
+`commandGroups`, que é dado estático — sem busca assíncrona nem render custom.
+
+Com `onOpen`, o clique no campo e o atalho chamam você, e o `CommandDialog` interno
+**não é montado**:
+
+```tsx
+<HeaderSearch onOpen={() => setMinhaPaletaAberta(true)} />
+```
+
+O header entrega o que faz de melhor — campo e atalho consistentes — e a paleta é sua.
+
+Se você monta o campo por fora (fora do `Header`), a receita de estilo sai no barrel:
+
+```tsx
+import {
+  searchFakeInput,
+  searchFakeInputIcon,
+  searchFakeInputText,
+  searchFakeInputKbd,
+} from "@snksergio/design-system";
+```
+
+Sem elas o campo é reconstruído na unha e diverge no primeiro ajuste de token.
