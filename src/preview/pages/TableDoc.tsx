@@ -17,6 +17,7 @@ import {
 import {
   Table,
   TableBody,
+  TableSpanRow,
   TableCardRow,
   TableCell,
   TableHead,
@@ -45,6 +46,7 @@ import {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const TOC = [
+  { id: "ex-span-row", label: "TableSpanRow" },
   { id: "examples", label: "Examples" },
   { id: "ex-density", label: "Densidades" },
   { id: "ex-sticky", label: "Sticky header" },
@@ -157,6 +159,28 @@ export default function TableDoc() {
       </ExampleSection>
 
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-span-row"
+        title="TableSpanRow — a linha que atravessa"
+        description="Aqui a tabela é um grid de \`<div>\`, então não existe \`colSpan\`. Sem esta peça, “nenhum resultado” e “carregando” eram montados com uma \`TableRow\` de uma célula só — que respeita a largura da PRIMEIRA coluna e deixa o texto espremido num canto. O \`sticky\` fica no CONTEÚDO, não na célula: a célula tem a largura total do grid."
+        code={`<TableBody>
+  {carregando && <TableSpanRow>Carregando…</TableSpanRow>}
+  {vazio && <TableSpanRow>Nenhum resultado</TableSpanRow>}
+  {rows.map((r) => <TableRow key={r.id}>…</TableRow>)}
+</TableBody>`}
+      >
+        <Table ariaLabel="Exemplo de linha que atravessa">
+          <TableHead>
+            <TableHeadCell field="nome" width={220}>Nome</TableHeadCell>
+            <TableHeadCell field="status" width={140}>Status</TableHeadCell>
+          </TableHead>
+          <TableBody>
+            <TableSpanRow>Nenhum resultado para os filtros aplicados</TableSpanRow>
+          </TableBody>
+        </Table>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-density"

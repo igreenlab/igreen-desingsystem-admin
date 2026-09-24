@@ -1119,6 +1119,7 @@ const PROPS_DELTA = [
 
 /* ── Page ─────────────────────────────────────────────────────────────── */
 const TOC = [
+  { id: "ex-drill", label: "Ajuda e drill-down" },
   { id: "primitivos", label: "Primitivos" },
   { id: "kpi-group-cards", label: "KpiGroup · cards" },
   { id: "kpi-group-divided", label: "KpiGroup · divided" },
@@ -1223,6 +1224,23 @@ export function KpiDoc() {
 
         {/* ── EXAMPLES (modelos) ── */}
         <SectionH2 id="examples" title="Examples" />
+
+        <Example
+          id="ex-drill"
+          title="Ajuda e drill-down"
+          desc="helperText vira um ? com tooltip ao lado do rótulo — explique COMO a métrica é contada. onClick/href tornam o card inteiro um alvo: a raiz continua <article> e o alvo é um botão esticado por cima, porque <h3> dentro de <button> é HTML inválido e o leitor de tela perderia o heading."
+        >
+          <div className="max-w-page-xs">
+            <Kpi
+              label="Tickets abertos"
+              value="1.284"
+              helperText="Conta tickets sem resolução no fim do dia."
+              onClick={() => {}}
+              tone="brand"
+            />
+          </div>
+        </Example>
+
         <p className="-mt-gp-2xl max-w-[640px] text-body-md text-fg-muted">
           Modelos prontos pra copiar e referenciar (cada um com seu id{" "}
           <code className="rounded-radius-sm bg-bg-muted px-pad-xs py-[1px] text-caption-sm">

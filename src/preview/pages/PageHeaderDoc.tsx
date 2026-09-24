@@ -19,6 +19,7 @@ import {
 import { Input } from "../../components/shadcn/input";
 
 const TOC = [
+  { id: "ex-wrap", label: "Título longo e descrição" },
   { id: "examples", label: "Examples" },
   { id: "ex-minimal", label: "Mínimo (só título)" },
   { id: "ex-crud", label: "Pattern CRUD completo" },
@@ -54,6 +55,34 @@ export function PageHeaderDoc() {
       <DocSeparator />
 
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-wrap"
+        title="Título longo e descrição"
+        description="\`titleWrap\` é \`true\` por default — o título quebra, como sempre foi. Passe \`false\` quando a altura do header for crítica e o título previsível; não use em título que carrega identificação (nome de projeto, de cliente), porque truncar ali tira o contexto da página. \`descriptionLines\` dá 2 ou 3 linhas à descrição."
+        code={`<PageHeader
+  title="Relatório de atendimento por operador e turno"
+  description="Consolida os atendimentos do período, por operador, com SLA."
+  descriptionLines={2}
+/>
+
+<PageHeader title="…" titleWrap={false} />   // trunca em 1 linha`}
+      >
+        <div className="flex flex-col gap-gp-4xl max-w-page-sm">
+          <PageHeader
+            title="Relatório de atendimento por operador e turno"
+            description="Consolida os atendimentos do período, por operador, com o SLA de cada fila e a comparação com a semana anterior."
+            descriptionLines={2}
+            hideTextOnMobile={false}
+          />
+          <PageHeader
+            title="Relatório de atendimento por operador e turno"
+            titleWrap={false}
+            hideTextOnMobile={false}
+          />
+        </div>
+      </ExampleSection>
+
 
       {/* Mínimo */}
       <ExampleSection
