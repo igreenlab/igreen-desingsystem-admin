@@ -6,6 +6,7 @@ import { Badge } from "../../components/shadcn/badge";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
+  { id: "ex-selecao", label: "Card de seleção (ARIA)" },
   { id: "ex-clicavel", label: "Superfície clicável" },
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
@@ -38,6 +39,43 @@ export function CardDoc() {
       <DocHeader category="Layout" title="Card" description="Container with header, content, and footer. Composes with other DS components." />
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
+
+      <ExampleSection
+        id="ex-selecao"
+        title="Card de seleção — estado, não só cor"
+        description="Card clicável que representa ESCOLHA precisa dizer isso: \`aria-pressed\` (alternância) ou \`aria-current\` (item de um conjunto) chegam no ALVO, não no card. Sem eles a seleção existe só na borda pintada, e quem usa leitor de tela não sabe qual está escolhido. \`surfaceClassName\` alcança o alvo — necessário quando o card está em container com \`overflow-hidden\`, onde o anel externo some."
+        code={`<Card
+  onClick={() => escolher(id)}
+  surfaceLabel={\`Escolher \${nome}\`}
+  aria-pressed={escolhido === id}
+  surfaceClassName="ring-inset"   // anel por dentro, pra não ser cortado
+>
+  …
+</Card>`}
+      >
+        <div className="grid max-w-page-sm grid-cols-2 gap-gp-lg">
+          {[
+            { id: "a", nome: "Lote 42", info: "120 unidades" },
+            { id: "b", nome: "Lote 43", info: "84 unidades" },
+          ].map((l, i) => (
+            <Card
+              key={l.id}
+              size="sm"
+              onClick={() => {}}
+              surfaceLabel={`Escolher ${l.nome}`}
+              aria-pressed={i === 0}
+              surfaceClassName="ring-inset"
+              className={i === 0 ? "ring-2 ring-ring-brand" : undefined}
+            >
+              <CardHeader>
+                <CardTitle>{l.nome}</CardTitle>
+              </CardHeader>
+              <CardContent>{l.info}</CardContent>
+            </Card>
+          ))}
+        </div>
+      </ExampleSection>
+
 
       <ExampleSection
         id="ex-clicavel"

@@ -254,3 +254,21 @@ dobro ou a metade do esperado, é isto. Overlay usa `max-w-modal-*`/`max-w-drawe
 ⚠️ **Importe `cn` e `tv` do DS**, não do seu projeto: a config de merge conhece os
 tokens (escala de container, presets tipográficos, **pad-**/**gp-**/**sh-**…). Um `cn` de
 fora resolve conflito errado e a classe perde em silêncio.
+
+## Acessibilidade e saídas (vNEXT)
+
+| Quando você ia escrever | Use |
+|---|---|
+| card de SELEÇÃO pintando só a borda | ****aria-pressed**** (alternância) ou ****aria-current**** (item de um conjunto) no `Card`/`ClickableSurface` — sem isso a escolha existe só na cor |
+| **ring-inset** na mão porque o anel some | **`surfaceClassName`** no `Card`: o alvo é esticado e o anel é externo; em container com **overflow-hidden** ele é cortado |
+| proteger o handler porque o × do chip seguia clicável | ****disabled**** no `Chip` — agora alcança a label e o × (antes caía no `<span>`, onde não é atributo válido) |
+| `Dialog` + `Command` na mão pra buscar no SERVIDOR | **`CommandDialog commandProps={{ shouldFilter: false }}`** — e **`CommandLoading`** sai do DS, não importe do **cmdk** |
+| recriar o header por causa de um link no subtítulo | ****description**** do `PageHeader` aceita `ReactNode`; **`descriptionLines="none"`** solta a altura |
+| date-range-picker próprio por causa do idioma | **`DatePicker`** já vem **pt-BR**; período de **um dia** é clicar duas vezes no mesmo |
+| **react-select** por causa de grupo/descrição | **`Combobox`** com ****group**** e ****hint**** na opção; **`closeOnSelect={false}`** mantém aberto |
+| **aria-label** fixo em português na busca do header | **`ariaLabel`** no `HeaderSearch`; **`hotkey={false}`** quando o app já tem o próprio ⌘K |
+| tooltip nativo pra ler rótulo de KPI cortado | o `Kpi` já põe ****title** sozinho, e só quando corta**; ajuste o tooltip da ajuda com **`helperSide`** / **`helperMaxWidth`** |
+| `className` pra largura de overlay | ****size**** — agora nos **três** (`Dialog`, `Sheet`, `AlertDialog`) |
+
+⚠️ ****disabled** em `<a>` não existe.** O `ClickableSurface` traduz pra **aria-disabled** +
+**pointer-events-none** + `tabIndex={-1}`. Não escreva **disabled** num link na mão.

@@ -86,3 +86,14 @@ duas ações — "editar este filtro" e "tirar este filtro" — no mesmo chip.
 - **`removeLabel`**: o nome acessível do × sai do texto do chip ("Remover Status: Ativo").
   Quando `children` não é texto simples, o default vira só "Remover" — e cinco botões
   "Remover" numa barra de filtros são indistinguíveis no leitor de tela. Passe o nome.
+
+## `disabled` alcança os botões (2026-09-24)
+
+Com `onRemove` a pílula é um `<span>`, e `disabled` num `<span>` **não é atributo
+válido** — até a v0.67.0 ele caía ali e não desabilitava nada, nem a label nem o ×.
+Agora é extraído e vai pros botões internos.
+
+```tsx
+// durante o salvamento: nem o clique da label nem o × respondem
+<Chip onClick={editar} onRemove={remover} disabled={salvando}>Status: Ativo</Chip>
+```
