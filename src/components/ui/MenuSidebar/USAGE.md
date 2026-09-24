@@ -59,15 +59,15 @@ import { Link } from "react-router-dom";
 
 <MenuSidebar
   contexts={contexts}
-  renderLink={(p) => <Link {...p} to={p.href} />}
+  renderLink={({ href, ...p }) => <Link {...p} to={href} />}
 />
 ```
 
 | Router | `renderLink` |
 |---|---|
-| **react-router** | `(p) => <Link {...p} to={p.href} />` |
+| **react-router** | `({ href, ...p }) => <Link {...p} to={href} />` |
 | **Next.js** | `(p) => <Link {...p} />` (já usa `href`) |
-| **TanStack Router** | `(p) => <Link {...p} to={p.href} />` |
+| **TanStack Router** | `({ href, ...p }) => <Link {...p} to={href} />` |
 
 Com `renderLink`, o sidebar **não** mexe em `preventDefault` — quem decide é o `<Link>`.
 Você ganha navegação client-side **e** mantém ctrl/cmd+clique pra abrir em nova aba.

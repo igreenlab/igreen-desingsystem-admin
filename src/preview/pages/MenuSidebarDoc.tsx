@@ -246,7 +246,7 @@ const PROPS_DATA = [
     type: "{ href, target?, className, onClick, children, ... }",
     defaultVal: "—",
     description:
-      'O que o renderLink recebe. Espalhe TUDO no seu Link (<Link {...p} to={p.href} />): o className carrega o estilo do item e o onClick carrega o estado ativo.',
+      'O que o renderLink recebe. Espalhe no seu Link tirando o href (({ href, ...p }) => <Link {...p} to={href} />): o className carrega o estilo do item e o onClick carrega o estado ativo. O href sai do spread porque o Link do router não tem essa prop — quem define o destino dele é o to.',
   },
   { name: "SidebarSection (bookmark)", type: '{ id, label, variant:"bookmark", items:[{ name, color, icon?, href? }] }', defaultVal: "—" },
   { name: "SidebarSection (chat)", type: '{ id, label, variant:"chat", items:[{ name, initials, color, status? }] }', defaultVal: "—" },

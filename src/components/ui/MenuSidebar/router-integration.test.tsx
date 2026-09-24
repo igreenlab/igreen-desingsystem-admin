@@ -32,7 +32,7 @@ function Rota({ nome }: { nome: string }) {
 function App() {
   return (
     <MemoryRouter initialEntries={["/clientes"]}>
-      <MenuSidebar contexts={contexts} renderLink={(p) => <Link {...p} to={p.href} />} />
+      <MenuSidebar contexts={contexts} renderLink={({ href, ...p }) => <Link {...p} to={href} />} />
       <Routes>
         <Route path="/clientes" element={<Rota nome="CLIENTES" />} />
         <Route path="/pedidos" element={<Rota nome="PEDIDOS" />} />

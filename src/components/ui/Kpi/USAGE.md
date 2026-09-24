@@ -134,7 +134,7 @@ import { Phone } from "lucide-react";
     value="1.284"
     helperText="Conta tickets sem resolução no fim do dia."
     href="/tickets?status=open"
-    renderLink={(p) => <Link {...p} to={p.href} />}
+    renderLink={({ href, ...p }) => <Link {...p} to={href} />}
   />
 </KpiGroup>
 ```

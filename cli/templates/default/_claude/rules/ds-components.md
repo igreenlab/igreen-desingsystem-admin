@@ -160,7 +160,7 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
   - Nas duas: item com destino declara `href` (vira `<a>`, então ctrl+clique e nova aba funcionam). Router próprio → `renderLink`.
 
   > 🧭 **O app tem router (react-router, Next, TanStack)? Passe `renderLink`.**
-  > `<AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />`
+  > `<AppShell renderLink={({ href, ...p }) => <Link {...p} to={href} />} … />`
   >
   > O menu renderiza `<a href={item.href}>`. Sem `renderLink`, um `item.href` de **path**
   > (`/clientes`) fazia o browser **recarregar a página inteira** a cada clique — bug
