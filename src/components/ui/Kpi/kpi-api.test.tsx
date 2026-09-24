@@ -113,3 +113,61 @@ describe("Kpi — helperText", () => {
     expect(screen.queryByRole("button", { name: /Ajuda sobre/ })).toBeNull();
   });
 });
+
+describe("KpiGroup — divided separa TODAS as fileiras, não só as colunas", () => {
+  // O `divide-x`/`divide-y` do Tailwind aplica borda por ORDEM DO DOM
+  // (`& > :not(:last-child)`) e não sabe nada de grid: num grid de 2 colunas × 3
+  // fileiras ele desenhava só as verticais, e as fileiras ficavam sem separação
+  // nenhuma. Medido no browser com 4 KPIs em 700px (2×2): a borda inferior interna
+  // caía em 138px e a externa em 274px (= altura do wrapper, recortada).
+  const montar = (n: number, columns: 2 | 4 = 2) =>
+    render(
+      <KpiGroup columns={columns} divided>
+        {Array.from({ length: n }, (_, i) => (
+          <Kpi key={i} label={`k${i}`} value={i} />
+        ))}
+      </KpiGroup>,
+    );
+
+  it("cada filho desenha borda à direita E embaixo — vale pra qualquer nº de fileiras", () => {
+    const { container } = montar(6);
+    const grid = container.firstElementChild!.firstElementChild!;
+    expect(grid.className).toContain("[&>*]:border-r");
+    expect(grid.className).toContain("[&>*]:border-b");
+  });
+
+  it("nenhum divide-* sobrou", () => {
+    const { container } = montar(6);
+    const grid = container.firstElementChild!.firstElementChild!;
+    expect(grid.className).not.toMatch(/divide-/);
+  });
+
+  it("o grid é puxado 1px pra fora, pra o recorte comer a borda externa", () => {
+    const { container } = montar(6);
+    const grid = container.firstElementChild!.firstElementChild!;
+    expect(grid.className).toContain("-mr-px");
+    expect(grid.className).toContain("-mb-px");
+    // `w-full` travaria o grid em 100% e a margem negativa viraria no-op (medido:
+    // grid de 698px dentro de wrapper de 700).
+    expect(grid.className).not.toMatch(/(?<![w-])w-full(?![w-])/);
+  });
+
+  it("o chrome (borda externa, recorte, superfície) fica no WRAPPER", () => {
+    const { container } = montar(6);
+    const wrapper = container.firstElementChild!;
+    expect(wrapper.className).toContain("overflow-hidden");
+    expect(wrapper.className).toContain("bg-bg-surface");
+    expect(wrapper.className).toContain("border-border-subtle");
+  });
+
+  it("sem divided não há borda nem recorte — só o gap", () => {
+    const { container } = render(
+      <KpiGroup columns={2}>
+        <Kpi label="a" value="1" />
+      </KpiGroup>,
+    );
+    const wrapper = container.firstElementChild!;
+    expect(wrapper.className).not.toContain("overflow-hidden");
+    expect(wrapper.firstElementChild!.className).toContain("gap-gp-2xl");
+  });
+});

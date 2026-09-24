@@ -110,6 +110,12 @@ import { Phone } from "lucide-react";
   280px, oito KPIs num viewport de 1280 recebiam 6 colunas num espaço de ~700px — o
   número passava da borda e o rótulo quebrava em 4 linhas.
 - **Teto de 4 por linha** até o container passar de 1024px. `columns` aceita 2…8.
+- **`divided` separa TODAS as fileiras.** Não usa `divide-x`/`divide-y`: aqueles aplicam
+  borda por ORDEM DO DOM e não sabem nada de grid — num grid de 2 colunas × 3 fileiras
+  desenhavam só as verticais, e as fileiras ficavam sem separação. Agora cada filho
+  desenha borda à direita e embaixo, e o grid é puxado 1px pra fora pra o
+  `overflow-hidden` do wrapper comer as externas. Funciona com qualquer nº de colunas e
+  fileiras, e fileira incompleta não vira bloco pintado.
 - **Rótulo e valor não estouram**: `line-clamp-2` no rótulo, `truncate` no valor,
   `min-w-0` na raiz e no corpo. Sem o `min-w-0`, item de grid tem largura mínima igual
   ao conteúdo e o card ESTOURA a coluna em vez de truncar.

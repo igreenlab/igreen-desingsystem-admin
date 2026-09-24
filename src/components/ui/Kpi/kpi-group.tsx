@@ -25,10 +25,12 @@ export function KpiGroup({
   children,
   className,
 }: KpiGroupProps) {
+  const s = kpiGroup({ columns, divided });
+
   return (
     <KpiSurfaceContext.Provider value={divided ? "plain" : "card"}>
-      <div className="@container w-full">
-        <div className={cn(kpiGroup({ columns, divided }), className)}>
+      <div className={s.wrapper()}>
+        <div className={cn(s.grid(), className)}>
           {children}
         </div>
       </div>

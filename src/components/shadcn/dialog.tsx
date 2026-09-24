@@ -87,9 +87,12 @@ const DialogContent = React.forwardRef<
     >
       {children}
       {!hideClose && (
-        // Alinhado ao padding do conteúdo (p-pad-4xl) e com caixa de 24px = entrelinha do
-        // `text-title-md` → centrado na 1ª linha do título.
-        <DialogPrimitive.Close className="absolute right-pad-4xl top-pad-4xl flex size-comp-xs items-center justify-center rounded-radius-sm opacity-70 transition-opacity hover:opacity-100 outline-none ring-0 ring-ring-brand focus-visible:ring-4 disabled:pointer-events-none data-[state=open]:bg-bg-muted data-[state=open]:text-fg-muted">
+        // `right-4 top-4` (16px) e SEM caixa de 24px: a geometria que o Dialog sempre
+        // teve. A #333 moveu pra `pad-4xl` (24px) + caixa centrada na 1ª linha do título,
+        // alinhando o X ao padding do conteúdo — defensável, mas o X desceu e entrou 12px.
+        // Revertido em 2026-09-23 comparando com o publicado: o ganho de alinhamento não
+        // pagou a perda de compactação.
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-radius-sm opacity-70 transition-opacity hover:opacity-100 outline-none ring-0 ring-ring-brand focus-visible:ring-4 disabled:pointer-events-none data-[state=open]:bg-bg-muted data-[state=open]:text-fg-muted">
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -104,9 +107,14 @@ const DialogHeader = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    // `pr-pad-6xl` (32px) reserva a faixa do X (24px) + folga — sem isso, título longo
-    // corre por baixo do botão de fechar.
-    className={cn("flex flex-col gap-gp-sm pr-pad-6xl", className)}
+    // Sem reserva à direita, como sempre foi. A #333 pôs `pr-pad-6xl` (32px) pra o título
+    // não correr por baixo do X — mas aplicava TAMBÉM com `hideClose`, onde não há X pra
+    // justificar, e estreitar o título o faz quebrar antes: mais altura, que é o oposto
+    // do que se queria.
+    // ⚠️ Em troca, título de uma linha muito longo passa por baixo do X. Em 768px de
+    // largura isso não acontece com título de tamanho normal; se acontecer, passe
+    // `className="pr-pad-6xl"` no `DialogHeader`.
+    className={cn("flex flex-col gap-gp-sm", className)}
     {...props}
   />
 )
@@ -132,11 +140,15 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    // Sem `leading-*`: a entrelinha vem do preset (title-md = 24px). O `leading-none` que
-    // havia aqui a esmagava pra 16px e o título quebrado em 2 linhas encostava/sobrepunha
-    // a descrição.
+    // `leading-none` (16px) em vez dos 24px do preset `title-md`: é a entrelinha que o
+    // Dialog sempre teve, e são 8px a menos de header em TODO diálogo de título curto,
+    // que é o caso comum.
+    //
+    // ⚠️ O preço, medido e aceito: título que quebra em DUAS linhas fica com as linhas
+    // encostadas e colado na descrição — foi por isso que a #333 tirou o `leading-none`.
+    // Se o seu título quebra, passe `className="leading-tight"` (20px) no `DialogTitle`.
     className={cn(
-      "text-title-md font-medium text-fg-default",
+      "text-title-md font-medium text-fg-default leading-none",
       className
     )}
     {...props}

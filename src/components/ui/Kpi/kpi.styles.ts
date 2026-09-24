@@ -79,34 +79,62 @@ export const kpi = tv({
  *
  * ⚠️ O `@container` fica no WRAPPER, não aqui — elemento não consulta a si mesmo.
  */
+/**
+ * Grid do KpiGroup — quebra por CONTAINER QUERY, não por viewport.
+ *
+ * O `sm:`/`lg:` de antes lia a JANELA, e o grupo quase nunca ocupa a janela: ao lado de
+ * uma sidebar de 280px, oito KPIs num viewport de 1280 recebiam `lg:grid-cols-6` num
+ * espaço de ~700px — o número passava da borda e o rótulo quebrava em quatro linhas.
+ *
+ * Teto de 4 por linha até o container ficar largo (@5xl = 1024px): oito colunas em 768px
+ * dão 96px por KPI, que não cabe um valor com separador de milhar.
+ *
+ * Dois slots porque o `@container` precisa ficar no PAI do grid — elemento não consulta
+ * o próprio tamanho.
+ */
 export const kpiGroup = tv({
-  base: "grid w-full",
+  slots: {
+    /** Estabelece o contexto de container query e, com `divided`, carrega o chrome. */
+    wrapper: "@container w-full",
+    // Sem `w-full`: o grid precisa de largura AUTO pra que o `-mr-px`/`-mb-px` do
+    // `divided` o alarguem 1px e joguem a borda da última coluna/fileira pra fora do
+    // recorte. Com `w-full` ele fica travado em 100% e a margem negativa vira no-op —
+    // medido: grid 698px dentro de um wrapper de 700. Block-level grid já preenche.
+    grid: "grid",
+  },
   variants: {
     columns: {
-      2: "grid-cols-1 @md:grid-cols-2",
-      3: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-3",
-      4: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4",
-      5: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-5",
-      6: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-6",
-      7: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-7",
-      8: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-8",
+      2: { grid: "grid-cols-1 @md:grid-cols-2" },
+      3: { grid: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-3" },
+      4: { grid: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4" },
+      5: { grid: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-5" },
+      6: { grid: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-6" },
+      7: { grid: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-7" },
+      8: { grid: "grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-8" },
     },
     /**
      * 1 card único, com divisória entre os KPIs.
      *
-     * ⚠️ As divisórias seguem o MESMO breakpoint das colunas — `@md:`, de container —,
-     * não o `sm:` de viewport que havia aqui. Com as colunas quebrando por container e
-     * as divisórias por janela, o caso que o P1.4 conserta era justamente o que ficava
-     * errado: container estreito (ao lado da sidebar) com viewport largo dava UMA coluna
-     * empilhada recebendo `divide-x` — divisória VERTICAL numa pilha vertical, ou seja,
-     * nenhuma linha visível entre os KPIs.
+     * ⚠️ NÃO usa `divide-x`/`divide-y`. Os utilitários `divide-*` do Tailwind aplicam
+     * borda por ORDEM DO DOM (`& > :not(:last-child)`), e não sabem nada de grid: num
+     * grid de 2 colunas × 3 linhas o `divide-x` desenha só as verticais e as fileiras
+     * ficam sem separação nenhuma. Foi o que aconteceu — e a versão anterior disto
+     * ainda trocava divide-y/divide-x por breakpoint de VIEWPORT, então ao lado de uma
+     * sidebar a pilha de 1 coluna recebia divisória vertical (invisível).
      *
-     * Empilhado (1 coluna) → `divide-y`: a linha aparece no rodapé de cada KPI, menos o
-     * último. Lado a lado → `divide-x`.
+     * A técnica aqui é grid-aware e independe de quantas colunas e fileiras existam:
+     * cada filho desenha borda à direita e embaixo, e o grid é puxado 1px pra fora
+     * (`-mr-px -mb-px`) pra que a última coluna e a última fileira tenham as suas
+     * cortadas pelo `overflow-hidden` do wrapper. Fileira incompleta não vira bloco
+     * pintado: a célula que falta mostra o `bg-bg-surface` do wrapper.
      */
     divided: {
-      true: "overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface shadow-sh-sm divide-y divide-border-subtle @md:divide-y-0 @md:divide-x",
-      false: "gap-gp-2xl",
+      true: {
+        wrapper:
+          "overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface shadow-sh-sm",
+        grid: "-mr-px -mb-px [&>*]:border-r [&>*]:border-b [&>*]:border-border-subtle",
+      },
+      false: { grid: "gap-gp-2xl" },
     },
   },
   defaultVariants: {
