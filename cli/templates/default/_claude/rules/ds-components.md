@@ -243,7 +243,7 @@ você estava contornando algum destes na unha, pare de contornar.
 | `className="font-normal"` num `<Label>` | **`weight="regular"`** — para rótulo de OPÇÃO em grupo (checkbox, radio, switch) |
 | anular o **min-h** do `<Textarea>` | ****rows**** — agora encolhe de verdade |
 | recriar o header porque o título trunca | **`titleWrap`** (default **true**) e **`descriptionLines`** no `PageHeader` |
-| aceitar os textos em PT do upload | ****texts**** no `FileUploadField` |
+| aceitar os textos em PT do upload | ****texts**** no `FileUploadField` — inclui ****texts.hint****, a dica menor, que sem ela é a lista de MIME crua do accept |
 | reimplementar a paleta de busca | **`onOpen`** no `HeaderSearch` — o clique e o atalho chamam a SUA paleta |
 | `sm:max-w-modal-lg` para vencer a base do overlay | ****size**** no `Dialog`/`Sheet`/`AlertDialog` |
 

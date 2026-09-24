@@ -55,7 +55,7 @@ export function FileUploadField({
   onChange,
   accept,
   maxSizeMB,
-  preview = "auto",
+  preview = "auto",
   fileName,
   texts,
   label,
@@ -112,12 +112,16 @@ export function FileUploadField({
     resetInput();
   };
 
-  const hint = [
-    accept ? accept : null,
-    maxSizeMB != null ? `máx. ${maxSizeMB}MB` : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  /**
+   * A dica derivada é `accept` cru — ou seja, a lista de MIME types. Serve pra
+   * `accept=".pdf"`, e não serve pra importação em lote, onde `accept` tem 3 MIME
+   * longos. `texts.hint` sobrescreve; `""` esconde a linha.
+   */
+  const hint =
+    texts?.hint ??
+    [accept ? accept : null, maxSizeMB != null ? `máx. ${maxSizeMB}MB` : null]
+      .filter(Boolean)
+      .join(" · ");
 
   /** Chamada da área de drop. Literal PT-BR era cravado aqui até 2026-09-23. */
   const chamada = texts?.drop ?? "Clique para anexar";
