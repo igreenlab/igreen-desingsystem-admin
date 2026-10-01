@@ -498,6 +498,22 @@
       }
     },
     {
+      "name": "theme-anydocs",
+      "type": "registry:file",
+      "title": "Tema Anydocs (roxo #9353D3)",
+      "description": "Overlay de marca escopado em [data-theme=\"anydocs\"]. Sobrescreve SO as cores que diferem do tema-base — nao substitui o item `theme`, complementa. Importar DEPOIS do tailwind-theme.css e por data-theme=\"anydocs\" no <html>; sem o atributo o CSS fica inerte. Dark e o modo oficial da marca; o light existe e foi derivado por medicao, mas nao foi validado em produto.",
+      "files": [
+        {
+          "path": "src/styles/theme/brand-anydocs.css",
+          "type": "registry:file",
+          "target": "src/styles/theme/brand-vibrant.css"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · theme-vibrant · v0.68.0 · dcacf95 · 2026-09-24"
+      }
+    },
+    {
       "name": "theme-vibrant",
       "type": "registry:file",
       "title": "Tema iGreen Vibrant (verde fluorescente #0fff00)",

@@ -79,7 +79,7 @@ export function ThemesDoc() {
         São dois eixos <strong>independentes</strong>: a marca vive em{" "}
         <code className="font-mono text-code-sm">data-theme</code> no{" "}
         <code className="font-mono text-code-sm">&lt;html&gt;</code>, e claro/escuro na classe{" "}
-        <code className="font-mono text-code-sm">.dark</code>. Combinam livremente — 5 marcas × 2
+        <code className="font-mono text-code-sm">.dark</code>. Combinam livremente — 6 marcas × 2
         modos.
       </p>
       <CodeBlock>{`<html data-theme="vibrant" class="dark">   <!-- marca vibrant, modo escuro -->

@@ -1,6 +1,7 @@
 ﻿import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
 import { useBrand, BRANDS, type Brand } from "../../hooks/useBrand";
 import { colorPalette as paletaDefault } from "../../../tokens/brands/default/primitives/color-palette";
+import { colorPalette as paletaAnydocs } from "../../../tokens/brands/anydocs/primitives/color-palette";
 import { colorPalette as paletaBlue } from "../../../tokens/brands/blue/primitives/color-palette";
 import { colorPalette as paletaGreen } from "../../../tokens/brands/green/primitives/color-palette";
 import { colorPalette as paletaPay } from "../../../tokens/brands/pay/primitives/color-palette";
@@ -39,6 +40,7 @@ type Paleta = {
 
 const PALETAS: Record<Brand, Paleta> = {
   default: paletaDefault,
+  anydocs: paletaAnydocs,
   blue: paletaBlue,
   green: paletaGreen,
   pay: paletaPay,

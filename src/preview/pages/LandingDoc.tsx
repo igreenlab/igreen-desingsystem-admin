@@ -10,7 +10,7 @@
  * aqui — o registro do que ele trazia e do que foi descartado está na entrada de
  * 2026-08-11 do `pipeline-state.md`). A IA dele foi mantida; a implementação, não.
  *
- * - **Não redeclara cor.** O wireframe carregava as 5 marcas × 2 modos como CSS vars
+ * - **Não redeclara cor.** O wireframe carregava as 6 marcas × 2 modos como CSS vars
  *   próprias, em `oklch` na mão. Aqui a troca de marca é o `useBrand()` real e a de
  *   modo o `useTheme()` real — então o switch do hero re-tinge componentes DE VERDADE,
  *   e não existe um 6º sistema de cor no repo pra sair de sincronia.

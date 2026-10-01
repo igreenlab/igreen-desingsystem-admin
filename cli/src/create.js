@@ -288,6 +288,7 @@ function listTemplates() {
  * overlay) é sempre a 1ª opção. Rótulos amigáveis; id desconhecido cai no id.
  */
 const BRAND_LABELS = {
+  anydocs: "Anydocs (roxo · dark é o modo oficial)",
   pay: "iGreen Pay (verde vivo · dark near-black)",
   blue: "Azul",
   green: "Verde (grass)",

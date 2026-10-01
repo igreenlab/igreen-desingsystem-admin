@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
  * e acrescente aqui **e** no `BRANDS` abaixo. As 10 superfícies completas estão em
  * `.claude/rules/ds-standards.md` §"Sistema multi-marca".
  */
-export type Brand = "default" | "blue" | "green" | "pay" | "vibrant";
+export type Brand = "default" | "anydocs" | "blue" | "green" | "pay" | "vibrant";
 
 /** Uma entrada de catálogo: o que o seletor precisa pra renderizar a opção. */
 export type BrandOption = {
@@ -29,6 +29,7 @@ export type BrandOption = {
  */
 export const BRANDS: BrandOption[] = [
   { id: "default", label: "iGreen", swatch: "oklch(0.5248 0.1415 150.9)" },
+  { id: "anydocs", label: "Anydocs", swatch: "oklch(0.5767 0.1916 304.03)" },
   { id: "blue", label: "Azul", swatch: "oklch(0.52 0.180 264)" },
   { id: "green", label: "Verde", swatch: "oklch(0.58 0.170 142)" },
   { id: "pay", label: "Pay", swatch: "#00a859" },

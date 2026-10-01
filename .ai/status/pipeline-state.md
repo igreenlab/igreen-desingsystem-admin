@@ -41,6 +41,7 @@
 - [2026-09-16 — CONCLUÍDO · `topSlot` na sidebar single: o desvio do `searchCommand` corrigido](#2026-09-16-concluído-topslot-na-sidebar-single-o-desvio-do-searchcommand-corrigido)
 - [2026-09-23 — CONCLUÍDO · Pacote npm podável: `preserveModules` + `sideEffects` + ícones fora do mapa](#2026-09-23-concluído-pacote-npm-podável-preservemodules-sideeffects-ícones-fora-do-mapa)
 - [2026-09-23 — CONCLUÍDO · Dialog/Sheet/AlertDialog: teto de altura, overlay portalado e X alinhado](#2026-09-23-concluído-dialogsheetalertdialog-teto-de-altura-overlay-portalado-e-x-alinhado)
+- [2026-10-01 | brand-builder | Marca `anydocs` (roxo #9353D3) | CONCLUÍDO](#2026-10-01-brand-builder-marca-anydocs-roxo-9353d3-concluído)
 
 <!-- doc-index:fim -->
 
@@ -5640,3 +5641,83 @@ perguntas do auto-update protocol, ela reprova na segunda ("já está no ponto d
 Achado paralelo, anotado no mesmo passo: o dev server do showcase segurava `dist-lib/`
 e caiu com `EBUSY` quando o `prepublishOnly` rodou o `build:lib`. Não bloqueou a
 publicação, mas mata o dev server e pode quebrar o build no meio.
+
+---
+
+## 2026-10-01 | brand-builder | Marca `anydocs` (roxo #9353D3) | CONCLUÍDO
+
+**Pedido:** "precisa ter as cores da Anydocs atualmente, mas podemos alterar no futuro."
+O modelo de marca do DS atende as duas metades: overlay escopado em
+`[data-theme="anydocs"]`, trocável em runtime, e alterar depois é editar
+`tokens/brands/anydocs/semantic/color-{light,dark}.ts` + um `npm run`.
+
+**As cores NÃO vieram de briefing — foram medidas no produto no ar** (anydocsai.com.br,
+landing e login, 2026-10-01), lendo valor computado, não amostrando pixel.
+
+**O achado que define a marca:** todas as cores da Anydocs em produção são **defaults do
+NextUI**. `#9353D3` é literalmente o `secondary-500` default; canvas `#000000`, surface
+`#18181B`, texto `#ECEDEE`, success `#17C964`, warning `#F5A524`, danger `#F31260` — todos
+defaults. A única decisão de marca existente é usar `secondary` (roxo) em vez de `primary`
+nos elementos de marca, e o `--nextui-primary` continua **azul** (`#0072F5`) governando o
+anel de foco. A identidade atual é meio escolha, meio resquício.
+
+Isso torna a marca urgente por um motivo diferente do pedido: o NextUI **sai** nos dois
+caminhos de migração estudados (ver o dossiê de adoção do DS). Sem capturar essas cores,
+elas saem junto.
+
+**Decisões do gate (as 3 aprovadas pelo mantenedor):**
+
+1. **Roxo fiel, anel corrigido.** `#9353D3` entra EXATO; o anel de foco passa a derivar do
+   roxo em vez de herdar o azul do NextUI. Não é mudança de marca — é um default que
+   ninguém escolheu.
+2. **Light e dark gerados, dark é o oficial.** O produto é dark-only; o light foi derivado
+   por medição e está marcado como **não-validado-em-produto** no cabeçalho do arquivo.
+3. **Canvas `#0B0B14`** (o da landing) em vez do `#000000` puro do app. Preto puro comprime
+   a hierarquia obrigatória `canvas < surface < subtle < muted` (L-008) de 4 degraus em 3.
+
+**Duas âncoras, de propósito.** O `#9353D3` entra em `brand[600]` (identidade light) E em
+`brandContrast[500]` (preenchimento no dark — o botão real). Existe um terceiro valor,
+`brandContrast[400]` = `#A56AE4`, só pro papel de **texto** no dark, porque:
+
+| par | ratio | |
+|---|---|---|
+| `#9353D3` preenchimento + texto branco | 4.75:1 | passa |
+| `#9353D3` como TEXTO sobre canvas | **4.12:1** | **reprova AA** |
+| `#9353D3` como TEXTO sobre surface | **3.73:1** | **reprova AA** |
+| `#A56AE4` sobre canvas / surface | 5.39 / 4.87:1 | passa |
+
+Em produção os links "Esqueceu sua senha?" e "Criar conta" são o `#9353D3` sobre escuro —
+**estão fora da AA hoje**. Não é escolha de design: o NextUI conflaciona `bg` e `fg` num
+token só e o DS separa os dois papéis, então a correção saiu de graça, sem mexer na cor que
+o olho reconhece.
+
+**Status herdados verbatim da `default`.** Decisão deliberada: NÃO importar os status do
+NextUI que estão em produção. O `#F5A524` é exatamente o âmbar que um desenvolvedor da
+Anydocs já mediu em 2,04:1 e recusou à mão, escrevendo `--nextui-warning-700` inline no
+`VistoriadorTable`. Importá-lo seria importar o defeito junto com a cor.
+
+**Dois defeitos que a herança do template quase introduziu**, pegos por medição e não por
+leitura: (1) `fg.on-brand` veio `black` da `blue` — cujo `brandContrast[400]` é um azul
+CLARO. Sobre o `#9353D3` o preto dá **4,42:1 e reprova**; branco dá 4,75 e passa. (2) Os
+status foram escritos de memória na primeira versão do arquivo em vez de copiados — 5 de 5
+divergiam da `default` e teriam emitido var à toa. Substituídos por script e reconferidos.
+
+**Verificação:** `tsc` 0 · `npm test` **1285 passed | 4 todo** · `release:check` verde ·
+overlay com **88 vars** (faixa de `blue`/`green`, 87) · browser nos 2 modos com valor
+RESOLVIDO pelo cascade, trocando pelo hook `useBrand` real e não por `setAttribute`
+(L-066 — na `vibrant` a medição em arquivo passou 10/10 com 13 tokens errados na tela).
+
+**O gate `showcase-doc-facts` reprovou e estava certo:** o item novo levou o registry de
+101 pra 102 e a `DistributionDoc` cravava 101. Corrigido. Também atualizadas as 6 cópias de
+"5 marcas" em `CLAUDE.md`, `ds-standards.md`, `color.md`, `architecture.md`, `inventory.md`
+e `ThemesDoc`/`LandingDoc` — exceto as que dizem "**medido** nas 5 marcas", que são registro
+do que foi medido e mudá-las seria falsificar a medição.
+
+**Assumption central:** que o roxo `#9353D3` é a identidade da Anydocs, e não um resquício
+de `secondary` default do NextUI que ninguém escolheu. **Falsificável** por qualquer manual
+de marca, apresentação comercial ou arquivo de design que mostre outro valor. Se for
+resquício, esta marca é o retrato do que existe hoje — útil pra não regredir na migração — e
+"alterar no futuro" deixa de ser hipótese e vira a próxima tarefa.
+
+**Fora deste PR (vai no `/ds-release`):** bump de versão, `npm publish`, bump do CLI.
+O `registry:build` + embed foram rodados aqui porque o `release:check` reprova sem eles.

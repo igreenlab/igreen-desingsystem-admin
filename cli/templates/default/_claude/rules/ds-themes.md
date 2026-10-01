@@ -13,6 +13,7 @@ O DS tem 5 marcas. Cada marca não-default é um **overlay de cor** escopado em
 | id | marca | arquivo |
 |---|---|---|
 | `default` | iGreen (verde padrão) | — **é** o tema-base, não tem overlay |
+| `anydocs` | Anydocs (roxo #9353D3) | `brand-anydocs.css` — **dark é o modo oficial**; o light foi derivado por medição mas não validado em produto |
 | `blue` | Azul | `brand-blue.css` |
 | `green` | Verde (grass) | `brand-green.css` |
 | `pay` | iGreen Pay | `brand-pay.css` |

@@ -531,13 +531,13 @@ citada aqui, e confere a contagem do próprio título acima. Em 2026-08-08 falta
 
 ## Sistema multi-marca (temas)
 
-5 marcas: `default` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um **overlay
+6 marcas: `default` · `anydocs` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um **overlay
 de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>`.
 
 ⚠️ **Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de
 `brands/default/` — o transform os importa fixos de lá. Pedido de "mudar o espaçamento/a
 fonte só nesta marca" **não é tema**: pare e pergunte. (Pra `font-weight` ser brand-aware os
-presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.)
+presets teriam que referenciar var — mudança no transform, afeta as 6 marcas.)
 
 ⛔ **Três armadilhas que exigem JULGAMENTO** — não há gate que as pegue:
 
@@ -559,7 +559,7 @@ presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.
 > default por `as`, `fg` de status precisando shade mais claro no dark, rampa neutra por modo)
 > estão em `.claude/skills/brand-builder/generate.md` — que é o **passo-a-passo executável**,
 > via `/ds-create-brand` — e em `.ai/context/tokens/color.md`. **Gate mecânico:**
-> `npm run brand:check` (5 marcas × 10 superfícies, no CI e no `release:check`) +
+> `npm run brand:check` (6 marcas × 10 superfícies, no CI e no `release:check`) +
 > `brand:contrast`. Não reproduza a lista aqui: este arquivo custa em 100% das sessões
 > (item D1 do plano de fechamento).
 

@@ -4,6 +4,7 @@
 /* Overlays de marca — cada um escopado em [data-theme="<marca>"], coexistindo com o
  * tema-base default. São 4 (blue/green/pay/vibrant); `default` É o tema-base e não tem
  * overlay. Ativados via data-theme no <html> (src/hooks/useBrand.ts). */
+@import "./theme/brand-anydocs.css";
 @import "./theme/brand-blue.css";
 @import "./theme/brand-green.css";
 @import "./theme/brand-pay.css";

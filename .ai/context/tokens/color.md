@@ -18,7 +18,7 @@ Gate automático: `scripts/lib/dead-theme-classes.mjs`, roda no `npm test`.
 
 ## ⚠️ Esta doc descreve a marca `default`. Existem 5.
 
-O DS é **multi-marca**: `default` · `blue` · `green` · `pay` · `vibrant`. Tudo abaixo (nomes
+O DS é **multi-marca**: `default` · `anydocs` · `blue` · `green` · `pay` · `vibrant`. Tudo abaixo (nomes
 de token, sufixos, roles, `on-*`) vale igual pras 5 — o **contrato de nomes é idêntico**. O que
 muda por marca são só os **valores**, e só de **cor**.
 
@@ -91,7 +91,7 @@ Errar isso é o defeito mais comum, porque a classe some sem avisar.
 `caution` é o degrau **entre `warning` e `danger`** — laranja, hue 55 (warning é 81, danger 25),
 mesma família de status e mesmos sufixos. Nasceu para escala por gravidade em 3 faixas
 (amarelo → laranja → vermelho), como a espera de um ticket; `warning` sozinho não separa
-"atenção" de "quase crítico". Existe nas 5 marcas.
+"atenção" de "quase crítico". Existe nas 6 marcas.
 
 ## `on-*` — texto que senta SOBRE uma cor de marca ou status
 
@@ -128,7 +128,7 @@ Não existe `fg.on-primary` (esse é o nome V2, extinto).
 Hierarquia obrigatória de fundo: `canvas < surface < subtle < muted` (L-008).
 
 ⚠️ `bg.scrollbar-thumb` / `-hover` são a **única exceção** do grupo: valem `alpha.black[24/32]`
-no light e `alpha.white[24/32]` no dark, iguais nas 5 marcas. A barra precisa de contraste
+no light e `alpha.white[24/32]` no dark, iguais nas 6 marcas. A barra precisa de contraste
 **próprio**, independente da cor de superfície da marca — por isso alpha neutro e não um token
 de superfície. Consumidos só pelos `@utility scrollbar-*` do transform; não use como fundo de
 elemento. Antes deles a utility usava `bg.muted-hover`, que no light é cinza **opaco** sobre

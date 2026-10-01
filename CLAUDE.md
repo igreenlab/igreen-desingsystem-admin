@@ -303,7 +303,7 @@ no `npm test`.
 
 ## Sistema multi-marca (temas)
 
-5 marcas coexistem: `default` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um
+6 marcas coexistem: `default` · `anydocs` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um
 **overlay de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>`.
 
 ⚠️ **Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de

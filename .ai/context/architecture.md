@@ -86,7 +86,7 @@ comportamento certo enquanto o consumidor recebe o errado. Gates: `orphan-utilit
 `to-brand-overlay.ts` gera `src/styles/theme/brand-<id>.css` a partir de
 `tokens/brands/<id>/`, emitindo **só o diff** vs. a default em 2 blocos mutuamente
 exclusivos: `[data-theme="<id>"]:not(.dark)` e `.dark[data-theme="<id>"]` (L-066 — sem o
-`:not(.dark)` o bloco light vencia o dark por ordem de fonte). 5 marcas: `default` (é o
+`:not(.dark)` o bloco light vencia o dark por ordem de fonte). 6 marcas: `default` (é o
 tema-base, sem overlay) · `blue` · `green` · `pay` · `vibrant`. **Marca muda SOMENTE cor** —
 spacing/sizing/radius/elevation/tipografia vêm sempre de `brands/default/`.
 
