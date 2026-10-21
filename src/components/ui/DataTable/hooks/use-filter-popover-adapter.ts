@@ -59,6 +59,10 @@ export type UseFilterPopoverAdapterResult<T> = {
   appliedFilters: AppliedFilter[];
   removeGroup: (groupKey: string) => void;
   updateGroupValue: (groupKey: string, newValue: unknown) => void;
+  updateGroupOperator: (
+    groupKey: string,
+    nextOperator: FilterItem["operator"],
+  ) => void;
   getGroupOptions: (groupKey: string) => ColumnOption[];
   handleFiltersChange: (entries: FilterPopoverEntry[]) => void;
   isFilterValueEmpty: (v: unknown) => boolean;
@@ -87,9 +91,15 @@ export function useFilterPopoverAdapter<T>({
   pendingOpenChipKey,
   openChipKey,
 }: UseFilterPopoverAdapterParams<T>): UseFilterPopoverAdapterResult<T> {
-  const filterPopoverColumns = useMemo<FilterPopoverColumn[]>(
-    () =>
-      effectiveColumns
+  const filterPopoverColumns = useMemo<FilterPopoverColumn[]>(() => {
+    // Visíveis (na ordem atual) + OCULTAS filtráveis no fim: coluna escondida
+    // no popover de colunas não perde o filtro do painel/avançado (item 1 do
+    // feedback Sólis — "filtro sem coluna visível").
+    const visibleFields = new Set(effectiveColumns.map((c) => String(c.field)));
+    const hiddenFilterable = allColumns.filter(
+      (c) => c.enableColumnFilter && !visibleFields.has(String(c.field)),
+    );
+    return [...effectiveColumns, ...hiddenFilterable]
         .filter((c) => c.enableColumnFilter)
         .map((c) => {
           let popoverType: FilterPopoverColumn["type"] = "text";
@@ -113,14 +123,13 @@ export function useFilterPopoverAdapter<T>({
           }
           return {
             key: String(c.field),
-            label: c.headerName,
+            label: c.filterLabel ?? c.headerName,
             type: popoverType,
             options,
             filterType: c.filterType,
           };
-        }),
-    [effectiveColumns, rows],
-  );
+        });
+  }, [effectiveColumns, allColumns, rows]);
 
   const filterPopoverEntries = useMemo<FilterPopoverEntry[]>(() => {
     // 1ª passada: coletar items por chave multi (field|operator)
@@ -229,13 +238,39 @@ export function useFilterPopoverAdapter<T>({
           const opt = col?.filterOptions?.find(
             (o) => String(o.value) === String(v),
           );
-          return opt?.label ?? String(v);
+          return (
+            opt?.label ??
+            col?.filterValueLabel?.(v as string | number) ??
+            String(v)
+          );
         };
 
         if (typeDef.renderChipValue && g.items.length > 0) {
           // Passa options pro renderChipValue resolver value → label friendly.
           // Sem isso, o chip mostrava o RAW value (ex: "active" em vez de "Ativo").
-          const chipOptions = col?.filterOptions as ColumnOption[] | undefined;
+          // Valores de filtro ASYNC (filterLoadOptions) não vivem em
+          // filterOptions — sintetiza entries via filterValueLabel pro chip
+          // não exibir o id cru.
+          const staticOpts = (col?.filterOptions ?? []) as ColumnOption[];
+          const extraOpts: ColumnOption[] = col?.filterValueLabel
+            ? g.items
+                .flatMap((it) =>
+                  Array.isArray(it.value)
+                    ? (it.value as Array<string | number>)
+                    : it.value != null
+                      ? [it.value as string | number]
+                      : [],
+                )
+                .filter(
+                  (v) =>
+                    !staticOpts.some((o) => String(o.value) === String(v)),
+                )
+                .map((v) => ({ value: v, label: col.filterValueLabel!(v) }))
+            : [];
+          const chipOptions: ColumnOption[] | undefined =
+            staticOpts.length + extraOpts.length > 0
+              ? [...staticOpts, ...extraOpts]
+              : undefined;
           const chipValues = g.items.map((it) =>
             typeDef.renderChipValue!(it.value as never, chipOptions),
           );
@@ -288,6 +323,25 @@ export function useFilterPopoverAdapter<T>({
     setFilterModel({
       ...filterModel,
       items: filterModel.items.filter((i) => !ids.has(i.id)),
+    });
+  };
+
+  /** Troca o OPERADOR de um grupo inteiro (ex.: isAnyOf ↔ isNoneOf no
+   *  alternador Incluindo/Excluindo do chip — item 8 Sólis), preservando
+   *  valores e posição. A chave do grupo muda (field|operator) — o caller
+   *  atualiza openChipKey/pendingOpenChipKey pra o popover não fechar. */
+  const updateGroupOperator = (
+    groupKey: string,
+    nextOperator: FilterItem["operator"],
+  ) => {
+    const group = appliedGroups.find((g) => g.key === groupKey);
+    if (!group) return;
+    const ids = new Set(group.items.map((i) => i.id));
+    setFilterModel({
+      ...filterModel,
+      items: filterModel.items.map((it) =>
+        ids.has(it.id) ? { ...it, operator: nextOperator } : it,
+      ),
     });
   };
 
@@ -447,6 +501,7 @@ export function useFilterPopoverAdapter<T>({
     appliedFilters,
     removeGroup,
     updateGroupValue,
+    updateGroupOperator,
     getGroupOptions,
     handleFiltersChange,
     isFilterValueEmpty,

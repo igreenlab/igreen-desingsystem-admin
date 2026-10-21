@@ -435,19 +435,28 @@ function DataTableInternal<T>(
   const latestFilterModelRef = useRef<FilterModel>(filters.filterModel);
   latestFilterModelRef.current = filters.filterModel;
 
-  /** Column label lookup for applied filter chips. */
+  /** Column label lookup for applied filter chips.
+   *  TODAS as columns (não só as visíveis): coluna oculta com filtro ativo
+   *  continua precisando de label no chip (item 1 do feedback Sólis), e
+   *  `filterLabel` vence o headerName quando o nome do filtro difere do
+   *  título da coluna (item 5). */
   const colLabelMap = useMemo<Record<string, string>>(
     () =>
       Object.fromEntries(
-        cols.effectiveColumns.map((c) => [String(c.field), c.headerName]),
+        props.columns.map((c) => [
+          String(c.field),
+          c.filterLabel ?? c.headerName,
+        ]),
       ),
-    [cols.effectiveColumns],
+    [props.columns],
   );
 
-  /** Column lookup map for option label resolution. */
+  /** Column lookup map for option label resolution — todas as columns,
+   *  inclusive ocultas (o processor filtra por todas; os handlers de chip
+   *  também precisam achá-las). */
   const colsByField = useMemo(
-    () => new Map(cols.effectiveColumns.map((c) => [String(c.field), c])),
-    [cols.effectiveColumns],
+    () => new Map(props.columns.map((c) => [String(c.field), c])),
+    [props.columns],
   );
 
   const {
@@ -457,6 +466,7 @@ function DataTableInternal<T>(
     appliedFilters,
     removeGroup,
     updateGroupValue,
+    updateGroupOperator,
     getGroupOptions,
     handleFiltersChange,
     isFilterValueEmpty,
@@ -1704,7 +1714,11 @@ function DataTableInternal<T>(
                       : undefined
                   }
                   filterPanel={
-                    toolbarConfig.enableFilters !== false &&
+                    // Gate PRÓPRIO do builder avançado (item 13 Sólis): default
+                    // segue enableFilters, mas dá pra desligar só ele quando a
+                    // tela tem montador avançado próprio.
+                    (toolbarConfig.enableAdvancedFilters ??
+                      toolbarConfig.enableFilters) !== false &&
                     filterPopoverColumns.length > 0
                       ? (onBack) => (
                           <FilterPanel
@@ -1931,7 +1945,13 @@ function DataTableInternal<T>(
           <ToolbarApplied
             filters={enhancedAppliedFilters}
             onRemove={handleRemoveFilter}
-            onClearAll={filters.clearFilters}
+            onClearAll={() => {
+              filters.clearFilters();
+              // Aviso à tela (item 4 Sólis): o app pode ter filtro próprio
+              // FORA do filterModel (ex.: builder SQL no servidor) que também
+              // precisa zerar quando o usuário manda "Limpar todos".
+              props.onFiltersClearAll?.();
+            }}
             pendingOpenId={pendingOpenChipKey}
             onPendingOpenIdChange={setPendingOpenChipKey}
             renderChip={(f, defaultChip, isPendingOpen) => {
@@ -2057,6 +2077,19 @@ function DataTableInternal<T>(
                       onChange: (v) => updateGroupValue(group.key, v),
                       options,
                       onClose: closeChip,
+                      // Incluindo/Excluindo no chip (item 8 Sólis). A troca
+                      // muda a chave do grupo (field|operator) — re-apontamos
+                      // o open pro novo key senão o popover fecha no toggle.
+                      operator: group.operator,
+                      onOperatorChange: (nextOp) => {
+                        updateGroupOperator(group.key, nextOp);
+                        const nextKey = `${group.field}|${nextOp}`;
+                        if (openChipKey === f.id) setOpenChipKey(nextKey);
+                        if (isPendingOpen) setPendingOpenChipKey(nextKey);
+                      },
+                      // Opções do servidor (item 6 Sólis).
+                      loadOptions: col?.filterLoadOptions,
+                      resolveValueLabel: col?.filterValueLabel,
                     })}
                   </PopoverContent>
                 </Popover>

@@ -70,9 +70,16 @@ export function useDataTableColumns<T>({
   const [pinnedOverrides, setPinnedOverrides] = useState<
     Record<string, ColumnPinned>
   >(() => initialPinnedOverrides ?? {});
-  // Hidden state (uncontrolled).
+  // Hidden state (uncontrolled). Sem persist hidratado, o default vem do
+  // `hidden: true` das columnDefs (coluna que nasce oculta — ex.: existe só
+  // pelo filtro). Com persist, o estado salvo VENCE o default — senão o
+  // usuário que exibiu a coluna a veria sumir de novo a cada load.
   const [hiddenColumns, setHiddenColumns] = useState<Set<string>>(
-    () => new Set(initialHiddenColumns ?? []),
+    () =>
+      new Set(
+        initialHiddenColumns ??
+          columns.filter((c) => c.hidden).map((c) => String(c.field)),
+      ),
   );
   // Order state (uncontrolled). Default: order do array de columns.
   // Hidrata via initialColumnOrder mas descarta entradas que nao existem mais

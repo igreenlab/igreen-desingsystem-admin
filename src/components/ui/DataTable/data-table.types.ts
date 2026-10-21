@@ -313,8 +313,39 @@ export type DataTableColumnDef<T> = {
     label: string;
     value: string | number;
     color?: string;
+    /** Opção FIXA no topo da lista do multiSelect — fora da busca, da rolagem
+     *  e do "Selecionar todos" (eixos como "Sem veículo"). */
+    pinned?: boolean;
   }>;
   defaultFilterValue?: FilterValue;
+  /**
+   * Opções buscadas no SERVIDOR (item 6 Sólis) — pra valores que se contam
+   * aos milhares, onde `filterOptions` fixo não cabe. O widget multiSelect
+   * do chip busca com debounce e pagina com "Carregar mais".
+   */
+  filterLoadOptions?: (
+    search: string,
+    page: number,
+  ) => Promise<{
+    options: Array<{ label: string; value: string | number }>;
+    hasMore: boolean;
+  }>;
+  /** Rótulo de um valor já marcado que não está na página carregada
+   *  (par do `filterLoadOptions`) — usado na lista e no chip. */
+  filterValueLabel?: (value: string | number) => string;
+  /**
+   * Nome do FILTRO quando difere do título da coluna — usado no chip, no
+   * painel (funil) e no builder avançado. Ex.: coluna "UC Nova" cujo filtro
+   * procura em UC nova/antiga/código → filterLabel "UC". Default: headerName.
+   */
+  filterLabel?: string;
+  /**
+   * Coluna nasce OCULTA (o usuário pode exibi-la no popover de colunas; com
+   * `persistId`, o estado persistido vence este default). O filtro da coluna
+   * continua valendo oculta — chips, painel e avançado seguem listando.
+   * Use pra "filtro sem coluna visível": declare a coluna só pelo filtro.
+   */
+  hidden?: boolean;
 
   /** Render customizado */
   render?: (params: { row: T; value: unknown }) => ReactNode;
@@ -437,6 +468,13 @@ export type DataTableToolbarConfig = {
    */
   enableRefresh?: boolean;
   enableFilters?: boolean;
+  /**
+   * Liga/desliga SÓ o builder "Filtros avançados" das Configurações,
+   * independente do funil (`enableFilters`). Default: segue `enableFilters`.
+   * Use `false` quando a tela tem um montador avançado próprio (ex.: SQL
+   * executado no servidor) e o builder do DS confundiria.
+   */
+  enableAdvancedFilters?: boolean;
   enableColumns?: boolean;
   enableDensity?: boolean;
   /**
@@ -617,6 +655,13 @@ export type DataTableProps<T> = {
    *  Implementação: lista de fields é prop pura — não modifica `filterModel`.
    */
   showEmptyFilterChips?: Array<string | { field: string; dismissable?: boolean }>;
+
+  /**
+   * Disparado quando o usuário clica "Limpar todos" nos chips de filtro —
+   * DEPOIS de limpar o filterModel interno. Gancho pra tela zerar filtro
+   * próprio que vive fora do filterModel (ex.: builder avançado em SQL).
+   */
+  onFiltersClearAll?: () => void;
 
   /**
    *  Configuração do drawer de Filtros (funil). O botão funil da toolbar abre um

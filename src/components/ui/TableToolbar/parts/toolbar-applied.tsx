@@ -135,7 +135,16 @@ export function ToolbarApplied({
                 na DataTableProps + flag isEmpty no adapter. */}
             {!f.isEmpty && (
               <>
-                <span className={toolbarAppliedChipOp()}>{f.opLabel ?? resolveOp(f.op)}</span>
+                {/* Exclusão (isNoneOf) ganha destaque de EXCEÇÃO — danger — pra
+                    "não é" não passar despercebido no meio dos chips (item 8). */}
+                <span
+                  className={cn(
+                    toolbarAppliedChipOp(),
+                    f.op === "isNoneOf" && "text-fg-danger font-semibold",
+                  )}
+                >
+                  {f.opLabel ?? resolveOp(f.op)}
+                </span>
                 {Array.isArray(f.value) ? (
                   <span className="inline-flex items-center gap-gp-2xs">
                     {(f.value as ReactNode[]).map((v) => (
