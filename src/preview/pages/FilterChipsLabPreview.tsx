@@ -229,7 +229,9 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
     width: 230,
     icon: AtSign,
     enableColumnFilter: true,
-    filterType: "text",
+    // multiSelect SEM filterOptions: as opções são auto-extraídas das rows —
+    // vira checklist (com busca a partir de 10 opções) em vez de input de texto.
+    filterType: "multiSelect",
   },
   {
     field: "statusId",
