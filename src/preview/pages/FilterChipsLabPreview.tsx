@@ -9,6 +9,10 @@ import {
   DollarSign,
   Calendar,
   Search,
+  MapPin,
+  BadgeCheck,
+  ListChecks,
+  ChevronDown,
 } from "lucide-react";
 import {
   CLIENTS_MOCK,
@@ -27,23 +31,17 @@ import {
   type ColumnTypeDefinition,
   type DataTableColumnDef,
   type FilterModel,
+  type PaginationModel,
 } from "@/components/ui/DataTable";
 import { Input } from "@/components/shadcn/input";
+import { cn } from "@/lib/utils";
 import { ExamplePageLayout } from "../components/example-page-layout";
 
-/* ── Tipo de coluna CUSTOM: "agente" (registry) ──────────────────
- *
- * Demonstra o ponto de extensão da pergunta 2: um filtro com BUSCA, lista
- * própria (avatar + nome) e ação diferenciada ("Limpar") — tudo definido
- * pelo consumidor via `columnTypeRegistry.register()`, sem tocar no núcleo.
- *
- * ⚠️ Limite medido no núcleo (data-table.tsx, `useMulti`): o popover do CHIP
- * promove pro widget multiSelect BUILT-IN quando o operador é isAnyOf/isNoneOf
- * ou o valor agregado tem 2+ itens. Ou seja: widget custom no chip funciona
- * pra filtro de VALOR ÚNICO (equals/neq/contains/gt...); um multi-picker
- * custom exigiria mudança no DS (a promoção teria que preferir o filterType
- * registrado antes de forçar "multiSelect").
- */
+/* ═══════════════════════════════════════════════════════════════════
+   Tipos custom (registry) — personalização que NÃO muda o DS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Tipo custom: busca + lista própria + ação (demonstra o registry). */
 function AgentePickerList({
   value,
   onChange,
@@ -72,7 +70,7 @@ function AgentePickerList({
           className="pl-[32px]"
         />
       </div>
-      <div className="flex max-h-[220px] flex-col gap-gp-2xs overflow-y-auto">
+      <div className="flex max-h-[220px] flex-col gap-gp-2xs overflow-y-auto scrollbar-thin">
         {entries.length === 0 && (
           <p className="px-pad-md py-pad-sm text-body-xs font-normal text-fg-muted">
             Nenhum agente encontrado
@@ -84,16 +82,14 @@ function AgentePickerList({
             <button
               key={id}
               type="button"
-              // ⚠️ NÃO chamar onClose() aqui: onChange+onClose no MESMO clique
-              // disparam dois setFilterModel a partir do mesmo estado stale e o
-              // cleanup do closeChip (remove itens vazios) apaga o valor recém
-              // escolhido — o chip volta a placeholder. Fechar no clique-fora
-              // (dismiss do Radix) roda num tick posterior, com estado fresco.
-              // O mesmo vale pros built-ins single-select em chip placeholder.
-              onClick={() => onChange(id)}
-              className={`flex w-full items-center justify-between gap-gp-md rounded-radius-md px-pad-md py-pad-sm text-left transition-colors duration-100 hover:bg-bg-muted ${
-                selecionado ? "bg-bg-brand-subtle" : ""
-              }`}
+              onClick={() => {
+                onChange(id);
+                onClose?.();
+              }}
+              className={cn(
+                "flex w-full items-center justify-between gap-gp-md rounded-radius-md px-pad-md py-pad-sm text-left transition-colors duration-100 hover:bg-bg-muted",
+                selecionado && "bg-bg-brand-subtle",
+              )}
             >
               <AgentCell agentId={id as keyof typeof AGENTS} />
               {selecionado && (
@@ -103,28 +99,12 @@ function AgentePickerList({
           );
         })}
       </div>
-      <div className="flex items-center justify-between border-t border-border-subtle pt-pad-sm">
-        <button
-          type="button"
-          onClick={() => {
-            onChange(null);
-            onClose?.();
-          }}
-          className="rounded-radius-sm px-pad-md py-pad-xs text-body-xs font-semibold text-fg-muted transition-colors hover:bg-bg-muted hover:text-fg-default"
-        >
-          Limpar
-        </button>
-        <span className="text-caption-xs text-fg-subtle">
-          {entries.length} agente{entries.length === 1 ? "" : "s"}
-        </span>
-      </div>
     </div>
   );
 }
 
 const AgenteColumnType: ColumnTypeDefinition = {
   type: "agente",
-  // 1º operador = default do tipo (defaultOperatorForFilterType lê operators[0]).
   operators: [
     { id: "equals", label: "é" },
     { id: "neq", label: "não é" },
@@ -145,18 +125,9 @@ const AgenteColumnType: ColumnTypeDefinition = {
     return a ? a.name : String(value ?? "");
   },
 };
-
-// Registro uma vez, a nível de módulo (o registry avisa — e tolera — re-registro
-// em hot reload de dev).
 columnTypeRegistry.register(AgenteColumnType);
 
-/* ── Tipo custom: UMA data filtrando DUAS colunas (período) ──────────
- * O filtro do DataTable amarra num `field`, mas o VALOR desse field vem do
- * `valueGetter` da coluna — que pode devolver o PAR [início, fim]. Este tipo
- * recebe esse par como cellValue e testa se a data escolhida cai no
- * intervalo. A coluna "Período" é virtual (não existe no dado cru); o
- * processor filtra por TODAS as columns, então ela continua filtrando mesmo
- * se o usuário ocultá-la no popover de colunas. */
+/* Tipo custom: UMA data cobrindo DUAS colunas (valueGetter devolve o par). */
 const DataNoPeriodoType: ColumnTypeDefinition = {
   type: "data-no-periodo",
   operators: [{ id: "equals", label: "cobre" }],
@@ -183,7 +154,6 @@ const DataNoPeriodoType: ColumnTypeDefinition = {
     if (operator !== "equals") return null;
     if (!Array.isArray(cellValue) || typeof filterValue !== "string") return null;
     const [inicio, fim] = cellValue as [number, number];
-    // Meio-dia local evita o off-by-one de timezone do "YYYY-MM-DD" cru.
     const d = new Date(`${filterValue}T12:00:00`).getTime();
     return d >= inicio && d <= fim;
   },
@@ -194,49 +164,101 @@ const DataNoPeriodoType: ColumnTypeDefinition = {
 };
 columnTypeRegistry.register(DataNoPeriodoType);
 
-/* ── BU: lista GRANDE (40 valores) pro multiSelect built-in ──────────
- * Exercita o que o chip multi-valor ganhou: busca (lista ≥ 10 opções),
- * "Selecionar todos/visíveis", "Limpar" e contador N/M. */
-const BUS = Array.from({ length: 40 }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
-  return { value: `bu-${n}`, label: `BU ${n} — Unidade ${n}` };
-});
+/* ═══════════════════════════════════════════════════════════════════
+   Dados mock
+   ═══════════════════════════════════════════════════════════════════ */
 
-type RowComBu = ClientRow & { bu: string };
-
-const ROWS: RowComBu[] = CLIENTS_MOCK.map((r, i) => ({
-  ...r,
-  bu: BUS[(i * 7) % BUS.length].value,
-}));
-
+/* BU: lista grande (40) + opção FIXA "Sem BU" (item 7). */
+const BUS = [
+  { value: "sem-bu", label: "Sem BU", pinned: true },
+  ...Array.from({ length: 40 }, (_, i) => {
+    const n = String(i + 1).padStart(2, "0");
+    return { value: `bu-${n}`, label: `BU ${n} — Unidade ${n}` };
+  }),
+];
 const BU_LABEL = new Map(BUS.map((b) => [b.value, b.label]));
 
-/* ── Colunas ─────────────────────────────────────────────────────── */
+/* UFs — coluna OCULTA só pelo filtro (item 1). */
+const UFS = ["SP", "MG", "PR", "RS", "RJ", "BA", "SC", "PE", "GO", "CE"];
 
-const COLUMNS: DataTableColumnDef<RowComBu>[] = [
-  { field: "id", headerName: "ID", width: 110, icon: Hash, type: "text" },
+/* "Servidor" fake de titulares (item 6): 500 nomes, busca + paginação. */
+const TITULARES = Array.from({ length: 500 }, (_, i) => ({
+  value: `tit-${i + 1}`,
+  label: `Titular ${String(i + 1).padStart(3, "0")} ${["Silva", "Souza", "Lima", "Costa", "Rocha"][i % 5]}`,
+}));
+const TITULAR_LABEL = new Map(TITULARES.map((t) => [t.value, t.label]));
+const buscarTitulares = (search: string, page: number) =>
+  new Promise<{ options: typeof TITULARES; hasMore: boolean }>((resolve) => {
+    setTimeout(() => {
+      const filtrados = search
+        ? TITULARES.filter((t) =>
+            t.label.toLowerCase().includes(search.toLowerCase()),
+          )
+        : TITULARES;
+      const PAGE = 20;
+      const slice = filtrados.slice((page - 1) * PAGE, page * PAGE);
+      resolve({ options: slice, hasMore: page * PAGE < filtrados.length });
+    }, 400); // latência simulada
+  });
+
+type RowLab = ClientRow & {
+  bu: string;
+  uf: string;
+  titularId: string;
+  conferencia: "sim" | "nao";
+};
+
+const ROWS: RowLab[] = CLIENTS_MOCK.map((r, i) => ({
+  ...r,
+  bu: i % 4 === 3 ? "sem-bu" : BUS[1 + ((i * 7) % 40)].value,
+  uf: UFS[i % UFS.length],
+  titularId: TITULARES[i * 37].value,
+  conferencia: i % 3 === 0 ? "nao" : "sim",
+}));
+
+/* ═══════════════════════════════════════════════════════════════════
+   Colunas
+   ═══════════════════════════════════════════════════════════════════ */
+
+const COLUMNS: DataTableColumnDef<RowLab>[] = [
+  { field: "id", headerName: "ID", width: 100, icon: Hash, type: "text" },
   {
     field: "name",
     headerName: "Nome",
-    width: 220,
+    width: 200,
     icon: User,
     sortable: true,
     render: ({ row }) => <PersonCell row={row} />,
   },
   {
+    field: "titularId",
+    headerName: "Titular",
+    width: 170,
+    icon: UsersIcon,
+    enableColumnFilter: true,
+    filterType: "multiSelect",
+    // ⭐ Item 6: opções do "servidor" — busca com debounce + Carregar mais.
+    filterLoadOptions: buscarTitulares,
+    filterValueLabel: (v) => TITULAR_LABEL.get(String(v)) ?? String(v),
+    valueFormatter: (v) => TITULAR_LABEL.get(String(v)) ?? String(v ?? ""),
+    render: ({ value }) => (
+      <span className="text-fg-muted">{TITULAR_LABEL.get(String(value))}</span>
+    ),
+  },
+  {
     field: "email",
     headerName: "Email",
-    width: 230,
+    width: 210,
     icon: AtSign,
     enableColumnFilter: true,
-    // multiSelect SEM filterOptions: as opções são auto-extraídas das rows —
-    // vira checklist (com busca a partir de 10 opções) em vez de input de texto.
     filterType: "multiSelect",
+    // ⭐ Item 5: nome do FILTRO difere do título da coluna.
+    filterLabel: "E-mail do cliente",
   },
   {
     field: "statusId",
     headerName: "Status",
-    width: 140,
+    width: 130,
     icon: CheckCircle2,
     enableColumnFilter: true,
     filterType: "multiSelect",
@@ -248,20 +270,38 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
     render: ({ value }) => <StatusDot statusId={value as keyof typeof STATUSES} />,
   },
   {
+    field: "conferencia",
+    headerName: "Conferência",
+    width: 130,
+    icon: BadgeCheck,
+    enableColumnFilter: true,
+    // ⭐ Item 3: select = ESCOLHA ÚNICA no chip (fecha ao escolher).
+    filterType: "select",
+    filterOptions: [
+      { value: "sim", label: "Sim" },
+      { value: "nao", label: "Não" },
+    ],
+    valueFormatter: (v) => (v === "sim" ? "Sim" : "Não"),
+    render: ({ value }) => (
+      <span className={value === "sim" ? "text-fg-success" : "text-fg-muted"}>
+        {value === "sim" ? "Sim" : "Não"}
+      </span>
+    ),
+  },
+  {
     field: "agentId",
     headerName: "Atribuído",
-    width: 180,
+    width: 170,
     icon: UsersIcon,
     enableColumnFilter: true,
-    // ⭐ filterType CUSTOM — resolve o widget no registry (busca + lista + ações).
-    filterType: "agente",
+    filterType: "agente", // tipo CUSTOM (registry)
     valueFormatter: (v) => AGENTS[v as keyof typeof AGENTS]?.name ?? String(v ?? ""),
     render: ({ value }) => <AgentCell agentId={value as keyof typeof AGENTS} />,
   },
   {
     field: "bu",
     headerName: "BU",
-    width: 190,
+    width: 180,
     icon: Tag,
     enableColumnFilter: true,
     filterType: "multiSelect",
@@ -270,6 +310,18 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
     render: ({ value }) => (
       <span className="text-fg-muted">{BU_LABEL.get(String(value))}</span>
     ),
+  },
+  {
+    // ⭐ Item 1: coluna OCULTA que existe só pelo filtro.
+    field: "uf",
+    headerName: "UF",
+    width: 90,
+    icon: MapPin,
+    hidden: true,
+    enableColumnFilter: true,
+    filterType: "multiSelect",
+    filterLabel: "UF (Estado)",
+    filterOptions: UFS.map((u) => ({ value: u, label: u })),
   },
   {
     field: "value",
@@ -288,7 +340,7 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
   {
     field: "createdAt",
     headerName: "Data início",
-    width: 120,
+    width: 115,
     icon: Calendar,
     sortable: true,
     valueFormatter: (v) => (typeof v === "number" ? formatDateShort(v) : ""),
@@ -299,7 +351,7 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
   {
     field: "lastContact",
     headerName: "Data fim",
-    width: 120,
+    width: 115,
     icon: Calendar,
     sortable: true,
     valueFormatter: (v) => (typeof v === "number" ? formatDateShort(v) : ""),
@@ -308,128 +360,265 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
     ),
   },
   {
-    // ⭐ Coluna VIRTUAL: não existe no dado cru — o valueGetter devolve o PAR
-    // [início, fim] e o filtro "Período" (1 data) responde pelas DUAS colunas.
+    // Coluna VIRTUAL: 1 data filtra as DUAS colunas acima.
     field: "periodo",
     headerName: "Período",
-    width: 150,
+    width: 145,
     icon: Calendar,
+    hidden: true,
     enableColumnFilter: true,
     filterType: "data-no-periodo",
     valueGetter: (row) => [row.createdAt, row.lastContact],
     valueFormatter: (v) =>
-      Array.isArray(v) ? `${formatDateShort(v[0] as number)} → ${formatDateShort(v[1] as number)}` : "",
-    render: ({ row }) => (
-      <span className="text-fg-subtle tabular-nums">
-        {formatDateShort(row.createdAt)} → {formatDateShort(row.lastContact)}
-      </span>
-    ),
+      Array.isArray(v)
+        ? `${formatDateShort(v[0] as number)} → ${formatDateShort(v[1] as number)}`
+        : "",
   },
 ];
 
-/* ── Filtro pré-aplicado "por regra" (pergunta 1) ────────────────
- * Entra na tela já com Status = Ativo no filterModel. O field está listado
- * em showEmptyFilterChips, então o X no chip LIMPA o valor mas o chip volta
- * como placeholder vazio — não some da toolbar. */
+/* Filtros "por regra" no load: Status preenchido + Valor em FAIXA (item 12). */
 const FILTRO_INICIAL: FilterModel = {
-  items: [{ id: "regra-status", field: "statusId", operator: "isAnyOf", value: ["active"] }],
+  items: [
+    { id: "regra-status", field: "statusId", operator: "isAnyOf", value: ["active"] },
+    { id: "regra-valor", field: "value", operator: "between", value: [100, 9000] },
+  ],
   logicOperator: "AND",
 };
 
-// dismissable: false → chip FIXO: o placeholder vazio nem renderiza o X,
-// então ele NUNCA sai da toolbar. O X do chip preenchido continua (limpa o
-// valor e o chip volta a placeholder). "email" fica descartável de propósito,
-// pra comparar os dois comportamentos lado a lado.
 const CHIPS_FIXOS: Array<string | { field: string; dismissable?: boolean }> = [
   { field: "statusId", dismissable: false },
+  { field: "conferencia", dismissable: false },
   { field: "agentId", dismissable: false },
   { field: "bu", dismissable: false },
+  { field: "titularId", dismissable: false },
+  { field: "uf", dismissable: false },
   { field: "periodo", dismissable: false },
   "email",
 ];
 
+/* ═══════════════════════════════════════════════════════════════════
+   Navegador flutuante — item a item do feedback, com "como ver"
+   ═══════════════════════════════════════════════════════════════════ */
+
+type ItemNav = {
+  n: number;
+  titulo: string;
+  tag: "novo" | "fix" | "já tinha" | "custom";
+  comoVer: string;
+};
+
+const ITENS_NAV: ItemNav[] = [
+  { n: 1, tag: "novo", titulo: "Filtro sem coluna visível", comoVer: "Os chips 'UF (Estado)' e 'Período' filtram colunas que nascem OCULTAS (hidden: true) — confira em Configurações → Colunas que elas estão desligadas, e os filtros seguem vivos no chip e no painel." },
+  { n: 2, tag: "novo", titulo: "X do chip fixo limpa só o valor", comoVer: "Aperte o X no chip 'Status é Ativo': o valor limpa e o chip vira ⊕ placeholder — nunca sai da toolbar (dismissable: false). 'Email' é descartável, pra comparar." },
+  { n: 3, tag: "fix", titulo: "Escolha única no chip (select)", comoVer: "Clique no chip 'Conferência': lista de escolha ÚNICA (Sim/Não) que fecha ao escolher — antes o select virava multiSelect com checkbox." },
+  { n: 4, tag: "novo", titulo: "'Limpar todos' avisa a tela", comoVer: "Clique 'Limpar todos' nos chips: a linha de eventos abaixo da tabela registra o onFiltersClearAll — gancho pra tela zerar filtro próprio (ex.: SQL avançado)." },
+  { n: 5, tag: "novo", titulo: "Nome do filtro ≠ título da coluna", comoVer: "A coluna 'Email' filtra como 'E-mail do cliente' (filterLabel) — veja no chip e no funil de Filtros." },
+  { n: 6, tag: "novo", titulo: "Opções buscadas no servidor", comoVer: "Abra o chip 'Titular': 500 valores paginados num servidor simulado (400ms) — digite pra buscar com debounce, role e use 'Carregar mais'; os marcados ficam no topo com rótulo resolvido mesmo fora da página carregada." },
+  { n: 7, tag: "novo", titulo: "multiSelect completo", comoVer: "Abra o chip 'BU': 'Sem BU' FIXA no topo (fora da busca e do Selecionar todos), busca a partir de 10 opções, marcados primeiro ao reabrir, altura limitada pela viewport." },
+  { n: 8, tag: "novo", titulo: "Incluindo / Excluindo no chip", comoVer: "Abra 'Status' ou 'BU' e use o rodapé 'Incluindo/Excluindo os selecionados' — com Excluindo, o operador do chip fica vermelho (exceção) sem fechar o popover." },
+  { n: 9, tag: "já tinha", titulo: "'Limpar' dentro do chip", comoVer: "Qualquer lista de chip tem 'Limpar' no rodapé — zera os valores mantendo o popover aberto." },
+  { n: 10, tag: "fix", titulo: "Chip não fecha ao desmarcar o último", comoVer: "No chip 'BU', marque 1 valor e desmarque: o popover PERMANECE aberto (0/41); fecha só no clique-fora." },
+  { n: 11, tag: "fix", titulo: "Linha vazia do painel não some", comoVer: "Configurações → Filtros avançados: adicione uma condição, deixe sem valor e troque o operador 2× — a linha permanece até você removê-la ou fechar." },
+  { n: 12, tag: "novo", titulo: "Faixa numérica num chip só", comoVer: "O chip 'Valor entre 100 – 9.000' já entra aplicado: mín e máx no MESMO chip (operador between no number), vírgula aceita como decimal." },
+  { n: 13, tag: "novo", titulo: "Avançado separado do funil", comoVer: "toolbar.enableAdvancedFilters desliga SÓ o builder avançado (pra tela com montador próprio). Aqui está ligado — veja em Configurações." },
+  { n: 14, tag: "novo", titulo: "Campo de filtro público", comoVer: "FILTER_FIELD_CLASS e FastSingleSelectList agora saem do barrel do DataTable — tipo custom não importa mais caminho interno. (Code-level: veja o código do exemplo.)" },
+  { n: 15, tag: "fix", titulo: "pageSize em modo controlado", comoVer: "A paginação desta tabela é CONTROLADA (veja a linha de eventos). Troque 'Linhas' no rodapé: o tamanho muda e volta pra página 1 — antes o 2º evento desfazia a troca." },
+  { n: 17, tag: "fix", titulo: "Configurações dentro da tela", comoVer: "Abra 'Configurações da tabela' com a janela baixa: o popover limita a altura pelo espaço disponível real e rola por dentro." },
+  { n: 0, tag: "custom", titulo: "Registry: tipos custom do app", comoVer: "'Atribuído' (busca + lista com avatar) e 'Período' (1 data → 2 colunas) são columnTypeRegistry do APP, não do DS — é onde moram comportamentos exclusivos (colar lista, contém «texto», clique-substitui...)." },
+];
+
+const TAG_STYLE: Record<ItemNav["tag"], string> = {
+  novo: "bg-bg-brand-subtle text-fg-brand",
+  fix: "bg-bg-success-muted text-fg-success",
+  "já tinha": "bg-bg-muted text-fg-muted",
+  custom: "bg-bg-info-muted text-fg-info",
+};
+
+function NavegadorFeedback() {
+  const [aberto, setAberto] = useState(true);
+  const [ativo, setAtivo] = useState<number | null>(null);
+  return (
+    <div className="fixed bottom-[24px] right-[24px] z-40 w-[320px]">
+      <div className="overflow-hidden rounded-radius-lg border border-border-default bg-bg-surface shadow-sh-lg">
+        <button
+          type="button"
+          onClick={() => setAberto((a) => !a)}
+          className="flex w-full items-center justify-between gap-gp-md bg-bg-muted px-pad-xl py-pad-lg text-left"
+        >
+          <span className="inline-flex items-center gap-gp-md text-body-sm font-semibold text-fg-default">
+            <ListChecks className="size-icon-sm text-fg-brand" aria-hidden="true" />
+            Feedback Sólis — item a item
+          </span>
+          <ChevronDown
+            aria-hidden="true"
+            className={cn(
+              "size-icon-sm text-fg-muted transition-transform",
+              aberto && "rotate-180",
+            )}
+          />
+        </button>
+        {aberto && (
+          <div className="flex max-h-[50vh] flex-col gap-gp-2xs overflow-y-auto scrollbar-thin p-pad-sm">
+            {ITENS_NAV.map((item) => {
+              const estaAtivo = ativo === item.n;
+              return (
+                <button
+                  key={`${item.n}-${item.titulo}`}
+                  type="button"
+                  onClick={() => setAtivo(estaAtivo ? null : item.n)}
+                  className={cn(
+                    "flex flex-col gap-gp-xs rounded-radius-md px-pad-md py-pad-sm text-left transition-colors",
+                    estaAtivo ? "bg-bg-brand-subtle" : "hover:bg-bg-muted",
+                  )}
+                >
+                  <span className="flex items-center gap-gp-md">
+                    <span className="text-caption-sm font-semibold tabular-nums text-fg-subtle">
+                      {item.n === 0 ? "—" : String(item.n).padStart(2, "0")}
+                    </span>
+                    <span className="flex-1 text-body-sm font-semibold text-fg-default">
+                      {item.titulo}
+                    </span>
+                    <span
+                      className={cn(
+                        "rounded-radius-full px-pad-md py-[1px] text-caption-xs font-semibold",
+                        TAG_STYLE[item.tag],
+                      )}
+                    >
+                      {item.tag}
+                    </span>
+                  </span>
+                  {estaAtivo && (
+                    <span className="text-body-xs font-normal leading-relaxed text-fg-muted">
+                      {item.comoVer}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Página
+   ═══════════════════════════════════════════════════════════════════ */
+
 export default function FilterChipsLabPreview() {
   const columns = useMemo(() => COLUMNS, []);
   const [filterModel, setFilterModel] = useState<FilterModel>(FILTRO_INICIAL);
+  // Paginação CONTROLADA de propósito (item 15 — era onde o defeito mordia).
+  const [paginacao, setPaginacao] = useState<PaginationModel>({
+    page: 1,
+    pageSize: 5,
+  });
+  const [eventos, setEventos] = useState<string[]>([]);
+  const log = (msg: string) =>
+    setEventos((prev) =>
+      [`${new Date().toLocaleTimeString("pt-BR")} — ${msg}`, ...prev].slice(0, 4),
+    );
 
   return (
     <ExamplePageLayout
       category="Data Table Examples"
-      title="Filtros: chips persistentes + tipo custom"
-      description="Demo das duas capacidades avaliadas. (1) Chips FIXOS: Status e Atribuído entram como { field, dismissable: false } em showEmptyFilterChips — o X do chip preenchido limpa o valor, mas o chip volta como placeholder SEM X: nunca sai da toolbar. Email está na lista como string simples (descartável) pra comparar: o placeholder dele tem X e some ao clicar. A tela entra com Status = Ativo pré-aplicado por regra (filterModel inicial). (2) Tipo de filtro custom via columnTypeRegistry: a coluna Atribuído usa filterType 'agente' — o popover do chip tem busca, lista própria com avatar e ação Limpar, tudo definido fora do núcleo. Limite do núcleo: chip com operador isAnyOf/isNoneOf ou 2+ valores promove pro widget multiSelect built-in — widget custom no chip é pra filtro de valor único."
+      title="Filtros: feedback Sólis item a item"
+      description="Laboratório dos itens de DataTable do feedback Sólis — defeitos corrigidos (3, 10, 11, 15, 17), recursos novos (1, 2, 4, 5, 6, 7, 8, 12, 13, 14) e o que fica no app via registry (tipos custom). O navegador flutuante no canto lista cada item com o passo de verificação."
       code={CODE}
     >
-      <DataTable<RowComBu>
-        rows={ROWS}
-        columns={columns}
-        getRowId={(r) => r.id}
-        filterModel={filterModel}
-        onFilterModelChange={setFilterModel}
-        showEmptyFilterChips={CHIPS_FIXOS}
-        toolbar={{
-          title: "Clientes",
-          enableSearch: true,
-          enableFilters: true,
-          enableColumns: true,
-        }}
-        paginationConfig={{ enabled: true, initialPageSize: 10 }}
-        className="max-h-full"
-      />
+      <div className="flex flex-col gap-gp-md">
+        <DataTable<RowLab>
+          rows={ROWS}
+          columns={columns}
+          getRowId={(r) => r.id}
+          filterModel={filterModel}
+          onFilterModelChange={setFilterModel}
+          onFiltersClearAll={() => log("onFiltersClearAll — a tela limpa o filtro próprio dela")}
+          showEmptyFilterChips={CHIPS_FIXOS}
+          paginationModel={paginacao}
+          onPaginationModelChange={(m) => {
+            setPaginacao(m);
+            log(`paginação → página ${m.page}, ${m.pageSize} por página`);
+          }}
+          toolbar={{
+            title: "Clientes",
+            enableSearch: true,
+            enableFilters: true,
+            enableAdvancedFilters: true,
+            enableColumns: true,
+            enableDensity: true,
+          }}
+          paginationConfig={{
+            enabled: true,
+            initialPageSize: 5,
+            pageSizeOptions: [5, 10, 25],
+          }}
+          className="max-h-full"
+        />
+        {/* Linha de eventos — prova visível dos callbacks (itens 4 e 15). */}
+        <div className="rounded-radius-md bg-bg-muted px-pad-xl py-pad-lg">
+          <p className="text-caption-sm font-semibold text-fg-muted">
+            Eventos da tela (onFiltersClearAll · onPaginationModelChange)
+          </p>
+          {eventos.length === 0 ? (
+            <p className="text-body-xs font-normal text-fg-subtle">
+              Nenhum evento ainda — troque o tamanho da página ou clique "Limpar todos".
+            </p>
+          ) : (
+            eventos.map((e) => (
+              <p key={e} className="text-body-xs font-normal tabular-nums text-fg-default">
+                {e}
+              </p>
+            ))
+          )}
+        </div>
+      </div>
+      <NavegadorFeedback />
     </ExamplePageLayout>
   );
 }
 
-const CODE = `import {
-  DataTable,
-  columnTypeRegistry,
-  type ColumnTypeDefinition,
-  type FilterModel,
-} from "@/components/ui/DataTable";
+const CODE = `/* Laboratório do feedback Sólis — o que cada parte demonstra:
 
-/* 1) CHIPS FIXOS — filtro por regra que limpa sem NUNCA sumir
- *    - filterModel inicial carrega o filtro da regra (Status = Ativo)
- *    - { field, dismissable: false } → chip fixo:
- *      X num chip preenchido → limpa o valor, chip vira placeholder vazio
- *      placeholder vazio     → NÃO tem X: nunca sai da toolbar
- *    - string simples ("email") → placeholder descartável (comportamento default) */
-const FILTRO_INICIAL: FilterModel = {
-  items: [{ id: "regra-status", field: "statusId", operator: "isAnyOf", value: ["active"] }],
-  logicOperator: "AND",
-};
+CHIPS FIXOS (item 2): showEmptyFilterChips={[{ field, dismissable: false }, ...]}
+  → X limpa o valor, chip vira ⊕ e nunca sai. String simples = descartável.
 
-<DataTable
-  filterModel={filterModel}
-  onFilterModelChange={setFilterModel}
-  showEmptyFilterChips={[
-    { field: "statusId", dismissable: false },
-    { field: "agentId", dismissable: false },
-    "email",
-  ]}
-  // ...
-/>
+FILTRO SEM COLUNA VISÍVEL (item 1): coluna com hidden: true + enableColumnFilter
+  → filtra normalmente (chips, funil, avançado) sem aparecer na grade.
+  { field: "uf", headerName: "UF", hidden: true, enableColumnFilter: true,
+    filterType: "multiSelect", filterLabel: "UF (Estado)" }
 
-/* 2) FILTRO CUSTOM — busca + lista própria + ações, via registry
- *    O popover do chip e o builder avançado renderizam o que o tipo definir. */
-const AgenteColumnType: ColumnTypeDefinition = {
-  type: "agente",
-  operators: [{ id: "equals", label: "é" }, { id: "neq", label: "não é" }],
-  renderFastFilterInput: ({ value, onChange, onClose }) => (
-    <MinhaListaComBusca value={value} onChange={onChange} onClose={onClose} />
-  ),
-  renderFilterInput: ({ value, onChange }) => (
-    <MinhaListaComBusca value={value} onChange={onChange} />
-  ),
-  matchesFilter: (cell, filtro, op) =>
-    op === "equals" ? String(cell) === String(filtro)
-    : op === "neq"  ? String(cell) !== String(filtro)
-    : null,
-  renderChipValue: (v) => NOMES[String(v)] ?? String(v ?? ""),
-};
-columnTypeRegistry.register(AgenteColumnType);
+NOME DO FILTRO (item 5): filterLabel: "E-mail do cliente" na coluna Email.
 
-// Na coluna: filterType custom resolve o widget no registry
-{ field: "agentId", headerName: "Atribuído", enableColumnFilter: true, filterType: "agente" }
+SELECT = ESCOLHA ÚNICA (item 3, fix): filterType: "select" abre lista single
+  no chip e fecha ao escolher — não vira mais multiSelect.
 
-// ⚠️ Limite atual do núcleo: chip com isAnyOf/isNoneOf ou 2+ valores usa o
-//    widget multiSelect BUILT-IN (promoção interna) — custom no chip é pra
-//    filtro de valor único. Multi-picker custom = mudança no DS.`;
+OPÇÕES DO SERVIDOR (item 6): filterLoadOptions + filterValueLabel na coluna:
+  filterLoadOptions: (search, page) =>
+    api.buscarTitulares(search, page), // → { options, hasMore }
+  filterValueLabel: (v) => cacheDeLabels.get(v) ?? String(v),
+
+MULTISELECT COMPLETO (itens 7/8/9/10): busca (≥10 opções), opção pinned
+  fixa no topo ({ value: "sem-bu", label: "Sem BU", pinned: true }),
+  marcados primeiro, altura pela viewport, Selecionar todos/visíveis,
+  Limpar, Incluindo/Excluindo (isNoneOf pinta o chip de danger) e o
+  popover NÃO fecha ao desmarcar o último valor.
+
+FAIXA NUM CHIP SÓ (item 12): operador between no number —
+  { id: "regra-valor", field: "value", operator: "between", value: [100, 9000] }
+
+CALLBACKS (itens 4/15): onFiltersClearAll avisa a tela no "Limpar todos";
+  paginação controlada (paginationModel/onPaginationModelChange) com a troca
+  de pageSize num evento só { page: 1, pageSize }.
+
+AVANÇADO SEPARADO (item 13): toolbar.enableAdvancedFilters: false desliga só
+  o builder (tela com montador SQL próprio); default segue enableFilters.
+
+EXPORTS (item 14): import { FILTER_FIELD_CLASS, FastSingleSelectList,
+  columnTypeRegistry } from "@/components/ui/DataTable";
+
+O QUE FICA NO APP (registry, não muda o DS): tipos custom como "agente"
+  (busca + lista com avatar + seleção que fecha) e "data-no-periodo"
+  (1 data cobrindo 2 colunas via valueGetter de par) — mesmo mecanismo
+  pra "colar lista", "contém «texto»", clique-substitui etc. */`;
