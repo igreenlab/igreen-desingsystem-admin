@@ -252,6 +252,10 @@ export function useFilterPopoverAdapter<T>({
             id: g.key,
             columnLabel,
             op: g.operator,
+            // Sem isto o chip de tipo com renderChipValue caía no fallback
+            // genérico (equals → "é") e ignorava o label do operador do
+            // registry ("cobre", "maior que"...). Os outros branches já passam.
+            opLabel,
             value,
           };
         }

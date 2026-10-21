@@ -150,6 +150,50 @@ const AgenteColumnType: ColumnTypeDefinition = {
 // em hot reload de dev).
 columnTypeRegistry.register(AgenteColumnType);
 
+/* ── Tipo custom: UMA data filtrando DUAS colunas (período) ──────────
+ * O filtro do DataTable amarra num `field`, mas o VALOR desse field vem do
+ * `valueGetter` da coluna — que pode devolver o PAR [início, fim]. Este tipo
+ * recebe esse par como cellValue e testa se a data escolhida cai no
+ * intervalo. A coluna "Período" é virtual (não existe no dado cru); o
+ * processor filtra por TODAS as columns, então ela continua filtrando mesmo
+ * se o usuário ocultá-la no popover de colunas. */
+const DataNoPeriodoType: ColumnTypeDefinition = {
+  type: "data-no-periodo",
+  operators: [{ id: "equals", label: "cobre" }],
+  renderFilterInput: ({ value, onChange }) => (
+    <Input
+      type="date"
+      value={typeof value === "string" ? value : ""}
+      onChange={(e) => onChange(e.target.value)}
+      aria-label="Data dentro do período"
+    />
+  ),
+  renderFastFilterInput: ({ value, onChange }) => (
+    <div className="p-pad-md">
+      <Input
+        autoFocus
+        type="date"
+        value={typeof value === "string" ? value : ""}
+        onChange={(e) => onChange(e.target.value)}
+        aria-label="Data dentro do período"
+      />
+    </div>
+  ),
+  matchesFilter: (cellValue, filterValue, operator) => {
+    if (operator !== "equals") return null;
+    if (!Array.isArray(cellValue) || typeof filterValue !== "string") return null;
+    const [inicio, fim] = cellValue as [number, number];
+    // Meio-dia local evita o off-by-one de timezone do "YYYY-MM-DD" cru.
+    const d = new Date(`${filterValue}T12:00:00`).getTime();
+    return d >= inicio && d <= fim;
+  },
+  renderChipValue: (value) =>
+    typeof value === "string" && value
+      ? new Date(`${value}T12:00:00`).toLocaleDateString("pt-BR")
+      : "",
+};
+columnTypeRegistry.register(DataNoPeriodoType);
+
 /* ── BU: lista GRANDE (40 valores) pro multiSelect built-in ──────────
  * Exercita o que o chip multi-valor ganhou: busca (lista ≥ 10 opções),
  * "Selecionar todos/visíveis", "Limpar" e contador N/M. */
@@ -241,15 +285,42 @@ const COLUMNS: DataTableColumnDef<RowComBu>[] = [
   },
   {
     field: "createdAt",
-    headerName: "Criado em",
-    width: 130,
+    headerName: "Data início",
+    width: 120,
     icon: Calendar,
     sortable: true,
-    enableColumnFilter: true,
-    filterType: "date",
     valueFormatter: (v) => (typeof v === "number" ? formatDateShort(v) : ""),
     render: ({ value }) => (
       <span className="text-fg-muted tabular-nums">{formatDateShort(value as number)}</span>
+    ),
+  },
+  {
+    field: "lastContact",
+    headerName: "Data fim",
+    width: 120,
+    icon: Calendar,
+    sortable: true,
+    valueFormatter: (v) => (typeof v === "number" ? formatDateShort(v) : ""),
+    render: ({ value }) => (
+      <span className="text-fg-muted tabular-nums">{formatDateShort(value as number)}</span>
+    ),
+  },
+  {
+    // ⭐ Coluna VIRTUAL: não existe no dado cru — o valueGetter devolve o PAR
+    // [início, fim] e o filtro "Período" (1 data) responde pelas DUAS colunas.
+    field: "periodo",
+    headerName: "Período",
+    width: 150,
+    icon: Calendar,
+    enableColumnFilter: true,
+    filterType: "data-no-periodo",
+    valueGetter: (row) => [row.createdAt, row.lastContact],
+    valueFormatter: (v) =>
+      Array.isArray(v) ? `${formatDateShort(v[0] as number)} → ${formatDateShort(v[1] as number)}` : "",
+    render: ({ row }) => (
+      <span className="text-fg-subtle tabular-nums">
+        {formatDateShort(row.createdAt)} → {formatDateShort(row.lastContact)}
+      </span>
     ),
   },
 ];
@@ -271,6 +342,7 @@ const CHIPS_FIXOS: Array<string | { field: string; dismissable?: boolean }> = [
   { field: "statusId", dismissable: false },
   { field: "agentId", dismissable: false },
   { field: "bu", dismissable: false },
+  { field: "periodo", dismissable: false },
   "email",
 ];
 
