@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CircleX } from "lucide-react";
+import { CircleX, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   toolbarApplied,
@@ -105,9 +105,18 @@ export function ToolbarApplied({
         const isPendingOpen = pendingOpenId === f.id;
         const defaultChip = (
           <span className={toolbarAppliedChip({ interactive: !!renderChip })}>
-            {/* removable === false → chip fixo: sem X (não só "X que não faz
-                nada" — botão que ignora o clique é pior que botão ausente). */}
-            {f.removable !== false && (
+            {/* removable === false → chip fixo: no lugar do X entra um "+"
+                DECORATIVO (indica "clique pra preencher" e mantém o alinhamento
+                — sem ícone a palavra encostava mais à esquerda que os vizinhos).
+                Não é botão: o clique no chip inteiro é que abre o popover. */}
+            {f.removable === false ? (
+              <span
+                aria-hidden="true"
+                className={cn(toolbarAppliedChipRemove(), "cursor-[inherit]")}
+              >
+                <Plus strokeWidth={2} />
+              </span>
+            ) : (
               <button
                 type="button"
                 onClick={(e) => {
