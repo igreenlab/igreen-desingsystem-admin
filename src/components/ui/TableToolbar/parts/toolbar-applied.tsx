@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CircleX, Plus } from "lucide-react";
+import { CirclePlus, CircleX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   toolbarApplied,
@@ -114,7 +114,7 @@ export function ToolbarApplied({
                 aria-hidden="true"
                 className={cn(toolbarAppliedChipRemove(), "cursor-[inherit]")}
               >
-                <Plus strokeWidth={2} />
+                <CirclePlus strokeWidth={2} />
               </span>
             ) : (
               <button
