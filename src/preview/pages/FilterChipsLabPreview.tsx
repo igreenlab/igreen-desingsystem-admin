@@ -232,7 +232,15 @@ const FILTRO_INICIAL: FilterModel = {
   logicOperator: "AND",
 };
 
-const CHIPS_FIXOS = ["statusId", "agentId"];
+// dismissable: false → chip FIXO: o placeholder vazio nem renderiza o X,
+// então ele NUNCA sai da toolbar. O X do chip preenchido continua (limpa o
+// valor e o chip volta a placeholder). "email" fica descartável de propósito,
+// pra comparar os dois comportamentos lado a lado.
+const CHIPS_FIXOS: Array<string | { field: string; dismissable?: boolean }> = [
+  { field: "statusId", dismissable: false },
+  { field: "agentId", dismissable: false },
+  "email",
+];
 
 export default function FilterChipsLabPreview() {
   const columns = useMemo(() => COLUMNS, []);
@@ -242,7 +250,7 @@ export default function FilterChipsLabPreview() {
     <ExamplePageLayout
       category="Data Table Examples"
       title="Filtros: chips persistentes + tipo custom"
-      description="Demo das duas capacidades avaliadas. (1) Chips persistentes: a tela entra com Status = Ativo pré-aplicado por regra (filterModel inicial) e Status/Atribuído listados em showEmptyFilterChips — apertar o X num chip PREENCHIDO limpa o valor e o chip permanece como placeholder vazio, pronto pra preencher de novo (X no chip JÁ VAZIO descarta pra sessão; não existe hoje opção não-descartável). (2) Tipo de filtro custom via columnTypeRegistry: a coluna Atribuído usa filterType 'agente' — o popover do chip tem busca, lista própria com avatar e ação Limpar, tudo definido fora do núcleo. Limite do núcleo: chip com operador isAnyOf/isNoneOf ou 2+ valores promove pro widget multiSelect built-in — widget custom no chip é pra filtro de valor único."
+      description="Demo das duas capacidades avaliadas. (1) Chips FIXOS: Status e Atribuído entram como { field, dismissable: false } em showEmptyFilterChips — o X do chip preenchido limpa o valor, mas o chip volta como placeholder SEM X: nunca sai da toolbar. Email está na lista como string simples (descartável) pra comparar: o placeholder dele tem X e some ao clicar. A tela entra com Status = Ativo pré-aplicado por regra (filterModel inicial). (2) Tipo de filtro custom via columnTypeRegistry: a coluna Atribuído usa filterType 'agente' — o popover do chip tem busca, lista própria com avatar e ação Limpar, tudo definido fora do núcleo. Limite do núcleo: chip com operador isAnyOf/isNoneOf ou 2+ valores promove pro widget multiSelect built-in — widget custom no chip é pra filtro de valor único."
       code={CODE}
     >
       <DataTable<ClientRow>
@@ -272,11 +280,12 @@ const CODE = `import {
   type FilterModel,
 } from "@/components/ui/DataTable";
 
-/* 1) CHIPS PERSISTENTES — filtro por regra que limpa sem sumir
+/* 1) CHIPS FIXOS — filtro por regra que limpa sem NUNCA sumir
  *    - filterModel inicial carrega o filtro da regra (Status = Ativo)
- *    - showEmptyFilterChips mantém o chip na toolbar mesmo sem valor:
+ *    - { field, dismissable: false } → chip fixo:
  *      X num chip preenchido → limpa o valor, chip vira placeholder vazio
- *      X num chip já vazio   → descarta o placeholder (estado da sessão) */
+ *      placeholder vazio     → NÃO tem X: nunca sai da toolbar
+ *    - string simples ("email") → placeholder descartável (comportamento default) */
 const FILTRO_INICIAL: FilterModel = {
   items: [{ id: "regra-status", field: "statusId", operator: "isAnyOf", value: ["active"] }],
   logicOperator: "AND",
@@ -285,7 +294,11 @@ const FILTRO_INICIAL: FilterModel = {
 <DataTable
   filterModel={filterModel}
   onFilterModelChange={setFilterModel}
-  showEmptyFilterChips={["statusId", "agentId"]}
+  showEmptyFilterChips={[
+    { field: "statusId", dismissable: false },
+    { field: "agentId", dismissable: false },
+    "email",
+  ]}
   // ...
 />
 

@@ -609,10 +609,14 @@ export type DataTableProps<T> = {
    *     intacto — esta prop só adiciona chips placeholders extras na toolbar.
    *   - Quando user clica no X de um chip placeholder, ele é "descartado" pra
    *     a sessão (state interno do componente). Pra trazer de volta, reload.
+   *   - Entrada em forma de objeto com `dismissable: false` → chip FIXO: o
+   *     placeholder vazio não renderiza o X (nunca sai da toolbar). O X do chip
+   *     PREENCHIDO continua — limpa o valor e o chip volta a placeholder.
+   *     Use case: filtros "de regra" que devem estar sempre à mão.
    *
    *  Implementação: lista de fields é prop pura — não modifica `filterModel`.
    */
-  showEmptyFilterChips?: string[];
+  showEmptyFilterChips?: Array<string | { field: string; dismissable?: boolean }>;
 
   /**
    *  Configuração do drawer de Filtros (funil). O botão funil da toolbar abre um

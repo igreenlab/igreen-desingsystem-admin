@@ -481,6 +481,22 @@ function DataTableInternal<T>(
     Set<string>
   >(() => new Set());
 
+  /** Normaliza `showEmptyFilterChips` (string | { field, dismissable }) →
+   *  lista ordenada de fields + set dos FIXOS (`dismissable: false`, chips
+   *  "de regra" que nunca saem da toolbar: o placeholder vazio não tem X). */
+  const emptyChipsConfig = useMemo(() => {
+    const fields: string[] = [];
+    const pinned = new Set<string>();
+    for (const entry of props.showEmptyFilterChips ?? []) {
+      const field = typeof entry === "string" ? entry : entry.field;
+      fields.push(field);
+      if (typeof entry !== "string" && entry.dismissable === false) {
+        pinned.add(field);
+      }
+    }
+    return { fields, pinned };
+  }, [props.showEmptyFilterChips]);
+
   /** Fields que JÁ TÊM item COM VALOR no filterModel — placeholders desses fields
    *  são suprimidos. Items vazios (sem valor preenchido) NÃO contam — assim quando
    *  user adiciona condição via popover Filtros e seleciona o field, o chip
@@ -497,14 +513,17 @@ function DataTableInternal<T>(
     [filters.filterModel, isFilterValueEmpty],
   );
 
-  /** Lista efetiva de placeholders a renderizar. */
+  /** Lista efetiva de placeholders a renderizar. Field FIXO ignora o descarte
+   *  (não tem X, mas a defesa vale caso o remove chegue por outro caminho). */
   const effectivePlaceholderFields = useMemo(() => {
-    if (!props.showEmptyFilterChips?.length) return [] as string[];
-    return props.showEmptyFilterChips.filter(
+    if (!emptyChipsConfig.fields.length) return [] as string[];
+    return emptyChipsConfig.fields.filter(
       (field) =>
-        !fieldsWithFilter.has(field) && !dismissedPlaceholders.has(field),
+        !fieldsWithFilter.has(field) &&
+        (emptyChipsConfig.pinned.has(field) ||
+          !dismissedPlaceholders.has(field)),
     );
-  }, [props.showEmptyFilterChips, fieldsWithFilter, dismissedPlaceholders]);
+  }, [emptyChipsConfig, fieldsWithFilter, dismissedPlaceholders]);
 
   /** Placeholders renderizados como AppliedFilter "virtuais" — id prefixado pra detectar. */
   const PLACEHOLDER_ID_PREFIX = "__placeholder__";
@@ -515,8 +534,10 @@ function DataTableInternal<T>(
       op: "",
       value: [],
       isEmpty: true,
+      // Fixo (dismissable: false) → placeholder sem X (nunca sai da toolbar).
+      removable: !emptyChipsConfig.pinned.has(field),
     }));
-  }, [effectivePlaceholderFields, colLabelMap]);
+  }, [effectivePlaceholderFields, colLabelMap, emptyChipsConfig]);
 
   /** Lista final de chips na toolbar — **ordenada pela ordem dos fields em
    *  showEmptyFilterChips**. Quando user preenche um placeholder, ele vira
@@ -524,7 +545,7 @@ function DataTableInternal<T>(
    *  Filtros reais de fields NÃO listados em showEmptyFilterChips aparecem
    *  após os "nativos" (na ordem do filterModel). */
   const enhancedAppliedFilters = useMemo(() => {
-    const showFields = props.showEmptyFilterChips ?? [];
+    const showFields = emptyChipsConfig.fields;
     if (showFields.length === 0) return appliedFilters;
 
     // Map id (group.key) -> field via appliedGroups
@@ -577,7 +598,7 @@ function DataTableInternal<T>(
     placeholderFilters,
     appliedFilters,
     appliedGroups,
-    props.showEmptyFilterChips,
+    emptyChipsConfig,
   ]);
 
   /** Handler de remove que intercepta placeholders. */
@@ -585,6 +606,8 @@ function DataTableInternal<T>(
     (id: string) => {
       if (id.startsWith(PLACEHOLDER_ID_PREFIX)) {
         const field = id.slice(PLACEHOLDER_ID_PREFIX.length);
+        // Fixo: sem X na UI; se o remove chegar por outro caminho, no-op.
+        if (emptyChipsConfig.pinned.has(field)) return;
         setDismissedPlaceholders((prev) => {
           const next = new Set(prev);
           next.add(field);
@@ -594,7 +617,7 @@ function DataTableInternal<T>(
       }
       removeGroup(id);
     },
-    [removeGroup],
+    [removeGroup, emptyChipsConfig],
   );
 
   /** Click num placeholder: cria item vazio + abre popover via pendingOpenChipKey. */

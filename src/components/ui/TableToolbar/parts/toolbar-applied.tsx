@@ -105,17 +105,21 @@ export function ToolbarApplied({
         const isPendingOpen = pendingOpenId === f.id;
         const defaultChip = (
           <span className={toolbarAppliedChip({ interactive: !!renderChip })}>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onRemove(f.id);
-              }}
-              aria-label="Remover filtro"
-              className={toolbarAppliedChipRemove()}
-            >
-              <CircleX strokeWidth={2} aria-hidden="true" />
-            </button>
+            {/* removable === false → chip fixo: sem X (não só "X que não faz
+                nada" — botão que ignora o clique é pior que botão ausente). */}
+            {f.removable !== false && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRemove(f.id);
+                }}
+                aria-label="Remover filtro"
+                className={toolbarAppliedChipRemove()}
+              >
+                <CircleX strokeWidth={2} aria-hidden="true" />
+              </button>
+            )}
             <span className={toolbarAppliedChipName()}>{f.columnLabel}</span>
             {/* Quando isEmpty (chip placeholder pré-ativo aguardando valor), renderiza
                 apenas o nome da coluna — sem operador, sem value. Veja `showEmptyFilterChips`

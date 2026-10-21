@@ -65,4 +65,10 @@ export type AppliedFilter = {
    * Default false.
    */
   isEmpty?: boolean;
+  /**
+   * Quando false, o botão X não renderiza — chip fixo que não pode ser
+   * removido (use case: `showEmptyFilterChips` com `dismissable: false` no
+   * DataTable, chips "de regra" que nunca saem da toolbar). Default true.
+   */
+  removable?: boolean;
 };
