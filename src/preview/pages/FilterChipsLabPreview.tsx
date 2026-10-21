@@ -4,6 +4,7 @@ import {
   User,
   AtSign,
   CheckCircle2,
+  Tag,
   Users as UsersIcon,
   DollarSign,
   Calendar,
@@ -149,9 +150,26 @@ const AgenteColumnType: ColumnTypeDefinition = {
 // em hot reload de dev).
 columnTypeRegistry.register(AgenteColumnType);
 
+/* ── BU: lista GRANDE (40 valores) pro multiSelect built-in ──────────
+ * Exercita o que o chip multi-valor ganhou: busca (lista ≥ 10 opções),
+ * "Selecionar todos/visíveis", "Limpar" e contador N/M. */
+const BUS = Array.from({ length: 40 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return { value: `bu-${n}`, label: `BU ${n} — Unidade ${n}` };
+});
+
+type RowComBu = ClientRow & { bu: string };
+
+const ROWS: RowComBu[] = CLIENTS_MOCK.map((r, i) => ({
+  ...r,
+  bu: BUS[(i * 7) % BUS.length].value,
+}));
+
+const BU_LABEL = new Map(BUS.map((b) => [b.value, b.label]));
+
 /* ── Colunas ─────────────────────────────────────────────────────── */
 
-const COLUMNS: DataTableColumnDef<ClientRow>[] = [
+const COLUMNS: DataTableColumnDef<RowComBu>[] = [
   { field: "id", headerName: "ID", width: 110, icon: Hash, type: "text" },
   {
     field: "name",
@@ -193,6 +211,19 @@ const COLUMNS: DataTableColumnDef<ClientRow>[] = [
     filterType: "agente",
     valueFormatter: (v) => AGENTS[v as keyof typeof AGENTS]?.name ?? String(v ?? ""),
     render: ({ value }) => <AgentCell agentId={value as keyof typeof AGENTS} />,
+  },
+  {
+    field: "bu",
+    headerName: "BU",
+    width: 190,
+    icon: Tag,
+    enableColumnFilter: true,
+    filterType: "multiSelect",
+    filterOptions: BUS,
+    valueFormatter: (v) => BU_LABEL.get(String(v)) ?? String(v ?? ""),
+    render: ({ value }) => (
+      <span className="text-fg-muted">{BU_LABEL.get(String(value))}</span>
+    ),
   },
   {
     field: "value",
@@ -239,6 +270,7 @@ const FILTRO_INICIAL: FilterModel = {
 const CHIPS_FIXOS: Array<string | { field: string; dismissable?: boolean }> = [
   { field: "statusId", dismissable: false },
   { field: "agentId", dismissable: false },
+  { field: "bu", dismissable: false },
   "email",
 ];
 
@@ -253,8 +285,8 @@ export default function FilterChipsLabPreview() {
       description="Demo das duas capacidades avaliadas. (1) Chips FIXOS: Status e Atribuído entram como { field, dismissable: false } em showEmptyFilterChips — o X do chip preenchido limpa o valor, mas o chip volta como placeholder SEM X: nunca sai da toolbar. Email está na lista como string simples (descartável) pra comparar: o placeholder dele tem X e some ao clicar. A tela entra com Status = Ativo pré-aplicado por regra (filterModel inicial). (2) Tipo de filtro custom via columnTypeRegistry: a coluna Atribuído usa filterType 'agente' — o popover do chip tem busca, lista própria com avatar e ação Limpar, tudo definido fora do núcleo. Limite do núcleo: chip com operador isAnyOf/isNoneOf ou 2+ valores promove pro widget multiSelect built-in — widget custom no chip é pra filtro de valor único."
       code={CODE}
     >
-      <DataTable<ClientRow>
-        rows={CLIENTS_MOCK}
+      <DataTable<RowComBu>
+        rows={ROWS}
         columns={columns}
         getRowId={(r) => r.id}
         filterModel={filterModel}

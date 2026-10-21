@@ -1,7 +1,8 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/shadcn/checkbox";
+import { Input } from "@/components/shadcn/input";
 import {
   Popover,
   PopoverContent,
@@ -29,6 +30,10 @@ const toArray = (value: unknown): Array<string | number> => {
   return [value as string | number];
 };
 
+/** A partir de quantas opções a lista ganha campo de busca. Abaixo disso a
+ *  busca só adiciona altura (status com 3 valores não precisa filtrar). */
+const BUSCA_A_PARTIR_DE = 10;
+
 function MultiSelectDropdown({
   value,
   onChange,
@@ -36,45 +41,103 @@ function MultiSelectDropdown({
   renderOption,
 }: FastFilterInputProps) {
   const selected = toArray(value);
+  const [busca, setBusca] = useState("");
+  const visiveis = busca
+    ? options.filter((o) =>
+        o.label.toLowerCase().includes(busca.toLowerCase()),
+      )
+    : options;
+  const selectedSet = new Set(selected.map(String));
   const toggle = (val: string | number) => {
     const set = new Set(selected.map(String));
     if (set.has(String(val))) set.delete(String(val));
     else set.add(String(val));
     onChange(Array.from(set));
   };
+  // "Selecionar todos" é ADITIVO sobre os VISÍVEIS: com busca ativa seleciona
+  // só o resultado filtrado, sem perder o que já estava marcado fora dele.
+  const selecionarVisiveis = () => {
+    const set = new Set(selected.map(String));
+    for (const o of visiveis) set.add(String(o.value));
+    onChange(Array.from(set));
+  };
+  const todosVisiveisMarcados =
+    visiveis.length > 0 &&
+    visiveis.every((o) => selectedSet.has(String(o.value)));
 
   return (
     <div className="flex flex-col gap-gp-2xs p-pad-2xs min-w-[200px]">
-      {options.length === 0 && (
-        <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
-          Sem opções disponíveis
-        </p>
+      {options.length >= BUSCA_A_PARTIR_DE && (
+        <Input
+          autoFocus
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          placeholder="Buscar..."
+          aria-label="Buscar opção"
+        />
       )}
-      {options.map((opt) => {
-        const isChecked = selected.map(String).includes(String(opt.value));
-        return (
-          <label
-            key={String(opt.value)}
-            className={cn(
-              "flex items-center gap-gp-md w-full",
-              "px-pad-md py-pad-sm rounded-radius-md",
-              "text-body-md text-fg-default text-left cursor-pointer",
-              "hover:bg-bg-muted focus-within:bg-bg-muted",
-              "transition-colors duration-100",
-            )}
-          >
-            <Checkbox
-              checked={isChecked}
-              onCheckedChange={() => toggle(opt.value)}
-              aria-label={opt.label}
-              className="shrink-0"
-            />
-            <span className="flex-1 min-w-0 truncate">
-              {renderOption ? renderOption(opt) : (opt.label as ReactNode)}
-            </span>
-          </label>
-        );
-      })}
+      <div className="flex max-h-[240px] flex-col gap-gp-2xs overflow-y-auto">
+        {options.length === 0 && (
+          <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
+            Sem opções disponíveis
+          </p>
+        )}
+        {options.length > 0 && visiveis.length === 0 && (
+          <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
+            Nenhuma opção encontrada
+          </p>
+        )}
+        {visiveis.map((opt) => {
+          const isChecked = selectedSet.has(String(opt.value));
+          return (
+            <label
+              key={String(opt.value)}
+              className={cn(
+                "flex items-center gap-gp-md w-full",
+                "px-pad-md py-pad-sm rounded-radius-md",
+                "text-body-md text-fg-default text-left cursor-pointer",
+                "hover:bg-bg-muted focus-within:bg-bg-muted",
+                "transition-colors duration-100",
+              )}
+            >
+              <Checkbox
+                checked={isChecked}
+                onCheckedChange={() => toggle(opt.value)}
+                aria-label={opt.label}
+                className="shrink-0"
+              />
+              <span className="flex-1 min-w-0 truncate">
+                {renderOption ? renderOption(opt) : (opt.label as ReactNode)}
+              </span>
+            </label>
+          );
+        })}
+      </div>
+      {options.length > 1 && (
+        <div className="flex items-center justify-between gap-gp-md border-t border-border-subtle pt-pad-sm">
+          <div className="flex items-center gap-gp-xs">
+            <button
+              type="button"
+              onClick={selecionarVisiveis}
+              disabled={todosVisiveisMarcados}
+              className="rounded-radius-sm px-pad-md py-pad-xs text-body-xs font-semibold text-fg-muted transition-colors hover:bg-bg-muted hover:text-fg-default disabled:pointer-events-none disabled:opacity-50"
+            >
+              {busca ? "Selecionar visíveis" : "Selecionar todos"}
+            </button>
+            <button
+              type="button"
+              onClick={() => onChange([])}
+              disabled={selected.length === 0}
+              className="rounded-radius-sm px-pad-md py-pad-xs text-body-xs font-semibold text-fg-muted transition-colors hover:bg-bg-muted hover:text-fg-default disabled:pointer-events-none disabled:opacity-50"
+            >
+              Limpar
+            </button>
+          </div>
+          <span className="text-caption-xs text-fg-subtle tabular-nums">
+            {selected.length}/{options.length}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
