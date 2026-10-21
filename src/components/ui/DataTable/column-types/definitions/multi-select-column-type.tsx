@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input } from "@/components/shadcn/input";
+import { Button } from "@/components/ui/Button/button";
 import {
   Popover,
   PopoverContent,
@@ -76,7 +77,7 @@ function MultiSelectDropdown({
           aria-label="Buscar opção"
         />
       )}
-      <div className="flex max-h-[240px] flex-col gap-gp-2xs overflow-y-auto">
+      <div className="flex max-h-[240px] flex-col gap-gp-2xs overflow-y-auto scrollbar-thin pr-pad-2xs">
         {options.length === 0 && (
           <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
             Sem opções disponíveis
@@ -116,24 +117,26 @@ function MultiSelectDropdown({
       {options.length > 1 && (
         <div className="flex items-center justify-between gap-gp-md border-t border-border-subtle pt-pad-sm">
           <div className="flex items-center gap-gp-xs">
-            <button
-              type="button"
+            <Button
+              color="secondary"
+              variant="ghost"
+              size="2xs"
               onClick={selecionarVisiveis}
               disabled={todosVisiveisMarcados}
-              className="rounded-radius-sm px-pad-md py-pad-xs text-body-xs font-semibold text-fg-muted transition-colors hover:bg-bg-muted hover:text-fg-default disabled:pointer-events-none disabled:opacity-50"
             >
               {busca ? "Selecionar visíveis" : "Selecionar todos"}
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
+              color="secondary"
+              variant="ghost"
+              size="2xs"
               onClick={() => onChange([])}
               disabled={selected.length === 0}
-              className="rounded-radius-sm px-pad-md py-pad-xs text-body-xs font-semibold text-fg-muted transition-colors hover:bg-bg-muted hover:text-fg-default disabled:pointer-events-none disabled:opacity-50"
             >
               Limpar
-            </button>
+            </Button>
           </div>
-          <span className="text-caption-xs text-fg-subtle tabular-nums">
+          <span className="text-caption-xs text-fg-subtle tabular-nums pr-pad-sm">
             {selected.length}/{options.length}
           </span>
         </div>
