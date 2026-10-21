@@ -406,6 +406,7 @@ export function useFilterPopoverAdapter<T>({
       // a representação interna que outros caminhos como updateGroupValue
       // já esperam (1 item por valor selecionado).
       if (MULTI_VALUE_OPERATORS.has(operator) && Array.isArray(e.value)) {
+        let pushed = 0;
         for (const v of e.value as unknown[]) {
           if (v == null || v === "") continue;
           items.push({
@@ -413,6 +414,18 @@ export function useFilterPopoverAdapter<T>({
             field: e.columnKey,
             operator,
             value: v as FilterItem["value"],
+          });
+          pushed += 1;
+        }
+        // Linha ainda SEM valor (ex.: "é"→"não é" recém-trocado): mantém UM
+        // item vazio — sem ele a linha sumia do painel na troca de operador
+        // (item 11 do feedback Sólis). O cleanup de fechar remove os vazios.
+        if (pushed === 0) {
+          items.push({
+            id: genFilterId(),
+            field: e.columnKey,
+            operator,
+            value: undefined,
           });
         }
       } else {

@@ -6,6 +6,12 @@ export type FooterTableProps = {
   /** Linhas por página */
   pageSize: number;
   onPageChange: (page: number) => void;
+  /**
+   * Troca de page-size. Contrato: o handler é responsável por voltar à página
+   * 1 (o DataTable já faz). O FooterTable NÃO dispara mais um onPageChange(1)
+   * em seguida — o segundo evento carregava o pageSize antigo do render e, em
+   * paginação controlada, desfazia a troca.
+   */
   onPageSizeChange: (size: number) => void;
 
   /** Opções do dropdown de page-size. Default: [10, 25, 50, 100]. */

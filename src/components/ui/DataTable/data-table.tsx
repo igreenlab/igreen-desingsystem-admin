@@ -76,6 +76,7 @@ import type {
   DataTableRef,
   DataTableViewMode,
   FilterItem,
+  FilterModel,
   FilterValue,
   DataTableExportFormat,
   DataTableMoreMenuItem,
@@ -429,6 +430,10 @@ function DataTableInternal<T>(
    *  `<Select open>` forçado, que trava o dismiss por clique-fora; sem open
    *  controlado o popover não fecha ao escolher o valor (item 8). */
   const [openChipKey, setOpenChipKey] = useState<string | null>(null);
+
+  /** Model mais recente, pro cleanup adiado do closeChip não ler closure stale. */
+  const latestFilterModelRef = useRef<FilterModel>(filters.filterModel);
+  latestFilterModelRef.current = filters.filterModel;
 
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(
@@ -1968,14 +1973,18 @@ function DataTableInternal<T>(
                         ? [it.value]
                         : [],
                   );
+              /* Promoção pro widget multiSelect SÓ quando o filtro é de fato
+               * multi-valor: coluna multiSelect, operador agregado ou 2+ valores
+               * acumulados (builder avançado). `filterType: "select"` NÃO entra
+               * mais — escolha única usa o widget single do próprio tipo e fecha
+               * ao escolher (item 3 do feedback Sólis; a promoção antiga também
+               * sequestrava o widget de tipo CUSTOM de valor único). */
               const useMulti =
                 !isTupleOperator &&
                 (aggregateValues.length > 1 ||
                   group.operator === "isAnyOf" ||
                   group.operator === "isNoneOf" ||
-                  col?.filterType === "multiSelect" ||
-                  (col?.filterType === "select" &&
-                    (col?.filterOptions?.length ?? 0) > 0));
+                  col?.filterType === "multiSelect");
               const def = columnTypeRegistry.get(
                 isTupleOperator
                   ? (col?.filterType ?? "text")
@@ -2004,20 +2013,31 @@ function DataTableInternal<T>(
               const closeChip = () => {
                 setOpenChipKey(null);
                 if (isPendingOpen) setPendingOpenChipKey(null);
-                // Cleanup: remove itens vazios deste grupo do filterModel
-                const groupItems = group.items;
-                const allEmpty = groupItems.every((it) =>
-                  isFilterValueEmpty(it.value),
-                );
-                if (allEmpty) {
-                  const ids = new Set(groupItems.map((it) => it.id));
-                  filters.setFilterModel({
-                    ...filters.filterModel,
-                    items: filters.filterModel.items.filter(
-                      (it) => !ids.has(it.id),
-                    ),
-                  });
-                }
+                // Cleanup: remove itens vazios deste grupo do filterModel.
+                // ⚠️ ADIADO pro próximo tick e lendo o model pelo REF: widget
+                // single (select/boolean, FastSingleSelectList) chama onChange
+                // e onClose no MESMO clique — com o cleanup síncrono, os dois
+                // setFilterModel partiam do MESMO estado stale e o cleanup
+                // vencia, apagando o valor recém-escolhido de chip placeholder.
+                const groupField = group.field;
+                const groupOperator = group.operator;
+                setTimeout(() => {
+                  const model = latestFilterModelRef.current;
+                  const groupItems = model.items.filter(
+                    (it) =>
+                      it.field === groupField && it.operator === groupOperator,
+                  );
+                  if (
+                    groupItems.length > 0 &&
+                    groupItems.every((it) => isFilterValueEmpty(it.value))
+                  ) {
+                    const ids = new Set(groupItems.map((it) => it.id));
+                    filters.setFilterModel({
+                      ...model,
+                      items: model.items.filter((it) => !ids.has(it.id)),
+                    });
+                  }
+                }, 0);
               };
               return (
                 <Popover
