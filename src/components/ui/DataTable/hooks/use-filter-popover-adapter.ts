@@ -42,6 +42,14 @@ export type UseFilterPopoverAdapterParams<T> = {
   colLabelMap: Record<string, string>;
   /** Chave de chip pendente de abertura — pra incluir items vazios renderizando "phantom chip". */
   pendingOpenChipKey: string | null;
+  /**
+   * Chave do chip com popover ABERTO por clique (controlado no DataTable).
+   * Mesmo papel do pendingOpenChipKey: manter o grupo vazio vivo enquanto o
+   * popover está aberto — sem isso, desmarcar o último valor remove o grupo,
+   * o chip (âncora do popover) desmonta e o popover "fecha sozinho". O
+   * cleanup do fechar (closeChip) remove o vazio no clique-fora.
+   */
+  openChipKey?: string | null;
 };
 
 export type UseFilterPopoverAdapterResult<T> = {
@@ -77,6 +85,7 @@ export function useFilterPopoverAdapter<T>({
   colsByField,
   colLabelMap,
   pendingOpenChipKey,
+  openChipKey,
 }: UseFilterPopoverAdapterParams<T>): UseFilterPopoverAdapterResult<T> {
   const filterPopoverColumns = useMemo<FilterPopoverColumn[]>(
     () =>
@@ -170,8 +179,10 @@ export function useFilterPopoverAdapter<T>({
     for (const item of filterModel.items) {
       const key = `${item.field}|${item.operator}`;
       const isEmpty = isFilterValueEmpty(item.value);
-      // Items vazios são pulados — exceção: pending pra abrir popover (filter shortcut)
-      if (isEmpty && key !== pendingOpenChipKey) continue;
+      // Items vazios são pulados — exceções: pending pra abrir popover (filter
+      // shortcut) e chip com popover ABERTO (senão desmarcar o último valor
+      // desmonta o chip/âncora e o popover fecha no meio da interação).
+      if (isEmpty && key !== pendingOpenChipKey && key !== openChipKey) continue;
       if (!grouped.has(key)) grouped.set(key, []);
       grouped.get(key)!.push(item);
     }
@@ -181,7 +192,7 @@ export function useFilterPopoverAdapter<T>({
       operator: items[0].operator,
       items,
     }));
-  }, [filterModel, pendingOpenChipKey]);
+  }, [filterModel, pendingOpenChipKey, openChipKey]);
 
   const appliedFilters = useMemo<AppliedFilter[]>(
     () =>
@@ -317,6 +328,19 @@ export function useFilterPopoverAdapter<T>({
         });
       }
     }
+    // Valor esvaziado (desmarcou o último checkbox, limpou o range): mantém UM
+    // item vazio no lugar de remover o grupo — remover aqui desmonta o chip e
+    // fecha o popover NO MEIO da interação. O item vazio é inerte (processor e
+    // query ignoram filtro sem valor) e o closeChip remove no clique-fora.
+    if (newItems.length === 0) {
+      newItems.push({
+        id: genFilterId(),
+        field: group.field,
+        operator: effectiveOperator,
+        value: undefined,
+      });
+    }
+
     // Preserva a POSIÇÃO ORIGINAL do grupo no array — sem isso, o chip era
     // empurrado pro fim ao editar valor (visualmente confuso quando há 3+ chips).
     // Substituímos os items do grupo IN-PLACE pelos newItems, na posição da

@@ -464,6 +464,7 @@ function DataTableInternal<T>(
     colsByField,
     colLabelMap,
     pendingOpenChipKey,
+    openChipKey,
   });
 
   // Há filtro REAL ativo? Ignora linhas em branco do query builder (entry sem
