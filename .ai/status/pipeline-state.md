@@ -41,6 +41,7 @@
 - [2026-09-16 — CONCLUÍDO · `topSlot` na sidebar single: o desvio do `searchCommand` corrigido](#2026-09-16-concluído-topslot-na-sidebar-single-o-desvio-do-searchcommand-corrigido)
 - [2026-09-23 — CONCLUÍDO · Pacote npm podável: `preserveModules` + `sideEffects` + ícones fora do mapa](#2026-09-23-concluído-pacote-npm-podável-preservemodules-sideeffects-ícones-fora-do-mapa)
 - [2026-09-23 — CONCLUÍDO · Dialog/Sheet/AlertDialog: teto de altura, overlay portalado e X alinhado](#2026-09-23-concluído-dialogsheetalertdialog-teto-de-altura-overlay-portalado-e-x-alinhado)
+- [2026-09-24 — CONCLUÍDO · v0.68.0 — retorno do igreen-tickets sobre a v0.67.0](#2026-09-24-concluído-v0680-retorno-do-igreen-tickets-sobre-a-v0670)
 
 <!-- doc-index:fim -->
 
@@ -5640,3 +5641,70 @@ perguntas do auto-update protocol, ela reprova na segunda ("já está no ponto d
 Achado paralelo, anotado no mesmo passo: o dev server do showcase segurava `dist-lib/`
 e caiu com `EBUSY` quando o `prepublishOnly` rodou o `build:lib`. Não bloqueou a
 publicação, mas mata o dev server e pode quebrar o build no meio.
+
+---
+
+## 2026-09-24 — CONCLUÍDO · v0.68.0 — retorno do igreen-tickets sobre a v0.67.0
+
+**Escopo:** os 12 achados (R.1–R.12) que o consumidor `igreen-tickets` trouxe depois de
+migrar pra 0.67.0. **11 atendidos, 1 recusado.** PRs **#338** (o grosso), **#339**
+(`texts.hint`) e **#340** (rebake do embed).
+
+**Assumption:** que um consumidor lendo o CÓDIGO do pacote acha defeito que a nota de
+release esconde — e que o achado dele vale mesmo quando o pedido não vale. Confirmada:
+**cinco dos doze não eram pedido, eram defeito do que a 0.67.0 entregou**, incluindo um
+guia de migração meu que mandava apagar os `sm:` dos overlays e teria quebrado a margem
+lateral no celular em 51 lugares.
+
+**Enquadramento dado pelo mantenedor, e que mudou o recorte:** *"esse projeto não é dono
+do design system … outros vários projetos já consomem ele e nunca deram esse tipo de
+retorno"*. O critério virou: **defeito nosso e melhoria que não muda default entram;
+facilidade de tela não vira regra do sistema.** Nenhum default mudou, com UMA exceção
+dita em voz alta — o locale pt-BR do calendário, que era o único texto em inglês do DS.
+
+**Recusados, com motivo:** `Table` como troca direta da shadcn (a nossa é grid de `<div>`
+por design — é o que permite virtualização, coluna fixa e `autoFit`), `maxSelectable`,
+`mobileSheet` desligável, `label: ReactNode` no Kpi, e o slot de metadado + `onReplace`
+do FileUploadField.
+
+**Não-reprodução dita em voz alta:** o R.7 afirma que rótulo repetido fazia o cmdk
+colidir. Rodei os 7 casos novos com o código ANTIGO (`value={option.label}`) e todos
+passam igual — o nosso `onSelect` fecha sobre a opção e nunca lê o value do cmdk. A troca
+pra `value={option.value}` ficou porque é o correto, mas os testes cobrem o
+comportamento, **não a regressão**, e o arquivo diz isso em vez de fingir cobertura.
+
+**Três erros meus no caminho, todos achados por gate ou por auditoria — não por retorno:**
+
+1. **`date-fns/locale` escapava do tarball.** No `external` do build, uma string casa o
+   specifier INTEIRO: `date-fns` não cobre `date-fns/locale`. O que não é externo vira
+   bundle, e o import saiu apontando pra `../../../../node_modules/…` — caminho que só
+   existe na máquina que buildou (classe da L-017). Pego pelo `lib:verify` no CI; o local
+   tinha rodado ANTES do import entrar. Virou o gate `lib-externals`, que faz a mesma
+   pergunta em milissegundos no `npm test` em vez de só no build de 30s.
+2. **`texts.hint` estava na minha lista de aceitos e não tinha sido implementado.** A PR
+   listava como recusados só "slot de metadado e onReplace", o que por omissão fazia
+   parecer que o hint estava pronto. Achado conferindo a própria entrega prop por prop
+   contra o texto da PR — a mesma leitura que o consumidor fez. Perdi a janela do merge
+   por minutos e foi pro #339.
+3. **Embed defasado.** O `release:check` na main reprovou: o #339 entrou DEPOIS do commit
+   de release, então o registry seguia servindo o `FileUploadField` sem a prop, com um
+   USAGE que documenta uma prop que o arquivo não tem. Rebake no #340.
+
+**Validação:** `release:check` ✓ (registry · 5 marcas × 10 superfícies · débito de
+distribuição · examples drift · version-claims · blocks · audit) · `lib:verify` ✓ 2772
+arquivos, 521 `.d.ts`, 769 módulos fechados no tarball · `npm test` 101 arquivos / 1285 ✓
+· `tsc` 0. Medido no browser: as 4 formas de container query que o codemod v2 gera
+(`@page-sm:`, `@page-lg/painel:`, `@max-page-md:`, `@min-page-lg:`) compilam pro
+`@container` certo, e um degrau inexistente não emite CSS nenhum.
+
+**PUBLICADO em 2026-09-24:** `@snksergio/design-system@0.68.0` e
+`@snksergio/create-design-system@0.25.37`. Confirmado pelo caminho de ESCRITA na hora e
+pelo de leitura ~2 min depois — o falso negativo do passo 7.4 se repetiu, e desta vez o
+passo corrigido evitou o diagnóstico errado.
+
+**Entrega ao consumidor:** MD de resposta + codemod **v2**. O v1 ignorava as variantes de
+container query (`@sm:`…`@3xl:`, incluindo container nomeado `@lg/painel:`) e o
+`var(--container-*)`, e migrava `min-w-*` calado — este último saiu do automático porque a
+declaração é a mesma antes e depois, mas se o `tailwind-merge` a descartava antes e passa
+a fazê-la vencer agora, a tela ganha um mínimo que nunca teve. É o único caso onde
+preservar a declaração não preserva o pixel.
