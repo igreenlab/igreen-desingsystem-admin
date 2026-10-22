@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · accordion · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · alert-dialog · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · alert-modal · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · alert · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · app-shell · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · aspect-ratio · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · avatar-ig · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · avatar · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · badge · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · breadcrumb · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · button-group · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · button · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · calendar · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · card-checkbox · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · card-option · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -623,7 +623,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/card.tsx",
-        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport {\r\n  ClickableSurface,\r\n  type ClickableSurfaceProps,\r\n} from \"./clickable-surface\"\r\n\r\n/**\r\n * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as\r\n * partes e um `variant` de header em faixa.\r\n *\r\n * ## `size` — 3 densidades, propagadas por contexto\r\n *\r\n *     lg  →  24px  (pad-4xl)\r\n *     md  →  20px  (pad-3xl)   ← DEFAULT\r\n *     sm  →  16px  (pad-2xl)\r\n *\r\n * O valor é declarado **uma vez no `<Card>`** e chega em `CardHeader`/`CardContent`/\r\n * `CardFooter` por `CardSizeContext` — o mesmo mecanismo que o `Tabs` usa pro\r\n * `variant`. Repetir `size` nas partes é o erro que deixa uma seção com densidade\r\n * diferente do resto do card.\r\n *\r\n * ⚠️ **`md` (20px) é o default, e antes era 24px.** Mudança deliberada de 2026-08-19:\r\n * 24 virou o `lg`. Card que dependia dos 24px passa `size=\"lg\"`.\r\n *\r\n * ⚠️ Não existe 18px na escala de `pad` (vai 16 → 20 → 24), então `sm` é **16px**.\r\n *\r\n * ## O padding é dividido entre o Card e as partes — e é de propósito\r\n *\r\n * O `Card` carrega o padding **vertical** (`py-*`); cada parte carrega o\r\n * **horizontal** (`px-*`). Assim o `gap` do Card controla o respiro ENTRE seções sem\r\n * somar com padding de cada uma, e uma parte pode ser full-bleed (tabela que encosta\r\n * nas bordas, imagem de topo) só zerando o próprio `px`.\r\n *\r\n * ## `CardHeader variant=\"banded\"` — header em faixa\r\n *\r\n * Fundo `bg-subtle` + borda embaixo, encostado nas bordas do card. Espelha o padrão\r\n * das seções de `#/order-detail` e `?app=edit-page`, que era composição local do\r\n * showcase e agora é variante do componente.\r\n *\r\n * Mecânica: a faixa precisa **cancelar o padding vertical do Card** pra encostar no\r\n * topo (`-mt-*` do mesmo tamanho do `size`) e arredondar as quinas de cima\r\n * (`rounded-t-*`) — em vez de `overflow-hidden` no Card, que clipa qualquer coisa que\r\n * precise vazar. Ela também troca o `px-*` por padding nos 4 lados, senão o texto\r\n * cola na borda de cima.\r\n */\r\n\r\n/* ── size: contexto ──────────────────────────────────────────────────────── */\r\n\r\ntype CardSize = \"sm\" | \"md\" | \"lg\"\r\n\r\nconst CardSizeContext = React.createContext<CardSize>(\"md\")\r\n\r\n/**\r\n * Padding interno por size — via `pad-card-*`, a família de token **dedicada a\r\n * padding de card** (`tokens/.../components/spacing.ts`), não a escala genérica\r\n * `pad-*`. Os valores são iguais (16/20/24), mas o semântico existe pra isto: mudar\r\n * a densidade de card no futuro é mexer em `padCard`, num lugar, sem caçar\r\n * `pad-3xl` espalhado.\r\n *\r\n * A família é simétrica desde 2026-08-19 (`sm`/`md`/`lg`). O nome antigo `pad-card-base`\r\n * continua existindo como **alias de `md`**, só pra não quebrar quem já o consome — não\r\n * usar aqui nem em código novo. Ver o cabeçalho de `components/spacing.ts`.\r\n */\r\nconst PAD_X: Record<CardSize, string> = {\r\n  sm: \"px-pad-card-sm\",\r\n  md: \"px-pad-card-md\",\r\n  lg: \"px-pad-card-lg\",\r\n}\r\nconst PAD_Y: Record<CardSize, string> = {\r\n  sm: \"py-pad-card-sm\",\r\n  md: \"py-pad-card-md\",\r\n  lg: \"py-pad-card-lg\",\r\n}\r\nconst PAD_ALL: Record<CardSize, string> = {\r\n  sm: \"p-pad-card-sm\",\r\n  md: \"p-pad-card-md\",\r\n  lg: \"p-pad-card-lg\",\r\n}\r\n/** Cancela o `py` do Card, pra faixa encostar no topo. */\r\nconst PULL_TOP: Record<CardSize, string> = {\r\n  sm: \"-mt-pad-card-sm\",\r\n  md: \"-mt-pad-card-md\",\r\n  lg: \"-mt-pad-card-lg\",\r\n}\r\n\r\n/* ── Card ────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Card clicável — `onClick` e/ou `href` transformam a superfície inteira em alvo.\r\n *\r\n * Um `onClick` solto numa `<div>` (que é o que o consumidor escrevia) não tem foco,\r\n * não responde a Enter/Space, não é anunciado como controle e não existe pra quem\r\n * navega por teclado. Aqui o alvo é um `<button>`/`<a>` esticado por cima — ver\r\n * `ClickableSurface` pra por que não trocamos a raiz. A `<div>` continua `<div>`,\r\n * então nada do que já existe muda.\r\n *\r\n * `surfaceLabel` é o nome acessível e é obrigatório quando há clique: o alvo é vazio,\r\n * e sem ele o leitor anuncia \"botão\" e mais nada. Controle DENTRO do card (um menu,\r\n * um botão secundário) precisa de `relative z-10` pra ficar acima do overlay.\r\n */\r\ntype CardClickProps =\r\n  | {\r\n      onClick?: never; href?: never; surfaceLabel?: never; target?: never;\r\n      renderLink?: never; surfaceClassName?: never; disabled?: never;\r\n    }\r\n  | ({\r\n      surfaceLabel: string;\r\n      /**\r\n       * className do ALVO esticado, não do card. Existe porque o anel de foco é externo\r\n       * (`ring`) e some quando o card está dentro de um container com\r\n       * `overflow-hidden` ou `content-visibility` — reportado pelo consumidor, que\r\n       * resolveu com `ring-inset`. Sem esta prop, não havia como alcançar o alvo.\r\n       */\r\n      surfaceClassName?: string;\r\n    } & Pick<\r\n      ClickableSurfaceProps,\r\n      | \"onClick\"\r\n      | \"href\"\r\n      | \"target\"\r\n      | \"renderLink\"\r\n      | \"aria-pressed\"\r\n      | \"aria-current\"\r\n      | \"aria-expanded\"\r\n      | \"disabled\"\r\n    >);\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  Omit<React.HTMLAttributes<HTMLDivElement>, \"onClick\"> & { size?: CardSize } & CardClickProps\r\n>((\r\n  {\r\n    className,\r\n    size = \"md\",\r\n    children,\r\n    onClick,\r\n    href,\r\n    surfaceLabel,\r\n    surfaceClassName,\r\n    target,\r\n    renderLink,\r\n    \"aria-pressed\": ariaPressed,\r\n    \"aria-current\": ariaCurrent,\r\n    \"aria-expanded\": ariaExpanded,\r\n    disabled,\r\n    ...props\r\n  },\r\n  ref,\r\n) => {\r\n  const clicavel = Boolean(onClick || href);\r\n  return (\r\n  <CardSizeContext.Provider value={size}>\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n        PAD_Y[size],\r\n        clicavel && \"relative transition-colors hover:bg-bg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {clicavel && (\r\n        <ClickableSurface\r\n          label={surfaceLabel as string}\r\n          onClick={onClick}\r\n          href={href}\r\n          target={target}\r\n          renderLink={renderLink}\r\n          className={surfaceClassName}\r\n          aria-pressed={ariaPressed}\r\n          aria-current={ariaCurrent}\r\n          aria-expanded={ariaExpanded}\r\n          disabled={disabled}\r\n        />\r\n      )}\r\n    </div>\r\n  </CardSizeContext.Provider>\r\n  );\r\n})\r\nCard.displayName = \"Card\"\r\n\r\n/* ── CardHeader ──────────────────────────────────────────────────────────── */\r\n\r\ntype CardHeaderVariant = \"plain\" | \"banded\"\r\n\r\n/**\r\n * Não há contexto de variante aqui de propósito. Houve um, por ~20 minutos em\r\n * 2026-08-19, pra a faixa deixar o título semibold enquanto o header plano ficava\r\n * medium — até descobrir que o preset `text-title-md` **já é 600** e que o `medium`\r\n * era um override indevido no `CardTitle`. Removido o override, o peso é o mesmo nas\r\n * duas variantes e o contexto virou código morto.\r\n */\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & { variant?: CardHeaderVariant }\r\n>(({ className, variant = \"plain\", ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        // `gap-gp-2xs` (2px) e não `gp-sm` (6px): título e subtítulo de card são UMA\r\n        // unidade de leitura, não dois blocos. Com 6px o subtítulo lê como parágrafo\r\n        // solto sob o título; com 2px lê como legenda dele. É o valor que o showcase\r\n        // já aplicava no helper local dos cards de gráfico — a diferença apareceu ao\r\n        // comparar o mesmo card montado com o helper e com este componente, e o\r\n        // mantenedor escolheu o compacto como padrão (2026-08-19).\r\n        //\r\n        // ⚠️ Divergência DELIBERADA do shadcn upstream, que usa 6px: ao re-sincronizar\r\n        // este primitivo, não reverter (mesma classe de cuidado da L-040).\r\n        \"grid auto-rows-min items-start gap-gp-2xs\",\r\n        variant === \"banded\"\r\n          ? cn(\r\n              // Faixa: padding nos 4 lados (o `px` sozinho deixaria o texto colado no\r\n              // topo), fundo, divisória, e o `-mt` que cancela o `py` do Card pra\r\n              // encostar na borda. `rounded-t` em vez de `overflow-hidden` no Card —\r\n              // clipar o Card quebraria qualquer coisa que precise vazar dele.\r\n              PAD_ALL[size],\r\n              PULL_TOP[size],\r\n              // `bg-subtle` + `border-subtle`: os mesmos tokens da referência\r\n              // (`SectionCard` do order-detail / `?app=edit-page`), escolhidos pelo\r\n              // mantenedor em 2026-08-19.\r\n              //\r\n              // ⚠️ Medido, pra quem for mexer não achar que é descuido: no **dark** o\r\n              // `bg-subtle` é 1% de branco sobre um surface de 0.225 — ~0,8pp de\r\n              // diferença, uma faixa **muito** discreta. No light são 0.973 sobre\r\n              // 1.0, que lê normalmente. É restrição intencional, não bug: a decisão\r\n              // veio de quem desenhou a tela de referência. Se um dia o dark precisar\r\n              // de mais presença, `bg-muted` é 3× (e no light é idêntico ao subtle).\r\n              \"rounded-t-radius-base border-b border-border-subtle bg-bg-subtle\"\r\n            )\r\n          : PAD_X[size],\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // SEM `font-*`: o peso vem do preset. `text-title-md` já emite `font-weight: 600`\r\n    // (conferido no tema gerado), o token declara *\"title: 600 (semibold) — mais usado\r\n    // no projeto\"*, e o `DESIGN.md` lista `title-md · 600 · Card title (default)`.\r\n    //\r\n    // Aqui havia um `font-medium` que **anulava o próprio preset** e derrubava o título\r\n    // pra 500 — sem estar documentado em lugar nenhum, e contra o spec do DS. Foi achado\r\n    // em 2026-08-19 comparando o mesmo card montado com o helper local do showcase (que\r\n    // acertava, `font-semibold`) e com este componente. Não reintroduzir: quem quer outro\r\n    // peso passa `font-*` no `className`, que é o caminho de exceção.\r\n    className={cn(\"text-title-md text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // `caption-md` (12px/400) e não `body-md` (14/400) — decisão do mantenedor\r\n    // 2026-08-19: 14 competia com o conteúdo do card.\r\n    //\r\n    // Entre os dois presets de 12px, `caption-md` e não `body-xs`, por PESO: `body-xs`\r\n    // é 12/**500**, o que deixaria o subtítulo mais pesado que os 400 de hoje e pediria\r\n    // um `font-normal` por cima — reintroduzindo o override de preset que acabou de sair\r\n    // do `CardTitle`. `caption-md` é 12/400: só o tamanho muda. E é o que o\r\n    // `CardCheckbox.description` já usa, que é o análogo mais próximo no DS.\r\n    className={cn(\"text-caption-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\n/* ── CardContent · CardFooter ────────────────────────────────────────────── */\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return <div ref={ref} className={cn(PAD_X[size], className)} {...props} />\r\n})\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\"flex items-center\", PAD_X[size], className)}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\nexport type { CardSize, CardHeaderVariant }\r\n",
+        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n/* Alias, NÃO relativo. No copy-in os dois arquivos caem em pastas diferentes\r\n   (`card.tsx` → components/ui/, `clickable-surface.tsx` → components/shadcn/) e o\r\n   shadcn só reescreve especificador que começa com `@/` — um `./clickable-surface`\r\n   passa verbatim e aponta pra um arquivo que não existe no projeto do consumidor.\r\n   O `Kpi` sempre importou por alias; este arquivo é que estava fora do padrão. */\r\nimport {\r\n  ClickableSurface,\r\n  type ClickableSurfaceProps,\r\n} from \"@/components/shadcn/clickable-surface\"\r\n\r\n/**\r\n * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as\r\n * partes e um `variant` de header em faixa.\r\n *\r\n * ## `size` — 3 densidades, propagadas por contexto\r\n *\r\n *     lg  →  24px  (pad-4xl)\r\n *     md  →  20px  (pad-3xl)   ← DEFAULT\r\n *     sm  →  16px  (pad-2xl)\r\n *\r\n * O valor é declarado **uma vez no `<Card>`** e chega em `CardHeader`/`CardContent`/\r\n * `CardFooter` por `CardSizeContext` — o mesmo mecanismo que o `Tabs` usa pro\r\n * `variant`. Repetir `size` nas partes é o erro que deixa uma seção com densidade\r\n * diferente do resto do card.\r\n *\r\n * ⚠️ **`md` (20px) é o default, e antes era 24px.** Mudança deliberada de 2026-08-19:\r\n * 24 virou o `lg`. Card que dependia dos 24px passa `size=\"lg\"`.\r\n *\r\n * ⚠️ Não existe 18px na escala de `pad` (vai 16 → 20 → 24), então `sm` é **16px**.\r\n *\r\n * ## O padding é dividido entre o Card e as partes — e é de propósito\r\n *\r\n * O `Card` carrega o padding **vertical** (`py-*`); cada parte carrega o\r\n * **horizontal** (`px-*`). Assim o `gap` do Card controla o respiro ENTRE seções sem\r\n * somar com padding de cada uma, e uma parte pode ser full-bleed (tabela que encosta\r\n * nas bordas, imagem de topo) só zerando o próprio `px`.\r\n *\r\n * ## `CardHeader variant=\"banded\"` — header em faixa\r\n *\r\n * Fundo `bg-subtle` + borda embaixo, encostado nas bordas do card. Espelha o padrão\r\n * das seções de `#/order-detail` e `?app=edit-page`, que era composição local do\r\n * showcase e agora é variante do componente.\r\n *\r\n * Mecânica: a faixa precisa **cancelar o padding vertical do Card** pra encostar no\r\n * topo (`-mt-*` do mesmo tamanho do `size`) e arredondar as quinas de cima\r\n * (`rounded-t-*`) — em vez de `overflow-hidden` no Card, que clipa qualquer coisa que\r\n * precise vazar. Ela também troca o `px-*` por padding nos 4 lados, senão o texto\r\n * cola na borda de cima.\r\n */\r\n\r\n/* ── size: contexto ──────────────────────────────────────────────────────── */\r\n\r\ntype CardSize = \"sm\" | \"md\" | \"lg\"\r\n\r\nconst CardSizeContext = React.createContext<CardSize>(\"md\")\r\n\r\n/**\r\n * Padding interno por size — via `pad-card-*`, a família de token **dedicada a\r\n * padding de card** (`tokens/.../components/spacing.ts`), não a escala genérica\r\n * `pad-*`. Os valores são iguais (16/20/24), mas o semântico existe pra isto: mudar\r\n * a densidade de card no futuro é mexer em `padCard`, num lugar, sem caçar\r\n * `pad-3xl` espalhado.\r\n *\r\n * A família é simétrica desde 2026-08-19 (`sm`/`md`/`lg`). O nome antigo `pad-card-base`\r\n * continua existindo como **alias de `md`**, só pra não quebrar quem já o consome — não\r\n * usar aqui nem em código novo. Ver o cabeçalho de `components/spacing.ts`.\r\n */\r\nconst PAD_X: Record<CardSize, string> = {\r\n  sm: \"px-pad-card-sm\",\r\n  md: \"px-pad-card-md\",\r\n  lg: \"px-pad-card-lg\",\r\n}\r\nconst PAD_Y: Record<CardSize, string> = {\r\n  sm: \"py-pad-card-sm\",\r\n  md: \"py-pad-card-md\",\r\n  lg: \"py-pad-card-lg\",\r\n}\r\nconst PAD_ALL: Record<CardSize, string> = {\r\n  sm: \"p-pad-card-sm\",\r\n  md: \"p-pad-card-md\",\r\n  lg: \"p-pad-card-lg\",\r\n}\r\n/** Cancela o `py` do Card, pra faixa encostar no topo. */\r\nconst PULL_TOP: Record<CardSize, string> = {\r\n  sm: \"-mt-pad-card-sm\",\r\n  md: \"-mt-pad-card-md\",\r\n  lg: \"-mt-pad-card-lg\",\r\n}\r\n\r\n/* ── Card ────────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Card clicável — `onClick` e/ou `href` transformam a superfície inteira em alvo.\r\n *\r\n * Um `onClick` solto numa `<div>` (que é o que o consumidor escrevia) não tem foco,\r\n * não responde a Enter/Space, não é anunciado como controle e não existe pra quem\r\n * navega por teclado. Aqui o alvo é um `<button>`/`<a>` esticado por cima — ver\r\n * `ClickableSurface` pra por que não trocamos a raiz. A `<div>` continua `<div>`,\r\n * então nada do que já existe muda.\r\n *\r\n * `surfaceLabel` é o nome acessível e é obrigatório quando há clique: o alvo é vazio,\r\n * e sem ele o leitor anuncia \"botão\" e mais nada. Controle DENTRO do card (um menu,\r\n * um botão secundário) precisa de `relative z-10` pra ficar acima do overlay.\r\n */\r\ntype CardClickProps =\r\n  | {\r\n      onClick?: never; href?: never; surfaceLabel?: never; target?: never;\r\n      renderLink?: never; surfaceClassName?: never; disabled?: never;\r\n    }\r\n  | ({\r\n      surfaceLabel: string;\r\n      /**\r\n       * className do ALVO esticado, não do card. Existe porque o anel de foco é externo\r\n       * (`ring`) e some quando o card está dentro de um container com\r\n       * `overflow-hidden` ou `content-visibility` — reportado pelo consumidor, que\r\n       * resolveu com `ring-inset`. Sem esta prop, não havia como alcançar o alvo.\r\n       */\r\n      surfaceClassName?: string;\r\n    } & Pick<\r\n      ClickableSurfaceProps,\r\n      | \"onClick\"\r\n      | \"href\"\r\n      | \"target\"\r\n      | \"renderLink\"\r\n      | \"aria-pressed\"\r\n      | \"aria-current\"\r\n      | \"aria-expanded\"\r\n      | \"disabled\"\r\n    >);\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  Omit<React.HTMLAttributes<HTMLDivElement>, \"onClick\"> & { size?: CardSize } & CardClickProps\r\n>((\r\n  {\r\n    className,\r\n    size = \"md\",\r\n    children,\r\n    onClick,\r\n    href,\r\n    surfaceLabel,\r\n    surfaceClassName,\r\n    target,\r\n    renderLink,\r\n    \"aria-pressed\": ariaPressed,\r\n    \"aria-current\": ariaCurrent,\r\n    \"aria-expanded\": ariaExpanded,\r\n    disabled,\r\n    ...props\r\n  },\r\n  ref,\r\n) => {\r\n  const clicavel = Boolean(onClick || href);\r\n  return (\r\n  <CardSizeContext.Provider value={size}>\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n        PAD_Y[size],\r\n        clicavel && \"relative transition-colors hover:bg-bg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {clicavel && (\r\n        <ClickableSurface\r\n          label={surfaceLabel as string}\r\n          onClick={onClick}\r\n          href={href}\r\n          target={target}\r\n          renderLink={renderLink}\r\n          className={surfaceClassName}\r\n          aria-pressed={ariaPressed}\r\n          aria-current={ariaCurrent}\r\n          aria-expanded={ariaExpanded}\r\n          disabled={disabled}\r\n        />\r\n      )}\r\n    </div>\r\n  </CardSizeContext.Provider>\r\n  );\r\n})\r\nCard.displayName = \"Card\"\r\n\r\n/* ── CardHeader ──────────────────────────────────────────────────────────── */\r\n\r\ntype CardHeaderVariant = \"plain\" | \"banded\"\r\n\r\n/**\r\n * Não há contexto de variante aqui de propósito. Houve um, por ~20 minutos em\r\n * 2026-08-19, pra a faixa deixar o título semibold enquanto o header plano ficava\r\n * medium — até descobrir que o preset `text-title-md` **já é 600** e que o `medium`\r\n * era um override indevido no `CardTitle`. Removido o override, o peso é o mesmo nas\r\n * duas variantes e o contexto virou código morto.\r\n */\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & { variant?: CardHeaderVariant }\r\n>(({ className, variant = \"plain\", ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        // `gap-gp-2xs` (2px) e não `gp-sm` (6px): título e subtítulo de card são UMA\r\n        // unidade de leitura, não dois blocos. Com 6px o subtítulo lê como parágrafo\r\n        // solto sob o título; com 2px lê como legenda dele. É o valor que o showcase\r\n        // já aplicava no helper local dos cards de gráfico — a diferença apareceu ao\r\n        // comparar o mesmo card montado com o helper e com este componente, e o\r\n        // mantenedor escolheu o compacto como padrão (2026-08-19).\r\n        //\r\n        // ⚠️ Divergência DELIBERADA do shadcn upstream, que usa 6px: ao re-sincronizar\r\n        // este primitivo, não reverter (mesma classe de cuidado da L-040).\r\n        \"grid auto-rows-min items-start gap-gp-2xs\",\r\n        variant === \"banded\"\r\n          ? cn(\r\n              // Faixa: padding nos 4 lados (o `px` sozinho deixaria o texto colado no\r\n              // topo), fundo, divisória, e o `-mt` que cancela o `py` do Card pra\r\n              // encostar na borda. `rounded-t` em vez de `overflow-hidden` no Card —\r\n              // clipar o Card quebraria qualquer coisa que precise vazar dele.\r\n              PAD_ALL[size],\r\n              PULL_TOP[size],\r\n              // `bg-subtle` + `border-subtle`: os mesmos tokens da referência\r\n              // (`SectionCard` do order-detail / `?app=edit-page`), escolhidos pelo\r\n              // mantenedor em 2026-08-19.\r\n              //\r\n              // ⚠️ Medido, pra quem for mexer não achar que é descuido: no **dark** o\r\n              // `bg-subtle` é 1% de branco sobre um surface de 0.225 — ~0,8pp de\r\n              // diferença, uma faixa **muito** discreta. No light são 0.973 sobre\r\n              // 1.0, que lê normalmente. É restrição intencional, não bug: a decisão\r\n              // veio de quem desenhou a tela de referência. Se um dia o dark precisar\r\n              // de mais presença, `bg-muted` é 3× (e no light é idêntico ao subtle).\r\n              \"rounded-t-radius-base border-b border-border-subtle bg-bg-subtle\"\r\n            )\r\n          : PAD_X[size],\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // SEM `font-*`: o peso vem do preset. `text-title-md` já emite `font-weight: 600`\r\n    // (conferido no tema gerado), o token declara *\"title: 600 (semibold) — mais usado\r\n    // no projeto\"*, e o `DESIGN.md` lista `title-md · 600 · Card title (default)`.\r\n    //\r\n    // Aqui havia um `font-medium` que **anulava o próprio preset** e derrubava o título\r\n    // pra 500 — sem estar documentado em lugar nenhum, e contra o spec do DS. Foi achado\r\n    // em 2026-08-19 comparando o mesmo card montado com o helper local do showcase (que\r\n    // acertava, `font-semibold`) e com este componente. Não reintroduzir: quem quer outro\r\n    // peso passa `font-*` no `className`, que é o caminho de exceção.\r\n    className={cn(\"text-title-md text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // `caption-md` (12px/400) e não `body-md` (14/400) — decisão do mantenedor\r\n    // 2026-08-19: 14 competia com o conteúdo do card.\r\n    //\r\n    // Entre os dois presets de 12px, `caption-md` e não `body-xs`, por PESO: `body-xs`\r\n    // é 12/**500**, o que deixaria o subtítulo mais pesado que os 400 de hoje e pediria\r\n    // um `font-normal` por cima — reintroduzindo o override de preset que acabou de sair\r\n    // do `CardTitle`. `caption-md` é 12/400: só o tamanho muda. E é o que o\r\n    // `CardCheckbox.description` já usa, que é o análogo mais próximo no DS.\r\n    className={cn(\"text-caption-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\n/* ── CardContent · CardFooter ────────────────────────────────────────────── */\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return <div ref={ref} className={cn(PAD_X[size], className)} {...props} />\r\n})\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\"flex items-center\", PAD_X[size], className)}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\nexport type { CardSize, CardHeaderVariant }\r\n",
         "type": "registry:ui",
         "target": "components/ui/card.tsx"
       },
@@ -641,7 +641,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · card · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -667,7 +667,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · carousel · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -703,7 +703,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · chart · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · checkbox · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -738,7 +738,8 @@ export const registry: Record<string, unknown> = {
     "title": "Chip",
     "description": "Pilula compacta (status/tags/filtros), span ou button + ChipGroup.",
     "dependencies": [
-      "@radix-ui/react-toggle-group@^1.1.11"
+      "@radix-ui/react-toggle-group@^1.1.11",
+      "lucide-react@^1.7.0"
     ],
     "registryDependencies": [
       "@igreen/utils",
@@ -777,7 +778,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · chip · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -830,7 +831,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · choropleth-map · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -852,7 +853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · collapsible · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -917,7 +918,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · color-picker · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -970,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · combobox · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -997,7 +998,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · command · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1022,7 +1023,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · context-menu · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1099,7 +1100,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · data-list · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1784,7 +1785,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · data-table · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1794,6 +1795,7 @@ export const registry: Record<string, unknown> = {
     "title": "Date Picker",
     "description": "Seletor de data(s) (Popover + Calendar) com trigger no estilo input do DS (mesmos tokens do SelectTrigger). `mode`: single (default), range ou multiple — união discriminada, o modo troca o TIPO de `value`.",
     "dependencies": [
+      "date-fns@^4.1.0",
       "lucide-react@^1.7.0"
     ],
     "registryDependencies": [
@@ -1822,7 +1824,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · date-picker · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1847,7 +1849,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · dialog · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1871,7 +1873,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · drawer · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1896,7 +1898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · dropdown-menu · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1925,7 +1927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -1954,7 +1956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -1985,7 +1987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -2015,7 +2017,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -2068,7 +2070,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · empty-state · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2109,7 +2111,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-app-shell · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2411,7 +2413,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-chat · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2507,7 +2509,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-clientes · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2553,7 +2555,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-dashboard · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2604,7 +2606,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-edit-page · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2740,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-finance · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2779,7 +2781,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-gantt · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-gantt · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2809,7 +2811,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-login · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2866,7 +2868,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-mapa-rede · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2875,7 +2877,9 @@ export const registry: Record<string, unknown> = {
     "name": "example-order-detail",
     "title": "Exemplo — Detalhamento de pedido (showcase real)",
     "description": "Extração 1:1 do showcase OrderDetailShowcase: PageHeader + Tabs (visão geral, detalhes, atividade, comentários, anexos) com cards de seção. Conteúdo da página (sem shell). Renderize <OrderDetailScreen/>.",
-    "dependencies": [],
+    "dependencies": [
+      "lucide-react@^1.7.0"
+    ],
     "registryDependencies": [
       "@igreen/button",
       "@igreen/chip",
@@ -2947,7 +2951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · example-order-detail · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2997,7 +3001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · file-upload-field · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3065,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · floating-panel · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3107,7 +3111,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · footer-table · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3193,7 +3197,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · form-field · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3333,7 +3337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · gantt · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3425,7 +3429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · header · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3449,7 +3453,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · hover-card · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3514,7 +3518,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · icon · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3538,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · input-group · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3548,6 +3552,7 @@ export const registry: Record<string, unknown> = {
     "title": "Input OTP",
     "description": "Entrada de código OTP/2FA com slots individuais, tokenizado.",
     "dependencies": [
+      "class-variance-authority@^0.7.1",
       "input-otp@^1.4.2",
       "lucide-react@^1.7.0"
     ],
@@ -3563,7 +3568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · input-otp · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3587,7 +3592,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · input · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3646,7 +3651,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · kanban · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3727,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · kpi · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3752,7 +3757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · label · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3859,7 +3864,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · list · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3910,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · markdown-text · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4015,7 +4020,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · menu-sidebar · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4040,7 +4045,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · menubar · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4084,7 +4089,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · modal · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4133,7 +4138,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · month-year-picker · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4159,7 +4164,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · navigation-menu · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4206,7 +4211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · page-header · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4231,7 +4236,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · pagination · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4306,7 +4311,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · panel · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4330,7 +4335,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · popover · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4354,7 +4359,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · progress · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4378,7 +4383,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · radio-group · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4518,7 +4523,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · scheduler · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4566,7 +4571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · screen-loader · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4590,7 +4595,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · scroll-area · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4615,7 +4620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · select · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4639,7 +4644,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · separator · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4665,7 +4670,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · sheet · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4778,7 +4783,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4800,7 +4805,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · skeleton · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4824,7 +4829,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · slider · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4847,7 +4852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · sonner · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4893,7 +4898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · spinner · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4917,7 +4922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · switch · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5002,7 +5007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · table · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5065,7 +5070,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · tabs-navigation · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5089,7 +5094,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · tabs · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5113,7 +5118,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · textarea · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5131,7 +5136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · theme-blue · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5149,7 +5154,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · theme-green · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5167,7 +5172,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · theme-pay · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5185,7 +5190,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · theme-vibrant · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5207,7 +5212,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · theme · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5258,7 +5263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · toast · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5284,7 +5289,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · toggle-group · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5309,7 +5314,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · toggle · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5333,7 +5338,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · tooltip · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5361,7 +5366,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · tv · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5389,7 +5394,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.68.0 · dcacf95 · 2026-09-24"
+      "stamp": "igreen-ds · utils · v0.68.0 · bb6e88e · 2026-10-22"
     },
     "type": "registry:file"
   }
