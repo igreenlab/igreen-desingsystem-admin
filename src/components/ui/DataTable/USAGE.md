@@ -587,6 +587,23 @@ columnTypeRegistry.register(RatingColumnType);
 
 ---
 
+## Filtros — extensões do feedback Sólis (2026-10)
+
+| Capacidade | API | Nota |
+|---|---|---|
+| Filtro sem coluna visível | `ColumnDef.hidden: true` | coluna nasce oculta; chips/funil/avançado seguem filtrando (persist vence o default) |
+| Nome do filtro ≠ título | `ColumnDef.filterLabel` | usado no chip, funil e avançado |
+| Chip fixo (nunca sai) | `showEmptyFilterChips: [{ field, dismissable: false }]` | X do preenchido limpa e o chip vira ⊕ sem X; string simples = descartável (comportamento antigo) |
+| Opções do servidor | `ColumnDef.filterLoadOptions(search, page)` + `filterValueLabel(v)` | multiSelect do chip vira busca async: debounce 300ms, "Carregar mais", marcados sempre no topo com rótulo resolvido |
+| Opção fixa no topo | `filterOptions: [{ …, pinned: true }]` | fora da busca, da rolagem e do "Selecionar todos" |
+| Incluindo/Excluindo | automático no multiSelect | segmented no topo do popover; `isNoneOf` pinta o operador do chip em danger |
+| Faixa num chip só | operador `between` no `filterType: "number"` | mín–máx juntos ("10 – 500"), vírgula aceita como decimal |
+| "Limpar todos" avisa a tela | `onFiltersClearAll` | pra filtro próprio fora do filterModel (ex.: SQL avançado) |
+| Avançado separado do funil | `toolbar.enableAdvancedFilters` | default segue `enableFilters` |
+| Widget custom é DONO do chip | tipo no `columnTypeRegistry` | declare `isAnyOf`/`isNoneOf` nos `operators` do tipo custom pra promoção interna não sequestrar o chip multi; blocos públicos: `MultiSelectDropdown`, `FastSingleSelectList`, `FILTER_FIELD_CLASS` |
+
+Showcase vivo de TUDO acima: **`#/filter-chips-lab`** (navegador flutuante lista item a item).
+
 ## Filtros — funil (drawer simple) + avançado (Configurações)
 
 A toolbar separa dois níveis de filtro, sempre disponíveis (gated por

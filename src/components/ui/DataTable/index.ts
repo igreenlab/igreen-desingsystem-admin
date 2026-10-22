@@ -57,6 +57,7 @@ export {
   columnTypeRegistry,
   FILTER_FIELD_CLASS,
   FastSingleSelectList,
+  MultiSelectDropdown,
 } from "./column-types";
 export type {
   ColumnTypeDefinition,

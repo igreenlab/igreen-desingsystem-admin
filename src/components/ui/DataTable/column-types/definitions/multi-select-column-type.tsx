@@ -4,6 +4,11 @@ import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input } from "@/components/shadcn/input";
 import { Button } from "@/components/ui/Button/button";
+// Import DIRETO do part (não do barrel do TableToolbar): o barrel puxa o
+// simple-filter-drawer, que importa este column-types/index de volta —
+// ciclo que estourava TDZ ("Cannot access MultiSelectColumnType before
+// initialization") no load do registry.
+import { ToolbarSegmented } from "@/components/ui/TableToolbar/parts/toolbar-segmented";
 import {
   Popover,
   PopoverContent,
@@ -74,7 +79,14 @@ function OptionRow({
   );
 }
 
-function MultiSelectDropdown({
+/**
+ * Widget multiSelect do chip — EXPORTADO como bloco componível: um tipo
+ * custom do consumidor pode embrulhá-lo (widget padrão + ações próprias no
+ * entorno) em vez de reconstruir busca/lista/seleção do zero. Declare
+ * isAnyOf/isNoneOf nos operators do tipo custom pra ser dono do chip multi
+ * (a promoção interna não sequestra — ver data-table.tsx, customOwnsMulti).
+ */
+export function MultiSelectDropdown({
   value,
   onChange,
   options = [],
@@ -169,9 +181,41 @@ function MultiSelectDropdown({
 
   const mostraBusca = isAsync || options.length >= BUSCA_A_PARTIR_DE;
   const totalConhecido = isAsync ? null : options.length;
+  const temMulti = operator === "isAnyOf" || operator === "isNoneOf";
+
+  // Link de ação compacto — mesmo idioma do "Limpar todos" dos chips
+  // (toolbarAppliedClearLink): texto brand pequeno com underline no hover.
+  const ACTION_LINK = cn(
+    "text-body-xs font-medium text-fg-brand cursor-pointer outline-none",
+    "bg-transparent border-0 p-0",
+    "hover:underline underline-offset-2 focus-visible:underline",
+    "disabled:opacity-50 disabled:pointer-events-none",
+  );
 
   return (
-    <div className="flex flex-col gap-gp-2xs p-pad-2xs min-w-[220px]">
+    <div className="flex flex-col gap-gp-md p-pad-md min-w-[220px]">
+      {/* Incluindo/Excluindo no TOPO, como segmented do DS (mesmo padrão do
+          density/view-mode toggle) — não dois botões soltos no rodapé. */}
+      {onOperatorChange && temMulti && (
+        <ToolbarSegmented
+          fluid
+          ariaLabel="Modo do filtro"
+          value={operator}
+          onValueChange={(v) => v !== operator && onOperatorChange(v as "isAnyOf" | "isNoneOf")}
+          items={[
+            { value: "isAnyOf", label: "Incluindo os selecionados", children: "Incluindo" },
+            {
+              value: "isNoneOf",
+              label: "Excluindo os selecionados",
+              children: (
+                <span className={operator === "isNoneOf" ? "text-fg-danger" : undefined}>
+                  Excluindo
+                </span>
+              ),
+            },
+          ]}
+        />
+      )}
       {mostraBusca && (
         <Input
           autoFocus
@@ -181,6 +225,34 @@ function MultiSelectDropdown({
           aria-label="Buscar opção"
         />
       )}
+      {/* Ações JUNTO da busca (não no rodapé): links compactos + contador. */}
+      {options.length > 1 || isAsync ? (
+        <div className="flex items-center gap-gp-lg">
+          {visiveis.length > 0 && (
+            <button
+              type="button"
+              onClick={selecionarVisiveis}
+              disabled={todosVisiveisMarcados}
+              className={ACTION_LINK}
+            >
+              {busca ? "Selecionar visíveis" : "Selecionar todos"}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => onChange([])}
+            disabled={selected.length === 0}
+            className={ACTION_LINK}
+          >
+            Limpar
+          </button>
+          <span className="ml-auto text-caption-xs text-fg-subtle tabular-nums">
+            {totalConhecido != null
+              ? `${selected.length}/${totalConhecido}`
+              : `${selected.length} selecionado${selected.length === 1 ? "" : "s"}`}
+          </span>
+        </div>
+      ) : null}
       {/* Opções FIXAS: fora da busca, da rolagem e do "Selecionar todos". */}
       {pinnedOpts.length > 0 && (
         <div className="flex flex-col gap-gp-2xs border-b border-border-subtle pb-pad-2xs">
@@ -256,59 +328,6 @@ function MultiSelectDropdown({
           </Button>
         )}
       </div>
-      <div className="flex items-center justify-between gap-gp-md border-t border-border-subtle pt-pad-sm">
-        <div className="flex items-center gap-gp-xs">
-          {visiveis.length > 0 && (
-            <Button
-              color="secondary"
-              variant="ghost"
-              size="2xs"
-              onClick={selecionarVisiveis}
-              disabled={todosVisiveisMarcados}
-            >
-              {busca ? "Selecionar visíveis" : "Selecionar todos"}
-            </Button>
-          )}
-          <Button
-            color="secondary"
-            variant="ghost"
-            size="2xs"
-            onClick={() => onChange([])}
-            disabled={selected.length === 0}
-          >
-            Limpar
-          </Button>
-        </div>
-        <span className="text-caption-xs text-fg-subtle tabular-nums pr-pad-sm">
-          {totalConhecido != null
-            ? `${selected.length}/${totalConhecido}`
-            : `${selected.length} selecionado${selected.length === 1 ? "" : "s"}`}
-        </span>
-      </div>
-      {/* Incluindo/Excluindo (item 8 Sólis) — troca isAnyOf ↔ isNoneOf sem
-          fechar o popover. "Excluindo" pinta de danger (exceção). */}
-      {onOperatorChange && (operator === "isAnyOf" || operator === "isNoneOf") && (
-        <div className="flex items-center gap-gp-xs border-t border-border-subtle pt-pad-sm">
-          <Button
-            color="secondary"
-            variant={operator === "isAnyOf" ? "soft" : "ghost"}
-            size="2xs"
-            onClick={() => operator !== "isAnyOf" && onOperatorChange("isAnyOf")}
-          >
-            Incluindo
-          </Button>
-          <Button
-            color="secondary"
-            variant={operator === "isNoneOf" ? "soft" : "ghost"}
-            size="2xs"
-            className={operator === "isNoneOf" ? "text-fg-danger" : undefined}
-            onClick={() => operator !== "isNoneOf" && onOperatorChange("isNoneOf")}
-          >
-            Excluindo
-          </Button>
-          <span className="text-caption-xs text-fg-subtle">os selecionados</span>
-        </div>
-      )}
     </div>
   );
 }

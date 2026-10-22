@@ -2013,9 +2013,26 @@ function DataTableInternal<T>(
                * acumulados (builder avançado). `filterType: "select"` NÃO entra
                * mais — escolha única usa o widget single do próprio tipo e fecha
                * ao escolher (item 3 do feedback Sólis; a promoção antiga também
-               * sequestrava o widget de tipo CUSTOM de valor único). */
+               * sequestrava o widget de tipo CUSTOM de valor único).
+               *
+               * Tipo CUSTOM que declara isAnyOf/isNoneOf nos próprios operators
+               * é DONO do widget multi — a promoção não o sequestra. É o que
+               * permite o consumidor substituir o popover multi inteiro pelo
+               * dele (colar lista, clique-substitui...) via registry, em vez de
+               * cada comportamento virar PR no DS. */
+              const typeDef = col?.filterType
+                ? columnTypeRegistry.get(col.filterType)
+                : null;
+              const customOwnsMulti =
+                !!typeDef &&
+                col?.filterType !== "multiSelect" &&
+                typeDef.type === col?.filterType &&
+                typeDef.operators.some(
+                  (o) => o.id === "isAnyOf" || o.id === "isNoneOf",
+                );
               const useMulti =
                 !isTupleOperator &&
+                !customOwnsMulti &&
                 (aggregateValues.length > 1 ||
                   group.operator === "isAnyOf" ||
                   group.operator === "isNoneOf" ||
