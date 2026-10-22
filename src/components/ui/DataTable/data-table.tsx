@@ -435,13 +435,17 @@ function DataTableInternal<T>(
   const latestFilterModelRef = useRef<FilterModel>(filters.filterModel);
   latestFilterModelRef.current = filters.filterModel;
 
-  /** Timer único do cleanup adiado — cancelado no unmount (um setFilterModel
-   *  pós-desmontagem sobrescreveria um reset do parent em model controlado). */
-  const chipCleanupTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** Cleanup adiado do chip (timer + executor) — troca de chip EXECUTA o
+   *  pendente; unmount só cancela (um setFilterModel pós-desmontagem
+   *  sobrescreveria um reset do parent em model controlado). */
+  const chipCleanupRef = useRef<{
+    timer: ReturnType<typeof setTimeout>;
+    run: () => void;
+  } | null>(null);
   useEffect(
     () => () => {
-      if (chipCleanupTimerRef.current != null) {
-        clearTimeout(chipCleanupTimerRef.current);
+      if (chipCleanupRef.current) {
+        clearTimeout(chipCleanupRef.current.timer);
       }
     },
     [],
@@ -2089,19 +2093,25 @@ function DataTableInternal<T>(
                 // Endurecimento (review 2026-10-22): escopo por ID — só remove
                 // itens que JÁ estavam vazios no fechamento E seguem vazios no
                 // ref. Preencher via updateGroupValue troca os itens por IDs
-                // novos, então mesmo um parent controlado que aplique o model
-                // com atraso não tem a escolha apagada (o ID vazio capturado
-                // simplesmente não existe mais). Timer único e cancelado no
-                // unmount — callback controlado não dispara pós-desmontagem.
+                // novos, então parent controlado que aplique o model até o
+                // próximo macrotask não tem a escolha apagada (o ID vazio
+                // capturado não existe mais). Parent que ADIA além disso
+                // (debounce na aplicação) re-expõe uma janela pequena — o
+                // custo é re-escolher o valor, e nesse regime toda a UI de
+                // chips já degrada. Timer único; fechar outro chip EXECUTA o
+                // cleanup pendente (não o descarta — senão o item vazio do
+                // chip anterior ficava inerte no model e ia pro persist);
+                // unmount só cancela, sem emitir model pós-desmontagem.
                 const emptyIdsAtClose = group.items
                   .filter((it) => isFilterValueEmpty(it.value))
                   .map((it) => it.id);
                 if (emptyIdsAtClose.length === 0) return;
-                if (chipCleanupTimerRef.current != null) {
-                  clearTimeout(chipCleanupTimerRef.current);
+                if (chipCleanupRef.current) {
+                  clearTimeout(chipCleanupRef.current.timer);
+                  chipCleanupRef.current.run();
                 }
-                chipCleanupTimerRef.current = setTimeout(() => {
-                  chipCleanupTimerRef.current = null;
+                const run = () => {
+                  chipCleanupRef.current = null;
                   const model = latestFilterModelRef.current;
                   const ids = new Set(
                     emptyIdsAtClose.filter((id) => {
@@ -2114,7 +2124,8 @@ function DataTableInternal<T>(
                     ...model,
                     items: model.items.filter((it) => !ids.has(it.id)),
                   });
-                }, 0);
+                };
+                chipCleanupRef.current = { timer: setTimeout(run, 0), run };
               };
               return (
                 <Popover

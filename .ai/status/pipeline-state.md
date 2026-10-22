@@ -5660,3 +5660,10 @@ publicação, mas mata o dev server e pode quebrar o build no meio.
 ### [2026-10-22] | DS DEV | Correções do review | CONCLUÍDO
 - Output: pinned propagado nos 2 maps + `pinned-options.test.tsx` montando as options PELO caminho de produção (provado VERMELHO contra o código sem o fix — L-064); USAGE do FooterTable com o contrato novo + exemplo corrigido; cleanup do closeChip escopado por ID (preencher gera IDs novos → parent controlado lento não perde a escolha) com timer único cancelado no unmount; fetchPage com catch + "Tentar de novo"; dedupe na mesclagem do updateGroupOperator; aria-label com rótulo legível; aviso hidden×persistId no USAGE. Pendências BAIXAS 9–11 anotadas pro corpo do PR (gutter = nota de release; demo-only; working tree não entra na branch).
 - Assumption: idem entry anterior.
+
+### [2026-10-22] | DS REVIEWER | DataTable/TableToolbar/FooterTable — feedback Sólis (commit e7519c4) | APROVADO
+- Spec verificada: sim — entries DS Dev de 2026-10-22 no pipeline-state (CONCLUÍDO + correções)
+- Assumption verificada: sim — "useMulti é o único seletor de widget do chip" confere (call-site único de renderFastFilterInput no caminho do chip); "consumidor standalone do FooterTable lê o USAGE" sustentada pelo USAGE corrigido + nota de changelog pendente no /ds-release
+- Critique genuína: verificação independente das 8 correções (teste re-executado, tsc, browser re-medido na interação diferenciadora, varredura por 3º caminho de options — inexistente)
+- Regressões: nenhuma; resíduo BAIXO documentado e endurecido em seguida pelo DS Dev (closeChip: comentário sem overclaim; troca de chip EXECUTA o cleanup pendente em vez de descartá-lo)
+- Lições novas: nenhuma (L-060/L-064 cobrem; gate novo pinned-options.test.tsx em vigor)
