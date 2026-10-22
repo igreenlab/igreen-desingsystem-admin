@@ -43,8 +43,18 @@ Duas lacunas contrariavam a regra e foram fechadas na própria branch:
 
 1. **O chip multi-valor sequestrava o widget custom.** A promoção `useMulti` forçava o
    `MultiSelectDropdown` built-in sempre que o operador era `isAnyOf`/`isNoneOf`, mesmo com
-   tipo custom registrado. Agora vale o `customOwnsMulti`: tipo custom que declara
-   `isAnyOf`/`isNoneOf` nos próprios `operators` é **dono** do chip multi.
+   tipo custom registrado. Agora vale o `customOwnsMulti`: tipo que **declara**
+   `ownsMulti: true` no `ColumnTypeDefinition` é **dono** do chip multi.
+
+   > ⚠️ **Corrigido no 2º review (2026-10-22).** A 1ª versão **deduzia** a posse de
+   > "declara `isAnyOf`/`isNoneOf` nos `operators`". A dedução pegava dois built-ins:
+   > `badge` e `user` declaram o operador **para funcionar no builder avançado**, mas o
+   > `renderFastFilterInput` deles é um `<Select>` ÚNICO que chama `onChange` com string.
+   > Coluna desses tipos com `isAnyOf` passava a abrir escolha única sobre campo de array,
+   > e escolher um valor substituía a lista inteira — regressão contra a `main`.
+   > Posse agora é declarada. **Nenhum built-in declara** `ownsMulti`, então todos se
+   > comportam exatamente como na `main`; o flag existe só para o tipo do consumidor.
+   > Gate: `owns-multi.test.tsx`, verificado a falhar contra o critério deduzido.
 2. **O widget built-in não era componível.** `MultiSelectDropdown` agora é exportado como
    bloco: um tipo custom pode embrulhá-lo (busca, lista e seleção prontas) e somar as ações
    dele, em vez de reconstruir.
@@ -155,7 +165,7 @@ Legenda: ✅ feito · ◐ feito com diferença do pedido (ver nota) · 🔌 fica
   infinito.
 - **Ficam no app** (comportamento exclusivo, via registry): "Contém «texto»" no topo,
   "Colar lista" (valores separados por linha, `,` `;` ou tab) e clique-substitui /
-  Ctrl+clique-soma. Com o `customOwnsMulti` e o `MultiSelectDropdown` exportado, o Sólis
+  Ctrl+clique-soma. Com o `ownsMulti: true` e o `MultiSelectDropdown` exportado, o Sólis
   monta isso num tipo próprio sem PR no DS.
 
 ### 3.7 · Item 7 — multiSelect completo
@@ -309,19 +319,25 @@ precisa concordar.
    as demais não.
 2. **Cleanup adiado do `closeChip`** (`data-table.tsx`, `chipCleanupRef`). `setTimeout(0)` +
    ref + escopo por ID. Ver o resíduo no §5.
-3. **`customOwnsMulti`** (`data-table.tsx`): exige `typeDef.type === col.filterType`. O
-   registry devolve o tipo `text` quando o tipo é desconhecido; a comparação evita que um
-   typo vire "dono" por engano. Confirme que o critério é suficiente.
+3. ~~**`customOwnsMulti`**: confirme que o critério é suficiente.~~ **Resolvido no 2º
+   review.** Não era: o critério deduzia posse dos `operators` e pegava `badge` e `user`
+   (ver §1). Trocado por `ColumnTypeDefinition.ownsMulti`, declarado. A guarda
+   `typeDef.type === col.filterType` **permanece** e continua necessária — sem ela um typo
+   no `filterType` herdaria o `ownsMulti` do tipo que o registry devolveu como fallback
+   (`text`). Os dois casos têm teste em `owns-multi.test.tsx`.
 4. **Import direto de `TableToolbar/parts/toolbar-segmented`** em
    `multi-select-column-type.tsx`. É proposital: o barrel do `TableToolbar` puxa o
    `toolbar-simple-filter-drawer`, que importa `column-types` de volta. O ciclo estourava um
    erro de inicialização ("Cannot access MultiSelectColumnType before initialization")
    medido no browser. O reviewer confirmou que os dois arquivos estão no mesmo item
    `data-table` do registry, então o copy-in funciona.
-5. **Cobertura de teste.** Só o `pinned` tem teste automatizado novo. O resto (itens 2, 3,
+5. **Cobertura de teste.** Só o `pinned` e o `ownsMulti` têm teste automatizado novo. O resto (itens 2, 3,
    6, 8, 10, 11, 15, 16) foi verificado **no browser, com cliques reais** — não há teste
    que reprove se alguém regredir. Candidatos naturais a teste: o toggle de operador com
    grupo preexistente, o item vazio do item 10 e o contrato do `FooterTable`.
+   ℹ️ O `owns-multi.test.tsx` pagou o setup de render do DataTable em jsdom (`matchMedia`
+   e `ResizeObserver`, que o `vitest.setup.ts` não stuba) — até ele, NENHUM teste do repo
+   renderizava o DataTable. Os candidatos acima ficaram baratos: dá pra copiar o harness.
 6. **Diferenças de detalhe com o pedido** (§3.6, §3.7, §3.8, §3.9, §3.12): decidir com o
    Sólis se viram follow-up ou se ficam como estão.
 7. **`hidden` no lugar de `filterFields`** (§3.1).

@@ -2033,11 +2033,21 @@ function DataTableInternal<T>(
                * ao escolher (item 3 do feedback Sólis; a promoção antiga também
                * sequestrava o widget de tipo CUSTOM de valor único).
                *
-               * Tipo CUSTOM que declara isAnyOf/isNoneOf nos próprios operators
-               * é DONO do widget multi — a promoção não o sequestra. É o que
-               * permite o consumidor substituir o popover multi inteiro pelo
-               * dele (colar lista, clique-substitui...) via registry, em vez de
-               * cada comportamento virar PR no DS. */
+               * Tipo que DECLARA `ownsMulti` é DONO do widget multi — a promoção
+               * não o sequestra. É o que permite o consumidor substituir o popover
+               * multi inteiro pelo dele (colar lista, clique-substitui...) via
+               * registry, em vez de cada comportamento virar PR no DS.
+               *
+               * ⚠️ A posse é DECLARADA, não deduzida da lista de operadores. A versão
+               * anterior inferia posse de "declara isAnyOf/isNoneOf", e isso pegava
+               * `badge` e `user`: os dois declaram o operador pra funcionar no builder
+               * avançado, mas o widget de chip deles é um `<Select>` ÚNICO que chama
+               * `onChange` com string. O resultado era escolha única sobre campo de
+               * array — escolher um valor substituía a lista inteira.
+               *
+               * O `typeDef.type === col.filterType` continua: o registry devolve `text`
+               * pra tipo desconhecido, e sem isso um typo no `filterType` herdaria o
+               * `ownsMulti` de quem o registry devolveu. */
               const typeDef = col?.filterType
                 ? columnTypeRegistry.get(col.filterType)
                 : null;
@@ -2045,9 +2055,7 @@ function DataTableInternal<T>(
                 !!typeDef &&
                 col?.filterType !== "multiSelect" &&
                 typeDef.type === col?.filterType &&
-                typeDef.operators.some(
-                  (o) => o.id === "isAnyOf" || o.id === "isNoneOf",
-                );
+                typeDef.ownsMulti === true;
               const useMulti =
                 !isTupleOperator &&
                 !customOwnsMulti &&

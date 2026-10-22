@@ -115,6 +115,23 @@ export type ColumnTypeDefinition = {
   type: ColumnTypeId;
   /** Operadores suportados — ordem importa (primeiro = default). */
   operators: ColumnTypeOperator[];
+  /**
+   * O `renderFastFilterInput` deste tipo sabe editar uma LISTA de valores?
+   *
+   * Quando `true`, o chip multi (operador `isAnyOf`/`isNoneOf`, ou 2+ valores) usa o
+   * widget DESTE tipo em vez de ser promovido ao `multiSelect` built-in. É o que permite
+   * um tipo registrado pelo consumidor substituir o popover multi inteiro (colar lista,
+   * clique-substitui…) sem PR no DS.
+   *
+   * ⚠️ Declarar `isAnyOf` nos `operators` **não** basta e nunca bastou: `badge` e `user`
+   * declaram o operador (pra funcionar no builder avançado) e o widget de chip deles é um
+   * `<Select>` ÚNICO, que chama `onChange` com uma string. Inferir posse a partir da lista
+   * de operadores entregava escolha única sobre campo de array nesses dois — por isso a
+   * posse é declarada, não deduzida.
+   *
+   * Default `undefined` (= `false`): o tipo cede o chip multi ao `multiSelect`.
+   */
+  ownsMulti?: boolean;
   /** Renderiza input no modal Filtros (advanced builder). */
   renderFilterInput: (props: FilterInputProps) => ReactNode;
   /** Renderiza input no popover do chip rapido (fast filter). */
