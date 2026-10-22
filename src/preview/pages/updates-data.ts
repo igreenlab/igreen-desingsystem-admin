@@ -46,6 +46,48 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.69.0",
+    date: "2026-10-22",
+    tag: "preview",
+    title: "O consumidor pede saida, nao comportamento",
+    summary:
+      "O time do Solis mandou 20 itens de DataTable. A pergunta que o mantenedor fez no meio do trabalho mudou o recorte: o DS nao deveria dar MEIOS pro consumidor montar o comportamento dele, em vez de mapear caso a caso? A regra que saiu dali guiou tudo — o DS entrega DEFAULTS bons e BLOCOS publicos; comportamento exclusivo de uma tela vira tipo registrado no `columnTypeRegistry`, nao PR no DS. 17 itens entraram. Junto vao dois itens de copy-in que estavam QUEBRADOS na 0.68.0 ha um mes, e os quatro gates que faltavam pra nenhum dos dois voltar.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**`igreen:add card` entregava arquivo que nao compila.** Os dois arquivos do item caem em pastas DIFERENTES no consumidor (`card.tsx` em `components/ui/`, `clickable-surface.tsx` em `components/shadcn/`) e o import era RELATIVO. O shadcn so reescreve specifier que comeca com `@/`; relativo passa verbatim e aponta pra um arquivo que nao existe la. O gemeo `kpi` sempre importou por alias. **Publicado quebrado por 4 semanas** — funcionava aqui e quebrava so do outro lado do copy-in, que e a L-065.",
+          "**Quatro itens importavam pacote npm que nao instalavam:** `input-otp` (`class-variance-authority` — quebrava ATE no scaffold, porque cva nao esta no template e o item nunca e dependencia de ninguem), `chip` e `example-order-detail` (`lucide-react`), `date-picker` (`date-fns`, que chegava por transitiva do react-day-picker e some em pnpm estrito).",
+          "**O chip de `filterType: \"select\"` virou escolha unica.** A promocao interna tratava `select` com opcoes como multiSelect e mostrava checkbox onde o campo aceita um valor so. ⚠️ Muda o que aparece pra quem ja usava `select` no chip.",
+          "**Desmarcar o ultimo valor nao fecha mais o popover.** Remover o grupo desmontava o chip, que e a ancora do popover — a lista sumia debaixo do cursor. O grupo vazio agora sobrevive enquanto o popover esta aberto e some ao fechar.",
+          "**Linha vazia do painel de filtros nao desaparece mais** ao limpar o valor, e o popover de Configuracoes passou a caber na tela (altura pelo espaco real que o Radix reporta, nao por `100vh - 80px`).",
+          "**Posse do chip multi e DECLARADA, nao deduzida** (achado do 2o review). O criterio inferia posse de \"o tipo declara isAnyOf/isNoneOf\", e isso pegava `badge` e `user`: os dois declaram o operador pro builder avancado e tem widget de chip de valor UNICO. Coluna desses tipos com `isAnyOf` abria escolha unica sobre campo de array, e escolher um valor substituia a lista. Agora e `ColumnTypeDefinition.ownsMulti`, e **nenhum built-in o declara** — todos voltam ao comportamento de antes.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Filtro sem coluna visivel** — `ColumnDef.hidden: true`. A coluna nasce oculta e o filtro continua valendo no chip, no funil e no builder. A coluna JA carrega tudo que um filtro precisa, entao uma prop paralela criaria duas fontes de verdade pro mesmo filtro. ⚠️ Com `persistId`, snapshot salvo vence o default: coluna nova nasce visivel pra quem ja tem estado (versione o `persistId`).",
+          "**Opcoes do servidor** — `filterLoadOptions(busca, pagina)` + `filterValueLabel`. Debounce de 300ms, resposta velha descartada, marcados sempre no topo com rotulo resolvido mesmo fora da pagina carregada, erro com \"Tentar de novo\". Vale igual no chip, no builder avancado e no drawer funil.",
+          "**Chip fixo** — `showEmptyFilterChips` aceita `{ field, dismissable: false }`: o X limpa o valor em vez de remover o chip, e vazio ele mostra um `+` decorativo. Array de string continua identico.",
+          "**Incluindo / Excluindo no chip** — segmented no topo do popover; `isNoneOf` pinta o operador em vermelho. Trocar de operador mescla com o grupo que ja existir no destino, com dedupe. `operator`/`onOperatorChange` ficaram publicos pra quem quiser desenhar o proprio alternador.",
+          "**multiSelect completo** — busca a partir de 10 opcoes, `ColumnOption.pinned` (secao fixa no topo, fora da busca e do \"Selecionar todos\"), marcados primeiro com a ordem congelada na abertura, \"Selecionar todos\" aditivo sobre os visiveis, e altura que respeita o espaco real da tela. ⚠️ Muda o visual de TODO chip multiSelect, nao so o de quem pediu.",
+          "**`filterLabel`** (nome do filtro diferente do titulo da coluna), **`onFiltersClearAll`** (a tela limpa o filtro que e dela), **`toolbar.enableAdvancedFilters`** (esconde o builder do DS pra quem tem o proprio), e **`between`** no tipo number — minimo e maximo num chip so, lado aberto virando ≥/≤.",
+          "**Barra de selecao configuravel** — `selectionConfig.bar`: `\"replace\"` (default, o de sempre), `\"inline\"` (toolbar continua visivel) ou `\"none\"`, com `countLabel`, `clearLabel`, `totalSelected` e `onClearAll`. O ESTADO da selecao entre paginas continua do consumidor; o DS so exibe.",
+          "**Widget de filtro proprio** — `ownsMulti: true` num tipo do `columnTypeRegistry` entrega o chip multi inteiro pro consumidor, e `MultiSelectDropdown`, `FastSingleSelectList` e `FILTER_FIELD_CLASS` saem no barrel pra embrulhar em vez de reconstruir. E a parte da filosofia desta release: o que e forma de UMA tela se monta la, sem esperar release nossa.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "⚠️ **`FooterTable` nao chama mais `onPageChange(1)` depois do `onPageSizeChange`.** O segundo evento ia com o pageSize ANTIGO e, em modo controlado, desfazia a troca — o tamanho nunca mudava. **Quem usa o `FooterTable` FORA do DataTable precisa voltar a pagina 1 no proprio handler.** Dentro do DataTable nada muda. USAGE e demo atualizados.",
+          "⚠️ **`scrollbar-gutter: stable` no container do `Table`** — ~10px reservados pra barra vertical mesmo sem rolagem. Mata o \"encolhe/alarga\" de ~10px a cada troca de filtro. Tradeoff aceito e visivel: tabela que nunca rola fica 10px mais estreita que o container.",
+          "**Quatro gates novos**, todos verificados a falhar contra o defeito real (L-064): `copyin-resolve` (resolve os imports no DESTINO do copy-in, nao na fonte — era o furo que deixou o `card` passar), `deps-por-item` (o `dependencies[]` de cada item, nao o package.json do DS — o furo do `deps-declared`), `owns-multi` e `pinned-options`. O `owns-multi` e o **primeiro teste do repo que renderiza o DataTable**: nao havia nenhum, e o setup nem stubava `matchMedia`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.68.0",
     date: "2026-09-24",
     tag: "preview",

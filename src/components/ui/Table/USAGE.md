@@ -54,6 +54,19 @@ import { SELECTION_COLUMN_WIDTH, TABLE_HEADER_HEIGHT } from "@/components/ui/Tab
 // TABLE_HEADER_HEIGHT    = 42 — alinhar skeletons, totalizers, group headers
 ```
 
+## Largura: a barra de rolagem tem lugar reservado (2026-10-22)
+
+O container usa **`scrollbar-gutter: stable`**: ~10px ficam reservados pra barra vertical
+**mesmo quando não há rolagem**.
+
+Sem isso, filtrar ou limpar muda o número de linhas, a barra aparece/some e a tabela
+inteira "encolhe/alarga" a cada troca de filtro — layout shift visível ao lado de
+qualquer coisa alinhada à direita.
+
+⚠️ **Tradeoff aceito, e ele é visível:** uma tabela que nunca rola fica ~10px mais estreita
+que o container. Se você mede largura de coluna contra o container pai, é daí que vem a
+diferença.
+
 ## Patterns
 
 ### 1. Coluna de seleção (checkbox)
