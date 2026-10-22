@@ -14,6 +14,7 @@ import {
   ListChecks,
   ChevronDown,
 } from "lucide-react";
+// (ChevronDown também é usado no trigger do tipo custom "agente")
 import {
   CLIENTS_MOCK,
   STATUSES,
@@ -28,11 +29,17 @@ import {
 import {
   DataTable,
   columnTypeRegistry,
+  FILTER_FIELD_CLASS,
   type ColumnTypeDefinition,
   type DataTableColumnDef,
   type FilterModel,
   type PaginationModel,
 } from "@/components/ui/DataTable";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/shadcn/popover";
 import { Input } from "@/components/shadcn/input";
 import { BulkActionButton } from "@/components/ui/TableToolbar";
 import { cn } from "@/lib/utils";
@@ -104,6 +111,34 @@ function AgentePickerList({
   );
 }
 
+/** No builder avançado/drawer o campo é um TRIGGER compacto (mesmo visual dos
+ *  tipos built-in via FILTER_FIELD_CLASS) que abre o MESMO picker do chip —
+ *  lista grande não fica permanentemente aberta ocupando o painel. */
+function AgenteFieldTrigger({
+  value,
+  onChange,
+}: {
+  value: unknown;
+  onChange: (v: string | null) => void;
+}) {
+  const nome = AGENTS[String(value ?? "") as keyof typeof AGENTS]?.name;
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button type="button" className={FILTER_FIELD_CLASS}>
+          <span className={nome ? "truncate" : "text-fg-muted opacity-70 truncate"}>
+            {nome || "Selecione..."}
+          </span>
+          <ChevronDown className="size-icon-xs text-fg-muted shrink-0" aria-hidden="true" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent align="start" mobileSheet={false} className="p-0">
+        <AgentePickerList value={value} onChange={onChange} />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 const AgenteColumnType: ColumnTypeDefinition = {
   type: "agente",
   operators: [
@@ -111,7 +146,7 @@ const AgenteColumnType: ColumnTypeDefinition = {
     { id: "neq", label: "não é" },
   ],
   renderFilterInput: ({ value, onChange }) => (
-    <AgentePickerList value={value} onChange={onChange} />
+    <AgenteFieldTrigger value={value} onChange={onChange} />
   ),
   renderFastFilterInput: ({ value, onChange, onClose }) => (
     <AgentePickerList value={value} onChange={onChange} onClose={onClose} />

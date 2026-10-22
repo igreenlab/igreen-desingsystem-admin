@@ -127,6 +127,10 @@ export function useFilterPopoverAdapter<T>({
             type: popoverType,
             options,
             filterType: c.filterType,
+            // Async viaja junto: builder avançado e drawer funil usam o MESMO
+            // widget com busca no servidor que o chip.
+            loadOptions: c.filterLoadOptions,
+            resolveValueLabel: c.filterValueLabel,
           };
         });
   }, [effectiveColumns, allColumns, rows]);

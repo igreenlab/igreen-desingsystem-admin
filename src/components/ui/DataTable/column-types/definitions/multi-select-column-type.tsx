@@ -40,10 +40,11 @@ const toArray = (value: unknown): Array<string | number> => {
  *  busca só adiciona altura (status com 3 valores não precisa filtrar). */
 const BUSCA_A_PARTIR_DE = 10;
 
-/** Altura da lista: teto de 240px OU o espaço que o Radix reporta sobrar na
- *  viewport (menos busca/rodapé) — popover de 60+ opções não passa da tela. */
-const LISTA_MAX_H =
-  "max-h-[min(240px,calc(var(--radix-popover-content-available-height,480px)-150px))]";
+/** Altura da lista: flexiona entre um PISO de 96px (sempre visível e rolável,
+ *  mesmo em monitor baixo) e um teto de 240px. Quem garante que o popover
+ *  nunca passa da viewport é o max-h do ROOT (espaço disponível reportado
+ *  pelo Radix) — a lista é o único trecho que estica/encolhe (flex-1). */
+const LISTA_MAX_H = "flex-1 min-h-[96px] max-h-[240px]";
 
 const OPTION_ROW = cn(
   "flex items-center gap-gp-md w-full",
@@ -180,7 +181,6 @@ export function MultiSelectDropdown({
     visiveis.every((o) => selectedSet.has(String(o.value)));
 
   const mostraBusca = isAsync || options.length >= BUSCA_A_PARTIR_DE;
-  const totalConhecido = isAsync ? null : options.length;
   const temMulti = operator === "isAnyOf" || operator === "isNoneOf";
 
   // Link de ação compacto — mesmo idioma do "Limpar todos" dos chips
@@ -193,7 +193,7 @@ export function MultiSelectDropdown({
   );
 
   return (
-    <div className="flex flex-col gap-gp-md p-pad-md min-w-[220px]">
+    <div className="flex flex-col gap-gp-md p-pad-md min-w-[220px] max-h-[calc(var(--radix-popover-content-available-height,480px)-8px)]">
       {/* Incluindo/Excluindo no TOPO, como segmented do DS (mesmo padrão do
           density/view-mode toggle) — não dois botões soltos no rodapé. */}
       {onOperatorChange && temMulti && (
@@ -225,10 +225,12 @@ export function MultiSelectDropdown({
           aria-label="Buscar opção"
         />
       )}
-      {/* Ações JUNTO da busca (não no rodapé): links compactos + contador. */}
+      {/* Ações JUNTO da busca (não no rodapé): Selecionar à esquerda, Limpar à
+          DIREITA. Sem contador: com filtro pré-carregado o número confundia
+          mais do que ajudava (decisão do mantenedor, 2026-10-22). */}
       {options.length > 1 || isAsync ? (
-        <div className="flex items-center gap-gp-lg">
-          {visiveis.length > 0 && (
+        <div className="flex items-center justify-between gap-gp-lg">
+          {visiveis.length > 0 ? (
             <button
               type="button"
               onClick={selecionarVisiveis}
@@ -237,6 +239,8 @@ export function MultiSelectDropdown({
             >
               {busca ? "Selecionar visíveis" : "Selecionar todos"}
             </button>
+          ) : (
+            <span aria-hidden="true" />
           )}
           <button
             type="button"
@@ -246,11 +250,6 @@ export function MultiSelectDropdown({
           >
             Limpar
           </button>
-          <span className="ml-auto text-caption-xs text-fg-subtle tabular-nums">
-            {totalConhecido != null
-              ? `${selected.length}/${totalConhecido}`
-              : `${selected.length} selecionado${selected.length === 1 ? "" : "s"}`}
-          </span>
         </div>
       ) : null}
       {/* Opções FIXAS: fora da busca, da rolagem e do "Selecionar todos". */}

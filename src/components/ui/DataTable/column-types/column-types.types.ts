@@ -40,6 +40,11 @@ export type FilterInputProps = {
   options?: ColumnOption[];
   /** Placeholder do input. */
   placeholder?: string;
+  /** Modo assíncrono (mesmo contrato do chip) — o widget do builder avançado
+   *  e do drawer funil busca no servidor igual ao fast filter. */
+  loadOptions?: FilterLoadOptions;
+  /** Rótulo de valor marcado fora da página carregada (par do loadOptions). */
+  resolveValueLabel?: (value: string | number) => ReactNode;
 };
 
 /** Props que o chip rapido (fast filter popover) recebe. */

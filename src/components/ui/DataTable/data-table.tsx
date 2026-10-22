@@ -1744,6 +1744,8 @@ function DataTableInternal<T>(
                                 onChange: (v) => onChange(v),
                                 operator: filterOp,
                                 options: column.options,
+                                loadOptions: column.loadOptions,
+                                resolveValueLabel: column.resolveValueLabel,
                               });
                             }}
                             getOperatorsForColumn={(column) => {

@@ -30,6 +30,17 @@ export type FilterPopoverColumn = {
   /** Tipo original do ColumnTypeRegistry (date, currency, etc) — opcional,
    *  passado pelo DataTable pra `renderValueInput` resolver o input correto. */
   filterType?: string;
+  /** Opções buscadas no servidor (mesmo contrato do chip) — o builder
+   *  avançado e o drawer funil repassam pro widget do tipo. */
+  loadOptions?: (
+    search: string,
+    page: number,
+  ) => Promise<{
+    options: Array<{ label: string; value: string | number }>;
+    hasMore: boolean;
+  }>;
+  /** Rótulo de valor marcado fora da página carregada (par do loadOptions). */
+  resolveValueLabel?: (value: string | number) => ReactNode;
 };
 
 export type FilterPopoverOperator = {
