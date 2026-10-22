@@ -26,6 +26,10 @@ export const tableStyles = tv({
     scroll: [
       "flex-1 min-h-0 overflow-auto relative",
       "scrollbar-thin",
+      // Reserva o espaço da scrollbar VERTICAL mesmo sem rolagem: sem isto,
+      // filtrar/limpar muda o nº de linhas, a barra aparece/some e a tabela
+      // inteira "encolhe/alarga" ~10px a cada troca de filtro (layout shift).
+      "[scrollbar-gutter:stable]",
     ],
     /* Header row (flex de TableHeadCell). Sticky default. */
     head: [
