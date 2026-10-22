@@ -591,7 +591,7 @@ columnTypeRegistry.register(RatingColumnType);
 
 | Capacidade | API | Nota |
 |---|---|---|
-| Filtro sem coluna visível | `ColumnDef.hidden: true` | coluna nasce oculta; chips/funil/avançado seguem filtrando (persist vence o default) |
+| Filtro sem coluna visível | `ColumnDef.hidden: true` | coluna nasce oculta; chips/funil/avançado seguem filtrando. ⚠️ Com `persistId`, snapshot salvo VENCE o default — coluna `hidden` adicionada a tela EXISTENTE nasce VISÍVEL pra quem já tem estado persistido (o usuário oculta 1× ou a tela versiona o `persistId`) |
 | Nome do filtro ≠ título | `ColumnDef.filterLabel` | usado no chip, funil e avançado |
 | Chip fixo (nunca sai) | `showEmptyFilterChips: [{ field, dismissable: false }]` | X do preenchido limpa e o chip vira ⊕ sem X; string simples = descartável (comportamento antigo) |
 | Opções do servidor | `ColumnDef.filterLoadOptions(search, page)` + `filterValueLabel(v)` | multiSelect do chip vira busca async: debounce 300ms, "Carregar mais", marcados sempre no topo com rótulo resolvido |

@@ -110,6 +110,9 @@ export function useFilterPopoverAdapter<T>({
           let options = c.filterOptions?.map((o) => ({
             value: String(o.value),
             label: o.label,
+            // Propagado — senão `pinned` morria no caminho builder/funil
+            // (review 2026-10-22; gate: pinned-options.test.tsx).
+            pinned: o.pinned,
           }));
           if (popoverType === "select" && (!options || options.length === 0) && rows) {
             const set = new Set<string>();
@@ -119,7 +122,11 @@ export function useFilterPopoverAdapter<T>({
                 : (r as Record<string, unknown>)[String(c.field)];
               if (v != null && v !== "") set.add(String(v));
             }
-            options = Array.from(set).map((v) => ({ value: v, label: v }));
+            options = Array.from(set).map((v) => ({
+              value: v,
+              label: v,
+              pinned: undefined,
+            }));
           }
           return {
             key: String(c.field),
@@ -341,12 +348,22 @@ export function useFilterPopoverAdapter<T>({
     const group = appliedGroups.find((g) => g.key === groupKey);
     if (!group) return;
     const ids = new Set(group.items.map((i) => i.id));
-    setFilterModel({
-      ...filterModel,
-      items: filterModel.items.map((it) =>
-        ids.has(it.id) ? { ...it, operator: nextOperator } : it,
-      ),
+    const retargeted = filterModel.items.map((it) =>
+      ids.has(it.id) ? { ...it, operator: nextOperator } : it,
+    );
+    // Se já existia um grupo no operador de destino (ex.: uf isAnyOf [SP] +
+    // uf isNoneOf [MG] criados no builder), o toggle MESCLA os dois — dedupe
+    // por (field|operator|valor) pro chip não exibir valor repetido
+    // (review 2026-10-22, pendência 7).
+    const vistos = new Set<string>();
+    const items = retargeted.filter((it) => {
+      if (it.field !== group.field || it.operator !== nextOperator) return true;
+      const chave = `${it.field}|${it.operator}|${String(it.value)}`;
+      if (vistos.has(chave)) return false;
+      vistos.add(chave);
+      return true;
     });
+    setFilterModel({ ...filterModel, items });
   };
 
   const updateGroupValue = (groupKey: string, newValue: unknown) => {
@@ -435,6 +452,10 @@ export function useFilterPopoverAdapter<T>({
         label: o.label,
         value: o.value as string | number,
         color: o.color,
+        // Sem propagar, `pinned` virava API morta no chip (o widget filtra
+        // options.filter(o => o.pinned) e recebia sempre false) — achado do
+        // review 2026-10-22; gate: pinned-options.test.tsx (L-064).
+        pinned: o.pinned,
       }));
     }
     const rowsForExtract = rows ?? [];

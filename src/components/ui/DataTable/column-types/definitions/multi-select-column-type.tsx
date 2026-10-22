@@ -109,17 +109,24 @@ export function MultiSelectDropdown({
   const [asyncPage, setAsyncPage] = useState(1);
   const [asyncHasMore, setAsyncHasMore] = useState(false);
   const [asyncLoading, setAsyncLoading] = useState(false);
+  const [asyncErro, setAsyncErro] = useState(false);
   const reqSeq = useRef(0);
   const fetchPage = (search: string, page: number) => {
     if (!loadOptions) return;
     const seq = ++reqSeq.current;
     setAsyncLoading(true);
+    setAsyncErro(false);
     loadOptions(search, page)
       .then(({ options: batch, hasMore }) => {
         if (seq !== reqSeq.current) return; // resposta velha — descarta
         setAsyncOpts((prev) => (page === 1 ? batch : [...prev, ...batch]));
         setAsyncHasMore(hasMore);
         setAsyncPage(page);
+      })
+      // Filtro de servidor falha por rede no mundo real: sem o catch era
+      // unhandled rejection + lista muda sem feedback (review 2026-10-22).
+      .catch(() => {
+        if (seq === reqSeq.current) setAsyncErro(true);
       })
       .finally(() => {
         if (seq === reqSeq.current) setAsyncLoading(false);
@@ -275,17 +282,21 @@ export function MultiSelectDropdown({
         {/* Async: os já marcados primeiro, sempre visíveis (fora da página carregada). */}
         {asyncSelecionados.length > 0 && (
           <div className="flex flex-col gap-gp-2xs border-b border-border-subtle pb-pad-2xs">
-            {asyncSelecionados.map((v) => (
-              <label key={String(v)} className={OPTION_ROW}>
-                <Checkbox
-                  checked
-                  onCheckedChange={() => toggle(v)}
-                  aria-label={String(v)}
-                  className="shrink-0"
-                />
-                <span className="flex-1 min-w-0 truncate">{labelDe(v)}</span>
-              </label>
-            ))}
+            {asyncSelecionados.map((v) => {
+              const rotulo = labelDe(v);
+              return (
+                <label key={String(v)} className={OPTION_ROW}>
+                  <Checkbox
+                    checked
+                    onCheckedChange={() => toggle(v)}
+                    // a11y: o rótulo legível, não o id cru (review 2026-10-22)
+                    aria-label={typeof rotulo === "string" ? rotulo : String(v)}
+                    className="shrink-0"
+                  />
+                  <span className="flex-1 min-w-0 truncate">{rotulo}</span>
+                </label>
+              );
+            })}
           </div>
         )}
         {!isAsync && options.length === 0 && (
@@ -314,6 +325,21 @@ export function MultiSelectDropdown({
           <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
             Carregando…
           </p>
+        )}
+        {isAsync && !asyncLoading && asyncErro && (
+          <div className="flex items-center gap-gp-md px-pad-md py-pad-sm">
+            <span className="text-body-xs font-normal text-fg-danger">
+              Falha ao carregar as opções.
+            </span>
+            <Button
+              color="secondary"
+              variant="ghost"
+              size="2xs"
+              onClick={() => fetchPage(busca, 1)}
+            >
+              Tentar de novo
+            </Button>
+          </div>
         )}
         {isAsync && !asyncLoading && asyncHasMore && (
           <Button

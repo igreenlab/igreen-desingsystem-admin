@@ -25,8 +25,9 @@ export type FilterPopoverColumn = {
   label: string;
   /** Tipo do valor — define o input renderizado. Default `"text"`. */
   type?: "text" | "number" | "select";
-  /** Opções pro select (quando `type="select"`) */
-  options?: Array<{ value: string; label: string }>;
+  /** Opções pro select (quando `type="select"`). `pinned` fixa a opção no
+   *  topo do widget multiSelect (fora da busca/rolagem/Selecionar todos). */
+  options?: Array<{ value: string; label: string; pinned?: boolean }>;
   /** Tipo original do ColumnTypeRegistry (date, currency, etc) — opcional,
    *  passado pelo DataTable pra `renderValueInput` resolver o input correto. */
   filterType?: string;

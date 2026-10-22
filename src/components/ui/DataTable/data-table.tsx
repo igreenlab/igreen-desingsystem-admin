@@ -435,6 +435,18 @@ function DataTableInternal<T>(
   const latestFilterModelRef = useRef<FilterModel>(filters.filterModel);
   latestFilterModelRef.current = filters.filterModel;
 
+  /** Timer único do cleanup adiado — cancelado no unmount (um setFilterModel
+   *  pós-desmontagem sobrescreveria um reset do parent em model controlado). */
+  const chipCleanupTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (chipCleanupTimerRef.current != null) {
+        clearTimeout(chipCleanupTimerRef.current);
+      }
+    },
+    [],
+  );
+
   /** Column label lookup for applied filter chips.
    *  TODAS as columns (não só as visíveis): coluna oculta com filtro ativo
    *  continua precisando de label no chip (item 1 do feedback Sólis), e
@@ -2073,24 +2085,35 @@ function DataTableInternal<T>(
                 // e onClose no MESMO clique — com o cleanup síncrono, os dois
                 // setFilterModel partiam do MESMO estado stale e o cleanup
                 // vencia, apagando o valor recém-escolhido de chip placeholder.
-                const groupField = group.field;
-                const groupOperator = group.operator;
-                setTimeout(() => {
+                //
+                // Endurecimento (review 2026-10-22): escopo por ID — só remove
+                // itens que JÁ estavam vazios no fechamento E seguem vazios no
+                // ref. Preencher via updateGroupValue troca os itens por IDs
+                // novos, então mesmo um parent controlado que aplique o model
+                // com atraso não tem a escolha apagada (o ID vazio capturado
+                // simplesmente não existe mais). Timer único e cancelado no
+                // unmount — callback controlado não dispara pós-desmontagem.
+                const emptyIdsAtClose = group.items
+                  .filter((it) => isFilterValueEmpty(it.value))
+                  .map((it) => it.id);
+                if (emptyIdsAtClose.length === 0) return;
+                if (chipCleanupTimerRef.current != null) {
+                  clearTimeout(chipCleanupTimerRef.current);
+                }
+                chipCleanupTimerRef.current = setTimeout(() => {
+                  chipCleanupTimerRef.current = null;
                   const model = latestFilterModelRef.current;
-                  const groupItems = model.items.filter(
-                    (it) =>
-                      it.field === groupField && it.operator === groupOperator,
+                  const ids = new Set(
+                    emptyIdsAtClose.filter((id) => {
+                      const it = model.items.find((i) => i.id === id);
+                      return it != null && isFilterValueEmpty(it.value);
+                    }),
                   );
-                  if (
-                    groupItems.length > 0 &&
-                    groupItems.every((it) => isFilterValueEmpty(it.value))
-                  ) {
-                    const ids = new Set(groupItems.map((it) => it.id));
-                    filters.setFilterModel({
-                      ...model,
-                      items: model.items.filter((it) => !ids.has(it.id)),
-                    });
-                  }
+                  if (ids.size === 0) return;
+                  filters.setFilterModel({
+                    ...model,
+                    items: model.items.filter((it) => !ids.has(it.id)),
+                  });
                 }, 0);
               };
               return (
