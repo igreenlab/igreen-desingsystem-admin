@@ -458,12 +458,44 @@ a registrar, textualmente, *"VAI se repetir — na próxima release peça o toke
 — e repetiu, porque o aviso morava no log append-only e não aqui, que é o arquivo carregado
 pra conduzir a release. Por isso ele agora abre o Passo 7.
 
-**Os dois caminhos que funcionam** (o segundo é o recomendado):
+**Os caminhos que funcionam:**
 
 | | Como | Quando |
 |---|---|---|
-| **`--otp`** | mantenedor roda `npm publish --otp=123456` **no terminal dele**, com código do autenticador | destrava agora; exige ele presente, e um código NOVO por pacote (OTP é de uso único) |
-| **Granular access token com _bypass 2FA_** | npmjs.com → Access Tokens → Granular → escopo `@snksergio`, permissão read/write, bypass 2FA ligado | configura uma vez; publica sem código |
+| **Staged publish** | `npm stage publish` aqui → mantenedor **aprova no menu do npmjs.com** | ⭐ **foi o que funcionou na v0.69.0.** Ver o bloco abaixo — tem armadilha |
+| **`--otp`** | mantenedor roda `npm publish --otp=123456` **no terminal dele**, com código do autenticador | exige ele presente, e um código NOVO por pacote (OTP é de uso único) |
+| **Granular access token com _bypass 2FA_** | npmjs.com → Access Tokens → Granular → escopo `@snksergio`, permissão read/write, bypass 2FA ligado | configura uma vez; publica sem código. ⚠️ O npm está **restringindo** tokens que burlam 2FA — o CLI avisa a cada comando |
+
+### Staged publish — o fluxo de 2026-10-22, com as duas armadilhas medidas
+
+Se o token da conta for **staging-only**, o `npm publish` direto sai com
+`E403 ... (E_STAGE_REQUIRED)`. O caminho então é em dois tempos:
+
+```bash
+npm stage publish          # aqui, na raiz; depois o mesmo de dentro de cli/
+npm stage list             # pega o id e o status
+```
+
+⛔ **`npm stage approve <id>` NÃO funciona** — medido em dois shells diferentes, com a
+sessão certa (`whoami` ok) e o mesmo id que o `npm stage view <id>` responde normalmente:
+
+```
+npm stage view <id>     → status: staged          ✓
+npm stage approve <id>  → E404 staged version not found
+```
+
+O CLI ainda redige o id no próprio log (`/-/stage/***/approve`), então não dá pra ver o
+que foi pela rede. **A aprovação é pelo MENU do npmjs.com** e funciona. Não gaste tempo
+com variações do comando.
+
+⚠️ **Não existe URL direta de staging** (`/settings/<user>/staging` dá 404 — foi chute meu
+e custou uma ida e volta). É pelo menu da interface, e os docs do npm só documentam o
+caminho via CLI, que é justamente o que está quebrado.
+
+⚠️ **`status: validating` por alguns minutos** depois do `stage publish`. É normal. A fila
+esvaziar (`npm stage list` sem saída) é o sinal de que a aprovação passou.
+
+Confirme sempre pela registry API com `no-cache`, não pelo `npm view` (ver 7.4).
 
 ⛔ **A IA não manipula credencial em texto claro** — nem token clássico, nem granular, nem OTP.
 Se o mantenedor colar um token na conversa: **recuse o uso**, avise que ele deve ser tratado
