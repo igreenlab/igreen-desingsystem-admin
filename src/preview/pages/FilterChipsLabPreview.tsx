@@ -527,7 +527,10 @@ export default function FilterChipsLabPreview() {
       description="Laboratório dos itens de DataTable do feedback Sólis — defeitos corrigidos (3, 10, 11, 15, 17), recursos novos (1, 2, 4, 5, 6, 7, 8, 12, 13, 14) e o que fica no app via registry (tipos custom). O navegador flutuante no canto lista cada item com o passo de verificação."
       code={CODE}
     >
-      <div className="flex flex-col gap-gp-md">
+      {/* w-full + min-w-0: o preview do ExamplePageLayout é flex row — sem
+          largura explícita o wrapper encolhe pro fit-content e a tabela fica
+          mais estreita que a página. */}
+      <div className="flex w-full min-w-0 flex-col gap-gp-md">
         <DataTable<RowLab>
           rows={ROWS}
           columns={columns}
