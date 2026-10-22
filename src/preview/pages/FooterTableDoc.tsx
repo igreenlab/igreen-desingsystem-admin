@@ -59,7 +59,13 @@ function StatefulFooter({
       page={page}
       pageSize={pageSize}
       onPageChange={setPage}
-      onPageSizeChange={setPageSize}
+      // Contrato: o handler é responsável por voltar à página 1 (o FooterTable
+      // não dispara mais onPageChange(1) junto — em modo controlado o 2º
+      // evento ia com o pageSize antigo e desfazia a troca).
+      onPageSizeChange={(s) => {
+        setPageSize(s);
+        setPage(1);
+      }}
       selectionCount={selectionCount}
       {...rest}
     />
