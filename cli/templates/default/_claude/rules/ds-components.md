@@ -150,6 +150,34 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
 > primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +
 > chip vazio de "Atribuído"). Entrevista guiada completa em `/ds-create-crud`.
 
+### O que o chip de filtro passou a aceitar (DS `0.69.0`+)
+
+Oito saídas que antes obrigavam a montar o filtro por fora da tabela. Todas opcionais;
+sem elas nada muda.
+
+| quero | uso |
+|---|---|
+| filtrar por um campo **sem mostrar a coluna** | ****hidden: true**** na coluna — ela nasce oculta e o filtro continua no chip, no funil e no builder. ⚠️ com `persistId`, estado salvo vence o default: coluna nova nasce visível pra quem já tem snapshot (versione o `persistId`) |
+| o chip **fixo**, que o X limpa em vez de remover | `showEmptyFilterChips={[{ field: "status", dismissable: false }]}` — array de string continua valendo |
+| nome do filtro **diferente** do título da coluna | ****filterLabel**** na coluna |
+| opções vindas do **servidor** | ****filterLoadOptions****`(busca, pagina)` → `{ options, hasMore }` + ****filterValueLabel**** pro rótulo do que já está marcado. Debounce de 300ms, resposta velha descartada, erro com "Tentar de novo" |
+| uma opção **fixa no topo** da lista (ex.: "Sem responsável") | ****pinned: true**** na opção — fica fora da busca, da rolagem e do "Selecionar todos" |
+| **avisar a tela** quando o usuário limpa tudo | ****onFiltersClearAll**** — dispara depois de limpar o filtro interno, pra você limpar o seu |
+| faixa numérica **num chip só** | operador ****between**** no `filterType: "number"` — "10 – 500", lado aberto vira ≥/≤ |
+| esconder o **builder avançado** (você tem o seu) | `toolbar.enableAdvancedFilters={false}` — não desliga os chips |
+
+**Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
+sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.
+Com `countLabel`, `clearLabel`, `totalSelected` (contagem entre páginas, vinda de você) e
+`onClearAll`. O **estado** da seleção entre páginas continua seu; o DS só exibe.
+
+**Widget de filtro próprio:** registre um tipo no `columnTypeRegistry` com
+****ownsMulti: true**** e o chip multi inteiro passa a ser seu (colar lista,
+clique-substitui, o que for) — em vez de pedir cada comportamento ao DS. O
+`renderFastFilterInput` precisa ler `value` como **array** e chamar `onChange` com array;
+se o seu widget for de valor único, **não** declare o flag. Blocos públicos pra embrulhar:
+`MultiSelectDropdown`, `FastSingleSelectList`, `FILTER_FIELD_CLASS`.
+
 ## Layout e chrome do app
 
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo). **Embutido em container com altura** (layout com footer, aba, preview) → passe `fillHeight`; sem isso ele mede 100vh, transborda e o conteúdo fica cortado na base.

@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · accordion · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · alert-dialog · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · alert-modal · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · alert · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · app-shell · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · aspect-ratio · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · avatar-ig · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · avatar · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · badge · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · breadcrumb · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · button-group · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · button · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · calendar · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · card-checkbox · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · card-option · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -641,7 +641,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · card · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -667,7 +667,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · carousel · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -703,7 +703,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · chart · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · checkbox · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -778,7 +778,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · chip · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -831,7 +831,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · choropleth-map · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -853,7 +853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · collapsible · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -918,7 +918,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · color-picker · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -971,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · combobox · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -998,7 +998,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · command · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1023,7 +1023,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · context-menu · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1100,7 +1100,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · data-list · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1785,7 +1785,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · data-table · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1824,7 +1824,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · date-picker · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1849,7 +1849,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · dialog · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1873,7 +1873,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · drawer · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1898,7 +1898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · dropdown-menu · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -1927,7 +1927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -1956,7 +1956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -1987,7 +1987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -2017,7 +2017,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:block"
   },
@@ -2070,7 +2070,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · empty-state · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2111,7 +2111,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-app-shell · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2413,7 +2413,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-chat · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2509,7 +2509,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-clientes · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2555,7 +2555,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-dashboard · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2606,7 +2606,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-edit-page · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-finance · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2781,7 +2781,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-gantt · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-gantt · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2811,7 +2811,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-login · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2868,7 +2868,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-mapa-rede · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -2951,7 +2951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · example-order-detail · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3001,7 +3001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · file-upload-field · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3069,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · floating-panel · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3111,7 +3111,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · footer-table · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3197,7 +3197,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · form-field · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3337,7 +3337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · gantt · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · gantt · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3429,7 +3429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · header · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3453,7 +3453,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · hover-card · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3518,7 +3518,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · icon · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · input-group · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3568,7 +3568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · input-otp · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3592,7 +3592,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · input · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3651,7 +3651,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · kanban · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · kpi · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3757,7 +3757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · label · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3864,7 +3864,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · list · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -3910,7 +3910,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · markdown-text · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4020,7 +4020,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · menu-sidebar · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4045,7 +4045,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · menubar · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4089,7 +4089,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · modal · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4138,7 +4138,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · month-year-picker · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4164,7 +4164,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · navigation-menu · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4211,7 +4211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · page-header · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4236,7 +4236,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · pagination · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4311,7 +4311,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · panel · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4335,7 +4335,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · popover · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4359,7 +4359,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · progress · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4383,7 +4383,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · radio-group · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4523,7 +4523,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scheduler · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · scheduler · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4571,7 +4571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · screen-loader · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4595,7 +4595,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · scroll-area · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4620,7 +4620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · select · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4644,7 +4644,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · separator · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4670,7 +4670,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · sheet · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4783,7 +4783,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4805,7 +4805,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · skeleton · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4829,7 +4829,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · slider · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4852,7 +4852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · sonner · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4898,7 +4898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · spinner · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4922,7 +4922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · switch · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -4989,7 +4989,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Table/USAGE.md",
-        "content": "# Table — primitiva burra de grid\r\n\r\n`Table` é a **primitiva de baixo nível** que renderiza estrutura visual de grid: head, body, rows, cells. Sem lógica de dados. Use-a quando precisar de uma tabela leve sem o overhead do `DataTable` (smart wrapper que orquestra filtro/sort/pagination/virtualization).\r\n\r\n## Anatomia\r\n\r\n```tsx\r\n<Table density=\"standard\" cellBorders ariaLabel=\"Lista de itens\">\r\n  <TableHead>\r\n    <TableHeadCell field=\"id\" sortable sortDirection=\"asc\" icon={Hash} width={120}>\r\n      ID\r\n    </TableHeadCell>\r\n    <TableHeadCell field=\"name\" sortable resizable width={240}>\r\n      Nome\r\n    </TableHeadCell>\r\n  </TableHead>\r\n\r\n  <TableBody>\r\n    {rows.map((row) => (\r\n      <TableRow key={row.id} selected={isSelected(row)} onClick={() => open(row)}>\r\n        <TableCell field=\"id\" width={120}>{row.id}</TableCell>\r\n        <TableCell field=\"name\" width={240} ellipsis>{row.name}</TableCell>\r\n      </TableRow>\r\n    ))}\r\n  </TableBody>\r\n</Table>\r\n```\r\n\r\n## Componentes\r\n\r\n| Componente | Responsabilidade |\r\n|---|---|\r\n| `Table` | Root grid container. Aceita `scrollRef` externa (pra virtualization). Expõe `cardBreakpoint?: number \\| false` (default `768`) — hoje **no-op** no Table puro (ver Pattern 4). |\r\n| `TableHead` | Sticky row group de headers. `sticky` toggle. `rootProps` pra HTMLAttributes. |\r\n| `TableHeadCell` | Cell de header. `forwardRef`. Suporta sort, resize, icon, headMenu slot. |\r\n| `TableBody` | Row group de body. `virtualized={{ totalHeight }}` ativa modo absolute layout. |\r\n| `TableRow` | `forwardRef`. `selected`/`open`/`focused`/`clickable` variants. |\r\n| `TableCell` | `forwardRef`. Cell de dados. `purpose=\"selection\"` remove padding (checkbox). |\r\n| `TableCardRow` | Modo card (mobile) — substitui TableRow inteira por card vertical. Pra auto-switch baseado em viewport, prefira `<DataTable cardBreakpoint={...}>` (faz o mapeamento automaticamente). |\r\n\r\n## Hooks expostos\r\n\r\n| Hook | Pra que serve |\r\n|---|---|\r\n| `useColumnWidths(columns)` | Calcula `widths` efetivos + `offsets` cumulativos pra colunas pinned. |\r\n| `useColumnResize({ currentWidth, onResize, onResizeEnd, onResizeLiveDOM })` | Drag-to-resize handle. 3 callbacks: live DOM (síncrono), onResize (mousemove), onResizeEnd (mouseup). |\r\n\r\n## Constants\r\n\r\n```ts\r\nimport { SELECTION_COLUMN_WIDTH, TABLE_HEADER_HEIGHT } from \"@/components/ui/Table\";\r\n\r\n// SELECTION_COLUMN_WIDTH = 56 — usar em TableHeadCell/TableCell width\r\n// TABLE_HEADER_HEIGHT    = 42 — alinhar skeletons, totalizers, group headers\r\n```\r\n\r\n## Patterns\r\n\r\n### 1. Coluna de seleção (checkbox)\r\n\r\n```tsx\r\nimport { SELECTION_COLUMN_WIDTH } from \"@/components/ui/Table\";\r\n\r\n<TableHeadCell width={SELECTION_COLUMN_WIDTH} purpose=\"selection\">\r\n  <Checkbox checked={...} onCheckedChange={...} />\r\n</TableHeadCell>\r\n\r\n<TableCell width={SELECTION_COLUMN_WIDTH} purpose=\"selection\">\r\n  <Checkbox checked={...} onCheckedChange={...} />\r\n</TableCell>\r\n```\r\n\r\n`purpose=\"selection\"` é o **padrão pra coluna de checkbox**: remove o padding interno **e centraliza o checkbox** (header + body) automaticamente nos 56px — **não precisa** passar `align=\"center\"`. Vale tanto no `<TableHeadCell>` quanto no `<TableCell>`. Use `width={SELECTION_COLUMN_WIDTH}` (56px) pra largura.\r\n\r\n### 2. Resize column com state externo\r\n\r\n```tsx\r\nconst [colWidths, setColWidths] = useState<Record<string, number>>({});\r\n\r\n<TableHeadCell\r\n  field=\"name\"\r\n  width={colWidths.name ?? 240}\r\n  resizable\r\n  // mousemove → side-effect (live DOM já é feito internamente pelo TableHeadCell)\r\n  onResize={(w) => console.log(\"dragging:\", w)}\r\n  // mouseup → commit no state\r\n  onResizeEnd={(w) => setColWidths((prev) => ({ ...prev, name: w }))}\r\n>\r\n  Nome\r\n</TableHeadCell>\r\n```\r\n\r\n### 3. Virtualization (`@tanstack/react-virtual`)\r\n\r\n```tsx\r\nconst scrollRef = useRef<HTMLDivElement | null>(null);\r\nconst virtualizer = useVirtualizer({\r\n  count: rows.length,\r\n  getScrollElement: () => scrollRef.current,\r\n  estimateSize: () => 56,\r\n  overscan: 10,\r\n});\r\n\r\n<Table scrollRef={scrollRef}>\r\n  <TableHead>{/* ... */}</TableHead>\r\n  <TableBody virtualized={{ totalHeight: virtualizer.getTotalSize() }}>\r\n    {virtualizer.getVirtualItems().map((vi) => (\r\n      <TableRow\r\n        key={rows[vi.index].id}\r\n        rootProps={{\r\n          style: {\r\n            position: \"absolute\",\r\n            top: 0,\r\n            left: 0,\r\n            width: \"100%\",\r\n            height: `${vi.size}px`,\r\n            transform: `translateY(${vi.start}px)`,\r\n          },\r\n        }}\r\n      >\r\n        {/* cells */}\r\n      </TableRow>\r\n    ))}\r\n  </TableBody>\r\n</Table>\r\n```\r\n\r\n### 4. Card mode manual (TableCardRow + matchMedia)\r\n\r\nPro `<Table>` puro, o auto-switch row→card NÃO é automático — você decide via `matchMedia` ou ResizeObserver:\r\n\r\n> ⚠️ `TableProps` expõe `cardBreakpoint?: number | false` (default `768`), mas no `<Table>` puro a prop é **no-op**: ela só escreve a CSS var `--table-card-bp` no root — nenhuma regra CSS/`@container` consome essa var hoje. Não passe `cardBreakpoint` no `<Table>` esperando card mode automático; o auto-switch real é o do `<DataTable cardBreakpoint={...}>`, implementado via JS.\r\n\r\n```tsx\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { TableCardRow } from \"@/components/ui/Table\";\r\n\r\nconst isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n\r\nreturn isMobile ? (\r\n  <div className=\"flex flex-col gap-gp-md\">\r\n    {rows.map((row) => (\r\n      <TableCardRow\r\n        key={row.id}\r\n        header={<strong>{row.name}</strong>}\r\n        items={[\r\n          { label: \"Email\", value: row.email },\r\n          { label: \"Status\", value: row.status },\r\n        ]}\r\n      />\r\n    ))}\r\n  </div>\r\n) : (\r\n  <Table>{/* ... */}</Table>\r\n);\r\n```\r\n\r\n> Pra evitar o trabalho manual, use `<DataTable cardBreakpoint={768}>` — ele mapeia automaticamente as colunas (selection + primary + actions + items) e renderiza `<TableCardRow>` abaixo do breakpoint.\r\n\r\n### 5. Sticky pinned columns\r\n\r\n```tsx\r\nconst cols = [\r\n  { field: \"id\", width: 120, pinned: \"left\" as const },\r\n  { field: \"name\", width: 240, pinned: \"left\" as const },\r\n  { field: \"email\", width: 240 },\r\n];\r\n\r\nconst { widths, offsets } = useColumnWidths(cols);\r\n\r\n<TableHeadCell field=\"id\" width={widths.id} pinned=\"left\" pinOffset={offsets.id}>\r\n  ID\r\n</TableHeadCell>\r\n```\r\n\r\n## Table vs DataTable — quando usar qual\r\n\r\n| Use **Table** quando | Use **DataTable** quando |\r\n|---|---|\r\n| Tabela estática sem filtros/sort/paginação | CRM/admin com filtros, sort, etc |\r\n| Lista simples controlada por estado próprio | Server mode ou client mode com mock |\r\n| Quer composição máxima manual | Quer setup rápido via prop config |\r\n| Tabela dentro de modal/drawer pequeno | Página inteira com toolbar + footer |\r\n\r\n## Princípio dumb\r\n\r\n`Table` **não armazena estado de dados**. Tudo é controlado externamente:\r\n- Selection → consumer mantém `Set<id>` e passa pra cada `TableRow`\r\n- Sort → consumer decide `sortDirection` por cell e implementa onClick\r\n- Pagination → consumer fatia rows antes de mapear\r\n\r\nO Table guarda **apenas** estado visual interno (resize hover, scroll detection) — via `TableContext` privado, nunca exposto.\r\n\r\n## `TableSpanRow` — a linha que atravessa (2026-09-23)\r\n\r\nAqui a tabela é um grid de `<div>`, então **não existe `colSpan`**. Pra \"nenhum\r\nresultado\", \"carregando\" e cabeçalho de grupo, use `TableSpanRow` — uma linha com uma\r\ncélula de largura total.\r\n\r\nAntes disso a saída era uma `TableRow` com uma célula só, que respeita a largura da\r\nPRIMEIRA coluna: o texto ficava espremido num canto e o resto da linha vazio.\r\n\r\n```tsx\r\n<TableBody>\r\n  {carregando && <TableSpanRow><Spinner /> Carregando…</TableSpanRow>}\r\n  {!carregando && rows.length === 0 && <TableSpanRow>Nenhum resultado</TableSpanRow>}\r\n  {rows.map((r) => <TableRow key={r.id}>…</TableRow>)}\r\n</TableBody>\r\n```\r\n\r\n- **`sticky` (default `true`)** mantém o texto visível na rolagem horizontal. O sticky\r\n  fica no CONTEÚDO, não na célula: a célula tem a largura total do grid, que pode ser\r\n  muito maior que a tela — grudá-la não adianta.\r\n- **`height`**: `\"row\"` (default) usa a altura de linha da densidade; `\"auto\"` deixa\r\n  crescer (ex.: estado vazio com ilustração e botão).\r\n- **`align`**: `\"center\"` (default) ou `\"left\"`.\r\n",
+        "content": "# Table — primitiva burra de grid\r\n\r\n`Table` é a **primitiva de baixo nível** que renderiza estrutura visual de grid: head, body, rows, cells. Sem lógica de dados. Use-a quando precisar de uma tabela leve sem o overhead do `DataTable` (smart wrapper que orquestra filtro/sort/pagination/virtualization).\r\n\r\n## Anatomia\r\n\r\n```tsx\r\n<Table density=\"standard\" cellBorders ariaLabel=\"Lista de itens\">\r\n  <TableHead>\r\n    <TableHeadCell field=\"id\" sortable sortDirection=\"asc\" icon={Hash} width={120}>\r\n      ID\r\n    </TableHeadCell>\r\n    <TableHeadCell field=\"name\" sortable resizable width={240}>\r\n      Nome\r\n    </TableHeadCell>\r\n  </TableHead>\r\n\r\n  <TableBody>\r\n    {rows.map((row) => (\r\n      <TableRow key={row.id} selected={isSelected(row)} onClick={() => open(row)}>\r\n        <TableCell field=\"id\" width={120}>{row.id}</TableCell>\r\n        <TableCell field=\"name\" width={240} ellipsis>{row.name}</TableCell>\r\n      </TableRow>\r\n    ))}\r\n  </TableBody>\r\n</Table>\r\n```\r\n\r\n## Componentes\r\n\r\n| Componente | Responsabilidade |\r\n|---|---|\r\n| `Table` | Root grid container. Aceita `scrollRef` externa (pra virtualization). Expõe `cardBreakpoint?: number \\| false` (default `768`) — hoje **no-op** no Table puro (ver Pattern 4). |\r\n| `TableHead` | Sticky row group de headers. `sticky` toggle. `rootProps` pra HTMLAttributes. |\r\n| `TableHeadCell` | Cell de header. `forwardRef`. Suporta sort, resize, icon, headMenu slot. |\r\n| `TableBody` | Row group de body. `virtualized={{ totalHeight }}` ativa modo absolute layout. |\r\n| `TableRow` | `forwardRef`. `selected`/`open`/`focused`/`clickable` variants. |\r\n| `TableCell` | `forwardRef`. Cell de dados. `purpose=\"selection\"` remove padding (checkbox). |\r\n| `TableCardRow` | Modo card (mobile) — substitui TableRow inteira por card vertical. Pra auto-switch baseado em viewport, prefira `<DataTable cardBreakpoint={...}>` (faz o mapeamento automaticamente). |\r\n\r\n## Hooks expostos\r\n\r\n| Hook | Pra que serve |\r\n|---|---|\r\n| `useColumnWidths(columns)` | Calcula `widths` efetivos + `offsets` cumulativos pra colunas pinned. |\r\n| `useColumnResize({ currentWidth, onResize, onResizeEnd, onResizeLiveDOM })` | Drag-to-resize handle. 3 callbacks: live DOM (síncrono), onResize (mousemove), onResizeEnd (mouseup). |\r\n\r\n## Constants\r\n\r\n```ts\r\nimport { SELECTION_COLUMN_WIDTH, TABLE_HEADER_HEIGHT } from \"@/components/ui/Table\";\r\n\r\n// SELECTION_COLUMN_WIDTH = 56 — usar em TableHeadCell/TableCell width\r\n// TABLE_HEADER_HEIGHT    = 42 — alinhar skeletons, totalizers, group headers\r\n```\r\n\r\n## Largura: a barra de rolagem tem lugar reservado (2026-10-22)\r\n\r\nO container usa **`scrollbar-gutter: stable`**: ~10px ficam reservados pra barra vertical\r\n**mesmo quando não há rolagem**.\r\n\r\nSem isso, filtrar ou limpar muda o número de linhas, a barra aparece/some e a tabela\r\ninteira \"encolhe/alarga\" a cada troca de filtro — layout shift visível ao lado de\r\nqualquer coisa alinhada à direita.\r\n\r\n⚠️ **Tradeoff aceito, e ele é visível:** uma tabela que nunca rola fica ~10px mais estreita\r\nque o container. Se você mede largura de coluna contra o container pai, é daí que vem a\r\ndiferença.\r\n\r\n## Patterns\r\n\r\n### 1. Coluna de seleção (checkbox)\r\n\r\n```tsx\r\nimport { SELECTION_COLUMN_WIDTH } from \"@/components/ui/Table\";\r\n\r\n<TableHeadCell width={SELECTION_COLUMN_WIDTH} purpose=\"selection\">\r\n  <Checkbox checked={...} onCheckedChange={...} />\r\n</TableHeadCell>\r\n\r\n<TableCell width={SELECTION_COLUMN_WIDTH} purpose=\"selection\">\r\n  <Checkbox checked={...} onCheckedChange={...} />\r\n</TableCell>\r\n```\r\n\r\n`purpose=\"selection\"` é o **padrão pra coluna de checkbox**: remove o padding interno **e centraliza o checkbox** (header + body) automaticamente nos 56px — **não precisa** passar `align=\"center\"`. Vale tanto no `<TableHeadCell>` quanto no `<TableCell>`. Use `width={SELECTION_COLUMN_WIDTH}` (56px) pra largura.\r\n\r\n### 2. Resize column com state externo\r\n\r\n```tsx\r\nconst [colWidths, setColWidths] = useState<Record<string, number>>({});\r\n\r\n<TableHeadCell\r\n  field=\"name\"\r\n  width={colWidths.name ?? 240}\r\n  resizable\r\n  // mousemove → side-effect (live DOM já é feito internamente pelo TableHeadCell)\r\n  onResize={(w) => console.log(\"dragging:\", w)}\r\n  // mouseup → commit no state\r\n  onResizeEnd={(w) => setColWidths((prev) => ({ ...prev, name: w }))}\r\n>\r\n  Nome\r\n</TableHeadCell>\r\n```\r\n\r\n### 3. Virtualization (`@tanstack/react-virtual`)\r\n\r\n```tsx\r\nconst scrollRef = useRef<HTMLDivElement | null>(null);\r\nconst virtualizer = useVirtualizer({\r\n  count: rows.length,\r\n  getScrollElement: () => scrollRef.current,\r\n  estimateSize: () => 56,\r\n  overscan: 10,\r\n});\r\n\r\n<Table scrollRef={scrollRef}>\r\n  <TableHead>{/* ... */}</TableHead>\r\n  <TableBody virtualized={{ totalHeight: virtualizer.getTotalSize() }}>\r\n    {virtualizer.getVirtualItems().map((vi) => (\r\n      <TableRow\r\n        key={rows[vi.index].id}\r\n        rootProps={{\r\n          style: {\r\n            position: \"absolute\",\r\n            top: 0,\r\n            left: 0,\r\n            width: \"100%\",\r\n            height: `${vi.size}px`,\r\n            transform: `translateY(${vi.start}px)`,\r\n          },\r\n        }}\r\n      >\r\n        {/* cells */}\r\n      </TableRow>\r\n    ))}\r\n  </TableBody>\r\n</Table>\r\n```\r\n\r\n### 4. Card mode manual (TableCardRow + matchMedia)\r\n\r\nPro `<Table>` puro, o auto-switch row→card NÃO é automático — você decide via `matchMedia` ou ResizeObserver:\r\n\r\n> ⚠️ `TableProps` expõe `cardBreakpoint?: number | false` (default `768`), mas no `<Table>` puro a prop é **no-op**: ela só escreve a CSS var `--table-card-bp` no root — nenhuma regra CSS/`@container` consome essa var hoje. Não passe `cardBreakpoint` no `<Table>` esperando card mode automático; o auto-switch real é o do `<DataTable cardBreakpoint={...}>`, implementado via JS.\r\n\r\n```tsx\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { TableCardRow } from \"@/components/ui/Table\";\r\n\r\nconst isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n\r\nreturn isMobile ? (\r\n  <div className=\"flex flex-col gap-gp-md\">\r\n    {rows.map((row) => (\r\n      <TableCardRow\r\n        key={row.id}\r\n        header={<strong>{row.name}</strong>}\r\n        items={[\r\n          { label: \"Email\", value: row.email },\r\n          { label: \"Status\", value: row.status },\r\n        ]}\r\n      />\r\n    ))}\r\n  </div>\r\n) : (\r\n  <Table>{/* ... */}</Table>\r\n);\r\n```\r\n\r\n> Pra evitar o trabalho manual, use `<DataTable cardBreakpoint={768}>` — ele mapeia automaticamente as colunas (selection + primary + actions + items) e renderiza `<TableCardRow>` abaixo do breakpoint.\r\n\r\n### 5. Sticky pinned columns\r\n\r\n```tsx\r\nconst cols = [\r\n  { field: \"id\", width: 120, pinned: \"left\" as const },\r\n  { field: \"name\", width: 240, pinned: \"left\" as const },\r\n  { field: \"email\", width: 240 },\r\n];\r\n\r\nconst { widths, offsets } = useColumnWidths(cols);\r\n\r\n<TableHeadCell field=\"id\" width={widths.id} pinned=\"left\" pinOffset={offsets.id}>\r\n  ID\r\n</TableHeadCell>\r\n```\r\n\r\n## Table vs DataTable — quando usar qual\r\n\r\n| Use **Table** quando | Use **DataTable** quando |\r\n|---|---|\r\n| Tabela estática sem filtros/sort/paginação | CRM/admin com filtros, sort, etc |\r\n| Lista simples controlada por estado próprio | Server mode ou client mode com mock |\r\n| Quer composição máxima manual | Quer setup rápido via prop config |\r\n| Tabela dentro de modal/drawer pequeno | Página inteira com toolbar + footer |\r\n\r\n## Princípio dumb\r\n\r\n`Table` **não armazena estado de dados**. Tudo é controlado externamente:\r\n- Selection → consumer mantém `Set<id>` e passa pra cada `TableRow`\r\n- Sort → consumer decide `sortDirection` por cell e implementa onClick\r\n- Pagination → consumer fatia rows antes de mapear\r\n\r\nO Table guarda **apenas** estado visual interno (resize hover, scroll detection) — via `TableContext` privado, nunca exposto.\r\n\r\n## `TableSpanRow` — a linha que atravessa (2026-09-23)\r\n\r\nAqui a tabela é um grid de `<div>`, então **não existe `colSpan`**. Pra \"nenhum\r\nresultado\", \"carregando\" e cabeçalho de grupo, use `TableSpanRow` — uma linha com uma\r\ncélula de largura total.\r\n\r\nAntes disso a saída era uma `TableRow` com uma célula só, que respeita a largura da\r\nPRIMEIRA coluna: o texto ficava espremido num canto e o resto da linha vazio.\r\n\r\n```tsx\r\n<TableBody>\r\n  {carregando && <TableSpanRow><Spinner /> Carregando…</TableSpanRow>}\r\n  {!carregando && rows.length === 0 && <TableSpanRow>Nenhum resultado</TableSpanRow>}\r\n  {rows.map((r) => <TableRow key={r.id}>…</TableRow>)}\r\n</TableBody>\r\n```\r\n\r\n- **`sticky` (default `true`)** mantém o texto visível na rolagem horizontal. O sticky\r\n  fica no CONTEÚDO, não na célula: a célula tem a largura total do grid, que pode ser\r\n  muito maior que a tela — grudá-la não adianta.\r\n- **`height`**: `\"row\"` (default) usa a altura de linha da densidade; `\"auto\"` deixa\r\n  crescer (ex.: estado vazio com ilustração e botão).\r\n- **`align`**: `\"center\"` (default) ou `\"left\"`.\r\n",
         "type": "registry:file",
         "target": "components/ui/Table/USAGE.md"
       },
@@ -5007,7 +5007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · table · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5070,7 +5070,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · tabs-navigation · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5094,7 +5094,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · tabs · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5118,7 +5118,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · textarea · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5136,7 +5136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · theme-blue · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5154,7 +5154,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · theme-green · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5172,7 +5172,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · theme-pay · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5190,7 +5190,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · theme-vibrant · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5212,7 +5212,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · theme · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5263,7 +5263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · toast · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5289,7 +5289,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · toggle-group · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5314,7 +5314,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · toggle · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5338,7 +5338,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · tooltip · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:ui"
   },
@@ -5366,7 +5366,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · tv · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   },
@@ -5394,7 +5394,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.68.0 · f0341bf · 2026-10-22"
+      "stamp": "igreen-ds · utils · v0.69.0 · 0a30111 · 2026-10-22"
     },
     "type": "registry:file"
   }
