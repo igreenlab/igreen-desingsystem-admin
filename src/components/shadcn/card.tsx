@@ -1,10 +1,15 @@
 ﻿import * as React from "react"
 
 import { cn } from "@/lib/utils"
+/* Alias, NÃO relativo. No copy-in os dois arquivos caem em pastas diferentes
+   (`card.tsx` → components/ui/, `clickable-surface.tsx` → components/shadcn/) e o
+   shadcn só reescreve especificador que começa com `@/` — um `./clickable-surface`
+   passa verbatim e aponta pra um arquivo que não existe no projeto do consumidor.
+   O `Kpi` sempre importou por alias; este arquivo é que estava fora do padrão. */
 import {
   ClickableSurface,
   type ClickableSurfaceProps,
-} from "./clickable-surface"
+} from "@/components/shadcn/clickable-surface"
 
 /**
  * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as
