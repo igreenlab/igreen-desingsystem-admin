@@ -37,6 +37,7 @@ Cada spec abre com um bloco `> **Status:**`. Formato:
 | `pipeline-conformance-showcase.md` | **IMPLEMENTADA** (2026-07-29) | `scripts/lib/showcase-registration.mjs`, `ds-exceptions.mjs` |
 | `brand-vibrant-handoff/` | **IMPLEMENTADA** (2026-08-03) | `tokens/brands/vibrant/` — 5ª marca |
 | `blocks-catalogo-de-composicoes.md` | **IMPLEMENTADA** (2026-08-20) | `src/blocks/`, `scripts/blocks-build.mjs`, `BlocksChartsDoc.tsx`, Passo 0 do `ds-kit` |
+| `datatable-feedback-solis.md` | **ATIVA** — em review no PR #343 | `src/components/ui/DataTable/`, `TableToolbar/`, `FooterTable/`, `#/filter-chips-lab` |
 
 > `brand-vibrant-handoff/` tem um vínculo extra: o `.gitignore` (linhas 30-33) explica que
 > o diretório `theme/` da raiz é cópia **byte-idêntica** dele. Mover quebraria essa
