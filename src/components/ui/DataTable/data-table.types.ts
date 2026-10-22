@@ -550,6 +550,28 @@ export type DataTableSelectionConfig = {
   enabled?: boolean;
   enableGlobal?: boolean;
   actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode;
+  /**
+   * Como a barra de seleção convive com a toolbar (item 16 Sólis):
+   *  - "replace" (default): substitui a toolbar enquanto houver seleção.
+   *  - "inline": a toolbar continua visível e a barra entra abaixo dela.
+   *  - "none": sem barra — a tela renderiza o próprio feedback de seleção.
+   */
+  bar?: "replace" | "inline" | "none";
+  /** Label da contagem (singular/plural custom). Default "N selecionado(s)". */
+  countLabel?: (count: number) => ReactNode;
+  /** Texto do link de limpar. Default "Cancelar seleção". */
+  clearLabel?: ReactNode;
+  /**
+   * Total de selecionados ENTRE PÁGINAS, vindo da tela (quando a seleção
+   * persiste fora do DataTable). Quando presente, vence a contagem interna
+   * da página na barra.
+   */
+  totalSelected?: number;
+  /**
+   * "Limpar TODAS as páginas" — quando presente, o link de limpar da barra
+   * chama este callback (além de limpar a seleção interna da página).
+   */
+  onClearAll?: () => void;
 };
 
 /* ── DataTableProps principal ───────────────────────────────────── */

@@ -34,6 +34,7 @@ import {
   type PaginationModel,
 } from "@/components/ui/DataTable";
 import { Input } from "@/components/shadcn/input";
+import { BulkActionButton } from "@/components/ui/TableToolbar";
 import { cn } from "@/lib/utils";
 import { ExamplePageLayout } from "../components/example-page-layout";
 
@@ -423,6 +424,7 @@ const ITENS_NAV: ItemNav[] = [
   { n: 13, tag: "novo", titulo: "Avançado separado do funil", comoVer: "toolbar.enableAdvancedFilters desliga SÓ o builder avançado (pra tela com montador próprio). Aqui está ligado — veja em Configurações." },
   { n: 14, tag: "novo", titulo: "Campo de filtro público", comoVer: "FILTER_FIELD_CLASS e FastSingleSelectList agora saem do barrel do DataTable — tipo custom não importa mais caminho interno. (Code-level: veja o código do exemplo.)" },
   { n: 15, tag: "fix", titulo: "pageSize em modo controlado", comoVer: "A paginação desta tabela é CONTROLADA (veja a linha de eventos). Troque 'Linhas' no rodapé: o tamanho muda e volta pra página 1 — antes o 2º evento desfazia a troca." },
+  { n: 16, tag: "novo", titulo: "Barra de seleção configurável", comoVer: "Marque linhas (checkbox): com bar: 'inline' a toolbar CONTINUA visível e a barra entra abaixo, com countLabel ('N clientes marcados') e 'Desmarcar tudo' custom — que também dispara onClearAll pra tela limpar seleção de outras páginas (totalSelected exibe o total cross-page quando o app passa)." },
   { n: 17, tag: "fix", titulo: "Configurações dentro da tela", comoVer: "Abra 'Configurações da tabela' com a janela baixa: o popover limita a altura pelo espaço disponível real e rola por dentro." },
   { n: 0, tag: "custom", titulo: "Registry: tipos custom do app", comoVer: "'Atribuído' (busca + lista com avatar) e 'Período' (1 data → 2 colunas) são columnTypeRegistry do APP, não do DS — é onde moram comportamentos exclusivos (colar lista, contém «texto», clique-substitui...)." },
 ];
@@ -556,6 +558,23 @@ export default function FilterChipsLabPreview() {
             enabled: true,
             initialPageSize: 5,
             pageSizeOptions: [5, 10, 25],
+          }}
+          selectionConfig={{
+            enabled: true,
+            // ⭐ Item 16: "inline" — a toolbar (busca/filtros) CONTINUA visível
+            // com linhas marcadas; a barra entra numa linha abaixo. countLabel
+            // e clearLabel customizam os textos; onClearAll avisa a tela
+            // (seleção que persiste entre páginas mora no app — totalSelected
+            // exibe o total dela quando presente).
+            bar: "inline",
+            countLabel: (n) => `${n} cliente${n > 1 ? "s" : ""} marcado${n > 1 ? "s" : ""}`,
+            clearLabel: "Desmarcar tudo",
+            onClearAll: () => log("onClearAll da seleção — a tela limpa as outras páginas"),
+            actions: (ids) => (
+              <BulkActionButton onClick={() => log(`ação em lote: ${ids.length} id(s)`)}>
+                Exportar seleção
+              </BulkActionButton>
+            ),
           }}
           className="max-h-full"
         />

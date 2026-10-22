@@ -1910,10 +1910,22 @@ function DataTableInternal<T>(
                 ) : undefined
               }
               bulkBar={
-                selectionConfig.enabled && selection.selectedCount > 0 ? (
+                selectionConfig.enabled &&
+                selectionConfig.bar !== "none" &&
+                (selectionConfig.totalSelected ?? selection.selectedCount) >
+                  0 ? (
                   <BulkActionsBar
-                    count={selection.selectedCount}
-                    onClear={selection.clear}
+                    // Seleção entre páginas (item 16 Sólis): o total da TELA
+                    // vence a contagem interna da página quando presente.
+                    count={
+                      selectionConfig.totalSelected ?? selection.selectedCount
+                    }
+                    countLabel={selectionConfig.countLabel}
+                    clearLabel={selectionConfig.clearLabel}
+                    onClear={() => {
+                      selection.clear();
+                      selectionConfig.onClearAll?.();
+                    }}
                   >
                     {selectionConfig.actions?.(
                       selection.selectedIds,
@@ -1921,6 +1933,9 @@ function DataTableInternal<T>(
                     )}
                   </BulkActionsBar>
                 ) : undefined
+              }
+              bulkBarMode={
+                selectionConfig.bar === "inline" ? "inline" : "replace"
               }
             />
             {/* Drawer do filtro simples (funil) — só v2 */}
