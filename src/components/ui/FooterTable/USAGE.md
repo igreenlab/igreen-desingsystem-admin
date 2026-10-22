@@ -18,7 +18,7 @@ import { FooterTable } from "@/components/ui/FooterTable";
 | `page` | number | — | Página atual (1-indexed) |
 | `pageSize` | number | — | Tamanho da página atual |
 | `onPageChange` | (page: number) => void | — | Callback de paginação |
-| `onPageSizeChange` | (size: number) => void | — | Callback de troca de page-size |
+| `onPageSizeChange` | (size: number) => void | — | Troca de page-size. ⚠️ **O handler é responsável por voltar à página 1** — o FooterTable NÃO dispara mais um `onPageChange(1)` junto (behavior change 2026-10: o 2º evento ia com o pageSize antigo e, em modo controlado, desfazia a troca) |
 | `pageSizeOptions` | number[] | [10, 25, 50, 100] | Opções do select |
 | `selectionCount` | number | 0 | Quantos selecionados (acrescenta "· N selecionado(s)" ao lado do range) |
 | `pageSizeLabel` | string | "Linhas" | Label do select de page-size |
@@ -35,7 +35,8 @@ import { FooterTable } from "@/components/ui/FooterTable";
   page={currentPage}
   pageSize={10}
   onPageChange={setPage}
-  onPageSizeChange={setPageSize}
+  // reset de página é responsabilidade do handler (ver tabela acima)
+  onPageSizeChange={(s) => { setPageSize(s); setPage(1); }}
   selectionCount={selectedIds.length}
 />
 ```

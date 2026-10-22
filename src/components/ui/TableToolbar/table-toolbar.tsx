@@ -52,8 +52,16 @@ export type TableToolbarProps = {
   more?: ReactNode;
 
   /* ── Extras ──────────────────────────────────────────────────── */
-  /** Substitui a toolbar inteira pela barra de ações em massa. */
+  /** Barra de ações em massa (`<BulkActionsBar>`). Com `bulkBarMode`
+   *  default ("replace"), substitui a toolbar inteira enquanto presente. */
   bulkBar?: ReactNode;
+  /**
+   * Como a bulk bar convive com a toolbar (item 16 Sólis):
+   *  - "replace" (default): a barra substitui a toolbar — comportamento atual.
+   *  - "inline": a toolbar CONTINUA visível (busca/filtros/visões) e a barra
+   *    renderiza numa linha logo abaixo — ações em lote que moram na toolbar.
+   */
+  bulkBarMode?: "replace" | "inline";
   className?: string;
 };
 
@@ -68,13 +76,14 @@ export function TableToolbar({
   settings,
   more,
   bulkBar,
+  bulkBarMode = "replace",
   className,
 }: TableToolbarProps) {
-  if (bulkBar) {
+  if (bulkBar && bulkBarMode === "replace") {
     return <div className={cn("w-full", className)}>{bulkBar}</div>;
   }
 
-  return (
+  const toolbar = (
     <div className={cn(toolbarRoot(), className)}>
       {/* Esquerda — navegação/visões */}
       <div className={toolbarLeft()}>
@@ -96,4 +105,17 @@ export function TableToolbar({
       </div>
     </div>
   );
+
+  // Inline (item 16 Sólis): a toolbar segue visível e a barra de seleção
+  // entra numa linha abaixo — DOM extra SÓ quando há bulkBar.
+  if (bulkBar) {
+    return (
+      <div className="flex w-full flex-col gap-gp-md">
+        {toolbar}
+        {bulkBar}
+      </div>
+    );
+  }
+
+  return toolbar;
 }

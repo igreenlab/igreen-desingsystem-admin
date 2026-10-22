@@ -24,6 +24,11 @@
  */
 
 export { columnTypeRegistry } from "./column-type-registry";
+// Público de propósito (item 14 Sólis): quem registra tipo de coluna CUSTOM
+// precisa do mesmo visual de campo dos tipos built-in sem importar de
+// caminho interno (_filter-field).
+export { FILTER_FIELD_CLASS, FastSingleSelectList } from "./_filter-field";
+export { MultiSelectDropdown } from "./definitions/multi-select-column-type";
 export type {
   ColumnTypeDefinition,
   ColumnTypeId,

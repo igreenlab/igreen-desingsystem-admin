@@ -17,6 +17,10 @@ export const TagsColumnType: ColumnTypeDefinition = {
     { id: "isNoneOf", label: "não tem" },
     { id: "contains", label: "contém" },
   ],
+  /* NÃO declara `ownsMulti`: no chip multi, o widget do `multiSelect` built-in é mais
+     rico que o checkbox-list daqui (busca a partir de 10 opções, segmented
+     Incluindo/Excluindo, "Selecionar todos", opções fixas). O `renderFastFilterInput`
+     abaixo segue valendo pro operador `contains`, que é single. */
   renderFilterInput: ({ value, onChange, options }) => {
     const selected = new Set(toStringArray(value));
     const toggle = (v: string) => {

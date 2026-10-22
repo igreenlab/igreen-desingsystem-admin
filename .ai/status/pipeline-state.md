@@ -5708,3 +5708,30 @@ container query (`@sm:`…`@3xl:`, incluindo container nomeado `@lg/painel:`) e 
 declaração é a mesma antes e depois, mas se o `tailwind-merge` a descartava antes e passa
 a fazê-la vencer agora, a tela ganha um mínimo que nunca teve. É o único caso onde
 preservar a declaração não preserva o pixel.
+
+---
+
+### [2026-10-22] | DS DEV | DataTable/TableToolbar/FooterTable/Table — feedback Sólis (17 itens) | CONCLUÍDO
+- Input: lista de 20 itens do consumidor Sólis; escopo acordado = só DataTable (16 itens + barra de seleção), Kpi/Button fora. Filosofia acordada com o mantenedor: DS entrega DEFAULTS + BLOCOS públicos; comportamento específico vira tipo registrado no columnTypeRegistry, não PR no DS.
+- Output: branch `docs/showcase-filter-chips-lab` (~24 commits). Defeitos: select único no chip (promoção useMulti), cleanup stale do closeChip (adiado+ref, depois endurecido por ID+timer cancelável), linha vazia do painel, pageSize controlado (FooterTable não dispara mais onPageChange(1) — BEHAVIOR CHANGE documentado no USAGE), Configurações com available-height, scrollbar-gutter stable no Table. Recursos: hidden, filterLabel, showEmptyFilterChips objeto (dismissable:false + CirclePlus), filterLoadOptions/filterValueLabel (async com debounce/Carregar mais/erro com retry, também no builder avançado e no funil), ColumnOption.pinned, Incluindo/Excluindo (ToolbarSegmented, isNoneOf danger), between no number, onFiltersClearAll, enableAdvancedFilters, selectionConfig.bar/countLabel/clearLabel/totalSelected/onClearAll + bulkBarMode, exports MultiSelectDropdown/FastSingleSelectList/FILTER_FIELD_CLASS, customOwnsMulti (tipo que DECLARA `ownsMulti: true` é dono do chip multi — a 1ª versão deduzia posse de "declara isAnyOf/isNoneOf" e pegava `badge` e `user`, que declaram o operador pro builder avançado mas têm widget de chip de valor ÚNICO; corrigido no 2º review, commit f0341bf, gate owns-multi.test.tsx). Demo #/filter-chips-lab com navegador flutuante item a item.
+- Decisões: contador do popover removido e Limpar à direita (mantenedor); widget multi altura = root pela available-height + lista flex entre 96–240px; import direto de TableToolbar/parts/toolbar-segmented quebra ciclo de barrel (TDZ real medida).
+- Assumption: a promoção useMulti continua sendo o único seletor de widget do chip — se surgir outro caminho de escolha de widget, o customOwnsMulti precisa valer lá também. ⚠️ A 2ª assumption da 1ª versão ("declarar isAnyOf/isNoneOf basta pra provar que o widget edita lista") foi REFUTADA no 2º review: `badge` e `user` declaram o operador e não editam lista. Posse agora é declarada, e NENHUM built-in a declara. E: consumidores standalone do FooterTable leem o USAGE (o reset de página virou responsabilidade do handler).
+- Lições novas: nenhuma (padrões L-060/L-064 já cobrem; gate novo: pinned-options.test.tsx).
+
+### [2026-10-22] | DS REVIEWER | DataTable/TableToolbar/FooterTable — feedback Sólis (branch docs/showcase-filter-chips-lab) | REPROVADO
+- Spec verificada: não havia entry do DS Dev (corrigido acima); gate não exigido (edição de existentes, Regra 4)
+- Assumption verificada: a implícita "o lab demonstra item a item" quebrou no item 7 — pinned inerte mascarado pelo dado da demo (o 1º elemento do array coincidia com o esperado)
+- Critique genuína: rastreio de prop pelos adapters (.map descartando campo) + medição no browser da interação diferenciadora (busca no chip BU; pageSize controlado)
+- Itens reprovados: [CRÍTICO] pinned descartado nos 2 maps do use-filter-popover-adapter · [ALTO] USAGE do FooterTable ensinando padrão quebrado pós behavior change · [ALTO] pipeline-state sem entry · [MÉDIO] closeChip adiado × model controlado lento/unmount; hidden×persistId engole o default; fetchPage sem catch; updateGroupOperator mescla sem dedupe · [BAIXO] aria-label com id cru; gutter muda visual geral (tradeoff aceito); demo pl-[32px]; higiene do working tree
+- Lições novas: nenhuma (L-060/L-064)
+
+### [2026-10-22] | DS DEV | Correções do review | CONCLUÍDO
+- Output: pinned propagado nos 2 maps + `pinned-options.test.tsx` montando as options PELO caminho de produção (provado VERMELHO contra o código sem o fix — L-064); USAGE do FooterTable com o contrato novo + exemplo corrigido; cleanup do closeChip escopado por ID (preencher gera IDs novos → parent controlado lento não perde a escolha) com timer único cancelado no unmount; fetchPage com catch + "Tentar de novo"; dedupe na mesclagem do updateGroupOperator; aria-label com rótulo legível; aviso hidden×persistId no USAGE. Pendências BAIXAS 9–11 anotadas pro corpo do PR (gutter = nota de release; demo-only; working tree não entra na branch).
+- Assumption: idem entry anterior.
+
+### [2026-10-22] | DS REVIEWER | DataTable/TableToolbar/FooterTable — feedback Sólis (commit e7519c4) | APROVADO
+- Spec verificada: sim — entries DS Dev de 2026-10-22 no pipeline-state (CONCLUÍDO + correções)
+- Assumption verificada: sim — "useMulti é o único seletor de widget do chip" confere (call-site único de renderFastFilterInput no caminho do chip); "consumidor standalone do FooterTable lê o USAGE" sustentada pelo USAGE corrigido + nota de changelog pendente no /ds-release
+- Critique genuína: verificação independente das 8 correções (teste re-executado, tsc, browser re-medido na interação diferenciadora, varredura por 3º caminho de options — inexistente)
+- Regressões: nenhuma; resíduo BAIXO documentado e endurecido em seguida pelo DS Dev (closeChip: comentário sem overclaim; troca de chip EXECUTA o cleanup pendente em vez de descartá-lo)
+- Lições novas: nenhuma (L-060/L-064 cobrem; gate novo pinned-options.test.tsx em vigor)

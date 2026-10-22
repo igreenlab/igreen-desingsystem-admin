@@ -173,6 +173,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Example: CRUD", href: "clients-crud" },
       { label: "Example: CRUD Server", href: "clients-crud-server" },
       { label: "Example: Pre-filtered", href: "clients-pre-filtered" },
+      { label: "Example: Filter chips lab", href: "filter-chips-lab" },
       { label: "Example: Virtualized (10k)", href: "clients-virtualized" },
       { label: "Example: Grouped", href: "clients-grouped" },
       { label: "Example: Expandable row", href: "clients-expandable" },

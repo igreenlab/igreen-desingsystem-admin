@@ -42,6 +42,14 @@ export type UseFilterPopoverAdapterParams<T> = {
   colLabelMap: Record<string, string>;
   /** Chave de chip pendente de abertura — pra incluir items vazios renderizando "phantom chip". */
   pendingOpenChipKey: string | null;
+  /**
+   * Chave do chip com popover ABERTO por clique (controlado no DataTable).
+   * Mesmo papel do pendingOpenChipKey: manter o grupo vazio vivo enquanto o
+   * popover está aberto — sem isso, desmarcar o último valor remove o grupo,
+   * o chip (âncora do popover) desmonta e o popover "fecha sozinho". O
+   * cleanup do fechar (closeChip) remove o vazio no clique-fora.
+   */
+  openChipKey?: string | null;
 };
 
 export type UseFilterPopoverAdapterResult<T> = {
@@ -51,6 +59,10 @@ export type UseFilterPopoverAdapterResult<T> = {
   appliedFilters: AppliedFilter[];
   removeGroup: (groupKey: string) => void;
   updateGroupValue: (groupKey: string, newValue: unknown) => void;
+  updateGroupOperator: (
+    groupKey: string,
+    nextOperator: FilterItem["operator"],
+  ) => void;
   getGroupOptions: (groupKey: string) => ColumnOption[];
   handleFiltersChange: (entries: FilterPopoverEntry[]) => void;
   isFilterValueEmpty: (v: unknown) => boolean;
@@ -77,10 +89,17 @@ export function useFilterPopoverAdapter<T>({
   colsByField,
   colLabelMap,
   pendingOpenChipKey,
+  openChipKey,
 }: UseFilterPopoverAdapterParams<T>): UseFilterPopoverAdapterResult<T> {
-  const filterPopoverColumns = useMemo<FilterPopoverColumn[]>(
-    () =>
-      effectiveColumns
+  const filterPopoverColumns = useMemo<FilterPopoverColumn[]>(() => {
+    // Visíveis (na ordem atual) + OCULTAS filtráveis no fim: coluna escondida
+    // no popover de colunas não perde o filtro do painel/avançado (item 1 do
+    // feedback Sólis — "filtro sem coluna visível").
+    const visibleFields = new Set(effectiveColumns.map((c) => String(c.field)));
+    const hiddenFilterable = allColumns.filter(
+      (c) => c.enableColumnFilter && !visibleFields.has(String(c.field)),
+    );
+    return [...effectiveColumns, ...hiddenFilterable]
         .filter((c) => c.enableColumnFilter)
         .map((c) => {
           let popoverType: FilterPopoverColumn["type"] = "text";
@@ -91,6 +110,9 @@ export function useFilterPopoverAdapter<T>({
           let options = c.filterOptions?.map((o) => ({
             value: String(o.value),
             label: o.label,
+            // Propagado — senão `pinned` morria no caminho builder/funil
+            // (review 2026-10-22; gate: pinned-options.test.tsx).
+            pinned: o.pinned,
           }));
           if (popoverType === "select" && (!options || options.length === 0) && rows) {
             const set = new Set<string>();
@@ -100,18 +122,25 @@ export function useFilterPopoverAdapter<T>({
                 : (r as Record<string, unknown>)[String(c.field)];
               if (v != null && v !== "") set.add(String(v));
             }
-            options = Array.from(set).map((v) => ({ value: v, label: v }));
+            options = Array.from(set).map((v) => ({
+              value: v,
+              label: v,
+              pinned: undefined,
+            }));
           }
           return {
             key: String(c.field),
-            label: c.headerName,
+            label: c.filterLabel ?? c.headerName,
             type: popoverType,
             options,
             filterType: c.filterType,
+            // Async viaja junto: builder avançado e drawer funil usam o MESMO
+            // widget com busca no servidor que o chip.
+            loadOptions: c.filterLoadOptions,
+            resolveValueLabel: c.filterValueLabel,
           };
-        }),
-    [effectiveColumns, rows],
-  );
+        });
+  }, [effectiveColumns, allColumns, rows]);
 
   const filterPopoverEntries = useMemo<FilterPopoverEntry[]>(() => {
     // 1ª passada: coletar items por chave multi (field|operator)
@@ -170,8 +199,10 @@ export function useFilterPopoverAdapter<T>({
     for (const item of filterModel.items) {
       const key = `${item.field}|${item.operator}`;
       const isEmpty = isFilterValueEmpty(item.value);
-      // Items vazios são pulados — exceção: pending pra abrir popover (filter shortcut)
-      if (isEmpty && key !== pendingOpenChipKey) continue;
+      // Items vazios são pulados — exceções: pending pra abrir popover (filter
+      // shortcut) e chip com popover ABERTO (senão desmarcar o último valor
+      // desmonta o chip/âncora e o popover fecha no meio da interação).
+      if (isEmpty && key !== pendingOpenChipKey && key !== openChipKey) continue;
       if (!grouped.has(key)) grouped.set(key, []);
       grouped.get(key)!.push(item);
     }
@@ -181,7 +212,7 @@ export function useFilterPopoverAdapter<T>({
       operator: items[0].operator,
       items,
     }));
-  }, [filterModel, pendingOpenChipKey]);
+  }, [filterModel, pendingOpenChipKey, openChipKey]);
 
   const appliedFilters = useMemo<AppliedFilter[]>(
     () =>
@@ -218,13 +249,39 @@ export function useFilterPopoverAdapter<T>({
           const opt = col?.filterOptions?.find(
             (o) => String(o.value) === String(v),
           );
-          return opt?.label ?? String(v);
+          return (
+            opt?.label ??
+            col?.filterValueLabel?.(v as string | number) ??
+            String(v)
+          );
         };
 
         if (typeDef.renderChipValue && g.items.length > 0) {
           // Passa options pro renderChipValue resolver value → label friendly.
           // Sem isso, o chip mostrava o RAW value (ex: "active" em vez de "Ativo").
-          const chipOptions = col?.filterOptions as ColumnOption[] | undefined;
+          // Valores de filtro ASYNC (filterLoadOptions) não vivem em
+          // filterOptions — sintetiza entries via filterValueLabel pro chip
+          // não exibir o id cru.
+          const staticOpts = (col?.filterOptions ?? []) as ColumnOption[];
+          const extraOpts: ColumnOption[] = col?.filterValueLabel
+            ? g.items
+                .flatMap((it) =>
+                  Array.isArray(it.value)
+                    ? (it.value as Array<string | number>)
+                    : it.value != null
+                      ? [it.value as string | number]
+                      : [],
+                )
+                .filter(
+                  (v) =>
+                    !staticOpts.some((o) => String(o.value) === String(v)),
+                )
+                .map((v) => ({ value: v, label: col.filterValueLabel!(v) }))
+            : [];
+          const chipOptions: ColumnOption[] | undefined =
+            staticOpts.length + extraOpts.length > 0
+              ? [...staticOpts, ...extraOpts]
+              : undefined;
           const chipValues = g.items.map((it) =>
             typeDef.renderChipValue!(it.value as never, chipOptions),
           );
@@ -241,6 +298,10 @@ export function useFilterPopoverAdapter<T>({
             id: g.key,
             columnLabel,
             op: g.operator,
+            // Sem isto o chip de tipo com renderChipValue caía no fallback
+            // genérico (equals → "é") e ignorava o label do operador do
+            // registry ("cobre", "maior que"...). Os outros branches já passam.
+            opLabel,
             value,
           };
         }
@@ -274,6 +335,35 @@ export function useFilterPopoverAdapter<T>({
       ...filterModel,
       items: filterModel.items.filter((i) => !ids.has(i.id)),
     });
+  };
+
+  /** Troca o OPERADOR de um grupo inteiro (ex.: isAnyOf ↔ isNoneOf no
+   *  alternador Incluindo/Excluindo do chip — item 8 Sólis), preservando
+   *  valores e posição. A chave do grupo muda (field|operator) — o caller
+   *  atualiza openChipKey/pendingOpenChipKey pra o popover não fechar. */
+  const updateGroupOperator = (
+    groupKey: string,
+    nextOperator: FilterItem["operator"],
+  ) => {
+    const group = appliedGroups.find((g) => g.key === groupKey);
+    if (!group) return;
+    const ids = new Set(group.items.map((i) => i.id));
+    const retargeted = filterModel.items.map((it) =>
+      ids.has(it.id) ? { ...it, operator: nextOperator } : it,
+    );
+    // Se já existia um grupo no operador de destino (ex.: uf isAnyOf [SP] +
+    // uf isNoneOf [MG] criados no builder), o toggle MESCLA os dois — dedupe
+    // por (field|operator|valor) pro chip não exibir valor repetido
+    // (review 2026-10-22, pendência 7).
+    const vistos = new Set<string>();
+    const items = retargeted.filter((it) => {
+      if (it.field !== group.field || it.operator !== nextOperator) return true;
+      const chave = `${it.field}|${it.operator}|${String(it.value)}`;
+      if (vistos.has(chave)) return false;
+      vistos.add(chave);
+      return true;
+    });
+    setFilterModel({ ...filterModel, items });
   };
 
   const updateGroupValue = (groupKey: string, newValue: unknown) => {
@@ -317,6 +407,19 @@ export function useFilterPopoverAdapter<T>({
         });
       }
     }
+    // Valor esvaziado (desmarcou o último checkbox, limpou o range): mantém UM
+    // item vazio no lugar de remover o grupo — remover aqui desmonta o chip e
+    // fecha o popover NO MEIO da interação. O item vazio é inerte (processor e
+    // query ignoram filtro sem valor) e o closeChip remove no clique-fora.
+    if (newItems.length === 0) {
+      newItems.push({
+        id: genFilterId(),
+        field: group.field,
+        operator: effectiveOperator,
+        value: undefined,
+      });
+    }
+
     // Preserva a POSIÇÃO ORIGINAL do grupo no array — sem isso, o chip era
     // empurrado pro fim ao editar valor (visualmente confuso quando há 3+ chips).
     // Substituímos os items do grupo IN-PLACE pelos newItems, na posição da
@@ -349,6 +452,10 @@ export function useFilterPopoverAdapter<T>({
         label: o.label,
         value: o.value as string | number,
         color: o.color,
+        // Sem propagar, `pinned` virava API morta no chip (o widget filtra
+        // options.filter(o => o.pinned) e recebia sempre false) — achado do
+        // review 2026-10-22; gate: pinned-options.test.tsx (L-064).
+        pinned: o.pinned,
       }));
     }
     const rowsForExtract = rows ?? [];
@@ -378,6 +485,7 @@ export function useFilterPopoverAdapter<T>({
       // a representação interna que outros caminhos como updateGroupValue
       // já esperam (1 item por valor selecionado).
       if (MULTI_VALUE_OPERATORS.has(operator) && Array.isArray(e.value)) {
+        let pushed = 0;
         for (const v of e.value as unknown[]) {
           if (v == null || v === "") continue;
           items.push({
@@ -385,6 +493,18 @@ export function useFilterPopoverAdapter<T>({
             field: e.columnKey,
             operator,
             value: v as FilterItem["value"],
+          });
+          pushed += 1;
+        }
+        // Linha ainda SEM valor (ex.: "é"→"não é" recém-trocado): mantém UM
+        // item vazio — sem ele a linha sumia do painel na troca de operador
+        // (item 11 do feedback Sólis). O cleanup de fechar remove os vazios.
+        if (pushed === 0) {
+          items.push({
+            id: genFilterId(),
+            field: e.columnKey,
+            operator,
+            value: undefined,
           });
         }
       } else {
@@ -406,6 +526,7 @@ export function useFilterPopoverAdapter<T>({
     appliedFilters,
     removeGroup,
     updateGroupValue,
+    updateGroupOperator,
     getGroupOptions,
     handleFiltersChange,
     isFilterValueEmpty,

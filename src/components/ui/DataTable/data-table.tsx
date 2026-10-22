@@ -76,6 +76,7 @@ import type {
   DataTableRef,
   DataTableViewMode,
   FilterItem,
+  FilterModel,
   FilterValue,
   DataTableExportFormat,
   DataTableMoreMenuItem,
@@ -430,19 +431,48 @@ function DataTableInternal<T>(
    *  controlado o popover não fecha ao escolher o valor (item 8). */
   const [openChipKey, setOpenChipKey] = useState<string | null>(null);
 
-  /** Column label lookup for applied filter chips. */
+  /** Model mais recente, pro cleanup adiado do closeChip não ler closure stale. */
+  const latestFilterModelRef = useRef<FilterModel>(filters.filterModel);
+  latestFilterModelRef.current = filters.filterModel;
+
+  /** Cleanup adiado do chip (timer + executor) — troca de chip EXECUTA o
+   *  pendente; unmount só cancela (um setFilterModel pós-desmontagem
+   *  sobrescreveria um reset do parent em model controlado). */
+  const chipCleanupRef = useRef<{
+    timer: ReturnType<typeof setTimeout>;
+    run: () => void;
+  } | null>(null);
+  useEffect(
+    () => () => {
+      if (chipCleanupRef.current) {
+        clearTimeout(chipCleanupRef.current.timer);
+      }
+    },
+    [],
+  );
+
+  /** Column label lookup for applied filter chips.
+   *  TODAS as columns (não só as visíveis): coluna oculta com filtro ativo
+   *  continua precisando de label no chip (item 1 do feedback Sólis), e
+   *  `filterLabel` vence o headerName quando o nome do filtro difere do
+   *  título da coluna (item 5). */
   const colLabelMap = useMemo<Record<string, string>>(
     () =>
       Object.fromEntries(
-        cols.effectiveColumns.map((c) => [String(c.field), c.headerName]),
+        props.columns.map((c) => [
+          String(c.field),
+          c.filterLabel ?? c.headerName,
+        ]),
       ),
-    [cols.effectiveColumns],
+    [props.columns],
   );
 
-  /** Column lookup map for option label resolution. */
+  /** Column lookup map for option label resolution — todas as columns,
+   *  inclusive ocultas (o processor filtra por todas; os handlers de chip
+   *  também precisam achá-las). */
   const colsByField = useMemo(
-    () => new Map(cols.effectiveColumns.map((c) => [String(c.field), c])),
-    [cols.effectiveColumns],
+    () => new Map(props.columns.map((c) => [String(c.field), c])),
+    [props.columns],
   );
 
   const {
@@ -452,6 +482,7 @@ function DataTableInternal<T>(
     appliedFilters,
     removeGroup,
     updateGroupValue,
+    updateGroupOperator,
     getGroupOptions,
     handleFiltersChange,
     isFilterValueEmpty,
@@ -464,6 +495,7 @@ function DataTableInternal<T>(
     colsByField,
     colLabelMap,
     pendingOpenChipKey,
+    openChipKey,
   });
 
   // Há filtro REAL ativo? Ignora linhas em branco do query builder (entry sem
@@ -481,6 +513,22 @@ function DataTableInternal<T>(
     Set<string>
   >(() => new Set());
 
+  /** Normaliza `showEmptyFilterChips` (string | { field, dismissable }) →
+   *  lista ordenada de fields + set dos FIXOS (`dismissable: false`, chips
+   *  "de regra" que nunca saem da toolbar: o placeholder vazio não tem X). */
+  const emptyChipsConfig = useMemo(() => {
+    const fields: string[] = [];
+    const pinned = new Set<string>();
+    for (const entry of props.showEmptyFilterChips ?? []) {
+      const field = typeof entry === "string" ? entry : entry.field;
+      fields.push(field);
+      if (typeof entry !== "string" && entry.dismissable === false) {
+        pinned.add(field);
+      }
+    }
+    return { fields, pinned };
+  }, [props.showEmptyFilterChips]);
+
   /** Fields que JÁ TÊM item COM VALOR no filterModel — placeholders desses fields
    *  são suprimidos. Items vazios (sem valor preenchido) NÃO contam — assim quando
    *  user adiciona condição via popover Filtros e seleciona o field, o chip
@@ -497,14 +545,17 @@ function DataTableInternal<T>(
     [filters.filterModel, isFilterValueEmpty],
   );
 
-  /** Lista efetiva de placeholders a renderizar. */
+  /** Lista efetiva de placeholders a renderizar. Field FIXO ignora o descarte
+   *  (não tem X, mas a defesa vale caso o remove chegue por outro caminho). */
   const effectivePlaceholderFields = useMemo(() => {
-    if (!props.showEmptyFilterChips?.length) return [] as string[];
-    return props.showEmptyFilterChips.filter(
+    if (!emptyChipsConfig.fields.length) return [] as string[];
+    return emptyChipsConfig.fields.filter(
       (field) =>
-        !fieldsWithFilter.has(field) && !dismissedPlaceholders.has(field),
+        !fieldsWithFilter.has(field) &&
+        (emptyChipsConfig.pinned.has(field) ||
+          !dismissedPlaceholders.has(field)),
     );
-  }, [props.showEmptyFilterChips, fieldsWithFilter, dismissedPlaceholders]);
+  }, [emptyChipsConfig, fieldsWithFilter, dismissedPlaceholders]);
 
   /** Placeholders renderizados como AppliedFilter "virtuais" — id prefixado pra detectar. */
   const PLACEHOLDER_ID_PREFIX = "__placeholder__";
@@ -515,8 +566,10 @@ function DataTableInternal<T>(
       op: "",
       value: [],
       isEmpty: true,
+      // Fixo (dismissable: false) → placeholder sem X (nunca sai da toolbar).
+      removable: !emptyChipsConfig.pinned.has(field),
     }));
-  }, [effectivePlaceholderFields, colLabelMap]);
+  }, [effectivePlaceholderFields, colLabelMap, emptyChipsConfig]);
 
   /** Lista final de chips na toolbar — **ordenada pela ordem dos fields em
    *  showEmptyFilterChips**. Quando user preenche um placeholder, ele vira
@@ -524,7 +577,7 @@ function DataTableInternal<T>(
    *  Filtros reais de fields NÃO listados em showEmptyFilterChips aparecem
    *  após os "nativos" (na ordem do filterModel). */
   const enhancedAppliedFilters = useMemo(() => {
-    const showFields = props.showEmptyFilterChips ?? [];
+    const showFields = emptyChipsConfig.fields;
     if (showFields.length === 0) return appliedFilters;
 
     // Map id (group.key) -> field via appliedGroups
@@ -577,7 +630,7 @@ function DataTableInternal<T>(
     placeholderFilters,
     appliedFilters,
     appliedGroups,
-    props.showEmptyFilterChips,
+    emptyChipsConfig,
   ]);
 
   /** Handler de remove que intercepta placeholders. */
@@ -585,6 +638,8 @@ function DataTableInternal<T>(
     (id: string) => {
       if (id.startsWith(PLACEHOLDER_ID_PREFIX)) {
         const field = id.slice(PLACEHOLDER_ID_PREFIX.length);
+        // Fixo: sem X na UI; se o remove chegar por outro caminho, no-op.
+        if (emptyChipsConfig.pinned.has(field)) return;
         setDismissedPlaceholders((prev) => {
           const next = new Set(prev);
           next.add(field);
@@ -594,7 +649,7 @@ function DataTableInternal<T>(
       }
       removeGroup(id);
     },
-    [removeGroup],
+    [removeGroup, emptyChipsConfig],
   );
 
   /** Click num placeholder: cria item vazio + abre popover via pendingOpenChipKey. */
@@ -1675,7 +1730,11 @@ function DataTableInternal<T>(
                       : undefined
                   }
                   filterPanel={
-                    toolbarConfig.enableFilters !== false &&
+                    // Gate PRÓPRIO do builder avançado (item 13 Sólis): default
+                    // segue enableFilters, mas dá pra desligar só ele quando a
+                    // tela tem montador avançado próprio.
+                    (toolbarConfig.enableAdvancedFilters ??
+                      toolbarConfig.enableFilters) !== false &&
                     filterPopoverColumns.length > 0
                       ? (onBack) => (
                           <FilterPanel
@@ -1701,6 +1760,8 @@ function DataTableInternal<T>(
                                 onChange: (v) => onChange(v),
                                 operator: filterOp,
                                 options: column.options,
+                                loadOptions: column.loadOptions,
+                                resolveValueLabel: column.resolveValueLabel,
                               });
                             }}
                             getOperatorsForColumn={(column) => {
@@ -1867,10 +1928,22 @@ function DataTableInternal<T>(
                 ) : undefined
               }
               bulkBar={
-                selectionConfig.enabled && selection.selectedCount > 0 ? (
+                selectionConfig.enabled &&
+                selectionConfig.bar !== "none" &&
+                (selectionConfig.totalSelected ?? selection.selectedCount) >
+                  0 ? (
                   <BulkActionsBar
-                    count={selection.selectedCount}
-                    onClear={selection.clear}
+                    // Seleção entre páginas (item 16 Sólis): o total da TELA
+                    // vence a contagem interna da página quando presente.
+                    count={
+                      selectionConfig.totalSelected ?? selection.selectedCount
+                    }
+                    countLabel={selectionConfig.countLabel}
+                    clearLabel={selectionConfig.clearLabel}
+                    onClear={() => {
+                      selection.clear();
+                      selectionConfig.onClearAll?.();
+                    }}
                   >
                     {selectionConfig.actions?.(
                       selection.selectedIds,
@@ -1878,6 +1951,9 @@ function DataTableInternal<T>(
                     )}
                   </BulkActionsBar>
                 ) : undefined
+              }
+              bulkBarMode={
+                selectionConfig.bar === "inline" ? "inline" : "replace"
               }
             />
             {/* Drawer do filtro simples (funil) — só v2 */}
@@ -1902,7 +1978,13 @@ function DataTableInternal<T>(
           <ToolbarApplied
             filters={enhancedAppliedFilters}
             onRemove={handleRemoveFilter}
-            onClearAll={filters.clearFilters}
+            onClearAll={() => {
+              filters.clearFilters();
+              // Aviso à tela (item 4 Sólis): o app pode ter filtro próprio
+              // FORA do filterModel (ex.: builder SQL no servidor) que também
+              // precisa zerar quando o usuário manda "Limpar todos".
+              props.onFiltersClearAll?.();
+            }}
             pendingOpenId={pendingOpenChipKey}
             onPendingOpenIdChange={setPendingOpenChipKey}
             renderChip={(f, defaultChip, isPendingOpen) => {
@@ -1944,14 +2026,43 @@ function DataTableInternal<T>(
                         ? [it.value]
                         : [],
                   );
+              /* Promoção pro widget multiSelect SÓ quando o filtro é de fato
+               * multi-valor: coluna multiSelect, operador agregado ou 2+ valores
+               * acumulados (builder avançado). `filterType: "select"` NÃO entra
+               * mais — escolha única usa o widget single do próprio tipo e fecha
+               * ao escolher (item 3 do feedback Sólis; a promoção antiga também
+               * sequestrava o widget de tipo CUSTOM de valor único).
+               *
+               * Tipo que DECLARA `ownsMulti` é DONO do widget multi — a promoção
+               * não o sequestra. É o que permite o consumidor substituir o popover
+               * multi inteiro pelo dele (colar lista, clique-substitui...) via
+               * registry, em vez de cada comportamento virar PR no DS.
+               *
+               * ⚠️ A posse é DECLARADA, não deduzida da lista de operadores. A versão
+               * anterior inferia posse de "declara isAnyOf/isNoneOf", e isso pegava
+               * `badge` e `user`: os dois declaram o operador pra funcionar no builder
+               * avançado, mas o widget de chip deles é um `<Select>` ÚNICO que chama
+               * `onChange` com string. O resultado era escolha única sobre campo de
+               * array — escolher um valor substituía a lista inteira.
+               *
+               * O `typeDef.type === col.filterType` continua: o registry devolve `text`
+               * pra tipo desconhecido, e sem isso um typo no `filterType` herdaria o
+               * `ownsMulti` de quem o registry devolveu. */
+              const typeDef = col?.filterType
+                ? columnTypeRegistry.get(col.filterType)
+                : null;
+              const customOwnsMulti =
+                !!typeDef &&
+                col?.filterType !== "multiSelect" &&
+                typeDef.type === col?.filterType &&
+                typeDef.ownsMulti === true;
               const useMulti =
                 !isTupleOperator &&
+                !customOwnsMulti &&
                 (aggregateValues.length > 1 ||
                   group.operator === "isAnyOf" ||
                   group.operator === "isNoneOf" ||
-                  col?.filterType === "multiSelect" ||
-                  (col?.filterType === "select" &&
-                    (col?.filterOptions?.length ?? 0) > 0));
+                  col?.filterType === "multiSelect");
               const def = columnTypeRegistry.get(
                 isTupleOperator
                   ? (col?.filterType ?? "text")
@@ -1980,20 +2091,49 @@ function DataTableInternal<T>(
               const closeChip = () => {
                 setOpenChipKey(null);
                 if (isPendingOpen) setPendingOpenChipKey(null);
-                // Cleanup: remove itens vazios deste grupo do filterModel
-                const groupItems = group.items;
-                const allEmpty = groupItems.every((it) =>
-                  isFilterValueEmpty(it.value),
-                );
-                if (allEmpty) {
-                  const ids = new Set(groupItems.map((it) => it.id));
-                  filters.setFilterModel({
-                    ...filters.filterModel,
-                    items: filters.filterModel.items.filter(
-                      (it) => !ids.has(it.id),
-                    ),
-                  });
+                // Cleanup: remove itens vazios deste grupo do filterModel.
+                // ⚠️ ADIADO pro próximo tick e lendo o model pelo REF: widget
+                // single (select/boolean, FastSingleSelectList) chama onChange
+                // e onClose no MESMO clique — com o cleanup síncrono, os dois
+                // setFilterModel partiam do MESMO estado stale e o cleanup
+                // vencia, apagando o valor recém-escolhido de chip placeholder.
+                //
+                // Endurecimento (review 2026-10-22): escopo por ID — só remove
+                // itens que JÁ estavam vazios no fechamento E seguem vazios no
+                // ref. Preencher via updateGroupValue troca os itens por IDs
+                // novos, então parent controlado que aplique o model até o
+                // próximo macrotask não tem a escolha apagada (o ID vazio
+                // capturado não existe mais). Parent que ADIA além disso
+                // (debounce na aplicação) re-expõe uma janela pequena — o
+                // custo é re-escolher o valor, e nesse regime toda a UI de
+                // chips já degrada. Timer único; fechar outro chip EXECUTA o
+                // cleanup pendente (não o descarta — senão o item vazio do
+                // chip anterior ficava inerte no model e ia pro persist);
+                // unmount só cancela, sem emitir model pós-desmontagem.
+                const emptyIdsAtClose = group.items
+                  .filter((it) => isFilterValueEmpty(it.value))
+                  .map((it) => it.id);
+                if (emptyIdsAtClose.length === 0) return;
+                if (chipCleanupRef.current) {
+                  clearTimeout(chipCleanupRef.current.timer);
+                  chipCleanupRef.current.run();
                 }
+                const run = () => {
+                  chipCleanupRef.current = null;
+                  const model = latestFilterModelRef.current;
+                  const ids = new Set(
+                    emptyIdsAtClose.filter((id) => {
+                      const it = model.items.find((i) => i.id === id);
+                      return it != null && isFilterValueEmpty(it.value);
+                    }),
+                  );
+                  if (ids.size === 0) return;
+                  filters.setFilterModel({
+                    ...model,
+                    items: model.items.filter((it) => !ids.has(it.id)),
+                  });
+                };
+                chipCleanupRef.current = { timer: setTimeout(run, 0), run };
               };
               return (
                 <Popover
@@ -2013,6 +2153,19 @@ function DataTableInternal<T>(
                       onChange: (v) => updateGroupValue(group.key, v),
                       options,
                       onClose: closeChip,
+                      // Incluindo/Excluindo no chip (item 8 Sólis). A troca
+                      // muda a chave do grupo (field|operator) — re-apontamos
+                      // o open pro novo key senão o popover fecha no toggle.
+                      operator: group.operator,
+                      onOperatorChange: (nextOp) => {
+                        updateGroupOperator(group.key, nextOp);
+                        const nextKey = `${group.field}|${nextOp}`;
+                        if (openChipKey === f.id) setOpenChipKey(nextKey);
+                        if (isPendingOpen) setPendingOpenChipKey(nextKey);
+                      },
+                      // Opções do servidor (item 6 Sólis).
+                      loadOptions: col?.filterLoadOptions,
+                      resolveValueLabel: col?.filterValueLabel,
                     })}
                   </PopoverContent>
                 </Popover>

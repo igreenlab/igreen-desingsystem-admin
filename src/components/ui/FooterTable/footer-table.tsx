@@ -77,8 +77,13 @@ export function FooterTable({
             <Select
               value={String(pageSize)}
               onValueChange={(v) => {
+                // SÓ o onPageSizeChange: o contrato dele já é "trocar tamanho
+                // volta pra página 1" (o hook de paginação emite { page: 1,
+                // pageSize }). O onPageChange(1) que vivia aqui disparava um
+                // SEGUNDO evento com o pageSize ANTIGO do render — em modo
+                // controlado ele desfazia a troca e o tamanho nunca mudava
+                // (item 15 do feedback Sólis).
                 onPageSizeChange(Number(v));
-                onPageChange(1);
               }}
             >
               <SelectTrigger

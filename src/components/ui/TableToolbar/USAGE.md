@@ -75,8 +75,15 @@ import {
   **"Exibição" (Linhas/Cards)** — só renderiza em `< md`. O DataTable passa um
   `<ToolbarSegmented>` aqui quando a tela cabe em card mode; permite o usuário
   forçar tabela mesmo abaixo do `cardBreakpoint` (default mobile = **tabela**).
-- **bulkBar substitui tudo**: passe `<BulkActionsBar>` (auto-some quando `count=0`)
+- **bulkBar substitui tudo** (default): passe `<BulkActionsBar>` (auto-some quando `count=0`)
   condicionalmente — `selectedIds.size > 0 ? <BulkActionsBar/> : undefined`.
+- **`bulkBarMode="inline"`**: a toolbar CONTINUA visível e a barra entra numa linha
+  abaixo — pra tela cujas ações em lote e filtros convivem (item 16 Sólis). No
+  DataTable, controle via `selectionConfig.bar: "replace" | "inline" | "none"` +
+  `countLabel`/`clearLabel`/`totalSelected` (contagem cross-page vinda da tela) /
+  `onClearAll` ("limpar todas as páginas").
+- **Chip fixo**: `AppliedFilter.removable: false` esconde o X do chip (o ToolbarApplied
+  mostra um ⊕ decorativo no lugar — chip "de regra" que nunca sai).
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
 
 ## Acoplamento DataTable ↔ TableToolbar

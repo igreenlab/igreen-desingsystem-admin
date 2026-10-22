@@ -216,7 +216,10 @@ export function ToolbarSettingsMenu({
       <PopoverContent
         align={align}
         className={cn(
-          "w-[320px] max-w-[calc(100vw-32px)] max-h-[min(520px,calc(100vh-80px))] p-0 flex flex-col min-h-0 overflow-hidden",
+          // Altura pelo ESPAÇO DISPONÍVEL (var do Radix, conta a posição do
+          // anchor) — 100vh-80px estourava a viewport com a toolbar no meio
+          // da página (item 17 do feedback Sólis).
+          "w-[320px] max-w-[calc(100vw-32px)] max-h-[min(520px,var(--radix-popover-content-available-height))] p-0 flex flex-col min-h-0 overflow-hidden",
           wide && "md:w-[550px]",
           className,
         )}

@@ -259,6 +259,8 @@ export function ToolbarSimpleFilterDrawer({
                     onChange: (v: unknown) => updateFieldValue(col.key, v, col.filterType),
                     operator: filterOp as never,
                     options,
+                    loadOptions: col.loadOptions,
+                    resolveValueLabel: col.resolveValueLabel,
                   })}
                 </div>
               )}

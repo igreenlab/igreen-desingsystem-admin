@@ -313,8 +313,39 @@ export type DataTableColumnDef<T> = {
     label: string;
     value: string | number;
     color?: string;
+    /** Opção FIXA no topo da lista do multiSelect — fora da busca, da rolagem
+     *  e do "Selecionar todos" (eixos como "Sem veículo"). */
+    pinned?: boolean;
   }>;
   defaultFilterValue?: FilterValue;
+  /**
+   * Opções buscadas no SERVIDOR (item 6 Sólis) — pra valores que se contam
+   * aos milhares, onde `filterOptions` fixo não cabe. O widget multiSelect
+   * do chip busca com debounce e pagina com "Carregar mais".
+   */
+  filterLoadOptions?: (
+    search: string,
+    page: number,
+  ) => Promise<{
+    options: Array<{ label: string; value: string | number }>;
+    hasMore: boolean;
+  }>;
+  /** Rótulo de um valor já marcado que não está na página carregada
+   *  (par do `filterLoadOptions`) — usado na lista e no chip. */
+  filterValueLabel?: (value: string | number) => string;
+  /**
+   * Nome do FILTRO quando difere do título da coluna — usado no chip, no
+   * painel (funil) e no builder avançado. Ex.: coluna "UC Nova" cujo filtro
+   * procura em UC nova/antiga/código → filterLabel "UC". Default: headerName.
+   */
+  filterLabel?: string;
+  /**
+   * Coluna nasce OCULTA (o usuário pode exibi-la no popover de colunas; com
+   * `persistId`, o estado persistido vence este default). O filtro da coluna
+   * continua valendo oculta — chips, painel e avançado seguem listando.
+   * Use pra "filtro sem coluna visível": declare a coluna só pelo filtro.
+   */
+  hidden?: boolean;
 
   /** Render customizado */
   render?: (params: { row: T; value: unknown }) => ReactNode;
@@ -437,6 +468,13 @@ export type DataTableToolbarConfig = {
    */
   enableRefresh?: boolean;
   enableFilters?: boolean;
+  /**
+   * Liga/desliga SÓ o builder "Filtros avançados" das Configurações,
+   * independente do funil (`enableFilters`). Default: segue `enableFilters`.
+   * Use `false` quando a tela tem um montador avançado próprio (ex.: SQL
+   * executado no servidor) e o builder do DS confundiria.
+   */
+  enableAdvancedFilters?: boolean;
   enableColumns?: boolean;
   enableDensity?: boolean;
   /**
@@ -512,6 +550,28 @@ export type DataTableSelectionConfig = {
   enabled?: boolean;
   enableGlobal?: boolean;
   actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode;
+  /**
+   * Como a barra de seleção convive com a toolbar (item 16 Sólis):
+   *  - "replace" (default): substitui a toolbar enquanto houver seleção.
+   *  - "inline": a toolbar continua visível e a barra entra abaixo dela.
+   *  - "none": sem barra — a tela renderiza o próprio feedback de seleção.
+   */
+  bar?: "replace" | "inline" | "none";
+  /** Label da contagem (singular/plural custom). Default "N selecionado(s)". */
+  countLabel?: (count: number) => ReactNode;
+  /** Texto do link de limpar. Default "Cancelar seleção". */
+  clearLabel?: ReactNode;
+  /**
+   * Total de selecionados ENTRE PÁGINAS, vindo da tela (quando a seleção
+   * persiste fora do DataTable). Quando presente, vence a contagem interna
+   * da página na barra.
+   */
+  totalSelected?: number;
+  /**
+   * "Limpar TODAS as páginas" — quando presente, o link de limpar da barra
+   * chama este callback (além de limpar a seleção interna da página).
+   */
+  onClearAll?: () => void;
 };
 
 /* ── DataTableProps principal ───────────────────────────────────── */
@@ -609,10 +669,21 @@ export type DataTableProps<T> = {
    *     intacto — esta prop só adiciona chips placeholders extras na toolbar.
    *   - Quando user clica no X de um chip placeholder, ele é "descartado" pra
    *     a sessão (state interno do componente). Pra trazer de volta, reload.
+   *   - Entrada em forma de objeto com `dismissable: false` → chip FIXO: o
+   *     placeholder vazio não renderiza o X (nunca sai da toolbar). O X do chip
+   *     PREENCHIDO continua — limpa o valor e o chip volta a placeholder.
+   *     Use case: filtros "de regra" que devem estar sempre à mão.
    *
    *  Implementação: lista de fields é prop pura — não modifica `filterModel`.
    */
-  showEmptyFilterChips?: string[];
+  showEmptyFilterChips?: Array<string | { field: string; dismissable?: boolean }>;
+
+  /**
+   * Disparado quando o usuário clica "Limpar todos" nos chips de filtro —
+   * DEPOIS de limpar o filterModel interno. Gancho pra tela zerar filtro
+   * próprio que vive fora do filterModel (ex.: builder avançado em SQL).
+   */
+  onFiltersClearAll?: () => void;
 
   /**
    *  Configuração do drawer de Filtros (funil). O botão funil da toolbar abre um

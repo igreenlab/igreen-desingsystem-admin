@@ -16,7 +16,17 @@ export type ColumnOption = {
   label: string;
   value: string | number;
   color?: string;
+  /** FIXA no topo da lista do multiSelect — fora da busca, da rolagem e do
+   *  "Selecionar todos" (eixos como "Sem veículo" / "Sem arrendamento"). */
+  pinned?: boolean;
 };
+
+/** Carregador assíncrono de opções (filtros com milhares de valores — item 6
+ *  Sólis). `page` começa em 1; `hasMore` liga o "Carregar mais". */
+export type FilterLoadOptions = (
+  search: string,
+  page: number,
+) => Promise<{ options: ColumnOption[]; hasMore: boolean }>;
 
 /** Props que o renderer de filtro avancado (modal) recebe. */
 export type FilterInputProps = {
@@ -30,6 +40,11 @@ export type FilterInputProps = {
   options?: ColumnOption[];
   /** Placeholder do input. */
   placeholder?: string;
+  /** Modo assíncrono (mesmo contrato do chip) — o widget do builder avançado
+   *  e do drawer funil busca no servidor igual ao fast filter. */
+  loadOptions?: FilterLoadOptions;
+  /** Rótulo de valor marcado fora da página carregada (par do loadOptions). */
+  resolveValueLabel?: (value: string | number) => ReactNode;
 };
 
 /** Props que o chip rapido (fast filter popover) recebe. */
@@ -44,6 +59,16 @@ export type FastFilterInputProps = {
   renderOption?: (option: ColumnOption) => ReactNode;
   /** Fechar popover (usado em single-select onde click fecha automatico). */
   onClose?: () => void;
+  /** Operador atual do grupo do chip (item 8 Sólis). */
+  operator?: FilterOperator;
+  /** Troca o operador do grupo SEM fechar o popover — habilita o alternador
+   *  "Incluindo/Excluindo" no rodapé do multiSelect. */
+  onOperatorChange?: (operator: FilterOperator) => void;
+  /** Modo assíncrono (item 6 Sólis): quando presente, a lista busca no
+   *  servidor (debounce + "Carregar mais") em vez de usar `options`. */
+  loadOptions?: FilterLoadOptions;
+  /** Rótulo de um valor JÁ MARCADO que não está na página carregada. */
+  resolveValueLabel?: (value: string | number) => ReactNode;
 };
 
 /** Operador disponivel pra um tipo. */
@@ -90,6 +115,23 @@ export type ColumnTypeDefinition = {
   type: ColumnTypeId;
   /** Operadores suportados — ordem importa (primeiro = default). */
   operators: ColumnTypeOperator[];
+  /**
+   * O `renderFastFilterInput` deste tipo sabe editar uma LISTA de valores?
+   *
+   * Quando `true`, o chip multi (operador `isAnyOf`/`isNoneOf`, ou 2+ valores) usa o
+   * widget DESTE tipo em vez de ser promovido ao `multiSelect` built-in. É o que permite
+   * um tipo registrado pelo consumidor substituir o popover multi inteiro (colar lista,
+   * clique-substitui…) sem PR no DS.
+   *
+   * ⚠️ Declarar `isAnyOf` nos `operators` **não** basta e nunca bastou: `badge` e `user`
+   * declaram o operador (pra funcionar no builder avançado) e o widget de chip deles é um
+   * `<Select>` ÚNICO, que chama `onChange` com uma string. Inferir posse a partir da lista
+   * de operadores entregava escolha única sobre campo de array nesses dois — por isso a
+   * posse é declarada, não deduzida.
+   *
+   * Default `undefined` (= `false`): o tipo cede o chip multi ao `multiSelect`.
+   */
+  ownsMulti?: boolean;
   /** Renderiza input no modal Filtros (advanced builder). */
   renderFilterInput: (props: FilterInputProps) => ReactNode;
   /** Renderiza input no popover do chip rapido (fast filter). */

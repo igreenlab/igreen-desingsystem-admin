@@ -53,7 +53,12 @@ export { savedViewsMockService } from "./services/saved-views-mock-service";
 export { presetView } from "./builders/preset-view";
 export type { PresetViewInput, PresetFilterInput } from "./builders/preset-view";
 
-export { columnTypeRegistry } from "./column-types";
+export {
+  columnTypeRegistry,
+  FILTER_FIELD_CLASS,
+  FastSingleSelectList,
+  MultiSelectDropdown,
+} from "./column-types";
 export type {
   ColumnTypeDefinition,
   ColumnTypeId,

@@ -86,6 +86,7 @@ import { ModalDoc } from "./preview/pages/ModalDoc";
 import ClientsCRUDPreview from "./preview/pages/ClientsCRUDPreview";
 import ClientsCRUDServerPreview from "./preview/pages/ClientsCRUDServerPreview";
 import ClientsPreFilteredPreview from "./preview/pages/ClientsPreFilteredPreview";
+import FilterChipsLabPreview from "./preview/pages/FilterChipsLabPreview";
 import ClientsVirtualizedPreview from "./preview/pages/ClientsVirtualizedPreview";
 import ClientsGroupedPreview from "./preview/pages/ClientsGroupedPreview";
 import ClientsExpandablePreview from "./preview/pages/ClientsExpandablePreview";
@@ -375,6 +376,7 @@ const DOC_PAGES = [
   "clients-crud",
   "clients-crud-server",
   "clients-pre-filtered",
+  "filter-chips-lab",
   "clients-virtualized",
   "clients-grouped",
   "clients-expandable",
@@ -680,6 +682,7 @@ export function App() {
             {activePage === "clients-pre-filtered" && (
               <ClientsPreFilteredPreview />
             )}
+            {activePage === "filter-chips-lab" && <FilterChipsLabPreview />}
             {activePage === "clients-virtualized" && (
               <ClientsVirtualizedPreview />
             )}
