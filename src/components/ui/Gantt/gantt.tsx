@@ -102,6 +102,12 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
     criticalPath: criticalProp,
     onCriticalPathChange,
     criticalPathToggle = true,
+    // Mesmo motivo do `criticalPath`: sem default aqui, pra `undefined`
+    // continuar significando "não controlado".
+    showHistory: historyProp,
+    onShowHistoryChange,
+    historyToggle = true,
+    renderHistoryCard,
     onGraphError,
     onLinkViolations,
     searchable = false,
@@ -160,6 +166,9 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
 
   const [criticalLocal, setCriticalLocal] = useState(criticalProp ?? false);
   const criticalPath = criticalProp ?? criticalLocal;
+
+  const [historyLocal, setHistoryLocal] = useState(historyProp ?? false);
+  const showHistory = historyProp ?? historyLocal;
 
   const [busca, setBusca] = useState("");
   /**
@@ -337,6 +346,12 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
 
   const mapaBarras = useMemo(
     () => new Map(todasBarras.map((b) => [b.id, b])),
+    [todasBarras],
+  );
+
+  /** Alguma barra tem prazo anterior? Decide se o botão da toolbar existe. */
+  const temHistorico = useMemo(
+    () => todasBarras.some((b) => (b.history?.length ?? 0) > 0),
     [todasBarras],
   );
 
@@ -727,6 +742,15 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
           if (criticalProp === undefined) setCriticalLocal(proximo);
           onCriticalPathChange?.(proximo);
         }}
+        /* O botão some quando NENHUMA barra tem `history` — um toggle que não
+           muda nada é pior que a ausência dele. Mesma regra do crítico sem links. */
+        showHistoryToggle={historyToggle && temHistorico}
+        showHistory={showHistory}
+        onToggleHistory={() => {
+          const proximo = !showHistory;
+          if (historyProp === undefined) setHistoryLocal(proximo);
+          onShowHistoryChange?.(proximo);
+        }}
         toolbarActions={toolbarActions}
         primaryAction={primaryAction}
       />
@@ -838,6 +862,11 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(function Gantt(
                   weekStartsOn={weekStartsOn}
                   conflictBarIds={conflictBarIds}
                   criticalBarIds={criticalBarIds}
+                  // Só a timeline desenha histórico: `calendar` e `list` não têm
+                  // eixo de tempo contínuo onde pôr a marca — mesma razão pela
+                  // qual elas não desenham as setas de vínculo.
+                  showHistory={showHistory}
+                  renderHistoryCard={renderHistoryCard}
                   draggable={draggable}
                   resizable={resizable}
                   linkable={linkable}

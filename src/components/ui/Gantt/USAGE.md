@@ -5,6 +5,7 @@
 - o pai precisa ter ALTURA (o componente é `h-full`): sem isso você vê só a toolbar
 - busca do servidor → passe `loading`, senão `rows={[]}` afirma "Nenhuma tarefa neste período"
 - `colorKey` diz CATEGORIA (qual frente), não status: status vai em `row.trailing` como `Chip`
+- remarcação de prazo → `bar.history: [{ start, end, meta? }]` + `showHistory`; NÃO desenhe barra fantasma nem segunda linha
 -->
 
 Cronograma de projeto: hierarquia de tarefas à esquerda, tempo à direita, e
@@ -102,12 +103,15 @@ não servir e o que **não** mexer.
 | `draggable` / `resizable` / `linkable` | `boolean` | **`false`** |
 | `criticalPath` | `boolean` — liga o realce | **`false`** |
 | `criticalPathToggle` | `boolean` — mostra o botão "Crítico" na toolbar | `true` |
+| `showHistory` / `onShowHistoryChange` | `boolean` + `(v) => void` — desenha os prazos **anteriores** | `false` (não controlado) |
+| `historyToggle` | `boolean` — botão "Remarcações" na toolbar; some sozinho sem `history` | `true` |
+| `renderHistoryCard` | `({ mark, bar, row }) => ReactNode` — conteúdo do cartão da marca | data anterior |
 | `onBarClick` | `(bar, row, evt) => void` | — |
 | `onBarMove` / `onBarResize` | `(change) => void` — **emite, não aplica** | — |
 | `onLinkViolations` | `(violations) => void` | — |
 | `onGraphError` | `({ kind: "cycle", barIds }) => void` | — |
 
-`GanttBar`: `{ id, start, end, label?, searchText?, colorKey?, progress?, continuesBefore?, continuesAfter?, meta? }`
+`GanttBar`: `{ id, start, end, label?, searchText?, colorKey?, progress?, continuesBefore?, continuesAfter?, meta?, history? }`
 `GanttLink`: `{ id, source, target, type?, lag? }`
 `GanttFilterField`: `{ id, label, kind?, options?, accessor, searchable?, placeholder? }`
 
@@ -496,10 +500,14 @@ de que havia 4.
 São dois problemas diferentes, e só um tem solução dentro do componente.
 
 **A toolbar resolve sozinha, com a regra da `TableToolbar`.** Abaixo de `md`
-(768px) saem da barra o **seletor de visão**, o **`‹ Hoje ›`**, a **escala** e o
-**caminho crítico**; eles reaparecem num menu (ícone de sliders) ao lado do
-título, que abre como bottom-sheet. Ficam na barra: **título do período**,
-**busca**, **filtro** e a **ação primária**.
+(768px) saem da barra o **seletor de visão**, o **`‹ Hoje ›`**, a **escala**, o
+**caminho crítico** e as **remarcações**; eles reaparecem num menu (ícone de
+sliders) ao lado do título, que abre como bottom-sheet. Ficam na barra: **título
+do período**, **busca**, **filtro** e a **ação primária**.
+
+⚠️ Botão novo na barra com `max-md:hidden` **tem que ganhar seção no menu junto**
+— senão ele existe no DOM com 0px e fica inalcançável no celular, que foi o que
+aconteceu com "Remarcações" até alguém medir a 375px.
 
 Medido a 375px: antes, a busca era espremida a **51px** (o ícone e nada mais) e o
 título saía cortado no meio; depois, a busca tem **153px** e o título cabe
@@ -515,6 +523,53 @@ não é problema de layout, é de densidade: um Gantt legível precisa de ~900px
 Use `granularity="week"` ou mais, reduza `gridWidth`, ou — melhor — mande
 `view="calendar"` / `view="list"` no mobile, que são justamente as visões sem
 eixo horizontal.
+
+### 16. Histórico de remarcações — uma regra, não seis desenhos
+
+`bar.history` é a lista dos prazos **anteriores** daquela barra, do mais antigo
+ao mais recente, na forma que um log de alteração já tem:
+
+```tsx
+history: [
+  { start: d(3), end: d(6),  meta: { autor: "Ana",   motivo: "contrato" } },
+  { start: d(3), end: d(9),  meta: { autor: "Ana",   motivo: "escopo" } },
+]
+```
+
+Você descreve **como era**; o componente deriva **o que mudou**. Isso importa
+porque o pedido original vinha como seis casos de desenho (início, fim ou tarefa
+inteira × adiada ou antecipada), e seis desenhos são seis chances de divergir.
+A regra é uma só: **cada data anterior que não é a atual vira uma marca no dia em
+que estava, e a ponta diz qual era**. "Adiou" e "antecipou" ficam idênticos no
+modelo e diferentes só na POSIÇÃO:
+
+| A marca cai | Forma | Por quê |
+|---|---|---|
+| **fora** da barra atual | ponto + trilha tracejada até a borda | é a trilha que conta a história — "o fim estava aqui e foi pra lá" |
+| **dentro** da barra | entalhe atravessando a borda de cima e a de baixo | losango já é marco no Gantt; traço inteiro partiria a barra em duas |
+| duas marcas a < 14px | contador (`3`) com o total | abaixo disso elas viram uma mancha |
+
+⚠️ **O agrupamento é do EIXO, não do dado.** O mesmo histórico se agrupa ou não
+conforme o zoom — em `granularity="day"` as marcas de dias seguidos ficam
+separadas; em `"month"` viram contador. Não há como "desligar" o agrupamento:
+ele existe porque o pixel acabou.
+
+**Opacidade = idade**, no tom da própria barra (mais clara é mais antiga), com
+piso em 0.35 — abaixo disso a marca some contra o fundo e marca invisível é pior
+que marca nenhuma. Cor por situação ("vermelho = atrasou") está **proibida**:
+no Gantt a cor diz categoria (gotcha 6), e um segundo significado na mesma
+variável quebra os dois.
+
+**O que o componente NÃO faz:** não desenha barra fantasma do prazo antigo (duas
+barras na mesma linha leem como duas tarefas), não cria uma segunda linha, e não
+infere histórico de nada — se `history` não vier, não há marca e o botão
+"Remarcações" nem aparece.
+
+**Toque e teclado:** a marca é um `<button>` com `aria-label` completo, e o
+cartão abre em hover, foco **e** toque. O `HoverCardTrigger` do Radix chama
+`preventDefault()` no `touchstart` de propósito — por isso a marca compõe o
+próprio `onTouchStart` antes dele; sem isso, em celular ela seria um botão com
+anel de foco que não revela nada.
 
 ## ⚠️ O que ainda NÃO existe
 

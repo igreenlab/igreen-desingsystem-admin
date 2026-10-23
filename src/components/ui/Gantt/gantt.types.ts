@@ -61,6 +61,27 @@ export type GanttColorKey =
 
 /* ────────────────────────────────────────────────────────────── barra ── */
 
+/**
+ * Um prazo anterior de uma barra. É a forma que um log de alteração já tem —
+ * "antes era de X a Y" — e não "o que mudou", que o componente deriva.
+ */
+export type GanttBarHistoryEntry = {
+  start: Date;
+  end: Date;
+  /** Devolvido intacto no `renderHistoryCard` (data da troca, autor, motivo). */
+  meta?: unknown;
+};
+
+/** Uma marca de histórico já resolvida: que data era, e o que ela era. */
+export type GanttHistoryMark = {
+  /** `start` ou `end` — qual das duas pontas estava ali. */
+  edge: "start" | "end";
+  date: Date;
+  entry: GanttBarHistoryEntry;
+  /** Posição no histórico: 0 = mais antigo. Decide o quão clara é a marca. */
+  index: number;
+};
+
 export type GanttBar = {
   /** Identidade. É o que volta nos callbacks e o que `GanttLink` referencia. */
   id: string;
@@ -95,6 +116,23 @@ export type GanttBar = {
    * trilha vazia. Nas referências os dois estados aparecem lado a lado.
    */
   progress?: number;
+
+  /**
+   * Prazos ANTERIORES desta barra — o histórico de remarcações.
+   *
+   * Do mais antigo ao mais recente. O componente descobre sozinho se o que
+   * mudou foi o início, o fim ou os dois: cada data anterior que não coincide
+   * com a atual vira uma marca no dia em que estava.
+   *
+   * Só desenha com `showHistory` ligado, e só na view `timeline` — `calendar`
+   * e `list` não têm eixo de tempo contínuo onde pôr a marca, igual às setas
+   * de vínculo.
+   *
+   * O formato é `{ start, end }` porque é o que um log de alteração guarda. O
+   * `meta` volta intacto no `renderHistoryCard`, pra tela montar a dica com
+   * autor e motivo — que são dados DELA, não do DS.
+   */
+  history?: GanttBarHistoryEntry[];
 
   /**
    * A barra atravessa a borda da janela visível.
@@ -478,6 +516,42 @@ export interface GanttProps {
    */
   criticalPathToggle?: boolean;
   onGraphError?: (erro: { kind: "cycle"; barIds: string[] }) => void;
+
+  /**
+   * Desenha os prazos ANTERIORES das barras que têm `history`.
+   *
+   * Par valor + callback, igual ao `criticalPath` — a mesma razão: o botão da
+   * toolbar precisa refletir um estado que a tela também pode mandar.
+   *
+   * @default false — aqui é economia de RUÍDO, não de cálculo. Uma barra com 6
+   * remarcações vira 6 marcas e uma trilha; ligado por default, um cronograma
+   * com histórico longo abre ilegível.
+   */
+  showHistory?: boolean;
+  onShowHistoryChange?: (on: boolean) => void;
+
+  /**
+   * Mostra o botão "Remarcações" na toolbar.
+   *
+   * Mesma independência do `criticalPathToggle`: esconder o controle de um
+   * estado permanente é diferente de não ter o estado. E o botão some sozinho
+   * quando **nenhuma** barra tem `history` — um toggle que não muda nada é pior
+   * que a ausência dele.
+   */
+  historyToggle?: boolean;
+
+  /**
+   * Conteúdo do HoverCard de uma marca. Sem ele, a dica mostra só o prazo que
+   * valia — data de troca, autor e motivo são dados da TELA, não do DS.
+   *
+   * Render-prop, não componente: um componente escrito inline remonta a
+   * subárvore a cada render (L-068).
+   */
+  renderHistoryCard?: (params: {
+    mark: GanttHistoryMark;
+    bar: GanttBar;
+    row: GanttRow;
+  }) => ReactNode;
 
   /** Vínculos violados pelas datas atuais. Emitido quando o conjunto muda. */
   onLinkViolations?: (violations: GanttLinkViolation[]) => void;

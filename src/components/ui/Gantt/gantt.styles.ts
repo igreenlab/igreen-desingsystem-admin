@@ -2192,3 +2192,140 @@ export const ganttNarrowNotice = tv({
     "px-pad-3xl py-pad-3xl text-center",
   ],
 });
+
+/* ── Histórico de remarcações ──────────────────────────────────────────────
+   Marca cada prazo ANTERIOR no dia em que ele estava. Um tom só — o da própria
+   barra (`colorKey`) — com a opacidade dizendo a idade: mais clara é mais
+   antiga. Cor por SITUAÇÃO (adiou/antecipou) contrariaria a regra do Gantt de
+   que cor = categoria, e é por isso que a diferença entre as 6 situações do
+   pedido fica na POSIÇÃO da marca, não no matiz.
+   Ver Gantt/USAGE.md §Histórico de remarcações. */
+
+/** Trilha tracejada ligando a marca à borda atual da barra. */
+export const ganttHistoryTrail = tv({
+  base: "pointer-events-none absolute border-t border-dashed",
+  variants: {
+    colorKey: {
+      "chart-1": "border-chart-1",
+      "chart-2": "border-chart-2",
+      "chart-3": "border-chart-3",
+      "chart-4": "border-chart-4",
+      "chart-5": "border-chart-5",
+      brand: "border-border-brand",
+      success: "border-border-success-muted",
+      warning: "border-border-warning-muted",
+      danger: "border-border-danger-muted",
+      info: "border-border-info-muted",
+      neutral: "border-border-default",
+    },
+  },
+  defaultVariants: { colorKey: "neutral" },
+});
+
+/**
+ * Marca FORA da barra atual: ponto no dia em que o prazo estava.
+ *
+ * Alvo de hover próprio — por isso tamanho de 10px, que é o piso pra não virar
+ * um alvo impossível de acertar no mouse.
+ */
+export const ganttHistoryDot = tv({
+  base: [
+    "absolute z-[2] size-[10px] -translate-x-1/2 -translate-y-1/2 rounded-radius-full",
+    "ring-2 ring-bg-canvas",
+    "transition-transform duration-150 hover:scale-125",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+  ],
+  variants: {
+    colorKey: {
+      "chart-1": "bg-chart-1",
+      "chart-2": "bg-chart-2",
+      "chart-3": "bg-chart-3",
+      "chart-4": "bg-chart-4",
+      "chart-5": "bg-chart-5",
+      brand: "bg-bg-brand",
+      success: "bg-bg-success",
+      warning: "bg-bg-warning",
+      danger: "bg-bg-danger",
+      info: "bg-bg-info",
+      neutral: "bg-fg-muted",
+    },
+  },
+  defaultVariants: { colorKey: "neutral" },
+});
+
+/**
+ * Marca DENTRO da barra: entalhe nas bordas de cima e de baixo.
+ *
+ * Não é losango de propósito — no Gantt o losango já significa MARCO, e dois
+ * significados pra mesma forma é o tipo de colisão que ninguém desfaz depois.
+ */
+/**
+ * Marca de histórico que cai DENTRO da barra atual.
+ *
+ * Dois traços curtos que **atravessam** a borda de cima e a de baixo — metade
+ * fora, metade dentro. É o que o faz ler como entalhe e não como divisória: um
+ * traço inteiro no meio da barra parte a barra em duas, e um traço só por
+ * dentro some, porque ele tem a cor da própria barra (o tom é mais claro, mas
+ * claro-sobre-colorido é contraste fraco). Straddling a borda, metade do traço
+ * cai sobre o fundo da linha e aparece sempre.
+ *
+ * `root` é transparente e existe só pra ser o alvo de hover/foco — 9px, porque
+ * 2px é alvo impossível de acertar com o mouse.
+ */
+export const ganttHistoryNotch = tv({
+  slots: {
+    root: [
+      "group/notch absolute z-[2] w-[9px] -translate-x-1/2",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+    ],
+    tick: [
+      "pointer-events-none absolute left-1/2 w-[2px] h-[7px] -translate-x-1/2",
+      "origin-center transition-transform duration-150",
+      "group-hover/notch:scale-y-[1.6] group-focus-visible/notch:scale-y-[1.6]",
+      "motion-reduce:transition-none",
+    ],
+  },
+  variants: {
+    colorKey: {
+      "chart-1": { tick: "bg-chart-1" },
+      "chart-2": { tick: "bg-chart-2" },
+      "chart-3": { tick: "bg-chart-3" },
+      "chart-4": { tick: "bg-chart-4" },
+      "chart-5": { tick: "bg-chart-5" },
+      brand: { tick: "bg-bg-brand" },
+      success: { tick: "bg-bg-success" },
+      warning: { tick: "bg-bg-warning" },
+      danger: { tick: "bg-bg-danger" },
+      info: { tick: "bg-bg-info" },
+      neutral: { tick: "bg-fg-default" },
+    },
+  },
+  defaultVariants: { colorKey: "neutral" },
+});
+
+/** Contador que substitui marcas agrupadas quando a escala aperta. */
+export const ganttHistoryCluster = tv({
+  base: [
+    "absolute z-[2] grid min-w-[16px] h-[16px] place-items-center px-pad-xs",
+    "-translate-x-1/2 -translate-y-1/2 rounded-radius-full",
+    "ring-2 ring-bg-canvas",
+    "text-caption-xs font-semibold tabular-nums text-fg-on-brand",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+  ],
+  variants: {
+    colorKey: {
+      "chart-1": "bg-chart-1",
+      "chart-2": "bg-chart-2",
+      "chart-3": "bg-chart-3",
+      "chart-4": "bg-chart-4",
+      "chart-5": "bg-chart-5",
+      brand: "bg-bg-brand",
+      success: "bg-bg-success",
+      warning: "bg-bg-warning",
+      danger: "bg-bg-danger",
+      info: "bg-bg-info",
+      neutral: "bg-fg-muted",
+    },
+  },
+  defaultVariants: { colorKey: "neutral" },
+});

@@ -35,6 +35,7 @@ const TOC = [
   { id: "cronograma", label: "Cronograma com vínculos" },
   { id: "portfolio", label: "Timeline de portfólio" },
   { id: "conflito", label: "Conflito e caminho crítico" },
+  { id: "historico", label: "Histórico de remarcações" },
   { id: "toolbar", label: "Recortar visões e estender a toolbar" },
   { id: "carregando", label: "Carregando ≠ vazio" },
   { id: "api", label: "API" },
@@ -278,6 +279,161 @@ const CONFLITO_LINKS: GanttLink[] = [
   { id: "cv2", source: "cb-b", target: "cb-c", type: "FS" },
 ];
 
+/* ── histórico: as 6 situações do pedido, com UMA regra ─────────── */
+
+/**
+ * As linhas cobrem de propósito os 6 casos que o pedido listava como
+ * desenhos separados — e aqui saem todos da mesma regra: a data anterior fica
+ * no dia em que estava, e a ponta (`start`/`end`) diz o que ela era.
+ *
+ * 1. fim adiado        → o fim antigo é mais cedo, cai DENTRO → entalhe
+ * 2. fim antecipado    → o fim antigo é mais tarde, cai FORA → ponto + trilha
+ * 3. início adiado     → o início antigo é mais cedo, FORA → ponto + trilha
+ * 4. início antecipado → o início antigo é mais tarde, DENTRO → entalhe
+ * 5/6. tarefa inteira  → as duas pontas remarcadas de uma vez
+ *
+ * Repare que "adiar" e "antecipar" nunca precisaram de tratamento próprio: é a
+ * posição relativa à barra atual que escolhe a forma. A última linha tem 3
+ * remarcações quase no mesmo dia — é onde as marcas se agrupam em contador.
+ */
+const HISTORICO: GanttRow[] = [
+  {
+    id: "h-fim-adiado",
+    label: "Homologação",
+    bars: [
+      {
+        id: "hb1",
+        label: "Homologação",
+        start: d(3),
+        end: d(12),
+        colorKey: "chart-1",
+        history: [
+          {
+            start: d(3),
+            end: d(6),
+            meta: { autor: "Ana Prado", motivo: "aguardando contrato assinado" },
+          },
+          {
+            start: d(3),
+            end: d(9),
+            meta: { autor: "Ana Prado", motivo: "escopo de testes revisado" },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "h-fim-antecipado",
+    label: "Migração de dados",
+    bars: [
+      {
+        id: "hb2",
+        label: "Migração",
+        start: d(2),
+        end: d(6),
+        colorKey: "chart-2",
+        history: [
+          {
+            start: d(2),
+            end: d(11),
+            meta: { autor: "Bruno Lima", motivo: "lote menor que o previsto" },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "h-inicio-adiado",
+    label: "Treinamento",
+    bars: [
+      {
+        id: "hb3",
+        label: "Treinamento",
+        start: d(8),
+        end: d(14),
+        colorKey: "chart-3",
+        history: [
+          {
+            start: d(3),
+            end: d(14),
+            meta: { autor: "Carla Dias", motivo: "sala indisponível" },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "h-inicio-antecipado",
+    label: "Integração fiscal",
+    bars: [
+      {
+        id: "hb4",
+        label: "Integração",
+        start: d(2),
+        end: d(13),
+        colorKey: "chart-4",
+        history: [
+          {
+            start: d(7),
+            end: d(13),
+            meta: { autor: "Diego Reis", motivo: "fornecedor liberou antes" },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "h-tarefa-inteira",
+    label: "Piloto em campo",
+    bars: [
+      {
+        id: "hb5",
+        label: "Piloto",
+        start: d(9),
+        end: d(15),
+        colorKey: "chart-5",
+        history: [
+          {
+            start: d(4),
+            end: d(11),
+            meta: { autor: "Elisa Moura", motivo: "janela do cliente mudou" },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "h-tres-remarcacoes",
+    label: "Publicação",
+    bars: [
+      {
+        id: "hb6",
+        label: "Publicação",
+        start: d(3),
+        end: d(15),
+        colorKey: "brand",
+        history: [
+          {
+            start: d(3),
+            end: d(5),
+            meta: { autor: "Fábio Souza", motivo: "data original do plano" },
+          },
+          {
+            start: d(3),
+            end: d(6),
+            meta: { autor: "Fábio Souza", motivo: "replanejamento semanal" },
+          },
+          {
+            start: d(3),
+            end: d(7),
+            meta: { autor: "Gabi Teles", motivo: "fila de aprovação jurídica" },
+          },
+        ],
+      },
+    ],
+  },
+];
+
 /* ── colunas com progresso ──────────────────────────────────────── */
 
 /**
@@ -379,6 +535,21 @@ const PROPS = [
     defaultVal: "false · esqueleto da visão atual",
   },
   {
+    name: "showHistory / onShowHistoryChange",
+    type: "boolean + (v) => void — desenha os prazos ANTERIORES das barras que têm `history`. Controlado quando `showHistory` vem; sem ele o componente guarda o estado e o botão continua funcionando",
+    defaultVal: "false (não controlado)",
+  },
+  {
+    name: "historyToggle",
+    type: "boolean — mostra o botão Remarcações na toolbar. Ele some sozinho quando NENHUMA barra tem `history`: um toggle que não muda nada é pior que a ausência dele",
+    defaultVal: "true",
+  },
+  {
+    name: "renderHistoryCard",
+    type: "({ mark, bar, row }) => ReactNode — o conteúdo do hover da marca. `mark.entry.meta` volta intacto (autor, motivo, data da troca). Sem ele, o card mostra só a data anterior",
+    defaultVal: "data anterior",
+  },
+  {
     name: "ref",
     type: "GanttRef — imperativo: goToDate(date) · goToToday() · expandAll() · collapseAll()",
     defaultVal: "—",
@@ -394,17 +565,26 @@ const BAR_PROPS = [
   { name: "continuesBefore / continuesAfter", type: "boolean — atravessa a janela; corta o canto daquele lado", defaultVal: "derivado" },
   { name: "searchText", type: "string — a busca só casa string, e `label` é ReactNode", defaultVal: "—" },
   { name: "meta", type: "unknown — payload cru, devolvido intacto nos callbacks", defaultVal: "—" },
+  {
+    name: "history",
+    type: "{ start, end, meta? }[] — os prazos ANTERIORES, do mais antigo ao mais recente. É a forma que um log de alteração já tem (\"antes era de X a Y\"); o componente deriva o que mudou. Data igual à atual não vira marca",
+    defaultVal: "—",
+  },
 ];
 
 export function GanttDoc() {
   const [selecionado, setSelecionado] = useState<string | null>(null);
   const [violacoes, setViolacoes] = useState(0);
+  /** O toggle de remarcações é controlado aqui só pra o texto abaixo ecoar. */
+  const [mostrarHistorico, setMostrarHistorico] = useState(true);
   /** Os três estados do exemplo "Carregando ≠ vazio". */
   const [estadoDemo, setEstadoDemo] = useState<"loading" | "vazio" | "cheio">(
     "loading",
   );
 
   const agora = useMemo(() => d(17), []);
+  /** O exemplo de histórico usa uma janela curta — `agora` cairia fora dela. */
+  const agoraHistorico = useMemo(() => d(10), []);
 
   return (
     <DocLayout toc={TOC}>
@@ -537,6 +717,82 @@ export function GanttDoc() {
         <p className="mt-6 text-body-sm text-fg-muted">
           <code className="text-code-sm">onLinkViolations</code> reportou{" "}
           <strong className="text-fg-default">{violacoes}</strong> conflito(s).
+        </p>
+      </ExampleSection>
+
+      <SectionH2 id="historico" title="Histórico de remarcações" />
+
+      <ExampleSection
+        plain
+        id="ex-historico"
+        title="Cada prazo anterior fica onde estava — uma regra no lugar de seis situações"
+        description="Ligue o botão Remarcações. O pedido original listava 6 casos (início, fim ou tarefa inteira, adiada ou antecipada); desenhar seis é seis chances de divergir. A regra única: cada data anterior que não é a atual vira uma marca no dia em que estava, e a ponta diz qual era. 'Adiou' e 'antecipou' ficam iguais no modelo e diferentes só na POSIÇÃO. Fora da barra atual é ponto, ligado à borda por trilha tracejada; dentro é entalhe atravessando as bordas de cima e de baixo — não losango, que no Gantt já significa marco, e não traço inteiro, que partiria a barra em duas. Um tom só, o da própria barra: mais claro é mais antigo. Cor por situação contrariaria a regra de que cor = categoria. Passe o mouse numa marca."
+        code={`<Gantt
+  rows={[{ id: "r1", label: "Homologação", bars: [{
+    id: "b1", start: d(10), end: d(20), colorKey: "chart-1",
+    history: [
+      { start: d(6),  end: d(16), meta: { autor: "Ana",   motivo: "aguardando contrato" } },
+      { start: d(10), end: d(16), meta: { autor: "Bruno", motivo: "escopo revisado" } },
+    ],
+  }] }]}
+  historyToggle            // botão na toolbar (default true)
+  renderHistoryCard={({ mark }) => (
+    <div>
+      <strong>{mark.edge === "start" ? "Início" : "Fim"} anterior</strong>
+      <p>{mark.entry.meta.autor} — {mark.entry.meta.motivo}</p>
+    </div>
+  )}
+/>`}
+      >
+        <div className="flex h-[460px] w-full flex-col">
+          <Gantt
+            rows={HISTORICO}
+            locale={ptBR}
+            now={agoraHistorico}
+            windowStart={d(1)}
+            windowEnd={d(15)}
+            gridWidth={180}
+            columns={[{ id: "label", header: "Tarefa" }]}
+            showHistory={mostrarHistorico}
+            onShowHistoryChange={setMostrarHistorico}
+            renderHistoryCard={({ mark }) => {
+              const m = mark.entry.meta as
+                | { autor?: string; motivo?: string }
+                | undefined;
+              return (
+                <div className="flex flex-col gap-gp-xs">
+                  <span className="text-body-sm font-semibold text-fg-default">
+                    {mark.edge === "start" ? "Início" : "Fim"} anterior:{" "}
+                    {mark.date.toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "short",
+                    })}
+                  </span>
+                  {m?.autor && (
+                    <span className="text-caption-md text-fg-muted">
+                      {m.autor} — {m.motivo}
+                    </span>
+                  )}
+                </div>
+              );
+            }}
+          />
+        </div>
+        <p className="mt-6 text-body-sm text-fg-muted">
+          O botão <strong className="text-fg-default">Remarcações</strong> está{" "}
+          <strong className="text-fg-default">
+            {mostrarHistorico ? "ligado" : "desligado"}
+          </strong>
+          . Ele some sozinho quando nenhuma barra tem <code className="text-code-sm">history</code> —
+          um toggle que não muda nada é pior que a ausência dele. A última linha
+          tem <strong className="text-fg-default">três</strong> remarcações em dias
+          seguidos: troque a granularidade pra{" "}
+          <strong className="text-fg-default">Mês</strong> e as que ficarem a menos
+          de 14px uma da outra viram um contador — abaixo disso duas marcas são
+          uma mancha. Em <strong className="text-fg-default">Semana</strong> elas
+          ainda cabem separadas. O agrupamento é do{" "}
+          <strong className="text-fg-default">eixo</strong>, não do dado: o mesmo
+          histórico se agrupa ou não dependendo do zoom.
         </p>
       </ExampleSection>
 

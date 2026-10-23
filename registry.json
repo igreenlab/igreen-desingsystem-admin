@@ -95,6 +95,7 @@
         "@igreen/checkbox",
         "@igreen/dropdown-menu",
         "@igreen/floating-panel",
+        "@igreen/hover-card",
         "@igreen/popover",
         "@igreen/radio-group",
         "@igreen/tv",
@@ -198,6 +199,16 @@
         {
           "path": "src/components/ui/Gantt/views/list.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/Gantt/parts/gantt-history-layer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Gantt/parts/gantt-history-layer.tsx"
+        },
+        {
+          "path": "src/components/ui/Gantt/hooks/history-marks.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Gantt/hooks/history-marks.ts"
         }
       ],
       "meta": {
