@@ -51,6 +51,14 @@ export type KanbanCardData = {
   id: string;
   /** Coluna a que o card pertence (deve bater com algum KanbanColumn.id). */
   columnId: string;
+  /**
+   * Raia (grupo) a que o card pertence, DENTRO da coluna — segundo eixo,
+   * independente de `columnId`. Só tem efeito quando `<Kanban groups>` existe.
+   *
+   * Card sem `groupId`, ou com um id que não está em `groups`, cai na raia
+   * sintetizada de não-agrupados, sempre por último (ver `ungroupedLabel`).
+   */
+  groupId?: string;
 
   /** Título principal (ex: nome do cliente, título da tarefa). */
   title: ReactNode;
@@ -74,6 +82,43 @@ export type KanbanCardData = {
   footerLeft?: ReactNode;
   /** Conteúdo à direita do footer (ex: data, prazo). */
   footerRight?: ReactNode;
+
+  /**
+   * Linha extra ABAIXO do footer, separada por borda (ex.: "dependência
+   * pendente" num `<Chip color="danger">`).
+   *
+   * Existe porque `renderCard` troca o miolo inteiro: pra acrescentar um aviso
+   * mantendo o layout default, o consumidor teria que reconstruir os 8 slots.
+   * Com `renderCard`, esta linha **não** renderiza — ali o miolo é dele.
+   */
+  notice?: ReactNode;
+};
+
+/**
+ * Raia (swimlane) dentro das colunas — o SEGUNDO eixo do board.
+ *
+ * `columnId` diz em qual coluna o card está; `groupId` diz em qual faixa
+ * horizontal dentro dela. A raia aparece em toda coluna onde o grupo tem card,
+ * e recolher/expandir vale para **todas as colunas ao mesmo tempo**, porque o
+ * estado é guardado pelo id do grupo, não pelo par coluna+grupo.
+ */
+export type KanbanGroup = {
+  /** Casa com `KanbanCardData.groupId`. */
+  id: string;
+  /** Título da raia. */
+  label: ReactNode;
+  /** Código curto ao lado do título (ex.: "EP-12"). */
+  code?: string;
+  /**
+   * Progresso do grupo, exibido no cabeçalho da raia.
+   *
+   * ⚠️ Chega **pronto**: o componente só vê os cards já filtrados, então contar
+   * aqui daria um progresso que muda quando o usuário filtra. Quem sabe o
+   * denominador real é a tela.
+   */
+  progress?: { done: number; total: number };
+  /** Ação à direita do cabeçalho (ex.: `<Button>Abrir Epic</Button>`). */
+  actions?: ReactNode;
 };
 
 /**
@@ -114,6 +159,36 @@ export type KanbanProps = {
   columns: KanbanColumn[];
   /** Cards a serem distribuídos pelas colunas via `columnId`. */
   cards: KanbanCardData[];
+
+  /* ── Raias / swimlanes (opcional) ──────────────────────────── */
+  /**
+   * Liga o segundo eixo: cards agrupados em raias DENTRO de cada coluna,
+   * na ordem deste array. Sem esta prop, o board é plano como sempre foi.
+   *
+   * O eixo da raia é independente do eixo da coluna — um não deriva do outro.
+   */
+  groups?: KanbanGroup[];
+  /**
+   * Rótulo da raia sintetizada pros cards sem `groupId` (ou com id fora de
+   * `groups`). Ela fica **sempre por último**. `null` esconde a raia e os
+   * cards soltos aparecem direto na coluna, antes das raias.
+   *
+   * Default: `"Sem grupo"`.
+   */
+  ungroupedLabel?: string | null;
+  /**
+   * IDs das raias EXPANDIDAS (controlado). Polaridade é "expandido", como
+   * `expandedRowIds` no resto do DS — então `new Set()` já dá o default que a
+   * tela normalmente quer: **tudo recolhido**.
+   *
+   * Omitido, o componente guarda o estado sozinho (uncontrolled) partindo de
+   * `defaultExpandedGroupIds`.
+   */
+  expandedGroupIds?: Set<string>;
+  /** Estado inicial quando uncontrolled. Default: nenhuma expandida. */
+  defaultExpandedGroupIds?: Set<string>;
+  /** Disparado ao clicar no cabeçalho da raia. Obrigatório se controlado. */
+  onGroupToggle?: (groupId: string) => void;
 
   /* ── Seleção (opcional) ────────────────────────────────────── */
   /** IDs selecionados (Set). Quando presente, checkbox aparece nos cards. */
@@ -178,6 +253,12 @@ export type KanbanProps = {
    * (otimista ou async) atualizando `cards` props. Primitive **não faz revert**
    * automático — se a operação falhar, consumer mantém `cards` inalterado e
    * o card volta visualmente.
+   *
+   * ⚠️ Com `groups`, o card **não troca de raia**: só a coluna muda, e o
+   * `groupId` é preservado. O alvo de soltar só aparece na raia do próprio
+   * grupo — inclusive numa coluna onde esse grupo ainda não tinha raia, que
+   * passa a mostrar uma durante o arrasto. Mover entre grupos é mudança de
+   * domínio (reassociar a tarefa a outra Epic), não gesto de board.
    */
   onCardMove?: (cardId: string, from: string, to: string) => void | Promise<unknown>;
 

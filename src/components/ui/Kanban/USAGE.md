@@ -152,6 +152,78 @@ Consumer customiza o **miolo** do card. Wrapper externo (border, shadow, focus r
 
 ---
 
+## Raias (swimlanes) — o segundo eixo
+
+Agrupa os cards **dentro** das colunas, sem mexer nas colunas. Dois eixos independentes:
+`columnId` diz em qual coluna o card está, `groupId` diz em qual faixa dentro dela.
+
+```tsx
+<Kanban
+  columns={columns}
+  cards={cards}                       // cada card com groupId?: string
+  groups={[
+    { id: "ep-1", label: "Onboarding", code: "EP-12",
+      progress: { done: 3, total: 8 },
+      actions: <Button size="xs" variant="ghost">Abrir Epic</Button> },
+    { id: "ep-2", label: "Faturamento", code: "EP-13" },
+  ]}
+  expandedGroupIds={abertas}
+  onGroupToggle={(id) => toggle(id)}
+  enableDnD
+  onCardMove={handleCardMove}
+/>
+```
+
+### As cinco regras que não são óbvias
+
+1. **Recolher vale pra TODAS as colunas de uma vez.** O estado é por id de grupo, não por
+   par coluna+grupo — uma Epic recolhida some das 4 colunas juntas.
+2. **Polaridade é "expandido"**, como `expandedRowIds` no resto do DS. `new Set()` já é
+   tudo recolhido, que costuma ser o default certo. Omitindo `expandedGroupIds`, o
+   componente guarda sozinho a partir de `defaultExpandedGroupIds`.
+3. **A raia só aparece onde o grupo tem card** — e, durante o arrasto, também na coluna de
+   destino, mesmo que o grupo ainda não tivesse nada lá. Raia vazia fora de arrasto seria
+   ruído em toda coluna que não participa do grupo.
+4. **O card não troca de raia arrastando.** O alvo de soltar só existe na raia do próprio
+   grupo, e o `onCardMove` só reporta mudança de COLUNA. Reassociar a tarefa a outra Epic
+   é decisão de domínio, não gesto de board.
+5. **`progress` chega pronto.** O componente só vê os cards já filtrados: contar aqui daria
+   um denominador que muda quando o usuário filtra. Quem sabe o total é a tela.
+
+### A raia "Sem grupo"
+
+Card sem `groupId` (ou com id fora de `groups`) cai numa raia sintetizada, **sempre por
+último**. `ungroupedLabel` troca o texto; `null` esconde a raia e deixa os cards soltos
+direto na coluna, antes das demais.
+
+### `notice` — aviso abaixo do card
+
+Linha extra sob o footer, separada por borda. Existe porque `renderCard` troca o miolo
+inteiro: sem ela, acrescentar um alerta obrigaria a reconstruir os 8 slots. **Com
+`renderCard` ela não renderiza** — ali o miolo é seu.
+
+### Pelo DataTable: o eixo é o `groupBy`
+
+```tsx
+<DataTable
+  viewMode="kanban"
+  kanbanConfig={{ groupByField: "status", renderCard }}
+  groupBy="epic"        // ← o eixo da raia
+/>
+```
+
+Não existe prop de raia dentro do `kanbanConfig`, e isso é deliberado: o `groupBy` já é
+estado do **componente** — persistido, aplicável por saved view, e sobrevive à troca de
+view. Um field paralelo seria um quarto conceito de agrupamento num componente que já tem
+três (`groupBy` > `getTreeDataPath` > `renderRowExpansion`), com estado de colapso próprio
+e fora das saved views.
+
+Reusando, o mesmo eixo vira **grupo de linha** na tabela e **raia** no board — é o
+contrato do `viewMode`: mesmas rows processadas, render diferente.
+
+⚠️ `groupBy` igual ao `kanbanConfig.groupByField` é **ignorado**: daria uma raia por coluna
+contendo todos os cards dela. Só o `ungroupedLaneLabel` mora no `kanbanConfig`.
+
 ## Integração com DataTable
 
 `<DataTable>` é o smart orchestrator. Quando `viewMode="kanban"` + `kanbanConfig`:
@@ -334,6 +406,9 @@ Cada slot (`avatar`, `chip`, `value`, `footerLeft`, `footerRight`, `description`
 - Features novas: `renderCard` slot, `getCardMenuItems`/`getColumnMenuItems` padronizados, DnD entre colunas com placeholder localizado + feedback visual de coluna inválida, empty state com ícone
 - DS conformance: 3 botões raw → `<Button>` DS, 10+ hardcoded tokens migrados, scrollbar via utility `scrollbar-thin`, Avatar iGreen consumido nas previews
 - Integração: `<DataTable viewMode="kanban" kanbanConfig={...}>` orquestra filter/sort/search/selection compartilhados
+
+> ✅ **Swimlanes saíram do Defer em 2026-10-23** — ver §Raias. O que fica pra V2 é o
+> agrupamento de MÚLTIPLOS níveis (raia dentro de raia); um nível está em produção.
 
 **Defer pra V2** (não bloqueia produção):
 - Virtualização por coluna (cards count > 1000)

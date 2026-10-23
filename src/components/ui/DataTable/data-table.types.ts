@@ -58,6 +58,18 @@ export type DataTableKanbanConfig<T> = {
   renderCard: (params: { row: T }) => Omit<KanbanCardData, "id" | "columnId">;
 
   /**
+   * Rótulo da raia dos cards cujo `groupBy` está vazio. `null` esconde a raia.
+   * Default: `"Sem grupo"`.
+   *
+   * ⚠️ **O eixo da raia é o `groupBy`**, não uma prop daqui. O mesmo estado que
+   * agrupa linhas na tabela agrupa cards em raias no board — e por isso entra
+   * nas saved views e sobrevive à troca de view de graça. Sem `groupBy`, o
+   * board é plano. `groupBy` igual ao `groupByField` é ignorado: daria uma
+   * raia por coluna com todos os cards dela.
+   */
+  ungroupedLaneLabel?: string | null;
+
+  /**
    * Override TOTAL do miolo do card — substitui o layout default
    * (avatar/title/...). Wrapper externo (border, shadow, focus, checkbox
    * positioning) permanece sob controle do primitive. Use pra layouts

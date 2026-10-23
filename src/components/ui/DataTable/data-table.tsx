@@ -342,6 +342,10 @@ function DataTableInternal<T>(
     rows: isKanban ? rowsAllPagesProcessed : ([] as T[]),
     config: isKanban ? props.kanbanConfig : undefined,
     getRowId: contextValue.getRowId,
+    /* O MESMO `groupBy` que vira grupo de linha na tabela vira raia no board.
+       Um eixo só, dois renders — é o contrato do `viewMode`. De brinde, o eixo
+       já entra nas saved views e sobrevive ao reload, sem código novo. */
+    laneField: groupBy,
   });
 
   /* ── Bridge selection (GridSelectionState ↔ Set<string>) ──────── */
@@ -2183,6 +2187,10 @@ function DataTableInternal<T>(
           <Kanban
             columns={kanbanView.columns}
             cards={kanbanView.cards}
+            /* Raias do `groupBy`. Sem groupBy o array é vazio e o board é plano,
+               exatamente como sempre foi. */
+            groups={kanbanView.groups.length ? kanbanView.groups : undefined}
+            ungroupedLabel={props.kanbanConfig?.ungroupedLaneLabel}
             // Selection (bridge)
             selectedIds={kanbanSelectedIds}
             onToggleSelect={kanbanSelectedIds ? kanbanToggleSelect : undefined}
