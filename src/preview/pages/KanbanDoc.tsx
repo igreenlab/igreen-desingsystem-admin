@@ -43,6 +43,30 @@ const KANBAN_PROPS = [
   { name: "addLabel", type: "string", defaultVal: '"Adicionar"' },
 ];
 
+/** Raias (swimlanes) — o segundo eixo. Separado porque é opt-in por inteiro. */
+const RAIA_PROPS = [
+  {
+    name: "groups",
+    type: "KanbanGroup[] — { id, label, code?, progress?, dotColor? }. Ausente ou vazio = board plano, como sempre foi",
+    defaultVal: "—",
+  },
+  {
+    name: "ungroupedLabel",
+    type: 'string | null — rótulo da raia sintetizada dos cards sem `groupId` (ou com um id que não está em `groups`). Ela vem SEMPRE por último; `null` esconde',
+    defaultVal: '"Sem grupo"',
+  },
+  {
+    name: "expandedGroupIds / onGroupToggle",
+    type: "Set<string> + (groupId) => void — controlado. O callback dispara nos dois modos. Polaridade é EXPANDIDO: Set vazio = tudo recolhido",
+    defaultVal: "—",
+  },
+  {
+    name: "defaultExpandedGroupIds",
+    type: "Set<string> — semente do modo não-controlado. Ignorado quando `expandedGroupIds` vem",
+    defaultVal: "Set vazio",
+  },
+];
+
 const COLUMN_PROPS = [
   { name: "id", type: "string", defaultVal: "—" },
   { name: "label", type: "string", defaultVal: "—" },
@@ -72,6 +96,16 @@ const CARD_PROPS = [
   { name: "value", type: "ReactNode (ex: R$ 4.800,00)", defaultVal: "—" },
   { name: "footerLeft", type: "ReactNode (ex: agente)", defaultVal: "—" },
   { name: "footerRight", type: "ReactNode (ex: data)", defaultVal: "—" },
+  {
+    name: "groupId",
+    type: "string — a RAIA do card (só faz efeito com `groups`). Sem ele, ou com um id fora de `groups`, o card cai na raia sintetizada",
+    defaultVal: "—",
+  },
+  {
+    name: "notice",
+    type: "ReactNode — faixa abaixo do card no layout default (ex: aviso de bloqueio). Ignorado quando há `renderCard`, que substitui o miolo inteiro",
+    defaultVal: "—",
+  },
 ];
 
 /* ── Mock data alinhado com sandbox ────────────────────────────── */
@@ -490,6 +524,27 @@ export function KanbanDoc() {
           Dumb data-driven. Recebe <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">columns</code> e <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">cards</code> e renderiza. Sem state interno de domínio.
         </p>
         <PropsTable items={KANBAN_PROPS} />
+      </div>
+
+      <div className="mb-gp-4xl">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          Raias (swimlanes)
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          O segundo eixo: as colunas continuam sendo o status, e dentro de cada uma
+          os cards se agrupam por épico, responsável, cliente. <strong>Opt-in por
+          inteiro</strong> — sem{" "}
+          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">groups</code>{" "}
+          o board é plano. Recolher vale pra TODAS as colunas ao mesmo tempo, porque a
+          raia é uma faixa horizontal, não um bloco por coluna. E o card muda de{" "}
+          <strong>coluna</strong> arrastando, nunca de raia: trocar de grupo é decisão
+          de domínio. Dentro do{" "}
+          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">DataTable</code>,
+          o eixo da raia é o{" "}
+          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">groupBy</code>{" "}
+          — não se passa <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">groups</code> na mão.
+        </p>
+        <PropsTable items={RAIA_PROPS} />
       </div>
 
       <div className="mb-gp-4xl">
