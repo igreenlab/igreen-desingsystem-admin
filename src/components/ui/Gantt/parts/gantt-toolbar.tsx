@@ -11,6 +11,7 @@ import {
   List,
   Search,
   SlidersHorizontal,
+  History,
   Zap,
 } from "lucide-react";
 import {
@@ -172,6 +173,11 @@ export type GanttToolbarProps = {
   criticalPath: boolean;
   onToggleCriticalPath: () => void;
 
+  /** Botão "Remarcações". O pai o esconde quando nenhuma barra tem `history`. */
+  showHistoryToggle: boolean;
+  showHistory: boolean;
+  onToggleHistory: () => void;
+
   toolbarActions?: ReactNode;
   primaryAction?: ReactNode;
 };
@@ -202,6 +208,9 @@ export function GanttToolbar({
   showCriticalToggle,
   criticalPath,
   onToggleCriticalPath,
+  showHistoryToggle,
+  showHistory,
+  onToggleHistory,
   toolbarActions,
   primaryAction,
 }: GanttToolbarProps) {
@@ -346,6 +355,9 @@ export function GanttToolbar({
           showCriticalToggle={showCriticalToggle}
           criticalPath={criticalPath}
           onToggleCriticalPath={onToggleCriticalPath}
+          showHistoryToggle={showHistoryToggle}
+          showHistory={showHistory}
+          onToggleHistory={onToggleHistory}
         />
       </div>
 
@@ -388,6 +400,26 @@ export function GanttToolbar({
             )}
           >
             <span className="hidden lg:inline">Crítico</span>
+          </Button>
+        ) : null}
+
+        {/* Remarcações — mesmo par visual do Crítico. O pai já decide se o
+            botão existe: ele some quando nenhuma barra tem `history`. */}
+        {showHistoryToggle ? (
+          <Button
+            variant={showHistory ? "soft" : "outline"}
+            color={showHistory ? "primary" : "secondary"}
+            size="md"
+            iconLeft={<History />}
+            onClick={onToggleHistory}
+            aria-pressed={showHistory}
+            aria-label="Remarcações"
+            className={cn(
+              "shrink-0 max-md:hidden max-lg:size-form-lg max-lg:p-0",
+              showHistory && "border-border-brand hover:border-border-brand",
+            )}
+          >
+            <span className="hidden lg:inline">Remarcações</span>
           </Button>
         ) : null}
 
@@ -565,6 +597,9 @@ function GanttMobileMenu({
   showCriticalToggle,
   criticalPath,
   onToggleCriticalPath,
+  showHistoryToggle,
+  showHistory,
+  onToggleHistory,
 }: Pick<
   GanttToolbarProps,
   | "view"
@@ -579,6 +614,9 @@ function GanttMobileMenu({
   | "showCriticalToggle"
   | "criticalPath"
   | "onToggleCriticalPath"
+  | "showHistoryToggle"
+  | "showHistory"
+  | "onToggleHistory"
 >) {
   const estilos = ganttMobileMenu();
   const mostraCritico = hasLinks && showCriticalToggle;
@@ -703,6 +741,25 @@ function GanttMobileMenu({
               <Zap />
               <span className="flex-1 truncate">Caminho crítico</span>
               {criticalPath ? <Check strokeWidth={2.2} /> : null}
+            </button>
+          </>
+        ) : null}
+
+        {/* Remarcações. O botão da barra tem `max-md:hidden`, então sem esta
+            seção o toggle fica INALCANÇÁVEL no celular — existe no DOM, com
+            0px, e o sheet não o oferece. Medido a 375px antes de existir. */}
+        {showHistoryToggle ? (
+          <>
+            <div className={estilos.separator()} />
+            <button
+              type="button"
+              aria-pressed={showHistory}
+              onClick={onToggleHistory}
+              className={estilos.item({ active: showHistory })}
+            >
+              <History />
+              <span className="flex-1 truncate">Remarcações</span>
+              {showHistory ? <Check strokeWidth={2.2} /> : null}
             </button>
           </>
         ) : null}

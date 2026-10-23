@@ -47,6 +47,7 @@ import {
   type GanttDragMode,
 } from "../hooks/drag";
 import { GanttBarView } from "../parts/gantt-bar";
+import { GanttHistoryLayer } from "../parts/gantt-history-layer";
 import {
   GanttLinksLayer,
   type GanttLinkGeometry,
@@ -57,6 +58,7 @@ import type {
   GanttColorKey,
   GanttGranularity,
   GanttLink,
+  GanttProps,
   GanttRow,
 } from "../gantt.types";
 
@@ -107,6 +109,10 @@ export type GanttTimelineViewProps = {
 
   conflictBarIds: ReadonlySet<string>;
   criticalBarIds: ReadonlySet<string>;
+
+  /** Desenha os prazos anteriores das barras que têm `history`. */
+  showHistory: boolean;
+  renderHistoryCard?: GanttProps["renderHistoryCard"];
 
   draggable: boolean;
   resizable: boolean;
@@ -173,6 +179,8 @@ export function GanttTimelineView({
   weekStartsOn,
   conflictBarIds,
   criticalBarIds,
+  showHistory,
+  renderHistoryCard,
   draggable,
   resizable,
   linkable,
@@ -747,6 +755,35 @@ export function GanttTimelineView({
               aria-hidden
             />
           ))}
+
+          {/* Histórico ANTES das barras no DOM pra que a barra receba o gesto
+              primeiro — mas as marcas desenham acima (`z-[2]`), senão o entalhe
+              de dentro ficaria escondido por uma barra opaca. Linha `summary`
+              fica de fora: a barra dela é sintética e não tem prazo próprio. */}
+          {showHistory && (
+            <GanttHistoryLayer
+              targets={geos.lista
+                .filter((g) => (g.row.type ?? "task") !== "summary")
+                .map((g) => ({
+                  bar: g.bar,
+                  row: g.row,
+                  colorKey: g.colorKey,
+                  left: g.left,
+                  width: g.width,
+                  top: topDaBarra(g, g.row.type ?? "task"),
+                  height: GANTT_BAR_HEIGHT_PX,
+                }))}
+              xOf={(date) => dateToX(date, windowStart, pxPerDay)}
+              renderHistoryCard={renderHistoryCard}
+              formatDate={(dt) =>
+                dt.toLocaleDateString(locale?.code ?? "pt-BR", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })
+              }
+            />
+          )}
 
           {geos.lista.map((g) => {
             const tipo = g.row.type ?? "task";
