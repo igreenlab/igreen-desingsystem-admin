@@ -251,6 +251,19 @@ export const cardFoot = tv({
   ],
 });
 
+/**
+ * Aviso do card — linha própria abaixo do footer, com a MESMA separação por
+ * borda. O tom não é escolhido aqui: quem passa `notice` manda um `<Chip>` ou
+ * texto já tonalizado, porque o que é "alerta" é decisão de domínio.
+ */
+export const cardNotice = tv({
+  base: [
+    "flex items-center gap-gp-sm",
+    "pt-pad-md border-t border-border-subtle",
+    "text-caption-md text-fg-muted",
+  ],
+});
+
 /* ── DnD slots ─────────────────────────────────────────────── */
 
 /** Card sendo arrastado — opacity baixa + cursor grabbing. */
@@ -294,4 +307,72 @@ export const dropPlaceholder = tv({
     "transition-opacity duration-150",
     "[&>svg]:size-[14px]",
   ],
+});
+
+/* ── Raias (swimlanes) — segundo eixo dentro da coluna ─────────────────────
+   O contêiner da raia é fundo neutro com borda sutil: ele precisa agrupar
+   sem competir com o card, que é a unidade que o usuário manipula. Por isso
+   `bg-bg-subtle` e não `bg-bg-muted` — e por isso o card dentro dela mantém
+   a própria superfície. Ver Kanban/USAGE.md §Raias. */
+
+export const lane = tv({
+  base: [
+    "flex flex-col shrink-0",
+    "rounded-radius-md border border-border-subtle bg-bg-subtle",
+    "transition-colors duration-150",
+  ],
+  variants: {
+    /** Alvo válido durante o arrasto — mesma linguagem do `columnDropOver`. */
+    dropTarget: { true: "border-border-brand bg-bg-brand-subtle/30" },
+  },
+});
+
+/** Cabeçalho clicável: recolhe/expande a raia em TODAS as colunas de uma vez. */
+export const laneHeader = tv({
+  base: [
+    "flex w-full items-center gap-gp-md",
+    "px-pad-lg py-pad-md",
+    "text-left",
+    "rounded-radius-md",
+    "transition-colors duration-150",
+    "hover:bg-bg-muted",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+  ],
+});
+
+export const laneChevron = tv({
+  base: ["size-icon-sm shrink-0 text-fg-muted transition-transform duration-150"],
+  variants: { open: { true: "rotate-90" } },
+});
+
+export const laneTitle = tv({
+  base: "text-body-sm font-semibold text-fg-default truncate",
+});
+
+export const laneCode = tv({
+  base: "text-caption-md text-fg-subtle shrink-0 tabular-nums",
+});
+
+/** Progresso e contagem ficam à direita, antes das ações. */
+export const laneMeta = tv({
+  base: "ml-auto flex items-center gap-gp-md shrink-0",
+});
+
+export const laneProgress = tv({
+  base: "text-caption-md text-fg-muted tabular-nums",
+});
+
+/** Nº de cards DESTE grupo NESTA coluna — some quando a raia está recolhida? Não:
+    é justamente recolhida que ele mais serve. */
+export const laneCount = tv({
+  base: [
+    "grid place-items-center min-w-[20px] h-form-3xs px-pad-sm",
+    "rounded-radius-full bg-bg-muted",
+    "text-caption-sm font-semibold text-fg-muted tabular-nums",
+  ],
+});
+
+/** Corpo da raia — os cards. Só existe quando expandida. */
+export const laneBody = tv({
+  base: "flex flex-col gap-gp-md px-pad-md pb-pad-md",
 });

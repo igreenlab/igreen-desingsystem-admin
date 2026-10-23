@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Archive, Clock, Eye, Pencil, Trash2 } from "lucide-react";
 import { Kanban } from "../../components/ui/Kanban";
-import type { KanbanCardData, KanbanColumn, KanbanMenuItem } from "../../components/ui/Kanban";
+import type { KanbanCardData, KanbanColumn, KanbanGroup, KanbanMenuItem } from "../../components/ui/Kanban";
 import { Chip } from "../../components/ui/Chip";
 import { Avatar } from "../../components/ui/avatar-ig";
 import {
@@ -17,6 +17,7 @@ const TOC = [
   { id: "preview", label: "Preview" },
   { id: "menus", label: "Menus padronizados" },
   { id: "dnd", label: "Drag-and-Drop" },
+  { id: "raias", label: "Raias (swimlanes)" },
   { id: "render-card", label: "Render custom" },
   { id: "api", label: "API Reference" },
 ];
@@ -184,6 +185,52 @@ export function KanbanDoc() {
     );
   };
 
+  /* ── Estado do exemplo de RAIAS ───────────────────────────────────────── */
+
+  /* Mesmos cards, com `groupId` por Epic — e dois deles de propósito SEM grupo,
+     pra mostrar a raia sintetizada que fica por último. */
+  const [raiaCards, setRaiaCards] = useState<KanbanCardData[]>(() =>
+    buildCards().map((c, i) => {
+      const epic = i % 3 === 2 ? undefined : i % 2 === 0 ? "ep-1" : "ep-2";
+      return {
+        ...c,
+        ...(epic ? { groupId: epic } : {}),
+        // Um aviso só, pra mostrar a linha extra sem poluir a demo.
+        ...(c.id === "CLI-2403"
+          ? { notice: <Chip color="danger" variant="soft" size="sm">Dependência pendente</Chip> }
+          : {}),
+      };
+    }),
+  );
+
+  const RAIA_GRUPOS = useMemo<KanbanGroup[]>(() => [
+    {
+      id: "ep-1",
+      label: "Onboarding de licenciados",
+      code: "EP-12",
+      progress: { done: 3, total: 8 },
+    },
+    { id: "ep-2", label: "Faturamento recorrente", code: "EP-13" },
+  ], []);
+
+  /** Polaridade "expandido": Set vazio = tudo recolhido, que é o default certo. */
+  const [raiasAbertas, setRaiasAbertas] = useState<Set<string>>(
+    () => new Set(["ep-1"]),
+  );
+  const toggleRaia = (groupId: string) =>
+    setRaiasAbertas((prev) => {
+      const next = new Set(prev);
+      if (next.has(groupId)) next.delete(groupId);
+      else next.add(groupId);
+      return next;
+    });
+
+  const handleRaiaCardMove = (cardId: string, _from: string, to: string) => {
+    setRaiaCards((prev) =>
+      prev.map((c) => (c.id === cardId ? { ...c, columnId: to } : c)),
+    );
+  };
+
   /** Colunas com `canReceiveDrop=false` em "inactive" pra demonstrar coluna locked. */
   const DND_COLUMNS = useMemo<KanbanColumn[]>(() => [
     { id: "active",   label: "Ativo",    dotColor: "var(--color-fg-success)" },
@@ -346,6 +393,51 @@ export function KanbanDoc() {
             cards={dndCards}
             enableDnD
             onCardMove={handleCardMove}
+          />
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="raias" title="Raias (swimlanes) — o segundo eixo" />
+
+      <ExampleSection
+        id="ex-raias"
+        title="Agrupa os cards DENTRO das colunas, sem mexer nas colunas"
+        description={
+          'Dois eixos independentes: `columnId` diz em qual coluna o card está, `groupId` diz ' +
+          'em qual faixa dentro dela. A raia aparece em toda coluna onde o grupo tem card, e ' +
+          'recolher vale para TODAS ao mesmo tempo — o estado é por id de grupo, não por par ' +
+          'coluna+grupo. Comece recolhido: `expandedGroupIds` usa polaridade "expandido", então ' +
+          '`new Set()` já é tudo fechado. Arraste um card: o alvo só aparece na raia do próprio ' +
+          'grupo, inclusive numa coluna onde ele ainda não tinha raia. Trocar de grupo é mudança ' +
+          'de domínio, não gesto de board. A raia "Sem grupo" é sintetizada e fica sempre por último.'
+        }
+        code={`<Kanban
+  columns={columns}
+  cards={cards}            // cada card com groupId?: string
+  groups={[
+    { id: "ep-1", label: "Onboarding", code: "EP-12",
+      progress: { done: 3, total: 8 },
+      actions: <Button size="xs" variant="ghost">Abrir Epic</Button> },
+    { id: "ep-2", label: "Faturamento", code: "EP-13" },
+  ]}
+  expandedGroupIds={abertas}          // Set vazio = tudo recolhido
+  onGroupToggle={(id) => toggle(id)}
+  enableDnD
+  onCardMove={handleCardMove}         // groupId é preservado
+/>
+
+// progress chega PRONTO: o componente só vê os cards filtrados, então contar
+// aqui daria um denominador que muda quando o usuário filtra.`}
+      >
+        <div className="h-[640px] w-full flex">
+          <Kanban
+            columns={DND_COLUMNS}
+            cards={raiaCards}
+            groups={RAIA_GRUPOS}
+            expandedGroupIds={raiasAbertas}
+            onGroupToggle={toggleRaia}
+            enableDnD
+            onCardMove={handleRaiaCardMove}
           />
         </div>
       </ExampleSection>
