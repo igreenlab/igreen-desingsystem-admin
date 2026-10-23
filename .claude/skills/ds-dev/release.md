@@ -497,6 +497,39 @@ esvaziar (`npm stage list` sem saída) é o sinal de que a aprovação passou.
 
 Confirme sempre pela registry API com `no-cache`, não pelo `npm view` (ver 7.4).
 
+### ⛔ `E409 "previously staged version"` NÃO é fila de aprovação
+
+Medido na v0.70.0, depois de eu concluir o contrário e mandar o mantenedor procurar um
+menu vazio. O `npm publish` com OTP **aceita** o pacote e responde:
+
+```
++ @snksergio/design-system@0.70.0
+npm notice Your package is being processed and may take a few minutes to become available.
+```
+
+Um segundo `npm publish` nesse intervalo sai com:
+
+```
+npm error code E409
+npm error 409 Conflict - Cannot publish over previously staged version "0.70.0".
+```
+
+Isso é o **pipeline assíncrono do npm**, não staging. Nada a aprovar, e o
+`npm stage list` responder *"No staged packages found"* está **correto** — foi o que eu
+li como "o stage list mente". Os dois sinais juntos (E409 + fila vazia) significam
+**publicado, processando**.
+
+O tamanho decide a espera: o CLI (279 kB, 77 arquivos) ficou disponível na hora; a lib
+(7,4 MB, 2784 arquivos) levou **~2 min**. Espere e confirme pelo endpoint da versão
+exata, que responde 404 até terminar:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" -H "Cache-Control: no-cache" \
+  https://registry.npmjs.org/@snksergio%2Fdesign-system/0.70.0
+```
+
+**Só conclua "staged, falta aprovar" se o `npm stage list` REALMENTE listar algo.**
+
 ⛔ **A IA não manipula credencial em texto claro** — nem token clássico, nem granular, nem OTP.
 Se o mantenedor colar um token na conversa: **recuse o uso**, avise que ele deve ser tratado
 como exposto **a partir da colagem** (não do uso) e revogado, e ofereça o caminho limpo:
