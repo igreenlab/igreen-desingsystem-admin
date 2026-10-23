@@ -24,7 +24,7 @@ Views:           presets=<nome → filtro>, ...   · do usuário=<sim/não · sa
 Paginação/virt:  <pageSize / virtualize>   · totalizadores: <colunas>
 Drawers:         criar/editar=<sim/não> · campos=<campo:obrigatório?:máscara?> · detalhe=<sim/não>
 Estados:         loading=<skeleton> · vazio=<msg + CTA> · sem-resultado=<msg + limpar>
-Kanban:          <não | campo de agrupamento>
+Kanban:          <não | campo das COLUNAS> · raias (2º eixo): <não | o groupBy>
 Componentes a puxar: data-table[, example-finance p/ drawers][, alert-modal p/ excluir][, ...]
 ```
 
@@ -44,7 +44,11 @@ seção: é a ausência dela que faz a decisão passar aprovada em pacote.
 ## Pré-validações (rode ANTES de pedir aprovação)
 - Todo filtro tem operador compatível com o filterType (multiSelect⇒isAnyOf, text⇒contains, date⇒between, number⇒gte/lte/between, boolean⇒equals).
 - `virtualize` ⇒ paginação off + container com altura. `groupBy`/kanban ⇒ paginação off.
-- Kanban: cada lane mapeia uma option do campo de agrupamento.
+- Kanban: cada COLUNA mapeia uma option do campo de agrupamento (`kanbanConfig.groupByField`).
+- Kanban com raias: o 2º eixo é o **`groupBy` do DataTable**, não uma prop do `kanbanConfig`
+  — e ele tem que ser DIFERENTE do campo das colunas, senão é ignorado (daria uma raia por
+  coluna com todos os cards dela). ⚠️ Nos textos antigos "lane" queria dizer **coluna**;
+  com raias no sistema, escreva **coluna** e **raia** e não use "lane" pra nenhum dos dois.
 - Coluna `actions` se há ações por linha; cada action tem `id` único.
 - **Ação `destructive` (excluir) ⇒ tem `AlertModal` de confirmação no plano.**
 - **Os 3 estados (loading/vazio/sem-resultado) estão definidos** (mesmo que com default).

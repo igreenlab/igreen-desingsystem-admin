@@ -107,6 +107,8 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "tela de edição", "cadastro", "formulário", "editar X", "novo X"                          | `example-edit-page`              | FormField                   |
 | "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`           | Tabs + Cards                |
 | "dashboard", "painel", "visão geral", "indicadores" (2+ tipos de seção)                   | skill `dashboard-builder` (`/ds-create-dashboard`) → `example-dashboard` | Kpi/KpiGroup + Chart |
+| "cronograma de projeto", "o que depende do quê", "prazo", "caminho crítico"               | `example-gantt`                  | Gantt (+ `bar.history` p/ remarcação) |
+| "agenda", "compromissos", "reservas", "eventos no mês/semana/dia"                         | `scheduler` (componente)         | Scheduler                   |
 | "gráfico isolado" (barras/linha/área/pizza, sem o resto do painel)                        | `chart` (componente)             | ChartContainer              |
 | "mapa do Brasil por estado/município", "coroplético", "penetração por UF"                 | `choropleth-map` (componente)    | ChoroplethMap               |
 | "mapa FIXO do Brasil só pra KPI" (sem drill-down)                                          | receita de paths inline (sem dep) | — ver ChoroplethMap/USAGE.md |
