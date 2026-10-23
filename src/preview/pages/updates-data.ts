@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.70.0",
+    date: "2026-10-23",
+    tag: "preview",
+    title: "O segundo eixo do board, e o prazo que ficou onde estava",
+    summary:
+      "Dois pedidos da Sollution, e os dois chegaram descritos como desenho. O do Gantt listava SEIS casos (início, fim ou tarefa inteira × adiada ou antecipada) — seis desenhos são seis chances de divergir, e três deles seriam o mesmo pixel com nome diferente. O do Kanban pedia um agrupador por épico, que seria o QUARTO conceito de agrupamento num componente que já tem três. Em ambos o visual pedido está entregue; o que mudou foi o modelo por trás. O histórico virou uma regra só, e a raia reusa o `groupBy` que já existia — de graça, ela entra nas visões salvas e sobrevive à troca de view. Nenhuma tela existente muda de comportamento: a interseção entre quem usa `groupBy` e quem usa a view kanban, hoje, é vazia.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Kanban: raias (swimlanes), o segundo eixo do board.** As colunas continuam sendo o status; dentro de cada uma, os cards agora podem ficar em faixas por épico, responsável ou cliente (`groups`). O cabeçalho da raia aceita código e progresso, e recolher vale pra TODAS as colunas ao mesmo tempo — a raia é uma faixa horizontal, não um bloco por coluna. Card sem grupo cai numa raia sintetizada, sempre por último (`ungroupedLabel`, ou `null` pra esconder). **Arrastar move entre COLUNAS, nunca entre raias**: trocar de grupo é decisão de domínio, não gesto de board — e a recusa mora no `handleDragEnd`, não só no render, porque o `closestCorners` resolve pra vizinho quando as raias ficam coladas.",
+          "**DataTable: o `groupBy` vira o eixo da raia no board.** Mesmo estado, dois renders — na tabela agrupa linhas, no kanban agrupa cards. Reusar em vez de criar um field próprio do `kanbanConfig` é o que faz o eixo entrar no `persistId` e nas saved views sem código novo. `kanbanConfig.ungroupedLaneLabel` nomeia (ou esconde) a raia dos soltos. ⚠️ **Muda o board de quem já combinava `groupBy` com a view kanban** — antes saía plano. Sem `groupBy`, nada muda. `groupBy` igual ao `groupByField` é ignorado: daria uma raia por coluna com todos os cards dela.",
+          "**Gantt: histórico de remarcações.** Cada barra aceita a lista dos prazos ANTERIORES (`history`), na forma que um log de alteração já tem — \"antes era de X a Y\". O componente deriva o resto por UMA regra: cada data anterior que não é a atual vira uma marca no dia em que estava, e a ponta diz qual era. \"Adiou\" e \"antecipou\" ficam idênticos no modelo e diferentes só na POSIÇÃO — fora da barra atual é ponto com trilha tracejada até a borda, dentro é entalhe atravessando as bordas de cima e de baixo (não losango, que no Gantt já é marco). Marcas a menos de 14px viram contador. Opacidade = idade, no tom da própria barra, com piso visível. Cor por situação está fora: no Gantt a cor diz categoria. O cartão da marca abre em hover, foco e toque, e o conteúdo é seu (`renderHistoryCard` recebe o `meta` intacto). O botão de remarcações entra sozinho na toolbar e **some quando nenhuma barra tem histórico**.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Botão novo na toolbar do Gantt não chegava no celular.** O par `max-md:hidden` + ausência de seção no menu de opções deixava o botão de remarcações no DOM com 0px de largura e fora do bottom-sheet — inalcançável a 375px. Ganhou seção no menu, junto do caminho crítico, e a regra ficou escrita no USAGE pro próximo botão que nascer ali.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Três superfícies da ponte DataTable→raia documentadas**: seção no `DataTable/USAGE.md` (com o aviso de mudança de comportamento e as 6 regras), `ungroupedLaneLabel` na tabela de props do showcase, e a linha do `kanban` no vocabulário do consumidor reescrita com o segundo eixo. A feature tinha fechado o lado Kanban e deixado o lado DataTable mudo — quem lesse só o USAGE da tabela descobriria as raias por surpresa.",
+          "**14 regressões novas travando o caminho ANTIGO**, porque \"aditivo\" é afirmação sobre quem já usa: board sem `groupBy` continua plano, Gantt sem `history` não ganha botão nem pixel, `history: []` conta como ausente, e eixo igual ao da coluna é ignorado. Quatro delas verificadas contra o código sabotado de propósito, não só contra o correto (L-064).",
+          "**Doc da release aprendeu o staged publish.** O passo 7 descrevia um caminho que esta conta não tem mais, e o `npm stage approve` do CLI responde E404 mesmo com a sessão certa e o id que o `stage view` aceita — a aprovação é pelo menu do npmjs.com, e não existe URL direta de staging.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.69.0",
     date: "2026-10-22",
     tag: "preview",

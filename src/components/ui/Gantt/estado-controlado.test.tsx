@@ -218,3 +218,80 @@ describe("Gantt — caminho crítico: valor + callback", () => {
     expect(alvo().getAttribute("aria-pressed")).toBe("true");
   });
 });
+
+/**
+ * O histórico de remarcações é **aditivo**, e "aditivo" é afirmação sobre o
+ * caminho ANTIGO: cronograma que não passa `history` não pode ganhar botão
+ * novo na toolbar nem pixel novo no eixo. Estes testes são o que prova — a
+ * toolbar é o lugar mais fácil de poluir sem querer, porque o botão nasce de
+ * uma varredura das barras e não de uma prop que alguém ligou.
+ */
+describe("Gantt — sem `history`, nada aparece", () => {
+  const remarcacoes = () => screen.queryByRole("button", { name: "Remarcações" });
+  const marcas = () =>
+    screen.queryAllByRole("button", { name: /anterior:|^\d+ remarcações$/ });
+
+  it("o botão de remarcações NÃO entra na toolbar", () => {
+    render(<Gantt rows={ROWS} />);
+    expect(remarcacoes()).toBeNull();
+  });
+
+  it("nenhuma marca é desenhada no eixo", () => {
+    render(<Gantt rows={ROWS} />);
+    expect(marcas()).toHaveLength(0);
+  });
+
+  it("`showHistory` ligado sem dado continua sem botão e sem marca", () => {
+    render(<Gantt rows={ROWS} showHistory />);
+    expect(remarcacoes()).toBeNull();
+    expect(marcas()).toHaveLength(0);
+  });
+
+  it("`history: []` conta como ausente — lista vazia não é remarcação", () => {
+    render(
+      <Gantt
+        rows={[
+          { id: "a", label: "Alfa", bars: [{ id: "a1", start: D(1), end: D(5), history: [] }] },
+        ]}
+      />,
+    );
+    expect(remarcacoes()).toBeNull();
+    expect(marcas()).toHaveLength(0);
+  });
+
+  it("basta UMA barra com `history` pra o botão existir", () => {
+    render(
+      <Gantt
+        rows={[
+          ...ROWS,
+          {
+            id: "c",
+            label: "Gama",
+            bars: [
+              { id: "c1", start: D(10), end: D(14), history: [{ start: D(10), end: D(12) }] },
+            ],
+          },
+        ]}
+      />,
+    );
+    expect(remarcacoes()).not.toBeNull();
+  });
+
+  it("`historyToggle={false}` esconde o botão mesmo havendo dado", () => {
+    render(
+      <Gantt
+        historyToggle={false}
+        rows={[
+          {
+            id: "c",
+            label: "Gama",
+            bars: [
+              { id: "c1", start: D(10), end: D(14), history: [{ start: D(10), end: D(12) }] },
+            ],
+          },
+        ]}
+      />,
+    );
+    expect(remarcacoes()).toBeNull();
+  });
+});
