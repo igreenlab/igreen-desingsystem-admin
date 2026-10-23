@@ -127,8 +127,14 @@ em lote ("CNPJ sem copyable"). Critério completo e limites: `generate.md` item 
 
 ## Fase 6 — Kanban (opcional)
 
-- Quer alternar tabela↔kanban? Se sim: qual campo agrupa as colunas (ex.: status)?
-  Cada lane = uma option desse campo. (`viewMode` controlado + `kanbanConfig`.)
+- Quer alternar tabela↔kanban? Se sim: qual campo define as COLUNAS (ex.: status)?
+  Cada coluna = uma option desse campo. (`viewMode` controlado + `kanbanConfig`.)
+- **Se sim, pergunte o SEGUNDO eixo**: dentro de cada coluna, os cards devem ficar
+  agrupados por algo — épico, responsável, cliente? Isso são **raias (swimlanes)**,
+  e sai de graça: é o mesmo `groupBy` que agrupa linhas na tabela. Não há prop
+  separada. Sem `groupBy`, o board é plano.
+  - Avise que **arrastar move entre colunas, nunca entre raias** — se a tela precisa
+    trocar o épico de um card, isso é uma ação do menu do card, não um gesto.
 
 ## Fase 7 — Estados (SEMPRE perguntar — sai faltando se não)
 

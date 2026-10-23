@@ -4,6 +4,7 @@
 - filtro é NATIVO e reativo: `enableColumnFilter` na coluna — nunca select/form solto acima da grade. Pra ele aparecer desde o load (e não ficar escondido atrás do ícone), `showEmptyFilterChips={["status", …]}`
 - não fixe `width`: com `autoFit` (default) ele é PISO e entra no rateio, não trava. Travar de verdade = `width` + `maxWidth` iguais
 - vazio são DOIS casos distintos: sem dado nenhum → `renderEmpty` (CTA de criar); filtro/busca zerou → `renderNoResults` (o "limpar filtros" já vem cabeado)
+- `groupBy` tem DOIS efeitos: agrupa linhas na tabela E vira raia (swimlane) dentro de cada coluna do board kanban. Mesmo estado, dois renders — não existe prop separada pro eixo da raia
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.

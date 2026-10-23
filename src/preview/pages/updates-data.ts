@@ -46,6 +46,31 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.70.1",
+    date: "2026-10-23",
+    tag: "patch",
+    title: "As raias chegaram na tela antes de chegarem na IA",
+    summary:
+      "Auditoria pedida antes de avisar o time da Sollution: a v0.70.0 entregou raias e histórico no código, no showcase e no vocabulário — e parou aí. Quem monta tela no consumidor é a skill `crud-builder`, e a Fase 6 dela ainda perguntava só o campo das colunas. Um agente gerando board hoje nunca ofereceria o segundo eixo, porque nada no caminho dele mencionava que existe. Esta patch não muda uma linha de componente: fecha as superfícies de IA que ficaram para trás.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "**`crud-builder` aprendeu o segundo eixo.** A Fase 6 da entrevista agora pergunta o agrupamento DENTRO da coluna depois de perguntar o das colunas, o `generate.md` ganhou a receita (`groupBy` + `ungroupedLaneLabel`, com o aviso de que `groupBy` igual ao `groupByField` é ignorado) e o `blueprint.md` passou a registrar os dois eixos. ⚠️ De quebra, uma correção de vocabulário: os textos antigos chamavam a COLUNA de \"lane\". Com raia no sistema a palavra ficava apontando pras duas coisas, então sumiu — agora é coluna e raia.",
+          "**`ds-kit` e o `CLAUDE.md` do consumidor passaram a rotear cronograma e agenda.** Não é regressão desta release: `gantt` e `scheduler` nunca tiveram linha no mapa de intenção, então \"preciso de um cronograma de projeto\" não chegava a lugar nenhum — dependia do vocabulário auto-carregado por acaso. Agora o Gantt tem rota, com o histórico de remarcações citado nela.",
+          "**Bloco `ds:regras` do Kanban criado** (ele não tinha nenhum) e a ponte adicionada ao do DataTable. É o que vira `regras-por-componente.json` no pacote de IA do npm — sem isso, o agente lia a API inteira e não recebia as quatro regras que ela não revela: arrastar move entre colunas e não entre raias, o board é dumb sobre mutação, raia é opt-in por inteiro, e recolher vale em todas as colunas.",
+          "**`inventory.md`** (o que os agentes do próprio DS leem) atualizado nas entradas de Gantt e Kanban, que descreviam os componentes sem citar os recursos novos.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**A API das raias não existia na página do Kanban.** O showcase ganhou a seção de exemplo na v0.70.0 e a tabela de props ficou como estava — quem abria `#/kanban` via o recurso rodando e não achava uma prop sequer. Entraram as sete (`groups`, `ungroupedLabel`, `expandedGroupIds`/`onGroupToggle`, `defaultExpandedGroupIds`, `groupId`, `notice`) como seção própria, porque o recurso é opt-in por inteiro e diluí-las no `KanbanProps` esconderia isso.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.70.0",
     date: "2026-10-23",
     tag: "preview",

@@ -1,5 +1,12 @@
 # Kanban — Guia de uso
 
+<!-- ds:regras
+- arrastar move o card entre COLUNAS, nunca entre raias — trocar de grupo é decisão de domínio, não gesto de board
+- o board é DUMB: `onCardMove` emite e QUEM APLICA é você; sem atualizar `cards`, o card volta
+- raia é opt-in por inteiro (`groups`) — sem ela o board é plano. Dentro do `DataTable`, o eixo da raia é o `groupBy`, não uma prop do `kanbanConfig`
+- recolher uma raia recolhe em TODAS as colunas: ela é uma faixa horizontal, não um bloco por coluna
+-->
+
 Primitive dumb (igual `<Table>`, `<TableToolbar>`, `<FooterTable>`) — recebe `columns` + `cards` via props e renderiza um board horizontal de estágios. Não gerencia state de domínio (selection, detail, menus, dados) — tudo controlado externamente.
 
 > Padrão equivalente ao DNA do DS: primitives dumb + smart orchestrators. Pra usar o Kanban acoplado a filter/sort/search da `<DataTable>`, veja [Integração com DataTable](#integração-com-datatable) abaixo.
