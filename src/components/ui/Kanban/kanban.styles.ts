@@ -372,7 +372,26 @@ export const laneCount = tv({
   ],
 });
 
-/** Corpo da raia — os cards. Só existe quando expandida. */
+/**
+ * Invólucro animado do corpo da raia.
+ *
+ * `grid-template-rows: 0fr → 1fr` em vez de `max-height`: anima altura
+ * DESCONHECIDA sem medir nada em JS e sem o salto do `max-height` chutado alto.
+ * Também não depende de `@keyframes` — o que evita a L-067, onde um nome que o
+ * Tailwind ou o `tw-animate-css` já possui vira no-op silencioso.
+ *
+ * ⚠️ O conteúdo continua MONTADO quando fechado. Quem usa isto precisa marcar o
+ * recolhido como `inert`, senão o Tab entra numa área de altura zero e o foco
+ * some — é o defeito que o painel colapsado do `MenuSidebar` tem.
+ */
+export const laneCollapse = tv({
+  base: "grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none",
+  variants: {
+    open: { true: "grid-rows-[1fr]", false: "grid-rows-[0fr]" },
+  },
+});
+
+/** Corpo da raia — os cards. O `overflow-hidden` é o que faz o 0fr recortar. */
 export const laneBody = tv({
   base: "flex flex-col gap-gp-md px-pad-md pb-pad-md",
 });

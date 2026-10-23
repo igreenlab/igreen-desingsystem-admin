@@ -635,14 +635,24 @@ function KanbanLane({
         <div className="px-pad-lg pb-pad-md -mt-pad-xs">{grupo.actions}</div>
       )}
 
-      {aberta && (
-        <div id={painelId} className={s.laneBody()}>
-          {cards.map((card) => (
-            <Fragment key={card.id}>{renderCardSlot(card)}</Fragment>
-          ))}
-          {mostraPlaceholder && <DropPlaceholder />}
+      {/* Colapso animado. O conteúdo fica MONTADO (é o que permite animar a
+          altura sem medir), então o fechado vai `inert`: sem isso o Tab entraria
+          numa área de altura zero e o foco sumiria — o defeito que o painel
+          colapsado do MenuSidebar tem. */}
+      <div
+        id={painelId}
+        className={s.laneCollapse({ open: aberta })}
+        inert={!aberta}
+      >
+        <div className="overflow-hidden">
+          <div className={s.laneBody()}>
+            {cards.map((card) => (
+              <Fragment key={card.id}>{renderCardSlot(card)}</Fragment>
+            ))}
+            {mostraPlaceholder && <DropPlaceholder />}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
