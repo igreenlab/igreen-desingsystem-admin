@@ -122,7 +122,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Auto-fit das colunas**        | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui a sobra. ⚠️ **`col.width` é PISO, não trava** — a coluna entra no rateio e cresce a partir dele (medido: pedir 80/240/280 num container de 1400px devolve 187/560/653). Pra travar de verdade: **`width` + `maxWidth` iguais**. Prefira não fixar `width`. `autoFit={false}` desliga (legacy). |
 | **Resize manual de colunas**    | Default ativo em todas as colunas exceto `type: "actions"` ou `purpose: "selection"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`.                                                                                      |
 | **Export**                      | `toolbar.enableExport: true` (CSV default com escopos all/filtered/selected) — formatos custom via `enableExport: { formats: [{ id, label, onSelect }] }`                                                                                                                                                                                                            |
-| **View Kanban (board)**         | `viewMode="kanban"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar                                                                                                                                                                                                           |
+| **View Kanban (board)**         | `viewMode="kanban"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar. Com `groupBy` ligado, o board ganha **raias** por grupo (v0.70.0+)                                                                                                                                                                                                           |
 | **View Lista (cards)**          | `viewMode="list"` + `listConfig={{ renderItem(row) }}` — toggle Tabela/Lista auto na toolbar; mesma toolbar, corpo vira `<List>`. `hierarchical: true` + `getTreeDataPath` = lista em árvore. Showcase `#/clients-list-view`                                                                                                                                            |
 | **Totalizer row**               | `showTotalizers` na DataTable + `aggregate: "sum"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow`                                                                                                                                                                                                                              |
 | **Keyboard navigation**         | Auto — setas, Home/End, PgUp/PgDn no body                                                                                                                                                                                                                                                                                                                            |
@@ -497,6 +497,45 @@ Toggle ⤢ na toolbar expande a DataTable pra ocupar a viewport inteira; segundo
 ```
 
 Quando `viewMode`/`defaultViewMode` + `kanbanConfig` estão definidos, a toolbar auto-renderiza o segmented table/kanban (override/esconda via `toolbar.viewToggle`). Filter/search/sort/selection continuam aplicados às rows; paginação, density toggle e columns popover são desligados automaticamente no board. `kanbanConfig.columns` (opcional, `KanbanColumn[]`) fixa ordem/label/dotColor das colunas — sem ele, as colunas derivam dos valores únicos de `groupByField`. Outras opções do `kanbanConfig`: `renderCardContent` (override total do miolo do card), `getCardMenuItems`/`getColumnMenuItems` (menus "⋯"), `onAddCard`/`onAddInFooter`, `emptyLabel`/`addLabel`.
+
+#### Raias no board — o `groupBy` é o segundo eixo
+
+⚠️ **Mudança de comportamento na v0.70.0 pra quem já combina `groupBy` com a view
+kanban.** Antes o board ignorava o `groupBy` e saía plano; agora ele vira **raia**
+(swimlane) dentro de cada coluna. Mesmo estado, dois renders: na tabela o `groupBy`
+agrupa linhas, no board agrupa cards.
+
+```tsx
+<DataTable
+  groupBy="epico"              // ⬅️ na tabela agrupa linhas; no board vira raia
+  viewMode="kanban"
+  kanbanConfig={{
+    groupByField: "status",    // continua definindo as COLUNAS
+    renderCard: ({ row }) => ({ title: row.name }),
+    ungroupedLaneLabel: "Sem épico",   // ou `null` pra esconder a raia dos soltos
+  }}
+/>
+```
+
+Por que reusar o `groupBy` em vez de um field próprio do `kanbanConfig`: ele **já é
+estado do componente** — entra no `persistId`, entra nas saved views e sobrevive à troca
+de view, de graça. Um field paralelo seria um quarto conceito de agrupamento num
+componente que já tem três (`groupBy` > `getTreeDataPath` > `renderRowExpansion`), com
+estado de colapso próprio e fora das views salvas.
+
+Regras que valem a pena saber antes de ligar:
+
+| | |
+|---|---|
+| **sem `groupBy`** | board plano, exatamente como antes — o recurso é aditivo |
+| **`groupBy` igual ao `groupByField`** | ignorado: daria uma raia por coluna com todos os cards dela |
+| **row sem valor no `groupBy`** | cai na raia sintetizada, sempre por último. Rótulo em `ungroupedLaneLabel` (default `"Sem grupo"`); `null` esconde |
+| **rótulo da raia** | é o valor cru do field. Precisa de código/progresso na raia? Use o `<Kanban>` direto com `groups` |
+| **arrastar** | o card muda de COLUNA, nunca de raia — trocar de grupo é decisão de domínio, não gesto de board |
+| **recolher** | vale pra todas as colunas ao mesmo tempo (a raia é uma faixa horizontal, não um bloco por coluna) |
+
+Detalhe do contrato da raia (expansão controlada, `notice`, o que o `<Kanban>` faz com
+`groups`): `src/components/ui/Kanban/USAGE.md` §Raias.
 
 ### View Lista (table ⇄ list)
 

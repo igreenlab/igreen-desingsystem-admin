@@ -308,7 +308,12 @@ const COLUMN_DEF_PROPS = [
 ];
 
 const KANBAN_CONFIG_PROPS = [
-  { name: "groupByField", type: "keyof T | string", defaultVal: "—" },
+  { name: "groupByField", type: "keyof T | string — define as COLUNAS do board", defaultVal: "—" },
+  {
+    name: "ungroupedLaneLabel",
+    type: 'string | null — rótulo da raia dos cards sem valor no `groupBy`. `null` esconde a raia. ⚠️ O eixo da raia é o **`groupBy` do DataTable**, não uma prop daqui: o mesmo estado que agrupa linhas na tabela agrupa cards no board, e por isso entra nas saved views de graça. Sem `groupBy`, board plano',
+    defaultVal: '"Sem grupo"',
+  },
   {
     name: "columns",
     type: "KanbanColumn[]",
@@ -562,7 +567,7 @@ export function DataTableDoc() {
       <ExampleSection
         id="ex-kanban"
         title="Toggle entre Tabela e Kanban com mesma fonte de dados"
-        description="viewMode + kanbanConfig integram a view Kanban no DataTable. ViewToggle é auto-renderizado na toolbar (entre Refresh e Views). Filter/search/sort aplicam transparente em ambas as views. DnD atualiza via onCardMove."
+        description="viewMode + kanbanConfig integram a view Kanban no DataTable. ViewToggle é auto-renderizado na toolbar (entre Refresh e Views). Filter/search/sort aplicam transparente em ambas as views. DnD atualiza via onCardMove. Desde a v0.70.0 o groupBy vira o SEGUNDO eixo: o mesmo estado que agrupa linhas na tabela vira raia dentro de cada coluna do board — e por ser o mesmo estado, entra nas saved views sem código novo. Sem groupBy o board é plano, como sempre foi."
         code={CODE_KANBAN}
       >
         <div className="h-[560px] w-full flex">
