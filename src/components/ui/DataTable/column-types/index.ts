@@ -28,7 +28,10 @@ export { columnTypeRegistry } from "./column-type-registry";
 // precisa do mesmo visual de campo dos tipos built-in sem importar de
 // caminho interno (_filter-field).
 export { FILTER_FIELD_CLASS, FastSingleSelectList } from "./_filter-field";
-export { MultiSelectDropdown } from "./definitions/multi-select-column-type";
+export {
+  MultiSelectDropdown,
+  MultiSelectFieldDropdown,
+} from "./definitions/multi-select-column-type";
 export type {
   ColumnTypeDefinition,
   ColumnTypeId,

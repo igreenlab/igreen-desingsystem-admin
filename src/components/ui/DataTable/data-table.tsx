@@ -2076,11 +2076,21 @@ function DataTableInternal<T>(
               );
               // currentValue:
               //  - tuple (between): pega o value do primeiro item (já é tupla)
-              //  - multi: array agregado
+              //  - multi: array agregado — promoção ao multiSelect built-in
+              //    (`useMulti`) OU tipo que DECLAROU `ownsMulti`
               //  - single: primeiro valor agregado
+              //
+              // ⚠️ `ownsMulti` entra aqui porque ele DESLIGA a promoção
+              // (`useMulti` fica falso de propósito), e sozinho `useMulti` era o
+              // único caminho que entregava array: o widget do consumidor — que
+              // declarou saber editar uma LISTA — recebia só o primeiro valor, e
+              // 2 dos 3 itens do chip sumiam da tela. É array sempre, também com
+              // 1 valor: o contrato do flag é "lê e escreve lista", sem exceção
+              // por tamanho. Tipo sem o flag não passa por aqui (nenhum built-in
+              // declara `ownsMulti`), então o comportamento dele não muda.
               const currentValue = isTupleOperator
                 ? (items[0]?.value as unknown)
-                : useMulti
+                : useMulti || customOwnsMulti
                   ? aggregateValues
                   : aggregateValues[0];
               const options = getGroupOptions(group.key);

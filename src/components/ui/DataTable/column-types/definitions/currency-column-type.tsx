@@ -126,10 +126,17 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
   },
 
   /* G.2 slots */
+  // `column.valueFormatter` vence o formato do tipo — mesmo escape hatch do `date`/`datetime`.
+  //
+  // Vence também `typeOptions` (moeda/locale): o formatter é o escape hatch inteiro, quem o
+  // passa já decidiu o texto. A precedência é por EXISTÊNCIA do formatter, não pelo que ele
+  // devolve — "" quer a célula vazia, não o valor formatado pelo tipo.
   renderCell: ({ value, column }) => {
     const opts = column?.typeOptions as CurrencyTypeOptions | undefined;
     return (
-      <span className="font-semibold tabular-nums">{toCurrency(value, opts)}</span>
+      <span className="font-semibold tabular-nums">
+        {column?.valueFormatter ? column.valueFormatter(value) : toCurrency(value, opts)}
+      </span>
     );
   },
   formatValue: (v) => toCurrency(v),

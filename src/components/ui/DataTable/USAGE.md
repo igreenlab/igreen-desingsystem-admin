@@ -5,6 +5,7 @@
 - não fixe `width`: com `autoFit` (default) ele é PISO e entra no rateio, não trava. Travar de verdade = `width` + `maxWidth` iguais
 - vazio são DOIS casos distintos: sem dado nenhum → `renderEmpty` (CTA de criar); filtro/busca zerou → `renderNoResults` (o "limpar filtros" já vem cabeado)
 - `groupBy` tem DOIS efeitos: agrupa linhas na tabela E vira raia (swimlane) dentro de cada coluna do board kanban. Mesmo estado, dois renders — não existe prop separada pro eixo da raia
+- chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.
@@ -104,6 +105,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Density toggle**              | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop                                                                                                                                                                                                                                                                                      |
 | **Column types registry**       | `type: "currency"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |
 | **Formato de data**             | `type: "date"` → `14/03/2023` · `type: "datetime"` → `14/03/2023 09:30`. Outro formato? **`valueFormatter`** — ele vence o do tipo e vale na célula, no export e no clipboard. Não precisa de `render`. ⚠️ Até a v0.42.1 esses tipos formatavam **sem ano** ("14 de mar") e o `valueFormatter` **não alcançava a célula** (mudava só export/totalizador). |
+| **Formato de número / moeda**   | `type: "number"` → `1.234` · `type: "currency"` → `R$ 1.234,56`. Outro formato (`1,2 mil`, sem centavos)? **`valueFormatter`** — vence o do tipo (e o `typeOptions` do `currency`) e vale na célula, no export e no clipboard, igual ao de data. Devolver `""` deixa a célula vazia. ⚠️ Antes desta correção `number` e `currency` **ignoravam** o `valueFormatter` na célula (ele só mudava export/totalizador). |
 | **Coluna de ações**             | `type: "actions"` + `getActions` (ou o builder `actionColumn`). **É o `type` que dá as 3 garantias** — última coluna, ancorada à direita, largura fixa. Coluna montada na unha com botões não recebe nenhuma delas. Ver §Coluna de ações abaixo.                                                                                                                        |
 | **Inline edit**                 | `editable: true` na coluna + `onCellEditCommit`                                                                                                                                                                                                                                                                                                                      |
 | **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |
@@ -640,7 +642,7 @@ columnTypeRegistry.register(RatingColumnType);
 | Faixa num chip só | operador `between` no `filterType: "number"` | mín–máx juntos ("10 – 500"), vírgula aceita como decimal |
 | "Limpar todos" avisa a tela | `onFiltersClearAll` | pra filtro próprio fora do filterModel (ex.: SQL avançado) |
 | Avançado separado do funil | `toolbar.enableAdvancedFilters` | default segue `enableFilters` |
-| Widget custom é DONO do chip | tipo no `columnTypeRegistry` | declare **`ownsMulti: true`** no tipo pra promoção interna não sequestrar o chip multi; blocos públicos: `MultiSelectDropdown`, `FastSingleSelectList`, `FILTER_FIELD_CLASS` |
+| Widget custom é DONO do chip | tipo no `columnTypeRegistry` | declare **`ownsMulti: true`** no tipo pra promoção interna não sequestrar o chip multi — o widget recebe `value` como **array sempre**; blocos públicos: `MultiSelectDropdown` (chip), `MultiSelectFieldDropdown` (modal avançado), `FastSingleSelectList`, `FILTER_FIELD_CLASS` |
 
 > ⚠️ **`ownsMulti` é declarado, não deduzido — e o seu widget precisa dar conta.** Com
 > `ownsMulti: true`, o `renderFastFilterInput` do seu tipo recebe o chip multi inteiro:
@@ -648,6 +650,33 @@ columnTypeRegistry.register(RatingColumnType);
 > for de valor único (um `<Select>`, por exemplo), **não** declare o flag — o chip cai no
 > `multiSelect` built-in, que já traz busca, "Selecionar todos", opções fixas e o
 > segmented Incluindo/Excluindo.
+>
+> **O que o flag entrega:** `value` é **sempre um array** — a lista inteira do grupo do chip
+> (todos os itens do mesmo campo+operador somados), e `["A"]` com um valor só, nunca `"A"`.
+> Não faça `typeof value === "string"`. Da v0.69.0 até esta correção a promessa existia e a entrega não: o
+> widget recebia só o primeiro valor, e os outros itens sumiam do chip. Sem o flag nada
+> muda: tipo de valor único continua recebendo o valor cru.
+>
+> **A peça para montar o widget próprio** é o par exportado do barrel:
+> `MultiSelectDropdown` no `renderFastFilterInput` (o chip já está dentro de um popover) e
+> `MultiSelectFieldDropdown` no `renderFilterInput` (modal avançado: trigger compacto +
+> popover, "A, B" ou "N selecionados"). Embrulhe o primeiro com as suas ações e o segundo
+> entra como está — o avançado e o chip ficam consistentes sem reescrever busca/lista.
+>
+> ```tsx
+> columnTypeRegistry.register({
+>   ...columnTypeRegistry.get("multiSelect"),
+>   type: "meuMulti",
+>   ownsMulti: true,                       // value chega como array, sempre
+>   renderFastFilterInput: (p) => (
+>     <div>
+>       <ColarLista onPaste={p.onChange} />   {/* ação própria */}
+>       <MultiSelectDropdown {...p} />        {/* busca/lista/seleção do DS */}
+>     </div>
+>   ),
+>   renderFilterInput: (p) => <MultiSelectFieldDropdown {...p} />,
+> });
+> ```
 >
 > Declarar `isAnyOf`/`isNoneOf` nos `operators` **não** dá posse e nunca deu: os built-ins
 > `badge` e `user` declaram o operador só pra funcionar no builder avançado. Até

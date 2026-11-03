@@ -22,6 +22,7 @@ const PROPS = [
   { name: "captionLayout", type: '"label" | "dropdown"', defaultVal: '"label"' },
   { name: "disabled", type: "Matcher | Matcher[]", defaultVal: "—" },
   { name: "numberOfMonths", type: "number", defaultVal: "1" },
+  { name: "locale", type: "date-fns Locale", defaultVal: "ptBR" },
 ];
 
 function DefaultCalendarExample() {

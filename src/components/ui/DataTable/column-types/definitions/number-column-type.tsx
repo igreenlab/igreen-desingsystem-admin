@@ -136,7 +136,19 @@ export const NumberColumnType: ColumnTypeDefinition = {
   },
 
   /* G.2 — number alinhado à direita, formato locale-aware */
-  renderCell: ({ value }) => {
+  // `column.valueFormatter` vence o formato do tipo — mesmo escape hatch do `date`/`datetime`.
+  //
+  // A precedência é por EXISTÊNCIA do formatter, não pelo que ele devolve: um formatter que
+  // responde "" quer a célula vazia, e cair no formato do tipo aí mostraria o número cru.
+  // O valor chega ao formatter sem passar pelo `toNumber` — é o dado da linha, e decidir o
+  // que fazer com null/inválido é do formatter (mesmo contrato do `date`).
+  //
+  // Sem `valueFormatter` nada mudou: `toLocaleString("pt-BR")`, e valor vazio/inválido
+  // segue sem render.
+  renderCell: ({ value, column }) => {
+    if (column?.valueFormatter) {
+      return <span className="tabular-nums">{column.valueFormatter(value)}</span>;
+    }
     const n = toNumber(value);
     if (n === null) return null;
     return <span className="tabular-nums">{n.toLocaleString("pt-BR")}</span>;

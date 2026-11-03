@@ -40,11 +40,42 @@ const toArray = (value: unknown): Array<string | number> => {
  *  busca só adiciona altura (status com 3 valores não precisa filtrar). */
 const BUSCA_A_PARTIR_DE = 10;
 
-/** Altura da lista: flexiona entre um PISO de 96px (sempre visível e rolável,
- *  mesmo em monitor baixo) e um teto de 240px. Quem garante que o popover
- *  nunca passa da viewport é o max-h do ROOT (espaço disponível reportado
- *  pelo Radix) — a lista é o único trecho que estica/encolhe (flex-1). */
-const LISTA_MAX_H = "flex-1 min-h-[96px] max-h-[240px]";
+/** TETO da lista: a altura vem do CONTEÚDO e, passando de 240px, rola. Era um
+ *  PISO (`flex-1 min-h-[96px]`), e por isso 1–2 opções — ou só o "Carregando…" —
+ *  ganhavam 96px de altura com 30–60px de conteúdo: um vazio dentro do popover.
+ *
+ *  Sem `flex-1`: ele é `flex: 1 1 0%`, e com o piso removido uma base resolvida
+ *  como 0 colapsaria a lista. A base default (`auto`) é sempre o conteúdo; o
+ *  encolher (`flex-shrink: 1`) segue o mesmo, e é isso que deixa o ROOT (cujo
+ *  max-h é o espaço reportado pelo Radix) espremer só a lista quando a viewport
+ *  é baixa. */
+const LISTA_MAX_H = "max-h-[240px]";
+
+/** Piso de proteção pro monitor baixo: quando a viewport espreme o popover, só a
+ *  lista encolhe, e sem piso ela poderia sumir. Liga a partir de 4 linhas.
+ *
+ *  Cada linha tem 32px (`py-pad-sm` ×2 + `text-body-md`), então: 2 linhas ≈ 66px
+ *  (menos que o piso — um piso aí é vazio), 3 linhas ≈ 100px (JÁ passa de 96px) e
+ *  4 linhas ≈ 134px. O limiar 4 é CONSERVADOR de propósito, com folga sobre as 3
+ *  linhas: garante que o piso nunca é maior que o conteúdo quando liga. Mas **não
+ *  protege** lista de 1–3 linhas em viewport baixa — com 3 o piso caberia sem criar
+ *  vazio e mesmo assim não é aplicado. */
+const LISTA_PISO = "min-h-[96px]";
+const LISTA_PISO_A_PARTIR_DE = 4;
+
+/** Largura mínima do root: 220px de sempre, ou a largura TRAVADA na abertura —
+ *  o que for maior.
+ *
+ *  O popover do chip é dimensionado pelo conteúdo, então filtrar a lista (que
+ *  estreita as linhas visíveis) encolhia o popover no meio da digitação. O trava
+ *  grava a maior largura vista em `--ms-min-w` (ver o efeito no componente).
+ *
+ *  O `min(…, --radix-popover-content-available-width)` impede que o trava vire
+ *  overflow se a viewport encolher depois (rotação do celular, janela
+ *  redimensionada com o popover aberto): o espaço disponível manda sobre a largura
+ *  travada. Os 100vw do fallback só valem fora de um Popover Radix. */
+const ROOT_MIN_W =
+  "min-w-[max(220px,min(var(--ms-min-w,0px),var(--radix-popover-content-available-width,100vw)))]";
 
 const OPTION_ROW = cn(
   "flex items-center gap-gp-md w-full",
@@ -84,8 +115,13 @@ function OptionRow({
  * Widget multiSelect do chip — EXPORTADO como bloco componível: um tipo
  * custom do consumidor pode embrulhá-lo (widget padrão + ações próprias no
  * entorno) em vez de reconstruir busca/lista/seleção do zero. Declare
- * isAnyOf/isNoneOf nos operators do tipo custom pra ser dono do chip multi
- * (a promoção interna não sequestra — ver data-table.tsx, customOwnsMulti).
+ * `ownsMulti: true` no tipo custom pra ser dono do chip multi (a promoção
+ * interna não sequestra — ver data-table.tsx, customOwnsMulti). Com o flag o
+ * `value` chega SEMPRE como array, mesmo com 1 valor.
+ *
+ * ⚠️ Declarar `isAnyOf`/`isNoneOf` nos operators NÃO dá posse — este comentário
+ * afirmava isso, e é a dedução que o 2º review do PR #343 desmentiu (ver o JSDoc de
+ * `ColumnTypeDefinition.ownsMulti`).
  */
 export function MultiSelectDropdown({
   value,
@@ -100,6 +136,33 @@ export function MultiSelectDropdown({
   const selected = toArray(value);
   const selectedSet = new Set(selected.map(String));
   const [busca, setBusca] = useState("");
+
+  /* ── Largura travada: o popover não encolhe ao filtrar a lista ──
+     Guarda a MAIOR largura vista em `--ms-min-w` (lida por ROOT_MIN_W). Imperativo
+     de propósito: o callback do ResizeObserver roda depois do layout e ANTES do paint,
+     então escrever o estilo ali evita o popover encolher visivelmente por um frame
+     — um setState poderia só renderizar depois do paint. O root não tem `style` do React,
+     então nada sobrescreve a variável. Só sobe: crescer de verdade (a 1ª página
+     assíncrona chegou) acompanha, encolher nunca. Largura 0 (jsdom, display:none)
+     não escreve nada, e o piso de 220px segue sozinho. */
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    let travada = 0;
+    const travar = () => {
+      // offsetWidth, não getBoundingClientRect: o popover abre com zoom-in-95, e o
+      // rect devolveria a largura JÁ escalada (95%), travando 5% a menos.
+      const w = el.offsetWidth;
+      if (w <= travada) return;
+      travada = w;
+      el.style.setProperty("--ms-min-w", `${w}px`);
+    };
+    travar();
+    const ro = new ResizeObserver(travar);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   /* ── Modo assíncrono (item 6 Sólis): busca no servidor + paginação ── */
   const isAsync = !!loadOptions;
@@ -170,6 +233,13 @@ export function MultiSelectDropdown({
   };
   const asyncSelecionados = isAsync ? selected : [];
 
+  // Linhas que a lista realmente mostra (as fixas ficam fora dela). No async os
+  // marcados vão pra seção do topo, então não contam de novo entre os visíveis.
+  const linhasDaLista = isAsync
+    ? asyncSelecionados.length +
+      visiveis.filter((o) => !selectedSet.has(String(o.value))).length
+    : visiveis.length;
+
   const toggle = (val: string | number) => {
     const set = new Set(selected.map(String));
     if (set.has(String(val))) set.delete(String(val));
@@ -190,6 +260,15 @@ export function MultiSelectDropdown({
   const mostraBusca = isAsync || options.length >= BUSCA_A_PARTIR_DE;
   const temMulti = operator === "isAnyOf" || operator === "isNoneOf";
 
+  // Linha de ações: só quando há o que selecionar OU o que limpar. O "Selecionar
+  // todos" já sumia sem opção visível; o "Limpar" ficava sozinho (desabilitado) —
+  // o DS discordando de si mesmo. Sem NADA a selecionar nem a limpar a linha some
+  // inteira, não só os links: vazia, o `gap` do container deixaria um espaço fantasma.
+  // Marcado + nenhuma opção visível (busca sem acerto, 1ª página ainda não chegou)
+  // MANTÉM a linha: o "Limpar" é então a única saída da seleção.
+  const temAcoes =
+    (options.length > 1 || isAsync) && (visiveis.length > 0 || selected.length > 0);
+
   // Link de ação compacto — mesmo idioma do "Limpar todos" dos chips
   // (toolbarAppliedClearLink): texto brand pequeno com underline no hover.
   const ACTION_LINK = cn(
@@ -200,7 +279,10 @@ export function MultiSelectDropdown({
   );
 
   return (
-    <div className="flex flex-col gap-gp-md p-pad-md min-w-[220px] max-h-[calc(var(--radix-popover-content-available-height,480px)-8px)]">
+    <div
+      ref={rootRef}
+      className={`flex flex-col gap-gp-md p-pad-md ${ROOT_MIN_W} max-h-[calc(var(--radix-popover-content-available-height,480px)-8px)]`}
+    >
       {/* Incluindo/Excluindo no TOPO, como segmented do DS (mesmo padrão do
           density/view-mode toggle) — não dois botões soltos no rodapé. */}
       {onOperatorChange && temMulti && (
@@ -235,7 +317,7 @@ export function MultiSelectDropdown({
       {/* Ações JUNTO da busca (não no rodapé): Selecionar à esquerda, Limpar à
           DIREITA. Sem contador: com filtro pré-carregado o número confundia
           mais do que ajudava (decisão do mantenedor, 2026-10-22). */}
-      {options.length > 1 || isAsync ? (
+      {temAcoes ? (
         <div className="flex items-center justify-between gap-gp-lg">
           {visiveis.length > 0 ? (
             <button
@@ -277,6 +359,7 @@ export function MultiSelectDropdown({
         className={cn(
           "flex flex-col gap-gp-2xs overflow-y-auto scrollbar-thin pr-pad-2xs",
           LISTA_MAX_H,
+          linhasDaLista >= LISTA_PISO_A_PARTIR_DE && LISTA_PISO,
         )}
       >
         {/* Async: os já marcados primeiro, sempre visíveis (fora da página carregada). */}
@@ -358,8 +441,13 @@ export function MultiSelectDropdown({
 }
 
 /** Trigger compacto + popover pra uso no modal advanced — economiza espaço
- *  comparado a renderizar a lista de checkboxes inline. */
-function MultiSelectFieldDropdown(props: FilterInputProps) {
+ *  comparado a renderizar a lista de checkboxes inline.
+ *
+ *  EXPORTADO junto do `MultiSelectDropdown`: um tipo custom com `ownsMulti` tem
+ *  DOIS lugares a preencher — `renderFastFilterInput` (chip, já dentro de um popover:
+ *  use o `MultiSelectDropdown`) e `renderFilterInput` (modal avançado, sem popover
+ *  em volta: use este). Sem ele, o widget próprio do chip fica sem par no avançado. */
+export function MultiSelectFieldDropdown(props: FilterInputProps) {
   const { value, options = [] } = props;
   const selected = toArray(value);
   const labels = selected.map((v) => {

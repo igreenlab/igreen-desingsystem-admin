@@ -4,9 +4,14 @@ import {
   type DataTableColumnDef,
   type DataTableKanbanConfig,
   type DataTableViewMode,
+  type FilterModel,
+  columnTypeRegistry,
+  MultiSelectDropdown,
+  MultiSelectFieldDropdown,
   presetView,
 } from "@/components/ui/DataTable";
 import { Avatar } from "@/components/ui/avatar-ig";
+import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import {
   CLIENTS_MOCK,
@@ -33,6 +38,7 @@ const TOC = [
   { id: "saved-views", label: "Saved Views & Presets" },
   { id: "server-mode", label: "Server mode" },
   { id: "features", label: "Features built-in" },
+  { id: "custom-filter", label: "Widget de filtro próprio" },
   { id: "api", label: "API Reference" },
   { id: "troubleshooting", label: "Troubleshooting" },
 ];
@@ -125,6 +131,10 @@ const CAPABILITIES: Array<{ name: string; how: string }> = [
   {
     name: "Column types registry",
     how: "type: 'currency' | 'email' | 'status' | ... resolve render/filter/format",
+  },
+  {
+    name: "Widget de filtro próprio (chip multi)",
+    how: "tipo registrado no columnTypeRegistry com ownsMulti: true — o chip multi inteiro passa a ser do tipo (colar lista, atalhos…) e o value chega SEMPRE como array. Monte com MultiSelectDropdown (chip) + MultiSelectFieldDropdown (modal avançado). Ver 'Widget de filtro próprio' abaixo",
   },
   { name: "Virtualização", how: "virtualize: true (recomendado > 500 rows)" },
   {
@@ -424,11 +434,65 @@ const TROUBLESHOOTING: Array<{ symptom: string; cause: string; fix: string }> =
     },
   ];
 
+/* ── Widget de filtro próprio (ownsMulti) ─────────────────────── */
+
+/**
+ * Tipo registrado SÓ pra demonstrar o escape hatch na seção "Widget de filtro próprio".
+ *
+ * O `columnTypeRegistry` é um singleton global e vale pro showcase inteiro, então o nome é
+ * próprio de propósito (não sobrescreve nenhum tipo do DS) e o registro é guardado por
+ * `has()` — sem isso, cada reavaliação do módulo (HMR) avisa "já registrado" no console.
+ */
+const TIPO_MULTI_PROPRIO = "docMultiProprio";
+
+if (!columnTypeRegistry.has(TIPO_MULTI_PROPRIO)) {
+  columnTypeRegistry.register({
+    ...columnTypeRegistry.get("multiSelect"), // operadores, matchesFilter, texto do chip
+    type: TIPO_MULTI_PROPRIO,
+    ownsMulti: true, // value chega como ARRAY, sempre — mesmo com 1 item
+    renderFastFilterInput: (p) => (
+      <div>
+        {/* o popover do chip é p-0: o MultiSelectDropdown traz o próprio padding,
+            então o que é do consumidor precisa trazer o dele */}
+        <div className="flex flex-col gap-gp-xs px-pad-md pt-pad-md">
+          <p className="text-caption-md text-fg-muted">
+            value = {JSON.stringify(p.value)}
+          </p>
+          <Button
+            color="secondary"
+            variant="ghost"
+            size="2xs"
+            className="self-start"
+            onClick={() => p.onChange(["active"])}
+          >
+            Só ativos
+          </Button>
+        </div>
+        <MultiSelectDropdown {...p} />
+      </div>
+    ),
+    renderFilterInput: (p) => <MultiSelectFieldDropdown {...p} />,
+  });
+}
+
 /* ── Página ───────────────────────────────────────────────────── */
 
 export function DataTableDoc() {
   const [rows, setRows] = useState<ClientRow[]>(DEMO_ROWS);
   const [viewMode, setViewMode] = useState<DataTableViewMode>("table");
+  // Controlado de propósito: o chip já nasce aplicado, e o widget próprio mostra o `value`
+  // que recebe (a lista inteira, em array).
+  const [filtroProprio, setFiltroProprio] = useState<FilterModel>({
+    logicOperator: "AND",
+    items: [
+      {
+        id: "doc-f1",
+        field: "statusId",
+        operator: "isAnyOf",
+        value: ["active", "pending"],
+      },
+    ],
+  });
 
   const basicColumns = useMemo<DataTableColumnDef<ClientRow>[]>(
     () => [
@@ -454,6 +518,25 @@ export function DataTableDoc() {
         sortable: true,
         aggregate: "sum",
       },
+    ],
+    [],
+  );
+
+  const filtroProprioColumns = useMemo<DataTableColumnDef<ClientRow>[]>(
+    () => [
+      { field: "name", headerName: "Nome", type: "user" },
+      {
+        field: "statusId",
+        headerName: "Status",
+        type: "status",
+        enableColumnFilter: true,
+        filterType: TIPO_MULTI_PROPRIO, // aponta pro tipo registrado acima
+        filterOptions: Object.entries(STATUSES).map(([v, s]) => ({
+          value: v,
+          label: s.label,
+        })),
+      },
+      { field: "value", headerName: "Valor", type: "currency" },
     ],
     [],
   );
@@ -806,6 +889,64 @@ export function DataTableDoc() {
         </table>
       </div>
 
+      <SectionH2 id="custom-filter" title="Widget de filtro próprio" />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        O chip multi (<code>isAnyOf</code>/<code>isNoneOf</code>) é do DS por
+        padrão. Quando uma tela precisa de uma regra de interação própria —
+        colar uma lista, atalhos, clique que substitui em vez de somar — o
+        consumidor <strong>troca o widget</strong> registrando um tipo no{" "}
+        <code>columnTypeRegistry</code> com <code>ownsMulti: true</code>, sem
+        esperar release do DS. A peça pra montar o widget sai do barrel:{" "}
+        <code>MultiSelectDropdown</code> no <code>renderFastFilterInput</code>{" "}
+        (o chip já está dentro de um popover) e{" "}
+        <code>MultiSelectFieldDropdown</code> no <code>renderFilterInput</code>{" "}
+        (modal de filtros avançados) — chip e avançado ficam consistentes sem
+        reescrever busca e lista.
+      </p>
+
+      <ul className="list-disc pl-pad-4xl mb-gp-2xl max-w-[760px] flex flex-col gap-gp-xs text-body-md text-fg-muted">
+        <li>
+          <strong>É declarado, não deduzido.</strong> Declarar{" "}
+          <code>isAnyOf</code>/<code>isNoneOf</code> nos <code>operators</code>{" "}
+          não dá posse: <code>badge</code> e <code>user</code> declaram o
+          operador só pro builder avançado, e o chip deles é de valor único.
+        </li>
+        <li>
+          <strong>
+            O <code>value</code> chega sempre como array
+          </strong>{" "}
+          — a lista inteira do grupo, e <code>["active"]</code> com um valor só,
+          nunca <code>"active"</code>. Não faça{" "}
+          <code>typeof value === "string"</code>; <code>onChange</code> também
+          recebe array.
+        </li>
+        <li>
+          <strong>Widget de valor único? Não declare o flag.</strong> O chip cai
+          no <code>multiSelect</code> built-in, que já traz busca, “Selecionar
+          todos”, opções fixas e o alternador Incluindo/Excluindo.
+        </li>
+      </ul>
+
+      <ExampleSection
+        id="ex-owns-multi"
+        title="Tipo próprio com ownsMulti"
+        description="Abra o chip Status. A linha value = … e o botão Só ativos são do tipo registrado pelo exemplo; a lista com Incluindo/Excluindo logo abaixo é o MultiSelectDropdown do DS, embrulhado. Repare que value mostra o array mesmo quando há um único item marcado."
+        code={CODE_OWNS_MULTI}
+      >
+        <div className="h-[420px] w-full flex">
+          <DataTable<ClientRow>
+            rows={DEMO_ROWS}
+            columns={filtroProprioColumns}
+            getRowId={(r) => r.id}
+            filterModel={filtroProprio}
+            onFilterModelChange={setFiltroProprio}
+            toolbar={{ title: "Clientes" }}
+            className="max-h-full"
+          />
+        </div>
+      </ExampleSection>
+
       <SectionH2 id="api" title="API Reference" />
 
       <div className="mb-gp-4xl">
@@ -925,6 +1066,40 @@ const columns = useMemo<DataTableColumnDef<ClientRow>[]>(() => [
   selectionConfig={{ enabled: true }}
   showTotalizers
 />`;
+
+const CODE_OWNS_MULTI = `import {
+  columnTypeRegistry,
+  MultiSelectDropdown,        // chip (já está dentro de um popover)
+  MultiSelectFieldDropdown,   // modal de filtros avançados
+} from "@/components/ui/DataTable";
+
+columnTypeRegistry.register({
+  ...columnTypeRegistry.get("multiSelect"),  // operadores, matchesFilter, texto do chip
+  type: "meuMulti",
+  ownsMulti: true,   // value chega como ARRAY, sempre — mesmo com 1 item
+  renderFastFilterInput: (p) => (
+    <div>
+      {/* o popover do chip é p-0 e o MultiSelectDropdown traz o próprio
+          padding — o que é seu precisa trazer o dele */}
+      <div className="flex flex-col gap-gp-xs px-pad-md pt-pad-md">
+        <p className="text-caption-md text-fg-muted">
+          value = {JSON.stringify(p.value)}
+        </p>
+        <Button size="2xs" variant="ghost" color="secondary"
+          onClick={() => p.onChange(["active"])}>   {/* onChange também é array */}
+          Só ativos
+        </Button>
+      </div>
+      <MultiSelectDropdown {...p} />                {/* busca/lista/seleção do DS */}
+    </div>
+  ),
+  renderFilterInput: (p) => <MultiSelectFieldDropdown {...p} />,
+});
+
+// A coluna aponta pro tipo registrado pelo filterType
+{ field: "statusId", headerName: "Status", type: "status",
+  enableColumnFilter: true, filterType: "meuMulti",
+  filterOptions: STATUS_OPTIONS }`;
 
 const CODE_KANBAN = `import { DataTable, type DataTableViewMode, type DataTableKanbanConfig } from "@/components/ui/DataTable";
 
