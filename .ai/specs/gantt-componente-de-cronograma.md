@@ -1,6 +1,8 @@
 # `Gantt` — cronograma de projeto com vínculos
 
-> **Status:** `PROPOSTA (2026-09-04)` — desenho pronto pra avaliação. Nada implementado.
+> **Status:** `IMPLEMENTADA (2026-10-23)` — vive em `src/components/ui/Gantt/`, no
+> `registry.json` (`gantt`, `example-gantt`) e no showcase. Fica aqui como referência de
+> decisão: o porquê que a diff não conta.
 > Aguardando o gate da Regra 4 (componente novo).
 
 ---

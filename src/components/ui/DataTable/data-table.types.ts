@@ -290,10 +290,14 @@ export type DataTableColumnDef<T> = {
 
   /** Comportamento */
   resizable?: boolean; // default true (exceto type=actions ou checkbox)
-  sortable?: boolean; // default true
+  /** Default true. `false` tira o ordenar do header E "Ordenar crescente/decrescente" do menu da coluna. */
+  sortable?: boolean;
   hideable?: boolean; // default true
   isPrimary?: boolean; // título no card mode
-  /** Mostra menu 3-pontos no header. Default true. False esconde. */
+  /**
+   * Mostra menu 3-pontos no header. Default true. False esconde o menu INTEIRO — Ordenar,
+   * Fixar, Ocultar e os extras. Pra tirar só o funil de filtro, use `enableHeaderFilter`.
+   */
   enableColumnMenu?: boolean;
   /** Items extras no menu da coluna (slot apos sort/pin/hide). */
   columnMenuItems?: Array<{
@@ -307,6 +311,17 @@ export type DataTableColumnDef<T> = {
 
   /** Filtros (F4 + F6) */
   enableColumnFilter?: boolean;
+  /**
+   * Mostra o atalho de filtro (funil) no header da coluna. Default `true`.
+   *
+   * `false` esconde SÓ o funil: o menu da coluna (Fixar, Ocultar…) continua, e o filtro em
+   * si também — chips, popover de filtros e `filterModel` seguem mandando em
+   * `enableColumnFilter`. Só tem efeito em coluna com `enableColumnFilter: true`.
+   *
+   * Existe porque a única outra saída era `enableColumnMenu: false`, que leva o menu
+   * inteiro junto.
+   */
+  enableHeaderFilter?: boolean;
   /**
    * Tipo de filtro da coluna — escolhe o widget + operadores do registry,
    * independente do `type` (render de célula). União ABERTA: aceita qualquer
@@ -623,6 +638,15 @@ export type DataTableProps<T> = {
    * Default: `true`.
    */
   autoFit?: boolean;
+
+  /**
+   * Mostra o ícone do tipo de cada coluna no cabeçalho (Hash, User, AtSign…) — o do tipo
+   * registrado OU o `icon` explícito da coluna, que ocupam o mesmo slot. Default `true`.
+   *
+   * `false` desliga os dois e também a largura que o ícone reservava (21px) no cálculo do
+   * `autoFit`. Serve cabeçalho denso, onde o ícone disputa espaço com o título.
+   */
+  showTypeIcons?: boolean;
 
   /** Toolbar config (default: tudo enabled) */
   toolbar?: DataTableToolbarConfig;

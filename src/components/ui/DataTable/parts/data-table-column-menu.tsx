@@ -31,6 +31,14 @@ export type DataTableColumnMenuProps = {
   columnName: string;
   /** Direção atual do sort (null = sem sort). */
   sortDirection: "asc" | "desc" | null;
+  /**
+   * A coluna é ordenável? Default `true`. `false` tira "Ordenar crescente/decrescente" e o
+   * separador que os fecha — oferecer ordenar onde o header não ordena é oferecer ação que
+   * o componente recusa. "Limpar ordenação" segue ligado a `sortDirection`, não a esta prop:
+   * uma coluna não ordenável pode estar ordenada por um `sortModel` controlado, e esconder a
+   * única saída desse estado seria o erro oposto.
+   */
+  sortable?: boolean;
   /** Pin atual (null = sem pin). */
   pinned: "left" | "right" | null;
   /** Pode esconder essa coluna? Default true. */
@@ -54,6 +62,7 @@ export type DataTableColumnMenuProps = {
 export function DataTableColumnMenu({
   columnName,
   sortDirection,
+  sortable = true,
   pinned,
   canHide = true,
   onSortAsc,
@@ -106,20 +115,24 @@ export function DataTableColumnMenu({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
         {/* Sort */}
-        <DropdownMenuItem
-          onClick={onSortAsc}
-          disabled={sortDirection === "asc"}
-        >
-          <ArrowUp className="size-icon-xs" />
-          Ordenar crescente
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={onSortDesc}
-          disabled={sortDirection === "desc"}
-        >
-          <ArrowDown className="size-icon-xs" />
-          Ordenar decrescente
-        </DropdownMenuItem>
+        {sortable && (
+          <>
+            <DropdownMenuItem
+              onClick={onSortAsc}
+              disabled={sortDirection === "asc"}
+            >
+              <ArrowUp className="size-icon-xs" />
+              Ordenar crescente
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={onSortDesc}
+              disabled={sortDirection === "desc"}
+            >
+              <ArrowDown className="size-icon-xs" />
+              Ordenar decrescente
+            </DropdownMenuItem>
+          </>
+        )}
         {sortDirection !== null && (
           <DropdownMenuItem onClick={onSortClear}>
             <XIcon className="size-icon-xs" />
@@ -127,7 +140,8 @@ export function DataTableColumnMenu({
           </DropdownMenuItem>
         )}
 
-        <DropdownMenuSeparator />
+        {/* O separador fecha a seção de sort — sem nenhum item dela, não separa nada. */}
+        {(sortable || sortDirection !== null) && <DropdownMenuSeparator />}
 
         {/* Pin */}
         {pinned !== "left" && (

@@ -1,6 +1,7 @@
 # Spec: `Scheduler` — calendário de eventos
 
-**Status:** `PROPOSTA` — aguardando GATE humano (Regra 4)
+**Status:** `IMPLEMENTADA (2026-09-01)` — vive em `src/components/ui/Scheduler/` e no
+`registry.json` (`scheduler`). Fica aqui como referência de decisão.
 **Autor:** DS Designer · **Data:** 2026-09-01
 **Tipo:** componente iGreen composto → `src/components/ui/Scheduler/`
 **Referência visual:** prints do Untitled UI (`untitledui.com/react/components/calendars`) — month, week, day+detalhe, list/agenda escura com busca + chips.

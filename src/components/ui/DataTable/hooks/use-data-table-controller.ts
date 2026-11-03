@@ -108,6 +108,8 @@ export function useDataTableController<T>(
     {
       enabled: autoFitEnabled,
       reservedWidth: selectionReservedWidth,
+      // O ícone do tipo reserva 21px no piso do título — desligado, não reserva.
+      showTypeIcons: props.showTypeIcons !== false,
       // Re-attach/re-medir quando o corpo da tabela remonta (toggle de view).
       // Só "table" carrega o scrollRef observado; usar viewMode garante que ao
       // voltar pra Tabela o observer reata no node novo e re-mede do zero.

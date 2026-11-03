@@ -208,7 +208,9 @@ todo campo substantivo leva `icon` no header.
    preservados). **Não precisa configurar** — só passe `grabToScroll={false}` se, por
    algum motivo, quiser desabilitar.
 
-**Formato de data.** `type: "date"` renderiza `14/03/2023` e `type: "datetime"` renderiza `14/03/2023 09:30` — **com ano** (lib 0.43.0+). Precisa de outro formato (mês escrito, relativo, ISO)? Passe **`valueFormatter`** na coluna: ele vence o formato do tipo e vale na célula, no export e no clipboard. **NÃO** escreva `render` próprio só pra formatar data. ⚠️ Até a 0.42.1 esses tipos mostravam a data **sem ano** e o `valueFormatter` não chegava na célula — se você viu `render` de data em código antigo, era contorno disso.
+**Formato de célula.** `type: "date"` renderiza `14/03/2023` e `type: "datetime"` renderiza `14/03/2023 09:30` — **com ano** (lib 0.43.0+). Precisa de outro formato (mês escrito, relativo, ISO)? Passe **`valueFormatter`** na coluna: ele vence o formato do tipo e vale na célula, no export e no clipboard. **NÃO** escreva `render` próprio só pra formatar. ⚠️ Até a 0.42.1 esses tipos mostravam a data **sem ano** e o `valueFormatter` não chegava na célula — se você viu `render` de data em código antigo, era contorno disso.
+
+⚠️ **`number` e `currency` só passaram a respeitar o `valueFormatter` na `vNEXT`.** Antes o tipo formatava por cima e a função era ignorada **em silêncio** — nada avisava, nem no build nem em runtime. O DS discordava de si mesmo: `date` e `datetime` respeitavam, os outros dois não. `render` em coluna numérica de código antigo costuma ser contorno disso e pode voltar a ser `valueFormatter`.
 
 
 ## Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)

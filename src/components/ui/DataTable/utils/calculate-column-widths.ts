@@ -60,27 +60,110 @@ export const HEADER_ICON_PX = 13 + 8;
  */
 export const HEADER_SORT_AFFORDANCE_PX = 24;
 
+/*
+ * Medidas do `headRightStack` — o conjunto de ações que o head cell mostra no HOVER
+ * (`Table/table.styles.ts`). Cada número é uma classe/token, e o teste
+ * `scripts/lib/header-widths-sync.test.mjs` os confere contra o tema gerado e as classes:
+ * trocar o token sem trocar a constante reprova lá, em vez de reaparecer como botão pra
+ * fora da célula.
+ */
+/** Botão do funil e do menu: `Button size="icon-2xs"` = `size-form-xs`. */
+export const HEADER_ACTION_BUTTON_PX = 28;
+/** Ícone de sort (hint/indicador): `size-icon-xs`. */
+export const HEADER_SORT_ICON_PX = 12;
+/** Espaço entre o ícone de sort e o grupo funil+menu: `gap-gp-xs`. */
+export const HEADER_STACK_GAP_PX = 4;
+/** Folga do stack: `right-pad-md` (8, borda direita) + `pl-pad-xs` (4, máscara à esquerda). */
+export const HEADER_STACK_INSET_PX = 12;
+
 /**
- * Largura MÍNIMA que o head cell precisa pra mostrar o `headerName` inteiro, sem
- * truncar ("..."). Soma ao texto medido: padding horizontal + ícone de tipo (se
- * houver) + reserva de sort/menu (se sortável ou com headMenu/filtro). É o piso
- * que toda coluna respeita — INCLUSIVE as com `col.width` explícito menor que o
+ * Largura do `headRightStack` com as ações VISÍVEIS da coluna — a mesma lista que o
+ * `data-table.tsx` e o `TableHeadCell` montam: ícone de sort (coluna ordenável), funil
+ * (`enableColumnFilter` e não `enableHeaderFilter: false`) e menu (`enableColumnMenu`).
+ * Funil e menu são vizinhos sem espaço entre si (moram no mesmo wrapper); o sort fica a
+ * um `gap` deles. Coluna sem nenhuma ação não tem stack e devolve 0.
+ *
+ * Conta o sort como UM ícone de 12px, que é a largura em REPOUSO (o hint de hover). Coluna
+ * com sort ATIVO — qualquer sort, não só multi — renderiza badge de índice + seta: medido no
+ * browser, `min-w-[18px]` + `gap-gp-xs` 4px + seta 12px = 34px, ou seja **+22px**. É estado
+ * de runtime, que este cálculo — que só vê colunas e rows — não tem: fica de fora, e a coluna
+ * ordenada pode ter o stack ~22px mais largo que o piso. Com `autoFit` a sobra absorve; só
+ * aperta na largura mínima.
+ *
+ * ⚠️ O badge em sort SIMPLES é defeito conhecido, não intenção: `data-table.tsx` devolve
+ * `sortIndex: undefined` abaixo de 2 critérios, e o `sortIndex = 1` do destructuring em
+ * `Table/table.tsx` converte esse `undefined` em `1` (default de parâmetro dispara JUSTAMENTE
+ * em `undefined`). Corrigido lá, o repouso passa a valer também para sort simples e só o
+ * multi-sort fica fora da conta.
+ */
+function measureHeaderActionsWidth<T>(
+  col: DataTableColumnDef<T>,
+  typeDef: { defaultSortable?: boolean } | undefined,
+): number {
+  // Mesma resolução do render: `sortable` efetivo = col ?? default do tipo, e só `false`
+  // desliga (coluna sem nada declarado é ordenável).
+  const isSortable = (col.sortable ?? typeDef?.defaultSortable) !== false;
+  const hasFilter = !!col.enableColumnFilter && col.enableHeaderFilter !== false;
+  const hasMenu = col.enableColumnMenu !== false;
+  const buttons = (hasFilter ? 1 : 0) + (hasMenu ? 1 : 0);
+
+  const parts: number[] = [];
+  if (isSortable) parts.push(HEADER_SORT_ICON_PX);
+  if (buttons > 0) parts.push(buttons * HEADER_ACTION_BUTTON_PX);
+  if (parts.length === 0) return 0;
+
+  return (
+    HEADER_STACK_INSET_PX +
+    parts.reduce((sum, part) => sum + part, 0) +
+    HEADER_STACK_GAP_PX * (parts.length - 1)
+  );
+}
+
+/**
+ * Largura MÍNIMA que o head cell precisa — o MAIOR de dois pisos:
+ *
+ *  1. **O título** (o piso de sempre): texto medido + padding horizontal + ícone de tipo
+ *     (se houver e `showTypeIcons` não o desligou) + reserva de sort/funil. Pra mostrar o
+ *     `headerName` inteiro, sem truncar ("...").
+ *  2. **As ações visíveis**: o stack de sort + funil + menu que aparece no hover tem de
+ *     caber DENTRO da célula. Sem isto, coluna estreita (`width: 64` com funil + menu)
+ *     fazia o stack, de 84px, transbordar pra fora da coluna.
+ *
+ * É um `max`, NÃO uma soma, de propósito: o stack aparece por cima do título no hover
+ * (com fundo, mascarando o fim do texto — comportamento antigo e aceito), então ele não
+ * precisa de espaço PRÓPRIO além do título. Somar (título + 84px) alargaria toda coluna
+ * com header de tamanho normal, em toda tabela — `autoFit` é default `true`. Com `max`,
+ * só mexe em coluna cujo piso do título é menor que o stack, ou seja, a estreita.
+ *
+ * É o piso que toda coluna respeita — INCLUSIVE as com `col.width` explícito menor que o
  * header (o título é informação importante e tem que caber).
  */
 function measureHeaderMinWidth<T>(
   col: DataTableColumnDef<T>,
   typeDef: { defaultIcon?: unknown; defaultSortable?: boolean } | undefined,
+  showTypeIcons: boolean,
 ): number {
   const headerText = String(col.headerName ?? String(col.field));
   const hasHeaderIcon =
-    col.icon !== undefined || typeDef?.defaultIcon !== undefined;
+    showTypeIcons &&
+    (col.icon !== undefined || typeDef?.defaultIcon !== undefined);
   const isSortable = col.sortable ?? typeDef?.defaultSortable ?? false;
-  const hasHeadMenu = col.enableColumnFilter === true;
+  const hasHeadMenu = !!col.enableColumnFilter && col.enableHeaderFilter !== false;
   const overhead =
     CELL_PADDING_PX +
     (hasHeaderIcon ? HEADER_ICON_PX : 0) +
     (isSortable || hasHeadMenu ? HEADER_SORT_AFFORDANCE_PX : 0);
-  return measureTextWidth(headerText) + overhead;
+
+  // Medição inválida (NaN/Infinity) vale 0: `undefined + 32` é NaN, e NaN em `width`
+  // contamina a célula e todo `Math.max` que a toca. Pode vir de um mock parcial de canvas
+  // (`measureText` devolvendo um objeto sem `width`).
+  const measured = measureTextWidth(headerText);
+  const textWidth = Number.isFinite(measured) ? measured : 0;
+
+  return Math.max(
+    textWidth + overhead,
+    measureHeaderActionsWidth(col, typeDef),
+  );
 }
 
 export interface CalculateColumnWidthsOptions {
@@ -90,6 +173,11 @@ export interface CalculateColumnWidthsOptions {
   autoFit: boolean;
   /** Tamanho da amostra de rows para Layer 2. Default 20. */
   sampleSize?: number;
+  /**
+   * O header mostra o ícone do tipo? Default `true`. `false` (prop `showTypeIcons` do
+   * DataTable) tira do piso do título os 21px que o ícone ocuparia.
+   */
+  showTypeIcons?: boolean;
 }
 
 /**
@@ -108,7 +196,12 @@ export function calculateColumnWidths<T>(
   rows: T[],
   options: CalculateColumnWidthsOptions,
 ): Record<string, number> {
-  const { containerWidth, autoFit, sampleSize = DEFAULT_SAMPLE_SIZE } = options;
+  const {
+    containerWidth,
+    autoFit,
+    sampleSize = DEFAULT_SAMPLE_SIZE,
+    showTypeIcons = true,
+  } = options;
 
   if (containerWidth <= 0) return {};
 
@@ -154,7 +247,10 @@ export function calculateColumnWidths<T>(
     // headerName). maxWidth ainda limita o topo (header > maxWidth = truncamento
     // assumido pelo consumer).
     if (col.width !== undefined) {
-      let w = Math.max(col.width, measureHeaderMinWidth(col, typeDef));
+      let w = Math.max(
+        col.width,
+        measureHeaderMinWidth(col, typeDef, showTypeIcons),
+      );
       if (col.maxWidth !== undefined && w > col.maxWidth) w = col.maxWidth;
       widths[field] = Math.round(w);
       totalContentWidth += w;
@@ -168,7 +264,7 @@ export function calculateColumnWidths<T>(
     if (autoFit) {
       // Mede header (com affordances — ver measureHeaderMinWidth) pra o título
       // nunca truncar, e depois a amostra de células; fica com o maior.
-      let maxWidth = measureHeaderMinWidth(col, typeDef);
+      let maxWidth = measureHeaderMinWidth(col, typeDef, showTypeIcons);
 
       // Mede sample de rows usando applyFormatter (cobre valueGetter + valueFormatter)
       const sample = rows.slice(0, sampleSize);
