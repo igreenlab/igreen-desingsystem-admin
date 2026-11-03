@@ -83,6 +83,21 @@ documentada em lugar nenhum.
       reprova prop como "componente inexistente"; **(b)** versão se cita como `vNEXT`, que
       o `version-claims-check` reprova no `release:check` — assim o placeholder morre no
       `/ds-release` por construção, em vez de virar número errado.
+- [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
+      `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
+      consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
+      fechar a rodada, rode o mapa de importadores (abaixo) e verifique **no browser** cada
+      componente que consome o módulo tocado — não só aquele em que você trabalhou.
+
+      ```bash
+      # quem importa, de fora da própria pasta
+      grep -rn "column-types" src --include=*.tsx -l | grep -v 'DataTable/'
+      grep -rn 'columnTypeRegistry.get' src/components/ui --include=*.tsx
+      ```
+
+      ⚠️ O `Gantt` **reproduz** a gramática do `TableToolbar` sem importar (está escrito no
+      topo do `gantt-toolbar.tsx`). Mudança de código não o alcança — mas ele **drifta**, e
+      isso é um risco de outro tipo: conferir à vista, não por `grep`.
 - [ ] **Doc que ficou obsoleta** — ao mudar comportamento, procure o texto que descrevia o
       antigo. Parágrafo que ainda afirma o anterior é pior que ausência: quem lê para de
       investigar (L-060). Foi assim que o `valueFormatter` ficou documentado como coisa de
@@ -407,6 +422,69 @@ it("coluna sem headerName nao produz largura NaN", ...)
 ---
 
 ## RODADA 3 — o motor de filtro (ordem obrigatória)
+
+### Task 7b: Paridade do `ownsMulti` no `DataList` (achado de auditoria, não é pedido)
+
+**Não veio do Sólis.** Saiu da auditoria de alcance compartilhado que o mantenedor pediu ao
+fechar a Rodada 2 — a pergunta *"o que mais consome o que vocês mexeram?"*.
+
+**O defeito.** Três caminhos resolvem o tipo do widget de filtro, e um deles diverge:
+
+| caminho | resolve o tipo como | respeita `ownsMulti`? |
+|---|---|---|
+| chip do `DataTable` (`data-table.tsx:2059`) | `col.filterType` | ✅ desde a Rodada 1 |
+| drawer compartilhado (`toolbar-simple-filter-drawer.tsx:225`) | `col.filterType ?? col.type ?? "text"` | ✅ sempre |
+| **chip do `DataList`** (`data-list-toolbar.tsx:212`) | **`isMulti ? "multiSelect" : fieldDef.type`** | ❌ **nunca** |
+
+O `DataList` renderiza **os dois**: o drawer na linha 372 e o chip na 236. Então, dentro do
+mesmo componente, abrir o funil entrega o widget do consumidor e clicar no chip que ele
+acabou de gerar entrega o built-in. Um clique de distância, dois widgets.
+
+**Por que é correção e não mudança de comportamento (categoria A).** O `ownsMulti` existe
+desde a v0.69.0 e **nunca funcionou em versão publicada** — a correção está neste lote, não
+lançada. Ninguém pode depender do que o `DataList` faz hoje para um tipo custom, porque hoje
+ninguém tem um tipo custom funcionando em lugar nenhum. Corrigir agora faz o `ownsMulti`
+**estrear coerente**; corrigir depois seria mudança observável.
+
+⚠️ **Isto também torna verdadeira uma doc que já está escrita.** O vocabulário do consumidor
+(fechado no PR #356) diz *"o chip multi inteiro passa a ser seu"*, sem ressalva de
+componente. Hoje a frase é falsa no `DataList`.
+
+**Files:**
+- Modify: `src/components/ui/DataList/parts/data-list-toolbar.tsx:208-227`
+- Test: `src/components/ui/DataList/ownsmulti-paridade.test.tsx` (criar)
+
+- [ ] **Step 1: Escrever os testes que falham**
+
+```tsx
+it("tipo custom com ownsMulti renderiza o widget DELE no chip do DataList", ...)
+it("o widget recebe ARRAY, não o primeiro valor", ...)        // o defeito da Rodada 1
+it("tipo custom SEM o flag continua caindo no multiSelect", ...)  // caminho antigo
+it("campo sem filterType custom segue idêntico", ...)             // caminho antigo
+it("drawer e chip do MESMO DataList resolvem o mesmo tipo", ...)  // a paridade em si
+```
+
+- [ ] **Step 2: Rodar e ver falhar** — os 5
+
+- [ ] **Step 3: Espelhar a resolução do `DataTable`**, não inventar uma terceira. O
+  `customOwnsMulti` de `data-table.tsx:2061` já tem as três guardas que importam:
+  `filterType !== "multiSelect"`, `typeDef.type === filterType` (senão um typo herda o flag
+  de quem o registry devolveu por fallback) e `ownsMulti === true`. **Reaproveite a
+  condição** — se ela for extraída para um util compartilhado, melhor; duas cópias divergem.
+
+- [ ] **Step 4: Rodar e ver passar** + `npm test` inteiro
+
+- [ ] **Step 5: Provar vermelho (L-064)** — uma mutação por teste novo
+
+- [ ] **Step 6: Browser** — `#/data-list`: abrir o funil, aplicar um multi, clicar no chip
+  gerado e confirmar que os dois mostram o MESMO widget. ⚠️ A Rodada 1 nunca verificou o
+  `DataList` no browser (o `#/filter-chips-lab` não o usa — medido: 0 menções), então
+  aproveite e confira ali as três correções do `MultiSelectDropdown`, que chegam neste chip
+  pelo mesmo `renderFastFilterInput`.
+
+- [ ] **Step 7: Commit**
+
+---
 
 ### Task 8: Drawer preserva o operador (item 2)
 
