@@ -394,6 +394,7 @@ BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis
 
 ```
 react-day-picker — selected, onSelect, mode (single | range | multiple)
+locale — default ptBR (date-fns/locale); quem passa `locale` explícito vence
 ```
 
 - Fonte de verdade: `src/components/shadcn/calendar.tsx`

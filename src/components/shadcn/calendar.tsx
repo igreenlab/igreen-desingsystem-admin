@@ -1,21 +1,34 @@
 ﻿import * as React from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { DayPicker, getDefaultClassNames, type DayButton } from "react-day-picker"
+import { ptBR } from "date-fns/locale"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * `locale` default = pt-BR, no COMPONENTE.
+ *
+ * O `Calendar` nunca recebia `locale`: o `DatePicker` ganhou o dele e os outros
+ * consumidores (filtros de data do `DataTable`, `date-column-type`/`datetime-column-type`)
+ * ficaram em inglês — "Su Mo Tu", "June 2026" — dentro de telas em português. Passar
+ * `locale` em cada call-site deixaria o próximo esquecer; o default aqui cobre todos.
+ *
+ * Quem já passa `locale` continua vencendo (o `DatePicker` repassa o dele).
+ */
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
   captionLayout = "label",
   components,
+  locale = ptBR,
   ...props
 }: React.ComponentProps<typeof DayPicker>) {
   const defaultClassNames = getDefaultClassNames()
 
   return (
     <DayPicker
+      locale={locale}
       showOutsideDays={showOutsideDays}
       className={cn(
         "group/calendar bg-transparent p-0 [--cell-size:2.5rem]",
