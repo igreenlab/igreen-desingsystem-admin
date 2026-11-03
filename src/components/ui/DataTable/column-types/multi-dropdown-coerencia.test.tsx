@@ -252,7 +252,46 @@ describe("o popover não muda de largura ao filtrar a lista", () => {
     }
   });
 
-  const travada = (root: HTMLElement) => root.style.getPropertyValue("--ms-min-w");
+  /**
+   * A variável que o root LÊ — extraída da própria `className`, não escrita aqui à mão.
+   *
+   * O trava tem dois lados que só se encontram por um NOME: o efeito escreve
+   * `--ms-min-w` por `style.setProperty` e a classe `min-w-[…var(--ms-min-w,0px)…]` a lê.
+   * Os testes de ratchet só viam o lado que escreve; renomear a variável em UM dos lados
+   * deixava todos verdes e matava a feature (o root nunca lê o que o efeito grava).
+   * Derivando o nome da classe, todo teste de largura abaixo passa pela ponte: se os dois
+   * lados divergirem, a variável lida não tem valor nenhum e o `getPropertyValue` volta "".
+   *
+   * Exige exatamente UMA variável própria (as `--radix-*` são do Popover, não nossas) —
+   * e lança se não achar, pra um helper que não encontra nada não virar "" vazio que faz
+   * os casos "não escreve nada" passarem à toa.
+   */
+  const variavelLidaPelaClasse = (root: HTMLElement): string => {
+    const nomes = [...root.className.matchAll(/var\((--[\w-]+)/g)]
+      .map((m) => m[1])
+      .filter((n) => !n.startsWith("--radix-"));
+    if (nomes.length !== 1) {
+      throw new Error(
+        `esperava 1 variável própria lida pela className do root; achei ${nomes.length}: ${nomes.join(", ")}`,
+      );
+    }
+    return nomes[0];
+  };
+  const travada = (root: HTMLElement) =>
+    root.style.getPropertyValue(variavelLidaPelaClasse(root));
+
+  it("o root LÊ a mesma variável que o efeito ESCREVE — o elo escritor↔leitor", () => {
+    comLayoutSimulado(300);
+    const { container } = renderMulti();
+    const root = container.firstElementChild as HTMLElement;
+    const nome = variavelLidaPelaClasse(root);
+    // lado leitor: a classe consome a variável, com fallback 0px, dentro do `min()`
+    // que a limita pelo espaço do Radix e do `max()` com o piso de 220px
+    expect(root.className).toContain(`min(var(${nome},0px),var(--radix-popover-content-available-width`);
+    expect(root.className).toContain("max(220px,min(");
+    // lado escritor: o efeito gravou ESSA variável, com a largura medida
+    expect(root.style.getPropertyValue(nome)).toBe("300px");
+  });
 
   it("trava a largura medida na abertura", () => {
     comLayoutSimulado(300);

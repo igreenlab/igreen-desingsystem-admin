@@ -52,10 +52,14 @@ const BUSCA_A_PARTIR_DE = 10;
 const LISTA_MAX_H = "max-h-[240px]";
 
 /** Piso de proteção pro monitor baixo: quando a viewport espreme o popover, só a
- *  lista encolhe, e sem piso ela poderia sumir. Só liga com lista LONGA —
- *  4 linhas já são ≥134px (cada uma tem 32px: `py-pad-sm` ×2 + `text-body-md`),
- *  então o piso nunca é maior que o conteúdo e não recria o vazio do teto-que-era-
- *  piso. Com menos linhas o conteúdo é menor que o piso e ele só faria vazio. */
+ *  lista encolhe, e sem piso ela poderia sumir. Liga a partir de 4 linhas.
+ *
+ *  Cada linha tem 32px (`py-pad-sm` ×2 + `text-body-md`), então: 2 linhas ≈ 66px
+ *  (menos que o piso — um piso aí é vazio), 3 linhas ≈ 100px (JÁ passa de 96px) e
+ *  4 linhas ≈ 134px. O limiar 4 é CONSERVADOR de propósito, com folga sobre as 3
+ *  linhas: garante que o piso nunca é maior que o conteúdo quando liga. Mas **não
+ *  protege** lista de 1–3 linhas em viewport baixa — com 3 o piso caberia sem criar
+ *  vazio e mesmo assim não é aplicado. */
 const LISTA_PISO = "min-h-[96px]";
 const LISTA_PISO_A_PARTIR_DE = 4;
 
