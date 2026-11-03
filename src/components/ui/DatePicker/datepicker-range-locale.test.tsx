@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
@@ -20,8 +20,32 @@ import { DatePicker } from "./datepicker";
  * reintroduzir o fechamento precoce. Os dois caminhos estão cobertos abaixo.
  */
 
-const hoje = new Date();
-const dia = (n: number) => new Date(hoje.getFullYear(), hoje.getMonth(), n);
+/**
+ * O calendário abre no mês de HOJE, não no mês de `value` — medido: o DatePicker não
+ * expõe `month`/`defaultMonth`, então o react-day-picker cai no `today`. Sem fixar o
+ * relógio, os dias clicados saem de um mês diferente a cada execução e a grade muda de
+ * formato junto.
+ *
+ * É a mesma raiz que quebrou o `datepicker-limits.test.tsx` em novembro/2026 (dois
+ * gridcell com o texto "5", "Found multiple elements", `npm test` e `release:check`
+ * reprovados o mês inteiro). Aqui nunca chegou a cobrar porque 10/15/20 estão fora do
+ * alcance dos dias de fora — que vão até ~6 no fim da grade e começam em ~23 no início.
+ * Era risco latente, não defeito; fechado junto.
+ *
+ * Maio/2026 é escolhido de propósito por ser o caso HOSTIL: o grid do mês tem 42
+ * células, com dias de fora nos DOIS lados (26/abr a 6/jun).
+ */
+const HOJE = new Date(2026, 4, 3);
+const dia = (n: number) => new Date(HOJE.getFullYear(), HOJE.getMonth(), n);
+
+beforeEach(() => {
+  // shouldAdvanceTime: o userEvent agenda timers próprios e trava com relógio parado.
+  vi.useFakeTimers({ shouldAdvanceTime: true });
+  vi.setSystemTime(HOJE);
+});
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 function Range({ aoMudar }: { aoMudar?: (r: DateRange | undefined) => void }) {
   const [v, setV] = useState<DateRange | undefined>({ from: dia(15), to: dia(15) });
@@ -40,17 +64,25 @@ const abrir = async () => {
 };
 
 /**
- * O range renderiza DOIS meses (numberOfMonths ?? 2), então o mesmo número aparece em
- * dois grids. Toda busca de dia é escopada no PRIMEIRO mês — sem isso o teste casa com
- * o dia do mês seguinte e falha por ambiguidade, não por defeito.
+ * Duas ambiguidades diferentes na tela do range, cada uma com a sua defesa:
+ *
+ * 1. o range renderiza DOIS meses (`numberOfMonths ?? 2`), então o mesmo NÚMERO aparece
+ *    nos dois grids → toda busca é escopada no PRIMEIRO mês;
+ * 2. dentro de um grid, os dias de fora repetem número → a célula é buscada pelo
+ *    `data-day` (ISO) que o RDP põe nela, nunca pelo texto.
+ *
+ * O escopo no primeiro grid continua necessário MESMO com `data-day`, porque os dois
+ * grids se sobrepõem nas bordas: medido em maio/2026, o primeiro termina em 2026-06-06
+ * e o segundo começa em 2026-05-31. Nem o ISO é único na tela inteira.
  */
 const primeiroMes = () => screen.getAllByRole("grid")[0];
 
+const iso = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
 const clicarDia = async (n: number) => {
-  const cel = [...primeiroMes().querySelectorAll("[role=gridcell]")].find(
-    (c) => c.textContent?.trim() === String(n),
-  );
-  if (!cel) throw new Error("dia " + n + " nao encontrado no primeiro mes");
+  const cel = primeiroMes().querySelector(`[data-day="${iso(dia(n))}"]`);
+  if (!cel) throw new Error(`dia ${iso(dia(n))} nao encontrado no primeiro mes`);
   await userEvent.click((cel.querySelector("button") ?? cel) as Element);
 };
 
