@@ -1,4 +1,5 @@
-﻿import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../../components/shadcn/card";
+﻿import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction } from "../../components/shadcn/card";
 import { Button } from "../../components/ui/Button/button";
 import { Input } from "../../components/shadcn/input";
 import { Label } from "../../components/shadcn/label";
@@ -16,6 +17,7 @@ const TOC = [
   { id: "ex-with-footer", label: "With Footer" },
   { id: "ex-sizes", label: "Sizes (densidade)" },
   { id: "ex-banded", label: "Header em faixa" },
+  { id: "ex-action", label: "Ação no header (CardAction)" },
   { id: "api", label: "API Reference" },
 ];
 const PROPS = [
@@ -29,9 +31,46 @@ const PROPS = [
     type: '"plain" | "banded" — "banded" põe o header em faixa (bg-subtle + borda embaixo, encostado nas bordas do card)',
     defaultVal: '"plain"',
   },
+  {
+    name: "CardAction",
+    type: "slot de ação do header (botão, menu, badge) — filho DIRETO do CardHeader, que reserva a 2ª coluna sozinho. Em Card clicável, passe className=\"relative z-10\"",
+    defaultVal: "—",
+  },
   { name: "className", type: "string", defaultVal: "—" },
   { name: "children", type: "ReactNode", defaultVal: "—" },
 ];
+
+/**
+ * Card clicável com `CardAction`. Os dois contadores mostram QUAL alvo recebeu o clique:
+ * com `relative z-10` na ação, o botão conta sozinho; o card só conta fora dele.
+ */
+function CardClicavelComAcao() {
+  const [aberturas, setAberturas] = useState(0);
+  const [edicoes, setEdicoes] = useState(0);
+  return (
+    <Card
+      size="sm"
+      onClick={() => setAberturas((n) => n + 1)}
+      surfaceLabel="Abrir fatura de novembro"
+      className="sm:col-span-2"
+    >
+      <CardHeader>
+        <CardTitle>Card clicável</CardTitle>
+        <CardDescription>A ação tem relative z-10 e fica acima do alvo esticado.</CardDescription>
+        <CardAction className="relative z-10">
+          <Button color="secondary" variant="outline" size="sm" onClick={() => setEdicoes((n) => n + 1)}>
+            Editar
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <p className="text-body-md tabular-nums text-fg-muted">
+          Card aberto: {aberturas} · Ação clicada: {edicoes}
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
 
 export function CardDoc() {
   return (
@@ -406,6 +445,85 @@ export function CardDoc() {
               </p>
             </CardContent>
           </Card>
+        </div>
+      </ExampleSection>
+
+      {/* Ação no header */}
+      <ExampleSection
+        id="ex-action"
+        title="Ação no header (CardAction)"
+        description="`CardAction` ancora uma ação (botão, menu, badge) no canto superior direito do header, na altura de título + descrição. Precisa ser filho DIRETO do `CardHeader`: o header reserva a 2ª coluna sozinho (`has-data-[slot=card-action]`, sem `flex`), mas quem põe o slot nela é o grid (`col-start-2 row-span-2`) — e isso só vale pra item direto. Num wrapper o `has-` casa do mesmo jeito, porque casa descendente: a coluna é reservada e o slot não a ocupa. É o que o exemplo Errado mostra — a descrição cai na coluna da ação e o botão desce pra baixo do título. Em Card clicável o alvo esticado cobre tudo que não está posicionado acima dele: a ação leva `relative z-10`, senão o clique cai no card (os contadores mostram qual alvo recebeu cada clique). É a alternativa à receita `className=flex` do header em faixa — não misture, com `flex` o grid some."
+        code={`{/* Certo: CardAction é filho DIRETO do CardHeader. O header reserva a
+    2ª coluna sozinho — sem flex, sem justify-between. */}
+<Card size="sm">
+  <CardHeader>
+    <CardTitle>Fatura de novembro</CardTitle>
+    <CardDescription>Vence em 10/12</CardDescription>
+    <CardAction>
+      <Button color="secondary" variant="outline" size="sm">Editar</Button>
+    </CardAction>
+  </CardHeader>
+  <CardContent>…</CardContent>
+</Card>
+
+{/* Errado: um wrapper entre o header e o CardAction. A coluna da ação
+    continua reservada (o has- casa descendente), mas o slot deixou de ser
+    item do grid — então o col-start-2 / row-span-2 dele não vale. */}
+<CardHeader>
+  <CardTitle>…</CardTitle>
+  <CardDescription>…</CardDescription>
+  <div>
+    <CardAction>…</CardAction>
+  </div>
+</CardHeader>
+
+{/* Card clicável: o alvo esticado do card cobre tudo que não está
+    posicionado acima dele. A ação precisa de relative z-10. */}
+<Card size="sm" onClick={abrir} surfaceLabel="Abrir fatura de novembro">
+  <CardHeader>
+    <CardTitle>…</CardTitle>
+    <CardAction className="relative z-10">
+      <Button color="secondary" variant="outline" size="sm" onClick={editar}>
+        Editar
+      </Button>
+    </CardAction>
+  </CardHeader>
+</Card>`}
+      >
+        <div className="grid w-full max-w-page-lg gap-gp-2xl sm:grid-cols-2">
+          <Card size="sm">
+            <CardHeader>
+              <CardTitle>Certo</CardTitle>
+              <CardDescription>CardAction filho direto do header</CardDescription>
+              <CardAction>
+                <Button color="secondary" variant="outline" size="sm">Editar</Button>
+              </CardAction>
+            </CardHeader>
+            <CardContent>
+              <p className="text-body-md text-fg-muted">
+                A ação ocupa a altura de título + descrição, no canto superior direito.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card size="sm">
+            <CardHeader>
+              <CardTitle>Errado</CardTitle>
+              <CardDescription>CardAction dentro de um wrapper</CardDescription>
+              <div>
+                <CardAction>
+                  <Button color="secondary" variant="outline" size="sm">Editar</Button>
+                </CardAction>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-body-md text-fg-muted">
+                Mesmo conteúdo, com um div entre o header e a ação.
+              </p>
+            </CardContent>
+          </Card>
+
+          <CardClicavelComAcao />
         </div>
       </ExampleSection>
 
