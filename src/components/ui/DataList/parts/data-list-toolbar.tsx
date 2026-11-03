@@ -28,8 +28,13 @@ import {
 } from "@/components/shadcn/popover";
 import { columnTypeRegistry } from "@/components/ui/DataTable/column-types";
 import type { ColumnOption } from "@/components/ui/DataTable/column-types";
-import { typeOwnsMulti } from "@/components/ui/DataTable/utils/filter-ops";
+import {
+  MULTI_VALUE_OPERATORS,
+  genFilterId,
+  typeOwnsMulti,
+} from "@/components/ui/DataTable/utils/filter-ops";
 import type {
+  FilterItem,
   FilterModel,
   FilterValue,
   FilterOperator,
@@ -178,7 +183,28 @@ export function DataListToolbar({
   const isEmptyVal = (v: unknown) =>
     v == null || v === "" || (Array.isArray(v) && v.length === 0);
 
-  /** Substitui o(s) item(ns) de um grupo field|operator no filterModel. */
+  /**
+   * Substitui o(s) item(ns) de um grupo field|operator no filterModel.
+   *
+   * Operador multi (`isAnyOf`/`isNoneOf`) grava **UM item POR VALOR** (spread). É a
+   * forma canônica do `FilterModel`, declarada no `MULTI_VALUE_OPERATORS` ("o
+   * FilterModel guarda 1 item por valor") e produzida por todos os outros
+   * escritores: o `ToolbarSimpleFilterDrawer` que ESTE MESMO componente renderiza
+   * (`updateFieldValue`), o chip do `DataTable` (`updateGroupValue`) e o painel
+   * avançado (`handleFiltersChange`).
+   *
+   * ⚠️ Até 2026-11-03 gravava UM item com o array INTEIRO no `value`, enquanto o
+   * motor (`applyFilterModel`) compara cada `value` COMO UM TODO. Com 1 valor
+   * funcionava por acidente — `matchOp("equals", "ativo", ["ativo"])` coage pra
+   * string e bate; com 2+ nada casava e a lista **esvaziava**. O funil ao lado, no
+   * mesmo toolbar, sempre gravou certo: era o mesmo defeito de classe da Task 7b
+   * (dois caminhos do mesmo componente discordando), agora no FORMATO em vez de no
+   * widget. Não volte a gravar o array inteiro aqui.
+   *
+   * `between` (tupla) e operadores escalares seguem com UM item e o valor inteiro:
+   * só os multi têm semântica de OR dentro do grupo. Espalhar um escalar viraria
+   * AND no motor (`for (const g of scalar)`) e nunca casaria.
+   */
   const setGroupValue = (
     field: string,
     operator: string,
@@ -187,18 +213,20 @@ export function DataListToolbar({
     const rest = filterModel.items.filter(
       (i) => !(i.field === field && i.operator === operator),
     );
-    const next = isEmptyVal(value)
-      ? rest
-      : [
-          ...rest,
-          {
-            id: `${field}-${operator}`,
-            field,
-            operator: operator as FilterOperator,
-            value,
-          },
-        ];
-    onFilterModelChange({ ...filterModel, items: next });
+    const op = operator as FilterOperator;
+    const novos: FilterItem[] = isEmptyVal(value)
+      ? []
+      : MULTI_VALUE_OPERATORS.has(op)
+        ? (Array.isArray(value) ? (value as unknown[]) : [value])
+            .filter((v) => v != null && v !== "")
+            .map((v) => ({
+              id: genFilterId(),
+              field,
+              operator: op,
+              value: v as FilterValue,
+            }))
+        : [{ id: genFilterId(), field, operator: op, value }];
+    onFilterModelChange({ ...filterModel, items: [...rest, ...novos] });
   };
 
   /** Chip clicável → popover de edição (fast-filter por column-type). */
