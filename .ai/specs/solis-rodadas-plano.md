@@ -433,7 +433,7 @@ fechar a Rodada 2 — a pergunta *"o que mais consome o que vocês mexeram?"*.
 | caminho | resolve o tipo como | respeita `ownsMulti`? |
 |---|---|---|
 | chip do `DataTable` (`data-table.tsx:2059`) | `col.filterType` | ✅ desde a Rodada 1 |
-| drawer compartilhado (`toolbar-simple-filter-drawer.tsx:225`) | `col.filterType ?? col.type ?? "text"` | ✅ sempre |
+| drawer compartilhado (`toolbar-simple-filter-drawer.tsx:225`) | `col.filterType ?? col.type ?? "text"` | ✅ no efeito — ⚠️ **ele nunca lê o flag**: simplesmente não tem promoção ao `multiSelect`, então sempre renderiza o tipo declarado. Quem acrescentar uma promoção ali no futuro recria a divergência sem tocar em nada que mencione `ownsMulti` |
 | **chip do `DataList`** (`data-list-toolbar.tsx:212`) | **`isMulti ? "multiSelect" : fieldDef.type`** | ❌ **nunca** |
 
 O `DataList` renderiza **os dois**: o drawer na linha 372 e o chip na 236. Então, dentro do
@@ -442,9 +442,17 @@ acabou de gerar entrega o built-in. Um clique de distância, dois widgets.
 
 **Por que é correção e não mudança de comportamento (categoria A).** O `ownsMulti` existe
 desde a v0.69.0 e **nunca funcionou em versão publicada** — a correção está neste lote, não
-lançada. Ninguém pode depender do que o `DataList` faz hoje para um tipo custom, porque hoje
-ninguém tem um tipo custom funcionando em lugar nenhum. Corrigir agora faz o `ownsMulti`
+lançada. Corrigir agora faz o `ownsMulti`
 **estrear coerente**; corrigir depois seria mudança observável.
+
+> ⚠️ **Precisão sobre essa justificativa, apontada na review.** Não é verdade que *"ninguém
+> tem tipo custom funcionando em lugar nenhum"* — o chip do `DataList` com operador
+> **escalar** já entregava o widget do consumidor, porque sem operador multi não há
+> promoção. O que muda para esse caso é o valor: passa de `"ativo"` para `["ativo"]`.
+> Medido na review: nenhum built-in declara `ownsMulti` (há teste prendendo os 15), a única
+> declaração no repo é uma demo de `DataTable`, e o `MultiSelectDropdown` normaliza com
+> `toArray` — então os dois são indistinguíveis para widget montado do jeito documentado.
+> O alcance é mínimo, mas não é zero, e o changelog precisa dizer isso.
 
 ⚠️ **Isto também torna verdadeira uma doc que já está escrita.** O vocabulário do consumidor
 (fechado no PR #356) diz *"o chip multi inteiro passa a ser seu"*, sem ressalva de

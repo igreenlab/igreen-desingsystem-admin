@@ -214,7 +214,13 @@ export function DataListToolbar({
      * sempre (o contrato do flag é "lê e escreve lista", sem exceção por tamanho nem
      * por operador).
      *
-     * ⚠️ Mesmíssima resolução do chip do `DataTable` — ambos chamam `typeOwnsMulti`.
+     * ⚠️ A GUARDA é a mesma do chip do `DataTable` — ambos chamam `typeOwnsMulti`. O
+     * GATILHO da promoção não é: o `DataTable` promove também por
+     * `aggregateValues.length > 1` e por `filterType === "multiSelect"`
+     * (`data-table.tsx:2053`), e aqui a promoção sai só do operador. Na prática isso
+     * separa os dois quando um preset acumula 2+ items no mesmo campo com operador
+     * ESCALAR: lá vira array, aqui fica `groupItems[0].value`. Não escreva que a
+     * resolução é idêntica — ela não é.
      * Até 2026-11-03 esta linha era `isMulti ? "multiSelect" : fieldDef.type`, que
      * ignorava o flag; como o `DataListToolbar` renderiza TAMBÉM o
      * `ToolbarSimpleFilterDrawer` (que sempre respeitou o tipo), abrir o funil
