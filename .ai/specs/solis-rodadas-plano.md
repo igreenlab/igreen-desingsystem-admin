@@ -41,6 +41,46 @@ Valem para **toda** tarefa. Não repetidas nos passos.
 
 ---
 
+## Ritual de fim de rodada — OBRIGATÓRIO
+
+Nenhuma rodada fecha sem isto. Não é a review de tarefa (que é por diff); é a varredura das
+**superfícies** que só se enxergam com a rodada inteira na mão.
+
+A L-042 lista 8 superfícies. **1 a 4 e 8 entram no PR da rodada; 5, 6 e 7 consolidam no
+`/ds-release`.** Confundir as duas metades foi o que deixou a v0.70.0 com a API das raias
+documentada em lugar nenhum.
+
+### No PR da rodada
+
+- [ ] **Código** — `npx tsc --noEmit` limpo · `npm test` sem falha nova · `npm run release:check`
+      (embed defasado é esperado e some no release)
+- [ ] **Estilo no lugar certo** — componente de `ui/` muda visual só em `*.styles.ts`.
+      ⚠️ `shadcn/*` é exceção: segue o upstream com `cva`/`className` inline, e forçar
+      `.styles.ts` ali quebraria o re-sync com o shadcn oficial.
+- [ ] **Convenções** — classes DS antes de Tailwind literal · `tv` de `@/utils/tv` ·
+      `disabled` como último `compoundVariant` · nenhum vocabulário da bridge shadcn
+      (`bg-popover`, `ring-foreground`) nem paleta nativa (`bg-red-500`)
+- [ ] **USAGE.md** de cada componente tocado, **incluindo o bloco `ds:regras`** — ele vira
+      `regras-por-componente.json` no pacote de IA do npm
+- [ ] **Showcase** — a `<Nome>Doc` **demonstra** o que mudou, não só menciona. Prop nova sem
+      exemplo é prop que o consumidor não descobre
+- [ ] **`inventory.md`** — a entrada do componente descreve a capacidade nova
+- [ ] **Barrel** (`src/components/index.ts`) se houve export novo — gate `barrel-completeness`
+
+### Anotado para o `/ds-release`, não feito no PR
+
+- [ ] `registry.json` + embed (`registry:build` + `copy-registry`)
+- [ ] **Vocabulário do consumidor** (`cli/templates/.../ds-components.md`) + bump do CLI
+- [ ] Entrada do changelog, com ⚠️ em cada mudança observável
+
+### Por que o ritual existe
+
+A review de tarefa olha um diff e pergunta "isto está certo?". Ela **não** pergunta "o
+consumidor consegue descobrir isto?" — porque a resposta mora fora do diff. Na v0.70.0 cinco
+reviews passaram limpas e a API das raias não existia em tabela nenhuma.
+
+---
+
 ## Review Focus
 
 Cinco modos de falha que as tarefas tocam e que nenhum teste de feature exercita. Cada um tem
