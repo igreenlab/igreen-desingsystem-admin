@@ -99,6 +99,19 @@ import {
   pra receber a lista, declare um operador multi em `operators[0]`.
   Este drawer é compartilhado: a regra vale igual no `DataTable`, no `DataList` e em
   quem monta `<ToolbarFilterControl>` na mão.
+- **Linha sem valor a editar tem saída PRÓPRIA.** `isEmpty`/`isNotEmpty` só chegam ao
+  drawer pela preservação acima (nenhum tipo os tem como default), e o widget deles
+  devolve "(sem valor)", sem `onChange`. Essa linha — **e só ela** — ganha um botão
+  "Limpar" que remove os items **daquele campo**, preservando os dos outros. Sem ele a
+  única saída seria o "Limpar todos" do rodapé, que apaga o filtro de todos os campos:
+  preservar o operador teria trocado um defeito silencioso (digitar rebaixava `isEmpty`
+  pra `contains`) por um beco sem saída nuclear — o que a **L-070** proíbe. Nenhuma outra
+  linha muda de aparência. ⚠️ O sinal é o **operador** (`NO_VALUE_OPERATORS` em
+  `DataTable/utils/filter-ops`), não o widget: não dá pra perguntar ao `renderFilterInput`
+  se ele trouxe `onChange`. Tipo registrado que devolva widget não-editável em **outro**
+  operador fica sem a saída — declare um operador sem valor, ou mantenha o widget
+  editável. (`ColumnTypeOperator.noValue` existe no tipo mas é **inerte**: nenhum tipo
+  declara e nada lê — não é fonte de verdade.)
 
 ## Acoplamento DataTable ↔ TableToolbar
 

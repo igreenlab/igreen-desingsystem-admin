@@ -24,6 +24,7 @@ import {
   promoteOperatorForFilterType,
   defaultOperatorForFilterType,
   MULTI_VALUE_OPERATORS,
+  NO_VALUE_OPERATORS,
 } from "../../DataTable/utils/filter-ops";
 import type { FilterPopoverColumn } from "../popovers/filter-popover";
 
@@ -304,6 +305,27 @@ export function ToolbarSimpleFilterDrawer({
 
           const filterOp = operator;
           const options = (col.options ?? []) as ColumnOption[];
+          const rotulo =
+            typeof col.label === "string" ? col.label : String(col.label);
+
+          /**
+           * A linha não tem o que editar — e por isso precisa de saída PRÓPRIA.
+           *
+           * `isEmpty`/`isNotEmpty` só chegam aqui pela preservação (nenhum tipo os tem
+           * como default), e o `renderFilterInput` de `text`/`select`/`multiSelect`
+           * devolve "(sem valor)", sem `onChange`. Sem este botão a única saída seria o
+           * "Limpar todos" do rodapé, que apaga o filtro de TODOS os campos — trocar um
+           * defeito silencioso (digitar rebaixava o operador) por um beco sem saída
+           * nuclear é exatamente o que a L-070 proíbe.
+           *
+           * Nasce SÓ nesta linha: nenhuma outra muda de aparência ou comportamento.
+           * ⚠️ O sinal é o OPERADOR, não o widget — não dá pra perguntar ao
+           * `renderFilterInput` se ele trouxe `onChange`. Tipo registrado que devolva
+           * widget não-editável em OUTRO operador fica sem a saída; declare um operador
+           * sem valor, ou mantenha o widget editável.
+           */
+          const semValorPraEditar =
+            NO_VALUE_OPERATORS.has(operator) && items.length > 0;
 
           // Usa <FormField> do DS — garante label com font-semibold + cor
           // dark-mode-aware (fg-default light / fg-muted dark). Children
@@ -311,20 +333,34 @@ export function ToolbarSimpleFilterDrawer({
           // columnTypeRegistry e não consome o id automaticamente, mas o
           // padrão visual (label + spacing + dark mode) fica correto.
           return (
-            <FormField
-              key={col.key}
-              label={typeof col.label === "string" ? col.label : String(col.label)}
-            >
+            <FormField key={col.key} label={rotulo}>
               {() => (
-                <div className="w-full">
-                  {def.renderFilterInput({
-                    value: currentValue as never,
-                    onChange: (v: unknown) => updateFieldValue(col.key, v, operator),
-                    operator: filterOp as never,
-                    options,
-                    loadOptions: col.loadOptions,
-                    resolveValueLabel: col.resolveValueLabel,
-                  })}
+                <div className="w-full flex items-center gap-gp-md">
+                  <div className="min-w-0 flex-1">
+                    {def.renderFilterInput({
+                      value: currentValue as never,
+                      onChange: (v: unknown) => updateFieldValue(col.key, v, operator),
+                      operator: filterOp as never,
+                      options,
+                      loadOptions: col.loadOptions,
+                      resolveValueLabel: col.resolveValueLabel,
+                    })}
+                  </div>
+                  {semValorPraEditar && (
+                    /* Valor vazio pelo escritor ÚNICO: `filterValueIsEmpty("")` zera os
+                       items deste field e a reconstrução preserva a ordem dos outros —
+                       a mesma garantia que os testes de edição já travam. */
+                    <Button
+                      variant="ghost"
+                      color="secondary"
+                      size="sm"
+                      iconLeft={<X />}
+                      aria-label={`Limpar filtro de ${rotulo}`}
+                      onClick={() => updateFieldValue(col.key, "", operator)}
+                    >
+                      Limpar
+                    </Button>
+                  )}
                 </div>
               )}
             </FormField>

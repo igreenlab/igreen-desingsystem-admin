@@ -21,6 +21,23 @@ export const MULTI_VALUE_OPERATORS = new Set<FilterOperator>([
   "isNoneOf",
 ]);
 
+/**
+ * Operadores que se bastam SEM valor — o widget não tem o que editar.
+ *
+ * `renderFilterInput` de `text`, `select` e `multiSelect` já testa exatamente este par
+ * pra devolver "(sem valor)" em vez de um campo. A constante existe pra quem precisa
+ * saber disso de FORA do widget — hoje o `ToolbarSimpleFilterDrawer`, que oferece a
+ * saída por campo justamente na linha que não tem `onChange`.
+ *
+ * ⚠️ `ColumnTypeOperator.noValue` existe no tipo desde sempre e **nenhum tipo o declara,
+ * nem nada o lê** (medido em 2026-11-03) — é campo inerte, não fonte de verdade. Não o
+ * use como sinal sem antes populá-lo nos 16 tipos; é a L-061 esperando acontecer.
+ */
+export const NO_VALUE_OPERATORS = new Set<FilterOperator>([
+  "isEmpty",
+  "isNotEmpty",
+]);
+
 /** ID estável pra um FilterItem — `crypto.randomUUID()` com fallback timestamp. */
 export function genFilterId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {

@@ -699,7 +699,10 @@ A toolbar separa dois níveis de filtro, sempre disponíveis (gated por
   do builder); campo ainda **sem** filtro nasce com o default do tipo (multiSelect →
   isAnyOf, text → contains, date → between). Até a `vNEXT` os dois lados derivavam do
   tipo: a faixa aparecia como campo único e editar o valor rebaixava "Excluindo" pra
-  "Incluindo" em silêncio. O caminho simples pro user típico.
+  "Incluindo" em silêncio. Um filtro em `isEmpty`/`isNotEmpty` fica sem o que editar
+  (o widget devolve "(sem valor)") e por isso **essa linha, só ela, ganha um "Limpar"
+  próprio** que remove o filtro daquele campo — o "Limpar todos" do rodapé continua
+  apagando o de todos. O caminho simples pro user típico.
 - **Configurações → Filtros avançados** → query builder completo: modo **Visual**
   (AND/OR + operadores explícitos + Adicionar condição) e modo **Avançado** (SQL-like,
   round-trip-safe pra todos os operadores).

@@ -223,6 +223,63 @@ describe("drawer — caminho antigo: field SEM filtro nasce com o default do tip
   });
 });
 
+/**
+ * A preservação é a ÚNICA porta por onde `isEmpty`/`isNotEmpty` chegam ao drawer —
+ * nenhum tipo built-in os tem como default. E o widget deles não tem o que editar:
+ * `text`, `select` e `multiSelect` devolvem "(sem valor)", sem `onChange`.
+ *
+ * Antes da preservação a linha era editável — editável ERRADO (digitar trocava o
+ * `isEmpty` por `contains` em silêncio), mas o usuário saía do estado. Preservar sem
+ * dar saída trocaria um defeito silencioso por um beco sem saída cuja única porta
+ * ("Limpar todos") apaga os filtros de TODOS os campos. É a L-070 ao pé da letra:
+ * existe aqui dentro alguma ação cuja função é encerrar este estado?
+ */
+describe("drawer — linha sem valor a editar tem saída PRÓPRIA", () => {
+  it("linha `isEmpty` é read-only e mesmo assim oferece como sair dela", async () => {
+    const escritos = montar([colTexto], modelo("nome", "isEmpty", undefined));
+
+    // read-only: o widget do `text` devolve "(sem valor)", sem campo pra digitar
+    expect(screen.getByText("(sem valor)")).toBeTruthy();
+    expect(screen.queryByRole("textbox")).toBeNull();
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "Limpar filtro de Nome" }),
+    );
+
+    const ultimo = escritos[escritos.length - 1];
+    expect(ultimo.items.filter((i) => i.field === "nome")).toHaveLength(0);
+  });
+
+  it("a saída remove SÓ aquele campo — os outros filtros sobrevivem", async () => {
+    const escritos = montar([colTexto, colMulti], {
+      logicOperator: "AND",
+      items: [
+        { id: "f0", field: "nome", operator: "isEmpty" },
+        { id: "f1", field: "status", operator: "isAnyOf", value: "ativo" },
+        { id: "f2", field: "status", operator: "isAnyOf", value: "pausado" },
+      ],
+    });
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "Limpar filtro de Nome" }),
+    );
+
+    const ultimo = escritos[escritos.length - 1];
+    expect(ultimo.items.map((i) => [i.field, i.value])).toEqual([
+      ["status", "ativo"],
+      ["status", "pausado"],
+    ]);
+  });
+
+  it("linha EDITÁVEL não ganha botão nenhum — a saída nasce só onde ela sumiu", async () => {
+    // O escopo prometido: nenhuma outra linha do drawer muda de aparência.
+    montar([colTexto, colMulti], modelo("nome", "contains", "ana"));
+
+    expect(screen.getByDisplayValue("ana")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /^Limpar filtro de/ })).toBeNull();
+  });
+});
+
 describe("drawer — guardas da preservação", () => {
   it("operador que o tipo NÃO declara cai no default (não vira filtro morto)", async () => {
     // `text` não declara `between`. Preservá-lo renderizaria o Input de texto com
