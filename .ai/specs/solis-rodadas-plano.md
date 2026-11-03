@@ -83,6 +83,14 @@ documentada em lugar nenhum.
       reprova prop como "componente inexistente"; **(b)** versão se cita como `vNEXT`, que
       o `version-claims-check` reprova no `release:check` — assim o placeholder morre no
       `/ds-release` por construção, em vez de virar número errado.
+- [ ] **Prova vermelha: confirme que a mutação APLICOU.** Rode `git diff --stat <arquivo>`
+      e veja que não está vazio, ANTES de rodar o teste. Os arquivos deste repo são
+      **CRLF**, e padrão multi-linha escrito com `
+` não casa — a mutação não entra, em
+      silêncio. Medido na Task 7c: 2 de 8 mutações não aplicaram na primeira rodada. É a
+      L-064 virada contra o próprio instrumento — **uma mutação que não roda é
+      indistinguível de uma mutação que sobreviveu**, e as duas se parecem com "o teste
+      cobre isso".
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
