@@ -37,7 +37,12 @@ Cada spec abre com um bloco `> **Status:**`. Formato:
 | `pipeline-conformance-showcase.md` | **IMPLEMENTADA** (2026-07-29) | `scripts/lib/showcase-registration.mjs`, `ds-exceptions.mjs` |
 | `brand-vibrant-handoff/` | **IMPLEMENTADA** (2026-08-03) | `tokens/brands/vibrant/` — 5ª marca |
 | `blocks-catalogo-de-composicoes.md` | **IMPLEMENTADA** (2026-08-20) | `src/blocks/`, `scripts/blocks-build.mjs`, `BlocksChartsDoc.tsx`, Passo 0 do `ds-kit` |
-| `datatable-feedback-solis.md` | **ATIVA** — em review no PR #343 | `src/components/ui/DataTable/`, `TableToolbar/`, `FooterTable/`, `#/filter-chips-lab` |
+| `datatable-feedback-solis.md` | **IMPLEMENTADA** (2026-10-28) | `src/components/ui/DataTable/`, `TableToolbar/`, `FooterTable/`, `#/filter-chips-lab` — PR #343 |
+| `scheduler-componente-de-calendario.md` | **IMPLEMENTADA** (2026-09-01) | `src/components/ui/Scheduler/` |
+| `gantt-componente-de-cronograma.md` | **IMPLEMENTADA** (2026-10-23) | `src/components/ui/Gantt/` |
+| `solis-pedidos-2-analise.md` | **ANÁLISE** (2026-11-03) | triagem dos ~45 pedidos do SOLIS-238 em A/B/C/D. Não vira código: decide o que vira |
+| `solis-rodadas-plano.md` | **ATIVA** (2026-11-03) | 18 tarefas em 5 rodadas. Rodadas 1 e 2 fechadas (PRs #355, #356) |
+| `solis-pendencias-para-validar.md` | **ABERTO** (2026-11-03) | o que ficou de fora do lote e precisa de decisão do mantenedor |
 
 > `brand-vibrant-handoff/` tem um vínculo extra: o `.gitignore` (linhas 30-33) explica que
 > o diretório `theme/` da raiz é cópia **byte-idêntica** dele. Mover quebraria essa
