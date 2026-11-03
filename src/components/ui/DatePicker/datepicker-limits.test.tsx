@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -10,20 +10,58 @@ import { DatePicker } from "./datepicker";
  * usuário escolhia e só então via o erro), e desfazer a seleção não era possível.
  */
 
-describe("DatePicker — limites", () => {
+/**
+ * O calendário abre no mês de HOJE, não no mês de `value` — medido: o DatePicker não
+ * expõe `month`/`defaultMonth`, então o react-day-picker cai no `today`. Era por isso
+ * que a versão anterior montava a janela com `new Date()`: sem fixar a data não havia
+ * como saber que mês ia abrir.
+ *
+ * O preço era depender do calendário real, e ele cobrou em 2026-11: a grade de
+ * novembro/2026 termina com 1–5 de dezembro como dias de fora, então passaram a
+ * existir DOIS gridcell com o texto "5" e a busca por texto quebrou com "Found
+ * multiple elements" — reprovando `npm test`, e com ele o `release:check`, em toda
+ * release do mês. Não era defeito do componente nem azar raro: medido de 2024 a
+ * 2034, a grade repete o "5" em 38 dos 132 meses — ~1 a cada 3,5.
+ *
+ * Duas mudanças fecham isso:
+ *  - `vi.setSystemTime` fixa o mês que abre, em vez de herdar o relógio da máquina;
+ *  - o dia é buscado pelo `data-day` (ISO) que o RDP põe em cada célula, que é único
+ *    na grade inclusive entre meses vizinhos — texto "5" não é.
+ *
+ * O `describe.each` roda nos dois formatos de grade de propósito: o mês que repete o
+ * número (o caso que quebrou) e o que não repete.
+ */
+const MESES = [
+  { rotulo: "novembro/2026 — a grade fecha em 5/dez, o 5 aparece duas vezes", hoje: new Date(2026, 10, 3) },
+  { rotulo: "março/2026 — a grade fecha em 4/abr, o 5 aparece uma vez", hoje: new Date(2026, 2, 3) },
+];
+
+const iso = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+const botaoDoDia = (d: Date) => {
+  const cel = screen.getByRole("grid").querySelector(`[data-day="${iso(d)}"]`);
+  if (!cel) throw new Error(`dia ${iso(d)} não está na grade aberta`);
+  return cel.querySelector("button") as HTMLButtonElement;
+};
+
+describe.each(MESES)("DatePicker — limites ($rotulo)", ({ hoje }) => {
+  beforeEach(() => {
+    // shouldAdvanceTime: o userEvent agenda timers próprios e trava com relógio parado.
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(hoje);
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("dias fora do intervalo ficam desabilitados no calendário", async () => {
-    // Janela dentro do MÊS CORRENTE de propósito: o calendário abre no mês da data
-    // selecionada, e uma janela em mês fixo fazia o teste ler células de outro mês —
-    // "5" e "15" existem em todo mês (a primeira versão deste teste caiu nisso).
-    const hoje = new Date();
     const dia = (n: number) => new Date(hoje.getFullYear(), hoje.getMonth(), n);
-    render(<DatePicker value={dia(15)} minValue={dia(10)} maxValue={dia(20)} />,);
+    render(<DatePicker value={dia(15)} minValue={dia(10)} maxValue={dia(20)} />);
     await userEvent.click(screen.getAllByRole("button")[0]);
 
-    const diaFora = screen.getByRole("gridcell", { name: "5" }).querySelector("button");
-    const diaDentro = screen.getByRole("gridcell", { name: "15" }).querySelector("button");
-    expect(diaFora?.hasAttribute("disabled")).toBe(true);
-    expect(diaDentro?.hasAttribute("disabled")).toBe(false);
+    expect(botaoDoDia(dia(5)).hasAttribute("disabled")).toBe(true);
+    expect(botaoDoDia(dia(15)).hasAttribute("disabled")).toBe(false);
   });
 });
 
