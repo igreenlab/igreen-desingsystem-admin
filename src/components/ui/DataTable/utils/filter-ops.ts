@@ -29,9 +29,10 @@ export const MULTI_VALUE_OPERATORS = new Set<FilterOperator>([
  * saber disso de FORA do widget — hoje o `ToolbarSimpleFilterDrawer`, que oferece a
  * saída por campo justamente na linha que não tem `onChange`.
  *
- * ⚠️ `ColumnTypeOperator.noValue` existe no tipo desde sempre e **nenhum tipo o declara,
- * nem nada o lê** (medido em 2026-11-03) — é campo inerte, não fonte de verdade. Não o
- * use como sinal sem antes populá-lo nos 16 tipos; é a L-061 esperando acontecer.
+ * É o **fallback dos built-in**, não a lista fechada: um tipo registrado declara o
+ * operador sem valor DELE em `ColumnTypeOperator.noValue`, e o drawer soma os dois
+ * sinais. (Esse campo era inerte até 2026-11-03 — exportado, declarado por ninguém e
+ * lido por nada; foi ligado em vez de removido por ser API pública. L-061.)
  */
 export const NO_VALUE_OPERATORS = new Set<FilterOperator>([
   "isEmpty",

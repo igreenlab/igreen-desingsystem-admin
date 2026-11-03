@@ -106,12 +106,26 @@ import {
   única saída seria o "Limpar todos" do rodapé, que apaga o filtro de todos os campos:
   preservar o operador teria trocado um defeito silencioso (digitar rebaixava `isEmpty`
   pra `contains`) por um beco sem saída nuclear — o que a **L-070** proíbe. Nenhuma outra
-  linha muda de aparência. ⚠️ O sinal é o **operador** (`NO_VALUE_OPERATORS` em
-  `DataTable/utils/filter-ops`), não o widget: não dá pra perguntar ao `renderFilterInput`
-  se ele trouxe `onChange`. Tipo registrado que devolva widget não-editável em **outro**
-  operador fica sem a saída — declare um operador sem valor, ou mantenha o widget
-  editável. (`ColumnTypeOperator.noValue` existe no tipo mas é **inerte**: nenhum tipo
-  declara e nada lê — não é fonte de verdade.)
+  linha muda de aparência.
+- **Tipo registrado DECLARA o operador sem valor dele** com `noValue: true` no item de
+  `operators` (`vNEXT`+) — e aí a linha dele ganha a mesma saída. O sinal é o
+  **operador**, não o widget: não dá pra perguntar ao `renderFilterInput` se ele trouxe
+  `onChange`. `isEmpty`/`isNotEmpty` já valem sem declarar (`NO_VALUE_OPERATORS` em
+  `DataTable/utils/filter-ops` é o fallback dos built-in); o campo é pro resto.
+  ```tsx
+  columnTypeRegistry.register({
+    type: "periodoFixo",
+    operators: [
+      { id: "between", label: "entre" },
+      { id: "equals", label: "mês corrente", noValue: true }, // ← ganha o "Limpar"
+    ],
+    // …
+  });
+  ```
+  ⚠️ `ColumnTypeOperator.noValue` é exportado desde sempre e era **inerte** até a
+  `vNEXT`: declarar não fazia nada, sem erro e sem aviso (L-061). Foi **ligado**, não
+  removido, por ser API pública — nenhum dos 16 built-in o declara, então nada mudou
+  pra eles.
 
 ## Acoplamento DataTable ↔ TableToolbar
 

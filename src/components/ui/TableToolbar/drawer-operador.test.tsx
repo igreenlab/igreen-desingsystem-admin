@@ -280,6 +280,78 @@ describe("drawer — linha sem valor a editar tem saída PRÓPRIA", () => {
   });
 });
 
+/**
+ * `ColumnTypeOperator.noValue` é API PÚBLICA (`column-types/index.ts` →
+ * `DataTable/index.ts`) e até 2026-11-03 era **inerte**: nenhum dos 16 tipos declarava
+ * e NADA lia — um consumidor podia pôr `noValue: true` no operador dele e não acontecia
+ * nada, sem erro e sem aviso. É a L-061 ("no-op não é desligado, está ARMADO"), e o
+ * caminho escolhido foi LIGAR em vez de remover, porque é campo exportado: remover
+ * quebraria a compilação de quem já declarou, ligar entrega o que o nome prometia.
+ *
+ * Com isso o "limite conhecido" da saída por campo deixa de existir: tipo registrado
+ * cujo widget não é editável em OUTRO operador agora tem como declarar isso.
+ *
+ * Os dois testes usam o MESMO tipo, com DOIS operadores — um declara `noValue`, o outro
+ * não. O contraste no mesmo registro é o que separa "o sinal funciona" de "o botão
+ * aparece pra qualquer operador declarado".
+ */
+describe("drawer — `noValue` do tipo registrado é um sinal VIVO (L-061)", () => {
+  /** Tipo com `startsWith` sem valor (declarado) e `contains` normal. */
+  function registrarTipoComNoValue(tipo: string) {
+    columnTypeRegistry.register({
+      ...columnTypeRegistry.get("text"),
+      type: tipo as never,
+      operators: [
+        { id: "contains", label: "contém" },
+        { id: "startsWith", label: "tem qualquer coisa", noValue: true },
+      ],
+      renderFilterInput: ({ operator, value, onChange }) =>
+        operator === "startsWith" ? (
+          // Sem `onChange`: o widget deste operador não tem o que editar — é
+          // exatamente o estado que precisa de saída e que o DS não adivinha.
+          <span>widget-sem-campo</span>
+        ) : (
+          <input
+            aria-label="campo do consumidor"
+            value={(value as string) ?? ""}
+            onChange={(e) => onChange(e.target.value)}
+          />
+        ),
+    });
+  }
+
+  it("operador que DECLARA `noValue` ganha a saída, mesmo não sendo isEmpty/isNotEmpty", async () => {
+    const tipo = "semValorDeclarado";
+    registrarTipoComNoValue(tipo);
+    const escritos = montar(
+      [{ key: "nome", label: "Nome", filterType: tipo }],
+      modelo("nome", "startsWith", "x"),
+    );
+
+    expect(screen.getByText("widget-sem-campo")).toBeTruthy();
+    await userEvent.click(
+      screen.getByRole("button", { name: "Limpar filtro de Nome" }),
+    );
+
+    const ultimo = escritos[escritos.length - 1];
+    expect(ultimo.items.filter((i) => i.field === "nome")).toHaveLength(0);
+  });
+
+  it("operador do MESMO tipo que NÃO declara `noValue` segue sem botão", async () => {
+    // O caminho antigo: nenhum dos 16 built-in declara o campo, então nada muda
+    // pra eles. Aqui o contraste é dentro do mesmo tipo registrado.
+    const tipo = "semValorDeclaradoContra";
+    registrarTipoComNoValue(tipo);
+    montar(
+      [{ key: "nome", label: "Nome", filterType: tipo }],
+      modelo("nome", "contains", "ana"),
+    );
+
+    expect(screen.getByLabelText("campo do consumidor")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /^Limpar filtro de/ })).toBeNull();
+  });
+});
+
 describe("drawer — guardas da preservação", () => {
   it("operador que o tipo NÃO declara cai no default (não vira filtro morto)", async () => {
     // `text` não declara `between`. Preservá-lo renderizaria o Input de texto com

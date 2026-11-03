@@ -141,6 +141,32 @@ function agregaComoLista(
   return MULTI_VALUE_OPERATORS.has(def.operators?.[0]?.id as FilterOperator);
 }
 
+/**
+ * Este operador deixa a linha SEM nada pra editar?
+ *
+ * Duas fontes, nesta ordem:
+ *
+ * 1. **`NO_VALUE_OPERATORS`** — `isEmpty`/`isNotEmpty`, o par que `text`, `select` e
+ *    `multiSelect` já tratam como sem valor dentro do próprio `renderFilterInput`.
+ *    É o fallback dos built-in: nenhum deles declara nada, e nada muda pra eles.
+ * 2. **`noValue` DECLARADO no operador do tipo** — ponto de extensão do consumidor.
+ *
+ * ⚠️ A fonte 2 existia no tipo (`ColumnTypeOperator.noValue`, exportado em
+ * `column-types/index.ts` e `DataTable/index.ts`) e era **inerte** até 2026-11-03:
+ * nenhum tipo declarava e NADA lia. Um consumidor punha `noValue: true` e não
+ * acontecia nada — sem erro, sem aviso. É a L-061 ("no-op não é desligado, está
+ * ARMADO"). Ligar foi escolhido em vez de remover **porque o campo é API pública**:
+ * remover quebraria a compilação de quem já declarou, ligar entrega o que o nome
+ * sempre prometeu. Adição opt-in pura — os 16 built-in continuam byte-idênticos.
+ */
+function semValorPraEditar(
+  operator: FilterOperator,
+  def: ColumnTypeDefinition,
+): boolean {
+  if (NO_VALUE_OPERATORS.has(operator)) return true;
+  return def.operators?.some((o) => o.id === operator && o.noValue === true) === true;
+}
+
 export function ToolbarSimpleFilterDrawer({
   open,
   onOpenChange,
@@ -319,13 +345,12 @@ export function ToolbarSimpleFilterDrawer({
            * nuclear é exatamente o que a L-070 proíbe.
            *
            * Nasce SÓ nesta linha: nenhuma outra muda de aparência ou comportamento.
-           * ⚠️ O sinal é o OPERADOR, não o widget — não dá pra perguntar ao
-           * `renderFilterInput` se ele trouxe `onChange`. Tipo registrado que devolva
-           * widget não-editável em OUTRO operador fica sem a saída; declare um operador
-           * sem valor, ou mantenha o widget editável.
+           * O sinal é o OPERADOR, não o widget — não dá pra perguntar ao
+           * `renderFilterInput` se ele trouxe `onChange`. Tipo registrado DECLARA o seu
+           * com `noValue` no operador (ver `semValorPraEditar`).
            */
-          const semValorPraEditar =
-            NO_VALUE_OPERATORS.has(operator) && items.length > 0;
+          const linhaSemSaida =
+            semValorPraEditar(operator, def) && items.length > 0;
 
           // Usa <FormField> do DS — garante label com font-semibold + cor
           // dark-mode-aware (fg-default light / fg-muted dark). Children
@@ -346,7 +371,7 @@ export function ToolbarSimpleFilterDrawer({
                       resolveValueLabel: col.resolveValueLabel,
                     })}
                   </div>
-                  {semValorPraEditar && (
+                  {linhaSemSaida && (
                     /* Valor vazio pelo escritor ÚNICO: `filterValueIsEmpty("")` zera os
                        items deste field e a reconstrução preserva a ordem dos outros —
                        a mesma garantia que os testes de edição já travam. */

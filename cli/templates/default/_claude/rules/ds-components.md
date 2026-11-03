@@ -178,6 +178,13 @@ sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo)
 Com `countLabel`, `clearLabel`, `totalSelected` (contagem entre páginas, vinda de você) e
 `onClearAll`. O **estado** da seleção entre páginas continua seu; o DS só exibe.
 
+**Operador do SEU tipo que não pede valor** (um "mês corrente", um "tem anexo"):
+marque ****noValue: true**** no item de ****operators**** (DS `vNEXT`+). O funil entende que
+aquela linha não tem o que editar e dá a ela um "Limpar" próprio, que remove só aquele
+campo — sem isso a única saída seria o "Limpar todos", que apaga os filtros de todos.
+`isEmpty`/`isNotEmpty` já valem sem declarar. ⚠️ O campo existe na tipagem há muito tempo
+mas **não fazia nada** antes da `vNEXT`: se você já declarou e não viu efeito, era isso.
+
 **Widget de filtro próprio:** registre um tipo no `columnTypeRegistry` com
 ****ownsMulti: true**** e o chip multi inteiro passa a ser seu (colar lista,
 clique-substitui, o que for) — em vez de pedir cada comportamento ao DS. O
