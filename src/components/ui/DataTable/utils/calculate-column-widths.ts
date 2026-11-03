@@ -83,9 +83,11 @@ export const HEADER_STACK_INSET_PX = 12;
  * Funil e menu são vizinhos sem espaço entre si (moram no mesmo wrapper); o sort fica a
  * um `gap` deles. Coluna sem nenhuma ação não tem stack e devolve 0.
  *
- * Conta o sort como UM ícone (o hint). Ordenar de fato troca o hint por badge + seta
- * (mais largo), mas isso é estado de runtime que o cálculo — que só vê colunas e rows —
- * não tem. Fica de fora, e a coluna ordenada pode ter o stack ~24px mais largo que o piso.
+ * Conta o sort como UM ícone de 12px. Coluna ordenada troca o hint pela seta do sort, que
+ * tem a MESMA largura — então com um sort só o stack não muda. Só o multi-sort (2+ critérios)
+ * acrescenta o badge de índice (`min-w-[18px]` + um `gap` de 4px ≈ 22px), e isso é estado de
+ * runtime que o cálculo — que só vê colunas e rows — não tem: fica de fora, e a coluna
+ * ordenada em multi-sort pode ter o stack ~22px mais largo que o piso.
  */
 function measureHeaderActionsWidth<T>(
   col: DataTableColumnDef<T>,

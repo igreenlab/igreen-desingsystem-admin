@@ -119,6 +119,26 @@ describe("item 17 — menu da coluna só oferece ordenar em coluna ordenável", 
     expect(itemDoMenu(/Ordenar decrescente/)).not.toBeNull();
   });
 
+  it("coluna cujo TIPO não é ordenável (phone) também não oferece 'Ordenar'", async () => {
+    // O caso que o usuário vai ver: nenhuma coluna aqui declara `sortable:false` — é o
+    // default do tipo (`phone`, `tags`, `url`…) que a resolve, e isso passa pelo
+    // `effectiveColumns`, não pelo que o consumidor escreveu. O controle ao lado prova que
+    // o menu abriu e que `text`, sem default de tipo, segue ordenável.
+    montar([
+      { field: "nome", headerName: "Nome", type: "text" },
+      { field: "fixa", headerName: "Telefone", type: "phone" },
+    ]);
+
+    await abrirMenu("Nome");
+    expect(itemDoMenu(/Ordenar crescente/)).not.toBeNull();
+
+    await userEvent.keyboard("{Escape}");
+    await abrirMenu("Telefone");
+    expect(itemDoMenu(/Ordenar crescente/)).toBeNull();
+    expect(itemDoMenu(/Ordenar decrescente/)).toBeNull();
+    expect(itemDoMenu(/Fixar à esquerda/)).not.toBeNull();
+  });
+
   it("sem itens de ordenação, o separador também some", async () => {
     // `hideable:false` tira o separador do "Ocultar" — sobra só o separador entre a
     // seção de ordenar e a de fixar, que é o que este teste isola.
@@ -291,7 +311,8 @@ describe("item 7 — o piso do cabeçalho conta as ações visíveis", () => {
   it("coluna normal NÃO muda — o piso das ações é MAX com o do título, não soma", () => {
     // Estes dois valores são os de antes da correção. Se alguém trocar o `Math.max` por
     // uma soma, TODA tabela do DS alarga (`autoFit` é default true): a coluna boolean de
-    // 'Ativo' iria de 112 a 196.
+    // 'Ativo' (sem funil: sort 12 + gap 4 + menu 28 + folga 12 = 56 de ações) iria de 112
+    // a 168.
     //   boolean 'Ativo': 35 de título + 32 + 21 do ícone + 24 de reserva = 112 (> 80 do tipo)
     //   texto 'Cliente': cai no DEFAULT_COLUMN_WIDTH de 160
     const w = calcular([
