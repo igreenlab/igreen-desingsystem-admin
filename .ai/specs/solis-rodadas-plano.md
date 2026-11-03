@@ -83,7 +83,7 @@ documentada em lugar nenhum.
       reprova prop como "componente inexistente"; **(b)** versão se cita como `vNEXT`, que
       o `version-claims-check` reprova no `release:check` — assim o placeholder morre no
       `/ds-release` por construção, em vez de virar número errado.
-- [ ] **Prova vermelha: confirme que a mutação APLICOU.** Rode `git diff --stat <arquivo>`
+- [ ] **Prova vermelha: o check não pode ser mais frouxo que a alegação.** Rode `git diff --stat <arquivo>`
       e veja que não está vazio, ANTES de rodar o teste. Os arquivos deste repo são
       **CRLF**, e padrão multi-linha escrito com `
 ` não casa — a mutação não entra, em
@@ -91,6 +91,12 @@ documentada em lugar nenhum.
       L-064 virada contra o próprio instrumento — **uma mutação que não roda é
       indistinguível de uma mutação que sobreviveu**, e as duas se parecem com "o teste
       cobre isso".
+
+      ⚠️ **E confirme que ela SAIU pela mesma régua.** O detector tem que casar a **linha
+      inteira**, não um trecho: um `includes` acusa resíduo que não existe quando a mutação
+      é substring da linha restaurada (aconteceu na Task 8). As duas falhas têm a mesma
+      forma — **a verificação casando menos do que a afirmação que ela sustenta**. O erro
+      não é aplicar mal a mutação; é acreditar num check mais frouxo que a alegação.
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
