@@ -84,8 +84,13 @@ function OptionRow({
  * Widget multiSelect do chip — EXPORTADO como bloco componível: um tipo
  * custom do consumidor pode embrulhá-lo (widget padrão + ações próprias no
  * entorno) em vez de reconstruir busca/lista/seleção do zero. Declare
- * isAnyOf/isNoneOf nos operators do tipo custom pra ser dono do chip multi
- * (a promoção interna não sequestra — ver data-table.tsx, customOwnsMulti).
+ * `ownsMulti: true` no tipo custom pra ser dono do chip multi (a promoção
+ * interna não sequestra — ver data-table.tsx, customOwnsMulti). Com o flag o
+ * `value` chega SEMPRE como array, mesmo com 1 valor.
+ *
+ * ⚠️ Declarar `isAnyOf`/`isNoneOf` nos operators NÃO dá posse — este comentário
+ * afirmava isso, e é a dedução que o 2º review do PR #343 desmentiu (ver o JSDoc de
+ * `ColumnTypeDefinition.ownsMulti`).
  */
 export function MultiSelectDropdown({
   value,
@@ -358,8 +363,13 @@ export function MultiSelectDropdown({
 }
 
 /** Trigger compacto + popover pra uso no modal advanced — economiza espaço
- *  comparado a renderizar a lista de checkboxes inline. */
-function MultiSelectFieldDropdown(props: FilterInputProps) {
+ *  comparado a renderizar a lista de checkboxes inline.
+ *
+ *  EXPORTADO junto do `MultiSelectDropdown`: um tipo custom com `ownsMulti` tem
+ *  DOIS lugares a preencher — `renderFastFilterInput` (chip, já dentro de um popover:
+ *  use o `MultiSelectDropdown`) e `renderFilterInput` (modal avançado, sem popover
+ *  em volta: use este). Sem ele, o widget próprio do chip fica sem par no avançado. */
+export function MultiSelectFieldDropdown(props: FilterInputProps) {
   const { value, options = [] } = props;
   const selected = toArray(value);
   const labels = selected.map((v) => {

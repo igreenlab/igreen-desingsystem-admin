@@ -21,6 +21,7 @@ import userEvent from "@testing-library/user-event";
 import { DataTable } from "./data-table";
 import type { DataTableColumnDef, FilterModel } from "./data-table.types";
 import { columnTypeRegistry } from "./column-types";
+import { MultiSelectFieldDropdown } from "./index";
 
 /* jsdom não tem matchMedia nem ResizeObserver, e o DataTable usa os dois.
    Nenhum teste do repo renderizava o DataTable inteiro até aqui. */
@@ -74,14 +75,14 @@ function colunas(filterType: string): DataTableColumnDef<Row>[] {
   ];
 }
 
-/** Abre o chip e devolve quantos checkboxes o popover oferece. */
-async function checkboxesDoChip(filterType: string): Promise<number> {
+/** Monta o DataTable com o `filterModel` dado e abre o chip de Status. */
+async function abrirChip(filterType: string, model: FilterModel = MODEL_ANY_OF) {
   render(
     <DataTable
       rows={ROWS}
       columns={colunas(filterType)}
       getRowId={(r) => r.id}
-      filterModel={MODEL_ANY_OF}
+      filterModel={model}
       onFilterModelChange={() => {}}
       toolbar={{ enableFilters: true }}
     />,
@@ -93,6 +94,11 @@ async function checkboxesDoChip(filterType: string): Promise<number> {
     .sort((a, b) => (a.textContent ?? "").length - (b.textContent ?? "").length)[0];
   if (!chip) throw new Error(`chip de Status não encontrado para "${filterType}"`);
   await userEvent.click(chip);
+}
+
+/** Abre o chip e devolve quantos checkboxes o popover oferece. */
+async function checkboxesDoChip(filterType: string): Promise<number> {
+  await abrirChip(filterType);
   return screen.queryAllByRole("checkbox").length;
 }
 
@@ -130,5 +136,114 @@ describe("chip multi — a posse é declarada (ownsMulti), não deduzida dos ope
     // `meuMultII` não existe; o registry devolve `text`, cujo type !== filterType.
     // Sem a guarda, o tipo devolvido emprestaria o ownsMulti dele.
     expect(await checkboxesDoChip("meuMultII")).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * O `ownsMulti` da v0.69.0 declarava a posse do chip multi e entregava o PRIMEIRO valor.
+ *
+ * O bloco acima prova que o widget do tipo é montado; nenhum dos casos olha o que ele
+ * RECEBE — e é por isso que o defeito passou: o `renderFastFilterInput` de teste ignorava
+ * `value`. O `currentValue` só devolvia array quando a promoção ao `multiSelect` built-in
+ * estava ativa (`useMulti`), e `ownsMulti` desliga exatamente essa promoção — então
+ * `useMulti` era sempre falso e o widget do consumidor recebia `"A"` em vez de `["A","B","C"]`.
+ *
+ * Aqui o widget registrado GUARDA o `value` que o DataTable real passa.
+ */
+describe("ownsMulti — o widget recebe o valor que a posse promete", () => {
+  /** Registra um tipo que só captura o `value` recebido no chip. */
+  function registrarCaptura(tipo: string, ownsMulti: boolean) {
+    const recebidos: unknown[] = [];
+    columnTypeRegistry.register({
+      ...columnTypeRegistry.get("multiSelect"),
+      type: tipo as never,
+      ...(ownsMulti ? { ownsMulti: true } : {}),
+      renderFastFilterInput: ({ value }) => {
+        recebidos.push(value);
+        return <div>{`captura:${tipo}`}</div>;
+      },
+    });
+    return recebidos;
+  }
+
+  const modelo = (
+    operator: string,
+    value: unknown,
+    extra: Array<{ operator: string; value: unknown }> = [],
+  ): FilterModel => ({
+    logicOperator: "AND",
+    items: [{ operator, value }, ...extra].map((it, i) => ({
+      id: `f${i}`,
+      field: "status",
+      operator: it.operator,
+      value: it.value,
+    })) as FilterModel["items"],
+  });
+
+  it("tipo que declara ownsMulti recebe a LISTA inteira, não o primeiro valor", async () => {
+    const recebidos = registrarCaptura("capturaDono", true);
+    // Três itens no MESMO field+operador: é o formato que o builder avançado acumula.
+    await abrirChip(
+      "capturaDono",
+      modelo("isAnyOf", ["A"], [
+        { operator: "isAnyOf", value: ["B"] },
+        { operator: "isAnyOf", value: ["C"] },
+      ]),
+    );
+    expect(screen.getByText("captura:capturaDono")).toBeTruthy();
+    expect(recebidos[recebidos.length - 1]).toEqual(["A", "B", "C"]);
+  });
+
+  it("ownsMulti com UM valor continua recebendo array de um, não a string", async () => {
+    // O caso que "funcionava" antes (1 valor → o widget leu "A"). Passa a ser array
+    // de um: o contrato do flag é "o widget lê e escreve LISTA", sem exceção por tamanho.
+    const recebidos = registrarCaptura("capturaDonoUm", true);
+    await abrirChip("capturaDonoUm", modelo("isAnyOf", ["A"]));
+    expect(recebidos[recebidos.length - 1]).toEqual(["A"]);
+  });
+
+  /* ── O caminho ANTIGO: tipo sem ownsMulti não pode mudar de forma ────────────────
+     Nenhum built-in declara `ownsMulti`, então a correção só pode alcançar quem
+     registrou tipo próprio COM o flag. Sem o flag, valor único segue chegando como
+     valor único (string), exatamente como na `main`. */
+  it("tipo SEM ownsMulti com valor único continua recebendo o valor cru, não array", async () => {
+    const recebidos = registrarCaptura("capturaSemDono", false);
+    await abrirChip("capturaSemDono", modelo("equals", "A"));
+    expect(screen.getByText("captura:capturaSemDono")).toBeTruthy();
+    expect(recebidos[recebidos.length - 1]).toBe("A");
+  });
+
+  it("nenhum tipo built-in declara ownsMulti (a correção não alcança quem não registrou o flag)", () => {
+    // É a premissa que faz o fix não ser mudança de comportamento: se algum built-in
+    // ganhar o flag, ele passa a receber array e este teste obriga a decisão consciente.
+    const builtins = [
+      "text", "number", "date", "select", "multiSelect", "boolean", "currency",
+      "percentage", "email", "phone", "url", "user", "badge", "status", "tags",
+    ];
+    for (const id of builtins) {
+      expect(columnTypeRegistry.get(id).ownsMulti, id).toBeUndefined();
+    }
+  });
+});
+
+/**
+ * O flag sozinho não basta: o tipo custom com `ownsMulti` tem dois lugares a preencher —
+ * o chip (`renderFastFilterInput`, que o `MultiSelectDropdown` já atendia) e o modal
+ * avançado (`renderFilterInput`). A peça do segundo existia mas era privada.
+ * Importa pelo barrel do DataTable — é o caminho do consumidor.
+ */
+describe("MultiSelectFieldDropdown — peça pública do renderFilterInput do tipo dono", () => {
+  it("sai do barrel do DataTable e mostra a lista que recebe (trigger compacto)", () => {
+    expect(typeof MultiSelectFieldDropdown).toBe("function");
+    render(
+      <MultiSelectFieldDropdown
+        value={["ativo", "pausado"]}
+        onChange={() => {}}
+        operator="isAnyOf"
+        options={OPCOES}
+      />,
+    );
+    // 2 selecionados → o trigger lista os rótulos (3+ vira "N selecionados").
+    expect(screen.getByText("Ativo, Pausado")).toBeTruthy();
   });
 });

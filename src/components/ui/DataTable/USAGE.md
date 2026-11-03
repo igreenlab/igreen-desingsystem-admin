@@ -640,7 +640,7 @@ columnTypeRegistry.register(RatingColumnType);
 | Faixa num chip só | operador `between` no `filterType: "number"` | mín–máx juntos ("10 – 500"), vírgula aceita como decimal |
 | "Limpar todos" avisa a tela | `onFiltersClearAll` | pra filtro próprio fora do filterModel (ex.: SQL avançado) |
 | Avançado separado do funil | `toolbar.enableAdvancedFilters` | default segue `enableFilters` |
-| Widget custom é DONO do chip | tipo no `columnTypeRegistry` | declare **`ownsMulti: true`** no tipo pra promoção interna não sequestrar o chip multi; blocos públicos: `MultiSelectDropdown`, `FastSingleSelectList`, `FILTER_FIELD_CLASS` |
+| Widget custom é DONO do chip | tipo no `columnTypeRegistry` | declare **`ownsMulti: true`** no tipo pra promoção interna não sequestrar o chip multi — o widget recebe `value` como **array sempre**; blocos públicos: `MultiSelectDropdown` (chip), `MultiSelectFieldDropdown` (modal avançado), `FastSingleSelectList`, `FILTER_FIELD_CLASS` |
 
 > ⚠️ **`ownsMulti` é declarado, não deduzido — e o seu widget precisa dar conta.** Com
 > `ownsMulti: true`, o `renderFastFilterInput` do seu tipo recebe o chip multi inteiro:
@@ -648,6 +648,33 @@ columnTypeRegistry.register(RatingColumnType);
 > for de valor único (um `<Select>`, por exemplo), **não** declare o flag — o chip cai no
 > `multiSelect` built-in, que já traz busca, "Selecionar todos", opções fixas e o
 > segmented Incluindo/Excluindo.
+>
+> **O que o flag entrega:** `value` é **sempre um array** — a lista inteira do grupo do chip
+> (todos os itens do mesmo campo+operador somados), e `["A"]` com um valor só, nunca `"A"`.
+> Não faça `typeof value === "string"`. Da v0.69.0 até esta correção a promessa existia e a entrega não: o
+> widget recebia só o primeiro valor, e os outros itens sumiam do chip. Sem o flag nada
+> muda: tipo de valor único continua recebendo o valor cru.
+>
+> **A peça para montar o widget próprio** é o par exportado do barrel:
+> `MultiSelectDropdown` no `renderFastFilterInput` (o chip já está dentro de um popover) e
+> `MultiSelectFieldDropdown` no `renderFilterInput` (modal avançado: trigger compacto +
+> popover, "A, B" ou "N selecionados"). Embrulhe o primeiro com as suas ações e o segundo
+> entra como está — o avançado e o chip ficam consistentes sem reescrever busca/lista.
+>
+> ```tsx
+> columnTypeRegistry.register({
+>   ...columnTypeRegistry.get("multiSelect"),
+>   type: "meuMulti",
+>   ownsMulti: true,                       // value chega como array, sempre
+>   renderFastFilterInput: (p) => (
+>     <div>
+>       <ColarLista onPaste={p.onChange} />   {/* ação própria */}
+>       <MultiSelectDropdown {...p} />        {/* busca/lista/seleção do DS */}
+>     </div>
+>   ),
+>   renderFilterInput: (p) => <MultiSelectFieldDropdown {...p} />,
+> });
+> ```
 >
 > Declarar `isAnyOf`/`isNoneOf` nos `operators` **não** dá posse e nunca deu: os built-ins
 > `badge` e `user` declaram o operador só pra funcionar no builder avançado. Até
