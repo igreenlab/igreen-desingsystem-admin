@@ -103,7 +103,7 @@ src/components/
 | Badge           | `shadcn/badge.tsx`           | Badge                                                                                                                                                                                                                                                                           | ✅ implementado |
 | Breadcrumb      | `shadcn/breadcrumb.tsx`      | Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis                                                                                                                                                             | ✅ implementado |
 | Calendar        | `shadcn/calendar.tsx`        | Calendar                                                                                                                                                                                                                                                                        | ✅ implementado |
-| Card            | `shadcn/card.tsx`            | Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent                                                                                                                                                                                                           | ✅ implementado |
+| Card            | `shadcn/card.tsx`            | Card, CardHeader, CardFooter, CardTitle, CardDescription, CardAction, CardContent                                                                                                                                                                                               | ✅ implementado |
 | Checkbox        | `shadcn/checkbox.tsx`        | Checkbox                                                                                                                                                                                                                                                                        | ✅ implementado |
 | Collapsible     | `shadcn/collapsible.tsx`     | Collapsible, CollapsibleTrigger, CollapsibleContent                                                                                                                                                                                                                             | ✅ implementado |
 | Command         | `shadcn/command.tsx`         | Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator                                                                                                                                                   | ✅ implementado |
@@ -352,7 +352,7 @@ HTML textarea nativo
 ### Card (shadcn/)
 
 ```
-Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent
+Card, CardHeader, CardFooter, CardTitle, CardDescription, CardAction, CardContent
 ```
 
 - Fonte de verdade: `src/components/shadcn/card.tsx`

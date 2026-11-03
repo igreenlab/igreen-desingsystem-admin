@@ -216,7 +216,13 @@ const CardHeader = React.forwardRef<
         //
         // ⚠️ Divergência DELIBERADA do shadcn upstream, que usa 6px: ao re-sincronizar
         // este primitivo, não reverter (mesma classe de cuidado da L-040).
-        "grid auto-rows-min items-start gap-gp-2xs",
+        //
+        // `has-data-[slot=card-action]:grid-cols-[1fr_auto]` é o que faz o `CardAction`
+        // funcionar: reserva uma 2ª coluna (`auto`) SÓ quando há uma ação dentro — é CSS,
+        // então o header sem ação segue sendo o grid de uma coluna que sempre foi. Se a
+        // coluna fosse incondicional, todo header ganharia uma trilha vazia; e sem ela as
+        // duas colunas implícitas dividiriam a sobra igualmente e a ação ficaria larga.
+        "grid auto-rows-min items-start gap-gp-2xs has-data-[slot=card-action]:grid-cols-[1fr_auto]",
         variant === "banded"
           ? cn(
               // Faixa: padding nos 4 lados (o `px` sozinho deixaria o texto colado no
@@ -287,6 +293,38 @@ const CardDescription = React.forwardRef<
 ))
 CardDescription.displayName = "CardDescription"
 
+/**
+ * Slot de ação do header — botão, menu, badge — ancorado no canto superior direito,
+ * ocupando a altura de título + descrição. É a parte do shadcn oficial que este
+ * primitivo nunca tinha adaptado; sem ela o consumidor reposicionava na unha.
+ *
+ * Tem que ser **filho direto** do `CardHeader`: o posicionamento (`col-start-2`,
+ * `row-span-2`) é de grid, e quem reserva a 2ª coluna é o `has-data-[slot=card-action]`
+ * do header — por isso o `data-slot` abaixo é contrato, não enfeite.
+ *
+ * Alternativa à receita `className="flex …"` no header (a que o gotcha do `variant="banded"`
+ * documenta); os dois funcionam, mas não os misture: com `flex` no header o grid some e
+ * as classes de coluna deste slot deixam de valer.
+ *
+ * Dentro de um Card clicável (`onClick`/`href`) o alvo esticado cobre o slot como cobre
+ * qualquer controle do card — a ação precisa de `relative z-10`.
+ */
+const CardAction = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="card-action"
+    className={cn(
+      "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+      className
+    )}
+    {...props}
+  />
+))
+CardAction.displayName = "CardAction"
+
 /* ── CardContent · CardFooter ────────────────────────────────────────────── */
 
 const CardContent = React.forwardRef<
@@ -313,5 +351,5 @@ const CardFooter = React.forwardRef<
 })
 CardFooter.displayName = "CardFooter"
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardAction, CardContent }
 export type { CardSize, CardHeaderVariant }
