@@ -44,6 +44,11 @@ export interface UseColumnAutoWidthOptions {
    * (destacado) e o autoFit reaplicaria larguras stale ao voltar pra Tabela.
    */
   recalcKey?: string | number;
+  /**
+   * O header mostra o ícone do tipo? Default `true`. Repassado ao cálculo pra tirar do
+   * piso do título a largura do ícone quando `showTypeIcons={false}`.
+   */
+  showTypeIcons?: boolean;
 }
 
 export interface UseColumnAutoWidthResult {
@@ -65,7 +70,13 @@ export function useColumnAutoWidth<T>(
   rows: T[],
   options: UseColumnAutoWidthOptions,
 ): UseColumnAutoWidthResult {
-  const { enabled, sampleSize, reservedWidth = 0, recalcKey } = options;
+  const {
+    enabled,
+    sampleSize,
+    reservedWidth = 0,
+    recalcKey,
+    showTypeIcons = true,
+  } = options;
 
   const [autoWidths, setAutoWidths] = useState<Record<string, number>>({});
   const rafIdRef = useRef<number | null>(null);
@@ -95,6 +106,7 @@ export function useColumnAutoWidth<T>(
         containerWidth: effectiveWidth,
         autoFit: enabled,
         sampleSize,
+        showTypeIcons,
       };
       const next = calculateColumnWidths(
         columnsRef.current,
@@ -159,6 +171,8 @@ export function useColumnAutoWidth<T>(
     containerRef,
     sampleSize,
     reservedWidth,
+    // Ligar/desligar o ícone do tipo muda o piso de TODA coluna com ícone.
+    showTypeIcons,
     // Re-attach quando o elemento observado desmonta/remonta sem trocar a ref
     // (toggle de view Tabela↔Lista). Sem isso o observer fica no node antigo.
     recalcKey,

@@ -111,6 +111,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |
 | **Copy célula**                 | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback "Copiado!" (~2s)                                                                                                                                                                                                                                                             |
 | **Grab-to-scroll horizontal**   | **nativo (default `true`)** — arrastar o corpo (mouse/pen) rola lateralmente; `grabToScroll={false}` desliga                                                                                                                                                                                                                                                          |
+| **Ações do cabeçalho (funil, menu, ícone)** | Cada uma tem o seu interruptor: **`enableHeaderFilter: false`** na coluna esconde SÓ o funil (o menu e o filtro em si seguem) · `enableColumnMenu: false` esconde o menu INTEIRO — Fixar e Ocultar vão junto, então **não use pra tirar só o funil** · **`showTypeIcons={false}`** (prop raiz) desliga o ícone do tipo. "Ordenar" só aparece no menu de coluna ordenável. Detalhe em §Cabeçalho |
 | **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |
 | **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |
 | **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |
@@ -845,7 +846,7 @@ Auto-distribui as colunas para ocupar todo o container, em 3 camadas:
 2. **Smart Content Sampling** — mede o texto do header + primeiras 20 rows via canvas (`measureText`) e ajusta width pra caber o conteúdo. Respeita `col.minWidth` e `col.maxWidth`.
 3. **Flex Distribution (proporcional)** — sobrando espaço no container, distribui **proporcionalmente** entre as colunas (peso = largura-base de cada uma), como uma tabela flex faz naturalmente. Colunas pequenas crescem pouco, largas crescem mais — sem "coluna gigante" puxando 100% do espaço. Funciona pra qualquer nº de colunas.
 
-**Header nunca trunca (`...`):** toda coluna tem como piso a largura necessária pra mostrar o `headerName` inteiro (texto + ícone de tipo + reserva de sort/menu). Isso vale **inclusive** pra colunas com `width` explícito menor que o header — a width do consumer não pode esconder o título (só `maxWidth` menor que o header trunca, e aí é decisão explícita do consumer).
+**Header nunca trunca (`...`):** toda coluna tem como piso a largura necessária pra mostrar o `headerName` inteiro (texto + ícone de tipo + reserva de sort/menu). Isso vale **inclusive** pra colunas com `width` explícito menor que o header — a width do consumer não pode esconder o título (só `maxWidth` menor que o header trunca, e aí é decisão explícita do consumer). O piso também conta as **ações visíveis** do cabeçalho (sort + funil + menu, até 84px) — ver §Cabeçalho.
 
 **`col.width` é base, não trava fixa (v0.22.0+):** colunas com `width` explícito entram na distribuição proporcional usando a width como piso (crescem pra preencher, nunca encolhem abaixo dela). Antes a width era 100% fixa, o que jogava todo o espaço sobrando na única coluna sem width (virava "coluna gigante"). Pra travar uma coluna de fato, use `width` + `maxWidth` iguais (ou um `type` fixo como `actions`/`checkbox`, que ficam fora do flex). Se **todas** as colunas têm `width` explícito, o layout fixo do consumer é respeitado e o espaço sobrando fica vazio à direita.
 
@@ -875,6 +876,28 @@ const cols = [
 > Nota: o melhor padrão é **não** setar `width` nas colunas de dados e deixar o autoFit
 > distribuir (as skills `crud-builder`/`list-builder` geram assim). Setar `width` em
 > todas as colunas trava o layout e deixa espaço vazio à direita.
+
+### Cabeçalho — funil, menu e ícone do tipo
+
+O cabeçalho de cada coluna mostra até três coisas, e cada uma tem o seu interruptor. **Todos nascem ligados** — sem nenhuma das props abaixo, o cabeçalho é o de sempre.
+
+| O quê                                      | Aparece em                                      | Como desligar                                    | O que NÃO leva junto                                                       |
+| ------------------------------------------ | ----------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------- |
+| Funil (atalho do chip de filtro)           | coluna com `enableColumnFilter: true`          | `enableHeaderFilter: false` na coluna            | o menu da coluna **e** o filtro (chips, painel "Filtros", `filterModel`)   |
+| Menu 3-pontos (Ordenar, Fixar, Ocultar…)   | toda coluna, exceto `type: "actions"`           | `enableColumnMenu: false` na coluna              | — leva o menu **inteiro**: Fixar e Ocultar vão junto                       |
+| Ícone do tipo (Hash, User, AtSign…)        | coluna com `type` registrado ou `icon`          | `showTypeIcons={false}` (prop raiz, tabela toda) | — desliga também o `icon` explícito da coluna e os 21px que ele reservava  |
+
+```tsx
+// Tirar SÓ o funil: o menu (Fixar/Ocultar) e o chip de filtro continuam.
+{ field: "status", headerName: "Status", enableColumnFilter: true, enableHeaderFilter: false }
+
+// Cabeçalho denso, sem o ícone do tipo em nenhuma coluna:
+<DataTable rows={rows} columns={cols} showTypeIcons={false} />
+```
+
+- **Pra esconder só o funil, use `enableHeaderFilter: false` — não `enableColumnMenu: false`.** O segundo tira o menu inteiro — é o contorno que parece óbvio e custa Fixar e Ocultar.
+- **"Ordenar crescente/decrescente" só aparece no menu de coluna ordenável** — `sortable !== false`, já resolvido com o default do tipo (`phone` e `tags` não são ordenáveis por padrão, então o menu delas não oferece). Se uma coluna não ordenável estiver ordenada (por um `sortModel` controlado), "Limpar ordenação" continua no menu: é a saída desse estado.
+- **Coluna estreita:** o piso de largura do cabeçalho é o **maior** entre o título e o conjunto de ações visíveis (ícone de sort + funil + menu: até 84px). `width: 64` com funil e menu rende 84px, não 64: sem esse piso o conjunto transbordaria da célula. É um `max`, não uma soma: coluna de título normal não muda de largura. Pra uma coluna mais estreita, desligue ações (`enableHeaderFilter: false`, `enableColumnMenu: false`, `sortable: false`); `maxWidth` menor que o piso continua mandando, como no título.
 
 ### `grabToScroll?: boolean` (**nativo — default `true`**)
 

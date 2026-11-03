@@ -1255,7 +1255,7 @@ function DataTableInternal<T>(
                   // do DataTable a cada mousemove, que parecia "atualizando").
                   onResizeEnd={(w) => cols.handleResize(field, w)}
                   icon={
-                    isActions
+                    isActions || props.showTypeIcons === false
                       ? undefined
                       : (col.icon ??
                         (col.type
@@ -1266,8 +1266,10 @@ function DataTableInternal<T>(
                     !isActions ? (
                       <>
                         {/* Filter shortcut — abre popover do chip da coluna pra digitar valor.
-                        Se ja existe filtro, reabre. Visivel apenas em colunas enableColumnFilter. */}
-                        {col.enableColumnFilter && (
+                        Se ja existe filtro, reabre. Visivel apenas em colunas enableColumnFilter,
+                        e `enableHeaderFilter: false` esconde SO este botao (o menu e o filtro
+                        em si continuam). */}
+                        {col.enableColumnFilter && col.enableHeaderFilter !== false && (
                           <Button
                             size="icon-2xs"
                             variant="ghost"
@@ -1287,6 +1289,7 @@ function DataTableInternal<T>(
                         {col.enableColumnMenu !== false && (
                           <DataTableColumnMenu
                             columnName={col.headerName}
+                            sortable={col.sortable !== false}
                             sortDirection={
                               sort.sortModels.find((s) => s.field === field)
                                 ?.direction ?? null

@@ -13,6 +13,7 @@ import {
 import { Avatar } from "@/components/ui/avatar-ig";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
+import { Switch } from "@/components/shadcn/switch";
 import {
   CLIENTS_MOCK,
   STATUSES,
@@ -39,6 +40,7 @@ const TOC = [
   { id: "server-mode", label: "Server mode" },
   { id: "features", label: "Features built-in" },
   { id: "custom-filter", label: "Widget de filtro próprio" },
+  { id: "header-actions", label: "Ações do cabeçalho" },
   { id: "api", label: "API Reference" },
   { id: "troubleshooting", label: "Troubleshooting" },
 ];
@@ -92,6 +94,10 @@ const DEMO_ROWS: ClientRow[] = CLIENTS_MOCK.slice(0, 8);
 /* ── Capabilities matrix ──────────────────────────────────────── */
 
 const CAPABILITIES: Array<{ name: string; how: string }> = [
+  {
+    name: "Ações do cabeçalho (funil, menu, ícone)",
+    how: 'enableHeaderFilter: false na coluna esconde SÓ o funil (menu e filtro seguem) · enableColumnMenu: false esconde o menu INTEIRO, com Fixar e Ocultar — não use pra tirar só o funil · showTypeIcons={false} (prop raiz) desliga o ícone do tipo. "Ordenar" só aparece no menu de coluna ordenável. Ver "Ações do cabeçalho".',
+  },
   {
     name: "Sort multi-coluna",
     how: "sortable: true por coluna; toolbar mostra SortPopover quando há ≥ 1 sortable",
@@ -219,6 +225,11 @@ const CORE_PROPS = [
     type: "boolean — NATIVO: arrastar o corpo (mouse/pen) rola lateralmente após ~6px de threshold; pulado em touch. Passe false pra desabilitar",
     defaultVal: "true",
   },
+  {
+    name: "showTypeIcons",
+    type: "boolean — mostra o ícone do tipo no cabeçalho (o do tipo registrado OU o `icon` da coluna). false desliga os dois e os 21px que reservavam no autoFit",
+    defaultVal: "true",
+  },
 ];
 
 const TOOLBAR_PROPS = [
@@ -278,10 +289,24 @@ const COLUMN_DEF_PROPS = [
     type: "'left' | 'center' | 'right'",
     defaultVal: "auto (deriva de type)",
   },
-  { name: "sortable", type: "boolean", defaultVal: "true" },
+  {
+    name: "sortable",
+    type: "boolean — false tira o ordenar do header E o 'Ordenar crescente/decrescente' do menu da coluna",
+    defaultVal: "true",
+  },
   { name: "hideable", type: "boolean", defaultVal: "true" },
   { name: "resizable", type: "boolean", defaultVal: "true" },
   { name: "enableColumnFilter", type: "boolean", defaultVal: "false" },
+  {
+    name: "enableHeaderFilter",
+    type: "boolean — false esconde SÓ o funil do cabeçalho; o menu da coluna e o filtro (chips, painel, filterModel) continuam. Só vale com enableColumnFilter",
+    defaultVal: "true",
+  },
+  {
+    name: "enableColumnMenu",
+    type: "boolean — false esconde o menu 3-pontos INTEIRO (Ordenar, Fixar, Ocultar, extras). Pra tirar só o funil, use enableHeaderFilter",
+    defaultVal: "true",
+  },
   {
     name: "filterType",
     type: "'text'|'select'|'multiSelect'|'date'|'boolean'|'number'",
@@ -494,6 +519,9 @@ export function DataTableDoc() {
     ],
   });
 
+  // Interruptor do exemplo "Ações do cabeçalho" — liga/desliga `showTypeIcons` ao vivo.
+  const [iconesDoTipo, setIconesDoTipo] = useState(true);
+
   const basicColumns = useMemo<DataTableColumnDef<ClientRow>[]>(
     () => [
       { field: "id", headerName: "ID", type: "text", width: 110 },
@@ -536,6 +564,36 @@ export function DataTableDoc() {
           label: s.label,
         })),
       },
+      { field: "value", headerName: "Valor", type: "currency" },
+    ],
+    [],
+  );
+
+  const cabecalhoColumns = useMemo<DataTableColumnDef<ClientRow>[]>(
+    () => [
+      // Tem tudo: funil + menu (Ordenar, Fixar, Ocultar).
+      {
+        field: "name",
+        headerName: "Nome",
+        type: "user",
+        enableColumnFilter: true,
+        filterType: "text",
+      },
+      // SÓ o funil some — o menu e o chip de filtro continuam.
+      {
+        field: "statusId",
+        headerName: "Status",
+        type: "status",
+        enableColumnFilter: true,
+        enableHeaderFilter: false,
+        filterType: "multiSelect",
+        filterOptions: Object.entries(STATUSES).map(([v, s]) => ({
+          value: v,
+          label: s.label,
+        })),
+      },
+      // Não ordenável: o menu não oferece "Ordenar".
+      { field: "email", headerName: "E-mail", type: "email", sortable: false },
       { field: "value", headerName: "Valor", type: "currency" },
     ],
     [],
@@ -947,6 +1005,64 @@ export function DataTableDoc() {
         </div>
       </ExampleSection>
 
+      <SectionH2 id="header-actions" title="Ações do cabeçalho" />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        O cabeçalho de cada coluna mostra o <strong>ícone do tipo</strong> e, no
+        hover, o <strong>funil</strong> (atalho do chip de filtro) e o{" "}
+        <strong>menu</strong> de 3 pontos (Ordenar, Fixar, Ocultar). Cada um
+        tem o seu interruptor e todos nascem ligados — sem nenhuma prop, o
+        cabeçalho é o de sempre.
+      </p>
+
+      <ul className="list-disc pl-pad-4xl mb-gp-2xl max-w-[760px] flex flex-col gap-gp-xs text-body-md text-fg-muted">
+        <li>
+          <strong>Só o funil?</strong> <code>enableHeaderFilter: false</code> na
+          coluna. O menu e o filtro (chips, painel “Filtros”) continuam.{" "}
+          <code>enableColumnMenu: false</code> não serve: leva o menu inteiro,
+          com Fixar e Ocultar.
+        </li>
+        <li>
+          <strong>“Ordenar” só em coluna ordenável.</strong> O menu segue o{" "}
+          <code>sortable</code> da coluna, já resolvido com o default do tipo.
+          Se uma coluna não ordenável estiver ordenada por um{" "}
+          <code>sortModel</code> controlado, “Limpar ordenação” continua lá —
+          é a saída desse estado.
+        </li>
+        <li>
+          <strong>Coluna estreita.</strong> O piso de largura do cabeçalho conta
+          as ações visíveis (sort + funil + menu, até 84px):{" "}
+          <code>width: 64</code> com funil e menu rende 84px, em vez de o
+          conjunto transbordar da célula. É um <code>max</code> com o piso do
+          título, não uma soma — coluna de título normal não muda.
+        </li>
+      </ul>
+
+      <ExampleSection
+        id="ex-header-actions"
+        title="Funil, menu e ícone do tipo"
+        description="Passe o mouse no cabeçalho. Nome tem tudo. Status esconde só o funil (enableHeaderFilter: false): o chip dele segue na barra e o menu continua. E-mail não é ordenável — abra o menu dele e repare que não há Ordenar. O interruptor liga e desliga o ícone do tipo em todas as colunas."
+        code={CODE_HEADER_ACTIONS}
+      >
+        <div className="flex flex-col gap-gp-lg w-full">
+          <label className="inline-flex items-center gap-gp-md self-start text-body-md text-fg-default">
+            <Switch checked={iconesDoTipo} onCheckedChange={setIconesDoTipo} />
+            showTypeIcons
+          </label>
+          <div className="h-[360px] w-full flex">
+            <DataTable<ClientRow>
+              rows={DEMO_ROWS}
+              columns={cabecalhoColumns}
+              getRowId={(r) => r.id}
+              showTypeIcons={iconesDoTipo}
+              showEmptyFilterChips={["statusId"]}
+              toolbar={{ title: "Clientes" }}
+              className="max-h-full"
+            />
+          </div>
+        </div>
+      </ExampleSection>
+
       <SectionH2 id="api" title="API Reference" />
 
       <div className="mb-gp-4xl">
@@ -1100,6 +1216,32 @@ columnTypeRegistry.register({
 { field: "statusId", headerName: "Status", type: "status",
   enableColumnFilter: true, filterType: "meuMulti",
   filterOptions: STATUS_OPTIONS }`;
+
+const CODE_HEADER_ACTIONS = `const columns: DataTableColumnDef<ClientRow>[] = [
+  // Tem tudo: funil + menu (Ordenar, Fixar, Ocultar)
+  { field: "name", headerName: "Nome", type: "user",
+    enableColumnFilter: true, filterType: "text" },
+
+  // SÓ o funil some — o menu e o chip de filtro continuam
+  { field: "statusId", headerName: "Status", type: "status",
+    enableColumnFilter: true, enableHeaderFilter: false,
+    filterType: "multiSelect", filterOptions: STATUS_OPTIONS },
+
+  // Não ordenável: o menu não oferece Ordenar crescente/decrescente
+  { field: "email", headerName: "E-mail", type: "email", sortable: false },
+
+  { field: "value", headerName: "Valor", type: "currency" },
+];
+
+<DataTable<ClientRow>
+  rows={rows}
+  columns={columns}
+  showTypeIcons={false}                // sem o ícone do tipo em nenhuma coluna
+  showEmptyFilterChips={["statusId"]}  // o chip de Status visível desde o load
+/>
+
+// ⚠️ enableColumnMenu: false tira o menu INTEIRO (Fixar e Ocultar vão junto).
+// Pra esconder só o funil, é enableHeaderFilter: false.`;
 
 const CODE_KANBAN = `import { DataTable, type DataTableViewMode, type DataTableKanbanConfig } from "@/components/ui/DataTable";
 
