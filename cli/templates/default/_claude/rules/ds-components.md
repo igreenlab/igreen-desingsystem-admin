@@ -176,7 +176,33 @@ Com `countLabel`, `clearLabel`, `totalSelected` (contagem entre páginas, vinda 
 clique-substitui, o que for) — em vez de pedir cada comportamento ao DS. O
 `renderFastFilterInput` precisa ler `value` como **array** e chamar `onChange` com array;
 se o seu widget for de valor único, **não** declare o flag. Blocos públicos pra embrulhar:
-`MultiSelectDropdown`, `FastSingleSelectList`, `FILTER_FIELD_CLASS`.
+`MultiSelectDropdown`, `MultiSelectFieldDropdown`, `FastSingleSelectList`,
+`FILTER_FIELD_CLASS`.
+
+⚠️ **O ownsMulti só funcionou de verdade a partir da `vNEXT`.** Antes ele desligava o
+modo multi por dentro e entregava ao seu widget **o primeiro valor**, não a lista: num
+grupo de três opções o widget abria mostrando só a primeira, desmarcá-la limpava o grupo
+inteiro, e marcar uma quarta apagava as outras duas. Se você tentou widget próprio antes
+e desistiu, era isto — não o seu código.
+
+### Ações do cabeçalho da coluna (DS `vNEXT`+)
+
+Três controles moram no cabeçalho — o ícone do **tipo**, o **funil** e o **menu
+3-pontos**. Desligam separadamente, e confundir os dois últimos é o erro comum:
+
+| quero | uso |
+|---|---|
+| esconder **só o funil**, mantendo Fixar e Ocultar | ****enableHeaderFilter: false**** na coluna |
+| esconder o **menu inteiro** (Fixar, Ocultar, Ordenar, extras) | ****enableColumnMenu: false**** na coluna |
+| tirar o **ícone do tipo** de TODAS as colunas | ****showTypeIcons: false**** no DataTable (prop raiz) |
+
+⛔ **Não use ****enableColumnMenu: false**** pra tirar o funil** — leva Fixar e Ocultar
+junto. Era o único contorno possível antes da `vNEXT`, e é por isso que ele aparece em
+código antigo.
+
+**"Ordenar" só aparece em coluna ordenável** — e a ordenabilidade pode vir do **tipo**,
+não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
+sem nada declarado é ordenável.
 
 ## Layout e chrome do app
 
