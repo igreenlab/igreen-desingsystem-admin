@@ -46,9 +46,18 @@ Valem para **toda** tarefa. Não repetidas nos passos.
 Nenhuma rodada fecha sem isto. Não é a review de tarefa (que é por diff); é a varredura das
 **superfícies** que só se enxergam com a rodada inteira na mão.
 
-A L-042 lista 8 superfícies. **1 a 4 e 8 entram no PR da rodada; 5, 6 e 7 consolidam no
+A L-042 lista 8 superfícies. **1 a 4, 6 e 8 entram no PR da rodada; 5 e 7 consolidam no
 `/ds-release`.** Confundir as duas metades foi o que deixou a v0.70.0 com a API das raias
 documentada em lugar nenhum.
+
+> ⚠️ **A superfície 6 mudou de lado em 2026-11-03, por decisão do mantenedor.** A L-042 a
+> coloca no release, junto da 5 e da 7, porque ela só **chega** em quem instala com o bump
+> do CLI. Mas escrever o texto e publicá-lo são coisas diferentes: adiar o texto até o
+> release concentra num só momento a redação de tudo que N rodadas produziram, sem o
+> contexto fresco de cada uma. Medido ao fechar a Rodada 2: o payload tinha **0 menções** a
+> `enableHeaderFilter`, `showTypeIcons`, `enableColumnMenu` e `MultiSelectFieldDropdown`, e
+> a única menção a `valueFormatter` estava desatualizada. O **texto** passa a entrar no PR;
+> só o **bump do CLI** fica no release.
 
 ### No PR da rodada
 
@@ -66,11 +75,23 @@ documentada em lugar nenhum.
       exemplo é prop que o consumidor não descobre
 - [ ] **`inventory.md`** — a entrada do componente descreve a capacidade nova
 - [ ] **Barrel** (`src/components/index.ts`) se houve export novo — gate `barrel-completeness`
+- [ ] **Payload do consumidor** (`cli/templates/default/_claude/`) — o TEXTO, não o bump.
+      Prop ou export novo entra em `rules/ds-components.md`; regra que muda como a IA do
+      consumidor compõe entra na skill que a ensina (`skills/crud-builder/generate.md` e
+      irmãs). ⚠️ Duas armadilhas medidas: **(a)** prop vai em `****negrito****`, NUNCA em
+      crase — o gate `vocab-surface` lê todo termo em crase como nome de componente e
+      reprova prop como "componente inexistente"; **(b)** versão se cita como `vNEXT`, que
+      o `version-claims-check` reprova no `release:check` — assim o placeholder morre no
+      `/ds-release` por construção, em vez de virar número errado.
+- [ ] **Doc que ficou obsoleta** — ao mudar comportamento, procure o texto que descrevia o
+      antigo. Parágrafo que ainda afirma o anterior é pior que ausência: quem lê para de
+      investigar (L-060). Foi assim que o `valueFormatter` ficou documentado como coisa de
+      data depois de passar a valer para `number` e `currency`.
 
 ### Anotado para o `/ds-release`, não feito no PR
 
 - [ ] `registry.json` + embed (`registry:build` + `copy-registry`)
-- [ ] **Vocabulário do consumidor** (`cli/templates/.../ds-components.md`) + bump do CLI
+- [ ] **Bump do CLI** — é o que faz o payload já escrito CHEGAR em quem instala (L-018)
 - [ ] Entrada do changelog, com ⚠️ em cada mudança observável
 
 ### Por que o ritual existe
