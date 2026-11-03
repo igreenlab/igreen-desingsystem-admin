@@ -179,6 +179,9 @@ se o seu widget for de valor único, **não** declare o flag. Blocos públicos p
 `MultiSelectDropdown`, `MultiSelectFieldDropdown`, `FastSingleSelectList`,
 `FILTER_FIELD_CLASS`.
 
+✅ **Vale nos DOIS** — chip do `DataTable` e chip do `DataList` — porque o registry é o
+mesmo. No `DataList` o campo declara o id do seu tipo em `filterFields[].type`.
+
 ⚠️ **O ownsMulti só funcionou de verdade a partir da `vNEXT`.** Antes ele desligava o
 modo multi por dentro e entregava ao seu widget **o primeiro valor**, não a lista: num
 grupo de três opções o widget abria mostrando só a primeira, desmarcá-la limpava o grupo

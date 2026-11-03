@@ -108,7 +108,12 @@ export function defaultOperatorForFilterType(
  *    promoção, e tratá-lo como dono só criaria um ramo equivalente mais caro.
  * 3. **`typeDef.type === filterType`** — o registry devolve `text` pra tipo desconhecido,
  *    então sem essa comparação um TYPO no `filterType` herdaria o `ownsMulti` de quem o
- *    registry devolveu por fallback.
+ *    registry devolveu por fallback. ⚠️ Hoje isso só MORDE se o próprio tipo de fallback
+ *    declarar o flag — o `text` de fábrica não declara, e por isso a guarda 2ª metade
+ *    bastava sozinha e a nº 3 ficou sem teste que a matasse até 2026-11-03. É
+ *    defesa-em-profundidade real, não teatro: `register()` sobrescreve built-in com
+ *    `console.warn`, não com throw, então um consumidor PODE re-registrar `text`. O caso
+ *    está construído em `filter-ops-owns-multi.test.ts` — mutação na guarda reprova 1.
  *
  * ⚠️ A posse é DECLARADA, nunca deduzida da lista de operadores. A versão anterior inferia
  * posse de "declara isAnyOf/isNoneOf", e isso pegava `badge` e `user`: os dois declaram o
