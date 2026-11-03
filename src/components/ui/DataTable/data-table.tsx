@@ -90,7 +90,7 @@ import {
   MIN_REFRESH_SPINNER_MS,
   DENSITY_ROW_HEIGHT,
 } from "./data-table.constants";
-import { defaultOperatorForFilterType } from "./utils/filter-ops";
+import { defaultOperatorForFilterType, typeOwnsMulti } from "./utils/filter-ops";
 import { DataTableProvider } from "./context/data-table-context";
 import { useDataTableController } from "./hooks/use-data-table-controller";
 import { useGrabToScroll } from "./hooks/use-grab-to-scroll";
@@ -2045,24 +2045,11 @@ function DataTableInternal<T>(
                * multi inteiro pelo dele (colar lista, clique-substitui...) via
                * registry, em vez de cada comportamento virar PR no DS.
                *
-               * ⚠️ A posse é DECLARADA, não deduzida da lista de operadores. A versão
-               * anterior inferia posse de "declara isAnyOf/isNoneOf", e isso pegava
-               * `badge` e `user`: os dois declaram o operador pra funcionar no builder
-               * avançado, mas o widget de chip deles é um `<Select>` ÚNICO que chama
-               * `onChange` com string. O resultado era escolha única sobre campo de
-               * array — escolher um valor substituía a lista inteira.
-               *
-               * O `typeDef.type === col.filterType` continua: o registry devolve `text`
-               * pra tipo desconhecido, e sem isso um typo no `filterType` herdaria o
-               * `ownsMulti` de quem o registry devolveu. */
-              const typeDef = col?.filterType
-                ? columnTypeRegistry.get(col.filterType)
-                : null;
-              const customOwnsMulti =
-                !!typeDef &&
-                col?.filterType !== "multiSelect" &&
-                typeDef.type === col?.filterType &&
-                typeDef.ownsMulti === true;
+               * A regra (posse declarada, nunca deduzida dos operadores) e as três
+               * guardas moram em `typeOwnsMulti` — fonte única com o chip do
+               * `DataList`, que renderiza o MESMO drawer compartilhado e precisa
+               * resolver o widget do mesmo jeito. */
+              const customOwnsMulti = typeOwnsMulti(col?.filterType);
               const useMulti =
                 !isTupleOperator &&
                 !customOwnsMulti &&

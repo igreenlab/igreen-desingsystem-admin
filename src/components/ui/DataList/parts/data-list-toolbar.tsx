@@ -28,6 +28,7 @@ import {
 } from "@/components/shadcn/popover";
 import { columnTypeRegistry } from "@/components/ui/DataTable/column-types";
 import type { ColumnOption } from "@/components/ui/DataTable/column-types";
+import { typeOwnsMulti } from "@/components/ui/DataTable/utils/filter-ops";
 import type {
   FilterModel,
   FilterValue,
@@ -208,7 +209,24 @@ export function DataListToolbar({
 
     const isMulti = operator === "isAnyOf" || operator === "isNoneOf";
     const isTuple = operator === "between";
-    const regType = isMulti ? "multiSelect" : fieldDef.type;
+    /* Tipo custom que DECLARA `ownsMulti` é dono do chip multi: a promoção pro
+     * `multiSelect` built-in não o sequestra, e o widget recebe o valor como ARRAY
+     * sempre (o contrato do flag é "lê e escreve lista", sem exceção por tamanho nem
+     * por operador).
+     *
+     * ⚠️ Mesmíssima resolução do chip do `DataTable` — ambos chamam `typeOwnsMulti`.
+     * Até 2026-11-03 esta linha era `isMulti ? "multiSelect" : fieldDef.type`, que
+     * ignorava o flag; como o `DataListToolbar` renderiza TAMBÉM o
+     * `ToolbarSimpleFilterDrawer` (que sempre respeitou o tipo), abrir o funil
+     * entregava o widget do consumidor e clicar no chip que ele acabou de gerar
+     * entregava o built-in — dois widgets a um clique de distância, no mesmo
+     * componente. Não volte a decidir isso aqui dentro.
+     *
+     * ⚠️ `FilterableField` não tem `filterType`: o tipo mora só em `type`, e é a MESMA
+     * chave que o `toColumns` manda pro drawer como `filterType`. Por isso os dois lados
+     * convergem lendo `fieldDef.type`. */
+    const ownsMulti = typeOwnsMulti(fieldDef.type);
+    const regType = isMulti && !ownsMulti ? "multiSelect" : fieldDef.type;
     const def = columnTypeRegistry.get(regType);
 
     const groupItems = filterModel.items.filter(
@@ -216,7 +234,7 @@ export function DataListToolbar({
     );
     const currentValue: FilterValue = isTuple
       ? (groupItems[0]?.value as FilterValue)
-      : isMulti
+      : isMulti || ownsMulti
         ? (groupItems.flatMap((i) =>
             Array.isArray(i.value)
               ? (i.value as unknown[])

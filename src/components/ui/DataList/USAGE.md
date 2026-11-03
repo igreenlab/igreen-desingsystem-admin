@@ -96,6 +96,13 @@ valor inline — mesma UX do DataTable (sem precisar reabrir o drawer).
   (debounce no search) e renderiza o que vier em `items` (use `loading`/`total`).
 - **Filtros por campos** (não colunas): o consumer declara `filterFields`. Busca textual
   cobre title/subtitle/description + accessors dos campos.
+- **Tipo de coluna CUSTOM no filtro:** o `type` do `filterFields` é o id do
+  `columnTypeRegistry`, e é a MESMA chave que alimenta o funil e o chip — tipo com
+  `ownsMulti: true` fica com o widget próprio nos dois, recebendo `value` como **array
+  sempre**. Até 2026-11-03 o chip forçava o `multiSelect` built-in em operador multi:
+  abrir o funil entregava um widget e clicar no chip que ele gerou entregava outro.
+  ⚠️ `FilterFieldType` ainda é a união fechada `text|select|boolean|number|date`, então um
+  id custom exige cast no `type` — o runtime aceita, o TS não.
 - **Infinite scroll** (`onLoadMore`/`hasMore`/`loadingMore`): o consumer controla os `items`
   (append da próxima página) — o DataList só dispara `onLoadMore` quando o sentinel entra na
   viewport (rootMargin 200px) e mostra skeletons enquanto `loadingMore`. Incompatível com
