@@ -19,8 +19,10 @@ import { DatePicker } from "./datepicker";
  * O preço era depender do calendário real, e ele cobrou em 2026-11: a grade de
  * novembro/2026 termina com 1–5 de dezembro como dias de fora, então passaram a
  * existir DOIS gridcell com o texto "5" e a busca por texto quebrou com "Found
- * multiple elements" — reprovando `npm test`, e com ele o `release:check`, em toda
- * release do mês. Não era defeito do componente nem azar raro: medido de 2024 a
+ * multiple elements" — reprovando `npm test` e, com ele, a CI (`ci.yml`) e o
+ * `npm run pronto`, o mês inteiro. (O `release:check` sozinho NÃO roda teste: são os
+ * 7 gates de distribuição. Quem junta os dois é o `pronto`. Esta frase já afirmou o
+ * contrário — L-060.) Não era defeito do componente nem azar raro: medido de 2024 a
  * 2034, a grade repete o "5" em 38 dos 132 meses — ~1 a cada 3,5.
  *
  * Duas mudanças fecham isso:

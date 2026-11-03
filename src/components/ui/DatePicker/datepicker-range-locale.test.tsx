@@ -27,8 +27,8 @@ import { DatePicker } from "./datepicker";
  * formato junto.
  *
  * É a mesma raiz que quebrou o `datepicker-limits.test.tsx` em novembro/2026 (dois
- * gridcell com o texto "5", "Found multiple elements", `npm test` e `release:check`
- * reprovados o mês inteiro). Aqui nunca chegou a cobrar porque 10/15/20 estão fora do
+ * gridcell com o texto "5", "Found multiple elements", `npm test` e a CI reprovados
+ * o mês inteiro). Aqui nunca chegou a cobrar porque 10/15/20 estão fora do
  * alcance dos dias de fora — que vão até ~6 no fim da grade e começam em ~23 no início.
  * Era risco latente, não defeito; fechado junto.
  *
