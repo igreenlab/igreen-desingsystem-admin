@@ -83,11 +83,18 @@ export const HEADER_STACK_INSET_PX = 12;
  * Funil e menu são vizinhos sem espaço entre si (moram no mesmo wrapper); o sort fica a
  * um `gap` deles. Coluna sem nenhuma ação não tem stack e devolve 0.
  *
- * Conta o sort como UM ícone de 12px. Coluna ordenada troca o hint pela seta do sort, que
- * tem a MESMA largura — então com um sort só o stack não muda. Só o multi-sort (2+ critérios)
- * acrescenta o badge de índice (`min-w-[18px]` + um `gap` de 4px ≈ 22px), e isso é estado de
- * runtime que o cálculo — que só vê colunas e rows — não tem: fica de fora, e a coluna
- * ordenada em multi-sort pode ter o stack ~22px mais largo que o piso.
+ * Conta o sort como UM ícone de 12px, que é a largura em REPOUSO (o hint de hover). Coluna
+ * com sort ATIVO — qualquer sort, não só multi — renderiza badge de índice + seta: medido no
+ * browser, `min-w-[18px]` + `gap-gp-xs` 4px + seta 12px = 34px, ou seja **+22px**. É estado
+ * de runtime, que este cálculo — que só vê colunas e rows — não tem: fica de fora, e a coluna
+ * ordenada pode ter o stack ~22px mais largo que o piso. Com `autoFit` a sobra absorve; só
+ * aperta na largura mínima.
+ *
+ * ⚠️ O badge em sort SIMPLES é defeito conhecido, não intenção: `data-table.tsx` devolve
+ * `sortIndex: undefined` abaixo de 2 critérios, e o `sortIndex = 1` do destructuring em
+ * `Table/table.tsx` converte esse `undefined` em `1` (default de parâmetro dispara JUSTAMENTE
+ * em `undefined`). Corrigido lá, o repouso passa a valer também para sort simples e só o
+ * multi-sort fica fora da conta.
  */
 function measureHeaderActionsWidth<T>(
   col: DataTableColumnDef<T>,

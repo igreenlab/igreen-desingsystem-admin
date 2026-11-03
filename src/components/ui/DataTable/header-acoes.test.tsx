@@ -123,7 +123,7 @@ describe("item 17 — menu da coluna só oferece ordenar em coluna ordenável", 
     // O caso que o usuário vai ver: nenhuma coluna aqui declara `sortable:false` — é o
     // default do tipo (`phone`, `tags`, `url`…) que a resolve, e isso passa pelo
     // `effectiveColumns`, não pelo que o consumidor escreveu. O controle ao lado prova que
-    // o menu abriu e que `text`, sem default de tipo, segue ordenável.
+    // o menu abriu e que `text`, cujo tipo traz `defaultSortable: true`, segue ordenável.
     montar([
       { field: "nome", headerName: "Nome", type: "text" },
       { field: "fixa", headerName: "Telefone", type: "phone" },
