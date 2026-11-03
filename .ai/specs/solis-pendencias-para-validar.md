@@ -116,6 +116,24 @@ Levantados pelo implementador da Rodada 2, documentados, **fora do escopo**:
 
 ---
 
+## 5b. O que a auditoria de compartilhados achou e NÃO corrigiu (Rodada 3)
+
+Os quatro são **pré-existentes e inalterados** — apareceram porque fomos olhar o
+`DataList`, não porque algo os criou. Todos no motor de filtro.
+
+| # | O quê | Por que ficou |
+|---|---|---|
+| **P1** | `ownsMulti` com operador **escalar** ainda grava array num item só → `matchOp("equals", val, ["a","b"])` coage para `"a,b"` e nunca casa | consertar exige decidir se grupo escalar passa a combinar por **OR**. Isso é mudança de comportamento, não correção |
+| **P2** | O `DataList` combina escalares do mesmo campo por **AND**; o `DataTable` por **OR** | dois `equals` no mesmo campo: a tabela devolve quem bate em qualquer um, a lista não devolve ninguém. Mesma família da P1 — provavelmente as duas se resolvem juntas |
+| **P3** | Desmarcar o **último** valor remove o grupo e **desmonta o chip no meio da interação**, fechando o popover | o `DataTable` se protege disso de propósito, mantendo um item vazio (`use-filter-popover-adapter.ts:419`, com comentário sobre o mesmo sintoma). O `DataList` não tem essa proteção |
+| **P4** | Todo toggle do chip regenera os UUIDs do grupo inteiro | inofensivo aqui (nada indexa `FilterItem` por id — procurado e confirmado), mas consumidor em `mode="server"` que faça diff por id verá substituição total a cada clique |
+
+> **P1 e P2 são a mesma pergunta por dois lados:** o grupo de filtros escalares do mesmo
+> campo deve ser AND ou OR? O `DataTable` já respondeu OR. Alinhar o `DataList` é a decisão
+> — e ela muda resultado de filtro em tela que hoje funciona, então é sua.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se
@@ -146,6 +164,12 @@ que viraram a seção 5 acima.
 **Correção de processo:** a regra de decisão passa a ser *nomear cada achado ao decidir sobre
 ele*, não contar quantos. Um achado que some entre a revisão e o registro é indistinguível
 de um achado que nunca existiu.
+
+> ✅ **Fechado estruturalmente em 2026-11-03**, depois de a falha acontecer uma terceira
+> vez (a review da Task 7b registrou que não achou o relatório do implementador em
+> disco — ele existia só como mensagem). Agora todo relatório de implementação e de
+> review é gravado em `.superpowers/sdd/solis-rodadas-plano/` **antes** de a etapa
+> seguinte ser despachada. As pendências da Rodada 3 acima já nasceram nomeadas.
 
 ---
 
