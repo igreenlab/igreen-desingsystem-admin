@@ -219,10 +219,17 @@ export function TableToolbarDoc() {
   // Filtro avançado (query builder dentro do settings menu)
   const filters = useToolbarFilters<ToolbarFilterEntry>({ initial: [] });
 
-  // Filtro simples (funil → drawer) — FilterModel próprio (aplicação LIVE)
+  // Filtro simples (funil → drawer) — FilterModel próprio (aplicação LIVE).
+  // Os dois items nascem com operador NÃO-default de propósito: `between` num
+  // `number` (default `equals`) e `neq` num `select` (default `equals`). É o que
+  // demonstra, à vista, que o drawer desenha e reescreve com o operador DO MODELO
+  // — a faixa aparece como DOIS campos, e mexer no valor não rebaixa o operador.
   const [simpleFilterOpen, setSimpleFilterOpen] = useState(false);
   const [filterModel, setFilterModel] = useState<FilterModel>({
-    items: [],
+    items: [
+      { id: "sf-valor", field: "value", operator: "between", value: [100, 9000] },
+      { id: "sf-status", field: "status", operator: "neq", value: "inactive" },
+    ],
     logicOperator: "AND",
   });
   const simpleActiveCount = filterModel.items.length;
@@ -254,7 +261,7 @@ export function TableToolbarDoc() {
       <ExampleSection
         id="ex-full"
         title="Busca · filtros · configurações"
-        description="Clique em Configurações (sliders) pra abrir o menu em níveis: o nível 0 lista Ordenação/Colunas/Filtros avançados + Densidade; clicar numa opção navega pro painel correspondente com botão voltar. O funil abre o drawer de filtro simples. Tudo com os controles reais (mock state)."
+        description="Clique em Configurações (sliders) pra abrir o menu em níveis: o nível 0 lista Ordenação/Colunas/Filtros avançados + Densidade; clicar numa opção navega pro painel correspondente com botão voltar. O funil abre o drawer de filtro simples — ele já entra com dois filtros de operador NÃO-default (Saldo disponível `between`, Status `neq`): repare que a faixa é desenhada com dois campos e que editar qualquer um dos dois NÃO rebaixa o operador pro default do tipo. Tudo com os controles reais (mock state)."
         code={`<TableToolbar
   viewToggle={<ToolbarSegmented items={VIEW_MODES} ... />}
   savedViews={<><ToolbarTabs ... /><ViewsPopover trigger={<ToolbarSaveButton><Plus/></ToolbarSaveButton>} ... /></>}

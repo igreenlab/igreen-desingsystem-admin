@@ -115,6 +115,11 @@ Um modelo na forma antiga **se migra sozinho** no primeiro toque do usuário no 
 valor inteiro — o motor combina escalares do mesmo campo por **AND**, então espalhar um
 `equals` em dois items faria o filtro nunca casar.
 
+**O operador que você declarar no preset sobrevive ao funil** (`vNEXT`+). Campo que já tem
+filtro é desenhado e reescrito com o operador DELE; só o campo vazio nasce com o default do
+tipo. Antes o drawer derivava o operador do tipo nos dois lados, e mexer no valor rebaixava
+um `isNoneOf` do preset pra `isAnyOf` em silêncio.
+
 ## Gotchas
 
 - **`virtualized` desliga o DnD** (mutuamente exclusivos: o `@hello-pangea/dnd` precisa

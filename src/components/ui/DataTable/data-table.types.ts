@@ -724,9 +724,12 @@ export type DataTableProps<T> = {
   /**
    *  Configuração do drawer de Filtros (funil). O botão funil da toolbar abre um
    *  drawer lateral com TODOS os filtros em lista vertical (1 linha por coluna,
-   *  widget do registry, aplicação LIVE — operator inferido do filterType). O
-   *  query builder avançado (AND/OR + operadores explícitos + SQL) vive no menu
-   *  de Configurações da toolbar.
+   *  widget do registry, aplicação LIVE). O drawer não OFERECE escolha de operador,
+   *  mas RESPEITA o que já está no `filterModel`: campo com filtro vigente é
+   *  desenhado e reescrito com o operador dele (`isNoneOf`, `between`,
+   *  `notContains`…); campo sem filtro nasce com o default do tipo. O query builder
+   *  avançado (AND/OR + operadores explícitos + SQL) vive no menu de Configurações
+   *  da toolbar.
    *
    *  Prop OPCIONAL — só pra customizar o drawer; o funil aparece sempre que
    *  `toolbar.enableFilters !== false` e há colunas filtráveis.

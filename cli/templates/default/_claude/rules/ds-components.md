@@ -145,6 +145,13 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    esse slot, só `toolbarActions`.
 3. **Muitos filtros, ou muito grandes** → drawer "Filtros" **nativo** do `data-table` + chips
    pré-aplicados. Nunca empilhar selects soltos.
+   O funil **não oferece** escolha de operador (isso é do builder avançado), mas **preserva**
+   o que você pré-aplicou: filtro que nasce `isNoneOf` ("Excluindo"), ****between**** ou
+   `notContains` continua nele depois que o usuário mexe no valor ali dentro, e aparece com o
+   widget certo (faixa com dois campos, por exemplo). Só o campo **ainda sem filtro** nasce
+   com o operador default do tipo. ⚠️ **Exige o DS `vNEXT` ou mais novo**: antes disso os dois
+   lados do drawer derivavam o operador do tipo da coluna, então editar o valor rebaixava o
+   operador sem avisar — e pré-aplicar "Excluindo" não parava de pé.
 
 > As exceções (2 e 3) são raras. Sempre que a informação já está numa coluna: **chip nativo
 > primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +

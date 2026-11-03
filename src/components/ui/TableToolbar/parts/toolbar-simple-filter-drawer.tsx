@@ -12,7 +12,7 @@ import { FormField } from "../../FormField";
 // pattern já existe em FilterPopover que importa `ColumnOption`. Coupling
 // reverso (DataTable → TableToolbar) continua proibido.
 import { columnTypeRegistry } from "../../DataTable/column-types";
-import type { ColumnOption } from "../../DataTable/column-types";
+import type { ColumnOption, ColumnTypeDefinition } from "../../DataTable/column-types";
 import type {
   FilterItem,
   FilterModel,
@@ -23,6 +23,7 @@ import {
   filterValueIsEmpty as isEmpty,
   promoteOperatorForFilterType,
   defaultOperatorForFilterType,
+  MULTI_VALUE_OPERATORS,
 } from "../../DataTable/utils/filter-ops";
 import type { FilterPopoverColumn } from "../popovers/filter-popover";
 
@@ -39,9 +40,10 @@ import type { FilterPopoverColumn } from "../popovers/filter-popover";
  *
  * Comportamento:
  *   - Cada coluna filtrável vira 1 linha (escondida se field listado em hiddenFields)
- *   - Operator é INFERIDO automaticamente do filterType (multiSelect → isAnyOf,
- *     text → contains, etc) — user não escolhe operator no drawer (pra isso,
- *     existe o query builder via chevron)
+ *   - O drawer não OFERECE escolha de operador (pra isso existe o query builder via
+ *     chevron), mas RESPEITA o que já está no modelo: field com filtro vigente é
+ *     desenhado e reescrito com o operador dele; field sem filtro nasce com o default
+ *     do tipo (multiSelect → isAnyOf, text → contains, etc). Ver `operadorDoField`
  *   - Footer: "Limpar todos" remove todos items do filterModel
  *   - Drawer é non-modal — coexiste com tabela atrás
  */
@@ -77,7 +79,66 @@ export type ToolbarSimpleFilterDrawerProps = {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
+/**
+ * Operador que o drawer usa pra um field: o que JÁ ESTÁ no modelo quando há filtro,
+ * o default do tipo quando o field ainda não tem nenhum.
+ *
+ * Até 2026-11-03 os dois lados do drawer (render e escrita) derivavam o operador do
+ * TIPO da coluna e ignoravam `items[0].operator`. Um filtro que chegou em `isNoneOf`,
+ * `notContains` ou `between` — de preset, de visão salva ou do builder avançado — era
+ * DESENHADO como se fosse o default, e mexer no valor REESCREVIA o operador pro
+ * default, em silêncio. Preservar é o default novo; criar segue igual.
+ *
+ * ⚠️ Uma guarda, com motivo medido: **o tipo tem que DECLARAR o operador**. A lista
+ * `def.operators` é a mesma que o builder avançado oferece e a única que o
+ * `renderFilterInput` daquele tipo tem branch pra tratar. Um `between` guardado num
+ * campo `text` (modelo escrito à mão, `filterType` trocado depois, ou typo que faz o
+ * registry cair no `text` por fallback) não tem widget que o edite — e escrevê-lo de
+ * volta produz um item cujo `matchesFilter` devolve `null`, ou seja, um filtro que
+ * deixa de valer sem nada na tela dizer isso. Nesse caso o default do tipo volta a
+ * mandar, que é exatamente o comportamento anterior.
+ *
+ * A guarda NÃO usa `promoteOperatorForFilterType`: a promoção só existe pro caso de
+ * NASCIMENTO (preset `{field, value}` sem operador explícito). Operador que já está no
+ * modelo é escolha registrada, não default a promover.
+ */
+function operadorDoField(
+  items: FilterItem[],
+  filterType: string | undefined,
+  def: ColumnTypeDefinition,
+): FilterOperator {
+  const vigente = items[0]?.operator;
+  if (vigente && def.operators?.some((o) => o.id === vigente)) return vigente;
+  // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForFilterType).
+  return promoteOperatorForFilterType(
+    defaultOperatorForFilterType(filterType),
+    filterType,
+  );
+}
 
+/**
+ * O drawer agrega TODOS os items do field num array único (e espalha de volta 1 item
+ * por valor) — mas só quando o widget do tipo sabe desenhar uma lista.
+ *
+ * `def.operators[0]` é a FORMA pra qual o `renderFilterInput` daquele tipo foi escrito:
+ * quando o default do tipo já é multi, o widget é list-shaped (`multiSelect`, `tags`).
+ * `badge` e `user` declaram `isAnyOf` pro builder avançado e renderizam um `<Select>`
+ * ÚNICO — é a mesma dupla que o JSDoc de `ColumnTypeDefinition.ownsMulti` nomeia.
+ * Entregar o array a eles mostraria o placeholder num campo que TEM valor.
+ *
+ * ⚠️ A guarda é só sobre a FORMA do valor. O operador segue preservado nos dois casos:
+ * um tipo de valor único em `isAnyOf` recebe o escalar, e a escrita devolve `isAnyOf`
+ * com 1 item — que é um grupo multi válido de um valor só. Tipo registrado pelo
+ * consumidor que queira a lista no drawer precisa declarar um operador multi em
+ * `operators[0]`.
+ */
+function agregaComoLista(
+  operator: FilterOperator,
+  def: ColumnTypeDefinition,
+): boolean {
+  if (!MULTI_VALUE_OPERATORS.has(operator)) return false;
+  return MULTI_VALUE_OPERATORS.has(def.operators?.[0]?.id as FilterOperator);
+}
 
 export function ToolbarSimpleFilterDrawer({
   open,
@@ -119,14 +180,16 @@ export function ToolbarSimpleFilterDrawer({
 
   /** Atualiza valor de um field — substitui items existentes pelo novo array
    *  de items (1 por valor pra multi; 1 single pros demais). Mantém posição
-   *  original dos items NO array preservando ordem de outros fields. */
-  const updateFieldValue = (field: string, newValue: unknown, filterType: string | undefined) => {
-    // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForFilterType).
-    const effectiveOperator: FilterOperator = promoteOperatorForFilterType(
-      defaultOperatorForFilterType(filterType),
-      filterType,
-    );
-
+   *  original dos items NO array preservando ordem de outros fields.
+   *
+   *  `effectiveOperator` chega RESOLVIDO do render (`operadorDoField`) — o vigente
+   *  no modelo, ou o default do tipo pro field que ainda não tem filtro. Derivá-lo
+   *  aqui de novo era metade do defeito: a edição do valor reescrevia o operador. */
+  const updateFieldValue = (
+    field: string,
+    newValue: unknown,
+    effectiveOperator: FilterOperator,
+  ) => {
     // Constrói os novos items pro field
     const newItems: FilterItem[] = [];
     if (effectiveOperator === "isAnyOf" || effectiveOperator === "isNoneOf") {
@@ -221,15 +284,15 @@ export function ToolbarSimpleFilterDrawer({
 
         {visibleColumns.map((col) => {
           const items = itemsByField.get(col.key) ?? [];
-          const operator = defaultOperatorForFilterType(col.filterType);
           const typeId = col.filterType ?? col.type ?? "text";
           const def = columnTypeRegistry.get(typeId);
+          const operator = operadorDoField(items, col.filterType, def);
 
           // currentValue depende do tipo:
           //  - multi: agregado dos items[].value (array)
           //  - tuple (between): primeiro item.value (já é tupla)
           //  - single: primeiro item.value
-          const isMultiOp = operator === "isAnyOf" || operator === "isNoneOf";
+          const isMultiOp = agregaComoLista(operator, def);
           const isTupleOp = operator === "between";
           const currentValue = isMultiOp
             ? items
@@ -256,7 +319,7 @@ export function ToolbarSimpleFilterDrawer({
                 <div className="w-full">
                   {def.renderFilterInput({
                     value: currentValue as never,
-                    onChange: (v: unknown) => updateFieldValue(col.key, v, col.filterType),
+                    onChange: (v: unknown) => updateFieldValue(col.key, v, operator),
                     operator: filterOp as never,
                     options,
                     loadOptions: col.loadOptions,

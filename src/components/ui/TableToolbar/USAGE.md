@@ -85,6 +85,20 @@ import {
 - **Chip fixo**: `AppliedFilter.removable: false` esconde o X do chip (o ToolbarApplied
   mostra um ⊕ decorativo no lugar — chip "de regra" que nunca sai).
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
+- **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`vNEXT`+).
+  Ele não oferece escolha de operador — isso é do builder avançado — mas campo com filtro
+  vigente é **desenhado e reescrito com o operador dele** (`isNoneOf`, `between`,
+  `notContains`). Só o campo **sem** filtro nasce com o default do tipo (e `multiSelect`
+  segue promovido a `isAnyOf`). Antes os dois lados derivavam do tipo, e editar o valor
+  rebaixava o operador em silêncio. **Duas guardas**, se você registra tipo próprio:
+  (a) operador que o tipo **não declara** em `operators` cai no default — sem branch no
+  `renderFilterInput`, preservá-lo escreveria um item que o `matchesFilter` ignora;
+  (b) o drawer só **agrega** os N items do campo num array quando `operators[0]` do tipo
+  é multi — é a forma pra qual o widget foi escrito. Tipo de valor único que declara
+  `isAnyOf` (como `badge` e `user`) recebe o escalar e **mantém** o operador na escrita;
+  pra receber a lista, declare um operador multi em `operators[0]`.
+  Este drawer é compartilhado: a regra vale igual no `DataTable`, no `DataList` e em
+  quem monta `<ToolbarFilterControl>` na mão.
 
 ## Acoplamento DataTable ↔ TableToolbar
 

@@ -6,6 +6,7 @@
 - vazio são DOIS casos distintos: sem dado nenhum → `renderEmpty` (CTA de criar); filtro/busca zerou → `renderNoResults` (o "limpar filtros" já vem cabeado)
 - `groupBy` tem DOIS efeitos: agrupa linhas na tabela E vira raia (swimlane) dentro de cada coluna do board kanban. Mesmo estado, dois renders — não existe prop separada pro eixo da raia
 - chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
+- operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.
@@ -692,8 +693,13 @@ A toolbar separa dois níveis de filtro, sempre disponíveis (gated por
 `toolbar.enableFilters !== false` + colunas filtráveis):
 
 - **Funil** → abre um **drawer lateral** com TODOS os filtros em form vertical.
-  Aplicação LIVE, operator inferido do `filterType` (multiSelect → isAnyOf,
-  text → contains, date → between, etc). O caminho simples pro user típico.
+  Aplicação LIVE. O drawer não **oferece** escolha de operador, mas **respeita** o que
+  já está no `filterModel`: campo com filtro vigente é desenhado e reescrito com o
+  operador dele (`isNoneOf` do chip "Excluindo", `between` de uma faixa, `notContains`
+  do builder); campo ainda **sem** filtro nasce com o default do tipo (multiSelect →
+  isAnyOf, text → contains, date → between). Até a `vNEXT` os dois lados derivavam do
+  tipo: a faixa aparecia como campo único e editar o valor rebaixava "Excluindo" pra
+  "Incluindo" em silêncio. O caminho simples pro user típico.
 - **Configurações → Filtros avançados** → query builder completo: modo **Visual**
   (AND/OR + operadores explícitos + Adicionar condição) e modo **Avançado** (SQL-like,
   round-trip-safe pra todos os operadores).

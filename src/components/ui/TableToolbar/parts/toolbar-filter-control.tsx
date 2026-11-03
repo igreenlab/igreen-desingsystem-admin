@@ -24,8 +24,9 @@ import type { FilterModel } from "../../DataTable/data-table.types";
  * único componente plug-and-play. Quando `enabled !== false` (default true),
  * renderiza:
  *   - **Primary** do ButtonGroup → abre `<ToolbarSimpleFilterDrawer>` lateral
- *     (lista vertical de todos os campos filtráveis, aplicação LIVE, operator
- *     inferido do filterType).
+ *     (lista vertical de todos os campos filtráveis, aplicação LIVE). O drawer não
+ *     oferece escolha de operador, mas preserva o que já está no `filterModel` —
+ *     campo sem filtro é que nasce com o default do tipo.
  *   - **Chevron** do ButtonGroup → abre o `<FilterPopover>` (query builder
  *     advanced com AND/OR, operadores explícitos, Adicionar condição).
  *
