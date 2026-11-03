@@ -146,7 +146,17 @@ const FILTER_FIELDS: FilterableField[] = [
   {
     id: "status",
     label: "Status",
-    type: "select",
+    /**
+     * ⚠️ `multiSelect`, e não `select`, DE PROPÓSITO — é o único campo desta página que
+     * produz um chip MULTI.
+     *
+     * Antes de 2026-11-03 os dois campos eram `select`, cujo operador default é
+     * `equals`: o funil nunca escrevia `isAnyOf`, e **nenhuma tela do repo exercitava o
+     * ramo multi do chip do `DataList`**. Foi por isso que o defeito em que marcar 2+
+     * valores ESVAZIAVA a lista sobreviveu — não havia onde vê-lo. Não troque de volta
+     * para `select` sem mover a demonstração do multi para outro campo.
+     */
+    type: "multiSelect",
     accessor: (i) => (i.data as Person).status,
     options: [
       { label: "Ativo", value: "active" },
