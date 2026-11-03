@@ -28,7 +28,13 @@ import {
 } from "@/components/shadcn/popover";
 import { columnTypeRegistry } from "@/components/ui/DataTable/column-types";
 import type { ColumnOption } from "@/components/ui/DataTable/column-types";
+import {
+  MULTI_VALUE_OPERATORS,
+  genFilterId,
+  typeOwnsMulti,
+} from "@/components/ui/DataTable/utils/filter-ops";
 import type {
+  FilterItem,
   FilterModel,
   FilterValue,
   FilterOperator,
@@ -177,7 +183,28 @@ export function DataListToolbar({
   const isEmptyVal = (v: unknown) =>
     v == null || v === "" || (Array.isArray(v) && v.length === 0);
 
-  /** Substitui o(s) item(ns) de um grupo field|operator no filterModel. */
+  /**
+   * Substitui o(s) item(ns) de um grupo field|operator no filterModel.
+   *
+   * Operador multi (`isAnyOf`/`isNoneOf`) grava **UM item POR VALOR** (spread). É a
+   * forma canônica do `FilterModel`, declarada no `MULTI_VALUE_OPERATORS` ("o
+   * FilterModel guarda 1 item por valor") e produzida por todos os outros
+   * escritores: o `ToolbarSimpleFilterDrawer` que ESTE MESMO componente renderiza
+   * (`updateFieldValue`), o chip do `DataTable` (`updateGroupValue`) e o painel
+   * avançado (`handleFiltersChange`).
+   *
+   * ⚠️ Até 2026-11-03 gravava UM item com o array INTEIRO no `value`, enquanto o
+   * motor (`applyFilterModel`) compara cada `value` COMO UM TODO. Com 1 valor
+   * funcionava por acidente — `matchOp("equals", "ativo", ["ativo"])` coage pra
+   * string e bate; com 2+ nada casava e a lista **esvaziava**. O funil ao lado, no
+   * mesmo toolbar, sempre gravou certo: era o mesmo defeito de classe da Task 7b
+   * (dois caminhos do mesmo componente discordando), agora no FORMATO em vez de no
+   * widget. Não volte a gravar o array inteiro aqui.
+   *
+   * `between` (tupla) e operadores escalares seguem com UM item e o valor inteiro:
+   * só os multi têm semântica de OR dentro do grupo. Espalhar um escalar viraria
+   * AND no motor (`for (const g of scalar)`) e nunca casaria.
+   */
   const setGroupValue = (
     field: string,
     operator: string,
@@ -186,18 +213,20 @@ export function DataListToolbar({
     const rest = filterModel.items.filter(
       (i) => !(i.field === field && i.operator === operator),
     );
-    const next = isEmptyVal(value)
-      ? rest
-      : [
-          ...rest,
-          {
-            id: `${field}-${operator}`,
-            field,
-            operator: operator as FilterOperator,
-            value,
-          },
-        ];
-    onFilterModelChange({ ...filterModel, items: next });
+    const op = operator as FilterOperator;
+    const novos: FilterItem[] = isEmptyVal(value)
+      ? []
+      : MULTI_VALUE_OPERATORS.has(op)
+        ? (Array.isArray(value) ? (value as unknown[]) : [value])
+            .filter((v) => v != null && v !== "")
+            .map((v) => ({
+              id: genFilterId(),
+              field,
+              operator: op,
+              value: v as FilterValue,
+            }))
+        : [{ id: genFilterId(), field, operator: op, value }];
+    onFilterModelChange({ ...filterModel, items: [...rest, ...novos] });
   };
 
   /** Chip clicável → popover de edição (fast-filter por column-type). */
@@ -208,7 +237,30 @@ export function DataListToolbar({
 
     const isMulti = operator === "isAnyOf" || operator === "isNoneOf";
     const isTuple = operator === "between";
-    const regType = isMulti ? "multiSelect" : fieldDef.type;
+    /* Tipo custom que DECLARA `ownsMulti` é dono do chip multi: a promoção pro
+     * `multiSelect` built-in não o sequestra, e o widget recebe o valor como ARRAY
+     * sempre (o contrato do flag é "lê e escreve lista", sem exceção por tamanho nem
+     * por operador).
+     *
+     * ⚠️ A GUARDA é a mesma do chip do `DataTable` — ambos chamam `typeOwnsMulti`. O
+     * GATILHO da promoção não é: o `DataTable` promove também por
+     * `aggregateValues.length > 1` e por `filterType === "multiSelect"`
+     * (`data-table.tsx:2053`), e aqui a promoção sai só do operador. Na prática isso
+     * separa os dois quando um preset acumula 2+ items no mesmo campo com operador
+     * ESCALAR: lá vira array, aqui fica `groupItems[0].value`. Não escreva que a
+     * resolução é idêntica — ela não é.
+     * Até 2026-11-03 esta linha era `isMulti ? "multiSelect" : fieldDef.type`, que
+     * ignorava o flag; como o `DataListToolbar` renderiza TAMBÉM o
+     * `ToolbarSimpleFilterDrawer` (que sempre respeitou o tipo), abrir o funil
+     * entregava o widget do consumidor e clicar no chip que ele acabou de gerar
+     * entregava o built-in — dois widgets a um clique de distância, no mesmo
+     * componente. Não volte a decidir isso aqui dentro.
+     *
+     * ⚠️ `FilterableField` não tem `filterType`: o tipo mora só em `type`, e é a MESMA
+     * chave que o `toColumns` manda pro drawer como `filterType`. Por isso os dois lados
+     * convergem lendo `fieldDef.type`. */
+    const ownsMulti = typeOwnsMulti(fieldDef.type);
+    const regType = isMulti && !ownsMulti ? "multiSelect" : fieldDef.type;
     const def = columnTypeRegistry.get(regType);
 
     const groupItems = filterModel.items.filter(
@@ -216,7 +268,7 @@ export function DataListToolbar({
     );
     const currentValue: FilterValue = isTuple
       ? (groupItems[0]?.value as FilterValue)
-      : isMulti
+      : isMulti || ownsMulti
         ? (groupItems.flatMap((i) =>
             Array.isArray(i.value)
               ? (i.value as unknown[])

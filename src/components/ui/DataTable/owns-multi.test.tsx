@@ -132,9 +132,16 @@ describe("chip multi — a posse é declarada (ownsMulti), não deduzida dos ope
     expect(n).toBe(0);
   });
 
-  it("ownsMulti não é herdado por typo no filterType (registry cai no `text`)", async () => {
-    // `meuMultII` não existe; o registry devolve `text`, cujo type !== filterType.
-    // Sem a guarda, o tipo devolvido emprestaria o ownsMulti dele.
+  it("typo no filterType cai no `text` e o chip não vira do consumidor", async () => {
+    // `meuMultII` não existe; o registry devolve `text`, que NÃO declara ownsMulti.
+    //
+    // ⚠️ Este caso NÃO exercita a guarda `typeDef.type === filterType`, apesar de o
+    // comentário antigo dizer que sim: medido em 2026-11-03, removendo aquela guarda
+    // ele continuava verde, porque `text.ownsMulti` é `undefined` e a segunda metade
+    // da condição já reprova sozinha. O que ele trava é o efeito observável (typo não
+    // sequestra o chip), e isso vale manter. A GUARDA em si é travada por
+    // `utils/filter-ops-owns-multi.test.ts`, que constrói o único cenário em que ela
+    // importa: o tipo de fallback declarando o flag.
     expect(await checkboxesDoChip("meuMultII")).toBeGreaterThan(0);
   });
 });

@@ -57,6 +57,10 @@ function matchOp(op: string, val: unknown, fv: unknown): boolean {
  * campo); campos distintos combinam com AND. Cobre os operadores que o drawer
  * gera por filterType (text→contains, select→equals/isAnyOf, number→equals,
  * boolean→equals, date→equals/between).
+ *
+ * Num item multi o `value` pode ser um VALOR ou um ARRAY de valores — as duas
+ * formas dão o mesmo resultado (ver o `achatar` abaixo e o porquê de cada
+ * produtor). Operador escalar e `between` continuam lendo o `value` inteiro.
  */
 export function applyFilterModel(
   items: ListItemData[],
@@ -80,8 +84,28 @@ export function applyFilterModel(
     if (!field) return true;
     const val = field.accessor(item);
 
-    const anyOf = group.filter((g) => g.operator === "isAnyOf").map((g) => g.value);
-    const noneOf = group.filter((g) => g.operator === "isNoneOf").map((g) => g.value);
+    /* `isAnyOf`/`isNoneOf` acumulam valores, e a forma canônica é 1 item por valor —
+     * é o que o drawer e o chip gravam. Mas um item pode trazer o ARRAY inteiro, e
+     * esse caso NÃO é hipotético:
+     *   · preset escrito à mão (`examples/finance`: `value: ["negociacao","bloqueado"]`);
+     *   · `view.filterModel` montado pelo consumidor;
+     *   · `filterModel` que o `persistKey` salvou no localStorage ANTES da correção do
+     *     chip de 2026-11-03 — e `loadPersisted` devolve `p.filterModel.items` sem
+     *     migrar nada. localStorage não se migra sozinho: sem achatar aqui, quem marcou
+     *     2 valores antes da correção abre a tela numa lista vazia pra sempre.
+     * Achatar é o que TODO `matchesFilter` de column-type do DataTable já faz — o
+     * `badge` diz com todas as letras "Aceita escalar (do preset) ou array". Este motor
+     * era o único do sistema que não aceitava. */
+    const achatar = (op: string) =>
+      group
+        .filter((g) => g.operator === op)
+        .flatMap((g) => (Array.isArray(g.value) ? (g.value as unknown[]) : [g.value]));
+
+    const anyOf = achatar("isAnyOf");
+    const noneOf = achatar("isNoneOf");
+    /* `between` fica aqui e mantém a TUPLA inteira: `matchOp` a desestrutura em
+     * [lo, hi]. Achatar valor de operador escalar seria errado — eles combinam por
+     * AND abaixo, e dois pedaços do mesmo valor nunca casariam. */
     const scalar = group.filter((g) => g.operator !== "isAnyOf" && g.operator !== "isNoneOf");
 
     if (anyOf.length && !anyOf.some((v) => matchOp("equals", val, v))) return false;

@@ -150,6 +150,11 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 | Título OU views    | título à esquerda, ou abas de visão?                                                                                                                                                                | título (plural)                             |
 | Busca              | `searchable` (cobre title/subtitle/description + accessors)                                                                                                                                         | on                                          |
 | **filterFields**   | quais campos filtram? cada um: `{ id, label, type, accessor, options? }`                                                                                                                            | inferir dos campos select/status; confirmar |
+
+> Esses cinco são os built-in. O `type` aceita **também o id de um tipo que você
+> registre no `columnTypeRegistry`** — inclusive um com `ownsMulti: true`, que passa a
+> ser dono do chip multi (DS `vNEXT`+). Ver "Widget de filtro próprio" em
+> `rules/ds-components.md`: vale no `DataList` e no `DataTable`, com o mesmo registry.
 | **Views (abas)**   | presets `{ id, label, query:{search, filterModel} }` — OFERECER (ver obrigatória)                                                                                                                   | nenhuma                                     |
 | Refresh            | `onRefresh`                                                                                                                                                                                         | on                                          |
 | **toolbarActions** | ações custom no toolbar (`button`/`dropdown`/`input`, ex.: seletor de período/mês). Inline no desktop; **colapsam no ⋯ no mobile**. Oferecer quando o usuário pedir um seletor/botão extra na barra | off                                         |

@@ -9,8 +9,27 @@ import type {
   ListRenderState,
 } from "@/components/ui/List";
 
-/** Tipo de um campo filtrável (sem colunas — o consumer declara). */
-export type FilterFieldType = "text" | "select" | "boolean" | "number" | "date";
+/**
+ * Tipo de um campo filtrável (sem colunas — o consumer declara).
+ *
+ * Os cinco nomes são os built-in que o funil sabe operar sozinho, e é o que o
+ * autocomplete sugere. O `(string & {})` abre a união para **qualquer id registrado no
+ * `columnTypeRegistry`** sem apagar a sugestão dos cinco — é o idioma de TS para
+ * "estes, ou outra string".
+ *
+ * ⚠️ Existe porque a união FECHADA tornava inalcançável o caminho que a correção do
+ * `ownsMulti` no chip acabara de abrir: registrar um tipo próprio e usá-lo aqui exigia
+ * escrever `type: "meuTipo" as never`. O runtime sempre aceitou (o `applyFilterModel` é
+ * dirigido por OPERADOR e nunca lê `field.type`); só o TS barrava. Um caminho que só se
+ * alcança com cast não é um caminho — é uma pegadinha.
+ */
+export type FilterFieldType =
+  | "text"
+  | "select"
+  | "boolean"
+  | "number"
+  | "date"
+  | (string & {});
 
 export type FilterableField = {
   id: string;

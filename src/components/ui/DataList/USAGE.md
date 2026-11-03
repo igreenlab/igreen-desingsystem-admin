@@ -87,6 +87,34 @@ valor inline — mesma UX do DataTable (sem precisar reabrir o drawer).
 | `persistKey`                                                                    | persiste a query (search+filtros) em localStorage                                                                                                                                                                       |
 | `fillHeight`                                                                    | ocupa 100% da altura do pai e faz **só a lista rolar** (toolbar/chips/bulk fixos). Dê altura ao pai + `className="flex-1 min-h-0"`. Não combinar com `virtualized`                                                      |
 
+## Forma do `filterModel` — um item POR VALOR
+
+Em `isAnyOf` / `isNoneOf`, a forma canônica é **um `FilterItem` por valor**, não um item
+com array:
+
+```tsx
+// ✅ canônico — é o que o chip e o funil gravam
+items: [
+  { id: "a", field: "status", operator: "isAnyOf", value: "ativo" },
+  { id: "b", field: "status", operator: "isAnyOf", value: "pausado" },
+]
+
+// ⚠️ tolerado, mas não escreva assim em preset novo
+items: [{ id: "a", field: "status", operator: "isAnyOf", value: ["ativo", "pausado"] }]
+```
+
+A segunda forma **é aceita na leitura** (`vNEXT`+) — tem que ser, porque existe estado
+assim salvo em `localStorage` de quem usou o componente antes, e `persistKey` não migra
+nada. Mas ela **esvaziava a lista** até a `vNEXT`: o motor comparava o `value` do item
+como um todo, e `["ativo","pausado"]` não casava com célula nenhuma. Com um valor só
+funcionava por acidente, o que escondeu o defeito.
+
+Um modelo na forma antiga **se migra sozinho** no primeiro toque do usuário no chip.
+
+⚠️ `between` é a exceção: a tupla fica inteira num item só. E operador escalar mantém o
+valor inteiro — o motor combina escalares do mesmo campo por **AND**, então espalhar um
+`equals` em dois items faria o filtro nunca casar.
+
 ## Gotchas
 
 - **`virtualized` desliga o DnD** (mutuamente exclusivos: o `@hello-pangea/dnd` precisa
@@ -96,6 +124,13 @@ valor inline — mesma UX do DataTable (sem precisar reabrir o drawer).
   (debounce no search) e renderiza o que vier em `items` (use `loading`/`total`).
 - **Filtros por campos** (não colunas): o consumer declara `filterFields`. Busca textual
   cobre title/subtitle/description + accessors dos campos.
+- **Tipo de coluna CUSTOM no filtro:** o `type` do `filterFields` é o id do
+  `columnTypeRegistry`, e é a MESMA chave que alimenta o funil e o chip — tipo com
+  `ownsMulti: true` fica com o widget próprio nos dois, recebendo `value` como **array
+  sempre**. Até 2026-11-03 o chip forçava o `multiSelect` built-in em operador multi:
+  abrir o funil entregava um widget e clicar no chip que ele gerou entregava outro.
+  ⚠️ `FilterFieldType` ainda é a união fechada `text|select|boolean|number|date`, então um
+  id custom exige cast no `type` — o runtime aceita, o TS não.
 - **Infinite scroll** (`onLoadMore`/`hasMore`/`loadingMore`): o consumer controla os `items`
   (append da próxima página) — o DataList só dispara `onLoadMore` quando o sentinel entra na
   viewport (rootMargin 200px) e mostra skeletons enquanto `loadingMore`. Incompatível com
