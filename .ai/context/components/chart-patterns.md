@@ -37,7 +37,7 @@ const config = {
   com legenda de 1 linha dá 272px de bloco e 250px de plotagem. Antes de 2026-11-04 os
   mesmos 250px eram divididos, e legenda em 2 linhas achatava as barras.
 - `ChartContainer` já embute o `ResponsiveContainer` — não aninhar outro.
-- Gráfico que carrega dado leva `empty={<EmptyState …/>}`: troca os eixos vazios pelo nó do
+- Gráfico que carrega dado leva `emptyState={<EmptyState …/>}`: troca os eixos vazios pelo nó do
   consumidor quando nenhum número finito chega nas props `data` (do gráfico e das séries).
   `0` é dado. Sem a prop, comportamento de hoje. Detalhe e bordas: `Chart/USAGE.md`.
 

@@ -398,7 +398,7 @@ Três coisas que você **precisa** acertar:
 - `chart` — wrapper do Recharts (barras, linha, área, pizza, radar, radial). A altura do
   **className** é a do GRÁFICO: a legenda é renderizada fora dessa caixa e soma por fora, então
   legenda em 2 linhas cresce o bloco em vez de achatar a plotagem. Gráfico que carrega dado leva
-  **empty** (vNEXT) — o nó que aparece no lugar dos eixos vazios quando nenhum número finito
+  **emptyState** (vNEXT) — o nó que aparece no lugar dos eixos vazios quando nenhum número finito
   chega nas props **data** do gráfico e das séries (`0` é dado; sem a prop, nada muda).
 - `choropleth-map` — mapa por região colorido por valor (traz `d3-geo` como dependência).
 

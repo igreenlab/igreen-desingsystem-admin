@@ -10,7 +10,7 @@ import {
 
 /* Dois contratos do ChartContainer que só se enxergam medindo o layout:
  *
- * 1. `empty` — gráfico sem dado renderiza o nó do consumidor no lugar dos eixos
+ * 1. `emptyState` — gráfico sem dado renderiza o nó do consumidor no lugar dos eixos
  *    vazios. Sem a prop, nada muda.
  * 2. A legenda mora FORA da caixa de altura fixa (portal do Recharts), então
  *    quebrar em 2 linhas faz o container crescer em vez de achatar o gráfico.
@@ -118,8 +118,8 @@ describe("ChartContainer — legenda não achata o gráfico", () => {
   });
 });
 
-describe("ChartContainer — empty", () => {
-  it("sem empty, grafico sem dado renderiza como hoje", () => {
+describe("ChartContainer — emptyState", () => {
+  it("sem emptyState, grafico sem dado renderiza como hoje", () => {
     stubLayout(0);
     const { container } = renderBarras({ legenda: false, data: [] });
 
@@ -128,10 +128,10 @@ describe("ChartContainer — empty", () => {
     expect(container.querySelector(".recharts-xAxis")).not.toBeNull();
   });
 
-  it("com empty e data vazio, mostra o nó do consumidor no lugar dos eixos", () => {
+  it("com emptyState e data vazio, mostra o nó do consumidor no lugar dos eixos", () => {
     stubLayout(0);
     const { container } = render(
-      <ChartContainer config={config} empty={<p>Sem dados no período</p>}>
+      <ChartContainer config={config} emptyState={<p>Sem dados no período</p>}>
         <BarChart data={[]}>
           <XAxis dataKey="mes" />
           <Bar dataKey="total" />
@@ -148,7 +148,7 @@ describe("ChartContainer — empty", () => {
   it("todos os valores nulos conta como sem dado", () => {
     stubLayout(0);
     const { container } = render(
-      <ChartContainer config={config} empty={<p>Sem dados</p>}>
+      <ChartContainer config={config} emptyState={<p>Sem dados</p>}>
         <BarChart data={[{ mes: "jan", total: null }, { mes: "fev", total: undefined }]}>
           <Bar dataKey="total" />
         </BarChart>
@@ -158,10 +158,10 @@ describe("ChartContainer — empty", () => {
     expect(container.querySelector("[data-chart-empty]")).not.toBeNull();
   });
 
-  it("zero é dado: não cai no empty", () => {
+  it("zero é dado: não cai no emptyState", () => {
     stubLayout(0);
     const { container } = render(
-      <ChartContainer config={config} empty={<p>Sem dados</p>}>
+      <ChartContainer config={config} emptyState={<p>Sem dados</p>}>
         <BarChart data={[{ mes: "jan", total: 0 }]}>
           <XAxis dataKey="mes" />
           <Bar dataKey="total" />
@@ -173,10 +173,10 @@ describe("ChartContainer — empty", () => {
     expect(container.querySelector(".recharts-xAxis")).not.toBeNull();
   });
 
-  it("dado na série e não no gráfico (Pie) não cai no empty", () => {
+  it("dado na série e não no gráfico (Pie) não cai no emptyState", () => {
     stubLayout(0);
     const { container } = render(
-      <ChartContainer config={config} empty={<p>Sem dados</p>}>
+      <ChartContainer config={config} emptyState={<p>Sem dados</p>}>
         <PieChart>
           <Pie data={[{ fonte: "solar", kwh: 120 }]} dataKey="kwh" nameKey="fonte" />
         </PieChart>

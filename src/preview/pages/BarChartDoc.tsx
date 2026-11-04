@@ -102,7 +102,7 @@ const TOC = [
   { id: "multiple", label: "Multiple" },
   { id: "stacked", label: "Stacked + Legend" },
   { id: "legend-wrap", label: "Legenda em 2 linhas" },
-  { id: "empty", label: "Sem dados (empty)" },
+  { id: "empty", label: "Sem dados (emptyState)" },
   { id: "label", label: "Label" },
   { id: "custom-label", label: "Custom Label" },
   { id: "mixed", label: "Mixed" },
@@ -253,12 +253,12 @@ export function BarChartDoc() {
           </CardContent>
         </Card>
 
-        {/* Sem dados — prop `empty` */}
+        {/* Sem dados — prop `emptyState` */}
         <Card id="empty">
           <CardHeader>
             <CardTitle>Bar Chart — Sem dados</CardTitle>
             <CardDescription>
-              `empty` troca os eixos vazios pelo nó que você passar. Sem a prop, o
+              `emptyState` troca os eixos vazios pelo nó que você passar. Sem a prop, o
               Recharts desenha a grade sem nenhuma barra.
             </CardDescription>
           </CardHeader>
@@ -266,7 +266,7 @@ export function BarChartDoc() {
             <ChartContainer
               config={config}
               className={CHART_CLASS}
-              empty={
+              emptyState={
                 <EmptyState
                   size="sm"
                   icon={ChartColumnBig}

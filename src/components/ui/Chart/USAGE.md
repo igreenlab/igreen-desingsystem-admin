@@ -2,8 +2,8 @@
 
 <!-- ds:regras
 - a altura do `className` é a altura do GRÁFICO, não do bloco: a legenda é renderizada fora dessa caixa e SOMA. `h-[250px]` + legenda de 1 linha = 272px no total, com 250px de plotagem
-- `empty` é opt-in e só troca o gráfico quando não há nenhum número finito nas props `data` (a do gráfico e a das séries). `0` é dado; `null`/`undefined`/texto não são
-- gráfico que carrega dado (`data={query.data}`) merece `empty` — sem ele o Recharts desenha a grade e os eixos sem nenhuma série, e a tela parece quebrada em vez de vazia
+- `emptyState` é opt-in e só troca o gráfico quando não há nenhum número finito nas props `data` (a do gráfico e a das séries). `0` é dado; `null`/`undefined`/texto não são
+- gráfico que carrega dado (`data={query.data}`) merece `emptyState` — sem ele o Recharts desenha a grade e os eixos sem nenhuma série, e a tela parece quebrada em vez de vazia
 -->
 
 Wrapper sobre o **Recharts 3** que aplica a paleta do DS (tokens `--color-chart-1..5`) e fornece Tooltip/Legend já estilizados com os tokens iGreen. Categoria: data-display.
@@ -56,18 +56,18 @@ const config = {
 |---|---|---|
 | `ChartContainer` | `config: ChartConfig` | mapa série → `{ label, color?, icon?, theme? }` |
 | `ChartContainer` | `className` | controle de altura/aspect **da área do gráfico** (ex: `h-[260px] w-full`) — a legenda soma por fora |
-| `ChartContainer` | `empty?: ReactNode` | conteúdo a mostrar no lugar do gráfico quando não há dado. Ausente = Recharts desenha os eixos vazios |
+| `ChartContainer` | `emptyState?: ReactNode` | conteúdo a mostrar no lugar do gráfico quando não há dado. Ausente = Recharts desenha os eixos vazios |
 | `ChartTooltip` | `content={<ChartTooltipContent/>}` | tooltip do DS |
 | `ChartTooltipContent` | `hideLabel`, `hideIndicator`, `indicator` (`dot`/`line`/`dashed`), `labelFormatter`, `formatter`, `nameKey`, `labelKey` | customização |
 | `ChartLegend` | `content={<ChartLegendContent/>}` | legenda do DS |
 
-## Sem dados — `empty`
+## Sem dados — `emptyState`
 
 ```tsx
 <ChartContainer
   config={config}
   className="h-[250px] w-full"
-  empty={
+  emptyState={
     <EmptyState
       size="sm"
       icon={ChartColumnBig}

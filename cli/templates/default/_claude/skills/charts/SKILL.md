@@ -29,7 +29,7 @@ description: >
   fora dessa caixa e soma por fora — `h-[250px]` com legenda de 1 linha dá 272px de bloco com
   250px de plotagem, e legenda que quebra em 2 linhas cresce o bloco em vez de achatar as
   barras. Dimensione pelo gráfico que você quer ver, não pelo espaço total do card.
-- **Gráfico que carrega dado leva **empty**** (vNEXT): o nó que aparece no lugar dos eixos
+- **Gráfico que carrega dado leva **emptyState**** (vNEXT): o nó que aparece no lugar dos eixos
   vazios. Dispara quando nenhum número finito chega nas props **data** do gráfico e das séries
   — `0` é dado e não dispara; sem a prop, o Recharts desenha a grade sem série nenhuma.
   Componha com o `EmptyState` do DS (`size="sm"`).

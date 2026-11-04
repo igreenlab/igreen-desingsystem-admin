@@ -45,7 +45,7 @@ function useChart() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * "Sem dado" — critério do `empty`
+ * "Sem dado" — critério do `emptyState`
  *
  * Vazio = NENHUM número finito nas props `data` que encontramos (a do gráfico e
  * a das séries, até 2 níveis de filhos). Em uma linha, porque cada pedaço dela
@@ -103,13 +103,18 @@ const ChartContainer = React.forwardRef<
      * Conteúdo a renderizar no lugar do gráfico quando não há dado (ver o
      * critério acima). Ausente = comportamento de hoje: o Recharts desenha os
      * eixos vazios.
+     *
+     * O nome acompanha o `emptyState` do `DataList` — mesmo conceito, mesmo
+     * tipo. (O `renderEmpty` do `DataTable` é o terceiro nome da mesma coisa e
+     * o pior dos três: soa render-prop e recebe `ReactNode`. É público, então
+     * renomeá-lo é breaking e fica para outra rodada.)
      */
-    empty?: React.ReactNode;
+    emptyState?: React.ReactNode;
     children: React.ComponentProps<
       typeof RechartsPrimitive.ResponsiveContainer
     >["children"];
   }
->(({ id, className, children, config, empty, ...props }, ref) => {
+>(({ id, className, children, config, emptyState, ...props }, ref) => {
   const uniqueId = React.useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
   /* Slots da legenda: estado (não ref) porque o `<ChartLegend>` só sabe pra
@@ -121,7 +126,8 @@ const ChartContainer = React.forwardRef<
     [config, topSlot, bottomSlot],
   );
 
-  const showEmpty = empty !== undefined && empty !== null && isChartEmpty(children);
+  const showEmpty =
+    emptyState !== undefined && emptyState !== null && isChartEmpty(children);
 
   return (
     <ChartContext.Provider value={value}>
@@ -159,7 +165,7 @@ const ChartContainer = React.forwardRef<
               data-chart-empty=""
               className="flex size-full items-center justify-center text-fg-muted"
             >
-              {empty}
+              {emptyState}
             </div>
           ) : (
             <RechartsPrimitive.ResponsiveContainer>
