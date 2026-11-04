@@ -40,6 +40,7 @@ const TOC = [
   { id: "server-mode", label: "Server mode" },
   { id: "features", label: "Features built-in" },
   { id: "custom-filter", label: "Widget de filtro próprio" },
+  { id: "drawer-controlado", label: "Drawer de filtros controlado" },
   { id: "header-actions", label: "Ações do cabeçalho" },
   { id: "api", label: "API Reference" },
   { id: "troubleshooting", label: "Troubleshooting" },
@@ -229,6 +230,16 @@ const CORE_PROPS = [
     name: "showTypeIcons",
     type: "boolean — mostra o ícone do tipo no cabeçalho (o do tipo registrado OU o `icon` da coluna). false desliga os dois e os 21px que reservavam no autoFit",
     defaultVal: "true",
+  },
+  {
+    name: "simpleFilter.open",
+    type: "boolean — abertura CONTROLADA do drawer do funil. Presente: a prop manda e o funil/X/Esc/backdrop passam a só avisar. Passar sem onOpenChange prende o drawer (console.warn em DEV)",
+    defaultVal: "— (ausente = estado interno)",
+  },
+  {
+    name: "simpleFilter.onOpenChange",
+    type: "(open: boolean) => void — avisado quando algo pede pra abrir ou fechar o drawer. Dispara nos DOIS modos: sem `open`, só observa",
+    defaultVal: "—",
   },
 ];
 
@@ -521,6 +532,12 @@ export function DataTableDoc() {
 
   // Interruptor do exemplo "Ações do cabeçalho" — liga/desliga `showTypeIcons` ao vivo.
   const [iconesDoTipo, setIconesDoTipo] = useState(true);
+
+  // Exemplo "Drawer de filtros controlado": o estado do funil mora NA TELA, não no
+  // DataTable. É o que `simpleFilter.open`/`onOpenChange` tornaram possível — antes
+  // o drawer só abria pelo botão de funil da própria toolbar.
+  const [funilAberto, setFunilAberto] = useState(false);
+  const [ultimoAvisoDoFunil, setUltimoAvisoDoFunil] = useState<string | null>(null);
 
   const basicColumns = useMemo<DataTableColumnDef<ClientRow>[]>(
     () => [
@@ -1005,6 +1022,95 @@ export function DataTableDoc() {
         </div>
       </ExampleSection>
 
+      <SectionH2
+        id="drawer-controlado"
+        title="Drawer de filtros controlado"
+      />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        O drawer do funil abre e fecha sozinho por padrão. Quando a abertura
+        precisa vir <strong>de fora</strong> — um botão “Filtrar” no cabeçalho
+        da página, um atalho de teclado, um deep-link que já chega com o painel
+        aberto — o par <code>simpleFilter.open</code> +{" "}
+        <code>simpleFilter.onOpenChange</code> entrega o estado pra tela. Com{" "}
+        <code>open</code> presente a prop manda: o funil da toolbar, o X, o Esc
+        e o backdrop passam a só <em>avisar</em>.
+      </p>
+
+      <ul className="list-disc pl-pad-4xl mb-gp-2xl max-w-[760px] flex flex-col gap-gp-xs text-body-md text-fg-muted">
+        <li>
+          <strong>
+            <code>onOpenChange</code> dispara nos dois modos.
+          </strong>{" "}
+          É notificação de intenção, não controle — sem <code>open</code> o
+          drawer continua se virando sozinho e o callback só observa
+          (telemetria, badge, espelhar o estado).
+        </li>
+        <li>
+          <strong>
+            <code>open</code> sem <code>onOpenChange</code> prende o drawer
+          </strong>{" "}
+          no valor da prop: as três saídas do usuário ficam inertes. O
+          comportamento não muda (a prop segue mandando), mas sai um{" "}
+          <code>console.warn</code> em DEV nomeando a prop e a consequência.
+        </li>
+        <li>
+          <strong>Nada muda pra quem não passa nada.</strong> Sem as duas
+          props, é o funil de sempre.
+        </li>
+      </ul>
+
+      <ExampleSection
+        id="ex-drawer-controlado"
+        title="Botão da tela abrindo o funil"
+        description="O botão está FORA da tabela. Abra por ele, feche pelo X do drawer, e repare na linha de aviso: ela é escrita pelo onOpenChange, que dispara também quando o funil da toolbar é clicado."
+        code={CODE_DRAWER_CONTROLADO}
+      >
+        <div className="flex flex-col gap-gp-lg w-full">
+          <div className="flex items-center gap-gp-lg flex-wrap">
+            <Button
+              variant="filled"
+              color="primary"
+              size="sm"
+              onClick={() => setFunilAberto(true)}
+            >
+              Filtrar clientes
+            </Button>
+            <Button
+              variant="soft"
+              color="secondary"
+              size="sm"
+              onClick={() => setFunilAberto(false)}
+            >
+              Fechar o funil
+            </Button>
+            <span className="text-body-sm text-fg-muted">
+              {`open = ${funilAberto}`}
+              {ultimoAvisoDoFunil ? ` · último aviso: ${ultimoAvisoDoFunil}` : ""}
+            </span>
+          </div>
+
+          <div className="h-[420px] w-full flex">
+            <DataTable<ClientRow>
+              rows={DEMO_ROWS}
+              columns={basicColumns}
+              getRowId={(r) => r.id}
+              toolbar={{ title: "Clientes" }}
+              simpleFilter={{
+                open: funilAberto,
+                onOpenChange: (aberto) => {
+                  setFunilAberto(aberto);
+                  setUltimoAvisoDoFunil(
+                    `onOpenChange(${aberto}) às ${new Date().toLocaleTimeString("pt-BR")}`,
+                  );
+                },
+              }}
+              className="max-h-full"
+            />
+          </div>
+        </div>
+      </ExampleSection>
+
       <SectionH2 id="header-actions" title="Ações do cabeçalho" />
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
@@ -1216,6 +1322,32 @@ columnTypeRegistry.register({
 { field: "statusId", headerName: "Status", type: "status",
   enableColumnFilter: true, filterType: "meuMulti",
   filterOptions: STATUS_OPTIONS }`;
+
+const CODE_DRAWER_CONTROLADO = `const [funilAberto, setFunilAberto] = useState(false);
+
+// O botão vive FORA da tabela — é a tela que manda o drawer abrir
+<Button onClick={() => setFunilAberto(true)}>Filtrar clientes</Button>
+
+<DataTable
+  rows={rows}
+  columns={columns}
+  getRowId={(r) => r.id}
+  simpleFilter={{
+    open: funilAberto,
+    // dispara também quando o usuário usa o funil da toolbar, o X, o Esc
+    // ou o backdrop — com \`open\` presente, eles só AVISAM
+    onOpenChange: setFunilAberto,
+  }}
+/>
+
+// Só observando, sem assumir o estado: sem \`open\`, o drawer continua
+// abrindo e fechando sozinho e o callback apenas notifica.
+<DataTable
+  rows={rows}
+  columns={columns}
+  getRowId={(r) => r.id}
+  simpleFilter={{ onOpenChange: (aberto) => track("funil", aberto) }}
+/>`;
 
 const CODE_HEADER_ACTIONS = `const columns: DataTableColumnDef<ClientRow>[] = [
   // Tem tudo: funil + menu (Ordenar, Fixar, Ocultar)

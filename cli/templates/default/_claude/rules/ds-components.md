@@ -153,6 +153,19 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    lados do drawer derivavam o operador do tipo da coluna, então editar o valor rebaixava o
    operador sem avisar — e pré-aplicar "Excluindo" não parava de pé.
 
+   **Um botão da SUA tela abrindo o funil** (um "Filtrar" no cabeçalho da página, um
+   atalho, um deep-link que já chega filtrando): ****simpleFilter.open**** +
+   ****simpleFilter.onOpenChange**** no `data-table` (DS `vNEXT`+). Com ****open****
+   presente a prop manda — o funil da toolbar, o X, o Esc e o backdrop passam a só
+   **avisar**, e quem abre e fecha é você. Sem ****open****, o drawer continua se
+   virando sozinho e ****onOpenChange**** apenas **observa** (dispara nos dois modos),
+   que é o que você quer pra telemetria ou pra espelhar o estado num badge.
+   ⛔ **Nunca passe ****open**** sem ****onOpenChange****:** o drawer fica preso no valor
+   da prop, as três saídas do usuário viram cliques sem efeito e ele não tem como fechar
+   (sai um `console.warn` em DEV dizendo isso). Não passar nenhuma das duas é o
+   comportamento de sempre.
+   ⚠️ O `data-list` **não tem** esse par — o funil dele segue só com estado interno.
+
 > As exceções (2 e 3) são raras. Sempre que a informação já está numa coluna: **chip nativo
 > primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +
 > chip vazio de "Atribuído"). Entrevista guiada completa em `/ds-create-crud`.

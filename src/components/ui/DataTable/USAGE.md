@@ -7,6 +7,7 @@
 - `groupBy` tem DOIS efeitos: agrupa linhas na tabela E vira raia (swimlane) dentro de cada coluna do board kanban. Mesmo estado, dois renders — não existe prop separada pro eixo da raia
 - chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
+- botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.
@@ -725,11 +726,47 @@ A prop `simpleFilter` é **opcional** — só customiza o drawer do funil:
 
 ### `simpleFilter` (opcional)
 
-| Prop                        | Tipo                           | Default        | Quando usar                                                                            |
-| --------------------------- | ------------------------------ | -------------- | -------------------------------------------------------------------------------------- |
-| `simpleFilter.hiddenFields` | `string[]`                     | `[]`           | Fields que NÃO aparecem no drawer do funil (só no avançado). Útil pra filtros técnicos |
-| `simpleFilter.title`        | `string`                       | `"Filtros"`    | Override do título do header do drawer                                                 |
-| `simpleFilter.size`         | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` (400px) | Use `"lg"` (560px) se há muitos campos com widgets largos (dates/multi-select)         |
+| Prop                        | Tipo                           | Default                     | Quando usar                                                                            |
+| --------------------------- | ------------------------------ | --------------------------- | -------------------------------------------------------------------------------------- |
+| `simpleFilter.hiddenFields` | `string[]`                     | `[]`                        | Fields que NÃO aparecem no drawer do funil (só no avançado). Útil pra filtros técnicos |
+| `simpleFilter.title`        | `string`                       | `"Filtros"`                 | Override do título do header do drawer                                                 |
+| `simpleFilter.size`         | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` (400px)              | Use `"lg"` (560px) se há muitos campos com widgets largos (dates/multi-select)         |
+| `simpleFilter.open`         | `boolean`                      | — (ausente = estado interno) | Abertura **controlada** — quando algo FORA da tabela precisa abrir o funil (`vNEXT`)   |
+| `simpleFilter.onOpenChange` | `(open: boolean) => void`      | —                           | Avisado quando algo pede pra abrir/fechar. Dispara nos **dois** modos (`vNEXT`)        |
+
+#### Abrir o funil por fora (controlado) — `vNEXT`
+
+Até a `vNEXT` o estado do drawer era privado do `DataTable`: só o botão de funil da
+própria toolbar abria. Um botão "Filtrar" no cabeçalho da página, um atalho de teclado
+ou um deep-link não tinham porta.
+
+```tsx
+const [funilAberto, setFunilAberto] = useState(false);
+
+<Button onClick={() => setFunilAberto(true)}>Filtrar clientes</Button>
+
+<DataTable
+  rows={rows}
+  columns={columns}
+  simpleFilter={{ open: funilAberto, onOpenChange: setFunilAberto }}
+/>
+```
+
+- **`open` presente ⇒ a prop manda.** O estado interno deixa de decidir: o funil da
+  toolbar, o X do header, o botão "Fechar" do rodapé, o Esc e o backdrop passam a só
+  **avisar** por `onOpenChange`. Quem move o drawer é a tela.
+- **`onOpenChange` dispara nos DOIS modos.** É notificação de intenção, não controle:
+  sem `open`, o drawer continua abrindo e fechando sozinho e o callback apenas
+  **observa** (telemetria, badge, espelhar o estado). Mesmo par do
+  `showHistory`/`onShowHistoryChange` do `Gantt`.
+- **Ausentes as duas ⇒ nada muda.** É o funil de sempre.
+
+> ⚠️ **Nunca passe `open` sem `onOpenChange`.** O drawer fica preso no valor da prop e
+> as três saídas do usuário (X, Esc, backdrop) viram cliques sem efeito, sem nada na
+> tela dizendo por quê — é a L-070, estado sem saída. O componente **não** troca de
+> contrato por causa disso (uma prop que só manda às vezes seria a armadilha maior),
+> mas emite `console.warn` em DEV nomeando a prop e a consequência. Se você só quer
+> saber quando o drawer abre, passe **só** `onOpenChange`.
 
 ---
 
