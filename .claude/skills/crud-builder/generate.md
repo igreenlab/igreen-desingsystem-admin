@@ -400,11 +400,12 @@ normal e **avise**: passar `filterModel` controlado com `rows` já filtradas faz
 local rodar de novo sobre o lote — no-op quando as semânticas coincidem, e perde linha
 quando divergem. É pendência conhecida do DS, não algo pra contornar na tela.
 
-⚠️ **Filtro que zera o resultado:** nos dois caminhos de server mode a tela cai em
-"Nenhum dado cadastrado" (*"não existe nada"*) **sem o botão de limpar filtros**, em vez
-de "Nenhum dado encontrado". Se a tela tem filtro, **gere `renderEmpty` alternado** pelo
-`filterModel` que você já tem em estado:
-`renderEmpty={temFiltro ? <NoResults onClear={limpar} /> : <Empty />}`.
+✅ **Filtro que zera o resultado:** desde a `vNEXT` os três modos dão "Nenhum dado
+encontrado" **com o botão de limpar filtros**, já cabeado pelo DataTable. ⛔ **Não gere
+mais o `renderEmpty` alternado** pelo `filterModel` que esta seção mandava gerar
+(`renderEmpty={temFiltro ? <NoResults/> : <Empty/>}`): virou código morto no caso filtrado
+e só adiciona um caminho a manter. `renderEmpty` segue valendo pro vazio de verdade — sem
+filtro e total 0 — que é onde mora o CTA de criar.
 
 **Toda tela de server mode leva `loadingMode="keep"`** — a não ser que o blueprint
 diga o contrário. Sem a prop, cada troca de página troca o corpo **inteiro** pelo

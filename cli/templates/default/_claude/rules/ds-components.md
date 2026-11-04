@@ -345,7 +345,7 @@ Três coisas que você **precisa** acertar:
 ✅ Combina com ****loadingMode="keep"**** — e é o par natural do ****placeholderData**** /
 ****keepPreviousData**** do react-query/SWR.
 
-⚠️ **Três limites conhecidos — leia antes de abrir bug:**
+⚠️ **Dois limites conhecidos — leia antes de abrir bug:**
 
 1. **O caso ESPELHADO não é atendido.** Filtrar e buscar no servidor mantendo paginação e
    ordenação locais é válido e comum, e ****processingMode="server"**** **não serve**: ele
@@ -354,14 +354,19 @@ Três coisas que você **precisa** acertar:
    filtradas vê o filtro local rodar de novo sobre o lote — no-op quando as semânticas
    coincidem, e **perde linha** quando divergem (busca de banco acento-insensível,
    ordenação do SQL ≠ a do JS, campo que a coluna não declara). Pendência conhecida.
-2. **Filtro que zera o resultado mostra o vazio errado.** Em client mode dá "Nenhum dado
-   encontrado" **com o botão de limpar filtros**; nos dois caminhos de server mode dá
-   "Nenhum dado cadastrado" — *"não existe nada"* — **sem a saída de limpar**. Herdado do
-   ****fetchData****. Saída: alterne ****renderEmpty**** pelo seu próprio
-   ****filterModel****.
-3. **Não passe ****rows**** junto com ****fetchData****.** O CSV sairia com as
+2. **Não passe ****rows**** junto com ****fetchData****.** O CSV sairia com as
    ****rows**** locais sob um rótulo dizendo "Página atual", enquanto o corpo mostra a
    resposta do servidor.
+
+✅ **Filtro que zera o resultado deixou de mostrar o vazio errado (DS **vNEXT**+).** Os
+três modos agora dizem a mesma coisa: "Nenhum dado encontrado" **com o botão de limpar
+filtros**, já cabeado. Antes, nos dois caminhos de server, o total ia a 0 e a tela afirmava
+"Nenhum dado cadastrado" — *"não existe nada"*, que é **falso** (existe; o filtro é que não
+casou) — e **sem a saída de limpar**, justamente quando ela é mais necessária. ⚠️ Isso
+**mudou o ****fetchData**** também**, de propósito. Sem filtro nenhum e total 0, segue
+"Nenhum dado cadastrado" nos três — esse é verdadeiro. Se você contornava alternando
+****renderEmpty**** pelo seu ****filterModel****, o contorno virou desnecessário: não
+quebra, só deixa de ser alcançado no caso filtrado.
 
 ⚠️ Os dois caminhos **não se somam**: com ****fetchData**** presente o
 ****processingMode**** é ignorado. E em client mode puro (sem nenhum dos dois) o

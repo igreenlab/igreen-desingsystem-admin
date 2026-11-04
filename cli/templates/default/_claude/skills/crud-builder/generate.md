@@ -81,10 +81,11 @@ Nunca gere props de memória — copie a forma do exemplo.
   já filtradas faz o filtro local rodar de novo sobre o lote — no-op quando as
   semânticas coincidem, perde linha quando divergem. Pendência conhecida do DS.
 
-  ⚠️ **Filtro que zera o resultado:** nos dois caminhos de server mode a tela cai em
-  "Nenhum dado cadastrado" (*"não existe nada"*) **sem o botão de limpar filtros**, em
-  vez de "Nenhum dado encontrado". Tela com filtro ⇒ **gere ****renderEmpty**** alternado**
-  pelo ****filterModel**** que você já tem em estado.
+  ✅ **Filtro que zera o resultado (DS `vNEXT`+):** os três modos dão "Nenhum dado
+  encontrado" **com o botão de limpar filtros**, cabeado pelo próprio `data-table`. ⛔ Não
+  gere mais o ****renderEmpty**** alternado pelo ****filterModel**** que esta linha pedia:
+  virou código morto no caso filtrado. ****renderEmpty**** segue valendo pro vazio de
+  verdade — sem filtro e total 0 — que é onde mora o CTA de criar.
 - **Server mode (qualquer um dos dois) ⇒ `loadingMode="keep"`**, salvo se o blueprint disser o contrário.
   Sem a prop (default `"skeleton"`) cada troca de página troca o corpo **inteiro**
   pelo esqueleto e volta — é o "pisca", e em tela de navegação frequente é a

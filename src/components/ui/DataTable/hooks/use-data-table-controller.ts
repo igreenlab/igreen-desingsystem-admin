@@ -352,17 +352,37 @@ export function useDataTableController<T>(
   /* ── Estados de feedback ──────────────────────────────────────── */
 
   const isLoading = isServerMode ? query.isLoading : !!props.loading;
-  // "O conjunto está vazio?" — e o vazio da PÁGINA não é o vazio do conjunto.
-  // Em server mode por `rows` o lote é a página, então quem responde é o total,
-  // igual ao que o `fetchData` já fazia.
-  const totalRowsForEmpty =
-    isServerMode || isServerProcessed ? effectiveTotal : clientRows.length;
-  const isDataEmpty = !isLoading && totalRowsForEmpty === 0 && effectiveRows.length === 0;
-  const isNoResults =
+  /* "O conjunto está vazio?" — e o vazio da PÁGINA não é o vazio do conjunto.
+     Nos DOIS caminhos de server o lote é a página, então quem responde é o
+     total. Em client mode quem responde é `rows`, que é o conjunto inteiro. */
+  const usaTotalDoServidor = isServerMode || isServerProcessed;
+  const totalRowsForEmpty = usaTotalDoServidor ? effectiveTotal : clientRows.length;
+  const temFiltroOuBusca =
+    filters.filterModel.items.length > 0 || search.debouncedValue.length > 0;
+  /**
+   * ⚠️ O `&& !(server && filtro)` é a correção do I-5 da review da T11.
+   *
+   * Em server o `totalRowsForEmpty` é o total **DEPOIS do filtro** — ele não
+   * distingue "não existe dado" de "o filtro não casou". Sem este termo,
+   * filtrar até zerar dava "Nenhum dado cadastrado" (*"não existe nada"*) e,
+   * por vencer o `isNoResults` via `!isDataEmpty`, levava junto o botão de
+   * limpar filtros: a tela afirmava algo FALSO e apagava a única saída,
+   * exatamente quando o usuário precisava dela. É a L-070.
+   *
+   * O termo é escopado ao server de propósito, e não é cosmético: em client
+   * mode `totalRowsForEmpty` é `clientRows.length`, o total ANTES do filtro,
+   * que já responde a pergunta sozinho. Aplicá-lo sem escopo mudaria o único
+   * caso em que os dois divergem — `rows: []` COM filtro ativo —, trocando um
+   * "Nenhum dado cadastrado" verdadeiro por um "limpar filtros" que não
+   * revelaria nada. A assimetria some onde ela mentia e fica onde ela acerta.
+   */
+  const isDataEmpty =
     !isLoading &&
-    !isDataEmpty &&
-    effectiveTotal === 0 &&
-    (filters.filterModel.items.length > 0 || search.debouncedValue.length > 0);
+    totalRowsForEmpty === 0 &&
+    effectiveRows.length === 0 &&
+    !(usaTotalDoServidor && temFiltroOuBusca);
+  const isNoResults =
+    !isLoading && !isDataEmpty && effectiveTotal === 0 && temFiltroOuBusca;
 
   // `loadingMode: "keep"` — carregamento em vôo COM resultado anterior na mão.
   // O dado nunca foi descartado (`use-data-table-query` não limpa `data` ao

@@ -667,15 +667,18 @@ export type DataTableProps<T> = {
    * linhas. Declare `paginationConfig.initialPageSize` igual ao tamanho de
    * página da sua API (e `pageSizeOptions` só com valores que ela aceita).
    *
-   * ⚠️ **Filtro que zera o resultado mostra o estado vazio ERRADO.** Em client
-   * mode, filtrar até zero dá "Nenhum dado encontrado" **com o botão de limpar
-   * filtros**. Nos dois caminhos de server mode o total vai a 0, o `isDataEmpty`
-   * vence o `isNoResults`, e a tela diz "Nenhum dado cadastrado" — *"não existe
-   * nada"* — **sem a saída de limpar**, justamente quando ela é mais necessária.
-   * É comportamento **pré-existente do `fetchData`**, herdado aqui de propósito
-   * (consertar mudaria os dois caminhos); está em pendência. Até lá a saída é
-   * `renderEmpty`, que você pode alternar pelo `filterModel` que já é seu:
-   * `renderEmpty={temFiltro ? <MeuNoResults onClear={…} /> : <MeuEmpty />}`.
+   * ✅ **Filtro que zera o resultado dá o mesmo vazio dos três modos** (desde
+   * `vNEXT`): "Nenhum dado encontrado" **com o botão de limpar filtros**, já
+   * cabeado. Antes, nos dois caminhos de server o total ia a 0 e a tela dizia
+   * "Nenhum dado cadastrado" — *"não existe nada"* — **sem a saída de limpar**,
+   * justamente quando ela é mais necessária. Em server o total é o de DEPOIS
+   * do filtro: ele não sabe distinguir "não existe" de "não casou", então
+   * afirmar o primeiro é afirmar algo falso.
+   *
+   * ⚠️ **Isto mudou o `fetchData` também**, que é comportamento antigo, e foi
+   * deliberado: ninguém depende de um vazio que mente e prende (L-070). Sem
+   * filtro nenhum e total 0, segue "Nenhum dado cadastrado" nos três modos —
+   * esse é verdadeiro.
    *
    * Os dois **não se somam**: com `fetchData` presente o DataTable já é server
    * mode e esta prop é ignorada (`fetchData` vence `rows`, e é sobre `rows`

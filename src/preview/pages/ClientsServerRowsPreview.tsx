@@ -120,7 +120,9 @@ const DESCRICAO =
   'e processingMode="server" manda o DataTable não reprocessar nada — nem fatiar, ' +
   "nem ordenar, nem filtrar, nem buscar. O total vem de rowCount. Use este caminho " +
   "quando já existe react-query/SWR dono do fetch; use fetchData quando não existe. " +
-  "Ordene por Nome: a primeira linha passa a ser a menor das 100, não das 25 da tela.";
+  "Ordene por Nome: a primeira linha passa a ser a menor das 100, não das 25 da tela. " +
+  'Busque por "zzzz": o vazio filtrado vem com o botão de limpar filtros — antes da vNEXT ' +
+  'os dois caminhos de server diziam "Nenhum dado cadastrado", sem saída.';
 
 /**
  * Página standalone — DataTable em server mode **pela tela**
@@ -138,6 +140,12 @@ const DESCRICAO =
  *      DataTable fatiaria este lote de novo e a página 2 viria vazia.
  *   3. **O menu "Opções"** oferece "CSV — Página atual", não "Todos": a tela
  *      só entregou 25 linhas, e prometer 100 seria mentira.
+ *   4. **Buscar por algo que não existe** (ex.: "zzzz") zera o `rowCount` e dá
+ *      "Nenhum dado encontrado" **com o botão de limpar filtros**. Até a
+ *      `vNEXT` esta mesma tela dizia "Nenhum dado cadastrado" — *"não existe
+ *      nada"*, falso — e **sem** o botão: o estado que apaga a própria saída
+ *      (L-070). Em server o total é o de DEPOIS do filtro, e não distingue
+ *      "não existe" de "não casou".
  */
 export default function ClientsServerRowsPreview() {
   const columns = useMemo(() => COLUMNS, []);
