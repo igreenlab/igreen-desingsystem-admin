@@ -1,12 +1,8 @@
 import type { ReactNode } from "react";
-import { CirclePlus, CircleX } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FilterChip } from "@/components/ui/FilterChip";
 import {
   toolbarApplied,
-  toolbarAppliedChip,
-  toolbarAppliedChipName,
-  toolbarAppliedChipOp,
-  toolbarAppliedChipRemove,
   toolbarAppliedChipValue,
   toolbarAppliedClearLink,
 } from "../table-toolbar.styles";
@@ -62,10 +58,18 @@ export type ToolbarAppliedProps = {
    * aí que ele paga. Numa barra onde todo chip visível já está aplicado, ele
    * não distingue nada — só muda a cor de tudo.
    *
-   * Por isso é opt-in e não derivado de `isEmpty`: o `DataList` **nunca**
-   * produz chip vazio (`toAppliedFilters` descarta item sem valor), e o
-   * `DataTable` só produz com `showEmptyFilterChips` ou no chip transitório do
-   * atalho de filtro do cabeçalho.
+   * Por isso é opt-in e não derivado de `isEmpty`: nenhum dos dois produz chip
+   * vazio PERSISTENTE. No `DataList` o `toAppliedFilters` descarta item sem
+   * valor — com uma exceção **transitória**, enquanto o popover daquele chip
+   * está aberto e o usuário desmarcou tudo (é o chip que ancora o popover; sem
+   * a exceção ele desmonta no meio da interação). No `DataTable` o chip vazio
+   * dura com `showEmptyFilterChips` e é transitório no atalho de filtro do
+   * cabeçalho e no mesmo caso do popover aberto.
+   *
+   * ⚠️ Até 2026-11-04 esta linha dizia que o `DataList` **nunca** produzia chip
+   * vazio. O argumento do opt-in não muda — um chip vazio que só existe durante
+   * a edição não é barra pra contrastar —, mas a frase virou falsa quando a
+   * exceção entrou, e doc que afirma o antigo faz quem lê parar de investigar.
    */
   highlightAppliedFilterChips?: boolean;
   className?: string;
@@ -141,74 +145,30 @@ export function ToolbarApplied({
           f.op === "between"
             ? (opLabels?.between ?? null)
             : (f.opLabel ?? resolveOp(f.op));
+        /* Quando isEmpty (chip placeholder pré-ativo aguardando valor), vai
+           apenas o nome da coluna — sem operador, sem value. Veja
+           `showEmptyFilterChips` na DataTableProps + flag isEmpty no adapter. */
+        const valores: ReactNode[] = f.isEmpty
+          ? []
+          : Array.isArray(f.value)
+            ? (f.value as ReactNode[])
+            : [f.value];
         const defaultChip = (
-          <span
-            className={toolbarAppliedChip({
-              interactive: !!renderChip,
-              active: destacado,
-            })}
-          >
-            {/* removable === false → chip fixo: no lugar do X entra um "+"
-                DECORATIVO (indica "clique pra preencher" e mantém o alinhamento
-                — sem ícone a palavra encostava mais à esquerda que os vizinhos).
-                Não é botão: o clique no chip inteiro é que abre o popover. */}
-            {f.removable === false ? (
-              <span
-                aria-hidden="true"
-                className={cn(toolbarAppliedChipRemove(), "cursor-[inherit]")}
-              >
-                <CirclePlus strokeWidth={2} />
-              </span>
-            ) : (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRemove(f.id);
-                }}
-                aria-label="Remover filtro"
-                className={toolbarAppliedChipRemove()}
-              >
-                <CircleX strokeWidth={2} aria-hidden="true" />
-              </button>
-            )}
-            <span className={toolbarAppliedChipName()}>{f.columnLabel}</span>
-            {/* Quando isEmpty (chip placeholder pré-ativo aguardando valor), renderiza
-                apenas o nome da coluna — sem operador, sem value. Veja `showEmptyFilterChips`
-                na DataTableProps + flag isEmpty no adapter. */}
-            {!f.isEmpty && (
-              <>
-                {/* Exclusão (isNoneOf) ganha destaque de EXCEÇÃO — danger — pra
-                    "não é" não passar despercebido no meio dos chips (item 8). */}
-                {rotuloDoOperador !== null && (
-                  <span
-                    className={cn(
-                      toolbarAppliedChipOp(),
-                      f.op === "isNoneOf" && "text-fg-danger font-semibold",
-                    )}
-                  >
-                    {rotuloDoOperador}
-                  </span>
-                )}
-                {Array.isArray(f.value) ? (
-                  <span className="inline-flex items-center gap-gp-2xs">
-                    {(f.value as ReactNode[]).map((v) => (
-                      <span
-                        key={String(v)}
-                        className={toolbarAppliedChipValue({ active: destacado })}
-                      >
-                        {v}
-                      </span>
-                    ))}
-                  </span>
-                ) : (
-                  <span className={toolbarAppliedChipValue({ active: destacado })}>
-                    {f.value}
-                  </span>
-                )}
-              </>
-            )}
-          </span>
+          /* `removable === false` → chip fixo: no lugar do ⊗ entra um ⊕
+             DECORATIVO (indica "clique pra preencher" e mantém o alinhamento).
+             Não é botão: o clique no chip inteiro é que abre o popover. */
+          <FilterChip
+            interactive={!!renderChip}
+            active={destacado}
+            removable={f.removable !== false}
+            onRemove={() => onRemove(f.id)}
+            name={f.columnLabel}
+            /* Exclusão (isNoneOf) ganha destaque de EXCEÇÃO — danger — pra
+               "não é" não passar despercebido no meio dos chips (item 8). */
+            op={f.isEmpty ? null : rotuloDoOperador}
+            opClassName={cn(f.op === "isNoneOf" && "text-fg-danger font-semibold")}
+            values={valores}
+          />
         );
         return (
           // shrink-0: no scroll horizontal mobile (flex-nowrap) os chips não comprimem.

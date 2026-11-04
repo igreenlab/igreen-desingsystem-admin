@@ -412,10 +412,30 @@ A extensão do evento é lida corretamente — o que falta é refinamento visual
 Nunca monte um form de filtro acima da grade (L-051). Passe `filterModel` e o
 chip aparece já aplicado, com o `×` pra desfazer.
 
-### 10. Nada aqui importa de `TableToolbar`
+### 10. O chip de filtro é o `FilterChip` compartilhado (`vNEXT`+)
 
-A gramática visual do segmented, da busca e dos chips é **copiada** em
-`scheduler.styles.ts`, não importada. Cross-import entre pastas de `ui/` é o
-que gerou o `registryDependency` dangling da L-049 (`@igreen/table-toolbar` não
-existe como item de registry). Se você editar o visual da toolbar do
-`TableToolbar`, considere se esta cópia deve acompanhar.
+⚠️ Esta seção dizia *"Nada aqui importa de `TableToolbar` — a gramática visual
+do segmented, da busca e dos chips é **copiada**"*. Dos três, o **chip deixou de
+ser cópia**: ele é o `FilterChip`, a mesma peça que o `TableToolbar` e o `Gantt`
+usam. Segmented e busca seguem copiados.
+
+Três coisas mudaram de pixel aqui, porque a cópia tinha divergido:
+
+| o quê | antes | agora |
+|---|---|---|
+| `×` | à direita, ícone nu | `⊗` à **esquerda** (`CircleX`), alinhado com os vizinhos |
+| borda | sólida de marca | **tracejado neutro** — o destaque só paga quando há chip vazio na fileira pra contrastar, e esta não tem nenhum |
+| operador | ausente | aparece: o chip lê "Status **é** Confirmado" |
+
+Mais `gap` 6→8px, padding `10/8`→`6/10` e a pílula do valor 20→22px.
+
+**O que NÃO mudou, e é decisão:** esta fileira continua mostrando **só o que
+está aplicado**, sem chip vazio — com o painel lateral sendo o lugar de
+escolher, chip vazio aqui seria um segundo lugar de escolher a mesma coisa. Ela
+serve pra desligar sem reabrir o painel (L-051).
+
+Cross-import entre pastas de `ui/` é rotina (`DataList` → `TableToolbar`,
+`CardCheckbox` → `CardOption`); o que a L-049 proíbe é `registryDependency`
+**pendente**. Por isso a peça saiu pra `ui/FilterChip` em vez de vir do
+`TableToolbar` — este é bundlado em `@igreen/data-table`, e depender dele
+arrastaria a tabela inteira pra dentro de um `igreen:add scheduler`.

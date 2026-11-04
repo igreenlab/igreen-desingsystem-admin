@@ -13,6 +13,7 @@
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
 - server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ✅ Filtro/busca que zera o resultado dá "Nenhum dado encontrado" **com o botão de limpar filtros** nos três modos (corrigido na vNEXT — antes os dois caminhos de server diziam "Nenhum dado cadastrado" *sem* saída, que é falso e prende); sem filtro e total 0 segue "Nenhum dado cadastrado"
 - server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
+- `fetchData` que REJEITA é silencioso e PERMANENTE: o loading desce, as linhas antigas ficam e o rodapé segue na página nova pra sempre. Passe **onError**`={(msg) => toast.error(msg)}` em TODA tabela com `fetchData` — o estado de erro na tela é seu (toast/banner/botão de tentar de novo via `ref.current.refresh()`); não existe `renderError`. O range do rodapé some sozinho enquanto a busca está falha, e volta na resposta seguinte
 - linha expansível que não tem o que mostrar (sem filho, sem detalhe) → **isRowExpandable**`={(row) => row.itens > 0}`, NUNCA chevron que abre painel vazio. Recusar tira o chevron E o clique juntos (chevron inerte é pior que ausente: o usuário clica, nada acontece, e não sabe se é defeito). O espaço do chevron fica reservado, pro texto da coluna não dançar entre as linhas; linha já aberta que passa a ser recusada FECHA, e o id dela sobrevive pra reabrir se voltar a aceitar. Ausente = toda linha expande, como sempre
 -->
 
@@ -127,6 +128,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Server mode — o DataTable busca** | passe `fetchData` em vez de `rows`. Ele chama a sua função a cada mudança de pagination/sort/filter/search e renderiza a resposta                                                                                                                                                                                                                      |
 | **Server mode — a TELA busca**  | **processingMode**`="server"` + `rows` + `rowCount`. As rows já são a página pronta: o DataTable **não** fatia, ordena, filtra nem busca — só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Use quando já existe react-query/SWR dono do fetch. Ver §Server mode |
 | **Trocar de página sem piscar** | **loadingMode**`="keep"` — durante o refetch as linhas do resultado ANTERIOR ficam no lugar (corpo **e** rodapé), com `aria-busy` + live region `sr-only` avisando, e o range do rodapé escondido. Default `"skeleton"` = o de hoje. Na primeira carga, sem linha anterior, o `"keep"` cai no esqueleto sozinho. Ver §Estados                                        |
+| **Saber que a busca falhou** | **onError**`={(msg) => …}` — dispara quando o `fetchData` rejeita (só a request corrente; nunca em client mode). Sem ela a falha é invisível e o rodapé fica mentindo pra sempre. O range do rodapé é escondido enquanto a busca está falha, sem prop. Ver §Estados |
 | **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |
 | **Virtualização**               | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais)                                                                                                                                                                                                                                                                                                    |
@@ -217,6 +219,33 @@ Três coisas que decidem o uso:
 
 Em server mode o dado **nunca** foi descartado: `useDataTableQuery` não limpa `data`/`total`
 ao disparar a request (nem no `catch`). O que mudou é o render parar de jogá-lo fora.
+
+#### `onError` — quando o `fetchData` rejeita (vNEXT)
+
+**O rodapé otimista acima é transitório. Numa falha, ele era DEFINITIVO.** Quando o
+`fetchData` rejeita, o loading desce, as linhas da página anterior ficam, o rodapé fica na
+página nova — e nada mais muda, porque não há próxima resposta pra corrigir o estado. Até a
+`vNEXT` isso acontecia **em silêncio**: o erro era guardado e ninguém o lia.
+
+```tsx
+<DataTable
+  fetchData={fetchClients}
+  onError={(msg) => toast.error(`Não foi possível carregar: ${msg}`)}
+  columns={columns}
+/>
+```
+
+- **O estado de erro na tela é seu.** O DS avisa; o toast, o banner ou o botão de tentar de
+  novo (`ref.current.refresh()`) você compõe. **Não existe** um `renderError` ao lado de
+  `renderEmpty`/`renderNoResults` — de propósito: o DS entrega a peça e o ponto de
+  extensão, não uma variante pra cada forma de mostrar falha.
+- **O que o DS faz sozinho, sem prop:** esconde o **texto do range** do rodapé enquanto a
+  última busca está falha, pelo mesmo motivo (e mecanismo) do `"keep"` — ele seria a única
+  afirmação falsa sobre o que está na tela. Os controles ficam; o range volta na primeira
+  resposta que chegar.
+- ⚠️ **Só dispara pela request CORRENTE.** Uma request superada por outra mais nova é
+  descartada pelo guard de corrida antes de chegar aqui, então trocar de página rápido (ou
+  abortar a anterior) não vira aviso falso. Em client mode nunca dispara.
 
 **Em client mode (`rows` + `loading`) a prop vale igual** — mesma tabela, mesmo
 `aria-busy`, mesmo rodapé. ⚠️ **Com uma diferença que decide o uso: aqui quem preserva o

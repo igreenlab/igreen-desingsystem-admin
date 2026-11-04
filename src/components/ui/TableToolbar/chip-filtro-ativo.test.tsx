@@ -15,12 +15,15 @@ import type { AppliedFilter } from "./table-toolbar.types";
  * não distingue nada e só muda a cor de tudo — e essa é a maioria das telas.
  *
  * Medido nesta árvore, e é o que sustenta o opt-in:
- *   - `DataList` **nunca** produz chip vazio — `toAppliedFilters`
- *     (`DataList/parts/data-list-toolbar.tsx:101`) faz `continue` em item sem
- *     valor. Lá o item 16 pintou **100%** dos chips de marca, com zero contraste
- *     ganho.
- *   - No `DataTable` o chip vazio só existe com `showEmptyFilterChips`, ou
- *     transitoriamente pelo atalho de filtro do cabeçalho.
+ *   - `DataList` não produz chip vazio PERSISTENTE — o `toAppliedFilters` faz
+ *     `continue` em item sem valor. A exceção é **transitória**: o grupo do chip
+ *     cujo popover está ABERTO sobrevive vazio, senão a âncora desmonta no meio
+ *     da interação (P3, 2026-11-04). Numa barra em repouso continua não havendo
+ *     vazio nenhum, e foi lá que o item 16 pintou **100%** dos chips de marca,
+ *     com zero contraste ganho.
+ *   - No `DataTable` o chip vazio só dura com `showEmptyFilterChips`; é
+ *     transitório no atalho de filtro do cabeçalho e no mesmo caso do popover
+ *     aberto.
  *
  * ## O que estes testes travam, nesta ordem de importância
  *
@@ -87,6 +90,25 @@ const chip = (over: Partial<AppliedFilter> = {}): AppliedFilter => ({
 const tokens = (s: string | null | undefined) =>
   (s ?? "").split(/\s+/).filter(Boolean).sort();
 
+/**
+ * A ÚNICA classe que o chip ganhou desde `21477d0^`, e por quê.
+ *
+ * Na P12 (2026-11-04) o chip virou o `<FilterChip>` compartilhado com o `Gantt`
+ * e o `Scheduler`. Lá o chip é o próprio item flex da fileira — não há o
+ * `<div className="inline-flex shrink-0">` que esta tela põe em volta de cada
+ * chip —, então o `shrink-0` desceu pra base da peça.
+ *
+ * **Zero pixel aqui:** o wrapper desta tela já aplicava `shrink-0` ao redor;
+ * repetir no filho de um `inline-flex` de um filho só não muda largura nenhuma.
+ * A régua continua sendo a `tv()` antiga rodada verbatim — o que esta lista faz
+ * é NOMEAR a diferença permitida. Qualquer outra reprova.
+ */
+const MOVEU_DO_WRAPPER = ["shrink-0"];
+
+/** A régua: o conjunto de `21477d0^` mais o que subiu do wrapper. */
+const regua = (over?: { interactive?: boolean }) =>
+  [...new Set([...tokens(chipAntes(over)), ...MOVEU_DO_WRAPPER])].sort();
+
 const classesDoChip = (i = 0) => {
   const spans = [...document.querySelectorAll("span")].filter((s) =>
     (s.getAttribute("class") ?? "").includes("rounded-radius-lg"),
@@ -107,7 +129,7 @@ const classesDoValor = () => {
 describe("ToolbarApplied — o caminho antigo: sem a prop, a cor é a de antes do item 16", () => {
   it("o chip APLICADO tem o MESMO conjunto de classes de 21477d0^", () => {
     render(<ToolbarApplied filters={[chip()]} onRemove={() => {}} />);
-    expect(classesDoChip()).toEqual(tokens(chipAntes()));
+    expect(classesDoChip()).toEqual(regua());
   });
 
   it("o chip APLICADO interativo também — hover neutro, foco de sempre", () => {
@@ -118,7 +140,7 @@ describe("ToolbarApplied — o caminho antigo: sem a prop, a cor é a de antes d
         renderChip={(_f, d) => d}
       />,
     );
-    expect(classesDoChip()).toEqual(tokens(chipAntes({ interactive: true })));
+    expect(classesDoChip()).toEqual(regua({ interactive: true }));
   });
 
   it("a pílula do VALOR volta a `text-fg-default`, sem `dark:` e sem marca", () => {
@@ -137,7 +159,7 @@ describe("ToolbarApplied — o caminho antigo: sem a prop, a cor é a de antes d
         onRemove={() => {}}
       />,
     );
-    expect(classesDoChip()).toEqual(tokens(chipAntes()));
+    expect(classesDoChip()).toEqual(regua());
   });
 
   it("numa barra MISTA, os dois chips ficam iguais — é o estado que o item 16 achou ruim", () => {

@@ -25,6 +25,7 @@ import {
   type GridFetchResult,
 } from "@/components/ui/DataTable";
 import { Button } from "@/components/ui/Button/button";
+import { Alert, AlertDescription } from "@/components/shadcn/alert";
 import { BulkActionButton } from "@/components/ui/TableToolbar";
 import { ExamplePageLayout } from "../components/example-page-layout";
 
@@ -210,8 +211,24 @@ export default function ClientsCRUDServerPreview() {
   const columns = useMemo(() => COLUMNS, []);
   const tableRef = useRef<DataTableRef>(null);
 
+  /* `onError` ao vivo. A falha é um estado que o consumidor nunca consegue
+     provocar de propósito numa demo — e é justamente o que ele precisa ver:
+     sem a prop, o `fetchData` que rejeita não dá sinal NENHUM, e o rodapé fica
+     afirmando a página nova sobre as linhas da anterior pra sempre.
+     O ref é lido no `fetchData` pra não trocar a identidade dele (server mode
+     refetcha em loop com `fetchData` novo a cada render). */
+  const falharRef = useRef(false);
+  const [vaiFalhar, setVaiFalhar] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
+
   // useCallback estável (necessário pro server mode não fazer refetch em loop)
-  const fetchData = useCallback(mockFetchClients, []);
+  const fetchData = useCallback(async (params: GridFetchParams) => {
+    if (falharRef.current) {
+      await new Promise((r) => setTimeout(r, 500));
+      throw new Error("503 — o serviço de clientes não respondeu");
+    }
+    return mockFetchClients(params);
+  }, []);
 
   /* `loadingMode` ao vivo: a diferença só existe ENQUANTO o fetch está em vôo,
      então mencionar a prop não demonstra nada — é preciso trocar de página nos
@@ -225,12 +242,39 @@ export default function ClientsCRUDServerPreview() {
       description="DataTable em server mode — passa fetchData em vez de rows. Sort/filter/search/pagination disparam refetch (latência 500ms simulada). Botão Refresh externo dispara ref.current.refresh(). Use o menu “Carregamento” da toolbar e troque de página: no default o corpo vira esqueleto; em “Manter linhas” as linhas anteriores ficam no lugar até a próxima página chegar."
       code={CODE}
     >
+      {erro && (
+        /* O estado de erro na tela é do CONSUMIDOR — o DS só avisa pelo
+           `onError`. Aqui é o `Alert` do DS; no seu projeto pode ser um toast.
+           ⚠️ Montado com o componente, não na unha: um banner hand-rolled com
+           `bg-bg-danger-muted` + `text-fg-danger` mede **3,14:1** no claro
+           (medido) e reprova o AA de texto corrido — é a família da P14, e não
+           é aqui que ela se decide. O `AlertDescription` usa `fg-muted`. */
+        <Alert
+          variant="destructive"
+          className="flex items-center justify-between gap-gp-md"
+        >
+          <AlertDescription>{erro}</AlertDescription>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => {
+              falharRef.current = false;
+              setVaiFalhar(false);
+              setErro(null);
+              tableRef.current?.refresh();
+            }}
+          >
+            Tentar de novo
+          </Button>
+        </Alert>
+      )}
       <DataTable<ClientRow>
           ref={tableRef}
           fetchData={fetchData}
           columns={columns}
           getRowId={(r) => r.id}
           loadingMode={loadingMode}
+          onError={setErro}
           toolbar={{
             title: "Clientes",
             enableSearch: true,
@@ -259,6 +303,20 @@ export default function ClientsCRUDServerPreview() {
                     onClick: () => setLoadingMode("keep"),
                   },
                 ],
+              },
+              {
+                id: "simular-falha",
+                kind: "button",
+                label: vaiFalhar
+                  ? "Falha armada — troque de página"
+                  : "Simular falha da API",
+                isActive: vaiFalhar,
+                onClick: () => {
+                  const proximo = !vaiFalhar;
+                  falharRef.current = proximo;
+                  setVaiFalhar(proximo);
+                  if (!proximo) setErro(null);
+                },
               },
             ],
           }}

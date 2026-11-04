@@ -167,6 +167,15 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    comportamento de sempre.
    ⚠️ O `data-list` **não tem** esse par — o funil dele segue só com estado interno.
 
+   **Como dois filtros no MESMO campo combinam:** itens agrupam por **campo + operador**;
+   dentro do grupo é **OU**, entre grupos é **E**. Dois ****equals**** no campo de status
+   devolvem quem bate em qualquer um dos dois; um ****contains**** mais um ****notContains****
+   no mesmo campo seguem somando condições. Vale pra `data-table` e, **desde a vNEXT**,
+   também pra `data-list` — antes dela a lista combinava os dois ****equals**** por **E**,
+   pedia que uma célula fosse dois valores ao mesmo tempo e **esvaziava em silêncio** com o
+   mesmo modelo que a tabela filtrava certo. Se você contornava isso pré-aplicando um filtro
+   por vez numa visão de lista, pode voltar a pré-aplicar vários de uma vez.
+
 > As exceções (2 e 3) são raras. Sempre que a informação já está numa coluna: **chip nativo
 > primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +
 > chip vazio de "Atribuído"). Entrevista guiada completa em `/ds-create-crud`.
@@ -204,7 +213,10 @@ segue neutro de propósito (o verde ali mede 4,36:1 e reprovaria o AA de texto).
 esse destaque na mão nem passe `className` pra imitá-lo.
 
 ⚠️ A ****data-list**** não tem essa prop, e é de propósito: ela descarta filtro sem valor
-antes de montar os chips, então lá não existe chip vazio pra contrastar.
+antes de montar os chips, então numa barra em repouso não existe chip vazio pra contrastar.
+O único vazio dela é **transitório** — o chip que você está editando, depois de desmarcar
+tudo, segura o lugar até o popover fechar (DS `vNEXT`+; antes disso ele **sumia junto com o
+popover** no meio da edição).
 
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
 sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.
@@ -310,6 +322,36 @@ corpo vazio seria pior que esqueleto: o ****"keep"**** cai no esqueleto sozinho 
 resposta. As setas e os números **não mentem**: dizem pra onde o clique leva. O **texto**
 do intervalo ("76–100 de 100") mentiria sobre o corpo, então ele some durante o vôo e
 volta na resposta. Nada a configurar — e não é defeito a "consertar" se você vir.
+
+### Saber que a busca falhou — ****onError**** (DS **vNEXT**+)
+
+O rodapé otimista acima é **transitório**. Numa falha, era **definitivo**: quando o
+****fetchData**** rejeita, o carregamento desce, as linhas antigas ficam, o rodapé fica na
+página nova — e nada mais muda, porque não vem outra resposta. Até a vNEXT isso era
+**invisível**: o erro existia por dentro e ninguém o lia.
+
+**Passe ****onError**** em toda tabela com ****fetchData****:**
+
+```tsx
+<DataTable
+  fetchData={buscarClientes}
+  onError={(msg) => toast.error(`Não foi possível carregar: ${msg}`)}
+  columns={colunas}
+/>
+```
+
+O **estado de erro na tela é seu** — toast, banner acima da tabela, botão de tentar de novo
+(`ref.current.refresh()`). **Não existe** um slot de erro ao lado de ****renderEmpty**** /
+****renderNoResults****, e isso é escolha: o DS entrega a peça e o ponto de extensão.
+
+✅ O que o DS faz sozinho, sem prop: esconde o **texto do intervalo** do rodapé enquanto a
+última busca está falha — ele seria a única afirmação falsa sobre a tela. Os controles
+ficam, e o texto volta na primeira resposta que chegar.
+
+⚠️ Só dispara pela request **corrente**: uma request superada por outra mais nova é
+descartada antes, então trocar de página rápido não vira aviso falso. Em modo cliente
+(****rows****) nunca dispara. A ****data-list**** não tem essa prop — ela não busca por
+conta própria.
 
 **Vale em client mode também** (você passa ****rows**** + ****loading****, sem
 ****fetchData****) — mesma tabela acima. ⚠️ **Só que aí quem guarda o lote anterior é

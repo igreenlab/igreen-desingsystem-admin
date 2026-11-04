@@ -193,66 +193,34 @@ export const schedulerSearchInput = tv({
   ],
 });
 
-/* ── Chips de filtro (cópia da gramática do `toolbarAppliedChip`) ──── */
-
-export const schedulerFilterRow = tv({
-  base: [
-    "flex items-center gap-gp-md",
-    "flex-nowrap overflow-x-auto sm:flex-wrap sm:overflow-x-visible",
-    "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-  ],
-});
-
+/* ── Chips de filtro — a peça compartilhada `ui/FilterChip` ────────── */
 /**
- * Chip de filtro **aplicado**. Desde que o painel lateral passou a ser o lugar
- * de escolher, esta linha não mostra mais chip vazio de borda tracejada: ela é
- * só o resumo do que está ligado, com o `×` pra desligar sem reabrir o painel
- * — que é o que a L-051 pede (o estado filtrado tem que ser visível e
- * desfazível sem procurar o controle que o produziu).
+ * ⚠️ Até 2026-11-04 esta seção era uma *"cópia da gramática do
+ * `toolbarAppliedChip`"*, escrita à mão — e a cópia já tinha divergido da
+ * origem em quatro pontos: `gap-gp-sm` em vez de `gap-gp-md`, padding
+ * invertido (`pl-pad-lg pr-pad-md`, porque o `×` estava à DIREITA), pílula de
+ * valor em `h-comp-2xs` (20px) em vez de 22px, e borda sólida de marca fixa.
+ * Agora é a mesma peça dos três.
  *
- * A variante `applied` continua no tv() porque o `false` ainda serve pro caso
- * de um chip renderizado durante a animação de saída.
+ * O que CONTINUA sendo decisão deste componente, e foi preservado:
+ * **esta fileira não mostra chip vazio**. Desde que o painel lateral passou a
+ * ser o lugar de escolher, ela é só o resumo do que está ligado, com o `⊗` pra
+ * desligar sem reabrir o painel — que é o que a L-051 pede. Chips vazios aqui
+ * seriam um segundo lugar de escolher a mesma coisa.
+ *
+ * ⚠️ E é justamente por não haver chip vazio que o chip **não** usa o destaque
+ * de marca (`active`): o destaque existe pra contrastar com o vazio, e numa
+ * fileira onde tudo já está aplicado ele repinta sem distinguir. É a mesma
+ * conclusão que o mantenedor tirou na 2ª volta do item 16 (commit `944138f`),
+ * que tornou o destaque opt-in no `TableToolbar`.
  */
-export const schedulerFilterChip = tv({
-  base: [
-    "inline-flex shrink-0 cursor-pointer items-center gap-gp-sm",
-    "h-form-md rounded-radius-lg pl-pad-lg pr-pad-md",
-    "bg-bg-surface dark:bg-bg-muted",
-    "border text-body-xs font-normal text-fg-default",
-    "transition-[background-color,border-color] duration-150",
-    "hover:bg-bg-muted-hover hover:border-border-default dark:hover:bg-bg-accent",
-    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
-    "[&_svg]:size-icon-xs [&_svg]:shrink-0 [&_svg]:text-fg-subtle",
-  ],
-  variants: {
-    applied: {
-      true: "border-solid border-border-brand bg-bg-brand-subtle dark:bg-bg-brand-subtle",
-      false: "border-dashed border-border-input",
-    },
-  },
-  defaultVariants: { applied: false },
-});
-
-export const schedulerFilterChipName = tv({
-  base: "font-semibold text-fg-default",
-});
-
-export const schedulerFilterChipValue = tv({
-  base: [
-    "inline-flex h-comp-2xs items-center px-pad-md",
-    "rounded-radius-sm bg-bg-muted dark:bg-bg-accent",
-    "text-body-xs font-medium text-fg-default",
-  ],
-});
-
-export const schedulerClearLink = tv({
-  base: [
-    "ml-pad-sm cursor-pointer border-0 bg-transparent p-0",
-    "text-body-xs font-medium text-fg-brand outline-none",
-    "underline-offset-2 transition-opacity duration-150",
-    "hover:underline focus-visible:underline",
-  ],
-});
+export {
+  filterChipRow as schedulerFilterRow,
+  filterChip as schedulerFilterChip,
+  filterChipName as schedulerFilterChipName,
+  filterChipValue as schedulerFilterChipValue,
+  filterChipClearLink as schedulerClearLink,
+} from "@/components/ui/FilterChip";
 
 /* ────────────────────────────────────────────────────────────────────────
  * Layout de duas colunas — grade + painel de filtro

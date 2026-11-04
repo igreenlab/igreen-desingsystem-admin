@@ -1,17 +1,12 @@
 import { useState } from "react";
-import { CircleX } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/shadcn/popover";
 import { Checkbox } from "@/components/shadcn/checkbox";
+import { FilterChip } from "@/components/ui/FilterChip";
 import {
-  ganttAppliedChip,
-  ganttAppliedChipName,
-  ganttAppliedChipOp,
-  ganttAppliedChipRemove,
-  ganttAppliedChipValue,
   ganttAppliedRow,
   ganttClearLink,
   ganttFilterOption,
@@ -29,14 +24,22 @@ import type { GanttFilterField, GanttFilterModel } from "../gantt.types";
 /**
  * Chips dos filtros aplicados — a linha abaixo da toolbar.
  *
- * ## Isto é uma reprodução deliberada do `ToolbarApplied` do `TableToolbar`
+ * ## O chip é o `<FilterChip>` compartilhado — não mais uma reprodução
  *
- * A anatomia do chip, os tokens e o comportamento vêm de lá, na ordem de lá:
+ * ⚠️ Até 2026-11-04 este arquivo dizia ser *"uma reprodução deliberada do
+ * `ToolbarApplied`"*, e era: a anatomia e os tokens estavam copiados à mão, na
+ * ordem de lá. Copiar estava certo no mérito e errado no mecanismo — a mesma
+ * gramática existia em TRÊS arquivos (aqui, no `TableToolbar` e no
+ * `Scheduler`) e já tinha divergido em gap, padding e altura da pílula.
+ * A peça agora mora em `ui/FilterChip` e é importada.
+ *
+ * A anatomia continua sendo esta, e agora é o componente que a trava:
  *
  *   [⊗ remover] [Nome do campo] [operador] [valor] [valor] …
  *
  * ⚠️ Três coisas que eu tinha escrito diferente e estavam ERRADAS, todas por eu
- * não ter lido o componente da tabela antes de inventar o meu:
+ * não ter lido o componente da tabela antes de inventar o meu — hoje as três
+ * são decisão do `FilterChip`, não deste arquivo:
  *
  * 1. **O `×` fica à ESQUERDA**, e é um `CircleX` — não um `X` nu à direita. À
  *    direita ele fica depois de um valor de largura variável, então o alvo
@@ -70,9 +73,17 @@ import type { GanttFilterField, GanttFilterModel } from "../gantt.types";
  * `renderChip` externo obrigaria o consumidor a reimplementar a lista de opções
  * que o painel de filtro já sabe montar.
  *
- * ⛔ Nada é importado de `ui/TableToolbar/` — só a gramática. Cross-import entre
- * pastas de `ui/` gera `registryDependency` pendente e o `igreen:add` estreia
- * quebrado (L-049).
+ * ⚠️ Esta linha dizia *"⛔ Nada é importado de `ui/TableToolbar/` — cross-import
+ * entre pastas de `ui/` gera `registryDependency` pendente (L-049)"*, e a regra
+ * estava mal lida: cross-import entre pastas de `ui/` é rotina aqui (`DataList`
+ * → `TableToolbar`, `CardCheckbox` → `CardOption`, `AppShell` → `Header`). O
+ * que a L-049 proíbe é a dependência **pendente** — importar de um componente
+ * que não existe como item do registry sem distribuir os arquivos dele. É por
+ * isso que a peça saiu pra `ui/FilterChip` em vez de ser importada do
+ * `TableToolbar`: o `table-toolbar` é bundlado no item `data-table`, e depender
+ * dele arrastaria os 107 arquivos da tabela pra dentro de um `igreen:add gantt`.
+ * Os 4 arquivos do `FilterChip` entram no `files[]` do item `gantt`; o gate
+ * `registry-imports` reprova se não entrarem.
  */
 
 /** Acima disso, os valores viram contagem. Ver a nota do topo. */
@@ -147,53 +158,28 @@ export function GanttAppliedFilters({
           chip é só leitura + `⊗`, e quem edita é o painel.
         */
         const conteudoDoChip = (
-          <span
+          <FilterChip
             role={editavel ? "button" : undefined}
             tabIndex={editavel ? 0 : undefined}
             aria-label={editavel ? `Editar filtro ${campo.label}` : undefined}
-            className={ganttAppliedChip({ interactive: editavel })}
+            interactive={editavel}
             onKeyDown={(e) => {
               // `<span role="button">` não dispara click no Enter/Space
               // sozinho — é o preço de o chip conter outro botão dentro
               // (`<button>` aninhado é HTML inválido e o React avisa).
+              // O `⊗` para a propagação do próprio teclado, então o Enter
+              // nele não chega aqui.
               if (editavel && (e.key === "Enter" || e.key === " ")) {
                 e.preventDefault();
                 setAberto((a) => (a === campo.id ? null : campo.id));
               }
             }}
-          >
-            <button
-              type="button"
-              aria-label={`Remover filtro ${campo.label}`}
-              className={ganttAppliedChipRemove()}
-              onClick={(e) => {
-                // `stopPropagation` senão o clique no `×` também abre o
-                // popover do chip que ele acabou de remover.
-                e.stopPropagation();
-                onClearField(campo.id);
-              }}
-              onKeyDown={(e) => e.stopPropagation()}
-            >
-              <CircleX strokeWidth={2} aria-hidden />
-            </button>
-
-            <span className={ganttAppliedChipName()}>{campo.label}</span>
-            <span className={ganttAppliedChipOp()}>{operador}</span>
-
-            {colapsa ? (
-              <span className={ganttAppliedChipValue()}>
-                {`${rotulos.length} selecionados`}
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-gp-2xs">
-                {rotulos.map((r) => (
-                  <span key={r} className={ganttAppliedChipValue()}>
-                    {r}
-                  </span>
-                ))}
-              </span>
-            )}
-          </span>
+            name={campo.label}
+            op={operador}
+            values={colapsa ? [`${rotulos.length} selecionados`] : rotulos}
+            removeLabel={`Remover filtro ${campo.label}`}
+            onRemove={() => onClearField(campo.id)}
+          />
         );
 
         if (!editavel) {

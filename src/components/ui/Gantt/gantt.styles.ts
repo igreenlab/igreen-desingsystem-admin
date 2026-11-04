@@ -527,133 +527,44 @@ export const ganttSearchInput = tv({
 });
 
 /**
- * Linha dos filtros APLICADOS, abaixo da toolbar.
+ * Fileira dos filtros APLICADOS, abaixo da toolbar.
  *
- * ⚠️ Estes estilos são uma reprodução do `toolbarApplied*` do `TableToolbar`,
- * token por token. A anatomia do chip da tabela não é preferência estética —
- * é a experiência que o usuário já aprendeu em outra tela do mesmo produto.
- * A minha primeira versão divergia em três pontos (× à direita, borda sólida
- * brand, sem operador) e cada divergência era uma coisa a reaprender.
+ * ⚠️ Até 2026-11-04 estes estilos eram uma **reprodução** do `toolbarApplied*`
+ * do `TableToolbar`, token por token — e a reprodução estava certa no mérito
+ * (a anatomia do chip da tabela é a experiência que o usuário já aprendeu em
+ * outra tela do mesmo produto), mas errada no mecanismo: a mesma gramática
+ * existia em três arquivos e já tinha divergido. Agora é importada de
+ * `ui/FilterChip`, que é onde ela mora pros três.
  *
- * O que documenta CADA decisão é o JSDoc de `gantt-applied-filters.tsx`.
+ * O que ESTE componente decide continua aqui e no part: limite de 3 valores
+ * antes de colapsar em contagem, o popover embutido e os 6 tipos de campo. O
+ * JSDoc de `gantt-applied-filters.tsx` documenta cada uma.
+ *
+ * ✅ O cross-import é legítimo e tem precedente (`DataList` → `TableToolbar`,
+ * `CardCheckbox` → `CardOption`, `AppShell` → `Header`). O que a L-049 proíbe
+ * é `registryDependency` **pendente** — por isso os arquivos de `FilterChip`
+ * entram no `files[]` do item `gantt` no registry, do mesmo jeito que o
+ * `table-toolbar` entra no `data-table`. O gate `registry-imports` reprova se
+ * eu esquecer.
  *
  * ## O divisor
  *
- * `16px → border-top → 16px → chips`, igual ao `toolbarApplied`. A linha
- * importa porque a fileira de chips não é um controle da toolbar — é o resumo
- * de um estado que ela produziu. Sem o divisor os chips liam como uma segunda
- * fileira de botões.
- *
- * ⚠️ O espaçamento mora AQUI (`mt`/`pt`) e não como `gap` do pai: a linha só
- * existe quando há filtro aplicado, e um `gap` no pai cobraria margem por uma
- * linha ausente na maior parte do tempo.
- *
- * Rola na horizontal no mobile em vez de quebrar linha: no celular, 4 chips
- * empilhados empurrariam a grade pra fora da tela.
- *
- * ⛔ Gramática copiada, não importada — cross-import entre pastas de `ui/` gera
- * `registryDependency` pendente (L-049).
+ * `16px → border-top → 16px → chips`, e o espaçamento mora no `mt`/`pt` da
+ * fileira e não como `gap` do pai: a linha só existe quando há filtro
+ * aplicado, e um `gap` no pai cobraria margem por uma linha ausente na maior
+ * parte do tempo. Rola na horizontal no mobile em vez de quebrar linha — no
+ * celular, 4 chips empilhados empurrariam a grade pra fora da tela.
  */
-export const ganttAppliedRow = tv({
-  base: [
-    "flex items-center gap-gp-md",
-    "mt-pad-2xl pt-pad-2xl border-t border-border-default",
-    "flex-nowrap overflow-x-auto sm:flex-wrap sm:overflow-x-visible",
-    "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-  ],
-});
+export {
+  filterChipRow as ganttAppliedRow,
+  filterChip as ganttAppliedChip,
+  filterChipRemove as ganttAppliedChipRemove,
+  filterChipName as ganttAppliedChipName,
+  filterChipOp as ganttAppliedChipOp,
+  filterChipValue as ganttAppliedChipValue,
+  filterChipClearLink as ganttClearLink,
+} from "@/components/ui/FilterChip";
 
-/**
- * O chip. Borda **tracejada e neutra**, como na tabela.
- *
- * ⚠️ Era `border-solid border-border-brand bg-bg-brand-subtle` na minha versão,
- * e estava errado: chip aplicado não precisa gritar — ele já É a prova de que
- * algo está ligado. Sólido em brand fazia a linha competir com a grade, que é o
- * conteúdo, e ainda colidia com o verde que aqui significa "hoje"/"selecionado".
- *
- * `shrink-0` porque no scroll horizontal do mobile (`flex-nowrap`) os chips não
- * podem comprimir.
- */
-export const ganttAppliedChip = tv({
-  base: [
-    "inline-flex shrink-0 items-center gap-gp-md",
-    "h-form-md pl-pad-sm pr-pad-lg rounded-radius-lg",
-    "bg-bg-surface dark:bg-bg-muted",
-    "border border-dashed border-border-input",
-    "text-body-xs font-normal text-fg-default",
-    "transition-[background-color,border-color] duration-150",
-  ],
-  variants: {
-    /** Clicável (abre as opções do campo). Sempre `true` hoje; ver o part. */
-    interactive: {
-      true: [
-        "cursor-pointer",
-        "hover:bg-bg-muted-hover hover:border-border-default",
-        "dark:hover:bg-bg-accent",
-        "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
-      ],
-      false: "",
-    },
-  },
-  defaultVariants: { interactive: false },
-});
-
-/**
- * O `⊗` de remover — à ESQUERDA do chip.
- *
- * ⚠️ Posição copiada da tabela, e ela tem razão de ser: à direita o alvo fica
- * depois de um valor de largura variável e "dança" de posição entre chips; à
- * esquerda todos ficam alinhados numa coluna, e limpar três filtros são três
- * cliques sem reposicionar a mira.
- */
-export const ganttAppliedChipRemove = tv({
-  base: [
-    "grid size-[18px] shrink-0 place-items-center rounded-radius-full",
-    "cursor-pointer border-0 bg-transparent p-0 text-fg-subtle outline-none",
-    "transition-colors duration-150 hover:text-fg-default",
-    "focus-visible:shadow-sh-ring",
-    "[&_svg]:size-[14px]",
-  ],
-});
-
-/** O nome do campo — "Frente", "Responsável". */
-export const ganttAppliedChipName = tv({
-  base: "font-semibold text-fg-default",
-});
-
-/**
- * O operador — "é".
- *
- * ⚠️ Minha versão não tinha. Sem ele o chip lê "Status Ativo", uma justaposição
- * ambígua; com ele lê "Status é Ativo", que é a frase que o filtro executa.
- */
-export const ganttAppliedChipOp = tv({
-  base: "text-caption-sm text-fg-muted",
-});
-
-/** Cada valor, em pílula própria. Um por valor até o limite do part. */
-export const ganttAppliedChipValue = tv({
-  base: [
-    "inline-flex h-[22px] items-center px-pad-md",
-    "rounded-radius-sm bg-bg-muted dark:bg-bg-accent",
-    "text-body-xs font-medium text-fg-default",
-  ],
-});
-
-/**
- * "Limpar todos" no fim da linha.
- *
- * Link e não `Button`: é a saída de um estado, não ação de primeira ordem — um
- * botão de 40px ali competiria com os próprios chips.
- */
-export const ganttClearLink = tv({
-  base: [
-    "ml-pad-sm shrink-0 cursor-pointer border-0 bg-transparent p-0",
-    "text-body-xs font-medium text-fg-brand outline-none",
-    "underline-offset-2 transition-opacity duration-150",
-    "hover:underline focus-visible:underline",
-  ],
-});
 /** Ponto no canto do botão de filtro — portador NÃO-cromático de "tem filtro". */
 export const ganttFilterDot = tv({
   base: [

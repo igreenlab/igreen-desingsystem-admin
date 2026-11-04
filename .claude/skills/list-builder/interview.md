@@ -128,6 +128,13 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 > - **Filtro por campo** (status/categoria/tipo/data…) → declare em `filterFields`. Quer
 >   abrir já filtrado? **pré-aplique** via `views` (abas) ou `filterModel` inicial → abre
 >   com o **chip aplicado**, editável, reativo. Pode pré-setar **vários** de uma vez.
+> - **Vários valores no MESMO campo pré-aplicados**: itens do `filterModel` agrupam por
+>   **campo + operador** e combinam por **OU** dentro do grupo, **E** entre grupos — mesmo
+>   grão do `DataTable`. Dois `equals` em `status` devolvem quem bate em qualquer um dos
+>   dois. ⚠️ **Exige o DS vNEXT ou mais novo**: antes disso a lista combinava escalares do
+>   mesmo campo por **E** e devolvia **zero linhas**, em silêncio, com o modelo que a tabela
+>   filtrava certo. Numa versão anterior, pré-aplique **um** valor por campo ou use
+>   `isAnyOf`, que sempre funcionou nos dois.
 > - **toolbarActions é SÓ pra caso pequeno e simples que NÃO reage com campo** (ex.:
 >   data/período, escopo) — **label curta**, **máx ~2**. Se mexe com os campos da lista,
 >   é grande, ou são muitos → **NÃO use o toolbar.**

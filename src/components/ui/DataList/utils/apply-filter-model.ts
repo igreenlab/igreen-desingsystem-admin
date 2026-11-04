@@ -53,14 +53,28 @@ function matchOp(op: string, val: unknown, fv: unknown): boolean {
 
 /**
  * Aplica o FilterModel (do drawer da TableToolbar) sobre os itens, client-side.
- * Itens `isAnyOf`/`isNoneOf` do mesmo campo são agrupados (OR/none dentro do
- * campo); campos distintos combinam com AND. Cobre os operadores que o drawer
+ *
+ * **O grão da combinação é o mesmo do `DataTable`** (`use-data-table-processor.ts`,
+ * `applyFilters`): itens agrupam por **`field|operator`**, combinam por **OR**
+ * dentro do grupo e por **AND** entre grupos. Cobre os operadores que o drawer
  * gera por filterType (text→contains, select→equals/isAnyOf, number→equals,
  * boolean→equals, date→equals/between).
  *
- * Num item multi o `value` pode ser um VALOR ou um ARRAY de valores — as duas
- * formas dão o mesmo resultado (ver o `achatar` abaixo e o porquê de cada
- * produtor). Operador escalar e `between` continuam lendo o `value` inteiro.
+ * ⚠️ **Até 2026-11-04 o escalar combinava por AND** (`for (const g of scalar)`,
+ * um `return false` por item), e era o único motor do sistema a fazê-lo: dois
+ * `equals` no mesmo campo devolviam quem bate nos DOIS — ninguém, porque uma
+ * célula tem um valor só. A tabela devolvia quem bate em qualquer um. Mesma
+ * pergunta, duas respostas, e a da lista não tinha resposta possível.
+ *
+ * O grão é `field|operator`, **não `field`**, e a diferença não é zelo:
+ * `nome contains "a"` + `nome notContains "b"` é combinação legítima do painel
+ * avançado, e OR por CAMPO a transformaria em "contém a OU não contém b" —
+ * verdadeiro para quase tudo. Operadores diferentes seguem em AND.
+ *
+ * Num item o `value` pode ser um VALOR ou um ARRAY de valores — as duas formas
+ * dão o mesmo resultado, para operador multi **e escalar** (ver o `achatar`
+ * abaixo e o porquê de cada produtor). Só `between` lê o `value` inteiro: ali o
+ * array é a TUPLA `[lo, hi]`, não uma lista de alternativas.
  */
 export function applyFilterModel(
   items: ListItemData[],
@@ -103,15 +117,31 @@ export function applyFilterModel(
 
     const anyOf = achatar("isAnyOf");
     const noneOf = achatar("isNoneOf");
-    /* `between` fica aqui e mantém a TUPLA inteira: `matchOp` a desestrutura em
-     * [lo, hi]. Achatar valor de operador escalar seria errado — eles combinam por
-     * AND abaixo, e dois pedaços do mesmo valor nunca casariam. */
-    const scalar = group.filter((g) => g.operator !== "isAnyOf" && g.operator !== "isNoneOf");
 
     if (anyOf.length && !anyOf.some((v) => matchOp("equals", val, v))) return false;
     if (noneOf.length && noneOf.some((v) => matchOp("equals", val, v))) return false;
-    for (const g of scalar) {
-      if (!matchOp(g.operator, val, g.value)) return false;
+
+    /* Escalares reagrupados por OPERADOR — é o grão do `DataTable`. OR dentro do
+     * mesmo operador, AND entre operadores diferentes. */
+    const porOperador = new Map<string, FilterItem[]>();
+    for (const g of group) {
+      if (g.operator === "isAnyOf" || g.operator === "isNoneOf") continue;
+      if (!porOperador.has(g.operator)) porOperador.set(g.operator, []);
+      porOperador.get(g.operator)!.push(g);
+    }
+
+    for (const [op, itens] of porOperador) {
+      /* `between` mantém a TUPLA inteira por item: `matchOp` a desestrutura em
+       * [lo, hi]. Achatá-la viraria "lo OU hi" e perderia a faixa. Nos demais, o
+       * array é lista de alternativas — a mesma tolerância que o `achatar` dá ao
+       * multi, e que TODO `matchesFilter` de column-type do DataTable já tem. */
+      const alternativas =
+        op === "between"
+          ? itens.map((g) => g.value as unknown)
+          : itens.flatMap((g) =>
+              Array.isArray(g.value) ? (g.value as unknown[]) : [g.value as unknown],
+            );
+      if (!alternativas.some((fv) => matchOp(op, val, fv))) return false;
     }
     return true;
   };

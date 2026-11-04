@@ -26,6 +26,13 @@ export * from "./ui/DatePicker";
 export * from "./ui/DateSeparatorChip";
 export * from "./ui/EmptyState";
 export * from "./ui/FileUploadField";
+/**
+ * FilterChip entra no barrel porque **não ser exportado foi a causa** de ele
+ * existir em três cópias à mão (`TableToolbar`, `Gantt`, `Scheduler`), já
+ * divergentes em gap, padding e altura da pílula. Peça inalcançável é peça
+ * recopiada.
+ */
+export * from "./ui/FilterChip";
 export * from "./ui/FloatingPanel";
 export * from "./ui/FooterTable";
 export * from "./ui/FormField";
