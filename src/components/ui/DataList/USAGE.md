@@ -150,6 +150,14 @@ um `isNoneOf` do preset pra `isAnyOf` em silêncio.
   só no layout `standard`.
 - **Modo server:** o DataList NÃO filtra localmente — emite `onQueryChange({search, filters})`
   (debounce no search) e renderiza o que vier em `items` (use `loading`/`total`).
+  ⚠️ **O que sai é só filtro COM valor** (`vNEXT`+): item sem valor nunca chega ao
+  `onQueryChange`, e pôr/tirar um não dispara request repetida. Mesma regra do
+  `useDataTableQuery` — "filtro incompleto não dispara nada".
+- **Editar o chip e desmarcar TUDO não fecha o popover** (`vNEXT`+). O grupo fica no
+  `filterModel` com **um item sem valor** enquanto o popover está aberto — ele é a âncora
+  do popover, e removê-lo desmontava o chip no meio da interação. O item é inerte (não
+  filtra, não vai pro servidor) e sai sozinho quando o popover fecha. Só aparece no
+  `filterModel` que o `persistKey` grava, e ali também é inerte na releitura.
 - **Filtros por campos** (não colunas): o consumer declara `filterFields`. Busca textual
   cobre title/subtitle/description + accessors dos campos.
 - **Tipo de coluna CUSTOM no filtro:** o `type` do `filterFields` é o id do

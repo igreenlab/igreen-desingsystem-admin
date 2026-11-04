@@ -213,7 +213,10 @@ segue neutro de propósito (o verde ali mede 4,36:1 e reprovaria o AA de texto).
 esse destaque na mão nem passe `className` pra imitá-lo.
 
 ⚠️ A ****data-list**** não tem essa prop, e é de propósito: ela descarta filtro sem valor
-antes de montar os chips, então lá não existe chip vazio pra contrastar.
+antes de montar os chips, então numa barra em repouso não existe chip vazio pra contrastar.
+O único vazio dela é **transitório** — o chip que você está editando, depois de desmarcar
+tudo, segura o lugar até o popover fechar (DS `vNEXT`+; antes disso ele **sumia junto com o
+popover** no meio da edição).
 
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
 sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.

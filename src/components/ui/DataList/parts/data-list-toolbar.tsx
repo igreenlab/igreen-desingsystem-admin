@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { MoreHorizontal, RefreshCw } from "lucide-react";
 import {
   TableToolbar,
@@ -80,26 +80,38 @@ function toColumns(fields: FilterableField[]): FilterPopoverColumn[] {
   }));
 }
 
+/** Item sem o que comparar. Operador nulário (`isEmpty`/`isNotEmpty`) nunca é vazio. */
+function itemSemValor(item: FilterModel["items"][number]): boolean {
+  if (item.operator === "isEmpty" || item.operator === "isNotEmpty") return false;
+  return (
+    item.value == null ||
+    item.value === "" ||
+    (Array.isArray(item.value) && item.value.length === 0)
+  );
+}
+
 /**
  * Converte o FilterModel (lista flat de items) → chips agrupados por
  * field+operator (mesma representação visual da TableToolbar). Versão enxuta
- * do `useFilterPopoverAdapter` da DataTable — sem ColumnDef/phantom/edit-on-click,
- * só o necessário pra exibir e remover chips no DataList.
+ * do `useFilterPopoverAdapter` da DataTable — sem ColumnDef/phantom,
+ * só o necessário pra exibir, editar e remover chips no DataList.
+ *
+ * `openChipKey` = chave do chip com popover ABERTO. Itens vazios são pulados,
+ * **menos** os desse grupo: o chip é a ÂNCORA do `Popover`, e desmarcar o último
+ * valor removia o grupo, desmontava o chip e fechava o popover no meio da
+ * interação. É a mesma exceção que o `appliedGroups` do `DataTable` faz
+ * (`use-filter-popover-adapter.ts`), pelo mesmo motivo. O grupo vazio é inerte
+ * (o motor ignora filtro sem valor) e o `closeChip` o remove no clique-fora.
  */
 function toAppliedFilters(
   model: FilterModel,
   fieldsById: Map<string, FilterableField>,
+  openChipKey: string | null,
 ): AppliedFilter[] {
   const grouped = new Map<string, FilterModel["items"]>();
   for (const item of model.items) {
-    const isEmpty =
-      item.operator !== "isEmpty" &&
-      item.operator !== "isNotEmpty" &&
-      (item.value == null ||
-        item.value === "" ||
-        (Array.isArray(item.value) && item.value.length === 0));
-    if (isEmpty) continue;
     const key = `${item.field}|${item.operator}`;
+    if (itemSemValor(item) && key !== openChipKey) continue;
     if (!grouped.has(key)) grouped.set(key, []);
     grouped.get(key)!.push(item);
   }
@@ -109,6 +121,19 @@ function toAppliedFilters(
     const columnLabel = field?.label ?? items[0].field;
     const labelOf = (v: unknown): string =>
       field?.options?.find((o) => o.value === String(v))?.label ?? String(v);
+
+    /* Grupo inteiro vazio: chip PLACEHOLDER — só o rótulo do campo, sem operador
+       e sem valor (o `isEmpty` do `AppliedFilter`). Acontece enquanto o usuário
+       está com o popover aberto e desmarcou tudo. */
+    if (items.every(itemSemValor)) {
+      return {
+        id: key,
+        columnLabel,
+        op: items[0].operator as AppliedFilter["op"],
+        value: [],
+        isEmpty: true,
+      };
+    }
 
     const values: string[] = [];
     for (const it of items) {
@@ -170,15 +195,36 @@ export function DataListToolbar({
     for (const f of filterFields ?? []) m.set(f.id, f);
     return m;
   }, [filterFields]);
-  const appliedFilters = useMemo(
-    () => toAppliedFilters(filterModel, fieldsById),
-    [filterModel, fieldsById],
-  );
-  const filterCount = appliedFilters.length;
-
   // Edição do chip in-place (igual DataTable): clicar abre popover com o
   // fast-filter do column-type; muda o valor direto no chip.
   const [openChipKey, setOpenChipKey] = useState<string | null>(null);
+  const appliedFilters = useMemo(
+    () => toAppliedFilters(filterModel, fieldsById, openChipKey),
+    [filterModel, fieldsById, openChipKey],
+  );
+  const filterCount = appliedFilters.length;
+
+  /** Model mais recente — o cleanup adiado do chip não pode ler closure stale. */
+  const latestFilterModelRef = useRef(filterModel);
+  latestFilterModelRef.current = filterModel;
+
+  /**
+   * Cleanup adiado do chip (timer + executor), espelhando o `closeChip` do
+   * `DataTable`. Trocar de chip EXECUTA o pendente — descartá-lo deixaria o item
+   * vazio do chip anterior inerte no model, e ele iria pro `persistKey`. Unmount
+   * só CANCELA: um `onFilterModelChange` pós-desmontagem sobrescreveria um reset
+   * do parent em model controlado.
+   */
+  const chipCleanupRef = useRef<{
+    timer: ReturnType<typeof setTimeout>;
+    run: () => void;
+  } | null>(null);
+  useEffect(
+    () => () => {
+      if (chipCleanupRef.current) clearTimeout(chipCleanupRef.current.timer);
+    },
+    [],
+  );
 
   const isEmptyVal = (v: unknown) =>
     v == null || v === "" || (Array.isArray(v) && v.length === 0);
@@ -233,7 +279,59 @@ export function DataListToolbar({
               value: v as FilterValue,
             }))
         : [{ id: genFilterId(), field, operator: op, value }];
+    /* Valor esvaziado (desmarcou o último checkbox, limpou o range): mantém UM
+     * item vazio no lugar de remover o grupo. Remover aqui desmontava o chip —
+     * que é a ÂNCORA do `Popover` — e o popover fechava sozinho no meio da
+     * interação. O item vazio é inerte (`applyFilterModel` e o payload de server
+     * ignoram filtro sem valor) e o `closeChip` o remove no clique-fora. Mesma
+     * proteção do `updateGroupValue` do `DataTable`, pelo mesmo sintoma.
+     * ⚠️ O ramo multi também cai aqui quando o `.filter` zera a lista. */
+    if (novos.length === 0) {
+      novos.push({ id: genFilterId(), field, operator: op, value: undefined });
+    }
     onFilterModelChange({ ...filterModel, items: [...rest, ...novos] });
+  };
+
+  /**
+   * Fecha o chip e remove do model os itens que ficaram VAZIOS.
+   *
+   * ⚠️ **Adiado pro próximo tick e lendo o model pelo REF.** Widget de valor
+   * único (`FastSingleSelectList`, usado por `select`/`boolean`) chama `onChange`
+   * e `onClose` no MESMO clique: com cleanup síncrono, os dois
+   * `onFilterModelChange` partiriam do mesmo estado stale e o cleanup venceria,
+   * apagando o valor recém-escolhido.
+   *
+   * ⚠️ **Escopado por ID.** Só remove item que já estava vazio no fechamento E
+   * segue vazio no ref — preencher gera IDs novos, então o ID capturado deixa de
+   * existir e a escolha do usuário não é apagada.
+   */
+  const closeChip = (groupKey: string) => {
+    setOpenChipKey(null);
+    const [field, operator] = groupKey.split("|");
+    const vaziosNoFechamento = filterModel.items
+      .filter((i) => i.field === field && i.operator === operator && itemSemValor(i))
+      .map((i) => i.id);
+    if (vaziosNoFechamento.length === 0) return;
+    if (chipCleanupRef.current) {
+      clearTimeout(chipCleanupRef.current.timer);
+      chipCleanupRef.current.run();
+    }
+    const run = () => {
+      chipCleanupRef.current = null;
+      const model = latestFilterModelRef.current;
+      const ids = new Set(
+        vaziosNoFechamento.filter((id) => {
+          const it = model.items.find((i) => i.id === id);
+          return it != null && itemSemValor(it);
+        }),
+      );
+      if (ids.size === 0) return;
+      onFilterModelChange({
+        ...model,
+        items: model.items.filter((it) => !ids.has(it.id)),
+      });
+    };
+    chipCleanupRef.current = { timer: setTimeout(run, 0), run };
   };
 
   /** Chip clicável → popover de edição (fast-filter por column-type). */
@@ -288,7 +386,7 @@ export function DataListToolbar({
     return (
       <Popover
         open={openChipKey === f.id}
-        onOpenChange={(o) => setOpenChipKey(o ? f.id : null)}
+        onOpenChange={(o) => (o ? setOpenChipKey(f.id) : closeChip(f.id))}
       >
         <PopoverTrigger asChild>{defaultChip}</PopoverTrigger>
         <PopoverContent align="start" className="p-0">
@@ -296,7 +394,7 @@ export function DataListToolbar({
             value: currentValue,
             onChange: (v) => setGroupValue(field, operator, v),
             options: fieldDef.options as ColumnOption[] | undefined,
-            onClose: () => setOpenChipKey(null),
+            onClose: () => closeChip(f.id),
           })}
         </PopoverContent>
       </Popover>

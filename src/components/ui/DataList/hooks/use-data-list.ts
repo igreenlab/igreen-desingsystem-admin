@@ -16,6 +16,16 @@ function asText(v: unknown): string {
   return typeof v === "string" || typeof v === "number" ? String(v) : "";
 }
 
+/** Item com o que comparar. Operador nulário (`isEmpty`/`isNotEmpty`) dispensa valor. */
+function itemComOQueComparar(item: FilterModel["items"][number]): boolean {
+  if (item.operator === "isEmpty" || item.operator === "isNotEmpty") return true;
+  const v = item.value;
+  if (v == null) return false;
+  if (typeof v === "string") return v.length > 0;
+  if (Array.isArray(v)) return v.length > 0;
+  return true;
+}
+
 function loadPersisted(key?: string): DataListQuery | null {
   if (!key || typeof localStorage === "undefined") return null;
   try {
@@ -77,13 +87,51 @@ export function useDataList({
     }
   }, [persistKey, query]);
 
+  /**
+   * A query que vai PRO SERVIDOR — só os filtros que têm o que comparar.
+   *
+   * "Filtro incompleto não dispara nada" é regra do sistema, não do `DataTable`:
+   * o `useDataTableQuery` já filtra assim antes de chamar o `fetchData`
+   * (`isActiveFilterItem`), espelhando o gate de payload e o guard do motor da
+   * API. Aqui nunca tinha efeito porque nada produzia item sem valor no
+   * `DataList` — o drawer remove o item quando o valor esvazia.
+   *
+   * Passou a ter: o chip agora **mantém** um item vazio enquanto o popover está
+   * aberto, pra não desmontar a própria âncora. Esse item é interno à interação;
+   * emiti-lo faria o backend de quem usa `mode="server"` receber um `equals` sem
+   * valor que ele nunca recebeu antes. Filtrado aqui, o que sai é byte por byte
+   * o de antes.
+   */
+  const queryParaServidor = useMemo<DataListQuery>(
+    () => ({
+      ...query,
+      filterModel: {
+        ...query.filterModel,
+        items: query.filterModel.items.filter(itemComOQueComparar),
+      },
+    }),
+    [query],
+  );
+  /* A assinatura do que o servidor VÊ é o gatilho — assim pôr e tirar o item
+     vazio do chip não vira duas requests idênticas. Mesmo papel do
+     `activeFilterKey` do `useDataTableQuery`. */
+  const chaveDoServidor = useMemo(
+    () => JSON.stringify(queryParaServidor),
+    [queryParaServidor],
+  );
+  const queryParaServidorRef = useRef(queryParaServidor);
+  queryParaServidorRef.current = queryParaServidor;
+
   const onQueryChangeRef = useRef(onQueryChange);
   onQueryChangeRef.current = onQueryChange;
   useEffect(() => {
     if (mode !== "server") return;
-    const t = setTimeout(() => onQueryChangeRef.current?.(query), 250);
+    const t = setTimeout(
+      () => onQueryChangeRef.current?.(queryParaServidorRef.current),
+      250,
+    );
     return () => clearTimeout(t);
-  }, [mode, query]);
+  }, [mode, chaveDoServidor]);
 
   const setSearch = useCallback((search: string) => {
     setActiveViewId(null);

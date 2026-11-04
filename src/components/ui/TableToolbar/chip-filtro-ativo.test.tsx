@@ -15,12 +15,15 @@ import type { AppliedFilter } from "./table-toolbar.types";
  * não distingue nada e só muda a cor de tudo — e essa é a maioria das telas.
  *
  * Medido nesta árvore, e é o que sustenta o opt-in:
- *   - `DataList` **nunca** produz chip vazio — `toAppliedFilters`
- *     (`DataList/parts/data-list-toolbar.tsx:101`) faz `continue` em item sem
- *     valor. Lá o item 16 pintou **100%** dos chips de marca, com zero contraste
- *     ganho.
- *   - No `DataTable` o chip vazio só existe com `showEmptyFilterChips`, ou
- *     transitoriamente pelo atalho de filtro do cabeçalho.
+ *   - `DataList` não produz chip vazio PERSISTENTE — o `toAppliedFilters` faz
+ *     `continue` em item sem valor. A exceção é **transitória**: o grupo do chip
+ *     cujo popover está ABERTO sobrevive vazio, senão a âncora desmonta no meio
+ *     da interação (P3, 2026-11-04). Numa barra em repouso continua não havendo
+ *     vazio nenhum, e foi lá que o item 16 pintou **100%** dos chips de marca,
+ *     com zero contraste ganho.
+ *   - No `DataTable` o chip vazio só dura com `showEmptyFilterChips`; é
+ *     transitório no atalho de filtro do cabeçalho e no mesmo caso do popover
+ *     aberto.
  *
  * ## O que estes testes travam, nesta ordem de importância
  *

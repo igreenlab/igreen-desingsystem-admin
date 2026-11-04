@@ -58,10 +58,18 @@ export type ToolbarAppliedProps = {
    * aí que ele paga. Numa barra onde todo chip visível já está aplicado, ele
    * não distingue nada — só muda a cor de tudo.
    *
-   * Por isso é opt-in e não derivado de `isEmpty`: o `DataList` **nunca**
-   * produz chip vazio (`toAppliedFilters` descarta item sem valor), e o
-   * `DataTable` só produz com `showEmptyFilterChips` ou no chip transitório do
-   * atalho de filtro do cabeçalho.
+   * Por isso é opt-in e não derivado de `isEmpty`: nenhum dos dois produz chip
+   * vazio PERSISTENTE. No `DataList` o `toAppliedFilters` descarta item sem
+   * valor — com uma exceção **transitória**, enquanto o popover daquele chip
+   * está aberto e o usuário desmarcou tudo (é o chip que ancora o popover; sem
+   * a exceção ele desmonta no meio da interação). No `DataTable` o chip vazio
+   * dura com `showEmptyFilterChips` e é transitório no atalho de filtro do
+   * cabeçalho e no mesmo caso do popover aberto.
+   *
+   * ⚠️ Até 2026-11-04 esta linha dizia que o `DataList` **nunca** produzia chip
+   * vazio. O argumento do opt-in não muda — um chip vazio que só existe durante
+   * a edição não é barra pra contrastar —, mas a frase virou falsa quando a
+   * exceção entrou, e doc que afirma o antigo faz quem lê parar de investigar.
    */
   highlightAppliedFilterChips?: boolean;
   className?: string;
