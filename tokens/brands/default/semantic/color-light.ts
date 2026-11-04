@@ -107,6 +107,22 @@ export const bg = {
 
   // Dropdown/Popover — referencia bg-canvas (white no light)
   "dropdown":         "var(--color-bg-canvas)",
+
+  // Tooltip — superfície INVERTIDA, e é o único token do DS que inverte.
+  //
+  // A tooltip é o único flutuante que precisa ser achável sobre QUALQUER
+  // superfície, inclusive a que está em hover — e o `bg-emphasis` que ela usava
+  // é um cinza da mesma família das superfícies: medido no browser, a bolha
+  // dava 1,19:1 sobre o card em repouso e **1,10:1 sobre o card em hover**,
+  // contra os 3:1 que a WCAG 1.4.11 pede pro limite de um componente. Era o
+  // "tooltip sobre card some no claro" relatado.
+  //
+  // Dark-on-light é a única saída que fecha os 3:1 contra canvas, surface E
+  // surface em hover de uma vez: qualquer cinza claro empata com alguma delas.
+  // Token PRÓPRIO, e não um ajuste no `bg-emphasis`, porque aquele também
+  // pinta o track do Switch, do Slider, do Progress e o Badge secondary.
+  // Gate: `scripts/lib/tooltip-contrast.test.mjs`.
+  "tooltip":          gray[900],
 } as const;
 
 // ─── Foreground (texto + ícones) ──────────────────────────────────────────────
@@ -130,6 +146,7 @@ export const fg = {
   info:    info[500],
 
   // Sobre fundos sólidos (on-*)
+  "on-tooltip": white,         // bolha invertida (bg.tooltip = gray[900])
   "on-brand":   white,
   "on-danger":  white,
   "on-success": white,

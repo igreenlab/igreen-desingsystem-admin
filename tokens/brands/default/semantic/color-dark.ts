@@ -100,6 +100,18 @@ export const bg = {
   // Dropdown/Popover — frosted-glass: bg-canvas com 70% opacidade
   // (combina com backdrop-blur no componente pra efeito vidro fosco)
   "dropdown":         "color-mix(in oklab, var(--color-bg-canvas) 70%, transparent)",
+
+  // Tooltip — superfície INVERTIDA (ver o comentário longo em color-light.ts).
+  //
+  // No escuro a inversão é obrigatória por aritmética, não por simetria: as
+  // superfícies do dark vivem entre L 0.205 e 0.252, e pra chegar a 3:1 contra
+  // elas a bolha precisa de L ≳ 0.55. Qualquer cinza escuro "um pouco mais
+  // claro" empata — o `bg-emphasis` daqui dava 1,44:1.
+  //
+  // E, ao contrário do `bg-emphasis`, este token é OPACO: 12% de branco deixa
+  // o conteúdo de trás atravessar a bolha, que é a outra metade do mesmo
+  // defeito. Flutuante com texto curto não pode ser translúcido.
+  "tooltip":          gray[100],
 } as const;
 
 // ─── Foreground (texto + ícones) ──────────────────────────────────────────────
@@ -123,6 +135,7 @@ export const fg = {
   info:    info[500],
 
   // Sobre fundos sólidos (on-*) — dark inverte: verde brilhante, vermelho saturado, etc
+  "on-tooltip": gray[950],                       // bolha invertida (bg.tooltip = gray[100])
   "on-brand":   black,                           // preto sobre verde brilhante
   "on-danger":  white,
   "on-success": black,

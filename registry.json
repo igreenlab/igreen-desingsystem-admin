@@ -2673,7 +2673,8 @@
         "@igreen/alert-modal",
         "@igreen/floating-panel",
         "@igreen/form-field",
-        "@igreen/button-group"
+        "@igreen/button-group",
+        "@igreen/spinner"
       ],
       "dependencies": [
         "@dnd-kit/core@^6.3.1",
