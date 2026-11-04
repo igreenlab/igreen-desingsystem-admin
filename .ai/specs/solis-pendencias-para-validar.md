@@ -218,6 +218,20 @@ aberto.
 
 ---
 
+## 5g. O que a Rodada 5 deixou nomeado
+
+| # | O quê | Por que ficou |
+|---|---|---|
+| **P12** | **`Gantt` e `Scheduler` vão driftar do chip de filtro.** Os dois **reproduzem** a gramática do chip por cópia, sem importar (`gantt-applied-filters.tsx`, `scheduler.styles.ts:196`, que diz *"cópia da gramática do `toolbarAppliedChip`"*) | o item 16 aprovado fala de **tabela e lista**. Alinhar os dois é escopo novo e muda pixel em componentes que não estavam no pedido. **Decisão sua:** alinhar agora, ou aceitar duas peles de chip no DS |
+| **P13** | **`renderEmpty` do `DataTable` é o terceiro nome** para o slot de vazio (`emptyState` no `DataList` e no `Chart`) | renomear é **breaking**: a prop é pública. Dos três, `renderEmpty` é o mal nomeado — **soa** render-prop e recebe `ReactNode` |
+| **P14** | **`fg-brand` como TEXTO no escuro está na borda do AA** — 4,36:1 sobre superfície escura, reprova por 0,14 | resolvido **no chip** com `dark:text-fg-default` (seguindo o `bulkBarCount`, que já fazia). Mas o padrão aparece solto pelo DS (`data-[range-middle]:text-fg-brand` no `Calendar`, por exemplo) e **ninguém mede**. Candidato a gate próprio, na linha do `tooltip-contrast` que nasceu nesta rodada |
+| **P15** | **O export com `fetchData` + `rows` entrega as `rows` locais** com rótulo dizendo "Página atual" | pré-existente; o contorno (*"com `fetchData`, não passe `rows`"*) está em 4 superfícies. Consertar toca os dois caminhos de server |
+
+> **P12 é a mais urgente das quatro**, e é a única que piora com o tempo: toda tela nova de
+> `Gantt` ou `Scheduler` nasce com a pele antiga, e a diferença fica mais cara de alinhar.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se

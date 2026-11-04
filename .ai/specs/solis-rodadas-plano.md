@@ -137,6 +137,8 @@ documentada em lugar nenhum.
       | `git checkout -- <arq>` depois de `git checkout <commit> -- <arq>` | lê do **índice**, que o primeiro comando atualizou: não restaura. Use `git checkout HEAD -- <arq>` |
       | teste verde por **outro mecanismo** | o teste do `multiSelect` passava por uma promoção inerte, e por isso parecia cobrir o registry |
       | **`zoom` do browser** | devolve **recorte de screenshot ANTIGO** (a saída avisa: *"cropped from a screenshot, not magnified"*). Mostrou um rodapé com o texto que já tinha sumido — o **oposto** do real. Para um instante de ~500ms, **meça o DOM por JS**, não a imagem |
+      | **estilo computado após trocar o tema** | devolve o tema **anterior** por muito mais que a transição — medido **1500 ms**, 10× os 150 ms declarados, em notação `oklab(...)` (a assinatura da interpolação). Parece exatamente *"o `dark:` não aplicou"*. Injete `*{transition:none!important}` **antes** de medir; esperar mais não resolve |
+      | **restauração que falhou no `finally`** | envenena o run seguinte, **e ele reporta "restaurou: SIM"** — o snapshot do 2º run é tirado do estado já corrompido, e fecha contra si mesmo. O `git diff --stat` não denuncia. **A verificação de restauração tem que fechar contra algo EXTERNO ao run** (o HEAD, ou regerar o artefato), porque o snapshot pode ser o corrompido |
       | **placar do runner ilegível** | `--reporter=basic` não existe no Vitest 4: o script imprimiu `aplicou: SIM · restaurou: SIM` para as 6 mutações e `(placar não lido)` no resultado — **zero evidência de que algo morreu, com a aparência de uma tabela completa**. *"Não li" é indistinguível de "nada morreu"* |
 
       **Duas réguas que vieram dessas:** o script de mutação deve **lançar erro** quando
@@ -151,6 +153,17 @@ documentada em lugar nenhum.
       suíte **inteira antes de rodar teste nenhum** — 30 erros de TS, nenhum deles sobre o
       seu código. É por isso que nenhum teste do repo usa jest-dom. Use `toBeNull()` /
       `getAttribute()`, a convenção de `simple-filter-controlado.test.tsx`.
+- [ ] **Worktree compartilhada: o alvo se move durante a medição.** Com vários agentes na
+      mesma árvore, uma base verde de segundos atrás já não vale. Um controle só conta se
+      as **duas leituras forem do mesmo instante** — medido na Rodada 5, onde um
+      experimento de controle saiu "mutação sobreviveu" e *parecia* inocentar, quando o
+      que mudou foi outro agente consertando o arquivo entre as duas leituras. E restrinja
+      o escopo da mutação a **lista explícita de arquivos**, nunca a uma pasta.
+- [ ] **Editou `src/components/shadcn/USAGE.md`? Rode `npm run cli:rebake`.** É a **única**
+      ponte entre ele e o payload do consumidor (`_claude/skills/ds-kit/shadcn-gotchas.md`,
+      via `foundational-pairs.mjs`), e **nada avisa**. Na Rodada 5 a linha de um item só
+      chegou lá por acidente, durante outra tarefa. O hook de tokens cobre `tokens/**`, não
+      este par.
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
