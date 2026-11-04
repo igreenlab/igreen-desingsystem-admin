@@ -278,9 +278,9 @@ A pergunta que decide é **quem dispara a request**:
 | sua tela | o caminho |
 |---|---|
 | **não** tem camada de dados própria — quer que a tabela busque | ****fetchData**** (sem ****rows****). O `data-table` chama a sua função a cada mudança de página/ordem/filtro/busca e renderiza a resposta |
-| **já** tem react-query / SWR / RTK-Query dono do fetch, com cache e invalidação | ****paginationMode="server"**** + ****rows**** + ****rowCount****. Você busca; a tabela só mostra |
+| **já** tem react-query / SWR / RTK-Query dono do fetch, com cache e invalidação | ****processingMode="server"**** + ****rows**** + ****rowCount****. Você busca; a tabela só mostra |
 
-Com ****paginationMode="server"**** o `data-table` **não reprocessa nada**: não fatia, não
+Com ****processingMode="server"**** o `data-table` **não reprocessa nada**: não fatia, não
 ordena, não filtra e não busca. Ele só **avisa** — ****onPaginationModelChange****,
 ****onSortModelChange****, ****onFilterModelChange****, ****onSearchChange**** — e espera
 ****rows**** novas. Declare os 4 pares controlados; sem eles o usuário clica e nada
@@ -299,13 +299,32 @@ Três coisas que você **precisa** acertar:
   aritmética sobre página × tamanho, **não** uma contagem do corpo: 25 declarado com um lote
   de 10 escreve "1–25" sob 10 linhas.
 - **Desligue o Refresh** (****enableRefresh: false**** no toolbar). Ele só fala com o
-  ****fetchData****; aqui quem recarrega é a sua tela.
+  ****fetchData****; aqui quem recarrega é a sua tela. Sem isso sai um aviso no console em
+  DEV — botão que gira e não recarrega é pior que botão ausente.
 
 ✅ Combina com ****loadingMode="keep"**** — e é o par natural do ****placeholderData**** /
 ****keepPreviousData**** do react-query/SWR.
 
+⚠️ **Três limites conhecidos — leia antes de abrir bug:**
+
+1. **O caso ESPELHADO não é atendido.** Filtrar e buscar no servidor mantendo paginação e
+   ordenação locais é válido e comum, e ****processingMode="server"**** **não serve**: ele
+   desliga os quatro de uma vez. Esse recorte sofre hoje um **double-filter silencioso**
+   (com ou sem a prop): quem passa ****filterModel**** controlado e ****rows**** já
+   filtradas vê o filtro local rodar de novo sobre o lote — no-op quando as semânticas
+   coincidem, e **perde linha** quando divergem (busca de banco acento-insensível,
+   ordenação do SQL ≠ a do JS, campo que a coluna não declara). Pendência conhecida.
+2. **Filtro que zera o resultado mostra o vazio errado.** Em client mode dá "Nenhum dado
+   encontrado" **com o botão de limpar filtros**; nos dois caminhos de server mode dá
+   "Nenhum dado cadastrado" — *"não existe nada"* — **sem a saída de limpar**. Herdado do
+   ****fetchData****. Saída: alterne ****renderEmpty**** pelo seu próprio
+   ****filterModel****.
+3. **Não passe ****rows**** junto com ****fetchData****.** O CSV sairia com as
+   ****rows**** locais sob um rótulo dizendo "Página atual", enquanto o corpo mostra a
+   resposta do servidor.
+
 ⚠️ Os dois caminhos **não se somam**: com ****fetchData**** presente o
-****paginationMode**** é ignorado. E em client mode puro (sem nenhum dos dois) o
+****processingMode**** é ignorado. E em client mode puro (sem nenhum dos dois) o
 ****rowCount**** continua sendo **ignorado** — quem conta são as ****rows**** passadas.
 
 ⚠️ O `data-list` **não tem** essa prop (ele não pagina).

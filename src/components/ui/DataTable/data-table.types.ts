@@ -613,7 +613,7 @@ export type DataTableProps<T> = {
    * Total de linhas NO SERVIDOR — vale nos dois caminhos de server mode.
    *
    * - com `fetchData`: opcional; quando ausente usa o `total` da resposta.
-   * - com `paginationMode="server"`: é a **única** fonte do total, porque não
+   * - com `processingMode="server"`: é a **única** fonte do total, porque não
    *   há resposta de onde tirá-lo. Sem ele o rodapé mostra só o tamanho do
    *   lote recebido ("1–N de N") e não oferece página seguinte.
    * - em client mode (o default): **ignorado** — quem conta é o pipeline local.
@@ -631,23 +631,35 @@ export type DataTableProps<T> = {
    *   superfície — emite `onFilterModelChange`, `onSearchChange`,
    *   `onSortModelChange` e `onPaginationModelChange`, e espera `rows` novas.
    *
-   * ⚠️ **A prop desliga mais do que o nome diz, e é de propósito.** Desligar só
-   * o `slice` seria pior que não ter a prop: uma tabela que pagina no servidor
-   * e continua ORDENANDO o lote recebido ordena 25 linhas como se fossem as
-   * 1.000, e o filtro local apaga linhas que o `rowCount` continua contando —
-   * o corpo mostra 7, o rodapé diz "1–25 de 1.000", e nada na tela indica qual
-   * dos dois está errado. Fronteira de página só existe sobre um conjunto já
-   * filtrado e já ordenado; paginar no servidor e processar no cliente não é
-   * uma combinação válida, é a mesma decisão vista de dois lados. É também o
-   * que `fetchData` já significa aqui ("delega filter/sort/pagination ao
-   * servidor"), então **"server" quer dizer a mesma coisa nos dois**.
+   * ⚠️ **É tudo ou nada, e o nome é `processingMode` por causa disso.** Desligar
+   * só a paginação seria pior que não ter a prop: uma tabela que pagina no
+   * servidor e continua ORDENANDO o lote recebido ordena 25 linhas como se
+   * fossem as 1.000, e o filtro local apaga linhas que o `rowCount` continua
+   * contando — o corpo mostra 7, o rodapé diz "1–25 de 1.000", e nada na tela
+   * indica qual dos dois está errado. **Paginar no servidor** e processar no
+   * cliente não é combinação válida: fronteira de página só existe sobre um
+   * conjunto já filtrado e já ordenado. É o que `fetchData` já significa aqui
+   * ("delega filter/sort/pagination ao servidor"), então **"server" quer dizer
+   * a mesma coisa nos dois caminhos**.
+   *
+   * ⚠️ **O caso ESPELHADO é válido e esta prop NÃO o atende.** Filtrar e buscar
+   * no servidor mantendo paginação e ordenação locais é legítimo e comum (lote
+   * recortado pelo backend, pequeno o bastante pra tabela cuidar do resto) — e
+   * `processingMode` não serve, porque desliga os quatro de uma vez. Pior: esse
+   * caso sofre hoje um **double-filter silencioso**, com ou sem esta prop. Quem
+   * passa `filterModel` controlado e `rows` já filtradas vê o `applyFilters`
+   * local rodar de novo sobre o lote — no-op quando as semânticas coincidem, e
+   * **perde linha** quando divergem (busca de banco acento-insensível, collation
+   * ≠ `localeCompare`, campo que a coluna não declara virando `undefined`). Não
+   * há flag pra esse recorte; é pendência conhecida, não um caso que o `"server"`
+   * resolva.
    *
    * ### Qual dos dois caminhos de server mode usar
    *
    * | | quem dispara a request | quando |
    * |---|---|---|
    * | `fetchData` | o DataTable | a tela não tem camada de dados própria |
-   * | `paginationMode="server"` + `rows` | a tela | já existe react-query/SWR/RTK-Query dono do fetch, com cache e invalidação |
+   * | `processingMode="server"` + `rows` | a tela | já existe react-query/SWR/RTK-Query dono do fetch, com cache e invalidação |
    *
    * ⚠️ **O `pageSize` da tabela tem que ser o do servidor.** O texto do range
    * do rodapé é aritmética sobre `page × pageSize`, nunca uma contagem do
@@ -655,13 +667,23 @@ export type DataTableProps<T> = {
    * linhas. Declare `paginationConfig.initialPageSize` igual ao tamanho de
    * página da sua API (e `pageSizeOptions` só com valores que ela aceita).
    *
+   * ⚠️ **Filtro que zera o resultado mostra o estado vazio ERRADO.** Em client
+   * mode, filtrar até zero dá "Nenhum dado encontrado" **com o botão de limpar
+   * filtros**. Nos dois caminhos de server mode o total vai a 0, o `isDataEmpty`
+   * vence o `isNoResults`, e a tela diz "Nenhum dado cadastrado" — *"não existe
+   * nada"* — **sem a saída de limpar**, justamente quando ela é mais necessária.
+   * É comportamento **pré-existente do `fetchData`**, herdado aqui de propósito
+   * (consertar mudaria os dois caminhos); está em pendência. Até lá a saída é
+   * `renderEmpty`, que você pode alternar pelo `filterModel` que já é seu:
+   * `renderEmpty={temFiltro ? <MeuNoResults onClear={…} /> : <MeuEmpty />}`.
+   *
    * Os dois **não se somam**: com `fetchData` presente o DataTable já é server
    * mode e esta prop é ignorada (`fetchData` vence `rows`, e é sobre `rows`
    * que ela manda). O botão Refresh da toolbar também só funciona com
-   * `fetchData` — em `paginationMode="server"` quem recarrega é a tela, então
-   * prefira `toolbar.enableRefresh: false`.
+   * `fetchData` — em `processingMode="server"` quem recarrega é a tela, então
+   * passe `toolbar.enableRefresh: false` (sem isso sai `console.warn` em DEV).
    */
-  paginationMode?: "client" | "server";
+  processingMode?: "client" | "server";
   columns: DataTableColumnDef<T>[];
   /** Função pra extrair id da row. Default: row.id */
   getRowId?: (row: T) => GridRowId;

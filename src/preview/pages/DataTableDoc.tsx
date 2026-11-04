@@ -247,13 +247,13 @@ const CORE_PROPS = [
     defaultVal: '"skeleton"',
   },
   {
-    name: "paginationMode",
+    name: "processingMode",
     type: '"client" | "server" — quem processa as rows. "server" declara que elas já chegam prontas (a tela buscou, filtrou, ordenou e fatiou): o DataTable pula o pipeline local INTEIRO — filtro, busca, ordenação e o slice — e só emite onPaginationModelChange/onSortModelChange/onFilterModelChange/onSearchChange. Desligar só o slice ordenaria 25 linhas como se fossem 1.000. Exige rowCount (sem ele o rodapé só conhece o lote) e pageSize igual ao da API. Inerte com fetchData presente',
     defaultVal: '"client"',
   },
   {
     name: "rowCount",
-    type: "number — total NO SERVIDOR. Com fetchData é opcional (cai no total da resposta); com paginationMode=\"server\" é a única fonte; em client mode puro é ignorado",
+    type: "number — total NO SERVIDOR. Com fetchData é opcional (cai no total da resposta); com processingMode=\"server\" é a única fonte; em client mode puro é ignorado",
     defaultVal: "—",
   },
 ];
@@ -930,7 +930,7 @@ export function DataTableDoc() {
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
         <strong>(2)</strong> Ou passe <code>rows</code> já processadas com{" "}
-        <strong>paginationMode</strong>
+        <strong>processingMode</strong>
         {" = "}
         <code>"server"</code> — quando a tela já tem{" "}
         <code>react-query</code>/SWR dono do fetch, com cache e invalidação. Aí

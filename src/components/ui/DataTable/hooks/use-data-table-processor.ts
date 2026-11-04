@@ -30,7 +30,7 @@ export type UseDataTableProcessorParams<T> = {
    * Quando false, o pipeline local INTEIRO é pulado — filtro, busca, ordenação
    * **e** o slice — e `rowsToRender` é a própria `rows`, por referência.
    *
-   * Use quando as rows já chegam prontas do servidor (`paginationMode="server"`).
+   * Use quando as rows já chegam prontas do servidor (`processingMode="server"`).
    * Desligar só o slice não bastaria: reprocessar a PÁGINA como se fosse o
    * conjunto inteiro ordena 25 linhas de 1.000 e deixa o filtro apagar linhas
    * que o total do rodapé continua contando. Default true.

@@ -117,14 +117,14 @@ const PAGE_SIZE = 25;
 
 const DESCRICAO =
   'O outro caminho de server mode: a TELA busca e passa a página pronta em "rows", ' +
-  'e paginationMode="server" manda o DataTable não reprocessar nada — nem fatiar, ' +
+  'e processingMode="server" manda o DataTable não reprocessar nada — nem fatiar, ' +
   "nem ordenar, nem filtrar, nem buscar. O total vem de rowCount. Use este caminho " +
   "quando já existe react-query/SWR dono do fetch; use fetchData quando não existe. " +
   "Ordene por Nome: a primeira linha passa a ser a menor das 100, não das 25 da tela.";
 
 /**
  * Página standalone — DataTable em server mode **pela tela**
- * (`paginationMode="server"` + `rows`), o caminho alternativo ao `fetchData`.
+ * (`processingMode="server"` + `rows`), o caminho alternativo ao `fetchData`.
  *
  * Aqui quem dispara a request é a tela: o `useEffect` abaixo é o lugar onde,
  * num projeto real, entra `useQuery(["clients", consulta], …)`. O DataTable
@@ -134,7 +134,7 @@ const DESCRICAO =
  * O que olhar nesta tela, e que só se vê mexendo:
  *   1. **Ordenar por Nome ou Valor** reordena as 100 linhas do "banco", não as
  *      25 da tela — a primeira linha muda para a menor de TODAS.
- *   2. **Virar a página** troca o lote; com `paginationMode` ausente o
+ *   2. **Virar a página** troca o lote; com `processingMode` ausente o
  *      DataTable fatiaria este lote de novo e a página 2 viria vazia.
  *   3. **O menu "Opções"** oferece "CSV — Página atual", não "Todos": a tela
  *      só entregou 25 linhas, e prometer 100 seria mentira.
@@ -187,7 +187,7 @@ export default function ClientsServerRowsPreview() {
       <DataTable<ClientRow>
         rows={rows}
         rowCount={rowCount}
-        paginationMode="server"
+        processingMode="server"
         loading={loading}
         loadingMode="keep"
         columns={columns}
@@ -238,7 +238,7 @@ const { data, isFetching } = useQuery({
 <DataTable<ClientRow>
   rows={data?.items ?? []}
   rowCount={data?.total ?? 0}     // o total do SERVIDOR — sem ele, só o lote
-  paginationMode="server"         // não fatia, não ordena, não filtra, não busca
+  processingMode="server"         // não fatia, não ordena, não filtra, não busca
   loading={isFetching}
   loadingMode="keep"
   columns={columns}

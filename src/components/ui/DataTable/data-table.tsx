@@ -180,7 +180,7 @@ function DataTableInternal<T>(
     filters,
     exporter,
     isServerMode,
-    isServerPagination,
+    isServerProcessed,
     savedViews,
     applyViewById,
     applyDefault,
@@ -820,6 +820,23 @@ function DataTableInternal<T>(
       );
     }
   }, [simpleFilterOpenProp, onSimpleFilterOpenChange]);
+
+  /* ⚠️ Terceiro aviso, mesma forma dos dois acima: `handleRefresh` só chama
+     `query.refresh()`, que existe apenas no caminho do `fetchData`. Com
+     `processingMode="server"` quem busca é a tela, então o botão gira 400ms e
+     não recarrega nada — um controle que PARECE funcionar e não funciona é pior
+     que um ausente, porque o usuário conclui que o dado está atualizado.
+     Documentar em 4 superfícies alcança quem lê; o warn alcança quem não lê. */
+  const avisouRefreshInerte = useRef(false);
+  useEffect(() => {
+    if (!import.meta.env?.DEV || avisouRefreshInerte.current) return;
+    if (isServerProcessed && toolbarConfig.enableRefresh !== false) {
+      avisouRefreshInerte.current = true;
+      console.warn(
+        '[DataTable] `processingMode="server"` com o botão Refresh ligado: ele só re-dispara o `fetchData`, que não existe neste caminho — o botão gira e não recarrega nada. Passe `toolbar.enableRefresh: false` e exponha o seu próprio (ou use `toolbar.customLeft`), já que quem busca aqui é a sua tela.',
+      );
+    }
+  }, [isServerProcessed, toolbarConfig.enableRefresh]);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const handleRefresh = () => {
@@ -1959,13 +1976,23 @@ function DataTableInternal<T>(
                             </MoreMenuItemEl>
                           );
                         }
-                        /* Os dois caminhos de server mode só têm a PÁGINA na
-                           mão: o `exportCsv("all")` cai no fallback de
-                           `rowsAll` vazio (fetchData) ou recebe o próprio lote
-                           (paginationMode). Oferecer "Todos" prometeria as
-                           1.000 linhas e entregaria 25 — o rótulo é a única
-                           coisa que pode ser honesta aqui. */
-                        return isServerMode || isServerPagination ? (
+                        /* Nos dois caminhos de server mode o DataTable só tem a
+                           PÁGINA na mão, então "Todos" prometeria as 1.000
+                           linhas e entregaria 25. O rótulo honesto é este.
+
+                           ⚠️ O rótulo é só o rótulo — o `exportCsv("all")`
+                           continua lendo `rowsAll`, que é `props.rows ?? []`
+                           (controller, `useDataTableExport`). Com `fetchData`
+                           E `rows` passados juntos, o corpo mostra a resposta
+                           do servidor e o CSV sai com as `rows` LOCAIS: o
+                           usuário exporta o que não está na tela, sob um
+                           rótulo que afirma que está. Defeito PRÉ-EXISTENTE do
+                           `fetchData` (I-3 da review), não consertado aqui
+                           porque o conserto toca os dois caminhos — está em
+                           pendência. Enquanto isso: com `fetchData`, não passe
+                           `rows`. Esta frase já afirmou que `rowsAll` caía num
+                           fallback vazio, e isso era falso. */
+                        return isServerMode || isServerProcessed ? (
                           <MoreMenuItemEl
                             key={fmt.id}
                             onSelect={() => exporter.exportCsv("all")}

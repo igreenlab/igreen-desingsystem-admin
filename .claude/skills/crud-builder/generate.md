@@ -18,7 +18,7 @@ description: >
 | ----------------------------------------------------- | -------------------------------------------------------------- |
 | CRUD client base · bulk · totalizers · inline edit    | `src/preview/pages/ClientsCRUDPreview.tsx`                     |
 | Server mode (`fetchData`/`getRowId`) · coluna actions | `src/preview/pages/ClientsCRUDServerPreview.tsx`               |
-| Server mode pela TELA (`paginationMode="server"` + `rows`/`rowCount`) | `src/preview/pages/ClientsServerRowsPreview.tsx`              |
+| Server mode pela TELA (`processingMode="server"` + `rows`/`rowCount`) | `src/preview/pages/ClientsServerRowsPreview.tsx`              |
 | Filtros pré-aplicados · showEmptyFilterChips          | `src/preview/pages/ClientsPreFilteredPreview.tsx`              |
 | Virtualização                                         | `src/preview/pages/ClientsVirtualizedPreview.tsx`              |
 | Grouping (column-aligned + free-form)                 | `src/preview/pages/ClientsGroupedPreview.tsx`                  |
@@ -305,7 +305,7 @@ dados que a tela já tem, ou deixa a tabela sem como pedir a página seguinte.
 | a tela | o caminho | o que você gera |
 |---|---|---|
 | **não** tem camada de dados própria | `fetchData` | a função + `useCallback` |
-| **já** tem `react-query`/SWR/RTK-Query dono do fetch | `paginationMode="server"` | os 4 pares controlados + `rows` + `rowCount` |
+| **já** tem `react-query`/SWR/RTK-Query dono do fetch | `processingMode="server"` | os 4 pares controlados + `rows` + `rowCount` |
 
 Sintoma do segundo: o usuário fala "já tenho o hook", "o endpoint já devolve
 paginado", "uso react-query", ou mostra um `useQuery` que já existe.
@@ -320,7 +320,7 @@ const fetchData = useCallback(async (params: GridFetchParams) => {
 }, []);
 ```
 
-#### Caminho 2 — `paginationMode="server"` (a TELA busca)
+#### Caminho 2 — `processingMode="server"` (a TELA busca)
 
 ```tsx
 const { data, isFetching } = useQuery({
@@ -332,7 +332,7 @@ const { data, isFetching } = useQuery({
 <DataTable
   rows={data?.items ?? []}
   rowCount={data?.total ?? 0}
-  paginationMode="server"
+  processingMode="server"
   loading={isFetching}
   loadingMode="keep"
   paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
@@ -358,10 +358,24 @@ são as falhas prováveis:
 - **`toolbar.enableRefresh: false`.** O botão Refresh e o `ref.current.refresh()` só
   falam com o `fetchData`.
 
-⚠️ Os dois **não se somam**: com `fetchData` presente o `paginationMode` é ignorado.
-E **nunca** gere `paginationMode="server"` numa tela com os dados todos em memória —
-ali é client mode, e a prop desligaria a paginação, a ordenação e o filtro que o
-usuário espera que funcionem.
+⚠️ Os dois **não se somam**: com `fetchData` presente o `processingMode` é ignorado —
+e nesse caso **não passe `rows` junto**, porque o CSV sairia com as `rows` locais sob
+um rótulo dizendo "Página atual". E **nunca** gere `processingMode="server"` numa tela
+com os dados todos em memória: ali é client mode, e a prop desligaria a paginação, a
+ordenação e o filtro que o usuário espera que funcionem.
+
+⚠️ **O caso ESPELHADO não tem prop — e você vai encontrá-lo.** Se o usuário disser que
+o backend **filtra e busca** mas a tela recebe o lote inteiro e pagina/ordena sozinha,
+`processingMode="server"` é a resposta **errada** (desliga os quatro). Gere client mode
+normal e **avise**: passar `filterModel` controlado com `rows` já filtradas faz o filtro
+local rodar de novo sobre o lote — no-op quando as semânticas coincidem, e perde linha
+quando divergem. É pendência conhecida do DS, não algo pra contornar na tela.
+
+⚠️ **Filtro que zera o resultado:** nos dois caminhos de server mode a tela cai em
+"Nenhum dado cadastrado" (*"não existe nada"*) **sem o botão de limpar filtros**, em vez
+de "Nenhum dado encontrado". Se a tela tem filtro, **gere `renderEmpty` alternado** pelo
+`filterModel` que você já tem em estado:
+`renderEmpty={temFiltro ? <NoResults onClear={limpar} /> : <Empty />}`.
 
 **Toda tela de server mode leva `loadingMode="keep"`** — a não ser que o blueprint
 diga o contrário. Sem a prop, cada troca de página troca o corpo **inteiro** pelo

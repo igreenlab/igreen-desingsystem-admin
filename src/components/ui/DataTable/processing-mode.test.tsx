@@ -1,5 +1,5 @@
 /**
- * Task 11 (item 11 do Sólis) — `paginationMode: "client" | "server"`.
+ * Task 11 (item 11 do Sólis) — `processingMode: "client" | "server"`.
  *
  * O consumidor já pagina no servidor e passa em `rows` a página pronta. Hoje o
  * `DataTable` fatia de novo: `use-data-table-processor.ts` roda
@@ -31,8 +31,10 @@
  *
  *   1. **O caminho antigo** — sem a prop, fatia, ordena, filtra e busca
  *      localmente, e `rowCount` continua **ignorado**. É a regra do lote: prop
- *      ausente = comportamento de hoje. Quatro dos testes abaixo só existem pra
- *      isso, e são os que morrem quando a flag vaza pro default.
+ *      ausente = comportamento de hoje. **Oito** dos testes abaixo só existem
+ *      pra isso, e são exatamente os que morrem quando a flag vaza pro default
+ *      (medido: a mutação `isServerProcessed = !isServerMode` mata 8/21, e são
+ *      estes). Esta linha dizia "quatro" e estava errada.
  *   2. **`"server"` não fatia** — as `rows` recebidas aparecem inteiras, mesmo
  *      com `pageSize` menor que elas, e a página 2 não as apaga.
  *   3. **`"server"` não processa** — `sortModel`, `filterModel` e `search`
@@ -157,7 +159,7 @@ const estadoVazio = () => screen.queryByText("Nenhum dado cadastrado");
 
 /* ────────────────────────────────────────────────────────────────────────── */
 
-describe("DataTable — paginationMode: o caminho antigo (default 'client')", () => {
+describe("DataTable — processingMode: o caminho antigo (default 'client')", () => {
   it("sem a prop, fatia as rows localmente — a página 1 só mostra o pageSize", () => {
     const { container } = montar({}, 2);
 
@@ -215,10 +217,10 @@ describe("DataTable — paginationMode: o caminho antigo (default 'client')", ()
   });
 });
 
-describe("DataTable — paginationMode: 'server' não fatia", () => {
+describe("DataTable — processingMode: 'server' não fatia", () => {
   it("renderiza as rows recebidas SEM fatiar, mesmo com pageSize menor", () => {
     const { container } = montar(
-      { paginationMode: "server", rowCount: TOTAL_NO_SERVIDOR },
+      { processingMode: "server", rowCount: TOTAL_NO_SERVIDOR },
       2,
     );
 
@@ -230,7 +232,7 @@ describe("DataTable — paginationMode: 'server' não fatia", () => {
     const user = userEvent.setup();
     const aoPaginar = vi.fn();
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       onPaginationModelChange: aoPaginar,
     });
@@ -244,10 +246,10 @@ describe("DataTable — paginationMode: 'server' não fatia", () => {
   });
 });
 
-describe("DataTable — paginationMode: 'server' não processa, só emite", () => {
+describe("DataTable — processingMode: 'server' não processa, só emite", () => {
   it("NÃO ordena localmente — a ordem do servidor fica intacta", () => {
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       sortModel: { field: "nome", direction: "asc" },
     });
@@ -257,7 +259,7 @@ describe("DataTable — paginationMode: 'server' não processa, só emite", () =
 
   it("NÃO filtra localmente — o filterModel vale pro servidor, não pro lote", () => {
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       filterModel: FILTRO_SO_ALFA,
     });
@@ -267,7 +269,7 @@ describe("DataTable — paginationMode: 'server' não processa, só emite", () =
 
   it("NÃO busca localmente — o lote já é o resultado da busca do servidor", () => {
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       search: "Alfa",
     });
@@ -279,7 +281,7 @@ describe("DataTable — paginationMode: 'server' não processa, só emite", () =
     const user = userEvent.setup();
     const aoOrdenar = vi.fn();
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       onSortModelChange: aoOrdenar,
     });
@@ -297,7 +299,7 @@ describe("DataTable — paginationMode: 'server' não processa, só emite", () =
     const user = userEvent.setup();
     const aoBuscar = vi.fn();
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       onSearchChange: aoBuscar,
     });
@@ -309,10 +311,10 @@ describe("DataTable — paginationMode: 'server' não processa, só emite", () =
   });
 });
 
-describe("DataTable — paginationMode: 'server' e o total", () => {
+describe("DataTable — processingMode: 'server' e o total", () => {
   it("usa o `rowCount` como total do rodapé", () => {
     const { container } = montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
     });
 
@@ -322,7 +324,7 @@ describe("DataTable — paginationMode: 'server' e o total", () => {
   });
 
   it("sem `rowCount`, degrada pro tamanho do lote em vez de inventar", () => {
-    const { container } = montar({ paginationMode: "server" });
+    const { container } = montar({ processingMode: "server" });
 
     expect(rangeDoRodape(container)).toBe("1–3 de 3");
   });
@@ -332,7 +334,7 @@ describe("DataTable — paginationMode: 'server' e o total", () => {
     // já decide isso pelo total; aqui passa a decidir igual.
     montar({
       rows: [],
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
     });
 
@@ -340,13 +342,13 @@ describe("DataTable — paginationMode: 'server' e o total", () => {
   });
 
   it("lote vazio com `rowCount` zero segue afirmando 'nenhum dado'", () => {
-    montar({ rows: [], paginationMode: "server", rowCount: 0 });
+    montar({ rows: [], processingMode: "server", rowCount: 0 });
 
     expect(estadoVazio()).not.toBeNull();
   });
 });
 
-describe("DataTable — paginationMode: o export sabe que só tem a página", () => {
+describe("DataTable — processingMode: o export sabe que só tem a página", () => {
   async function abrirMenuDeOpcoes(user: ReturnType<typeof userEvent.setup>) {
     await user.click(screen.getByRole("button", { name: "Opções" }));
     return screen.findByRole("menu");
@@ -364,7 +366,7 @@ describe("DataTable — paginationMode: o export sabe que só tem a página", ()
   it("'server' troca 'Todos' por 'Página atual'", async () => {
     const user = userEvent.setup();
     montar({
-      paginationMode: "server",
+      processingMode: "server",
       rowCount: TOTAL_NO_SERVIDOR,
       toolbar: { enableExport: true },
     });
@@ -378,22 +380,44 @@ describe("DataTable — paginationMode: o export sabe que só tem a página", ()
   });
 });
 
-describe("DataTable — paginationMode convive com fetchData", () => {
-  it("com `fetchData` presente, `paginationMode` é inerte — ele já é server mode", async () => {
-    // Os dois caminhos de server mode não se somam: `fetchData` vence `rows`
-    // (já documentado), e esta prop manda em `rows`. Quem passar os dois recebe
-    // o comportamento do `fetchData`, não um terceiro.
+/**
+ * A inertness sob `fetchData` tem **duas cintas independentes**, e cada uma
+ * basta sozinha — medido com mutação sobre os 187 testes do DataTable:
+ *
+ *   | mutação | mortos |
+ *   |---|---|
+ *   | tirar o guard `!isServerMode` | 0 — a ordem cobre |
+ *   | inverter a ordem de `effectiveRows` ou `effectiveTotal` | 0 — o guard cobre |
+ *   | tirar o `rows: []` do processor | 0 — nunca foi cinta |
+ *   | **tirar o guard E inverter a ordem** | **1 em cada sítio, e são os daqui** |
+ *
+ * É por isso que estes testes existem: nenhuma mutação de uma variável só os
+ * alcança, então sem eles o par "guard + ordem" ficaria sem nada medindo o que
+ * acontece quando as duas caem. (No `totalRowsForEmpty` os dois ramos de server
+ * dão o MESMO valor, então ali não há ordem a inverter; o que ele pode perder é
+ * cair no `clientRows.length`, e é isso que o terceiro teste trava.)
+ *
+ * ⚠️ Nenhum destes passa `rowCount`, e é deliberado: com `fetchData` o
+ * `rowCount` **vence** o `total` da resposta (`props.rowCount ?? query.…`, que
+ * é o contrato de hoje), e aí os dois ramos devolvem o mesmo número — o teste
+ * ficaria verde com o ternário invertido. A primeira versão deste bloco passava
+ * `rowCount={300}` e afirmava no título que ele "não vence": falso, e teria
+ * sido um teste cego vestido de prova.
+ */
+describe("DataTable — processingMode convive com fetchData", () => {
+  /** `fetchData` + `rows` juntos, respondendo linha(s) diferentes das `rows`. */
+  async function montarOsDois(props: Partial<DataTableProps<Row>> = {}) {
     const resolvers: Array<(r: GridFetchResult<Row>) => void> = [];
     const fetchData = (_p: GridFetchParams): Promise<GridFetchResult<Row>> =>
       new Promise((resolve) => {
         resolvers.push(resolve);
       });
 
-    const { container } = render(
+    const view = render(
       <DataTable<Row>
         rows={PAGINA}
         fetchData={fetchData}
-        paginationMode="server"
+        processingMode="server"
         columns={COLUNAS}
         getRowId={(r) => r.id}
         paginationConfig={{
@@ -401,20 +425,92 @@ describe("DataTable — paginationMode convive com fetchData", () => {
           initialPageSize: 3,
           pageSizeOptions: [3],
         }}
+        {...props}
       />,
     );
-
     await screen.findByLabelText("Carregando dados");
-    const resolve = resolvers.shift()!;
-    await act(async () => {
-      resolve({ data: [{ id: "1", nome: "Mike" }], total: 42 });
+    return {
+      ...view,
+      responder: async (data: Row[], total: number) => {
+        const resolve = resolvers.shift();
+        if (!resolve) throw new Error("responder() sem request pendente");
+        await act(async () => {
+          resolve({ data, total });
+        });
+      },
+    };
+  }
+
+  it("`effectiveRows` fica com o fetch — as `rows` locais não aparecem", async () => {
+    const { container, responder } = await montarOsDois();
+
+    await responder([{ id: "1", nome: "Mike" }], 42);
+
+    // "Mike" é do servidor; Zulu/Alfa das `rows` locais. Inverter a ordem do
+    // ternário de `effectiveRows` traria as locais pra tela.
+    expect(nomesNaTela(container)).toEqual(["Mike"]);
+  });
+
+  it("`effectiveTotal` fica com o fetch — o total é o da resposta", async () => {
+    const { container, responder } = await montarOsDois();
+
+    await responder([{ id: "1", nome: "Mike" }], 42);
+
+    // 42 vem do `total` da resposta. O ramo do `isServerProcessed` daria
+    // `processed.totalAfterFilter`, que não é 42 — é o que morre na inversão.
+    // "1–3", não "1–1": o range é ARITMÉTICA sobre `pageSize` × `page`, nunca
+    // uma contagem do corpo — se o `pageSize` da tabela não for o do servidor,
+    // o texto mente (está na JSDoc e vale nos dois caminhos).
+    expect(rangeDoRodape(container)).toBe("1–3 de 42");
+  });
+
+  it("`totalRowsForEmpty` não cai nas `rows` locais — resposta vazia afirma 'nenhum dado'", async () => {
+    const { responder } = await montarOsDois();
+
+    await responder([], 0);
+
+    // As `rows` locais têm 3 linhas. Se o seletor caísse em `clientRows.length`
+    // o estado vazio não apareceria, e a tela ficaria em branco sem dizer nada.
+    expect(estadoVazio()).not.toBeNull();
+  });
+});
+
+describe("DataTable — processingMode avisa quando o Refresh fica inerte", () => {
+  /** O botão só chama `query.refresh()`, que não existe neste caminho. */
+  it("'server' com o Refresh ligado avisa em DEV", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    montar({ processingMode: "server", rowCount: TOTAL_NO_SERVIDOR });
+
+    const avisos = warn.mock.calls.map((c) => String(c[0]));
+    expect(avisos.some((m) => m.includes("`processingMode=\"server\"`"))).toBe(
+      true,
+    );
+  });
+
+  it("'server' com `enableRefresh: false` NÃO avisa", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    montar({
+      processingMode: "server",
+      rowCount: TOTAL_NO_SERVIDOR,
+      toolbar: { enableRefresh: false },
     });
 
-    // O que está na tela é a resposta do fetch, não as `rows` locais.
-    expect(nomesNaTela(container)).toEqual(["Mike"]);
-    // "1–3", não "1–1": o range é ARITMÉTICA sobre `pageSize` × `page`, nunca
-    // uma contagem do corpo. Vale pro `paginationMode="server"` também — se o
-    // `pageSize` da tabela não for o do servidor, o texto mente (está na JSDoc).
-    expect(rangeDoRodape(container)).toBe("1–3 de 42");
+    const avisos = warn.mock.calls.map((c) => String(c[0]));
+    expect(avisos.some((m) => m.includes("`processingMode=\"server\"`"))).toBe(
+      false,
+    );
+  });
+
+  it("sem a prop NÃO avisa — o caminho antigo não ganha ruído", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    montar();
+
+    const avisos = warn.mock.calls.map((c) => String(c[0]));
+    expect(avisos.some((m) => m.includes("`processingMode=\"server\"`"))).toBe(
+      false,
+    );
   });
 });

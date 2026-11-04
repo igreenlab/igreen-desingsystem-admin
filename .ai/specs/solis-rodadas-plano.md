@@ -671,7 +671,7 @@ it("'keep' na PRIMEIRA carga cai no esqueleto, nao em corpo vazio", ...) // Revi
 
 ---
 
-### Task 11: `paginationMode: "server"` (item 11)
+### Task 11: `paginationMode: "server"` (item 11) — ⚠️ entregue como `processingMode`
 
 Menor do que o pedido sugere: `rowCount`, `paginationModel`, `onPaginationModelChange`,
 `onSortModelChange` e `onFilterModelChange` **já existem** (`data-table.types.ts:598, 650,
@@ -683,7 +683,15 @@ Menor do que o pedido sugere: `rowCount`, `paginationModel`, `onPaginationModelC
 - Test: `src/components/ui/DataTable/pagination-mode.test.tsx` (criar)
 
 **Interfaces:**
-- Produces: `DataTableProps.paginationMode?: "client" | "server"` — default `"client"`
+- Produces: `DataTableProps.processingMode?: "client" | "server"` — default `"client"`
+
+> ⚠️ **Renomeado na implementação, por decisão do mantenedor.** O plano pedia
+> `paginationMode`, que é o nome do **MUI** — e lá significa **só paginação** (existem
+> `sortingMode` e `filterMode` separados). Aqui a flag desliga o pipeline local inteiro,
+> então quem **reconhece** o nome é exatamente quem leria `paginationMode="server"` e
+> esperaria a ordenação local continuar valendo: a familiaridade vira passivo. O aviso da
+> JSDoc alcança quem lê; o nome alcança quem não lê. A prop nunca foi publicada, então não
+> houve migração. Nome final: **`processingMode`**.
 
 - [ ] **Step 1: Testes**
 

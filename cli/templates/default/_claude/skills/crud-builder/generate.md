@@ -36,7 +36,7 @@ Nunca gere props de memória — copie a forma do exemplo.
   | a tela | o caminho | o que você gera |
   |---|---|---|
   | **não** tem camada de dados própria | ****fetchData**** | a função + `useCallback` |
-  | **já** tem react-query/SWR/RTK-Query dono do fetch | ****paginationMode="server"**** | os 4 pares controlados + ****rows**** + ****rowCount**** |
+  | **já** tem react-query/SWR/RTK-Query dono do fetch | ****processingMode="server"**** | os 4 pares controlados + ****rows**** + ****rowCount**** |
 
   Sintoma do segundo: "já tenho o hook", "o endpoint já devolve paginado", "uso
   react-query", ou um `useQuery` que já existe na tela.
@@ -47,7 +47,7 @@ Nunca gere props de memória — copie a forma do exemplo.
   <DataTable
     rows={data?.items ?? []}
     rowCount={data?.total ?? 0}
-    paginationMode="server"
+    processingMode="server"
     loading={isFetching}
     loadingMode="keep"
     paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
@@ -61,16 +61,30 @@ Nunca gere props de memória — copie a forma do exemplo.
 
   No caminho 2, quatro coisas saem geradas junto — são as falhas prováveis:
   - **Os 4 pares controlados.** Sem eles o usuário clica no cabeçalho e nada acontece.
-  - ******rowCount****.** Única fonte do total; sem ele o rodapé só conhece o lote
+  - ****rowCount**** — única fonte do total; sem ele o rodapé só conhece o lote
     ("1–N de N") e não oferece página seguinte.
-  - ******initialPageSize**** = o `pageSize` da API.** O range é `page × pageSize`, não
+  - ****initialPageSize**** = o ****pageSize**** da API. O range é página × tamanho, não
     contagem do corpo: 25 declarado com um lote de 10 escreve "1–25" sob 10 linhas.
-  - ******enableRefresh: false****.** O Refresh só fala com o ****fetchData****.
+  - ****enableRefresh: false**** — o Refresh só fala com o ****fetchData**** (sem isso, aviso no console em DEV).
 
-  ⚠️ Os dois não se somam: com ****fetchData**** presente o ****paginationMode**** é
-  ignorado. E **nunca** gere ****paginationMode="server"**** numa tela com os dados
-  todos em memória — ali é client mode, e a prop desligaria paginação, ordenação e
-  filtro que o usuário espera que funcionem.
+  ⚠️ Os dois não se somam: com ****fetchData**** presente o ****processingMode**** é
+  ignorado — e aí **não passe ****rows**** junto**, porque o CSV sairia com as
+  ****rows**** locais sob um rótulo dizendo "Página atual". E **nunca** gere
+  ****processingMode="server"**** numa tela com os dados todos em memória: ali é client
+  mode, e a prop desligaria paginação, ordenação e filtro que o usuário espera que
+  funcionem.
+
+  ⚠️ **O caso ESPELHADO não tem prop — e você vai encontrá-lo.** Se o usuário disser
+  que o backend **filtra e busca** mas a tela recebe o lote e pagina/ordena sozinha,
+  ****processingMode="server"**** é a resposta **errada** (desliga os quatro). Gere
+  client mode normal e **avise**: passar ****filterModel**** controlado com ****rows****
+  já filtradas faz o filtro local rodar de novo sobre o lote — no-op quando as
+  semânticas coincidem, perde linha quando divergem. Pendência conhecida do DS.
+
+  ⚠️ **Filtro que zera o resultado:** nos dois caminhos de server mode a tela cai em
+  "Nenhum dado cadastrado" (*"não existe nada"*) **sem o botão de limpar filtros**, em
+  vez de "Nenhum dado encontrado". Tela com filtro ⇒ **gere ****renderEmpty**** alternado**
+  pelo ****filterModel**** que você já tem em estado.
 - **Server mode (qualquer um dos dois) ⇒ `loadingMode="keep"`**, salvo se o blueprint disser o contrário.
   Sem a prop (default `"skeleton"`) cada troca de página troca o corpo **inteiro**
   pelo esqueleto e volta — é o "pisca", e em tela de navegação frequente é a

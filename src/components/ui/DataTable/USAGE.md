@@ -8,7 +8,7 @@
 - chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
-- server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **paginationMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `paginationMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData`. Com `fetchData` presente a prop é ignorada
+- server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ⚠️ Filtro que zera o resultado cai em "Nenhum dado cadastrado" **sem o botão de limpar filtros** (herdado do `fetchData`) — alterne `renderEmpty` pelo seu `filterModel`
 - server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
 -->
 
@@ -119,7 +119,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |
 | **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |
 | **Server mode — o DataTable busca** | passe `fetchData` em vez de `rows`. Ele chama a sua função a cada mudança de pagination/sort/filter/search e renderiza a resposta                                                                                                                                                                                                                      |
-| **Server mode — a TELA busca**  | **paginationMode**`="server"` + `rows` + `rowCount`. As rows já são a página pronta: o DataTable **não** fatia, ordena, filtra nem busca — só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Use quando já existe react-query/SWR dono do fetch. Ver §Server mode |
+| **Server mode — a TELA busca**  | **processingMode**`="server"` + `rows` + `rowCount`. As rows já são a página pronta: o DataTable **não** fatia, ordena, filtra nem busca — só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Use quando já existe react-query/SWR dono do fetch. Ver §Server mode |
 | **Trocar de página sem piscar** | **loadingMode**`="keep"` — durante o refetch as linhas do resultado ANTERIOR ficam no lugar (corpo **e** rodapé), com `aria-busy` + live region `sr-only` avisando, e o range do rodapé escondido. Default `"skeleton"` = o de hoje. Na primeira carga, sem linha anterior, o `"keep"` cai no esqueleto sozinho. Ver §Estados                                        |
 | **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |
@@ -306,14 +306,14 @@ const fetchData = useCallback(
 
 `fetchData` é re-disparado quando muda `pagination | sort | filter | search`. Use ref/AbortController interno se precisar cancelar. Loading state é managed pelo controller: **por default corpo e rodapé viram esqueleto** a cada refetch — é isso que faz trocar de página "piscar". Pra manter as linhas da página anterior até a próxima chegar, veja **loadingMode** em §Estados.
 
-#### O outro caminho: `paginationMode="server"` (a TELA busca)
+#### O outro caminho: `processingMode="server"` (a TELA busca)
 
 São **dois** caminhos de server mode, e o consumidor escolhe um:
 
 | | quem dispara a request | quando usar |
 |---|---|---|
 | `fetchData` | o DataTable | a tela não tem camada de dados própria |
-| **paginationMode**`="server"` + `rows` | a tela | já existe `react-query`/SWR/RTK-Query dono do fetch, com cache, invalidação e `placeholderData` |
+| **processingMode**`="server"` + `rows` | a tela | já existe `react-query`/SWR/RTK-Query dono do fetch, com cache, invalidação e `placeholderData` |
 
 ```tsx
 const { data, isFetching } = useQuery({
@@ -325,7 +325,7 @@ const { data, isFetching } = useQuery({
 <DataTable<Client>
   rows={data?.items ?? []}
   rowCount={data?.total ?? 0}
-  paginationMode="server"
+  processingMode="server"
   loading={isFetching}
   loadingMode="keep"
   columns={columns}
@@ -347,7 +347,7 @@ dos dois está errado). Fronteira de página só existe sobre um conjunto já fi
 ordenado — por isso é **uma** flag, e não três. É o mesmo que `fetchData` sempre significou
 aqui.
 
-Três coisas que mudam de dono junto com o processamento:
+Quatro coisas que mudam de dono junto com o processamento:
 
 - **`rowCount` vira obrigatório na prática.** Sem ele o rodapé só conhece o lote que recebeu
   ("1–N de N") e não oferece página seguinte. Em client mode puro ele continua **ignorado**.
@@ -356,9 +356,32 @@ Três coisas que mudam de dono junto com o processamento:
   escreve "1–25" sob 10 linhas. Declare `pageSizeOptions` só com valores que a API aceita.
 - **O botão Refresh e o `ref.current.refresh()` só falam com o `fetchData`.** Quem recarrega
   aqui é a tela — passe `toolbar.enableRefresh: false` e exponha o seu próprio, ou use
-  `toolbar.customLeft`.
+  `toolbar.customLeft`. Sem isso sai `console.warn` em DEV: um botão que gira e não
+  recarrega é pior que um ausente, porque o usuário conclui que o dado está atualizado.
 - **O export "Todos" vira "Página atual"** sozinho: o DataTable só tem o lote na mão, e
   prometer o conjunto inteiro seria mentira.
+
+⚠️ **Três limites conhecidos deste modo — leia antes de abrir bug:**
+
+1. **O caso ESPELHADO não é atendido.** Filtrar e buscar no servidor mantendo paginação e
+   ordenação locais é legítimo e comum, e `processingMode="server"` **não serve**: ele
+   desliga os quatro de uma vez. Pior, esse recorte sofre hoje um **double-filter
+   silencioso**, com ou sem a prop — quem passa `filterModel` controlado e `rows` já
+   filtradas vê o `applyFilters` local rodar de novo sobre o lote. É no-op quando as
+   semânticas coincidem e **perde linha** quando divergem (busca de banco
+   acento-insensível, collation ≠ `localeCompare`, campo que a coluna não declara virando
+   `undefined`). Pendência conhecida; não há flag.
+2. **Filtro que zera o resultado mostra o estado vazio errado.** Em client mode, filtrar
+   até zero dá "Nenhum dado encontrado" **com o botão de limpar filtros**. Aqui o total vai
+   a 0, o `isDataEmpty` vence o `isNoResults` e a tela afirma "Nenhum dado cadastrado" —
+   *"não existe nada"* — **sem a saída de limpar**, justamente quando ela é mais necessária.
+   É pré-existente do `fetchData` e herdado de propósito (consertar mudaria os dois
+   caminhos). Saída até lá: alterne `renderEmpty` pelo `filterModel`, que já é seu —
+   `renderEmpty={temFiltro ? <MeuNoResults onClear={…} /> : <MeuEmpty />}`.
+3. **Não passe `rows` junto com `fetchData`.** O rótulo do export vira "Página atual" nos
+   dois, mas o `exportCsv("all")` lê `props.rows` — com os dois presentes, o corpo mostra a
+   resposta do servidor e o CSV sai com as `rows` locais. Defeito pré-existente do
+   `fetchData`, em pendência.
 
 Com `fetchData` presente a prop é **ignorada** — `fetchData` vence `rows`, e é sobre `rows`
 que ela manda. Os dois não se somam. Demo ao vivo: **Example: Server por rows**
@@ -984,7 +1007,7 @@ tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (n
 - `pageSizeOptions` ([10, 25, 50, 100])
 
 > O modo client/server é derivado de `rows` vs `fetchData` — **e desde a vNEXT também pode
-> ser declarado** por **paginationMode**`="server"`, pra quem passa `rows` já processadas
+> ser declarado** por **processingMode**`="server"`, pra quem passa `rows` já processadas
 > pelo servidor. Esta linha dizia *"não é prop"* até lá; ver §Server mode.
 
 ### `selectionConfig`
