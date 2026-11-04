@@ -116,6 +116,91 @@ Levantados pelo implementador da Rodada 2, documentados, **fora do escopo**:
 
 ---
 
+## 5b. O que a auditoria de compartilhados achou e NÃO corrigiu (Rodada 3)
+
+Os quatro são **pré-existentes e inalterados** — apareceram porque fomos olhar o
+`DataList`, não porque algo os criou. Todos no motor de filtro.
+
+| # | O quê | Por que ficou |
+|---|---|---|
+| **P1** | `ownsMulti` com operador **escalar** ainda grava array num item só → `matchOp("equals", val, ["a","b"])` coage para `"a,b"` e nunca casa | consertar exige decidir se grupo escalar passa a combinar por **OR**. Isso é mudança de comportamento, não correção |
+| **P2** | O `DataList` combina escalares do mesmo campo por **AND**; o `DataTable` por **OR** | dois `equals` no mesmo campo: a tabela devolve quem bate em qualquer um, a lista não devolve ninguém. Mesma família da P1 — provavelmente as duas se resolvem juntas |
+| **P3** | Desmarcar o **último** valor remove o grupo e **desmonta o chip no meio da interação**, fechando o popover | o `DataTable` se protege disso de propósito, mantendo um item vazio (`use-filter-popover-adapter.ts:419`, com comentário sobre o mesmo sintoma). O `DataList` não tem essa proteção |
+| **P4** | Todo toggle do chip regenera os UUIDs do grupo inteiro | inofensivo aqui (nada indexa `FilterItem` por id — procurado e confirmado), mas consumidor em `mode="server"` que faça diff por id verá substituição total a cada clique |
+
+> **P1 e P2 são a mesma pergunta por dois lados:** o grupo de filtros escalares do mesmo
+> campo deve ser AND ou OR? O `DataTable` já respondeu OR. Alinhar o `DataList` é a decisão
+> — e ela muda resultado de filtro em tela que hoje funciona, então é sua.
+
+---
+
+## 5c. Quatro tipos cujo filtro você não consegue esvaziar (Rodada 4)
+
+Pré-existente, medido, e **a decisão é sua** porque estender muda pixel em todo
+consumidor do funil.
+
+A Rodada 4 deu saída própria à linha que ficou sem nada a editar (`isEmpty`), fechando um
+beco da L-070. Ao revisar, medimos que **quatro tipos built-in têm o mesmo beco por outro
+motivo**:
+
+| tipo | `SelectItem value=""` | clear | efeito |
+|---|---|---|---|
+| `select` · `boolean` · `badge` · `user` | **0** | **0** | filtro posto se **troca**, mas não se **esvazia** pelo funil |
+
+A única saída é o **"Limpar todos"** do rodapé, que apaga os filtros de todos os campos.
+
+**Por que o sinal atual não os alcança:** a saída por campo dispara quando o *operador*
+não tem valor a editar. O operador desses quatro é `equals`, que **tem** valor — a linha é
+editável, só não é esvaziável.
+
+⚠️ **Não é uma linha de código.** O Radix proíbe `SelectItem` com `value=""`, então dar
+saída a esses quatro exige decisão de design (item "Todos" sentinela? botão de limpar na
+linha? ícone no próprio Select?), não um conserto mecânico.
+
+O que **já foi feito**: o `TableToolbar/USAGE.md` parou de prometer que toda linha tem
+saída, e nomeia os quatro.
+
+---
+
+## 5d. O `DataList` não deixa abrir o funil por fora (Rodada 4)
+
+A Task 9 deu ao `DataTable` o par ****simpleFilter.open**** / ****onOpenChange****, para a
+tela do consumidor abrir o drawer de filtros por um botão dela. O `DataList` tem **a mesma
+lacuna** e não ganhou o par.
+
+**Não é simetria barata**, e é por isso que ficou de fora: o `DataList` **não tem**
+`simpleFilter` nenhum — nem `hiddenFields`, nem `title`, nem `size`. Dar a ele o par exige
+escolher entre duas formas:
+
+| forma | custo |
+|---|---|
+| criar o objeto `simpleFilter` inteiro em `DataListProps` e passá-lo pelo toolbar | simétrico com o `DataTable`, mas é API nova de verdade |
+| duas props soltas na raiz | mais barato, e **assimétrico** — dois jeitos de configurar a mesma coisa em componentes irmãos |
+
+Opt-in puro e sem risco nos dois casos. Mas é **API nova**, não correção, e o pedido do
+Sólis (item 18) falava do `DataTable`. Fica para você decidir se vale e em qual forma.
+
+Hoje o estado é `useState` privado em `data-list-toolbar.tsx:166`.
+
+---
+
+## 5e. Três arestas do `simpleFilter` controlado (Rodada 4)
+
+Levantadas pela review da Task 9. Nenhuma é defeito; as três são escolhas que ficaram em
+aberto.
+
+| # | O quê | Por que ficou |
+|---|---|---|
+| **P5** | **Não existe `defaultOpen`.** O precedente do `Scheduler` oferece `defaultDate`/`defaultView`, e é por isso que o aviso dele consegue dizer *"use `defaultDate` para o não-controlado"*. Aqui o conselho é "omita `open`" | custa a possibilidade de **nascer aberto sem assumir o controle** — que é justamente o caso de deep-link que motivou a tarefa. É adição opt-in, barata; só não quis crescer o escopo da rodada |
+| **P6** | **A transição não-controlado ⇄ controlado no meio da vida não é testada nem avisada.** O React avisa nesse caso em `<input>` | a guarda que lida com isso existe e **é observável** (a review mediu: largar o `open` depois de interagir muda o resultado), mas nenhum teste a cobre. Acrescentar um terceiro aviso para cenário sem evidência seria ruído (L-059) — o que falta é o **teste**, não o aviso |
+| **P7** | As deps do `useCallback` usam o **valor** da prop, não um booleano `isControlled` como o `Scheduler` (`use-scheduler-state.ts:104`) | no modo controlado a identidade do handler troca a cada toggle. Inofensivo hoje porque o drawer não é memoizado — vira custo se alguém o memoizar |
+
+> **P6 é a mais interessante das três:** a guarda está lá, faz a coisa certa, e nada prova
+> que ela faz. É a forma invertida do que esta série vem achando — em vez de um verde que
+> não prova nada, um comportamento correto que nenhum verde cobre.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se
@@ -146,6 +231,12 @@ que viraram a seção 5 acima.
 **Correção de processo:** a regra de decisão passa a ser *nomear cada achado ao decidir sobre
 ele*, não contar quantos. Um achado que some entre a revisão e o registro é indistinguível
 de um achado que nunca existiu.
+
+> ✅ **Fechado estruturalmente em 2026-11-03**, depois de a falha acontecer uma terceira
+> vez (a review da Task 7b registrou que não achou o relatório do implementador em
+> disco — ele existia só como mensagem). Agora todo relatório de implementação e de
+> review é gravado em `.superpowers/sdd/solis-rodadas-plano/` **antes** de a etapa
+> seguinte ser despachada. As pendências da Rodada 3 acima já nasceram nomeadas.
 
 ---
 

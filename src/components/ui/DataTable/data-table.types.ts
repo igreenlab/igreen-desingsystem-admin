@@ -724,9 +724,12 @@ export type DataTableProps<T> = {
   /**
    *  Configuração do drawer de Filtros (funil). O botão funil da toolbar abre um
    *  drawer lateral com TODOS os filtros em lista vertical (1 linha por coluna,
-   *  widget do registry, aplicação LIVE — operator inferido do filterType). O
-   *  query builder avançado (AND/OR + operadores explícitos + SQL) vive no menu
-   *  de Configurações da toolbar.
+   *  widget do registry, aplicação LIVE). O drawer não OFERECE escolha de operador,
+   *  mas RESPEITA o que já está no `filterModel`: campo com filtro vigente é
+   *  desenhado e reescrito com o operador dele (`isNoneOf`, `between`,
+   *  `notContains`…); campo sem filtro nasce com o default do tipo. O query builder
+   *  avançado (AND/OR + operadores explícitos + SQL) vive no menu de Configurações
+   *  da toolbar.
    *
    *  Prop OPCIONAL — só pra customizar o drawer; o funil aparece sempre que
    *  `toolbar.enableFilters !== false` e há colunas filtráveis.
@@ -741,6 +744,35 @@ export type DataTableProps<T> = {
     title?: string;
     /** Tamanho do drawer. Default "md" (400px). */
     size?: "sm" | "md" | "lg" | "xl";
+
+    /**
+     * Abertura CONTROLADA do drawer. Presente ⇒ a prop manda e o estado interno
+     * deixa de decidir: o funil da toolbar, o X, o Esc e o backdrop passam a só
+     * AVISAR por `onOpenChange`. Ausente (o default) ⇒ estado interno, exatamente
+     * como sempre foi — o funil abre, o X fecha.
+     *
+     * Use quando um controle FORA do `DataTable` precisa abrir o funil: um botão
+     * "Filtrar" do cabeçalho da tela, um atalho de teclado, um deep-link.
+     *
+     * ⚠️ Passar `open` sem `onOpenChange` prende o drawer no valor da prop — as
+     * três saídas do usuário (X, Esc, backdrop) ficam inertes, sem nada na tela
+     * dizendo por quê. É a L-070 (estado sem saída). O componente não troca de
+     * contrato por causa disso (uma prop que só manda às vezes seria pior), mas
+     * emite `console.warn` em DEV nomeando a prop e a consequência.
+     */
+    open?: boolean;
+
+    /**
+     * Avisado sempre que algo PEDE pra abrir ou fechar o drawer: o funil da
+     * toolbar, o X do header, o botão "Fechar" do rodapé, o Esc e o backdrop
+     * (mobile). Recebe o estado pretendido.
+     *
+     * Dispara nos DOIS modos, controlado e não-controlado — é notificação de
+     * intenção, não controle. Sem `open`, o drawer continua abrindo e fechando
+     * sozinho e o callback só OBSERVA (telemetria, badge, sincronizar um estado
+     * espelho). Mesmo par do `showHistory`/`onShowHistoryChange` do `Gantt`.
+     */
+    onOpenChange?: (open: boolean) => void;
   };
 
   /** Search controlado */

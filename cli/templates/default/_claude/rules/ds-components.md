@@ -145,6 +145,26 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    esse slot, só `toolbarActions`.
 3. **Muitos filtros, ou muito grandes** → drawer "Filtros" **nativo** do `data-table` + chips
    pré-aplicados. Nunca empilhar selects soltos.
+   O funil **não oferece** escolha de operador (isso é do builder avançado), mas **preserva**
+   o que você pré-aplicou: filtro que nasce `isNoneOf` ("Excluindo"), ****between**** ou
+   `notContains` continua nele depois que o usuário mexe no valor ali dentro, e aparece com o
+   widget certo (faixa com dois campos, por exemplo). Só o campo **ainda sem filtro** nasce
+   com o operador default do tipo. ⚠️ **Exige o DS `vNEXT` ou mais novo**: antes disso os dois
+   lados do drawer derivavam o operador do tipo da coluna, então editar o valor rebaixava o
+   operador sem avisar — e pré-aplicar "Excluindo" não parava de pé.
+
+   **Um botão da SUA tela abrindo o funil** (um "Filtrar" no cabeçalho da página, um
+   atalho, um deep-link que já chega filtrando): ****simpleFilter.open**** +
+   ****simpleFilter.onOpenChange**** no `data-table` (DS `vNEXT`+). Com ****open****
+   presente a prop manda — o funil da toolbar, o X, o Esc e o backdrop passam a só
+   **avisar**, e quem abre e fecha é você. Sem ****open****, o drawer continua se
+   virando sozinho e ****onOpenChange**** apenas **observa** (dispara nos dois modos),
+   que é o que você quer pra telemetria ou pra espelhar o estado num badge.
+   ⛔ **Nunca passe ****open**** sem ****onOpenChange****:** o drawer fica preso no valor
+   da prop, as três saídas do usuário viram cliques sem efeito e ele não tem como fechar
+   (sai um `console.warn` em DEV dizendo isso). Não passar nenhuma das duas é o
+   comportamento de sempre.
+   ⚠️ O `data-list` **não tem** esse par — o funil dele segue só com estado interno.
 
 > As exceções (2 e 3) são raras. Sempre que a informação já está numa coluna: **chip nativo
 > primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +
@@ -170,6 +190,13 @@ sem elas nada muda.
 sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.
 Com `countLabel`, `clearLabel`, `totalSelected` (contagem entre páginas, vinda de você) e
 `onClearAll`. O **estado** da seleção entre páginas continua seu; o DS só exibe.
+
+**Operador do SEU tipo que não pede valor** (um "mês corrente", um "tem anexo"):
+marque ****noValue: true**** no item de ****operators**** (DS `vNEXT`+). O funil entende que
+aquela linha não tem o que editar e dá a ela um "Limpar" próprio, que remove só aquele
+campo — sem isso a única saída seria o "Limpar todos", que apaga os filtros de todos.
+`isEmpty`/`isNotEmpty` já valem sem declarar. ⚠️ O campo existe na tipagem há muito tempo
+mas **não fazia nada** antes da `vNEXT`: se você já declarou e não viu efeito, era isso.
 
 **Widget de filtro próprio:** registre um tipo no `columnTypeRegistry` com
 ****ownsMulti: true**** e o chip multi inteiro passa a ser seu (colar lista,

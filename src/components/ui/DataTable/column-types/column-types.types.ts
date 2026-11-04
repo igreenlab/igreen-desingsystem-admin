@@ -75,7 +75,23 @@ export type FastFilterInputProps = {
 export type ColumnTypeOperator = {
   id: FilterOperator;
   label: string;
-  /** Se true, o operador nao precisa de valor (ex: isEmpty). */
+  /**
+   * O operador se basta SEM valor (ex: `isEmpty`) — o `renderFilterInput` deste tipo
+   * não tem o que editar quando ele está ativo.
+   *
+   * Quem lê: o `ToolbarSimpleFilterDrawer` (funil), pra dar à linha uma **saída
+   * própria** — um "Limpar" que remove o filtro daquele campo. Sem isso a única saída
+   * seria o "Limpar todos" do rodapé, que apaga o filtro de todos os campos (L-070).
+   *
+   * `isEmpty`/`isNotEmpty` já valem sem declaração (`NO_VALUE_OPERATORS` em
+   * `utils/filter-ops`): este campo é pro tipo REGISTRADO que tem um operador
+   * sem valor próprio.
+   *
+   * ⚠️ Até 2026-11-03 este campo era **inerte** — exportado na API pública, declarado
+   * por nenhum dos 16 tipos e lido por nada. Foi ligado, não removido, justamente por
+   * ser público (L-061). Nenhum built-in o declara, então o comportamento deles não
+   * mudou.
+   */
   noValue?: boolean;
 };
 

@@ -83,7 +83,7 @@ documentada em lugar nenhum.
       reprova prop como "componente inexistente"; **(b)** versão se cita como `vNEXT`, que
       o `version-claims-check` reprova no `release:check` — assim o placeholder morre no
       `/ds-release` por construção, em vez de virar número errado.
-- [ ] **Prova vermelha: confirme que a mutação APLICOU.** Rode `git diff --stat <arquivo>`
+- [ ] **Prova vermelha: o check não pode ser mais frouxo que a alegação.** Rode `git diff --stat <arquivo>`
       e veja que não está vazio, ANTES de rodar o teste. Os arquivos deste repo são
       **CRLF**, e padrão multi-linha escrito com `
 ` não casa — a mutação não entra, em
@@ -91,6 +91,33 @@ documentada em lugar nenhum.
       L-064 virada contra o próprio instrumento — **uma mutação que não roda é
       indistinguível de uma mutação que sobreviveu**, e as duas se parecem com "o teste
       cobre isso".
+
+      ⚠️ **E confirme que ela SAIU pela mesma régua.** O detector tem que casar a **linha
+      inteira**, não um trecho: um `includes` acusa resíduo que não existe quando a mutação
+      é substring da linha restaurada (aconteceu na Task 8). As duas falhas têm a mesma
+      forma — **a verificação casando menos do que a afirmação que ela sustenta**. O erro
+      não é aplicar mal a mutação; é acreditar num check mais frouxo que a alegação.
+
+      **A regra, na forma mais curta que achamos:** *um verde só conta quando você sabe
+      qual linha de código o produziu — prove apagando essa linha, não uma vizinha.*
+
+      Quatro formas já apareceram nesta série, todas iguais por dentro — a verificação
+      concordando com a alegação por um motivo diferente do que o leitor supõe:
+
+      | forma | o que o instrumento fez |
+      |---|---|
+      | padrão `\n` em arquivo **CRLF** | não casa **nada** — a mutação não aplica, em silêncio |
+      | detector com `includes()` | casa **demais** — acusa resíduo que não existe |
+      | `git checkout -- <arq>` depois de `git checkout <commit> -- <arq>` | lê do **índice**, que o primeiro comando atualizou: não restaura. Use `git checkout HEAD -- <arq>` |
+      | teste verde por **outro mecanismo** | o teste do `multiSelect` passava por uma promoção inerte, e por isso parecia cobrir o registry |
+      | **placar do runner ilegível** | `--reporter=basic` não existe no Vitest 4: o script imprimiu `aplicou: SIM · restaurou: SIM` para as 6 mutações e `(placar não lido)` no resultado — **zero evidência de que algo morreu, com a aparência de uma tabela completa**. *"Não li" é indistinguível de "nada morreu"* |
+
+      **Duas réguas que vieram dessas:** o script de mutação deve **lançar erro** quando
+      não conseguir ler o placar, quando o placar não disser `failed`, ou quando não
+      conseguir nomear **quais** testes caíram. E quando o código sob teste **ainda não
+      está commitado**, `git checkout HEAD -- <arq>` apaga a própria implementação —
+      restaure do **snapshot em bytes** e confirme por **sha256**, que é régua mais
+      estrita que comparar linhas.
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de

@@ -219,10 +219,20 @@ export function TableToolbarDoc() {
   // Filtro avançado (query builder dentro do settings menu)
   const filters = useToolbarFilters<ToolbarFilterEntry>({ initial: [] });
 
-  // Filtro simples (funil → drawer) — FilterModel próprio (aplicação LIVE)
+  // Filtro simples (funil → drawer) — FilterModel próprio (aplicação LIVE).
+  // Os três items nascem com operador NÃO-default de propósito, e cada um mostra
+  // uma metade da regra:
+  //   `between` num `number` (default `equals`) → faixa desenhada com DOIS campos
+  //   `neq` num `select`     (default `equals`) → valor à vista, operador mantido
+  //   `isEmpty` num `text`   (default `contains`) → linha SEM o que editar, que por
+  //      isso ganha a saída própria "Limpar" (o rodapé apagaria todos os campos)
   const [simpleFilterOpen, setSimpleFilterOpen] = useState(false);
   const [filterModel, setFilterModel] = useState<FilterModel>({
-    items: [],
+    items: [
+      { id: "sf-valor", field: "value", operator: "between", value: [100, 9000] },
+      { id: "sf-status", field: "status", operator: "neq", value: "inactive" },
+      { id: "sf-nome", field: "name", operator: "isEmpty" },
+    ],
     logicOperator: "AND",
   });
   const simpleActiveCount = filterModel.items.length;
@@ -254,7 +264,7 @@ export function TableToolbarDoc() {
       <ExampleSection
         id="ex-full"
         title="Busca · filtros · configurações"
-        description="Clique em Configurações (sliders) pra abrir o menu em níveis: o nível 0 lista Ordenação/Colunas/Filtros avançados + Densidade; clicar numa opção navega pro painel correspondente com botão voltar. O funil abre o drawer de filtro simples. Tudo com os controles reais (mock state)."
+        description="Clique em Configurações (sliders) pra abrir o menu em níveis: o nível 0 lista Ordenação/Colunas/Filtros avançados + Densidade; clicar numa opção navega pro painel correspondente com botão voltar. O funil abre o drawer de filtro simples — ele já entra com três filtros de operador NÃO-default: Saldo disponível `between` (desenhado como faixa, dois campos), Status `neq` (valor à vista) e Razão Social `isEmpty`. Editar qualquer um NÃO rebaixa o operador pro default do tipo. A linha do `isEmpty` não tem o que editar — e é a única que ganha um “Limpar” próprio, porque sem ele a saída seria o “Limpar todos” do rodapé, que apaga os outros campos junto. Tudo com os controles reais (mock state)."
         code={`<TableToolbar
   viewToggle={<ToolbarSegmented items={VIEW_MODES} ... />}
   savedViews={<><ToolbarTabs ... /><ViewsPopover trigger={<ToolbarSaveButton><Plus/></ToolbarSaveButton>} ... /></>}

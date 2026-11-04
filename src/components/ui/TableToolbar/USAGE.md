@@ -85,6 +85,53 @@ import {
 - **Chip fixo**: `AppliedFilter.removable: false` esconde o X do chip (o ToolbarApplied
   mostra um ⊕ decorativo no lugar — chip "de regra" que nunca sai).
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
+- **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`vNEXT`+).
+  Ele não oferece escolha de operador — isso é do builder avançado — mas campo com filtro
+  vigente é **desenhado e reescrito com o operador dele** (`isNoneOf`, `between`,
+  `notContains`). Só o campo **sem** filtro nasce com o default do tipo (e `multiSelect`
+  segue promovido a `isAnyOf`). Antes os dois lados derivavam do tipo, e editar o valor
+  rebaixava o operador em silêncio. **Duas guardas**, se você registra tipo próprio:
+  (a) operador que o tipo **não declara** em `operators` cai no default — sem branch no
+  `renderFilterInput`, preservá-lo escreveria um item que o `matchesFilter` ignora;
+  (b) o drawer só **agrega** os N items do campo num array quando `operators[0]` do tipo
+  é multi — é a forma pra qual o widget foi escrito. Tipo de valor único que declara
+  `isAnyOf` (como `badge` e `user`) recebe o escalar e **mantém** o operador na escrita;
+  pra receber a lista, declare um operador multi em `operators[0]`.
+  Este drawer é compartilhado: a regra vale igual no `DataTable`, no `DataList` e em
+  quem monta `<ToolbarFilterControl>` na mão.
+- **Linha sem valor a editar tem saída PRÓPRIA.** `isEmpty`/`isNotEmpty` só chegam ao
+  drawer pela preservação acima (nenhum tipo os tem como default), e o widget deles
+  devolve "(sem valor)", sem `onChange`. Essa linha — **e só ela** — ganha um botão
+  "Limpar" que remove os items **daquele campo**, preservando os dos outros. Sem ele a
+  única saída seria o "Limpar todos" do rodapé, que apaga o filtro de todos os campos:
+  preservar o operador teria trocado um defeito silencioso (digitar rebaixava `isEmpty`
+  pra `contains`) por um beco sem saída nuclear — o que a **L-070** proíbe. Nenhuma outra
+  linha muda de aparência.
+  ⚠️ **Isto cobre a linha sem valor a editar, e NÃO é "toda linha tem saída".** Medido:
+  `select`, `boolean`, `badge` e `user` renderizam um `<Select>` sem opção vazia e sem
+  limpar — uma vez preenchido, o campo deles **só se esvazia pelo "Limpar todos"**. O
+  sinal por operador não alcança esse caso (o operador é `equals`, que tem valor), e dar
+  botão a toda linha muda pixel em todos os consumidores do drawer. Está anotado como
+  pendência do mantenedor; até lá, **não** afirme que o funil esvazia qualquer campo.
+- **Tipo registrado DECLARA o operador sem valor dele** com `noValue: true` no item de
+  `operators` (`vNEXT`+) — e aí a linha dele ganha a mesma saída. O sinal é o
+  **operador**, não o widget: não dá pra perguntar ao `renderFilterInput` se ele trouxe
+  `onChange`. `isEmpty`/`isNotEmpty` já valem sem declarar (`NO_VALUE_OPERATORS` em
+  `DataTable/utils/filter-ops` é o fallback dos built-in); o campo é pro resto.
+  ```tsx
+  columnTypeRegistry.register({
+    type: "periodoFixo",
+    operators: [
+      { id: "between", label: "entre" },
+      { id: "equals", label: "mês corrente", noValue: true }, // ← ganha o "Limpar"
+    ],
+    // …
+  });
+  ```
+  ⚠️ `ColumnTypeOperator.noValue` é exportado desde sempre e era **inerte** até a
+  `vNEXT`: declarar não fazia nada, sem erro e sem aviso (L-061). Foi **ligado**, não
+  removido, por ser API pública — nenhum dos 16 built-in o declara, então nada mudou
+  pra eles.
 
 ## Acoplamento DataTable ↔ TableToolbar
 

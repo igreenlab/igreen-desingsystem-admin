@@ -758,7 +758,66 @@ function DataTableInternal<T>(
 
   // `v2FilterOpen` controla o drawer do funil simples (o filtro avançado vive
   // no menu de Configurações, não no split button).
-  const [v2FilterOpen, setV2FilterOpen] = useState(false);
+  //
+  // Par controlado/não-controlado no formato do `showHistory` do `Gantt`
+  // (`gantt.tsx:171` pro `??`, `:749-752` pro callback nos dois modos), que é o
+  // precedente mais recente do repo:
+  //   `simpleFilter.open` presente ⇒ a prop manda, o estado interno não decide
+  //   mais nada; ausente ⇒ estado interno, como sempre foi.
+  // `onOpenChange` dispara nos DOIS modos — é notificação de intenção, não
+  // controle, pra quem só quer OBSERVAR a abertura não ter que assumir o estado.
+  const simpleFilterOpenProp = props.simpleFilter?.open;
+  const onSimpleFilterOpenChange = props.simpleFilter?.onOpenChange;
+  const [v2FilterOpenLocal, setV2FilterOpenLocal] = useState(false);
+  const v2FilterOpen = simpleFilterOpenProp ?? v2FilterOpenLocal;
+  const setV2FilterOpen = useCallback(
+    (proximo: boolean) => {
+      if (simpleFilterOpenProp === undefined) setV2FilterOpenLocal(proximo);
+      onSimpleFilterOpenChange?.(proximo);
+    },
+    [simpleFilterOpenProp, onSimpleFilterOpenChange],
+  );
+
+  /* `open` sem `onOpenChange` prende o drawer: o X, o Esc e o backdrop viram
+     cliques sem efeito e o usuário fica sem saída (L-070). A prop segue
+     mandando — trocar o contrato conforme a presença de uma SEGUNDA prop faria
+     `open` significar duas coisas, que é a armadilha maior. Avisa-se em DEV, uma
+     vez por montagem, no mesmo formato do `Scheduler` com `date` sem
+     `onDateChange` (`Scheduler/hooks/use-scheduler-state.ts`). */
+  const avisouDrawerPreso = useRef(false);
+  useEffect(() => {
+    if (!import.meta.env?.DEV || avisouDrawerPreso.current) return;
+    if (simpleFilterOpenProp !== undefined && onSimpleFilterOpenChange === undefined) {
+      avisouDrawerPreso.current = true;
+      console.warn(
+        "[DataTable] `simpleFilter.open` foi passado sem `simpleFilter.onOpenChange`: o drawer de Filtros fica preso no valor da prop — o X, o Esc e o backdrop deixam de fechar, sem nada na tela dizendo por quê. Conecte `onOpenChange` ou omita `open` pro modo não-controlado.",
+      );
+    }
+  }, [simpleFilterOpenProp, onSimpleFilterOpenChange]);
+
+  /* ⚠️ Segundo aviso, e ele cobre um caso que o primeiro não vê: `open` só faz alguma
+   * coisa se o drawer chegar a ser RENDERIZADO, e ele é condicionado a
+   * `toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0` (ver o
+   * JSX adiante). Com os filtros desligados, ou sem nenhuma coluna filtrável, `open: true`
+   * é silenciosamente inerte — o consumidor passa a prop, nada abre, e nada diz por quê. */
+  const avisouDrawerAusente = useRef(false);
+  useEffect(() => {
+    if (!import.meta.env?.DEV || avisouDrawerAusente.current) return;
+    if (
+      simpleFilterOpenProp === true &&
+      (toolbarConfig.enableFilters === false ||
+        filterPopoverColumns.length === 0)
+    ) {
+      avisouDrawerAusente.current = true;
+      console.warn(
+        "[DataTable] `simpleFilter.open` está `true`, mas o drawer de Filtros não é renderizado: " +
+          (toolbarConfig.enableFilters === false
+            ? "`toolbar.enableFilters` está `false`."
+            : "nenhuma coluna tem `enableColumnFilter`.") +
+          " A prop não tem efeito enquanto isso.",
+      );
+    }
+  }, [simpleFilterOpenProp, onSimpleFilterOpenChange]);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const handleRefresh = () => {
