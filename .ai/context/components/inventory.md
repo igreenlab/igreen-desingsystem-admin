@@ -552,6 +552,8 @@ Adapters internos pros popovers existentes:
                    chip APLICADO (sólido de marca + valor em fg-brand) × chip VAZIO
                    (tracejado neutro): o estado vem do próprio `isEmpty`, sem prop nova,
                    e vale igual no DataList, que renderiza este mesmo componente
+                   `between` NÃO imprime o rótulo do operador: o valor já lê como faixa
+                   ("100 – 500", "desde 01/01"). Saída: opLabels={{ between: "entre" }}
 
 Out of scope (planos seguintes):
   - Fast filters chips inline + applied bar (F6 — deprioritizado)

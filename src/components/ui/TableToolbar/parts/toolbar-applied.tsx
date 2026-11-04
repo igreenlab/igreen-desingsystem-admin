@@ -109,6 +109,21 @@ export function ToolbarApplied({
            passá-la pra receber o destaque (e o terceiro consumidor a
            descobrir que existe). */
         const aplicado = !f.isEmpty;
+        /* `between` NÃO imprime o rótulo do operador: o valor já é
+           auto-descritivo em todos os tipos que têm faixa —
+             number   `100 – 500`            · `≥ 100`       · `≤ 500`
+             currency `R$ 10 → R$ 500`       · `≥ R$ 10`     · `≤ R$ 500`
+             date     `01/01 → 31/01`        · `desde 01/01` · `até 31/01`
+           Lido inteiro, o chip dizia a faixa duas vezes ("entre 100 – 500"),
+           e no lado aberto saía "entre desde 01/01".
+
+           O `opLabels` do consumidor é a saída pra quem quer a palavra de
+           volta — e é só ele: `f.opLabel` vem do registry do tipo, que
+           declara "entre" em todos eles. */
+        const rotuloDoOperador =
+          f.op === "between"
+            ? (opLabels?.between ?? null)
+            : (f.opLabel ?? resolveOp(f.op));
         const defaultChip = (
           <span
             className={toolbarAppliedChip({
@@ -148,14 +163,16 @@ export function ToolbarApplied({
               <>
                 {/* Exclusão (isNoneOf) ganha destaque de EXCEÇÃO — danger — pra
                     "não é" não passar despercebido no meio dos chips (item 8). */}
-                <span
-                  className={cn(
-                    toolbarAppliedChipOp(),
-                    f.op === "isNoneOf" && "text-fg-danger font-semibold",
-                  )}
-                >
-                  {f.opLabel ?? resolveOp(f.op)}
-                </span>
+                {rotuloDoOperador !== null && (
+                  <span
+                    className={cn(
+                      toolbarAppliedChipOp(),
+                      f.op === "isNoneOf" && "text-fg-danger font-semibold",
+                    )}
+                  >
+                    {rotuloDoOperador}
+                  </span>
+                )}
                 {Array.isArray(f.value) ? (
                   <span className="inline-flex items-center gap-gp-2xs">
                     {(f.value as ReactNode[]).map((v) => (
