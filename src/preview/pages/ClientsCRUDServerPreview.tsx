@@ -239,7 +239,7 @@ export default function ClientsCRUDServerPreview() {
     <ExamplePageLayout
       category="Data Table Examples"
       title="CRUD Server"
-      description="DataTable em server mode — passa fetchData em vez de rows. Sort/filter/search/pagination disparam refetch (latência 500ms simulada). Botão Refresh externo dispara ref.current.refresh(). Use o menu “Carregamento” da toolbar e troque de página: no default o corpo vira esqueleto; em “Manter linhas” as linhas anteriores ficam no lugar até a próxima página chegar."
+      description="DataTable em server mode — passa fetchData em vez de rows. Sort/filter/search/pagination disparam refetch (latência 500ms simulada). Botão Refresh externo dispara ref.current.refresh(). Use o menu “Carregamento” da toolbar e troque de página: no default o corpo vira esqueleto; em “Manter linhas” as linhas anteriores ficam no lugar até a próxima página chegar — e uma régua de 3px na cor de marca acende no topo do cartão durante o vôo, que é o sinal de que aquelas linhas ainda são as de antes. Olhe o ID da primeira linha: ele só muda quando a régua apaga."
       code={CODE}
     >
       {erro && (
@@ -371,7 +371,9 @@ const tableRef = useRef<DataTableRef>(null);
   columns={columns}
   getRowId={(r) => r.id}
   // Trocar de página mantém as linhas da página anterior no lugar até a
-  // próxima chegar (a raiz ganha aria-busy enquanto elas estão defasadas).
+  // próxima chegar. Enquanto elas estão defasadas: régua de 3px na cor de
+  // marca no topo do cartão (o sinal visual), aria-busy na raiz e live region
+  // sr-only. Nada a ligar — nasce com a prop.
   // Omitir = "skeleton", o comportamento de sempre. Na PRIMEIRA carga não há
   // linha anterior, e o "keep" cai no esqueleto sozinho.
   loadingMode="keep"

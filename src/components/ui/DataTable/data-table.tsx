@@ -1297,6 +1297,16 @@ function DataTableInternal<T>(
     overscan: props.overscan ?? DEFAULT_OVERSCAN,
   });
 
+  /* `loadingMode: "keep"` em vôo — o corpo na tela é o lote ANTERIOR, e até a
+     P8 nada dizia isso a quem ENXERGA (`aria-busy` e a live region só falam
+     com leitor de tela). Régua de marca no topo do corpo; a justificativa
+     medida de por que NÃO é esmaecimento está no slot `staleRows`.
+
+     `undefined` fora do keep: o `cn` descarta e o DOM é byte-a-byte o de
+     antes. Vai nos QUATRO corpos porque o guard é agnóstico de view — marcar
+     só a tabela faria o sinal sumir ao trocar pra lista, kanban ou card. */
+  const sinalDefasado = isKeepingPreviousRows ? styles.staleRows() : undefined;
+
   /* ── Body content (Table primitivo) ───────────────────────────── */
 
   const tableBody = (
@@ -1308,7 +1318,7 @@ function DataTableInternal<T>(
       <Table
         density={density.density}
         cardBreakpoint={props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT}
-        className="min-h-0 max-h-full"
+        className={cn("min-h-0 max-h-full", sinalDefasado)}
         scrollRef={scrollContainerRef}
       >
         <TableHead>
@@ -1658,7 +1668,12 @@ function DataTableInternal<T>(
     : [];
 
   const cardBody = (
-    <div className="flex flex-col gap-gp-md p-pad-2xl overflow-auto scrollbar-thin min-h-0 flex-1">
+    <div
+      className={cn(
+        "flex flex-col gap-gp-md p-pad-2xl overflow-auto scrollbar-thin min-h-0 flex-1",
+        sinalDefasado,
+      )}
+    >
       {rowsToRender.map((row) => {
         const isSel = selection.isRowSelected(row);
         const rowId = contextValue.getRowId(row);
@@ -2357,6 +2372,7 @@ function DataTableInternal<T>(
           // Kanban gerencia seu próprio empty state interno (coluna sem cards).
           // Filter/search/sort/selection já estão aplicados via rowsAllPagesProcessed.
           <Kanban
+            className={sinalDefasado}
             columns={kanbanView.columns}
             cards={kanbanView.cards}
             /* Raias do `groupBy`. Sem groupBy o array é vazio e o board é plano,
@@ -2398,7 +2414,12 @@ function DataTableInternal<T>(
         ) : isList && props.listConfig ? (
           // Lista: corpo trocado por <List> (mesma toolbar do DataTable).
           // Rows já filtradas/buscadas/ordenadas via rowsAllPagesProcessed.
-          <div className="min-h-0 flex-1 overflow-auto scrollbar-thin">
+          <div
+            className={cn(
+              "min-h-0 flex-1 overflow-auto scrollbar-thin",
+              sinalDefasado,
+            )}
+          >
             <List
               items={listItems}
               layout={props.listConfig.hierarchical ? "hierarchical" : "standard"}

@@ -252,7 +252,7 @@ const CORE_PROPS = [
   },
   {
     name: "loadingMode",
-    type: '"skeleton" | "keep" — o que o CORPO e o RODAPÉ mostram com um carregamento em vôo. "keep" mantém as linhas do resultado anterior, marca aria-busy na raiz e anuncia por live region sr-only (que cala na resposta); o range do rodapé é escondido enquanto descreveria linhas que não estão na tela. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
+    type: '"skeleton" | "keep" — o que o CORPO e o RODAPÉ mostram com um carregamento em vôo. "keep" mantém as linhas do resultado anterior, desenha uma régua de 3px na cor de marca no topo do cartão (o sinal pra quem enxerga), marca aria-busy na raiz e anuncia por live region sr-only (que cala na resposta); o range do rodapé é escondido enquanto descreveria linhas que não estão na tela. A régua não esmaece as linhas de propósito: opacidade perceptível derruba o contraste da célula abaixo do AA. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
     defaultVal: '"skeleton"',
   },
   {
@@ -1003,10 +1003,19 @@ export function DataTableDoc() {
         “piscar”. Pra manter as linhas da página anterior no lugar até a
         próxima chegar, passe <strong>loadingMode</strong>
         {" = "}
-        <code>"keep"</code>: o rodapé continua navegável, a raiz ganha{" "}
+        <code>"keep"</code>: o rodapé continua navegável, uma{" "}
+        <strong>régua de 3px na cor de marca</strong> acende no topo do cartão
+        enquanto as linhas são do lote anterior, a raiz ganha{" "}
         <code>aria-busy</code> e uma live region <code>sr-only</code> anuncia que
         as linhas estão defasadas (calando na resposta — no modo default quem
-        anuncia é o próprio esqueleto, que é <code>role="status"</code>). O{" "}
+        anuncia é o próprio esqueleto, que é <code>role="status"</code>). A
+        régua existe porque o sinal de antes era só para leitor de tela; e ela{" "}
+        <strong>não esmaece as linhas</strong> de propósito — medido, a
+        opacidade que se enxerga derruba o contraste da célula abaixo do AA no
+        tema claro, e a régua não toca em texto nenhum. Para trocar o sinal,{" "}
+        <code>useDataTableContext()</code> expõe{" "}
+        <strong>isKeepingPreviousRows</strong>, e o CSS do consumidor alcança
+        tudo por <code>[aria-busy="true"]</code>. O{" "}
         <strong>texto do range</strong> do rodapé some durante o vôo, porque
         seria a única parte a afirmar algo falso sobre o corpo; as setas e os
         números ficam, já que dizem para onde o clique leva. Na primeira carga

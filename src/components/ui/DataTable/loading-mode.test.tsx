@@ -40,6 +40,8 @@ import type {
   GridFetchParams,
   GridFetchResult,
 } from "./data-table.types";
+import { dataTableStyles } from "./data-table.styles";
+import { useDataTableContext } from "./context/data-table-context";
 
 /* jsdom não tem matchMedia (o DataTable usa pro card mode). Mesmo preâmbulo de
    `simple-filter-controlado.test.tsx`; o ResizeObserver já vem do vitest.setup. */
@@ -421,5 +423,245 @@ describe("DataTable — loadingMode", () => {
     expect(corpoEsqueleto()).not.toBeNull();
     expect(rodapeEsqueleto()).not.toBeNull();
     expect(ariaBusyDaRaiz(container)).toBeNull();
+  });
+});
+
+/* ──────────────────────────────────────────────────────────────────────────
+   P8 — as linhas mantidas precisam de um sinal VISUAL.
+
+   O `keep` resolveu o "piscar" e criou um segundo problema: por ~500ms a tela
+   mostra as linhas da página anterior sem nada que diga isso. O `aria-busy` e
+   a live region avisam quem usa leitor de tela; quem ENXERGA não recebe nada —
+   e o rodapé já andou de página, então a tela inteira se comporta como se o
+   novo lote tivesse chegado, menos as linhas.
+
+   ⚠️ **Por que o sinal NÃO é esmaecer as linhas**, que é o que se propõe
+   primeiro (a própria pendência sugere `opacity:.6` no `role="rowgroup"`):
+   `opacity` é a única opção que mexe no contraste de texto que o DS não
+   escreve — a célula vem de `render` do consumidor. Medido sobre os tokens
+   gerados, no tema CLARO, para `text-fg-muted` (que é o VALOR da célula no
+   `type: "date"`, não um subtítulo decorativo) sobre `bg-bg-table`:
+
+       opacidade   1.00 → 6.01:1 AA     0.90 → 4.77:1 AA
+                   0.88 → 4.56:1 AA     0.85 → 4.27:1 ✗
+                   0.80 → 3.83:1 ✗      0.60 → 2.57:1 ✗
+
+   O piso para continuar AA (4.5:1) é **0.88**. Um esmaecimento de 12% não é
+   sinal; qualquer esmaecimento que SEJA sinal rebaixa texto legível. E um
+   fundo também não serve: `bg-bg-muted` resolve pro MESMO hex de
+   `bg-bg-table-row-hover` nos dois temas (#f6f6f6 claro, #222222 escuro) —
+   linha defasada ficaria idêntica a linha sob o mouse.
+
+   O sinal escolhido é uma régua de 3px em `bg-bg-brand` presa no topo do
+   cartão, desenhada em `::before`: não ocupa layout (zero deslocamento, que é
+   justamente o que o `keep` existe pra evitar), não toca em nenhum texto, e
+   mede 5.06:1 (claro) / 7.63:1 (escuro) contra `bg-bg-table` — acima do piso
+   de 3:1 de objeto gráfico (WCAG 1.4.11).
+
+   O que estes testes travam:
+     1. **O caminho antigo.** Sem `loadingMode="keep"` nenhum elemento ganha o
+        sinal, em instante nenhum. É a regra do lote.
+     2. O sinal aparece SÓ enquanto `isKeepingPreviousRows` é verdade.
+     3. O sinal não cobra nada das linhas — nem `opacity`, nem
+        `pointer-events-none`, nem `cursor-not-allowed`. É o que o separa de
+        `disabled`: linha defasada continua clicável e selecionável.
+     4. A rota React de customização existe — `isKeepingPreviousRows` no
+        `DataTableContextValue`, que é público via `useDataTableContext`.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/** O cartão da tabela — `role="grid"` do primitivo `Table`. */
+const grade = (container: HTMLElement) =>
+  container.querySelector<HTMLElement>('[role="grid"]');
+
+/* As classes DISTINTIVAS do sinal: só as do pseudo-element. O slot também traz
+   `relative`, que metade do DOM tem — procurar por ela acusaria qualquer coisa.
+   Lidas do próprio slot, não copiadas: assim o teste segue o estilo se ele
+   mudar de valor, mas continua exigindo que ele seja APLICADO. */
+const CLASSES_DO_SINAL = dataTableStyles()
+  .staleRows()
+  .split(/\s+/)
+  .filter((c) => c.startsWith("before:"));
+
+const temSinal = (el: Element | null) =>
+  !!el && CLASSES_DO_SINAL.every((c) => el.classList.contains(c));
+
+/** Alguém, em qualquer lugar da árvore, carrega alguma classe do sinal? */
+const algumElementoComSinal = (container: HTMLElement) =>
+  [...container.querySelectorAll("*")].some((el) =>
+    CLASSES_DO_SINAL.some((c) => el.classList.contains(c)),
+  );
+
+/** Sonda que lê o context público de dentro de uma célula. */
+function SondaContexto() {
+  const ctx = useDataTableContext<Row>();
+  return (
+    <span data-testid="sonda">{String(ctx.isKeepingPreviousRows)}</span>
+  );
+}
+
+const COLUNAS_COM_SONDA: DataTableColumnDef<Row>[] = [
+  { field: "id", headerName: "ID" },
+  { field: "nome", headerName: "Nome", render: () => <SondaContexto /> },
+];
+
+const lidoPelaSonda = () =>
+  screen.queryAllByTestId("sonda")[0]?.textContent ?? null;
+
+describe("DataTable — sinal visual das linhas defasadas (P8)", () => {
+  /* Guarda-chuva: se o slot ficar vazio, todas as asserções de "tem o sinal"
+     passariam por vacuidade (`[].every(...)` é true). */
+  it("o slot do sinal é uma régua de 3px na cor de marca — e não um esmaecimento", () => {
+    const sinal = dataTableStyles().staleRows();
+    const tokens = sinal.split(/\s+/).filter(Boolean);
+
+    expect(CLASSES_DO_SINAL.length).toBeGreaterThanOrEqual(3);
+    expect(tokens).toContain("before:h-[3px]");
+    expect(tokens).toContain("before:bg-bg-brand");
+    // Fora do fluxo: o sinal não pode empurrar a tabela 3px pra baixo — o
+    // `keep` existe justamente pra que nada se mexa durante o vôo.
+    expect(tokens).toContain("before:absolute");
+
+    // E nada da gramática de `disabled` (opacity-50 + pointer-events-none +
+    // cursor-not-allowed) nem esmaecimento de qualquer força.
+    expect(tokens.filter((t) => /opacity-/.test(t))).toEqual([]);
+    expect(tokens).not.toContain("pointer-events-none");
+    expect(tokens).not.toContain("cursor-not-allowed");
+  });
+
+  it("`keep` em vôo marca a grade — e só enquanto ela está defasada", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar({ loadingMode: "keep" });
+
+    await responder(PAGINA_1);
+    expect(temSinal(grade(container))).toBe(false);
+
+    await user.click(botaoPagina(2)!);
+    // As linhas antigas seguem na tela (é o ponto do `keep`) — agora COM aviso.
+    expect(temTexto("Alfa")).toBe(true);
+    expect(temSinal(grade(container))).toBe(true);
+
+    await responder(PAGINA_2);
+    expect(temSinal(grade(container))).toBe(false);
+  });
+
+  it("sem a prop, nenhum elemento ganha o sinal em instante nenhum", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar();
+
+    await responder(PAGINA_1);
+    expect(algumElementoComSinal(container)).toBe(false);
+
+    await user.click(botaoPagina(2)!);
+    // Caminho antigo: esqueleto no corpo, e nada de sinal em lugar nenhum.
+    expect(corpoEsqueleto()).not.toBeNull();
+    expect(algumElementoComSinal(container)).toBe(false);
+
+    await responder(PAGINA_2);
+    expect(algumElementoComSinal(container)).toBe(false);
+  });
+
+  /* ⚠️ Os TRÊS instantes, não só o do vôo. Na primeira escrita este teste
+     checava apenas depois do clique — e a prova vermelha mostrou que ali ele
+     não distingue nada: no modo esqueleto a grade nem existe durante o vôo
+     (o `DataTableLoading` ocupou o lugar), então "nenhum elemento com o
+     sinal" é verdade mesmo com o guard do keep REMOVIDO. Era um verde que
+     passava por ausência de alvo, não por ausência de sinal. */
+  it("`skeleton` explícito também nunca marca nada, em instante nenhum", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar({ loadingMode: "skeleton" });
+
+    await responder(PAGINA_1);
+    expect(grade(container)).not.toBeNull();
+    expect(algumElementoComSinal(container)).toBe(false);
+
+    await user.click(botaoPagina(2)!);
+    expect(algumElementoComSinal(container)).toBe(false);
+
+    await responder(PAGINA_2);
+    expect(grade(container)).not.toBeNull();
+    expect(algumElementoComSinal(container)).toBe(false);
+  });
+
+  it("`keep` na PRIMEIRA carga não marca nada — não há linha defasada", async () => {
+    const { container, responder } = montar({ loadingMode: "keep" });
+
+    // Sem resultado anterior o `keep` degrada pro esqueleto; marcar um
+    // esqueleto de "defasado" seria mentira do sinal.
+    expect(corpoEsqueleto()).not.toBeNull();
+    expect(algumElementoComSinal(container)).toBe(false);
+
+    await responder(PAGINA_1);
+    expect(algumElementoComSinal(container)).toBe(false);
+  });
+
+  it("client mode: `keep` marca a grade das linhas que o consumidor segue passando", () => {
+    const { container, carregar } = montarClient({ loadingMode: "keep" });
+
+    expect(temSinal(grade(container))).toBe(false);
+
+    carregar();
+
+    expect(temTexto("Alfa")).toBe(true);
+    expect(temSinal(grade(container))).toBe(true);
+  });
+
+  /* O sinal não pode cobrar nada das LINHAS. Esmaecer o `rowgroup` baixaria o
+     contraste de célula que o DS não escreve; `pointer-events-none` imitaria
+     `disabled` e tiraria o clique e a seleção, que continuam válidos — a linha
+     é velha, não inerte. A régua mora no cartão e deixa as linhas intactas. */
+  it("o sinal não altera uma classe sequer das linhas", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar({ loadingMode: "keep" });
+
+    await responder(PAGINA_1);
+    const corpo = container.querySelector<HTMLElement>('[role="rowgroup"]');
+    const primeiraLinha = container.querySelector<HTMLElement>('[role="row"]');
+    const corpoAntes = corpo!.className;
+    const linhaAntes = primeiraLinha!.className;
+
+    await user.click(botaoPagina(2)!);
+
+    expect(
+      container.querySelector<HTMLElement>('[role="rowgroup"]')!.className,
+    ).toBe(corpoAntes);
+    expect(
+      container.querySelector<HTMLElement>('[role="row"]')!.className,
+    ).toBe(linhaAntes);
+  });
+
+  /* Rota React de customização: a pendência registrava que ela NÃO existia —
+     o `DataTableContextValue` não carregava a flag, e `useDataTableContext` é
+     público. Com ela exposta, quem quiser outro sinal (um banner, um
+     esmaecimento próprio, um overlay) compõe sem tocar no DS. */
+  it("o context público expõe `isKeepingPreviousRows`", async () => {
+    const user = userEvent.setup();
+    const { responder } = montar({
+      loadingMode: "keep",
+      columns: COLUNAS_COM_SONDA,
+    });
+
+    await responder(PAGINA_1);
+    expect(lidoPelaSonda()).toBe("false");
+
+    await user.click(botaoPagina(2)!);
+    expect(lidoPelaSonda()).toBe("true");
+
+    await responder(PAGINA_2);
+    expect(lidoPelaSonda()).toBe("false");
+  });
+
+  it("sem a prop, o context expõe `false` o tempo todo", async () => {
+    const user = userEvent.setup();
+    const { responder } = montar({ columns: COLUNAS_COM_SONDA });
+
+    await responder(PAGINA_1);
+    expect(lidoPelaSonda()).toBe("false");
+
+    await user.click(botaoPagina(2)!);
+    // Caminho antigo: corpo virou esqueleto, a sonda nem está montada.
+    expect(lidoPelaSonda()).toBeNull();
+
+    await responder(PAGINA_2);
+    expect(lidoPelaSonda()).toBe("false");
   });
 });

@@ -48,6 +48,21 @@ export type DataTableContextValue<T = any> = {
   /** Filter model. */
   filterModel: FilterModel;
 
+  /**
+   * `loadingMode: "keep"` em vôo COM resultado anterior na tela — as linhas
+   * que estão sendo exibidas são do lote ANTERIOR. Fora desse caso é `false`,
+   * inclusive na primeira carga (que degrada pro esqueleto) e em todo refetch
+   * do modo default.
+   *
+   * O DS já desenha um sinal próprio (régua de marca no topo do cartão, ver
+   * `dataTableStyles.staleRows`). Esta flag é a rota de CUSTOMIZAÇÃO em React
+   * — até a P8 só existia a rota CSS (`className` + `aria-busy` caem no mesmo
+   * elemento da raiz). Com ela, quem quiser outro sinal — um banner, um
+   * overlay, um esmaecimento próprio assumindo o custo de contraste — compõe
+   * de dentro, sem tocar no DS nem reimplementar o componente.
+   */
+  isKeepingPreviousRows: boolean;
+
   /** getRowId utility. */
   getRowId: (row: T) => GridRowId;
 };
