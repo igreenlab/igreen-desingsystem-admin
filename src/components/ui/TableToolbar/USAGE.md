@@ -92,16 +92,22 @@ import {
   nem `DataTable` nem `DataList` a repassam hoje — `AppliedFilter.opLabel` vem do registry
   do tipo e todos declaram "entre". `filterValueLabel` não serve: ela resolve o rótulo de
   **uma opção** e nem chega ao `renderChipValue` do `number`/`currency`.
-- **O chip APLICADO e o chip VAZIO têm pele diferente** (`vNEXT`+): tracejado neutro =
-  slot a preencher (`AppliedFilter.isEmpty`), sólido de marca sobre `bg-brand-subtle` com
-  o valor em `text-fg-brand` = filtro valendo. O estado sai do próprio `isEmpty` — **não
-  há prop nova**, e `DataTable`/`DataList` recebem de graça. Antes os dois eram o mesmo
-  pixel e a diferença era só o conteúdo. Medido: borda do aplicado contra a barra dá
-  **5,06:1** no claro e **7,99:1** no escuro (o vazio fica em 1,45 e 1,24).
+- **Destacar o chip APLICADO é OPT-IN** — `highlightAppliedFilterChips` (`vNEXT`+).
+  **Sem a prop (default), todo chip é o tracejado neutro de sempre.** Com ela, o chip com
+  valor ganha borda sólida de marca sobre `bg-brand-subtle` e o valor em `text-fg-brand`,
+  enquanto o chip vazio (`AppliedFilter.isEmpty`) continua tracejado.
+  **Ligue quando a barra tiver chip vazio** (o placeholder de `showEmptyFilterChips`): é
+  contra o vazio que o destaque contrasta, e é só aí que ele paga — numa barra onde todo
+  chip já está aplicado ele não distingue nada, só muda a cor de tudo. Medido: borda do
+  aplicado contra a barra dá **5,06:1** no claro e **7,99:1** no escuro (o vazio fica em
+  1,45 e 1,24).
   ⚠️ No escuro o valor volta a `fg-default`: o verde de marca sobre superfície escura dá
   **4,36:1** e reprovaria o AA de texto — mesma saída que o `bulkBarCount` já usava. E o
   **fundo da pílula do valor não é tingido**: com marca atrás, o texto caía pra 3,14:1 no
   claro.
+  ⚠️ No `DataList` a prop existe mas **não tem par**: o `toAppliedFilters` dele descarta
+  item sem valor, então lá não há chip vazio pra contrastar e o destaque pintaria 100% da
+  barra. Por isso o `DataList` não repassa a prop hoje.
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
 - **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`vNEXT`+).
   Ele não oferece escolha de operador — isso é do builder avançado — mas campo com filtro

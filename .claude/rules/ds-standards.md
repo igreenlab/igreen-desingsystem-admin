@@ -193,6 +193,35 @@ cor cai em `currentColor` nos canais (L-039).
 
 ---
 
+## ⛔ Melhoria sem prop é mudança de comportamento — e a conta chega
+
+**Regra do mantenedor, 2026-11-04**, depois de avaliar na tela quatro mudanças aprovadas:
+
+> Se for para fazer coisa a mais, deixe só como uma **prop**, de maneira simplória. Caso
+> ele queira algo mais personalizado, o DS permite fazer o componente no projeto dele.
+> **Porque depois ele vai começar a pedir cada vez mais coisas** — e aí ele pode criar um
+> componente que lê o nosso e adiciona o que precisa.
+
+O critério tem duas metades, e a segunda é a que se esquece:
+
+1. **Consertar um defeito não autoriza mudar quem não tinha o defeito.** Dois casos medidos
+   nesta série: o destaque do chip aplicado só **paga** quando há chip vazio na mesma barra
+   para contrastar — numa tela onde todo chip já está aplicado, ele só muda a cor de tudo. E
+   o conserto da legenda do `Chart` (legenda de **2** linhas achatava a plotagem) mudou a
+   altura de **todo** gráfico com legenda, inclusive os de 1 linha, que nunca reclamaram.
+
+2. **Prop simples, não sistema.** O DS entrega a peça e o ponto de extensão; a composição é
+   do consumidor. Quando o pedido começa a pedir variante de variante, a resposta é o
+   consumidor **embrulhar** o nosso componente no projeto dele — não o DS crescer um motor
+   de configuração.
+
+**Como aplicar na prática:** ao consertar algo, pergunte *"quem NÃO tem este defeito sente
+a correção?"*. Se sim, a correção nasce atrás de prop, e o default é o de hoje. Isso é a
+mesma régua do resto do sistema — prop ausente = comportamento de hoje, byte por byte — só
+que aplicada ao caso em que ela é mais fácil de esquecer, porque "é correção".
+
+---
+
 ## 🖼️ Referência visual (print, Figma, tela existente)
 
 **Conteúdo é da referência; pele e comportamento são do DS.** Dela: copy, labels,

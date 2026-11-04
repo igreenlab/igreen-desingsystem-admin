@@ -101,7 +101,8 @@ const TOC = [
   { id: "horizontal", label: "Horizontal" },
   { id: "multiple", label: "Multiple" },
   { id: "stacked", label: "Stacked + Legend" },
-  { id: "legend-wrap", label: "Legenda em 2 linhas" },
+  { id: "legend-wrap", label: "Legenda em 2 linhas — default" },
+  { id: "legend-wrap-keep", label: "Legenda em 2 linhas — keepPlotHeight" },
   { id: "empty", label: "Sem dados (emptyState)" },
   { id: "label", label: "Label" },
   { id: "custom-label", label: "Custom Label" },
@@ -225,18 +226,47 @@ export function BarChartDoc() {
           </CardContent>
         </Card>
 
-        {/* Legenda que quebra em 2 linhas — o gráfico NÃO encolhe */}
+        {/* Os dois modos, lado a lado, com a MESMA altura pedida e a MESMA legenda.
+            Separados em dois cards de propósito: a diferença é de layout, e só se
+            enxerga comparando — descrita em prosa, ninguém acredita. */}
         <Card id="legend-wrap">
           <CardHeader>
-            <CardTitle>Bar Chart — Legenda em 2 linhas</CardTitle>
+            <CardTitle>Legenda em 2 linhas — default</CardTitle>
             <CardDescription>
-              6 séries num card estreito: a legenda quebra e o card cresce. A área de
-              plotagem continua com os 250px pedidos no `className` — compare com o
-              card ao lado.
+              6 séries num card estreito, <code>h-[250px]</code>. A legenda quebra em 2
+              linhas e o Recharts desconta as duas da plotagem: o bloco fica com os
+              250px e as barras, com o que sobrou. É o comportamento de sempre.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ChartContainer config={configCanais} className={CHART_CLASS}>
+              <BarChart data={CANAIS}>
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <ChartLegend content={<ChartLegendContent />} />
+                <Bar dataKey="indicacao" stackId="a" fill="var(--color-indicacao)" />
+                <Bar dataKey="marketplace" stackId="a" fill="var(--color-marketplace)" />
+                <Bar dataKey="telemarketing" stackId="a" fill="var(--color-telemarketing)" />
+                <Bar dataKey="parceiro" stackId="a" fill="var(--color-parceiro)" />
+                <Bar dataKey="organico" stackId="a" fill="var(--color-organico)" />
+                <Bar dataKey="campo" stackId="a" fill="var(--color-campo)" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        <Card id="legend-wrap-keep">
+          <CardHeader>
+            <CardTitle>Legenda em 2 linhas — keepPlotHeight</CardTitle>
+            <CardDescription>
+              Mesmas 6 séries e o mesmo <code>h-[250px]</code>. Com a prop, os 250px
+              são da <strong>plotagem</strong>: a legenda sai da caixa de altura e soma
+              por fora, então o card cresce em vez de as barras encolherem.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={configCanais} className={CHART_CLASS} keepPlotHeight>
               <BarChart data={CANAIS}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />

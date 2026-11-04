@@ -298,9 +298,15 @@ export function PieChartDoc() {
             <CardDescription>Com legenda</CardDescription>
           </CardHeader>
           <CardContent className="flex-1 pb-0">
+            {/* `keepPlotHeight`: é o caso que originou o item 24 — 5 fontes em
+                `*:basis-1/4` sempre quebram em 2 linhas. Sem a prop, as duas linhas
+                saem da pizza e ela fica apertada contra a legenda (o aperto que um
+                `-translate-y-2` escondia aqui até 2026-11-04). Com a prop, o card
+                cresce e a pizza fica com os 300px pedidos. */}
             <ChartContainer
               config={config}
               className="mx-auto aspect-square max-h-[300px]"
+              keepPlotHeight
             >
               <PieChart>
                 <Pie data={FONTES} dataKey="kwh" nameKey="fonte" />

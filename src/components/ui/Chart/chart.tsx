@@ -30,7 +30,14 @@ export type ChartConfig = {
   );
 };
 
-/** Onde a legenda é renderizada: slots FORA da caixa de altura do gráfico. */
+/**
+ * Onde a legenda é renderizada: slots FORA da caixa de altura do gráfico.
+ *
+ * Os dois ficam `null` quando o container NÃO recebe `keepPlotHeight` — e é esse
+ * `null` que devolve a legenda pra dentro do gráfico (ver `ChartLegend`). Um
+ * mecanismo só: se algum dia alguém criar um slot de fallback aqui, estará
+ * ligando o comportamento novo pra todo mundo sem passar por nenhuma prop.
+ */
 type LegendSlots = { top: HTMLDivElement | null; bottom: HTMLDivElement | null };
 
 type ChartContextProps = { config: ChartConfig; legendSlots: LegendSlots };
@@ -110,11 +117,34 @@ const ChartContainer = React.forwardRef<
      * renomeá-lo é breaking e fica para outra rodada.)
      */
     emptyState?: React.ReactNode;
+    /**
+     * A altura do `className` passa a ser a da PLOTAGEM, e a legenda soma por
+     * fora — em vez de ser descontada dela.
+     *
+     * Sem a prop (default), vale o de sempre: o Recharts mede o wrapper da
+     * legenda e tira essa altura da área de plotagem, então `h-[250px]` com
+     * legenda de 1 linha dá 250px de bloco e 228px de gráfico, e uma legenda que
+     * quebra em 2 linhas cobra o dobro. Com a prop, os mesmos `h-[250px]` dão
+     * 272px de bloco e 250px de gráfico, e a 2ª linha cresce o bloco.
+     *
+     * Opt-in de propósito: o conserto muda o pixel de QUALQUER gráfico com
+     * legenda, inclusive o de 1 linha, que nunca teve queixa. Quem quer o
+     * conserto liga; quem está satisfeito não toca em nada.
+     *
+     * Só tem efeito com `<ChartLegend>` horizontal em `top`/`bottom`. Sem
+     * legenda os dois modos renderizam idêntico, e `layout="vertical"` /
+     * `verticalAlign="middle"` seguem dentro do gráfico nos dois (ali a legenda
+     * ocupa a lateral ou o meio — empurrá-la pra fora mudaria a composição).
+     */
+    keepPlotHeight?: boolean;
     children: React.ComponentProps<
       typeof RechartsPrimitive.ResponsiveContainer
     >["children"];
   }
->(({ id, className, children, config, emptyState, ...props }, ref) => {
+>((
+  { id, className, children, config, emptyState, keepPlotHeight = false, ...props },
+  ref,
+) => {
   const uniqueId = React.useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
   /* Slots da legenda: estado (não ref) porque o `<ChartLegend>` só sabe pra
@@ -152,10 +182,12 @@ const ChartContainer = React.forwardRef<
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <div ref={setTopSlot} />
-        {/* A altura pedida pelo consumidor vale pra ESTA caixa — a do gráfico.
-            A legenda é irmã dela, então quebrar em 2 linhas cresce o container
-            em vez de roubar área de plotagem. */}
+        {keepPlotHeight ? <div ref={setTopSlot} /> : null}
+        {/* Com `keepPlotHeight`, a altura pedida pelo consumidor vale pra ESTA
+            caixa — a do gráfico — e a legenda é irmã dela, então quebrar em 2
+            linhas cresce o container em vez de roubar área de plotagem. Sem a
+            prop não há slot nenhum, a legenda renderiza dentro do gráfico e esta
+            caixa é o bloco inteiro, como sempre foi. */}
         <div
           data-chart-plot=""
           className={cn("flex aspect-video justify-center", className)}
@@ -173,7 +205,7 @@ const ChartContainer = React.forwardRef<
             </RechartsPrimitive.ResponsiveContainer>
           )}
         </div>
-        <div ref={setBottomSlot} />
+        {keepPlotHeight ? <div ref={setBottomSlot} /> : null}
       </div>
     </ChartContext.Provider>
   );
@@ -389,13 +421,14 @@ const ChartTooltipContent = React.forwardRef<
 ChartTooltipContent.displayName = "ChartTooltipContent";
 
 /**
- * ChartLegend — a `Legend` do Recharts renderizada num slot FORA da caixa de
- * altura do gráfico.
+ * ChartLegend — a `Legend` do Recharts, renderizada num slot FORA da caixa de
+ * altura do gráfico **quando o container pede `keepPlotHeight`**.
  *
- * Por quê: o Recharts mede o wrapper da legenda e desconta essa altura da área
- * de plotagem (`appendOffsetOfLegend`). Com altura fixa, uma legenda que quebra
- * em 2 linhas rouba o dobro — medido: `h-[250px]` com 1 linha deixa a base do
- * eixo X em 203; com 2 linhas, em 181. O gráfico encolhe e nada na tela explica.
+ * O problema que o slot resolve: o Recharts mede o wrapper da legenda e desconta
+ * essa altura da área de plotagem (`appendOffsetOfLegend`). Com altura fixa, uma
+ * legenda que quebra em 2 linhas rouba o dobro — medido: `h-[250px]` com 1 linha
+ * deixa a base do eixo X em 203; com 2 linhas, em 181. O gráfico encolhe e nada
+ * na tela explica.
  *
  * A prop `portal` é a saída pública do Recharts: com ela o `LegendSizeDispatcher`
  * não é montado, o tamanho da legenda fica `{0,0}` e a plotagem usa a altura
@@ -403,9 +436,13 @@ ChartTooltipContent.displayName = "ChartTooltipContent";
  * `--color-{série}` são declaradas — fora dele, a bolinha de cor cairia em
  * `currentColor` (L-039).
  *
- * `layout="vertical"` e `verticalAlign="middle"` ficam como hoje (dentro do
- * gráfico): ali a legenda ocupa a lateral/o meio, e empurrá-la pra baixo mudaria
- * a composição, não só a altura.
+ * **Sem `keepPlotHeight` não existe slot**, `portal` fica `null` e a `Legend`
+ * renderiza dentro do gráfico, descontando como sempre descontou. É o default:
+ * a troca muda o pixel de todo gráfico com legenda, inclusive o de 1 linha.
+ *
+ * `layout="vertical"` e `verticalAlign="middle"` ficam dentro do gráfico nos
+ * DOIS modos: ali a legenda ocupa a lateral/o meio, e empurrá-la pra baixo
+ * mudaria a composição, não só a altura.
  */
 const ChartLegend = ({
   layout = "horizontal",
@@ -451,9 +488,13 @@ const ChartLegendContent = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        /* `flex-wrap`: sem ele os itens estouram a largura em silêncio. Agora
-         * que a legenda mora fora da caixa de altura, quebrar linha cresce o
-         * container — é a opção certa, e antes não era. */
+        /* `flex-wrap` vale nos DOIS modos, e não acompanha o `keepPlotHeight`:
+         * sem ele os itens estouram a largura em silêncio — série some da
+         * legenda sem nada na tela dizendo que sumiu. Isso não é um pixel que
+         * alguém escolheu, é perda de informação, então não entra atrás de prop.
+         * No modo default o preço de quebrar é o gráfico encolher; no outro, o
+         * bloco crescer. Nos dois é melhor que a legenda mentir sobre as séries.
+         * Quem precisar de uma linha só passa `flex-nowrap` no `className`. */
         "flex flex-wrap items-center justify-center gap-gp-xl",
         verticalAlign === "top" ? "pb-pad-md" : "pt-pad-md",
         className,

@@ -2140,6 +2140,7 @@ function DataTableInternal<T>(
             }}
             pendingOpenId={pendingOpenChipKey}
             onPendingOpenIdChange={setPendingOpenChipKey}
+            highlightAppliedFilterChips={props.highlightAppliedFilterChips}
             renderChip={(f, defaultChip, isPendingOpen) => {
               // Chip placeholder (showEmptyFilterChips array). Não tem group no
               // appliedGroups — clica → ativa o filtro (cria item vazio + abre popover).

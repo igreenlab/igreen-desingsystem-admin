@@ -189,14 +189,22 @@ sem elas nada muda.
 | a mesma faixa, com o valor **em R$ no chip** | operador ****between**** no `filterType: "currency"` — "R$ 10,00 → R$ 500,00". Desde a vNEXT o popover do chip abre mín/máx igual ao de número (antes abria um campo só e a faixa saía como o texto 10,500). ⚠️ o widget do chip é roteado por ****filterType****, não pelo ****type**** da coluna: moeda sem `filterType: "currency"` cai no widget de texto |
 | esconder o **builder avançado** (você tem o seu) | `toolbar.enableAdvancedFilters={false}` — não desliga os chips |
 
-⚠️ **vNEXT muda o pixel da barra de chips, em toda tabela e lista.** O chip com filtro
-valendo passa a ter borda **sólida de marca** sobre fundo de marca sutil, com o valor em
-verde; o chip **vazio** (o placeholder de ****showEmptyFilterChips****) continua tracejado e
-neutro. Antes os dois eram o mesmo pixel e só o conteúdo diferia. **Não há prop nova** —
-o estado sai do próprio chip. Medido: a borda do aplicado dá 5,06:1 contra a barra no
-claro e 7,99:1 no escuro; o vazio fica em 1,45 e 1,24. No escuro o valor segue neutro de
-propósito (o verde ali mede 4,36:1 e reprovaria o AA de texto). Não recrie esse destaque
-na mão nem passe `className` pra imitá-lo.
+⚠️ **Destacar o chip de filtro APLICADO é opt-in: ****highlightAppliedFilterChips****
+(vNEXT, default desligado).** Sem a prop, a barra de chips é a de sempre — o pixel não
+muda em tabela nenhuma. Com ela, o chip com filtro valendo ganha borda **sólida de marca**
+sobre fundo de marca sutil e o valor em verde, e o chip **vazio** (o placeholder de
+****showEmptyFilterChips****) continua tracejado e neutro.
+
+**Ligue só quando a tela tiver chip vazio na barra** — é contra o vazio que o destaque
+contrasta, e é só aí que ele paga. Numa barra onde todo chip já está aplicado ele não
+distingue nada: repinta tudo. Regra curta: passou ****showEmptyFilterChips****, considere
+passar este junto; não passou, deixe desligado. Medido: a borda do aplicado dá 5,06:1
+contra a barra no claro e 7,99:1 no escuro; o vazio fica em 1,45 e 1,24. No escuro o valor
+segue neutro de propósito (o verde ali mede 4,36:1 e reprovaria o AA de texto). Não recrie
+esse destaque na mão nem passe `className` pra imitá-lo.
+
+⚠️ A ****data-list**** não tem essa prop, e é de propósito: ela descarta filtro sem valor
+antes de montar os chips, então lá não existe chip vazio pra contrastar.
 
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
 sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.
@@ -402,10 +410,13 @@ quebra, só deixa de ser alcançado no caso filtrado.
 
 - `kpi` — `Kpi` / `KpiGroup` / `KpiDelta` para cards de métrica e faixas de indicadores.
 - `chart` — wrapper do Recharts (barras, linha, área, pizza, radar, radial). A altura do
-  **className** é a do GRÁFICO: a legenda é renderizada fora dessa caixa e soma por fora, então
-  legenda em 2 linhas cresce o bloco em vez de achatar a plotagem. Gráfico que carrega dado leva
-  **emptyState** (vNEXT) — o nó que aparece no lugar dos eixos vazios quando nenhum número finito
-  chega nas props **data** do gráfico e das séries (`0` é dado; sem a prop, nada muda).
+  **className** é a do BLOCO e a legenda desconta dela: `h-[250px]` com legenda de 1 linha dá
+  228px de gráfico, e 2 linhas deixam 202px. Legenda que pode quebrar em 2 linhas leva
+  **keepPlotHeight** (vNEXT) — a altura passa a ser a da PLOTAGEM e a legenda soma por fora,
+  então o card cresce em vez de as barras encolherem (sem a prop, nada muda). Gráfico que
+  carrega dado leva **emptyState** (vNEXT) — o nó que aparece no lugar dos eixos vazios quando
+  nenhum número finito chega nas props **data** do gráfico e das séries (`0` é dado; sem a
+  prop, nada muda).
 - `choropleth-map` — mapa por região colorido por valor (traz `d3-geo` como dependência).
 
 ## Blocos — composições de referência (não são componentes)

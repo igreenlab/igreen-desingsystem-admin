@@ -791,6 +791,24 @@ export type DataTableProps<T> = {
   showEmptyFilterChips?: Array<string | { field: string; dismissable?: boolean }>;
 
   /**
+   * Destaca o chip de filtro APLICADO (com valor): borda sólida de marca sobre
+   * `bg-brand-subtle`, com o valor em `fg-brand`. Default `false` — sem a prop,
+   * todo chip usa o tracejado neutro de sempre.
+   *
+   * **Mora aqui, colado no `showEmptyFilterChips`, porque é o par dele.** O
+   * destaque existe pra contrastar com o chip VAZIO: é a barra que tem os dois
+   * tipos que não dava pra varrer com o olho. Numa barra onde todo chip visível
+   * já está aplicado ele não distingue nada — só muda a cor de tudo. Então a
+   * regra prática é curta: **ligou `showEmptyFilterChips`, considere ligar este
+   * também**; não ligou, provavelmente não vale.
+   *
+   * Opt-in e não derivado de `isEmpty` por decisão do mantenedor (2026-11-04):
+   * a maioria das telas não usa chip pré-definido, e ali o destaque automático
+   * só repintava a barra inteira.
+   */
+  highlightAppliedFilterChips?: boolean;
+
+  /**
    * Disparado quando o usuário clica "Limpar todos" nos chips de filtro —
    * DEPOIS de limpar o filterModel interno. Gancho pra tela zerar filtro
    * próprio que vive fora do filterModel (ex.: builder avançado em SQL).
