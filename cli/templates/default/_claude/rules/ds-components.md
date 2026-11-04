@@ -398,6 +398,8 @@ código.
 - `markdown-text` — renderizar markdown (chat, descrições vindas de API).
 - `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`. ⚠️ **vNEXT muda o pixel**: **hoje** passa a ser um **anel** de marca sobre fundo transparente e só o dia **selecionado** fica preenchido — antes os dois eram o mesmo disco verde, indistinguíveis. Coincidindo, o preenchido vence. Vale também no `date-picker` e nos filtros de data da `data-table` e da `data-list`. Não recrie o destaque de hoje na mão.
 - `button` — ação. Variações (cor, tamanho, ícone, loading) na própria API; ver o USAGE.
+  Botão desabilitado cujo motivo o usuário precisa saber → ****disabledReason**** (DS
+  **vNEXT**+), logo abaixo.
 
 ---
 
@@ -451,3 +453,23 @@ fora resolve conflito errado e a classe perde em silêncio.
 
 ⚠️ ****disabled** em `<a>` não existe.** O `ClickableSurface` traduz pra **aria-disabled** +
 **pointer-events-none** + `tabIndex={-1}`. Não escreva **disabled** num link na mão.
+
+## Botão desabilitado que se explica (DS **vNEXT**+)
+
+| Quando você ia escrever | Use |
+|---|---|
+| um texto de ajuda ao lado do botão cinza, ou um `tooltip` embrulhando um `<span>` só pra driblar o **pointer-events-none** | ****disabledReason**** no `button` — o motivo em uma frase |
+
+```tsx
+<Button disabled disabledReason="Preencha o CNPJ antes de salvar">Salvar</Button>
+```
+
+Com a prop, o botão desabilitado troca o atributo **disabled** por **aria-disabled**:
+volta a receber hover e foco, entra na ordem do Tab, e o motivo aparece numa tooltip.
+Sem ela, **disabled** segue idêntico (**pointer-events-none**, fora do Tab, sem
+explicação) — nada muda em botão nenhum que você já escreveu.
+
+⚠️ **Não reproduza isso na mão.** **aria-disabled** escrito direto num `<button>` é
+anúncio para o leitor de tela e **nada mais**: o clique dispara, o Enter dispara, e um
+**type="submit"** submete o formulário. O `button` do DS trava as três coisas no próprio
+handler. Um `<button aria-disabled>` seu não trava nenhuma.

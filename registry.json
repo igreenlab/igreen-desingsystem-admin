@@ -528,8 +528,9 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "Botao iGreen (tv()). 5 cores x 4 variants x sizes, shape, fullWidth, disabled.",
+      "description": "Botao iGreen (tv()). 5 cores x 4 variants x sizes, shape, fullWidth, disabled, disabledReason (tooltip com o motivo).",
       "registryDependencies": [
+        "@igreen/tooltip",
         "@igreen/tv"
       ],
       "dependencies": [],

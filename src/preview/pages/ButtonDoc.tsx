@@ -17,6 +17,7 @@ const TOC = [
   { id: "ex-sizes", label: "Sizes" },
   { id: "ex-shape", label: "Shape (pill)" },
   { id: "ex-disabled", label: "Disabled" },
+  { id: "ex-disabled-reason", label: "Disabled with reason" },
   { id: "ex-loading", label: "Loading" },
   { id: "ex-icon", label: "With Icon" },
   { id: "ex-icon-only", label: "Icon Only" },
@@ -31,6 +32,7 @@ const PROPS = [
   { name: "shape", type: '"rounded" | "pill"', defaultVal: '"rounded"' },
   { name: "fullWidth", type: "boolean", defaultVal: "false" },
   { name: "disabled", type: "boolean", defaultVal: "false" },
+  { name: "disabledReason", type: "string", defaultVal: "—" },
   { name: "loading", type: "boolean", defaultVal: "false" },
   { name: "iconLeft", type: "ReactNode", defaultVal: "—" },
   { name: "iconRight", type: "ReactNode", defaultVal: "—" },
@@ -212,7 +214,7 @@ export function ButtonDoc() {
       <ExampleSection
         id="ex-disabled"
         title="Disabled"
-        description="Prevents interaction. Reduces opacity and sets pointer-events: none."
+        description="Prevents interaction. Reduces opacity and sets pointer-events: none — which also removes hover and focus, so there is nowhere to say WHY. When the user needs the reason, use disabledReason (next section)."
         code={`<Button disabled>Disabled</Button>`}
       >
         <div className="flex items-center gap-gp-xl">
@@ -220,6 +222,46 @@ export function ButtonDoc() {
           <Button variant="outline" disabled>Outline</Button>
           <Button variant="soft" disabled>Soft</Button>
           <Button variant="ghost" disabled>Ghost</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-disabled-reason"
+        title="Disabled with reason"
+        description="disabledReason explains WHY the button is off. The button swaps the disabled attribute for aria-disabled, so it keeps hover and focus and the tooltip has somewhere to open — hover it, or Tab to it. Click and form submit stay blocked (in the handler, not in CSS)."
+        code={`<Button disabled disabledReason="Preencha o CNPJ antes de salvar">\n  Salvar\n</Button>`}
+      >
+        <div className="flex flex-col gap-gp-xl">
+          <div className="flex items-center gap-gp-xl flex-wrap">
+            <Button disabled disabledReason="Preencha o CNPJ antes de salvar">
+              Salvar
+            </Button>
+            <Button
+              color="critical"
+              variant="outline"
+              disabled
+              disabledReason="Só o administrador pode excluir um cliente ativo"
+            >
+              Excluir
+            </Button>
+            <Button
+              color="secondary"
+              variant="ghost"
+              size="icon-md"
+              aria-label="Copiar"
+              disabled
+              disabledReason="Nada selecionado para copiar"
+            >
+              <Copy className="size-4" />
+            </Button>
+          </div>
+          <span className="text-body-sm text-fg-muted">
+            Ao lado, o mesmo <code>disabled</code> sem motivo: sem hover, sem foco, sem
+            explicação.
+          </span>
+          <div className="flex items-center gap-gp-xl">
+            <Button disabled>Salvar</Button>
+          </div>
         </div>
       </ExampleSection>
 
