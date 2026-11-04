@@ -377,6 +377,8 @@ export function ToolbarSimpleFilterDrawer({
                       options,
                       loadOptions: col.loadOptions,
                       resolveValueLabel: col.resolveValueLabel,
+                      // Unidade (`prefix`/`suffix`) também no campo do funil — item 9a.
+                      typeOptions: col.typeOptions,
                     })}
                   </div>
                   {linhaSemSaida && (

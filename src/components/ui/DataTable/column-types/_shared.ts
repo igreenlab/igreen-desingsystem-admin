@@ -24,6 +24,38 @@ export function toNumber(v: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+/* ── Afixo de unidade (prefix/suffix) ────────────────────────────── */
+
+/**
+ * `typeOptions.prefix` / `typeOptions.suffix` dos tipos numéricos — a unidade
+ * ("kWh", "%", "/mês") ou um prefixo curto. Item 9a do Sólis.
+ */
+export type AffixOptions = { prefix?: string; suffix?: string };
+
+/**
+ * Gruda prefixo e sufixo num texto JÁ formatado pelo tipo.
+ *
+ * Duas regras, as duas deliberadas:
+ *
+ *  - **Texto vazio sai vazio.** Célula sem número não pode virar "kWh" sozinho —
+ *    unidade sem grandeza é pior que a célula em branco, porque parece dado.
+ *  - **A string entra LITERAL, sem espaço automático.** `" kWh"` dá "1.234 kWh" e
+ *    `"%"` dá "1.234%". Injetar um espaço acertaria um caso e erraria o outro, e
+ *    quem quisesse colado não teria como desligar.
+ */
+export function applyAffix(texto: string, opts?: AffixOptions): string {
+  if (texto === "") return "";
+  return `${opts?.prefix ?? ""}${texto}${opts?.suffix ?? ""}`;
+}
+
+/** Lê `prefix`/`suffix` de um `typeOptions` solto (`Record<string, unknown>`). */
+export function readAffix(typeOptions?: Record<string, unknown>): AffixOptions | undefined {
+  if (!typeOptions) return undefined;
+  const prefix = typeof typeOptions.prefix === "string" ? typeOptions.prefix : undefined;
+  const suffix = typeof typeOptions.suffix === "string" ? typeOptions.suffix : undefined;
+  return prefix || suffix ? { prefix, suffix } : undefined;
+}
+
 /* ── Date ────────────────────────────────────────────────────────── */
 
 /** Coage qualquer valor (number ms / Date / string) em epoch ms, ou `null`. */

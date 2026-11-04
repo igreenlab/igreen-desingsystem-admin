@@ -1,10 +1,19 @@
 import { DollarSign } from "lucide-react";
 import { Input } from "@/components/shadcn/input";
-import { FILTER_FIELD_SIZE } from "../_filter-field";
+import { FieldAffix, FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
-import { toNumber } from "../_shared";
+import { applyAffix, readAffix, toNumber } from "../_shared";
 
-/** typeOptions esperadas (opcional): { currency?: "BRL" | "USD" | "EUR" | string, locale?: string } */
+/**
+ * typeOptions esperadas (todas opcionais):
+ *   { currency?: "BRL" | "USD" | "EUR" | string, locale?: string,
+ *     prefix?: string, suffix?: string }
+ *
+ * `prefix`/`suffix` (item 9a) são INDEPENDENTES de `currency`/`locale` e convivem com
+ * eles: o Intl formata o valor ("R$ 1.234,56") e o afixo adorna o resultado
+ * ("R$ 1.234,56 /mês"). Quem quer trocar o símbolo da moeda usa `currency`, não
+ * `prefix`.
+ */
 type CurrencyTypeOptions = {
   currency?: string;
   locale?: string;
@@ -100,39 +109,44 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
     { id: "lte", label: "menor ou igual a" },
     { id: "between", label: "entre" },
   ],
-  renderFilterInput: ({ value, onChange, operator }) => {
-    if (operator === "between") {
-      return <RangeInputs variant="field" value={value} onChange={onChange} />;
-    }
-    return (
-      <Input
-        type="number"
-        size="sm"
-        className={FILTER_FIELD_SIZE}
-        value={value == null ? "" : String(value)}
-        onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
-        placeholder="0,00"
-      />
-    );
-  },
+  renderFilterInput: ({ value, onChange, operator, typeOptions }) => (
+    <FieldAffix affix={readAffix(typeOptions)}>
+      {operator === "between" ? (
+        <RangeInputs variant="field" value={value} onChange={onChange} />
+      ) : (
+        <Input
+          type="number"
+          size="sm"
+          className={FILTER_FIELD_SIZE}
+          value={value == null ? "" : String(value)}
+          onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
+          placeholder="0,00"
+        />
+      )}
+    </FieldAffix>
+  ),
   // `between` chega aqui como TUPLA (caminho isTupleOperator do chip). Mesma guarda
   // do `number`: o operador manda, e o valor em array cobre a visão salva/preset que
   // traz a tupla antes de o operador alcançar o widget. Sem isto a tupla caía no campo
   // único e `String([10, 500])` pintava "10,500" na tela (item 9b).
-  renderFastFilterInput: ({ value, onChange, operator }) =>
+  renderFastFilterInput: ({ value, onChange, operator, typeOptions }) =>
     operator === "between" || Array.isArray(value) ? (
       <div className="p-pad-md">
-        <RangeInputs variant="chip" value={value} onChange={onChange} autoFocus />
+        <FieldAffix affix={readAffix(typeOptions)}>
+          <RangeInputs variant="chip" value={value} onChange={onChange} autoFocus />
+        </FieldAffix>
       </div>
     ) : (
       <div className="p-pad-md">
-        <Input
-          type="number"
-          value={value == null ? "" : String(value)}
-          onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
-          placeholder="0,00"
-          autoFocus
-        />
+        <FieldAffix affix={readAffix(typeOptions)}>
+          <Input
+            type="number"
+            value={value == null ? "" : String(value)}
+            onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
+            placeholder="0,00"
+            autoFocus
+          />
+        </FieldAffix>
       </div>
     ),
   matchesFilter: (cellValue, filterValue, operator) => {
@@ -156,16 +170,22 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
     if (operator === "lte") return cell <= filter;
     return null;
   },
-  renderChipValue: (value) => {
+  // A unidade entra UMA vez, no fim da leitura inteira: "R$ 10,00 → R$ 500,00 /mês".
+  // ⚠️ `currency`/`locale` NÃO chegam aqui — o chip sempre leu em BRL, e ligá-los junto
+  // mudaria o rótulo de quem já usa USD sem ter pedido nada. É a mesma fronteira do
+  // `formatValue`; o item 9a é só o afixo.
+  renderChipValue: (value, _options, typeOptions) => {
+    const affix = readAffix(typeOptions);
     if (Array.isArray(value)) {
       const from = toNumber(value[0]);
       const to = toNumber(value[1]);
-      if (from != null && to != null) return `${toCurrency(from)} → ${toCurrency(to)}`;
-      if (from != null) return `≥ ${toCurrency(from)}`;
-      if (to != null) return `≤ ${toCurrency(to)}`;
+      if (from != null && to != null)
+        return applyAffix(`${toCurrency(from)} → ${toCurrency(to)}`, affix);
+      if (from != null) return applyAffix(`≥ ${toCurrency(from)}`, affix);
+      if (to != null) return applyAffix(`≤ ${toCurrency(to)}`, affix);
       return "";
     }
-    return toCurrency(value);
+    return applyAffix(toCurrency(value), affix);
   },
 
   /* G.2 slots */
@@ -178,7 +198,9 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
     const opts = column?.typeOptions as CurrencyTypeOptions | undefined;
     return (
       <span className="font-semibold tabular-nums">
-        {column?.valueFormatter ? column.valueFormatter(value) : toCurrency(value, opts)}
+        {column?.valueFormatter
+          ? column.valueFormatter(value)
+          : applyAffix(toCurrency(value, opts), readAffix(column?.typeOptions))}
       </span>
     );
   },

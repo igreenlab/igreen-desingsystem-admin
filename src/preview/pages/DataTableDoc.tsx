@@ -629,6 +629,9 @@ export function DataTableDoc() {
         type: "number",
         enableColumnFilter: true,
         filterType: "number",
+        // A unidade segue o número na CÉLULA, no CHIP e no CAMPO de filtro.
+        // A string entra literal — o espaço antes de "kWh" é escolha de quem escreve.
+        typeOptions: { suffix: " kWh" },
       },
       {
         field: "value",
@@ -638,6 +641,8 @@ export function DataTableDoc() {
         // ⚠️ O roteamento do widget do CHIP lê `filterType` — não cai pro `type`.
         // Sem esta linha o chip de uma coluna de moeda abre o widget de texto.
         filterType: "currency",
+        // Convive com `currency`/`locale`: o Intl formata, o afixo adorna.
+        typeOptions: { suffix: " /mês" },
       },
     ],
     [],
@@ -1081,10 +1086,46 @@ export function DataTableDoc() {
         usa <code>between</code> não vê diferença nenhuma.
       </p>
 
+      <SectionH2 id="unidade-afixo" title="Unidade no número (prefix / suffix)" />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        <code>number</code> e <code>currency</code> aceitam{" "}
+        <code>typeOptions.prefix</code> e <code>typeOptions.suffix</code> — a
+        unidade (<code>kWh</code>, <code>%</code>, <code>/mês</code>). Ela segue
+        o número nas <strong>três</strong> superfícies que o usuário lê: a{" "}
+        <strong>célula</strong>, o <strong>chip</strong> do filtro aplicado e o{" "}
+        <strong>campo</strong> onde ele digita. Unidade só na célula resolve
+        metade: quem está filtrando não olha a célula.
+      </p>
+
+      <ul className="list-disc pl-pad-4xl mb-gp-2xl max-w-[760px] flex flex-col gap-gp-xs text-body-md text-fg-muted">
+        <li>
+          <strong>A string entra literal.</strong> <code>" kWh"</code> vira
+          "1.234 kWh"; <code>"%"</code> vira "1.234%". O espaço é seu — injetar
+          um acertaria um caso e erraria o outro.
+        </li>
+        <li>
+          <strong>A faixa leva a unidade uma vez</strong>, no fim:
+          "100 – 500 kWh", não "100 kWh – 500 kWh".
+        </li>
+        <li>
+          <strong>
+            <code>valueFormatter</code> vence e não concatena.
+          </strong>{" "}
+          Ele é o escape hatch inteiro — quem o passa já decidiu o texto. É
+          também o único botão que alcança <strong>export e clipboard</strong>:
+          o afixo fica na tela, o CSV sai com o número.
+        </li>
+        <li>
+          <strong>É apresentação.</strong> Ordenação e filtro seguem operando
+          sobre o número — uma coluna com unidade ordena igual a uma sem.
+        </li>
+      </ul>
+
       <ExampleSection
         id="ex-faixa-between"
-        title="between no chip: number e currency"
-        description="As duas faixas já entram aplicadas. Abra o chip Consumo e o chip Valor: os dois oferecem mín e máx no mesmo popover. Abra também o funil de Filtros — o campo mostra a MESMA faixa. Esvazie um dos lados e o chip passa a ler ≥ ou ≤."
+        title="between no chip + unidade: number e currency"
+        description="As duas faixas já entram aplicadas, e as duas colunas declaram unidade (kWh e /mês). Repare que ela aparece na célula, no rótulo do chip e — ao abrir o chip ou o funil de Filtros — ao lado do campo onde se digita. Abra o chip Consumo e o chip Valor: os dois oferecem mín e máx no mesmo popover. Esvazie um dos lados e o chip passa a ler ≥ ou ≤."
         code={CODE_FAIXA_BETWEEN}
       >
         <div className="h-[420px] w-full flex">
@@ -1426,14 +1467,18 @@ const columns = useMemo<DataTableColumnDef<ClientRow>[]>(() => [
 />`;
 
 const CODE_FAIXA_BETWEEN = `// \`between\` abre mín/máx no CHIP e no CAMPO — nos dois tipos numéricos.
+// \`typeOptions.suffix\` leva a unidade pras TRÊS superfícies: célula, chip e campo.
 const columns = [
   { field: "consumo", headerName: "Consumo", type: "number",
-    enableColumnFilter: true, filterType: "number" },
+    enableColumnFilter: true, filterType: "number",
+    typeOptions: { suffix: " kWh" } },        // a string entra LITERAL (o espaço é seu)
 
   { field: "value", headerName: "Valor", type: "currency",
     enableColumnFilter: true,
     // ⚠️ o widget do CHIP é roteado por \`filterType\`, não pelo \`type\`
-    filterType: "currency" },
+    filterType: "currency",
+    // convive com \`currency\`/\`locale\`: o Intl formata, o afixo adorna
+    typeOptions: { suffix: " /mês" } },
 ];
 
 // Faixa pré-aplicada: UM chip por faixa, lado aberto vira ≥ / ≤

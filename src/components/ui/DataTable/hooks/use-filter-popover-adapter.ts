@@ -138,6 +138,9 @@ export function useFilterPopoverAdapter<T>({
             // widget com busca no servidor que o chip.
             loadOptions: c.filterLoadOptions,
             resolveValueLabel: c.filterValueLabel,
+            // `typeOptions` viaja junto pelo mesmo motivo: é o que leva
+            // `prefix`/`suffix` (item 9a) pro CAMPO do funil e do builder avançado.
+            typeOptions: c.typeOptions,
           };
         });
   }, [effectiveColumns, allColumns, rows]);
@@ -283,7 +286,9 @@ export function useFilterPopoverAdapter<T>({
               ? [...staticOpts, ...extraOpts]
               : undefined;
           const chipValues = g.items.map((it) =>
-            typeDef.renderChipValue!(it.value as never, chipOptions),
+            // 3º arg = `typeOptions` da coluna: é por ele que a unidade chega no
+            // rótulo ("100 – 500 kWh", item 9a). Tipo que não o lê segue idêntico.
+            typeDef.renderChipValue!(it.value as never, chipOptions, col?.typeOptions),
           );
           const filteredChips = chipValues.filter(
             (v) => v != null && v !== "",

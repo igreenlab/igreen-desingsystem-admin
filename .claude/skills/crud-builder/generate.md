@@ -152,6 +152,12 @@ todo campo substantivo leva `icon` no header.
    > igual em `"currency"` — use `filterType: "currency"` quando o chip deve ler
    > "R$ 10,00 → R$ 500,00" em vez de "10 – 500" (é o `filterType` que escolhe o widget
    > do chip, não o `type` da coluna).
+   >
+   > **Unidade de medida** (kWh, %, /mês) → `typeOptions: { suffix: " kWh" }` (ou
+   > `prefix`) na coluna, **nunca** no `headerName` nem concatenada no `render`. Ela
+   > aparece na célula, no chip e no campo de filtro; a string entra literal (o espaço
+   > é seu) e a faixa a leva uma vez, no fim. ⚠️ Não vai pro CSV — se a unidade
+   > precisar sair no export, o botão é `valueFormatter`, que vence o afixo.
 
 2. **Coluna `actions` por ÚLTIMO** no array, `type: "actions"` (via
    `actionColumn`/`getActions`). O DataTable já **ancora à direita por default** —

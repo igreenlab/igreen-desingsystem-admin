@@ -1897,6 +1897,8 @@ function DataTableInternal<T>(
                                 options: column.options,
                                 loadOptions: column.loadOptions,
                                 resolveValueLabel: column.resolveValueLabel,
+                                // Unidade (`prefix`/`suffix`) no campo — item 9a.
+                                typeOptions: column.typeOptions,
                               });
                             }}
                             getOperatorsForColumn={(column) => {
@@ -2314,6 +2316,8 @@ function DataTableInternal<T>(
                       // Opções do servidor (item 6 Sólis).
                       loadOptions: col?.filterLoadOptions,
                       resolveValueLabel: col?.filterValueLabel,
+                      // Unidade (`prefix`/`suffix`) no popover do chip — item 9a.
+                      typeOptions: col?.typeOptions,
                     })}
                   </PopoverContent>
                 </Popover>
