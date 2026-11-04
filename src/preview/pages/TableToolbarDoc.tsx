@@ -50,6 +50,7 @@ import {
   ToolbarTabs,
   ToolbarToolButton,
   ToolbarActions,
+  ToolbarApplied,
   useToolbarFilters,
   type ToolbarFilterEntry,
 } from "../../components/ui/TableToolbar";
@@ -249,6 +250,7 @@ export function TableToolbarDoc() {
       toc={[
         { id: "examples", label: "Examples" },
         { id: "ex-full", label: "Drill-down (Configurações)" },
+        { id: "ex-chips", label: "Chip aplicado × chip vazio" },
         { id: "ex-actions", label: "Ações custom (slot actions)" },
         { id: "api-reference", label: "API Reference" },
       ]}
@@ -439,6 +441,31 @@ export function TableToolbarDoc() {
             onFilterModelChange={setFilterModel}
           />
         </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-chips"
+        title="Chip aplicado × chip vazio"
+        description="A barra de chips carrega o estado na BORDA e no fundo: tracejado neutro = slot a preencher (o placeholder de showEmptyFilterChips), sólido de marca com o valor em verde = filtro valendo. Até a vNEXT os dois eram o mesmo pixel e só o conteúdo diferia — numa barra com os dois tipos não dava pra varrer com o olho quais filtros estavam ativos. Não há prop nova: o estado sai do próprio `isEmpty` do chip, então DataTable e DataList recebem igual. ⚠️ No tema escuro o VALOR volta ao neutro de propósito: o verde de marca ali mede 4,36:1 e reprovaria o contraste mínimo de texto — quem carrega o estado lá é a borda, que mede 7,99:1 contra a barra (o chip vazio fica em 1,24)."
+        code={`<ToolbarApplied
+  separator={false}
+  onRemove={(id) => remover(id)}
+  filters={[
+    { id: "status", columnLabel: "Status", op: "isAnyOf", value: "Ativo" },
+    { id: "uf", columnLabel: "UF", op: "isAnyOf", value: [], isEmpty: true },
+  ]}
+/>`}
+      >
+        <ToolbarApplied
+          separator={false}
+          onRemove={() => {}}
+          filters={[
+            { id: "status", columnLabel: "Status", op: "isAnyOf", value: "Ativo" },
+            { id: "saldo", columnLabel: "Saldo", op: "between", value: "R$ 10,00 – R$ 500,00" },
+            { id: "uf", columnLabel: "UF", op: "isAnyOf", value: [], isEmpty: true },
+            { id: "titular", columnLabel: "Titular", op: "isAnyOf", value: [], isEmpty: true },
+          ]}
+        />
       </ExampleSection>
 
       <ExampleSection

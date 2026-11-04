@@ -549,6 +549,9 @@ Adapters internos pros popovers existentes:
   SortPopover    → SortPopoverCriterion[] ↔ SortModel (single sort)
   ColsPopover    → visibleCols Set + pinnedCols Set + onColumnsReorder
   ToolbarApplied → AppliedFilter[] com lookup label das filterOptions
+                   chip APLICADO (sólido de marca + valor em fg-brand) × chip VAZIO
+                   (tracejado neutro): o estado vem do próprio `isEmpty`, sem prop nova,
+                   e vale igual no DataList, que renderiza este mesmo componente
 
 Out of scope (planos seguintes):
   - Fast filters chips inline + applied bar (F6 — deprioritizado)

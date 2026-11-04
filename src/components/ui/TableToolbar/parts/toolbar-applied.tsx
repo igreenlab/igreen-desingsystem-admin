@@ -103,8 +103,19 @@ export function ToolbarApplied({
     <div className={cn(toolbarApplied({ separator }), className)}>
       {filters.map((f) => {
         const isPendingOpen = pendingOpenId === f.id;
+        /* Chip APLICADO = tem valor. O estado vem do próprio `isEmpty` que o
+           adapter já calcula — não de prop nova: `DataTable` e `DataList`
+           renderizam ESTE componente, e uma prop nova obrigaria os dois a
+           passá-la pra receber o destaque (e o terceiro consumidor a
+           descobrir que existe). */
+        const aplicado = !f.isEmpty;
         const defaultChip = (
-          <span className={toolbarAppliedChip({ interactive: !!renderChip })}>
+          <span
+            className={toolbarAppliedChip({
+              interactive: !!renderChip,
+              active: aplicado,
+            })}
+          >
             {/* removable === false → chip fixo: no lugar do X entra um "+"
                 DECORATIVO (indica "clique pra preencher" e mantém o alinhamento
                 — sem ícone a palavra encostava mais à esquerda que os vizinhos).
@@ -148,13 +159,18 @@ export function ToolbarApplied({
                 {Array.isArray(f.value) ? (
                   <span className="inline-flex items-center gap-gp-2xs">
                     {(f.value as ReactNode[]).map((v) => (
-                      <span key={String(v)} className={toolbarAppliedChipValue()}>
+                      <span
+                        key={String(v)}
+                        className={toolbarAppliedChipValue({ active: aplicado })}
+                      >
                         {v}
                       </span>
                     ))}
                   </span>
                 ) : (
-                  <span className={toolbarAppliedChipValue()}>{f.value}</span>
+                  <span className={toolbarAppliedChipValue({ active: aplicado })}>
+                    {f.value}
+                  </span>
                 )}
               </>
             )}
