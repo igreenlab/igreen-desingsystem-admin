@@ -6,6 +6,19 @@ criado: 2026-11-04
 
 # O lote Sólis em três listas
 
+> ## ⚠️ ESTE DOCUMENTO ESTÁ INCOMPLETO — use o fechamento
+>
+> Uma auditoria independente em 2026-11-04 mostrou que ele cobre **só os P-itens** e não
+> menciona **seis pedidos do Sólis** (20, 21, 22, 23, 25 e 26) que foram adiados numa seção
+> de documento de planejamento e nunca chegaram aqui. Quem lê este arquivo hoje conclui que
+> o lote acabou — e não acabou.
+>
+> **O estado vivo e completo está em [`solis-fechamento.md`](./solis-fechamento.md)**, e o
+> que não foi feito em [`backlog-solis.md`](./backlog-solis.md). Este arquivo fica como
+> registro do caminho, não como estado.
+
+---
+
 > ## ⚠️ Leia isto antes das listas
 >
 > **As seções 1 e 2 são O MESMO TRABALHO, já feito e já na `main`.** Elas cortam as 23
