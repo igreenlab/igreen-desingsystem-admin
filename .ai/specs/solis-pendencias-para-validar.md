@@ -134,6 +134,34 @@ Os quatro são **pré-existentes e inalterados** — apareceram porque fomos olh
 
 ---
 
+## 5c. Quatro tipos cujo filtro você não consegue esvaziar (Rodada 4)
+
+Pré-existente, medido, e **a decisão é sua** porque estender muda pixel em todo
+consumidor do funil.
+
+A Rodada 4 deu saída própria à linha que ficou sem nada a editar (`isEmpty`), fechando um
+beco da L-070. Ao revisar, medimos que **quatro tipos built-in têm o mesmo beco por outro
+motivo**:
+
+| tipo | `SelectItem value=""` | clear | efeito |
+|---|---|---|---|
+| `select` · `boolean` · `badge` · `user` | **0** | **0** | filtro posto se **troca**, mas não se **esvazia** pelo funil |
+
+A única saída é o **"Limpar todos"** do rodapé, que apaga os filtros de todos os campos.
+
+**Por que o sinal atual não os alcança:** a saída por campo dispara quando o *operador*
+não tem valor a editar. O operador desses quatro é `equals`, que **tem** valor — a linha é
+editável, só não é esvaziável.
+
+⚠️ **Não é uma linha de código.** O Radix proíbe `SelectItem` com `value=""`, então dar
+saída a esses quatro exige decisão de design (item "Todos" sentinela? botão de limpar na
+linha? ícone no próprio Select?), não um conserto mecânico.
+
+O que **já foi feito**: o `TableToolbar/USAGE.md` parou de prometer que toda linha tem
+saída, e nomeia os quatro.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se

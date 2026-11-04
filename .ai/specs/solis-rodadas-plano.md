@@ -97,6 +97,19 @@ documentada em lugar nenhum.
       é substring da linha restaurada (aconteceu na Task 8). As duas falhas têm a mesma
       forma — **a verificação casando menos do que a afirmação que ela sustenta**. O erro
       não é aplicar mal a mutação; é acreditar num check mais frouxo que a alegação.
+
+      **A regra, na forma mais curta que achamos:** *um verde só conta quando você sabe
+      qual linha de código o produziu — prove apagando essa linha, não uma vizinha.*
+
+      Quatro formas já apareceram nesta série, todas iguais por dentro — a verificação
+      concordando com a alegação por um motivo diferente do que o leitor supõe:
+
+      | forma | o que o instrumento fez |
+      |---|---|
+      | padrão `\n` em arquivo **CRLF** | não casa **nada** — a mutação não aplica, em silêncio |
+      | detector com `includes()` | casa **demais** — acusa resíduo que não existe |
+      | `git checkout -- <arq>` depois de `git checkout <commit> -- <arq>` | lê do **índice**, que o primeiro comando atualizou: não restaura. Use `git checkout HEAD -- <arq>` |
+      | teste verde por **outro mecanismo** | o teste do `multiSelect` passava por uma promoção inerte, e por isso parecia cobrir o registry |
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
