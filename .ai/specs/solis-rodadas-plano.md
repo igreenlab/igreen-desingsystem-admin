@@ -110,6 +110,14 @@ documentada em lugar nenhum.
       | detector com `includes()` | casa **demais** — acusa resíduo que não existe |
       | `git checkout -- <arq>` depois de `git checkout <commit> -- <arq>` | lê do **índice**, que o primeiro comando atualizou: não restaura. Use `git checkout HEAD -- <arq>` |
       | teste verde por **outro mecanismo** | o teste do `multiSelect` passava por uma promoção inerte, e por isso parecia cobrir o registry |
+      | **placar do runner ilegível** | `--reporter=basic` não existe no Vitest 4: o script imprimiu `aplicou: SIM · restaurou: SIM` para as 6 mutações e `(placar não lido)` no resultado — **zero evidência de que algo morreu, com a aparência de uma tabela completa**. *"Não li" é indistinguível de "nada morreu"* |
+
+      **Duas réguas que vieram dessas:** o script de mutação deve **lançar erro** quando
+      não conseguir ler o placar, quando o placar não disser `failed`, ou quando não
+      conseguir nomear **quais** testes caíram. E quando o código sob teste **ainda não
+      está commitado**, `git checkout HEAD -- <arq>` apaga a própria implementação —
+      restaure do **snapshot em bytes** e confirme por **sha256**, que é régua mais
+      estrita que comparar linhas.
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de

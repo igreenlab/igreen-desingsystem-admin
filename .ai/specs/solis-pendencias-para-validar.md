@@ -162,6 +162,45 @@ saída, e nomeia os quatro.
 
 ---
 
+## 5d. O `DataList` não deixa abrir o funil por fora (Rodada 4)
+
+A Task 9 deu ao `DataTable` o par ****simpleFilter.open**** / ****onOpenChange****, para a
+tela do consumidor abrir o drawer de filtros por um botão dela. O `DataList` tem **a mesma
+lacuna** e não ganhou o par.
+
+**Não é simetria barata**, e é por isso que ficou de fora: o `DataList` **não tem**
+`simpleFilter` nenhum — nem `hiddenFields`, nem `title`, nem `size`. Dar a ele o par exige
+escolher entre duas formas:
+
+| forma | custo |
+|---|---|
+| criar o objeto `simpleFilter` inteiro em `DataListProps` e passá-lo pelo toolbar | simétrico com o `DataTable`, mas é API nova de verdade |
+| duas props soltas na raiz | mais barato, e **assimétrico** — dois jeitos de configurar a mesma coisa em componentes irmãos |
+
+Opt-in puro e sem risco nos dois casos. Mas é **API nova**, não correção, e o pedido do
+Sólis (item 18) falava do `DataTable`. Fica para você decidir se vale e em qual forma.
+
+Hoje o estado é `useState` privado em `data-list-toolbar.tsx:166`.
+
+---
+
+## 5e. Três arestas do `simpleFilter` controlado (Rodada 4)
+
+Levantadas pela review da Task 9. Nenhuma é defeito; as três são escolhas que ficaram em
+aberto.
+
+| # | O quê | Por que ficou |
+|---|---|---|
+| **P5** | **Não existe `defaultOpen`.** O precedente do `Scheduler` oferece `defaultDate`/`defaultView`, e é por isso que o aviso dele consegue dizer *"use `defaultDate` para o não-controlado"*. Aqui o conselho é "omita `open`" | custa a possibilidade de **nascer aberto sem assumir o controle** — que é justamente o caso de deep-link que motivou a tarefa. É adição opt-in, barata; só não quis crescer o escopo da rodada |
+| **P6** | **A transição não-controlado ⇄ controlado no meio da vida não é testada nem avisada.** O React avisa nesse caso em `<input>` | a guarda que lida com isso existe e **é observável** (a review mediu: largar o `open` depois de interagir muda o resultado), mas nenhum teste a cobre. Acrescentar um terceiro aviso para cenário sem evidência seria ruído (L-059) — o que falta é o **teste**, não o aviso |
+| **P7** | As deps do `useCallback` usam o **valor** da prop, não um booleano `isControlled` como o `Scheduler` (`use-scheduler-state.ts:104`) | no modo controlado a identidade do handler troca a cada toggle. Inofensivo hoje porque o drawer não é memoizado — vira custo se alguém o memoizar |
+
+> **P6 é a mais interessante das três:** a guarda está lá, faz a coisa certa, e nada prova
+> que ela faz. É a forma invertida do que esta série vem achando — em vez de um verde que
+> não prova nada, um comportamento correto que nenhum verde cobre.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se
