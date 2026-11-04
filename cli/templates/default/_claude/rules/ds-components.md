@@ -260,8 +260,14 @@ corpo vazio seria pior que esqueleto: o ****"keep"**** cai no esqueleto sozinho 
 linhas só na resposta. Durante o vôo o rodapé pode estar à frente do corpo. É o preço de
 não piscar — e é a razão do **aria-busy**.
 
-⚠️ O `data-list` **não tem** essa prop: ele não tem server mode (sem ****fetchData****),
-então o caso não existe lá.
+**Vale em client mode também** (você passa ****rows**** + ****loading****, sem
+****fetchData****) — mesma tabela acima. ⚠️ **Só que aí quem guarda o lote anterior é
+VOCÊ:** continue passando as linhas antigas em ****rows**** enquanto levanta o
+****loading****. Se você zerar ****rows**** junto, não há o que manter e cai no esqueleto
+— o critério é "existe linha pra manter?", não "o modo é server?". Com react-query ou SWR,
+é o que o ****placeholderData**** / ****keepPreviousData**** já faz.
+
+⚠️ O `data-list` **não tem** essa prop.
 
 ## Layout e chrome do app
 

@@ -116,6 +116,37 @@ function montar(props: Partial<DataTableProps<Row>> = {}) {
   return { ...view, pendentes, responder };
 }
 
+/* ── Client mode (`rows` + `loading`) ─────────────────────────────────────
+   O `loadingMode` NÃO é prop de server mode — o guard do controller olha
+   `effectiveRows.length`, que em client mode vem do processor sobre `rows`.
+   Aqui "resultado anterior" é o que o CONSUMIDOR ainda está passando em
+   `rows` enquanto levanta o `loading`: é ele que preserva, não o DS. */
+function elementoClient(props: Partial<DataTableProps<Row>>) {
+  return (
+    <DataTable<Row>
+      rows={PAGINA_1}
+      columns={COLUNAS}
+      getRowId={(r) => r.id}
+      paginationConfig={{
+        enabled: true,
+        initialPageSize: 2,
+        pageSizeOptions: [2],
+      }}
+      {...props}
+    />
+  );
+}
+
+function montarClient(props: Partial<DataTableProps<Row>> = {}) {
+  const view = render(elementoClient(props));
+  return {
+    ...view,
+    /** Levanta o `loading` mantendo tudo o mais igual — o refetch do consumidor. */
+    carregar: (extra: Partial<DataTableProps<Row>> = {}) =>
+      view.rerender(elementoClient({ ...props, loading: true, ...extra })),
+  };
+}
+
 /* Asserções em boolean/atributo cru, não em matcher do jest-dom: o
    `vitest.setup.ts` o registra em runtime, mas fica FORA do `include` do
    `tsconfig.json` ("src", "tokens") — `toBeInTheDocument` não existe pro `tsc`
@@ -246,5 +277,56 @@ describe("DataTable — loadingMode", () => {
     expect(corpoEsqueleto()).not.toBeNull();
     expect(rodapeEsqueleto()).not.toBeNull();
     expect(temTexto("Alfa")).toBe(false);
+  });
+
+  /* ── Client mode ────────────────────────────────────────────────────────
+     A USAGE AFIRMA que o `loadingMode` vale nos dois modos. Até estes três
+     testes isso era raciocínio sobre o código (o guard olha
+     `effectiveRows.length`, que não sabe de onde as linhas vieram), e não
+     medição — ou seja, uma garantia escrita numa superfície que o consumidor
+     lê, sustentada por nada. É o modo de falha que esta série persegue.
+
+     ⚠️ A semântica NÃO é a mesma, e isso importa na doc: em server mode quem
+     preserva o resultado anterior é o `useDataTableQuery`; em client mode quem
+     preserva é o CONSUMIDOR, que continua passando `rows` enquanto levanta o
+     `loading`. Se ele zerar `rows` junto, não há o que manter — e o terceiro
+     teste trava justamente esse caso. */
+
+  it("client mode: sem a prop, `loading` troca o corpo pelo esqueleto, como hoje", () => {
+    const { carregar } = montarClient();
+
+    expect(temTexto("Alfa")).toBe(true);
+
+    carregar();
+
+    expect(corpoEsqueleto()).not.toBeNull();
+    expect(rodapeEsqueleto()).not.toBeNull();
+    expect(temTexto("Alfa")).toBe(false);
+  });
+
+  it("client mode: `keep` mantém as linhas que o consumidor segue passando", () => {
+    const { container, carregar } = montarClient({ loadingMode: "keep" });
+
+    expect(ariaBusyDaRaiz(container)).toBeNull();
+
+    carregar();
+
+    expect(corpoEsqueleto()).toBeNull();
+    expect(rodapeEsqueleto()).toBeNull();
+    expect(temTexto("Alfa")).toBe(true);
+    expect(temTexto("Beta")).toBe(true);
+    expect(ariaBusyDaRaiz(container)).toBe("true");
+  });
+
+  it("client mode: `keep` sem linha nenhuma pra manter cai no esqueleto", () => {
+    const { container, carregar } = montarClient({ loadingMode: "keep" });
+
+    // O consumidor zerou `rows` junto com o `loading` (ou é o primeiro load):
+    // manter o corpo aqui seria mostrar vazio, que é pior que o esqueleto.
+    carregar({ rows: [] });
+
+    expect(corpoEsqueleto()).not.toBeNull();
+    expect(rodapeEsqueleto()).not.toBeNull();
+    expect(ariaBusyDaRaiz(container)).toBeNull();
   });
 });

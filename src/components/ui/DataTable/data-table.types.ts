@@ -940,8 +940,11 @@ export type DataTableProps<T> = {
    * esqueleto: na PRIMEIRA carga (e sempre que a última resposta veio sem linhas)
    * o `"keep"` cai no esqueleto sozinho. Não é preciso alternar a prop.
    *
-   * Vale nos dois modos: em server mode o dado anterior vem do `fetchData`; em
-   * client mode, de `rows` + `loading`.
+   * Vale nos dois modos — o guard é "existe linha pra manter?", não "o modo é
+   * server?". Em server mode o resultado anterior é preservado pelo
+   * `useDataTableQuery`; em **client mode quem preserva é o consumidor**, que
+   * continua passando `rows` enquanto levanta o `loading`. Zerar `rows` junto
+   * cai no esqueleto, pelo mesmo motivo da primeira carga.
    */
   loadingMode?: "skeleton" | "keep";
 

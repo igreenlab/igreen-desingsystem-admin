@@ -196,13 +196,28 @@ Três coisas que decidem o uso:
 - ⚠️ **O rodapé é otimista:** o `page`/range mudam no clique, as linhas só na resposta.
   Durante o vôo o rodapé pode dizer "76–100" com as linhas de 1–25 na tela. É o preço de
   não piscar — e é exatamente por isso que a raiz ganha `aria-busy`.
-
 - `renderLoading` continua valendo — mas só **quando o esqueleto aparece**. Com `"keep"` e
   linhas anteriores na mão, nada substitui o corpo, então o seu slot não renderiza nesse
   instante (ele volta na primeira carga, onde o esqueleto é o que aparece).
 
-O dado em si **nunca** foi descartado: `useDataTableQuery` não limpa `data`/`total` ao
-disparar a request. O que mudou é o render parar de jogá-lo fora.
+Em server mode o dado **nunca** foi descartado: `useDataTableQuery` não limpa `data`/`total`
+ao disparar a request (nem no `catch`). O que mudou é o render parar de jogá-lo fora.
+
+**Em client mode (`rows` + `loading`) a prop vale igual** — mesma tabela, mesmo
+`aria-busy`, mesmo rodapé. ⚠️ **Com uma diferença que decide o uso: aqui quem preserva o
+resultado anterior é VOCÊ, não o DS.**
+
+```tsx
+// ✅ as linhas antigas ficam na tela enquanto o novo lote não chega
+<DataTable rows={dadosAnteriores} loading={isFetching} loadingMode="keep" … />
+
+// ❌ zerar `rows` junto com o loading = não há o que manter → cai no esqueleto
+<DataTable rows={[]} loading={isFetching} loadingMode="keep" … />
+```
+
+O guard é "existe linha pra manter?", não "o modo é server?" — então `rows` vazio tem
+exatamente o mesmo efeito que a primeira carga do server mode. Com `react-query`/SWR, é o
+que `placeholderData` / `keepPreviousData` já fazem pra você.
 
 ### Coluna de ações (editar / excluir / "…")
 

@@ -243,7 +243,7 @@ const CORE_PROPS = [
   },
   {
     name: "loadingMode",
-    type: '"skeleton" | "keep" — o que o corpo mostra com um carregamento em vôo. "keep" mantém as linhas do resultado anterior (corpo E rodapé) e marca aria-busy na raiz enquanto elas estão defasadas. Sem resultado anterior (primeira carga) cai no esqueleto sozinho',
+    type: '"skeleton" | "keep" — o que o corpo mostra com um carregamento em vôo. "keep" mantém as linhas do resultado anterior (corpo E rodapé) e marca aria-busy na raiz enquanto elas estão defasadas. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
     defaultVal: '"skeleton"',
   },
 ];
