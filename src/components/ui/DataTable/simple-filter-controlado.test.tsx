@@ -16,13 +16,14 @@
  *   3. **`onOpenChange` avisa nos dois modos.** É notificação da intenção, não
  *      controle: quem só quer OBSERVAR a abertura (telemetria, badge, "o funil
  *      está aberto?") não precisa assumir o estado. Mesma forma do `showHistory`
- *      do `Gantt` (`gantt.tsx:748`), que é o precedente mais recente do repo.
+ *      do `Gantt` — `gantt.tsx:171` (`historyProp ?? historyLocal`) e `:749-752` (o
+ *      callback disparando nos dois modos). ⚠️ `:748` é um site de CONSUMO, não o padrão.
  *   4. **O caso misto** (`open` sem `onOpenChange`) — L-070: o X, o Esc e o
  *      backdrop ficam inertes e o usuário não tem saída. A prop continua
  *      mandando (trocar o contrato por causa de uma segunda prop seria pior), mas
  *      sai um `console.warn` em DEV nomeando a prop e a consequência. Precedente
  *      exato no repo: `Scheduler` com `date` sem `onDateChange`
- *      (`hooks/use-scheduler-state.ts:83`).
+ *      (`hooks/use-scheduler-state.ts:84`).
  *
  * ⚠️ O alvo é o `DataTable` REAL, não o `ToolbarSimpleFilterDrawer` isolado — o
  * drawer SEMPRE aceitou `open`/`onOpenChange` (são props obrigatórias dele). O que
@@ -191,5 +192,62 @@ describe("simpleFilter — abertura controlada do drawer do funil", () => {
       .map((c) => String(c[0]))
       .filter((m) => m.includes("simpleFilter"));
     expect(citamSimpleFilter).toEqual([]);
+  });
+
+  /* Achado m-2 da review: `open` só faz alguma coisa se o drawer chegar a ser
+   * RENDERIZADO, e ele é condicionado a `enableFilters !== false` E a existir coluna
+   * filtrável. Fora disso a prop é silenciosamente inerte — o consumidor passa `true`,
+   * nada abre, e nada diz por quê. */
+  it("`open: true` sem nenhuma coluna filtrável avisa — a prop seria inerte", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    render(
+      <DataTable
+        rows={ROWS}
+        columns={[{ field: "id", headerName: "ID" }]}
+        getRowId={(r) => r.id}
+        toolbar={{ enableFilters: true }}
+        simpleFilter={{ open: true, onOpenChange: () => {} }}
+      />,
+    );
+
+    const avisos = warn.mock.calls
+      .map((c) => String(c[0]))
+      .filter((m) => m.includes("não é renderizado"));
+    expect(avisos).toHaveLength(1);
+    expect(avisos[0]).toContain("enableColumnFilter");
+  });
+
+  it("`open: true` com `enableFilters: false` avisa, e culpa a prop certa", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    render(
+      <DataTable
+        rows={ROWS}
+        columns={COLUNAS}
+        getRowId={(r) => r.id}
+        toolbar={{ enableFilters: false }}
+        simpleFilter={{ open: true, onOpenChange: () => {} }}
+      />,
+    );
+
+    const avisos = warn.mock.calls
+      .map((c) => String(c[0]))
+      .filter((m) => m.includes("não é renderizado"));
+    expect(avisos).toHaveLength(1);
+    expect(avisos[0]).toContain("enableFilters");
+  });
+
+  /* O caminho antigo deste aviso: com o drawer renderizável, ele NÃO dispara. É o
+   * guarda de sobre-disparo — sem ele o aviso apareceria em toda tabela controlada. */
+  it("com o drawer renderizável, o aviso de inerte não aparece", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    montar({ open: true, onOpenChange: () => {} });
+
+    const avisos = warn.mock.calls
+      .map((c) => String(c[0]))
+      .filter((m) => m.includes("não é renderizado"));
+    expect(avisos).toEqual([]);
   });
 });

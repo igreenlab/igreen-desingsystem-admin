@@ -760,7 +760,8 @@ function DataTableInternal<T>(
   // no menu de Configurações, não no split button).
   //
   // Par controlado/não-controlado no formato do `showHistory` do `Gantt`
-  // (`gantt.tsx:170`), que é o precedente mais recente do repo:
+  // (`gantt.tsx:171` pro `??`, `:749-752` pro callback nos dois modos), que é o
+  // precedente mais recente do repo:
   //   `simpleFilter.open` presente ⇒ a prop manda, o estado interno não decide
   //   mais nada; ausente ⇒ estado interno, como sempre foi.
   // `onOpenChange` dispara nos DOIS modos — é notificação de intenção, não
@@ -790,6 +791,30 @@ function DataTableInternal<T>(
       avisouDrawerPreso.current = true;
       console.warn(
         "[DataTable] `simpleFilter.open` foi passado sem `simpleFilter.onOpenChange`: o drawer de Filtros fica preso no valor da prop — o X, o Esc e o backdrop deixam de fechar, sem nada na tela dizendo por quê. Conecte `onOpenChange` ou omita `open` pro modo não-controlado.",
+      );
+    }
+  }, [simpleFilterOpenProp, onSimpleFilterOpenChange]);
+
+  /* ⚠️ Segundo aviso, e ele cobre um caso que o primeiro não vê: `open` só faz alguma
+   * coisa se o drawer chegar a ser RENDERIZADO, e ele é condicionado a
+   * `toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0` (ver o
+   * JSX adiante). Com os filtros desligados, ou sem nenhuma coluna filtrável, `open: true`
+   * é silenciosamente inerte — o consumidor passa a prop, nada abre, e nada diz por quê. */
+  const avisouDrawerAusente = useRef(false);
+  useEffect(() => {
+    if (!import.meta.env?.DEV || avisouDrawerAusente.current) return;
+    if (
+      simpleFilterOpenProp === true &&
+      (toolbarConfig.enableFilters === false ||
+        filterPopoverColumns.length === 0)
+    ) {
+      avisouDrawerAusente.current = true;
+      console.warn(
+        "[DataTable] `simpleFilter.open` está `true`, mas o drawer de Filtros não é renderizado: " +
+          (toolbarConfig.enableFilters === false
+            ? "`toolbar.enableFilters` está `false`."
+            : "nenhuma coluna tem `enableColumnFilter`.") +
+          " A prop não tem efeito enquanto isso.",
       );
     }
   }, [simpleFilterOpenProp, onSimpleFilterOpenChange]);
