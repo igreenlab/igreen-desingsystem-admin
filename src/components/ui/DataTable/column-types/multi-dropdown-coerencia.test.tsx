@@ -171,7 +171,11 @@ describe("a lista não reserva altura que o conteúdo não pede", () => {
   it("o 'Carregando…' sozinho não reserva piso", async () => {
     renderMulti({ options: [], loadOptions: () => new Promise(() => {}) });
     await waitFor(() => expect(screen.getByText("Carregando…")).toBeTruthy());
-    const lista = screen.getByText("Carregando…").parentElement!;
+    // ⚠️ O caminho até a lista mudou, a regra não: o carregamento virou um
+    // estado CENTRADO (spinner + texto numa caixa própria, item 17v), então o
+    // texto não é mais filho direto do container rolável. A asserção continua
+    // sendo sobre a LISTA — é ela que não pode reservar altura.
+    const lista = screen.getByText("Carregando…").closest(".overflow-y-auto")!;
     expect(lista.className).toContain("overflow-y-auto");
     expect(lista.className).not.toContain("min-h-");
   });

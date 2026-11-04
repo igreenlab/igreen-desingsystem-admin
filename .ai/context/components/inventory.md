@@ -520,6 +520,8 @@ Column types (column-types/):
     → contrato do `value`: SEMPRE array — a lista inteira do grupo do chip (itens do mesmo campo+operador somados), `["A"]` com 1 item,
       nunca string. Widget de valor único NÃO declara o flag (o chip cai no multiSelect built-in, que já traz busca/Selecionar todos/pinned/Incluindo-Excluindo)
     → peças públicas no barrel: MultiSelectDropdown (chip), MultiSelectFieldDropdown (modal avançado), FastSingleSelectList, FILTER_FIELD_CLASS
+    → carregamento async do MultiSelectDropdown é CENTRADO (Spinner aria-hidden + "Carregando…", py-pad-2xl, ~76px) e não
+      reserva piso — o min-h de 96px saiu daqui de propósito; gate: multi-dropdown-spinner.test.tsx
     → gate: owns-multi.test.tsx · docs: DataTable/USAGE.md §"Filtros — extensões do feedback Sólis" + showcase #/data-table (§ Widget de filtro próprio)
 
 Context (context/):
