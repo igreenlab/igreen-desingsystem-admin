@@ -11,9 +11,21 @@
  * (de preset, de visão salva ou do builder avançado) era DESENHADO como se fosse o
  * default, e mexer no valor REESCREVIA o operador pro default, em silêncio.
  *
- * O drawer é compartilhado — `DataTable`, `DataList`, `Scheduler`, `ToolbarFilterControl`
- * e `TableToolbar` renderizam este mesmo componente. Os testes montam o drawer direto
- * (API pública, exportada no barrel) porque é a superfície única dos cinco.
+ * O drawer é compartilhado. As superfícies, conferidas por `grep -rn "<ToolbarSimpleFilterDrawer"`
+ * (com o `<`, que casa JSX e não comentário):
+ *
+ *   `DataTable/data-table.tsx:1969`                      — como `SimpleFilterDrawer`
+ *   `DataList/parts/data-list-toolbar.tsx:424`
+ *   `TableToolbar/parts/toolbar-filter-control.tsx:171`
+ *   `src/preview/pages/TableToolbarDoc.tsx:434`          — showcase
+ *   `src/components/index.ts:106`                        — barrel público: consumidor monta direto
+ *
+ * ⚠️ `Scheduler` e `TableToolbar/table-toolbar.tsx` **NÃO** renderizam este drawer —
+ * só citam o nome em comentário/JSDoc, e um `grep -l` os devolve. O Scheduler usa o
+ * `SchedulerFilterPanel` próprio. Esta lista já esteve errada aqui: quem a lesse iria
+ * procurar no Scheduler um acoplamento que não existe (L-060).
+ *
+ * Os testes montam o drawer direto, que é a superfície única de todas elas.
  *
  * Os caminhos ANTIGOS têm teste próprio: field sem filtro no modelo continua nascendo
  * com o default do tipo, e `multiSelect` continua sendo promovido a `isAnyOf`.
@@ -29,6 +41,7 @@ import type {
   FilterModel,
 } from "@/components/ui/DataTable/data-table.types";
 import { columnTypeRegistry } from "@/components/ui/DataTable/column-types";
+import { defaultOperatorForFilterType } from "@/components/ui/DataTable/utils/filter-ops";
 
 /* jsdom não tem matchMedia nem ResizeObserver — o FloatingPanel usa o primeiro
    (responsive sheet) e o MultiSelectDropdown o segundo (largura travada). Mesmo
@@ -210,7 +223,7 @@ describe("drawer — caminho antigo: field SEM filtro nasce com o default do tip
     expect(ultimo.items[0].operator).toBe("contains");
   });
 
-  it("coluna `multiSelect` sem filtro no modelo nasce promovida a `isAnyOf`", async () => {
+  it("coluna `multiSelect` sem filtro no modelo nasce em `isAnyOf`", async () => {
     const escritos = montar([colMulti], vazio);
 
     await abrirMulti();
@@ -220,6 +233,21 @@ describe("drawer — caminho antigo: field SEM filtro nasce com o default do tip
     expect(ultimo.items).toHaveLength(1);
     expect(ultimo.items[0].operator).toBe("isAnyOf");
     expect(ultimo.items[0].value).toBe("ativo");
+  });
+
+  it("o `isAnyOf` do `multiSelect` vem do REGISTRY (`operators[0]`), não de promoção", () => {
+    // Quem garante o teste acima é o primeiro operador declarado pelo tipo — o
+    // `defaultOperatorForFilterType` lê dali, e é a fonte única.
+    //
+    // Até 2026-11-03 o fallback do drawer embrulhava isso num
+    // `promoteOperatorForFilterType`, cujo comentário prometia a garantia. A chamada
+    // era INERTE e não podia deixar de ser: ela só age sobre `equals`/`neq`, e recebia
+    // justamente o default do registry — medido, `MUDOU=false` nos 16 tipos. O teste
+    // acima passava com e sem ela, então não pinava nada (L-061 + L-064). Removida a
+    // chamada, a garantia ficou inteira aqui: reordene `MultiSelectColumnType.operators`
+    // e os DOIS reprovam.
+    expect(columnTypeRegistry.get("multiSelect").operators?.[0]?.id).toBe("isAnyOf");
+    expect(defaultOperatorForFilterType("multiSelect")).toBe("isAnyOf");
   });
 });
 
@@ -292,8 +320,15 @@ describe("drawer — linha sem valor a editar tem saída PRÓPRIA", () => {
  * cujo widget não é editável em OUTRO operador agora tem como declarar isso.
  *
  * Os dois testes usam o MESMO tipo, com DOIS operadores — um declara `noValue`, o outro
- * não. O contraste no mesmo registro é o que separa "o sinal funciona" de "o botão
- * aparece pra qualquer operador declarado".
+ * não. Mesmo tipo, mesmo widget, mesma entrada de registry: a ÚNICA diferença entre as
+ * duas linhas é a declaração, então o que reprova aponta pro campo e não pra alguma
+ * outra coisa que mudou junto.
+ *
+ * ⚠️ Este comentário já afirmou que "com dois tipos diferentes a mutação de
+ * sobre-disparo teria escapado". **É falso** — essa mutação também reprova o teste
+ * `linha EDITÁVEL não ganha botão nenhum`, que usa tipo built-in e é anterior a esta
+ * seção. A construção acima é melhor por isolar a variável, não por ser a única que
+ * pega a mutação.
  */
 describe("drawer — `noValue` do tipo registrado é um sinal VIVO (L-061)", () => {
   /** Tipo com `startsWith` sem valor (declarado) e `contains` normal. */

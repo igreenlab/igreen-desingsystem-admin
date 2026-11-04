@@ -107,6 +107,12 @@ import {
   preservar o operador teria trocado um defeito silencioso (digitar rebaixava `isEmpty`
   pra `contains`) por um beco sem saída nuclear — o que a **L-070** proíbe. Nenhuma outra
   linha muda de aparência.
+  ⚠️ **Isto cobre a linha sem valor a editar, e NÃO é "toda linha tem saída".** Medido:
+  `select`, `boolean`, `badge` e `user` renderizam um `<Select>` sem opção vazia e sem
+  limpar — uma vez preenchido, o campo deles **só se esvazia pelo "Limpar todos"**. O
+  sinal por operador não alcança esse caso (o operador é `equals`, que tem valor), e dar
+  botão a toda linha muda pixel em todos os consumidores do drawer. Está anotado como
+  pendência do mantenedor; até lá, **não** afirme que o funil esvazia qualquer campo.
 - **Tipo registrado DECLARA o operador sem valor dele** com `noValue: true` no item de
   `operators` (`vNEXT`+) — e aí a linha dele ganha a mesma saída. O sinal é o
   **operador**, não o widget: não dá pra perguntar ao `renderFilterInput` se ele trouxe

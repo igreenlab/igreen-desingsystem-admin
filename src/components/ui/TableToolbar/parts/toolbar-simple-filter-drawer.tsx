@@ -21,7 +21,6 @@ import type {
 import {
   genFilterId,
   filterValueIsEmpty as isEmpty,
-  promoteOperatorForFilterType,
   defaultOperatorForFilterType,
   MULTI_VALUE_OPERATORS,
   NO_VALUE_OPERATORS,
@@ -95,13 +94,26 @@ export type ToolbarSimpleFilterDrawerProps = {
  * `renderFilterInput` daquele tipo tem branch pra tratar. Um `between` guardado num
  * campo `text` (modelo escrito à mão, `filterType` trocado depois, ou typo que faz o
  * registry cair no `text` por fallback) não tem widget que o edite — e escrevê-lo de
- * volta produz um item cujo `matchesFilter` devolve `null`, ou seja, um filtro que
- * deixa de valer sem nada na tela dizer isso. Nesse caso o default do tipo volta a
- * mandar, que é exatamente o comportamento anterior.
+ * volta produz um item que **aprova todas as linhas**: o `matchesFilter` do tipo
+ * devolve `null`, o processador NÃO descarta o item, cai no fallback de string e,
+ * sem `case` pro operador, no `default: return true` (`use-data-table-processor.ts`).
+ * O chip continua na tela anunciando um filtro que não filtra nada. Nesse caso o
+ * default do tipo volta a mandar, que é exatamente o comportamento anterior.
  *
- * A guarda NÃO usa `promoteOperatorForFilterType`: a promoção só existe pro caso de
- * NASCIMENTO (preset `{field, value}` sem operador explícito). Operador que já está no
- * modelo é escolha registrada, não default a promover.
+ * O nascimento usa o default do REGISTRY e nada além dele. Até 2026-11-03 havia aqui
+ * um `promoteOperatorForFilterType(defaultOperatorForFilterType(...))`, herdado do
+ * escritor pré-correção, cujo comentário prometia "multiSelect ⇒ sempre
+ * isAnyOf/isNoneOf". A chamada era **inerte e não podia deixar de ser**: ela só age
+ * sobre `equals`/`neq`, e o argumento que recebia era o próprio default do registry —
+ * medido nos 16 tipos registrados, `MUDOU=false` em 16/16. Removida (L-061: no-op não
+ * se documenta, se tira). Pior que morta, ela era um override latente do contrato
+ * declarado: um consumidor que re-registre `multiSelect` com outro `operators[0]`
+ * teria a escolha dele sobrescrita, contra o que o `defaultOperatorForFilterType`
+ * promete ("um column-type novo já traz seu default correto"). Quem garante o
+ * `isAnyOf` do `multiSelect` é o `operators[0]` dele — e isso agora tem teste.
+ *
+ * A promoção segue existindo e valendo onde ela de fato age: nos adapters e no
+ * controller, onde o operador vem de um preset `{field, value}` como `equals`.
  */
 function operadorDoField(
   items: FilterItem[],
@@ -110,11 +122,7 @@ function operadorDoField(
 ): FilterOperator {
   const vigente = items[0]?.operator;
   if (vigente && def.operators?.some((o) => o.id === vigente)) return vigente;
-  // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForFilterType).
-  return promoteOperatorForFilterType(
-    defaultOperatorForFilterType(filterType),
-    filterType,
-  );
+  return defaultOperatorForFilterType(filterType);
 }
 
 /**
