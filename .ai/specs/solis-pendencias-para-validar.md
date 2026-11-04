@@ -201,6 +201,23 @@ aberto.
 
 ---
 
+## 5f. O que o `loadingMode` deixou em aberto (Rodada 5)
+
+| # | O quê | Estado |
+|---|---|---|
+| **P8** | **Linhas mantidas não têm sinal visual.** Nem esmaecimento, nem opacidade | ⚠️ **A rota CSS existe hoje**: `props.className` e o `aria-busy` caem no **mesmo elemento**, então `.minha-tabela[aria-busy="true"] [role="rowgroup"] { opacity:.6 }` funciona sem tocar o DS. O que **não** existe é a rota **React** — o `DataTableContextValue` não carrega a flag, e `useDataTableContext` é público. Decidir se expõe |
+| **P9** | **O rodapé segue otimista nos controles** — as setas e os números já apontam a página nova durante o vôo | O **texto do range**, que era a única afirmação falsa sobre a tela, passou a ser escondido (`hideRange`). Os controles não mentem: dizem para onde você vai. Fica como está salvo decisão em contrário |
+| **P10** | **O `DataList` não tem `loadingMode`** | ⚠️ A assimetria **é de hoje**, não condicional: o `DataList` já tem `loading?: boolean` e o repassa ao `List`, que troca o corpo por esqueletos. Com o client mode do `DataTable` agora documentado e medido, os dois divergem em capacidade equivalente |
+| **P11** | **`useDataTableQuery` devolve `error` e ninguém lê** (`:169`; grep no controller: zero) | Pré-existente e **fora** do lote. É o que torna o rodapé otimista **permanente** quando o fetch falha — nos **dois** modos, medido. Candidato a backlog próprio |
+
+> **P11 explica P9.** A divergência rodapé↔corpo que parecia nascer com o `loadingMode`
+> **já existia**: num fetch rejeitado o `isLoading` cai, os dados ficam, e o default
+> renderiza linhas antigas com o rodapé na página nova — DOM idêntico. O `keep` não
+> inventou a mentira; tornou **transitória e visível** uma que o default produz
+> **permanentemente** e em silêncio.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se

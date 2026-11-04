@@ -136,6 +136,7 @@ documentada em lugar nenhum.
       | detector com `includes()` | casa **demais** — acusa resíduo que não existe |
       | `git checkout -- <arq>` depois de `git checkout <commit> -- <arq>` | lê do **índice**, que o primeiro comando atualizou: não restaura. Use `git checkout HEAD -- <arq>` |
       | teste verde por **outro mecanismo** | o teste do `multiSelect` passava por uma promoção inerte, e por isso parecia cobrir o registry |
+      | **`zoom` do browser** | devolve **recorte de screenshot ANTIGO** (a saída avisa: *"cropped from a screenshot, not magnified"*). Mostrou um rodapé com o texto que já tinha sumido — o **oposto** do real. Para um instante de ~500ms, **meça o DOM por JS**, não a imagem |
       | **placar do runner ilegível** | `--reporter=basic` não existe no Vitest 4: o script imprimiu `aplicou: SIM · restaurou: SIM` para as 6 mutações e `(placar não lido)` no resultado — **zero evidência de que algo morreu, com a aparência de uma tabela completa**. *"Não li" é indistinguível de "nada morreu"* |
 
       **Duas réguas que vieram dessas:** o script de mutação deve **lançar erro** quando
