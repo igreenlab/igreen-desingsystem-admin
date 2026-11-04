@@ -12,8 +12,10 @@ import {
  *
  * 1. `emptyState` — gráfico sem dado renderiza o nó do consumidor no lugar dos eixos
  *    vazios. Sem a prop, nada muda.
- * 2. A legenda mora FORA da caixa de altura fixa (portal do Recharts), então
- *    quebrar em 2 linhas faz o container crescer em vez de achatar o gráfico.
+ * 2. `keepPlotHeight` — COM a prop, a legenda mora FORA da caixa de altura fixa
+ *    (portal do Recharts), então quebrar em 2 linhas faz o container crescer em vez
+ *    de achatar o gráfico. SEM a prop, a legenda continua dentro e descontando —
+ *    o comportamento de sempre, que é o caminho que os 3 últimos testes travam.
  *
  * jsdom não tem layout: `getBoundingClientRect` devolve 0 em tudo, e sem tamanho
  * o `ResponsiveContainer` não renderiza filho nenhum. O stub abaixo dá tamanho
@@ -66,9 +68,13 @@ function baseDoEixoX(container: HTMLElement) {
     ?.getAttribute("y1");
 }
 
-function renderBarras(options: { legenda: boolean; data?: unknown[] }) {
+function renderBarras(options: {
+  legenda: boolean;
+  data?: unknown[];
+  keepPlotHeight?: boolean;
+}) {
   return render(
-    <ChartContainer config={config}>
+    <ChartContainer config={config} keepPlotHeight={options.keepPlotHeight}>
       <BarChart data={options.data ?? [{ mes: "jan", total: 10 }, { mes: "fev", total: 20 }]}>
         <CartesianGrid vertical={false} />
         <XAxis dataKey="mes" />
@@ -80,14 +86,18 @@ function renderBarras(options: { legenda: boolean; data?: unknown[] }) {
   );
 }
 
-describe("ChartContainer — legenda não achata o gráfico", () => {
+describe("ChartContainer — com `keepPlotHeight`, a legenda não achata o gráfico", () => {
   it("legenda em 2 linhas nao reduz a area do grafico", () => {
     stubLayout(22);
-    const umaLinha = baseDoEixoX(renderBarras({ legenda: true }).container);
+    const umaLinha = baseDoEixoX(
+      renderBarras({ legenda: true, keepPlotHeight: true }).container,
+    );
 
     Element.prototype.getBoundingClientRect = origRect;
     stubLayout(44);
-    const duasLinhas = baseDoEixoX(renderBarras({ legenda: true }).container);
+    const duasLinhas = baseDoEixoX(
+      renderBarras({ legenda: true, keepPlotHeight: true }).container,
+    );
 
     expect(umaLinha).not.toBeNull();
     expect(duasLinhas).toBe(umaLinha);
@@ -96,7 +106,9 @@ describe("ChartContainer — legenda não achata o gráfico", () => {
   it("a legenda não tira altura nenhuma da plotagem (mesma base do gráfico sem legenda)", () => {
     stubLayout(22);
     const semLegenda = baseDoEixoX(renderBarras({ legenda: false }).container);
-    const comLegenda = baseDoEixoX(renderBarras({ legenda: true }).container);
+    const comLegenda = baseDoEixoX(
+      renderBarras({ legenda: true, keepPlotHeight: true }).container,
+    );
 
     expect(semLegenda).not.toBeNull();
     expect(comLegenda).toBe(semLegenda);
@@ -104,7 +116,7 @@ describe("ChartContainer — legenda não achata o gráfico", () => {
 
   it("a legenda sai da caixa de altura, mas continua dentro do escopo das CSS vars", () => {
     stubLayout(22);
-    const { container } = renderBarras({ legenda: true });
+    const { container } = renderBarras({ legenda: true, keepPlotHeight: true });
 
     const escopo = container.querySelector("[data-chart]");
     const caixa = container.querySelector("[data-chart-plot]");
@@ -115,6 +127,48 @@ describe("ChartContainer — legenda não achata o gráfico", () => {
     expect(escopo?.contains(legenda!)).toBe(true);
     // fora da caixa que carrega a altura pedida pelo consumidor
     expect(caixa?.contains(legenda!)).toBe(false);
+  });
+});
+
+/* O caminho antigo. Estes três são o contrato de quem NÃO passa a prop: a legenda
+ * desconta da plotagem exatamente como descontava antes de 2026-11-04. Não é um
+ * "o que sobrou" — é o que o mantenedor decidiu preservar, e sem teste a afirmação
+ * "aditivo" seria só esperança. O desconto é EXATAMENTE a altura do wrapper que o
+ * `getBoundingClientRect` devolve, então a asserção é no número, não no sinal. */
+describe("ChartContainer — sem `keepPlotHeight`, a legenda desconta da plotagem (caminho antigo)", () => {
+  const num = (valor: string | null | undefined) => Number(valor);
+
+  it("sem a prop, a legenda tira da plotagem a altura dela", () => {
+    stubLayout(22);
+    const semLegenda = baseDoEixoX(renderBarras({ legenda: false }).container);
+    const comLegenda = baseDoEixoX(renderBarras({ legenda: true }).container);
+
+    expect(semLegenda).not.toBeNull();
+    expect(comLegenda).not.toBeNull();
+    expect(num(semLegenda) - num(comLegenda)).toBe(22);
+  });
+
+  it("sem a prop, legenda de 2 linhas tira o dobro — o defeito do item 24, preservado", () => {
+    stubLayout(22);
+    const umaLinha = baseDoEixoX(renderBarras({ legenda: true }).container);
+
+    Element.prototype.getBoundingClientRect = origRect;
+    stubLayout(44);
+    const duasLinhas = baseDoEixoX(renderBarras({ legenda: true }).container);
+
+    expect(umaLinha).not.toBeNull();
+    expect(num(umaLinha) - num(duasLinhas)).toBe(22);
+  });
+
+  it("sem a prop, a legenda fica DENTRO da caixa de altura", () => {
+    stubLayout(22);
+    const { container } = renderBarras({ legenda: true });
+
+    const caixa = container.querySelector("[data-chart-plot]");
+    const legenda = container.querySelector(".recharts-legend-wrapper");
+
+    expect(legenda).not.toBeNull();
+    expect(caixa?.contains(legenda!)).toBe(true);
   });
 });
 

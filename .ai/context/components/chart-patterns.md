@@ -32,10 +32,15 @@ const config = {
 
 - `config[key].color` → `ChartContainer` injeta `--color-{key}` escopado; elementos
   usam `var(--color-{key})`. `dataKey` **tem** que casar com a chave do config.
-- Altura via `className` (`h-[NNNpx] w-full`), nunca prop `height`. Essa altura é a da
-  **área do gráfico**: a legenda é renderizada fora dela (portal) e **soma** — `h-[250px]`
-  com legenda de 1 linha dá 272px de bloco e 250px de plotagem. Antes de 2026-11-04 os
-  mesmos 250px eram divididos, e legenda em 2 linhas achatava as barras.
+- Altura via `className` (`h-[NNNpx] w-full`), nunca prop `height`. Por default essa
+  altura é a do **bloco inteiro** e a legenda desconta dela: `h-[250px]` com legenda de
+  1 linha dá 250px de bloco e 228px de gráfico, e 2 linhas deixam 202px — o gráfico
+  encolhe e nada na tela explica.
+- `keepPlotHeight` troca o significado da altura: ela passa a ser a da **plotagem** e a
+  legenda soma por fora (portal, slot irmão dentro do `[data-chart]`). Os mesmos
+  `h-[250px]` dão 272px de bloco com 250px de gráfico, e a 2ª linha de legenda cresce o
+  bloco. **Ligue quando a legenda puder quebrar em 2 linhas.** É opt-in porque muda o
+  pixel de qualquer gráfico com legenda, inclusive o de 1 linha.
 - `ChartContainer` já embute o `ResponsiveContainer` — não aninhar outro.
 - Gráfico que carrega dado leva `emptyState={<EmptyState …/>}`: troca os eixos vazios pelo nó do
   consumidor quando nenhum número finito chega nas props `data` (do gráfico e das séries).
