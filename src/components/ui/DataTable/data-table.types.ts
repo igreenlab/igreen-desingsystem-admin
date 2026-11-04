@@ -1049,6 +1049,30 @@ export type DataTableProps<T> = {
   loading?: boolean;
 
   /**
+   * Avisa a sua tela que o `fetchData` **rejeitou**. Recebe a mensagem do erro.
+   *
+   * Até a `vNEXT` a falha era **invisível e permanente**: o hook guardava o erro
+   * e ninguém o lia. Na tela, `isLoading` descia, as linhas da página anterior
+   * ficavam, o rodapé seguia na página nova — e nada mudava mais, porque não há
+   * nova resposta pra corrigir o estado. O usuário via uma tabela coerente
+   * afirmando a página errada, sem sinal nenhum de que algo falhou.
+   *
+   * O DS não inventa um estado de erro na sua tela: ele **avisa**, e o aviso é
+   * seu — um toast, um banner acima da tabela, um botão de tentar de novo
+   * (`ref.current.refresh()`). Sem a prop, o comportamento é o de sempre.
+   *
+   * O que o DS faz sozinho, porque é correção e não decisão de UI: **esconde o
+   * texto do range do rodapé** enquanto a última busca está falha — ele seria a
+   * única afirmação FALSA sobre o que está na tela. Os controles de página
+   * continuam, e o range volta na primeira resposta que chegar.
+   *
+   * ⚠️ Só dispara pelo `fetchData` (server mode), e só pela request **corrente**:
+   * uma request superada por outra mais nova é descartada antes, então trocar de
+   * página rápido não vira erro na sua tela.
+   */
+  onError?: (error: string) => void;
+
+  /**
    * O que o CORPO e o RODAPÉ mostram enquanto um carregamento está em vôo.
    *
    * - `"skeleton"` (default) — corpo e rodapé viram esqueleto a cada carregamento.

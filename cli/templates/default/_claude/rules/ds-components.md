@@ -323,6 +323,36 @@ resposta. As setas e os números **não mentem**: dizem pra onde o clique leva. 
 do intervalo ("76–100 de 100") mentiria sobre o corpo, então ele some durante o vôo e
 volta na resposta. Nada a configurar — e não é defeito a "consertar" se você vir.
 
+### Saber que a busca falhou — ****onError**** (DS **vNEXT**+)
+
+O rodapé otimista acima é **transitório**. Numa falha, era **definitivo**: quando o
+****fetchData**** rejeita, o carregamento desce, as linhas antigas ficam, o rodapé fica na
+página nova — e nada mais muda, porque não vem outra resposta. Até a vNEXT isso era
+**invisível**: o erro existia por dentro e ninguém o lia.
+
+**Passe ****onError**** em toda tabela com ****fetchData****:**
+
+```tsx
+<DataTable
+  fetchData={buscarClientes}
+  onError={(msg) => toast.error(`Não foi possível carregar: ${msg}`)}
+  columns={colunas}
+/>
+```
+
+O **estado de erro na tela é seu** — toast, banner acima da tabela, botão de tentar de novo
+(`ref.current.refresh()`). **Não existe** um slot de erro ao lado de ****renderEmpty**** /
+****renderNoResults****, e isso é escolha: o DS entrega a peça e o ponto de extensão.
+
+✅ O que o DS faz sozinho, sem prop: esconde o **texto do intervalo** do rodapé enquanto a
+última busca está falha — ele seria a única afirmação falsa sobre a tela. Os controles
+ficam, e o texto volta na primeira resposta que chegar.
+
+⚠️ Só dispara pela request **corrente**: uma request superada por outra mais nova é
+descartada antes, então trocar de página rápido não vira aviso falso. Em modo cliente
+(****rows****) nunca dispara. A ****data-list**** não tem essa prop — ela não busca por
+conta própria.
+
 **Vale em client mode também** (você passa ****rows**** + ****loading****, sem
 ****fetchData****) — mesma tabela acima. ⚠️ **Só que aí quem guarda o lote anterior é
 VOCÊ:** continue passando as linhas antigas em ****rows**** enquanto levanta o

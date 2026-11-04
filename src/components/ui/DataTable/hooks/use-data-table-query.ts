@@ -21,6 +21,8 @@ export type UseDataTableQueryParams<T> = {
   /** Debounce (ms) das mudanças de FILTRO. Default 350. Pagination/sort/search
    *  não passam por aqui (search já vem debounced do useDataTableSearch). */
   filterDebounceMs?: number;
+  /** Avisa a tela que a busca falhou. Ver `onError` em `DataTableProps`. */
+  onError?: (error: string) => void;
 };
 
 export type UseDataTableQueryResult<T> = {
@@ -65,6 +67,12 @@ const DEFAULT_FILTER_DEBOUNCE = 350;
  *   verdade sobre o hook, falso sobre a tela — e não havia prop pra mudar isso.
  * - Race condition guard: requests fora de ordem são descartadas via `requestIdRef`.
  * - Refresh imperativo: bump em `refreshKey` força refetch sem mudar params.
+ * - Falha: `error` guarda a mensagem e `onError` avisa a tela. Até 2026-11-04 o
+ *   `error` era devolvido e **ninguém lia** (grep no controller: zero), então um
+ *   `fetchData` rejeitado caía num estado SILENCIOSO e permanente — `isLoading`
+ *   descia, `data`/`total` ficavam, e o rodapé seguia na página nova sobre as
+ *   linhas da anterior. O `keep` não inventou essa divergência; ele a tornou
+ *   transitória e visível, enquanto o default a produzia pra sempre e calada.
  *
  * "Fino" (evita request boba):
  * - Só os filtros ATIVOS contam — escolher campo/operador (valor ainda vazio) NÃO
@@ -81,6 +89,7 @@ export function useDataTableQuery<T>({
   paginationModel,
   externalLoading,
   filterDebounceMs = DEFAULT_FILTER_DEBOUNCE,
+  onError,
 }: UseDataTableQueryParams<T>): UseDataTableQueryResult<T> {
   const [data, setData] = useState<T[]>([]);
   const [total, setTotal] = useState(0);
@@ -90,6 +99,11 @@ export function useDataTableQuery<T>({
 
   // Guard contra race condition — só aplica o resultado se for da request mais recente
   const requestIdRef = useRef(0);
+
+  /* Por ref: o `onError` do consumidor costuma ser uma arrow inline, e pô-lo nas
+     deps do efeito refaria a request a cada render do pai. */
+  const onErrorRef = useRef(onError);
+  onErrorRef.current = onError;
 
   const refresh = useCallback(() => {
     setRefreshKey((k) => k + 1);
@@ -148,8 +162,14 @@ export function useDataTableQuery<T>({
       })
       .catch((err: unknown) => {
         if (currentId !== requestIdRef.current) return;
-        setError(err instanceof Error ? err.message : String(err));
+        const msg = err instanceof Error ? err.message : String(err);
+        setError(msg);
         setIsLoading(false);
+        /* ⚠️ O guard acima é o que mantém isto sóbrio: request superada por
+           outra mais nova não avisa ninguém, então abortar em troca de página
+           não vira erro na tela do usuário. Só o resultado da request CORRENTE
+           chega ao consumidor. */
+        onErrorRef.current?.(msg);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

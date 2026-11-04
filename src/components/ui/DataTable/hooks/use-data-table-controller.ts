@@ -293,6 +293,7 @@ export function useDataTableController<T>(
     sortModel: sort.sortModels,
     paginationModel: pagination.paginationModel,
     externalLoading: props.loading,
+    onError: props.onError,
   });
 
   /* ── Seleção de saída por modo ──────────────────────────────────
@@ -393,6 +394,28 @@ export function useDataTableController<T>(
   // antes da prop existir.
   const isKeepingPreviousRows =
     props.loadingMode === "keep" && isLoading && effectiveRows.length > 0;
+
+  /**
+   * A ÚLTIMA busca falhou e as linhas na tela são de antes dela.
+   *
+   * Só existe em server mode com `fetchData` (em client mode o `query` roda com
+   * o `NOOP_FETCH`, que resolve). Zera sozinho: o efeito do `useDataTableQuery`
+   * faz `setError(null)` ao disparar a próxima request.
+   *
+   * ⚠️ É o que torna o rodapé otimista **permanente** em vez de transitório. O
+   * `page` andou no clique, as linhas não chegaram e não vão chegar — o texto do
+   * range ("26–50") passa a afirmar algo falso sobre o corpo, e fica. Some o
+   * texto pelo MESMO mecanismo que o `loadingMode="keep"` já usa pra mesma
+   * mentira (`hideRange`); os controles ficam, porque eles dizem pra onde você
+   * vai, não o que está na tela. Range falso é pior que range ausente (L-060).
+   *
+   * Isto **não** nasce atrás de prop, e é a régua do mantenedor aplicada, não
+   * uma exceção a ela: a pergunta é "quem NÃO tem este defeito sente a
+   * correção?", e a resposta é não — nada disto roda enquanto o `fetchData`
+   * resolve. A população alcançada é exatamente a que já estava com o rodapé
+   * mentindo.
+   */
+  const fetchFalhou = isServerMode && query.error != null;
 
   /* ── Snapshot do estado pra getState() ───────────────────────── */
 
@@ -815,6 +838,8 @@ export function useDataTableController<T>(
     /** `loadingMode: "keep"` em vôo COM linhas anteriores — o render mantém o
      *  corpo e o rodapé no lugar do esqueleto. False = render de sempre. */
     isKeepingPreviousRows,
+    /** A última busca de server mode falhou — as linhas na tela são de antes dela. */
+    fetchFalhou,
     isDataEmpty,
     isNoResults,
     /** Ref ao scroll container (compartilhado entre Table.scrollRef + useColumnAutoWidth). */

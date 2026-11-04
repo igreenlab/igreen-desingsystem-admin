@@ -165,6 +165,7 @@ function DataTableInternal<T>(
     contextValue,
     isLoading,
     isKeepingPreviousRows,
+    fetchFalhou,
     isDataEmpty,
     isNoResults,
     scrollContainerRef,
@@ -2476,9 +2477,13 @@ function DataTableInternal<T>(
                      você vai (verdade), o range diz o que ESTÁ na tela. Durante
                      o keep só o range mente — `page` já andou no clique e as
                      linhas são as de antes ("26–50" sobre as linhas 1–25). Some
-                     o texto, ficam os controles. Fora do keep é `false`, que
-                     renderiza igual a não passar nada. */
-                  hideRange={isKeepingPreviousRows}
+                     o texto, ficam os controles.
+
+                     `fetchFalhou` é a MESMA mentira, sem o alívio de ser
+                     transitória: a busca rejeitou, as linhas não vêm, e o range
+                     ficaria afirmando a página nova pra sempre. Fora dos dois é
+                     `false`, que renderiza igual a não passar nada. */
+                  hideRange={isKeepingPreviousRows || fetchFalhou}
                 />
               </div>
             )

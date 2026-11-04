@@ -100,6 +100,15 @@ Nunca gere props de memória — copie a forma do exemplo.
   - Durante o vôo o **range** do rodapé ("26–50 de 100") some, porque descreveria
     linhas que não estão na tela, e volta na resposta. Os controles de página
     ficam. É esperado — não "conserte".
+- **`fetchData` ⇒ `onError` SEMPRE.** Request que rejeita é silenciosa e
+  **permanente**: o loading desce, as linhas antigas ficam, o rodapé fica na página
+  nova e nada mais muda. Gere um toast (ou o banner da tela) e, havendo ref, um
+  "Tentar de novo" com `ref.current.refresh()`.
+  - **Não invente slot de erro** — `renderError` não existe; o estado de erro na tela
+    é composição sua.
+  - O range do rodapé **some sozinho** enquanto a busca está falha e volta na resposta
+    seguinte. Não é defeito a "consertar".
+  - Só dispara pela request corrente; nunca em client mode.
 
 ### Regras de coluna (OBRIGATÓRIO — pega bugs comuns)
 

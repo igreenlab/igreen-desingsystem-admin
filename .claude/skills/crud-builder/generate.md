@@ -430,6 +430,27 @@ region `sr-only` anuncia que as linhas estão defasadas.
 
 - **Não trate a primeira carga.** Sem linha anterior não há o que manter, e o
   `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+
+**Toda tela com `fetchData` leva `onError` também.** Quando a request rejeita, o
+loading desce, as linhas antigas ficam e o rodapé fica na página nova — e nada
+mais muda, porque não vem outra resposta. Sem `onError` isso é INVISÍVEL: o erro
+existe por dentro e ninguém o lê. Gere um toast (ou o banner que a tela já usar),
+e um "Tentar de novo" via `ref.current.refresh()` quando houver ref.
+
+```tsx
+<DataTable
+  fetchData={fetchData}
+  onError={(msg) => toast.error(`Não foi possível carregar: ${msg}`)}
+  …
+/>
+```
+
+- **Não invente um slot de erro.** Não existe `renderError` — o estado de erro na
+  tela é composição sua, e o DS só avisa.
+- **O range do rodapé some sozinho** enquanto a busca está falha, e volta na
+  resposta seguinte. Não é defeito a "consertar".
+- Só dispara pela request **corrente** (o guard de corrida descarta as superadas)
+  e nunca em client mode.
 - **Em client mode (`rows` + `loading`) a prop vale igual**, mas aí quem guarda o
   lote anterior é a tela: continue passando as linhas antigas em `rows` enquanto
   levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
