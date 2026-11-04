@@ -101,6 +101,7 @@ body {
   --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));
   --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));
   --color-bg-dropdown: var(--color-bg-canvas);
+  --color-bg-tooltip: oklch(0.205 0 0);
   --color-fg-strong: oklch(0.15 0 0);
   --color-fg-default: oklch(0.15 0 0);
   --color-fg-muted: oklch(0.4997 0 0);
@@ -112,6 +113,7 @@ body {
   --color-fg-warning: oklch(0.81 0.160 81);
   --color-fg-caution: oklch(0.74 0.170 55);
   --color-fg-info: oklch(0.62 0.210 280);
+  --color-fg-on-tooltip: oklch(1 0 0);
   --color-fg-on-brand: oklch(1 0 0);
   --color-fg-on-danger: oklch(1 0 0);
   --color-fg-on-success: oklch(1 0 0);
@@ -380,6 +382,7 @@ body {
   --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));
   --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));
   --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);
+  --color-bg-tooltip: oklch(0.94 0 0);
   --color-fg-strong: oklch(1 0 0);
   --color-fg-default: oklch(0.98 0 0);
   --color-fg-muted: oklch(0.7025 0 0);
@@ -391,6 +394,7 @@ body {
   --color-fg-warning: oklch(0.81 0.160 81);
   --color-fg-caution: oklch(0.74 0.170 55);
   --color-fg-info: oklch(0.62 0.210 280);
+  --color-fg-on-tooltip: oklch(0.15 0 0);
   --color-fg-on-brand: oklch(0 0 0);
   --color-fg-on-danger: oklch(1 0 0);
   --color-fg-on-success: oklch(0 0 0);

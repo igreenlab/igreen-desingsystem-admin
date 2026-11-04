@@ -45,6 +45,13 @@ export type FilterInputProps = {
   loadOptions?: FilterLoadOptions;
   /** Rótulo de valor marcado fora da página carregada (par do loadOptions). */
   resolveValueLabel?: (value: string | number) => ReactNode;
+  /**
+   * `column.typeOptions` da coluna sendo filtrada — a MESMA bag que o
+   * `renderCell` já recebia. É o que leva `prefix`/`suffix` (item 9a) pro campo:
+   * sem ela a unidade só existiria na célula, e quem está filtrando não vê a
+   * célula — vê o campo e o chip.
+   */
+  typeOptions?: Record<string, unknown>;
 };
 
 /** Props que o chip rapido (fast filter popover) recebe. */
@@ -69,6 +76,8 @@ export type FastFilterInputProps = {
   loadOptions?: FilterLoadOptions;
   /** Rótulo de um valor JÁ MARCADO que não está na página carregada. */
   resolveValueLabel?: (value: string | number) => ReactNode;
+  /** `column.typeOptions` da coluna — ver `FilterInputProps.typeOptions`. */
+  typeOptions?: Record<string, unknown>;
 };
 
 /** Operador disponivel pra um tipo. */
@@ -160,8 +169,16 @@ export type ColumnTypeDefinition = {
   /**
    * Render do chip de filtro (label visual). Recebe valor + options + columnLabel.
    * Default: "{columnLabel}: {value}". MultiSelect mostra "{N} selecionados" se > 2.
+   *
+   * O 3º argumento é o `column.typeOptions` da coluna (item 9a): é por ele que a
+   * unidade chega ao chip — "100 – 500 kWh" em vez de "100 – 500", que foi o pedido
+   * original. Opcional, e tipo que o ignora segue idêntico.
    */
-  renderChipValue?: (value: FilterValue, options?: ColumnOption[]) => ReactNode;
+  renderChipValue?: (
+    value: FilterValue,
+    options?: ColumnOption[],
+    typeOptions?: Record<string, unknown>,
+  ) => ReactNode;
 
   /* ── Fase G.2 — slots de cell + edit + defaults ─────────────────── */
 

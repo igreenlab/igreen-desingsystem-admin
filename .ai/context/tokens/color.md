@@ -102,7 +102,9 @@ bg.brand      → fundo verde da marca (default)
 fg.on-brand   → texto que vai SOBRE bg.brand
 ```
 
-Existem: `fg.on-brand`, `fg.on-caution`, `fg.on-danger`, `fg.on-info`, `fg.on-success`, `fg.on-warning`.
+Existem: `fg.on-brand`, `fg.on-caution`, `fg.on-danger`, `fg.on-info`, `fg.on-success`,
+`fg.on-warning` e `fg.on-tooltip` (este último sobre `bg.tooltip`, o par invertido — ver
+`bg.*` abaixo).
 Não existe `fg.on-primary` (esse é o nome V2, extinto).
 
 > ⛔ **Não existe sufixo `-inverted` em nenhum token.** Esta doc descrevia uma família
@@ -121,11 +123,24 @@ Não existe `fg.on-primary` (esse é o nome V2, extinto).
 | Superfície | `canvas` · `surface` · `surface-elevated` · `surface-panels` · `subtle` · `muted` (+`-hover`) · `emphasis` · `accent` (+`-hover`) |
 | Marca | `brand` · `brand-hover` · `brand-subtle` · `brand-subtle-hover` |
 | Status | `success` · `warning` · `caution` · `danger` · `info`, cada um com `-hover`, `-muted`, `-muted-hover` |
-| Form / chrome | `input` (+`-hover`) · `dropdown` · `sidebar` · `sidebar-accent` (+`-hover`) |
+| Form / chrome | `input` (+`-hover`) · `dropdown` · `tooltip` (⚠️ **invertido**, ver abaixo) · `sidebar` · `sidebar-accent` (+`-hover`) |
 | Tabela | `table` · `table-head` · `table-row-hover` · `table-row-selected` (+`-hover`, `-solid`, `-hover-solid`) |
 | Scrollbar | `scrollbar-thumb` (+`-hover`) — ⚠️ **alpha, não cor sólida** (ver abaixo) |
 
 Hierarquia obrigatória de fundo: `canvas < surface < subtle < muted` (L-008).
+
+⚠️ **`bg.tooltip` + `fg.on-tooltip` são o único par INVERTIDO do DS** — escuro no claro
+(`gray[900]` / branco), claro no escuro (`gray[100]` / `gray[950]`), opaco nos dois. Não é
+estilo: a tooltip é o único flutuante que tem de ser achável sobre QUALQUER superfície,
+inclusive a em hover, e a hierarquia acima é justamente um conjunto de valores VIZINHOS.
+Medido no browser antes da correção, com a bolha em `bg.emphasis`: **1,19:1** sobre o card
+em repouso e **1,10:1** sobre o card em hover no claro, **1,44:1** no escuro — contra os
+3:1 que a WCAG 1.4.11 pede pro limite de um componente. Depois: 17,9:1 e 14,3:1.
+No escuro a inversão é aritmética, não simetria: as superfícies vivem entre L 0.205 e
+0.252, e só a partir de L ≈ 0.55 a bolha fecha 3:1 contra elas.
+Token próprio porque `bg.emphasis` também pinta o track do Switch, do Slider, do Progress e
+o Badge secondary. Gate: `scripts/lib/tooltip-contrast.test.mjs`. Marca não redeclara — a
+bolha é neutra e as 5 herdam a default.
 
 ⚠️ `bg.scrollbar-thumb` / `-hover` são a **única exceção** do grupo: valem `alpha.black[24/32]`
 no light e `alpha.white[24/32]` no dark, iguais nas 5 marcas. A barra precisa de contraste

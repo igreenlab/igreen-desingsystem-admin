@@ -6,14 +6,25 @@ import { cn } from "@/lib/utils";
 /**
  * Tooltip — dica flutuante curta (Radix Tooltip) remapeada para tokens DS.
  *
- * Visual: bolha neutra de ênfase (`bg-bg-emphasis` — theme-aware, mais visível
- * que `muted` e diferente das superfícies brancas de Popover/Dropdown), texto
- * `caption-sm`, `rounded-radius-md`, `shadow-sh-md`. A seta reaproveita o mesmo
- * fundo via `fill-bg-emphasis`.
+ * Visual: bolha INVERTIDA (`bg-bg-tooltip` + `text-fg-on-tooltip` — escura no
+ * claro, clara no escuro), texto `caption-sm`, `rounded-radius-md`,
+ * `shadow-sh-md`. A seta reaproveita o mesmo fundo via `fill-bg-tooltip`.
  *
- * O DS **não tem** superfície escura invertida (`surface-inverted`), então a
- * tooltip é uma bolha neutra clara (light) / clara-sobre-escuro (dark) — em vez
- * do bubble preto clássico. É a escolha token-nativa: nenhum token novo.
+ * ⚠️ **Até 2026-11-04 a bolha era `bg-bg-emphasis`** — um cinza neutro da mesma
+ * família das superfícies — com o argumento, escrito aqui, de que "o DS não tem
+ * superfície invertida, então esta é a escolha token-nativa: nenhum token novo".
+ * O argumento estava certo sobre o inventário e errado sobre o custo. Medido no
+ * browser: a borda da bolha contra o que está atrás dava **1,19:1** sobre o card
+ * em repouso e **1,10:1 sobre o card em hover** no claro (1,44:1 nos dois no
+ * escuro), contra os **3:1** que a WCAG 1.4.11 pede pro limite de um componente
+ * de UI. E no escuro o `bg-emphasis` é translúcido (12% de branco): o conteúdo
+ * de trás atravessava a bolha.
+ *
+ * A tooltip é o único flutuante que tem de ser achável sobre QUALQUER superfície,
+ * inclusive a em hover — e no escuro só um valor claro fecha os 3:1 contra
+ * superfícies de L 0.205–0.252. Daí a inversão, num token PRÓPRIO: mudar o
+ * `bg-emphasis` teria mexido junto no track do Switch, do Slider, do Progress e
+ * no Badge secondary. Gate: `scripts/lib/tooltip-contrast.test.mjs`.
  *
  * `<Tooltip>` já embrulha um `<TooltipProvider>` internamente, então uma tooltip
  * avulsa funciona sem provider no topo da app. Provider aninhado é seguro no
@@ -72,7 +83,7 @@ const TooltipContent = React.forwardRef<
       sideOffset={sideOffset}
       className={cn(
         "z-50 max-w-[16rem] select-none",
-        "bg-bg-emphasis text-fg-default",
+        "bg-bg-tooltip text-fg-on-tooltip",
         "rounded-radius-md px-pad-lg py-pad-xs",
         "text-caption-sm",
         "shadow-sh-md",
@@ -91,7 +102,7 @@ const TooltipContent = React.forwardRef<
         <TooltipPrimitive.Arrow
           width={11}
           height={5}
-          className="fill-bg-emphasis"
+          className="fill-bg-tooltip"
         />
       )}
     </TooltipPrimitive.Content>

@@ -36,11 +36,18 @@ import { ExamplePageLayout } from "../components/example-page-layout";
 
 /* ── Dataset normal: 50 clientes ─────────────────────────────────── */
 
+/* A cada 4ª linha o valor é zerado de propósito: é o cliente SEM movimentação,
+   o caso que o `isRowExpandable` abaixo recusa. Sem linhas assim no dataset, a
+   página "demonstraria" a prop sem mostrar nada diferente. */
 const CLIENTS_50: ClientRow[] = Array.from({ length: 5 }, (_, batch) =>
-  CLIENTS_MOCK.map((row, i) => ({
-    ...row,
-    id: `CLI-${5000 + batch * 10 + i}`,
-  })),
+  CLIENTS_MOCK.map((row, i) => {
+    const indice = batch * 10 + i;
+    return {
+      ...row,
+      id: `CLI-${5000 + indice}`,
+      value: indice % 4 === 3 ? 0 : row.value,
+    };
+  }),
 ).flat();
 
 const COLUMNS: DataTableColumnDef<ClientRow>[] = [
@@ -143,7 +150,15 @@ const COLUMNS: DataTableColumnDef<ClientRow>[] = [
  * Click no chevron (ou em qualquer lugar da cell de ID) toggla o painel
  * de detalhe expandido abaixo da row. Múltiplas rows podem estar abertas
  * simultaneamente (singleExpand=false default).
+ *
+ * ⚠️ Demonstra `isRowExpandable`: as linhas de valor zerado (os "clientes" sem
+ * movimentação) NÃO ganham chevron e não respondem ao clique — o painel delas
+ * seria um grid vazio. Repare que o texto do ID continua alinhado com o das
+ * demais: o espaço do chevron fica reservado de propósito.
  */
+
+/** Só expande quem tem o que mostrar. Sem valor, o painel seria vazio. */
+const TEM_DETALHE = (row: ClientRow) => (row.value as number) > 0;
 export default function ClientsExpandablePreview() {
   const columns = useMemo(() => COLUMNS, []);
   const [rows] = useState<ClientRow[]>(() => CLIENTS_50);
@@ -153,7 +168,7 @@ export default function ClientsExpandablePreview() {
     <ExamplePageLayout
       category="Data Table Examples"
       title="Expandable row"
-      description="Coluna marcada com expandable: true ganha chevron clicável. Click abre painel de detalhe livre abaixo da row (grid 3 colunas com Contato/Comercial/Operacional). Múltiplas rows podem ficar abertas; singleExpand opcional força exclusividade."
+      description="Coluna marcada com expandable: true ganha chevron clicável. Click abre painel de detalhe livre abaixo da row (grid 3 colunas com Contato/Comercial/Operacional). Múltiplas rows podem ficar abertas; singleExpand opcional força exclusividade. isRowExpandable recusa a linha que não tem o que mostrar: aqui as de valor R$ 0,00 ficam SEM chevron e não respondem ao clique — e o ID delas segue alinhado, porque o espaço do chevron continua reservado."
       code={CODE}
     >
       <DataTable<ClientRow>
@@ -162,6 +177,9 @@ export default function ClientsExpandablePreview() {
           columns={columns}
           getRowId={(r) => r.id}
           // Fase F.4b — row expansion
+          // Task 12 — linha sem movimentação não expande: sem chevron, sem
+          // clique, e com o espaço do chevron reservado pra não desalinhar.
+          isRowExpandable={TEM_DETALHE}
           renderRowExpansion={({ row }) => (
             <div className="w-full p-pad-3xl bg-bg-subtle">
               <div className="grid grid-cols-3 gap-gp-3xl max-w-[900px]">
@@ -306,6 +324,11 @@ const columns: DataTableColumnDef<ClientRow>[] = [
 <DataTable<ClientRow>
   rows={rows}
   columns={columns}
+
+  // Quais linhas aceitam expandir. Ausente = todas (comportamento de sempre).
+  // Recusar tira o chevron E o clique; o ESPAÇO do chevron fica reservado, pra
+  // o texto da coluna não dançar entre linhas que expandem e linhas que não.
+  isRowExpandable={(row) => row.value > 0}
 
   // Painel de detalhe — renderiza abaixo da row quando expandida
   renderRowExpansion={({ row }) => (

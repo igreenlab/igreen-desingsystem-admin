@@ -42,6 +42,10 @@ export type FilterPopoverColumn = {
   }>;
   /** Rótulo de valor marcado fora da página carregada (par do loadOptions). */
   resolveValueLabel?: (value: string | number) => ReactNode;
+  /** `column.typeOptions` da coluna — repassado ao widget do tipo pra que a
+   *  unidade (`prefix`/`suffix` dos tipos numéricos) apareça também no CAMPO,
+   *  não só na célula e no chip. */
+  typeOptions?: Record<string, unknown>;
 };
 
 export type FilterPopoverOperator = {

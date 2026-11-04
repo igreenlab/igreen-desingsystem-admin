@@ -609,8 +609,84 @@ export type DataTableProps<T> = {
   /** Server mode — quando definido, o DataTable delega filter/sort/pagination ao servidor.
    *  A função deve ser estável (`useCallback`) pra evitar refetch em loop. */
   fetchData?: (params: GridFetchParams) => Promise<GridFetchResult<T>>;
-  /** Total externo (server mode opcional). Quando undefined, usa o `total` retornado por `fetchData`. */
+  /**
+   * Total de linhas NO SERVIDOR — vale nos dois caminhos de server mode.
+   *
+   * - com `fetchData`: opcional; quando ausente usa o `total` da resposta.
+   * - com `processingMode="server"`: é a **única** fonte do total, porque não
+   *   há resposta de onde tirá-lo. Sem ele o rodapé mostra só o tamanho do
+   *   lote recebido ("1–N de N") e não oferece página seguinte.
+   * - em client mode (o default): **ignorado** — quem conta é o pipeline local.
+   */
   rowCount?: number;
+
+  /**
+   * Quem processa as `rows`: o DataTable ou o servidor. Default `"client"`.
+   *
+   * - `"client"` (default) — o pipeline local roda inteiro sobre `rows`:
+   *   filtro → busca → ordenação → fatia da página. É o comportamento de hoje.
+   * - `"server"` — **nada** disso roda. As `rows` são renderizadas na ordem e
+   *   na quantidade em que chegaram, porque já são a página pronta: a tela
+   *   buscou, filtrou, ordenou e fatiou no servidor. O DataTable vira a
+   *   superfície — emite `onFilterModelChange`, `onSearchChange`,
+   *   `onSortModelChange` e `onPaginationModelChange`, e espera `rows` novas.
+   *
+   * ⚠️ **É tudo ou nada, e o nome é `processingMode` por causa disso.** Desligar
+   * só a paginação seria pior que não ter a prop: uma tabela que pagina no
+   * servidor e continua ORDENANDO o lote recebido ordena 25 linhas como se
+   * fossem as 1.000, e o filtro local apaga linhas que o `rowCount` continua
+   * contando — o corpo mostra 7, o rodapé diz "1–25 de 1.000", e nada na tela
+   * indica qual dos dois está errado. **Paginar no servidor** e processar no
+   * cliente não é combinação válida: fronteira de página só existe sobre um
+   * conjunto já filtrado e já ordenado. É o que `fetchData` já significa aqui
+   * ("delega filter/sort/pagination ao servidor"), então **"server" quer dizer
+   * a mesma coisa nos dois caminhos**.
+   *
+   * ⚠️ **O caso ESPELHADO é válido e esta prop NÃO o atende.** Filtrar e buscar
+   * no servidor mantendo paginação e ordenação locais é legítimo e comum (lote
+   * recortado pelo backend, pequeno o bastante pra tabela cuidar do resto) — e
+   * `processingMode` não serve, porque desliga os quatro de uma vez. Pior: esse
+   * caso sofre hoje um **double-filter silencioso**, com ou sem esta prop. Quem
+   * passa `filterModel` controlado e `rows` já filtradas vê o `applyFilters`
+   * local rodar de novo sobre o lote — no-op quando as semânticas coincidem, e
+   * **perde linha** quando divergem (busca de banco acento-insensível, collation
+   * ≠ `localeCompare`, campo que a coluna não declara virando `undefined`). Não
+   * há flag pra esse recorte; é pendência conhecida, não um caso que o `"server"`
+   * resolva.
+   *
+   * ### Qual dos dois caminhos de server mode usar
+   *
+   * | | quem dispara a request | quando |
+   * |---|---|---|
+   * | `fetchData` | o DataTable | a tela não tem camada de dados própria |
+   * | `processingMode="server"` + `rows` | a tela | já existe react-query/SWR/RTK-Query dono do fetch, com cache e invalidação |
+   *
+   * ⚠️ **O `pageSize` da tabela tem que ser o do servidor.** O texto do range
+   * do rodapé é aritmética sobre `page × pageSize`, nunca uma contagem do
+   * corpo: com `initialPageSize: 25` e um lote de 10, ele diz "1–25" sob 10
+   * linhas. Declare `paginationConfig.initialPageSize` igual ao tamanho de
+   * página da sua API (e `pageSizeOptions` só com valores que ela aceita).
+   *
+   * ✅ **Filtro que zera o resultado dá o mesmo vazio dos três modos** (desde
+   * `vNEXT`): "Nenhum dado encontrado" **com o botão de limpar filtros**, já
+   * cabeado. Antes, nos dois caminhos de server o total ia a 0 e a tela dizia
+   * "Nenhum dado cadastrado" — *"não existe nada"* — **sem a saída de limpar**,
+   * justamente quando ela é mais necessária. Em server o total é o de DEPOIS
+   * do filtro: ele não sabe distinguir "não existe" de "não casou", então
+   * afirmar o primeiro é afirmar algo falso.
+   *
+   * ⚠️ **Isto mudou o `fetchData` também**, que é comportamento antigo, e foi
+   * deliberado: ninguém depende de um vazio que mente e prende (L-070). Sem
+   * filtro nenhum e total 0, segue "Nenhum dado cadastrado" nos três modos —
+   * esse é verdadeiro.
+   *
+   * Os dois **não se somam**: com `fetchData` presente o DataTable já é server
+   * mode e esta prop é ignorada (`fetchData` vence `rows`, e é sobre `rows`
+   * que ela manda). O botão Refresh da toolbar também só funciona com
+   * `fetchData` — em `processingMode="server"` quem recarrega é a tela, então
+   * passe `toolbar.enableRefresh: false` (sem isso sai `console.warn` em DEV).
+   */
+  processingMode?: "client" | "server";
   columns: DataTableColumnDef<T>[];
   /** Função pra extrair id da row. Default: row.id */
   getRowId?: (row: T) => GridRowId;
@@ -870,6 +946,32 @@ export type DataTableProps<T> = {
    *  Mutuamente exclusivo com `groupBy` (groupBy tem precedência se ambos). */
   renderRowExpansion?: (params: { row: T }) => ReactNode;
   /**
+   * Quais linhas aceitam expansão. Ausente = **todas**, que é o comportamento
+   * de sempre — a prop só existe pra tirar o chevron de linha que não tem o que
+   * mostrar (sem filho, sem detalhe).
+   *
+   * Recusar uma linha tira as DUAS coisas: o chevron **e** a resposta ao clique
+   * (`onClick`, `aria-expanded`, `data-expandable` e o cursor saem junto).
+   * Chevron que não faz nada é pior que chevron ausente — o usuário clica, nada
+   * acontece, e ele não sabe se é defeito ou se não há nada ali.
+   *
+   * O lugar do chevron continua **reservado** na célula recusada (espaçador do
+   * mesmo tamanho), pra que o texto da coluna não dance entre linhas que
+   * expandem e linhas que não. Mesma escolha que o `tree-data` já faz pro
+   * nó-folha.
+   *
+   * Uma linha já aberta que o predicado passe a recusar **fecha** — manter o
+   * painel aberto sem chevron pra fechá-lo é o estado que apaga a própria saída
+   * (L-070).
+   *
+   * Só vale pra row-expansion (`renderRowExpansion`). Em `groupBy` e em
+   * `getTreeDataPath` quem decide o chevron é a própria hierarquia.
+   *
+   * @example
+   * isRowExpandable={(row) => row.itens.length > 0}
+   */
+  isRowExpandable?: (row: T) => boolean;
+  /**
    * IDs controladas de rows expandidas. Quando passado, expansion fica
    * controlled — consumer responsável por atualizar via `onExpandedRowIdsChange`.
    * Quando omitido, primitive usa state interno (uncontrolled).
@@ -927,6 +1029,34 @@ export type DataTableProps<T> = {
   renderNoResults?: ReactNode;
   /** Loading externo (sem fetchData ainda — útil pra estados iniciais). */
   loading?: boolean;
+
+  /**
+   * O que o CORPO e o RODAPÉ mostram enquanto um carregamento está em vôo.
+   *
+   * - `"skeleton"` (default) — corpo e rodapé viram esqueleto a cada carregamento.
+   * - `"keep"` — as linhas do resultado ANTERIOR continuam na tela e o rodapé
+   *   segue navegável. A raiz ganha `aria-busy="true"` e uma live region
+   *   `sr-only` anuncia que as linhas estão defasadas. Tira o "pisca" de trocar
+   *   de página em server mode.
+   *
+   * ⚠️ **Sem resultado anterior não há o que manter**, e corpo vazio seria pior que
+   * esqueleto: na PRIMEIRA carga (e sempre que a última resposta veio sem linhas)
+   * o `"keep"` cai no esqueleto sozinho. Não é preciso alternar a prop.
+   *
+   * ⚠️ **O rodapé é OTIMISTA, e é o comportamento mais surpreendente da prop:**
+   * `page` e os botões mudam no clique, as linhas só na resposta — durante o vôo
+   * eles já apontam pra página seguinte enquanto o corpo mostra a anterior. Isso
+   * é intencional (eles dizem pra ONDE você vai, não o que está na tela), mas o
+   * TEXTO do range afirmaria algo falso sobre o corpo, então ele é escondido
+   * (`hideRange`) enquanto as linhas estão defasadas e volta na resposta.
+   *
+   * Vale nos dois modos — o guard é "existe linha pra manter?", não "o modo é
+   * server?". Em server mode o resultado anterior é preservado pelo
+   * `useDataTableQuery`; em **client mode quem preserva é o consumidor**, que
+   * continua passando `rows` enquanto levanta o `loading`. Zerar `rows` junto
+   * cai no esqueleto, pelo mesmo motivo da primeira carga.
+   */
+  loadingMode?: "skeleton" | "keep";
 
   /**
    * Opt-in pra persistir estado da tabela no localStorage (schema v4 — workspace "Default").

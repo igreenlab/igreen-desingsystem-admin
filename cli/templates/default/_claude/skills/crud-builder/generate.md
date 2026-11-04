@@ -28,11 +28,82 @@ Nunca gere props de memória — copie a forma do exemplo.
 
 - Caminho/rota conforme o blueprint (`PAGES_DIR`/`REGISTRO`).
 - Wrapper: `<div className="flex flex-col h-full min-h-0 gap-gp-2xl">` → `<PageHeader .../>` → `<DataTable className="flex-1 min-h-0" .../>`.
-- `columns` em `useMemo`; server mode ⇒ `fetchData` em `useCallback`.
+- `columns` em `useMemo`; server mode pelo ****fetchData**** ⇒ `fetchData` em `useCallback`.
+- **Server mode tem DOIS caminhos — PERGUNTE qual, se o blueprint não disser.** A
+  pergunta que decide é *quem dispara a request*. Escolher errado ou duplica a camada
+  de dados que a tela já tem, ou deixa a tabela sem como pedir a página seguinte.
+
+  | a tela | o caminho | o que você gera |
+  |---|---|---|
+  | **não** tem camada de dados própria | ****fetchData**** | a função + `useCallback` |
+  | **já** tem react-query/SWR/RTK-Query dono do fetch | ****processingMode="server"**** | os 4 pares controlados + ****rows**** + ****rowCount**** |
+
+  Sintoma do segundo: "já tenho o hook", "o endpoint já devolve paginado", "uso
+  react-query", ou um `useQuery` que já existe na tela.
+
+  ```tsx
+  // Caminho 2 — a TELA busca. O DataTable NÃO fatia, NÃO ordena, NÃO filtra,
+  // NÃO busca: ele só emite os 4 callbacks e espera rows novas.
+  <DataTable
+    rows={data?.items ?? []}
+    rowCount={data?.total ?? 0}
+    processingMode="server"
+    loading={isFetching}
+    loadingMode="keep"
+    paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
+    sortModel={sortModel}             onSortModelChange={setSortModel}
+    filterModel={filterModel}         onFilterModelChange={setFilterModel}
+    search={search}                   onSearchChange={setSearch}
+    paginationConfig={{ initialPageSize: 25, pageSizeOptions: [25] }}
+    toolbar={{ enableRefresh: false }}
+  />
+  ```
+
+  No caminho 2, quatro coisas saem geradas junto — são as falhas prováveis:
+  - **Os 4 pares controlados.** Sem eles o usuário clica no cabeçalho e nada acontece.
+  - ****rowCount**** — única fonte do total; sem ele o rodapé só conhece o lote
+    ("1–N de N") e não oferece página seguinte.
+  - ****initialPageSize**** = o ****pageSize**** da API. O range é página × tamanho, não
+    contagem do corpo: 25 declarado com um lote de 10 escreve "1–25" sob 10 linhas.
+  - ****enableRefresh: false**** — o Refresh só fala com o ****fetchData**** (sem isso, aviso no console em DEV).
+
+  ⚠️ Os dois não se somam: com ****fetchData**** presente o ****processingMode**** é
+  ignorado — e aí **não passe ****rows**** junto**, porque o CSV sairia com as
+  ****rows**** locais sob um rótulo dizendo "Página atual". E **nunca** gere
+  ****processingMode="server"**** numa tela com os dados todos em memória: ali é client
+  mode, e a prop desligaria paginação, ordenação e filtro que o usuário espera que
+  funcionem.
+
+  ⚠️ **O caso ESPELHADO não tem prop — e você vai encontrá-lo.** Se o usuário disser
+  que o backend **filtra e busca** mas a tela recebe o lote e pagina/ordena sozinha,
+  ****processingMode="server"**** é a resposta **errada** (desliga os quatro). Gere
+  client mode normal e **avise**: passar ****filterModel**** controlado com ****rows****
+  já filtradas faz o filtro local rodar de novo sobre o lote — no-op quando as
+  semânticas coincidem, perde linha quando divergem. Pendência conhecida do DS.
+
+  ✅ **Filtro que zera o resultado (DS `vNEXT`+):** os três modos dão "Nenhum dado
+  encontrado" **com o botão de limpar filtros**, cabeado pelo próprio `data-table`. ⛔ Não
+  gere mais o ****renderEmpty**** alternado pelo ****filterModel**** que esta linha pedia:
+  virou código morto no caso filtrado. ****renderEmpty**** segue valendo pro vazio de
+  verdade — sem filtro e total 0 — que é onde mora o CTA de criar.
+- **Server mode (qualquer um dos dois) ⇒ `loadingMode="keep"`**, salvo se o blueprint disser o contrário.
+  Sem a prop (default `"skeleton"`) cada troca de página troca o corpo **inteiro**
+  pelo esqueleto e volta — é o "pisca", e em tela de navegação frequente é a
+  primeira reclamação que chega. Com ela as linhas da página anterior ficam no
+  lugar até a próxima chegar (rodapé junto, navegável), a raiz ganha `aria-busy` e
+  uma live region `sr-only` anuncia que as linhas estão defasadas.
+  - **Não trate a primeira carga**: sem linha anterior não há o que manter, e o
+    `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+  - **Client mode (`rows` + `loading`) também aceita**, mas aí quem guarda o lote
+    anterior é a sua tela — continue passando as linhas antigas em `rows` enquanto
+    levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
+  - Durante o vôo o **range** do rodapé ("26–50 de 100") some, porque descreveria
+    linhas que não estão na tela, e volta na resposta. Os controles de página
+    ficam. É esperado — não "conserte".
 
 ### Regras de coluna (OBRIGATÓRIO — pega bugs comuns)
 
-1. **Filtro em TODAS as colunas de dados**: cada coluna ganha `enableColumnFilter: true` + `filterType` (text→`"text"`, number/currency/percentage→`"number"`, date→`"date"`, badge/status/select→`"select"`, multiSelect/tags→`"multiSelect"`). Só ficam de fora `actions` e render-custom sem valor. ⚠️ O funil/drawer de filtros só lista colunas com `enableColumnFilter` — marcar só 2 = bug "filtra só 2 colunas".
+1. **Filtro em TODAS as colunas de dados**: cada coluna ganha `enableColumnFilter: true` + `filterType` (text→`"text"`, number/currency/percentage→`"number"`, date→`"date"`, badge/status/select→`"select"`, multiSelect/tags→`"multiSelect"`). Só ficam de fora `actions` e render-custom sem valor. ⚠️ O funil/drawer de filtros só lista colunas com `enableColumnFilter` — marcar só 2 = bug "filtra só 2 colunas". **Faixa de valor (mín–máx)** é UM filtro com operador `between`, nunca dois (`gte` + `lte`) nem dois campos soltos acima da grade: o chip abre mín e máx no mesmo popover e o lado vazio lê ≥/≤. Vale em `"number"` e, desde a `vNEXT`, igual em `"currency"` — declare ****filterType****`: "currency"` quando o chip deve ler "R$ 10,00 → R$ 500,00" em vez de "10 – 500" (quem escolhe o widget do chip é o `filterType`, não o `type` da coluna). **Unidade de medida** (kWh, %, /mês) → ****typeOptions****`: { suffix: " kWh" }` na coluna, **nunca** no `headerName` nem concatenada no `render`: ela aparece na célula, no chip e no campo de filtro, a string entra literal (o espaço é seu) e a faixa a leva uma vez, no fim. ⚠️ não vai pro CSV — se a unidade precisar sair no export, o botão é ****valueFormatter****, que vence o afixo.
 2. **Coluna `actions` por ÚLTIMO**, `type: "actions"` (via `actionColumn`/`getActions`). É o **`type`** que dá as 3 garantias — vai pro fim (mesmo declarada no meio), **ancora à direita** (`pinned: "right"` é redundante) e **não entra no rateio** do autoFit. Coluna de botões montada na unha (`render` sem `type`) não recebe nenhuma das três: fica no meio da tabela e cresce no rateio. ⚠️ **NÃO passe `width`** (lib 0.42.0+): a largura é **derivada do nº de ações** — 1→44px, 2→74px, 3→104px, **4+ colapsam no "…"** (44px). Até a 0.41.x esta linha mandava espelhar `width: 64`; era inútil, porque o cálculo **ignorava `col.width`** nesta coluna. Agora vale, e 64px cabe **1** ícone. Split manual: `showInMenu: true` nos itens que devem ir pro menu (desliga o automático, sem limite de inline).
 3. **Prefira NÃO setar `width`** nas colunas de dados — `autoFit` (default ON) distribui pra preencher o container (sem 1ª coluna esticada, sem scroll). Nunca `autoFit: false` sem motivo. **(v0.22.0+)** `col.width` virou **base/piso** (não trava fixa): o autoFit usa como mínimo e ainda distribui a sobra proporcionalmente — setar `width` em várias colunas **não** deixa mais sobra à direita. Travar de fato = `width`+`maxWidth` iguais (ou `type` fixo). Título do header **nunca trunca** (a largura mínima já inclui o `headerName`).
 4. **Copiar valor** (`copyable`) — **infira, não espere que peçam**; ícone de copiar no **hover/foco** da célula + feedback "Copiado!" (~2s, `navigator.clipboard`). Critério: **o valor é um identificador que a pessoa cola em outro lugar**. ✅ documento (CPF/CNPJ/RG/IE), e-mail, telefone/WhatsApp, conta/agência/chave PIX, código de rastreio/protocolo/contrato/NF/pedido, token/hash, ID **externo**. ❌ nome de pessoa/empresa, status, data, valor monetário, quantidade, percentual, endereço em prosa. ⚠️ `id` sequencial curto (1, 2, 3) **não**; UUID/protocolo/NF **sim** — decide servir fora da tela, não a coluna se chamar "id". **Limites (verificados no código):** inerte em `actions`, na coluna de árvore e na célula em edição — marcar lá não dá erro, só não aparece; **`readMore` vence `copyable`** na mesma coluna (escolha um); copia o texto **formatado**, então numa coluna `currency` sai `R$ 1.234,56` e não `1234.56` — pro valor cru use `copyable: { value: (row) => String(row.x) }`. Texto/rótulo diferentes: `copyable: { value: (row) => "...", label: "Copiar conta" }`. **Declare no gate** as colunas em que você inferiu, pra o usuário recusar em lote — inferência silenciosa de recurso que ele não sabe que existe é surpresa, não conveniência.
@@ -85,6 +156,7 @@ dele traz **o porquê de cada decisão** (com as medições) em vez de só o res
 - ⛔ **Sem aba.** Se o corpo já é pilha de seções colapsáveis, o colapso **é** o mecanismo de
   esconder — ter os dois faz o usuário procurar o dado em dois lugares.
 
+- **Row expansion: nem toda linha tem detalhe (DS `vNEXT`+)**. Ao gerar `expandable: true` + `renderRowExpansion`, **pergunte se TODA linha tem o que mostrar**. Se não (pedido sem item, cliente sem contrato), passe `isRowExpandable={(row) => row.itens.length > 0}` — a linha recusada perde o chevron **e** o clique, juntos. ⛔ **Não** gere um `renderRowExpansion` que devolve `null` pra linha sem dado: o chevron continua lá e abre faixa em branco; o usuário clica, "nada acontece", e não sabe se é defeito. ⛔ **Não compense alinhamento na mão** — o espaço do chevron já fica reservado na linha recusada. Ausente = toda linha expande, como sempre; em `groupBy`/`getTreeDataPath` a prop não se aplica.
 - **Tabela + Lista (toggle)**: se o usuário quer alternar entre tabela e uma **lista de cards** (não kanban), use `viewMode` + `listConfig={{ renderItem(row), paginated?, hierarchical?, getPath?, getMenuItems? }}` no próprio `<DataTable>` — mesma toolbar, toggle Tabela/Lista automático. NÃO monte um `<DataList>` paralelo + toggle na mão.
 - **Kanban com RAIAS (2º eixo)**: as colunas saem de `kanbanConfig.groupByField`; pra agrupar os cards DENTRO de cada coluna (por épico, responsável, cliente), ligue o **`groupBy` do DataTable** — é o mesmo estado que agrupa linhas na tabela, então entra no `persistId` e nas visões salvas sem código novo. Não existe prop de raia no `kanbanConfig` além de `ungroupedLaneLabel` (rótulo dos cards sem valor; `null` esconde a raia).
   ```tsx

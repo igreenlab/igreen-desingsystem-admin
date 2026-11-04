@@ -120,7 +120,9 @@ import { Phone } from "lucide-react";
   `min-w-0` na raiz e no corpo. Sem o `min-w-0`, item de grid tem largura mínima igual
   ao conteúdo e o card ESTOURA a coluna em vez de truncar.
 - **`helperText`** vira um "?" ao lado do rótulo, com tooltip. Explique COMO a métrica é
-  calculada; não repita o rótulo.
+  calculada; não repita o rótulo. O "?" é a peça `HelpTip`, que também existe solta —
+  use-a quando o rótulo a explicar não for de um KPI (título de seção, label de campo).
+  Dentro do `Kpi`, passe `helperText` e não monte o `HelpTip` à mão.
 - **`onClick` / `href`** tornam o card inteiro alvo de drill-down. A raiz continua
   `<article>` e o alvo é um `<button>`/`<a>` esticado por cima: o conteúdo de `<button>`
   é phrasing content, e um `<h3>` dentro dele é HTML inválido — o leitor de tela perde o
@@ -144,7 +146,8 @@ import { Phone } from "lucide-react";
 - **`title` automático** no rótulo e no valor quando são texto. Eles têm `line-clamp-2`
   e `truncate`; cortados, não havia NENHUMA forma de ler o resto.
 - **`helperSide`** (default `top`) e **`helperMaxWidth`** no tooltip do `helperText` —
-  texto de ajuda longo num tooltip de 320px vira coluna alta e ilegível.
+  texto de ajuda longo num tooltip de 256px (o teto do `TooltipContent`) vira coluna
+  alta e ilegível; `max-w-tooltip-lg` dá 320px.
 - **`KpiDelta` anuncia a direção**: a seta é `aria-hidden` (decorativa), então sem isso
   "subiu" ou "caiu" existia só em cor e ícone. Agora há um `sr-only` antes do valor —
   "aumento de 18%", "queda de 12s".

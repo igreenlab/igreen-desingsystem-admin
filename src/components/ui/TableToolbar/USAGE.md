@@ -84,6 +84,24 @@ import {
   `onClearAll` ("limpar todas as páginas").
 - **Chip fixo**: `AppliedFilter.removable: false` esconde o X do chip (o ToolbarApplied
   mostra um ⊕ decorativo no lugar — chip "de regra" que nunca sai).
+- **Chip de `between` não imprime o rótulo do operador** (`vNEXT`+). O valor já é
+  auto-descritivo em todos os tipos que têm faixa (`100 – 500`, `R$ 10,00 → R$ 500,00`,
+  `01/01 → 31/01`, e nos lados abertos `≥ 100` / `desde 01/01`), então o chip dizia o
+  intervalo duas vezes — "entre 100 – 500", e no pior caso "entre desde 01/01". Pra ter a
+  palavra de volta: `opLabels={{ between: "entre" }}`. ⚠️ `opLabels` é a ÚNICA saída, e
+  nem `DataTable` nem `DataList` a repassam hoje — `AppliedFilter.opLabel` vem do registry
+  do tipo e todos declaram "entre". `filterValueLabel` não serve: ela resolve o rótulo de
+  **uma opção** e nem chega ao `renderChipValue` do `number`/`currency`.
+- **O chip APLICADO e o chip VAZIO têm pele diferente** (`vNEXT`+): tracejado neutro =
+  slot a preencher (`AppliedFilter.isEmpty`), sólido de marca sobre `bg-brand-subtle` com
+  o valor em `text-fg-brand` = filtro valendo. O estado sai do próprio `isEmpty` — **não
+  há prop nova**, e `DataTable`/`DataList` recebem de graça. Antes os dois eram o mesmo
+  pixel e a diferença era só o conteúdo. Medido: borda do aplicado contra a barra dá
+  **5,06:1** no claro e **7,99:1** no escuro (o vazio fica em 1,45 e 1,24).
+  ⚠️ No escuro o valor volta a `fg-default`: o verde de marca sobre superfície escura dá
+  **4,36:1** e reprovaria o AA de texto — mesma saída que o `bulkBarCount` já usava. E o
+  **fundo da pílula do valor não é tingido**: com marca atrás, o texto caía pra 3,14:1 no
+  claro.
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
 - **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`vNEXT`+).
   Ele não oferece escolha de operador — isso é do builder avançado — mas campo com filtro

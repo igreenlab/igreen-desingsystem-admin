@@ -1,5 +1,11 @@
 # Chart — USAGE
 
+<!-- ds:regras
+- a altura do `className` é a altura do GRÁFICO, não do bloco: a legenda é renderizada fora dessa caixa e SOMA. `h-[250px]` + legenda de 1 linha = 272px no total, com 250px de plotagem
+- `emptyState` é opt-in e só troca o gráfico quando não há nenhum número finito nas props `data` (a do gráfico e a das séries). `0` é dado; `null`/`undefined`/texto não são
+- gráfico que carrega dado (`data={query.data}`) merece `emptyState` — sem ele o Recharts desenha a grade e os eixos sem nenhuma série, e a tela parece quebrada em vez de vazia
+-->
+
 Wrapper sobre o **Recharts 3** que aplica a paleta do DS (tokens `--color-chart-1..5`) e fornece Tooltip/Legend já estilizados com os tokens iGreen. Categoria: data-display.
 
 ## Quando usar
@@ -49,10 +55,64 @@ const config = {
 | Componente | Prop | Função |
 |---|---|---|
 | `ChartContainer` | `config: ChartConfig` | mapa série → `{ label, color?, icon?, theme? }` |
-| `ChartContainer` | `className` | controle de altura/aspect (ex: `h-[260px] w-full`) |
+| `ChartContainer` | `className` | controle de altura/aspect **da área do gráfico** (ex: `h-[260px] w-full`) — a legenda soma por fora |
+| `ChartContainer` | `emptyState?: ReactNode` | conteúdo a mostrar no lugar do gráfico quando não há dado. Ausente = Recharts desenha os eixos vazios |
 | `ChartTooltip` | `content={<ChartTooltipContent/>}` | tooltip do DS |
 | `ChartTooltipContent` | `hideLabel`, `hideIndicator`, `indicator` (`dot`/`line`/`dashed`), `labelFormatter`, `formatter`, `nameKey`, `labelKey` | customização |
 | `ChartLegend` | `content={<ChartLegendContent/>}` | legenda do DS |
+
+## Sem dados — `emptyState`
+
+```tsx
+<ChartContainer
+  config={config}
+  className="h-[250px] w-full"
+  emptyState={
+    <EmptyState
+      size="sm"
+      icon={ChartColumnBig}
+      title="Sem geração no período"
+      description="Nenhuma unidade consumidora registrou energia entre Janeiro e Junho."
+    />
+  }
+>
+  <BarChart data={rows}>…</BarChart>
+</ChartContainer>
+```
+
+**Quando o container considera que não há dado:** quando **nenhum número finito**
+aparece nas props `data` que ele encontra — a do gráfico (`<BarChart data>`) e a
+das séries (`<Pie data>`), até 2 níveis.
+
+| Caso | Vazio? | Por quê |
+|---|---|---|
+| `data={[]}` | sim | nenhuma linha |
+| `data={undefined}` (carregando) | sim | é o caso mais comum; exigir `[]` deixaria ele de fora |
+| `[{ mes: "jan", total: null }]` | sim | só a categoria do eixo preenchida = os eixos vazios do item 28 |
+| `[{ mes: "jan", total: 0 }]` | **não** | `0` é dado: barra de altura zero é "não houve consumo", não ausência |
+| `<PieChart><Pie data={…}/></PieChart>` | **não** | o dado está na série, e o container varre os filhos por isso |
+
+Dois limites, declarados: (1) se o dado entra por um componente **seu** em volta
+da série, o container não enxerga — a varredura é da árvore escrita, não da
+renderizada; (2) não distinguimos chave de categoria de chave de valor, então um
+eixo X numérico (timestamp) com a série toda nula conta como dado.
+
+Sem a prop, nada muda: o Recharts desenha a grade e os eixos sem série.
+
+## Legenda — a altura pedida é a do gráfico
+
+`<ChartLegend>` é renderizada **fora** da caixa que carrega o `className`
+(portal do Recharts), dentro do `[data-chart]`. Duas consequências:
+
+- **o `className` dimensiona a plotagem**, e a legenda soma por fora. `h-[250px]`
+  + legenda de 1 linha = **272px** de bloco com **250px** de gráfico. Antes, os
+  mesmos 250px viravam 228px de gráfico.
+- **legenda que quebra em 2 linhas cresce o bloco**, não encolhe o gráfico — que
+  era o defeito: 48px de legenda tiravam 48px das barras e nada na tela explicava.
+  `ChartLegendContent` já vem com `flex-wrap`.
+
+`layout="vertical"` e `verticalAlign="middle"` seguem **dentro** do gráfico (ali a
+legenda ocupa a lateral/o meio; empurrá-la pra baixo mudaria a composição).
 
 ## Cores
 
@@ -70,6 +130,11 @@ Paleta verde-marca + harmônicas (teal/azul/âmbar/violeta), light/dark-aware.
 - `ChartContainer` já embute o `ResponsiveContainer` — passe só o gráfico (ex:
   `<AreaChart>`) como filho, **sem** envolver em outro ResponsiveContainer.
 - Defina **altura** via `className` (ex: `h-[260px]`) — o aspect default é `video`.
+  Essa altura é a da **plotagem**; com legenda, o bloco fica mais alto que ela.
+- Sobreposição posicionada por cima do gráfico (texto central de donut, por ex.)
+  continua ancorada no **pai** `relative` do `ChartContainer`. Com legenda, o
+  bloco cresce e o centro do pai deixa de ser o centro do gráfico — ancore no
+  `[data-chart-plot]` ou mantenha a legenda fora desses casos.
 - Recharts 3: `dataKey` precisa casar com a chave do `config` pra `--color-{key}`
   resolver.
 

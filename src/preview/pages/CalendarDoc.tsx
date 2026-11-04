@@ -8,6 +8,7 @@ import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTab
 const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
+  { id: "ex-hoje", label: "Hoje × selecionado" },
   { id: "ex-range", label: "Range Selection" },
   { id: "ex-dropdown", label: "Month/Year Selector" },
   { id: "ex-disabled", label: "Disabled Dates" },
@@ -30,6 +31,31 @@ function DefaultCalendarExample() {
   return (
     <div className="border border-border-subtle rounded-radius-base p-pad-4xl">
       <Calendar mode="single" selected={date} onSelect={setDate} className="w-full" />
+    </div>
+  );
+}
+
+/**
+ * Os dois estados LADO A LADO, que é a única forma de mostrar que são dois.
+ * A seleção começa num dia que NÃO é hoje de propósito: com hoje selecionado
+ * (o caso do exemplo "Default") o preenchido vence e o anel nem aparece.
+ */
+function HojeVsSelecionadoExample() {
+  const hoje = new Date();
+  const outroDia = new Date(
+    hoje.getFullYear(),
+    hoje.getMonth(),
+    hoje.getDate() > 15 ? hoje.getDate() - 5 : hoje.getDate() + 5,
+  );
+  const [date, setDate] = useState<Date | undefined>(outroDia);
+  return (
+    <div className="flex flex-col gap-gp-xl border border-border-subtle rounded-radius-base p-pad-4xl">
+      <Calendar mode="single" selected={date} onSelect={setDate} className="w-full" />
+      <p className="text-body-xs text-fg-muted">
+        Hoje é o <strong className="text-fg-default">anel</strong>; o dia
+        selecionado é o <strong className="text-fg-default">preenchido</strong>.
+        Clique em hoje e o anel some — o preenchido vence.
+      </p>
     </div>
   );
 }
@@ -104,7 +130,7 @@ export function CalendarDoc() {
       <ExampleSection
         id="ex-default"
         title="Default"
-        description="Single date selection with today highlighted."
+        description="Single date selection. O exemplo abre com hoje JÁ selecionado — e é por isso que ele aparece preenchido aqui: quando os dois coincidem, o selecionado vence."
         code={`const [date, setDate] = useState<Date | undefined>(new Date());
 
 <Calendar
@@ -115,6 +141,18 @@ export function CalendarDoc() {
 />`}
       >
         <DefaultCalendarExample />
+      </ExampleSection>
+
+      {/* Hoje × selecionado */}
+      <ExampleSection
+        id="ex-hoje"
+        title="Hoje × selecionado"
+        description="Dois estados, duas peles: hoje é um anel de marca sobre fundo transparente, o selecionado é o disco preenchido. Até 2026-11-04 os dois saíam iguais (disco preenchido) e não dava pra distinguir um do outro."
+        code={`// hoje = anel · selecionado = preenchido
+// coincidindo, o preenchido vence (o anel nao entra)
+<Calendar mode="single" selected={outroDia} onSelect={setDate} />`}
+      >
+        <HojeVsSelecionadoExample />
       </ExampleSection>
 
       {/* Range Selection */}

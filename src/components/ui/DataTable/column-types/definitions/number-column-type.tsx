@@ -1,8 +1,8 @@
 import { Hash } from "lucide-react";
 import { Input } from "@/components/shadcn/input";
-import { FILTER_FIELD_SIZE } from "../_filter-field";
+import { FieldAffix, FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
-import { toNumber } from "../_shared";
+import { applyAffix, readAffix, toNumber } from "../_shared";
 
 /** Parse pt-BR-friendly: aceita vírgula como decimal ("10,5"). */
 function parseNum(raw: string): number | "" {
@@ -67,33 +67,43 @@ export const NumberColumnType: ColumnTypeDefinition = {
     { id: "lte", label: "≤" },
     { id: "neq", label: "≠" },
   ],
-  renderFilterInput: ({ value, onChange, placeholder, operator }) =>
-    operator === "between" ? (
-      <RangeInputs value={value} onChange={onChange} />
-    ) : (
-      <Input
-        type="number"
-        size="sm"
-        className={FILTER_FIELD_SIZE}
-        value={(value as number) ?? ""}
-        onChange={(e) => onChange(e.target.value === "" ? "" : Number(e.target.value))}
-        placeholder={placeholder ?? "0"}
-      />
-    ),
+  // A unidade (`typeOptions.prefix`/`suffix`) adorna o campo INTEIRO, uma vez — numa
+  // faixa ela vale pro par, não pra cada lado. Sem unidade o `FieldAffix` devolve o
+  // input cru, sem wrapper: o campo de quem não declarou nada não mudou.
+  renderFilterInput: ({ value, onChange, placeholder, operator, typeOptions }) => (
+    <FieldAffix affix={readAffix(typeOptions)}>
+      {operator === "between" ? (
+        <RangeInputs value={value} onChange={onChange} />
+      ) : (
+        <Input
+          type="number"
+          size="sm"
+          className={FILTER_FIELD_SIZE}
+          value={(value as number) ?? ""}
+          onChange={(e) => onChange(e.target.value === "" ? "" : Number(e.target.value))}
+          placeholder={placeholder ?? "0"}
+        />
+      )}
+    </FieldAffix>
+  ),
   // between chega aqui como TUPLA (caminho isTupleOperator do chip).
-  renderFastFilterInput: ({ value, onChange, operator }) =>
+  renderFastFilterInput: ({ value, onChange, operator, typeOptions }) =>
     operator === "between" || Array.isArray(value) ? (
       <div className="p-pad-md">
-        <RangeInputs value={value} onChange={onChange} autoFocus />
+        <FieldAffix affix={readAffix(typeOptions)}>
+          <RangeInputs value={value} onChange={onChange} autoFocus />
+        </FieldAffix>
       </div>
     ) : (
-      <Input
-        type="number"
-        value={(value as number) ?? ""}
-        onChange={(e) => onChange(e.target.value === "" ? "" : Number(e.target.value))}
-        placeholder="0"
-        autoFocus
-      />
+      <FieldAffix affix={readAffix(typeOptions)}>
+        <Input
+          type="number"
+          value={(value as number) ?? ""}
+          onChange={(e) => onChange(e.target.value === "" ? "" : Number(e.target.value))}
+          placeholder="0"
+          autoFocus
+        />
+      </FieldAffix>
     ),
   matchesFilter: (cellValue, filterValue, operator) => {
     const cell = toNumber(cellValue);
@@ -120,18 +130,26 @@ export const NumberColumnType: ColumnTypeDefinition = {
     return null;
   },
   // Chip da faixa num chip SÓ: "10 – 500" (lado aberto vira ≥/≤).
-  renderChipValue: (value) => {
+  //
+  // A unidade entra UMA vez, no fim da leitura inteira — "100 – 500 kWh", não
+  // "100 kWh – 500 kWh". Era o pedido literal do item 9a: o chip sem unidade não diz
+  // de que grandeza é a faixa, e repeti-la nos dois lados só ocupa o chip.
+  renderChipValue: (value, _options, typeOptions) => {
+    const affix = readAffix(typeOptions);
     if (!Array.isArray(value)) {
       const n = toNumber(value);
-      return n === null ? String(value ?? "") : n.toLocaleString("pt-BR");
+      return applyAffix(
+        n === null ? String(value ?? "") : n.toLocaleString("pt-BR"),
+        affix,
+      );
     }
     const [min, max] = value as [unknown, unknown];
     const lo = toNumber(min);
     const hi = toNumber(max);
     const f = (n: number) => n.toLocaleString("pt-BR");
-    if (lo !== null && hi !== null) return `${f(lo)} – ${f(hi)}`;
-    if (lo !== null) return `≥ ${f(lo)}`;
-    if (hi !== null) return `≤ ${f(hi)}`;
+    if (lo !== null && hi !== null) return applyAffix(`${f(lo)} – ${f(hi)}`, affix);
+    if (lo !== null) return applyAffix(`≥ ${f(lo)}`, affix);
+    if (hi !== null) return applyAffix(`≤ ${f(hi)}`, affix);
     return "";
   },
 
@@ -145,13 +163,21 @@ export const NumberColumnType: ColumnTypeDefinition = {
   //
   // Sem `valueFormatter` nada mudou: `toLocaleString("pt-BR")`, e valor vazio/inválido
   // segue sem render.
+  // `typeOptions.prefix`/`suffix` (item 9a) adornam o texto do TIPO e ficam ABAIXO do
+  // formatter na precedência: o formatter é o escape hatch inteiro, e grudar " kWh" no
+  // "1,2 mil" dele seria um texto que ninguém pediu e que não dá pra desligar.
+  // Valor vazio/inválido segue sem render — nunca a unidade sozinha.
   renderCell: ({ value, column }) => {
     if (column?.valueFormatter) {
       return <span className="tabular-nums">{column.valueFormatter(value)}</span>;
     }
     const n = toNumber(value);
     if (n === null) return null;
-    return <span className="tabular-nums">{n.toLocaleString("pt-BR")}</span>;
+    return (
+      <span className="tabular-nums">
+        {applyAffix(n.toLocaleString("pt-BR"), readAffix(column?.typeOptions))}
+      </span>
+    );
   },
   formatValue: (v) => {
     const n = toNumber(v);

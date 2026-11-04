@@ -164,6 +164,7 @@ function DataTableInternal<T>(
   const {
     contextValue,
     isLoading,
+    isKeepingPreviousRows,
     isDataEmpty,
     isNoResults,
     scrollContainerRef,
@@ -179,6 +180,7 @@ function DataTableInternal<T>(
     filters,
     exporter,
     isServerMode,
+    isServerProcessed,
     savedViews,
     applyViewById,
     applyDefault,
@@ -819,6 +821,23 @@ function DataTableInternal<T>(
     }
   }, [simpleFilterOpenProp, onSimpleFilterOpenChange]);
 
+  /* ⚠️ Terceiro aviso, mesma forma dos dois acima: `handleRefresh` só chama
+     `query.refresh()`, que existe apenas no caminho do `fetchData`. Com
+     `processingMode="server"` quem busca é a tela, então o botão gira 400ms e
+     não recarrega nada — um controle que PARECE funcionar e não funciona é pior
+     que um ausente, porque o usuário conclui que o dado está atualizado.
+     Documentar em 4 superfícies alcança quem lê; o warn alcança quem não lê. */
+  const avisouRefreshInerte = useRef(false);
+  useEffect(() => {
+    if (!import.meta.env?.DEV || avisouRefreshInerte.current) return;
+    if (isServerProcessed && toolbarConfig.enableRefresh !== false) {
+      avisouRefreshInerte.current = true;
+      console.warn(
+        '[DataTable] `processingMode="server"` com o botão Refresh ligado: ele só re-dispara o `fetchData`, que não existe neste caminho — o botão gira e não recarrega nada. Passe `toolbar.enableRefresh: false` e exponha o seu próprio (ou use `toolbar.customLeft`), já que quem busca aqui é a sua tela.',
+      );
+    }
+  }, [isServerProcessed, toolbarConfig.enableRefresh]);
+
   const [isRefreshing, setIsRefreshing] = useState(false);
   const handleRefresh = () => {
     if (isRefreshing) return;
@@ -1111,6 +1130,22 @@ function DataTableInternal<T>(
     return col ? String(col.field) : null;
   }, [props.columns, useRowExpansion]);
 
+  /**
+   * `isRowExpandable` — quais linhas aceitam expansão. Ausente = todas, e aí
+   * nada abaixo roda (a prop é inerte por construção, não por ramo escrito à
+   * mão).
+   *
+   * A função é chamada no render de cada linha visível, igual a
+   * `getRowClassName`. Não memoizo por id: o predicado depende dos DADOS da
+   * row, então um cache sobreviveria à atualização que deveria invalidá-lo —
+   * e é justamente esse caso (a linha perde o filho) que precisa fechar.
+   */
+  const isRowExpandable = props.isRowExpandable;
+  const canExpandRow = useCallback(
+    (row: T) => !isRowExpandable || isRowExpandable(row),
+    [isRowExpandable],
+  );
+
   /* ── Tree-data — Fase F.4c ──────────────────────────────────────────
    * Hierarquia multi-nível derivada de `getTreeDataPath`. Reconstrói a árvore
    * a partir das rows (já filtradas/ordenadas) e produz TreeRows ordenadas com
@@ -1184,7 +1219,24 @@ function DataTableInternal<T>(
     if (groupByField) return groupedRows;
     if (useTreeData && treeRows) return treeRows;
     if (useRowExpansion && expandedRowIds.size > 0) {
-      return expandRows(rowsToRender, expandedRowIds, contextValue.getRowId);
+      /* Com `isRowExpandable`, o id de uma linha recusada NÃO vira painel.
+         Não é defensividade: o predicado lê os DADOS da row, então uma linha
+         aberta pode ser recusada depois (o pedido some, o filho é excluído).
+         Sem este filtro ela ficaria aberta sem chevron pra fechar — o estado
+         que apaga a própria saída (L-070). O id continua no Set do controller;
+         se a linha voltar a aceitar, ela reabre onde estava. */
+      const idsVisiveis = isRowExpandable
+        ? new Set(
+            rowsToRender
+              .filter(
+                (row) =>
+                  expandedRowIds.has(contextValue.getRowId(row)) &&
+                  canExpandRow(row),
+              )
+              .map(contextValue.getRowId),
+          )
+        : expandedRowIds;
+      return expandRows(rowsToRender, idsVisiveis, contextValue.getRowId);
     }
     return rowsToRender;
   }, [
@@ -1196,6 +1248,8 @@ function DataTableInternal<T>(
     expandedRowIds,
     rowsToRender,
     contextValue,
+    isRowExpandable,
+    canExpandRow,
   ]);
 
   // Handlers da row via REF estável (latest-ref pattern): o objeto ref nunca
@@ -1484,6 +1538,7 @@ function DataTableInternal<T>(
                   clickable={!!props.onRowClick}
                   useRowExpansion={useRowExpansion}
                   expandableColField={expandableColField}
+                  rowExpandable={canExpandRow(row)}
                   treeColField={treeColField}
                   treeMeta={treeMeta}
                   treeShowDescendantCount={treeShowDescendantCount}
@@ -1656,6 +1711,20 @@ function DataTableInternal<T>(
           dataTableStyles({ fullscreen: isFullscreen }).root(),
           props.className,
         )}
+        /* `loadingMode: "keep"` — as linhas na tela são do resultado ANTERIOR.
+           `aria-busy` ANOTA o container: quem navegar até aqui descobre que o
+           conteúdo está sendo atualizado. Não ANUNCIA nada — isso é trabalho da
+           live region logo abaixo (`statusKeep`), e as duas não se substituem.
+
+           Por que na raiz e não no corpo: `TableBodyProps.rootProps` existe e
+           aceitaria o atributo no `role="rowgroup"` — a porta não está trancada.
+           A raiz foi escolhida porque engloba também o RODAPÉ, que é a parte
+           otimista (page/range andam no clique, linhas só na resposta); marcar
+           só o corpo deixaria de fora justamente o que diverge. O custo é que a
+           toolbar entra na região anotada.
+
+           Fora do keep o atributo não é emitido — o DOM default não muda. */
+        aria-busy={isKeepingPreviousRows || undefined}
       >
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
@@ -1828,6 +1897,8 @@ function DataTableInternal<T>(
                                 options: column.options,
                                 loadOptions: column.loadOptions,
                                 resolveValueLabel: column.resolveValueLabel,
+                                // Unidade (`prefix`/`suffix`) no campo — item 9a.
+                                typeOptions: column.typeOptions,
                               });
                             }}
                             getOperatorsForColumn={(column) => {
@@ -1943,7 +2014,23 @@ function DataTableInternal<T>(
                             </MoreMenuItemEl>
                           );
                         }
-                        return isServerMode ? (
+                        /* Nos dois caminhos de server mode o DataTable só tem a
+                           PÁGINA na mão, então "Todos" prometeria as 1.000
+                           linhas e entregaria 25. O rótulo honesto é este.
+
+                           ⚠️ O rótulo é só o rótulo — o `exportCsv("all")`
+                           continua lendo `rowsAll`, que é `props.rows ?? []`
+                           (controller, `useDataTableExport`). Com `fetchData`
+                           E `rows` passados juntos, o corpo mostra a resposta
+                           do servidor e o CSV sai com as `rows` LOCAIS: o
+                           usuário exporta o que não está na tela, sob um
+                           rótulo que afirma que está. Defeito PRÉ-EXISTENTE do
+                           `fetchData` (I-3 da review), não consertado aqui
+                           porque o conserto toca os dois caminhos — está em
+                           pendência. Enquanto isso: com `fetchData`, não passe
+                           `rows`. Esta frase já afirmou que `rowsAll` caía num
+                           fallback vazio, e isso era falso. */
+                        return isServerMode || isServerProcessed ? (
                           <MoreMenuItemEl
                             key={fmt.id}
                             onSelect={() => exporter.exportCsv("all")}
@@ -2229,6 +2316,8 @@ function DataTableInternal<T>(
                       // Opções do servidor (item 6 Sólis).
                       loadOptions: col?.filterLoadOptions,
                       resolveValueLabel: col?.filterValueLabel,
+                      // Unidade (`prefix`/`suffix`) no popover do chip — item 9a.
+                      typeOptions: col?.typeOptions,
                     })}
                   </PopoverContent>
                 </Popover>
@@ -2237,8 +2326,30 @@ function DataTableInternal<T>(
           />
         </div>
 
+        {/* Live region do `loadingMode: "keep"` — o ANÚNCIO, que o `aria-busy`
+            não faz.
+
+            No modo default o leitor de tela é avisado porque o
+            `DataTableLoading` monta com `role="status"` (live region) e a troca
+            de conteúdo dispara a fala. Mantendo o corpo esse aviso some, e o
+            usuário ficaria com MENOS sinal justamente no caminho em que a tela
+            mente mais: linha velha com cara de atual.
+
+            Montada sempre que a prop é `"keep"` (não só durante o vôo), com o
+            texto entrando e saindo: live region precisa PRÉ-EXISTIR pra que a
+            mutação seja anunciada — nascer já com texto é anúncio não-confiável
+            em parte dos leitores. Sem a prop não renderiza nada, então o DOM
+            default segue intacto. */}
+        {props.loadingMode === "keep" && (
+          <span className="sr-only" role="status" aria-atomic="true">
+            {isKeepingPreviousRows
+              ? "Atualizando a tabela. As linhas exibidas ainda são do resultado anterior."
+              : ""}
+          </span>
+        )}
+
         {/* Conteúdo */}
-        {isLoading ? (
+        {isLoading && !isKeepingPreviousRows ? (
           (props.renderLoading ?? <DataTableLoading />)
         ) : isKanban ? (
           // Kanban gerencia seu próprio empty state interno (coluna sem cards).
@@ -2333,13 +2444,19 @@ function DataTableInternal<T>(
 
         {/* Footer (paginação) — só na view table.
            Durante loading mostra skeleton no lugar (mesma silhueta) pra
-           evitar paginação "1 página" enquanto fetchData responde. */}
+           evitar paginação "1 página" enquanto fetchData responde.
+
+           ⚠️ O rodapé segue o CORPO, não o `isLoading` sozinho: com
+           `loadingMode: "keep"` há resultado anterior, logo há total anterior —
+           o "1 página" que o esqueleto evita não acontece. E piscar só o rodapé
+           sob linhas reais tiraria da mão do usuário o controle que ele acabou
+           de clicar. Mesma condição do corpo, de propósito. */}
         {!isKanban &&
           (!isList ||
             (props.listConfig?.paginated && !props.listConfig?.hierarchical)) &&
           !useTreeData &&
           paginationConfig.enabled !== false &&
-          (isLoading ? (
+          (isLoading && !isKeepingPreviousRows ? (
             <div className={styles.footerWrap()}>
               <FooterTableSkeleton />
             </div>
@@ -2354,6 +2471,13 @@ function DataTableInternal<T>(
                   onPageSizeChange={pagination.setPageSize}
                   pageSizeOptions={paginationConfig.pageSizeOptions}
                   selectionCount={selection.selectedCount}
+                  /* O rodapé não é bloco atômico: setas e números dizem pra ONDE
+                     você vai (verdade), o range diz o que ESTÁ na tela. Durante
+                     o keep só o range mente — `page` já andou no clique e as
+                     linhas são as de antes ("26–50" sobre as linhas 1–25). Some
+                     o texto, ficam os controles. Fora do keep é `false`, que
+                     renderiza igual a não passar nada. */
+                  hideRange={isKeepingPreviousRows}
                 />
               </div>
             )

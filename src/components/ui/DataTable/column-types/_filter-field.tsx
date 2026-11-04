@@ -40,6 +40,46 @@ export const FILTER_FIELD_SIZE = cn(
   "min-h-form-md h-form-md rounded-radius-md",
 );
 
+/**
+ * Unidade ao lado do campo de filtro — `typeOptions.prefix`/`suffix` dos tipos
+ * numéricos (item 9a do Sólis).
+ *
+ * Por que ao LADO e não dentro do valor: o campo é `<input type="number">`; "1234 kWh"
+ * não é um número e o navegador recusaria. A unidade é adorno estático, e quem digita
+ * segue digitando só o número — que é o que o filtro compara.
+ *
+ * **Sem `prefix` nem `suffix` o componente devolve o filho CRU**, sem wrapper nenhum:
+ * o campo de quem não declarou unidade tem exatamente o DOM de antes. É a diferença
+ * entre "não mudou" e "quase não mudou".
+ *
+ * A unidade entra UMA vez por campo — numa faixa (`between`, dois inputs) ela adorna o
+ * par, não cada lado: "100 [–] 500 kWh", não "100 kWh – 500 kWh".
+ */
+export function FieldAffix({
+  affix,
+  children,
+}: {
+  affix?: { prefix?: string; suffix?: string };
+  children: ReactNode;
+}) {
+  if (!affix?.prefix && !affix?.suffix) return <>{children}</>;
+  return (
+    <div className="flex min-w-0 items-center gap-gp-xs">
+      {affix.prefix ? (
+        <span className="shrink-0 whitespace-nowrap text-body-sm text-fg-muted">
+          {affix.prefix.trim()}
+        </span>
+      ) : null}
+      <div className="min-w-0 flex-1">{children}</div>
+      {affix.suffix ? (
+        <span className="shrink-0 whitespace-nowrap text-body-sm text-fg-muted">
+          {affix.suffix.trim()}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
 export type FastSingleOption = { value: string; label: ReactNode };
 
 /**

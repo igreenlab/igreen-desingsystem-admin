@@ -97,6 +97,7 @@ label, helper, erro e do `htmlFor`).
 | lista de ações a partir de um gatilho | `dropdown-menu` |
 | clique com o botão direito | `context-menu` |
 | hover: dica de 1 linha / prévia rica | `tooltip` · `hover-card` |
+| explicar um RÓTULO — o "?" ao lado de um título, de um cabeçalho de grupo de campos ou de coluna (DS **vNEXT**+) | `help-tip` — botão de ícone + tooltip, com o nome acessível pronto a partir de ****about****. O texto vai em ****children****; largura por ****contentClassName**** (o teto é 256px). ⛔ **nunca dentro de um `<label>`** (conteúdo interativo ali é HTML inválido e o clique cai no campo) — vai no cabeçalho do grupo. Dentro do `kpi`, use ****helperText**** e não monte à mão |
 | **bloqueia** a página, centralizado | `modal` (body já rola sozinho — não trate scroll no children) |
 | **bloqueia**, lateral, mais espaço que o modal | `panel` (560px default) · `sheet` · `drawer` (mobile, gesto) |
 | **não** bloqueia — coexiste com a lista atrás, resizável | `floating-panel` |
@@ -180,11 +181,22 @@ sem elas nada muda.
 | filtrar por um campo **sem mostrar a coluna** | ****hidden: true**** na coluna — ela nasce oculta e o filtro continua no chip, no funil e no builder. ⚠️ com `persistId`, estado salvo vence o default: coluna nova nasce visível pra quem já tem snapshot (versione o `persistId`) |
 | o chip **fixo**, que o X limpa em vez de remover | `showEmptyFilterChips={[{ field: "status", dismissable: false }]}` — array de string continua valendo |
 | nome do filtro **diferente** do título da coluna | ****filterLabel**** na coluna |
-| opções vindas do **servidor** | ****filterLoadOptions****`(busca, pagina)` → `{ options, hasMore }` + ****filterValueLabel**** pro rótulo do que já está marcado. Debounce de 300ms, resposta velha descartada, erro com "Tentar de novo" |
+| opções vindas do **servidor** | ****filterLoadOptions****`(busca, pagina)` → `{ options, hasMore }` + ****filterValueLabel**** pro rótulo do que já está marcado. Debounce de 300ms, resposta velha descartada, erro com "Tentar de novo". ⚠️ **vNEXT muda o pixel:** enquanto carrega, o popover mostra um indicador **centrado** (spinner + "Carregando…") no lugar da linhinha que ficava no fim da lista. É automático — não monte um spinner por fora |
 | uma opção **fixa no topo** da lista (ex.: "Sem responsável") | ****pinned: true**** na opção — fica fora da busca, da rolagem e do "Selecionar todos" |
 | **avisar a tela** quando o usuário limpa tudo | ****onFiltersClearAll**** — dispara depois de limpar o filtro interno, pra você limpar o seu |
-| faixa numérica **num chip só** | operador ****between**** no `filterType: "number"` — "10 – 500", lado aberto vira ≥/≤ |
+| faixa numérica **num chip só** | operador ****between**** no `filterType: "number"` — "10 – 500", lado aberto vira ≥/≤. ⚠️ **vNEXT:** o chip de faixa deixou de imprimir a palavra "entre" — o valor já lê como faixa, e antes saía "entre 10 – 500" (no lado aberto, "entre desde 01/01"). Vale pra ****number****, ****currency****, ****date**** e ****datetime****, e pra qualquer tipo seu com ****between****. Pra ter a palavra de volta é ****opLabels****, e só numa toolbar montada à mão — a `data-table` e a `data-list` não repassam |
+| a **unidade** junto do número (kWh, %, /mês) | ****typeOptions****`: { suffix: " kWh" }` (ou ****prefix****) numa coluna de número ou de moeda. A unidade aparece na **célula**, no **chip** do filtro aplicado e no **campo** onde se digita — as três superfícies, porque quem filtra não olha a célula. A string entra **literal**: `" kWh"` dá "1.234 kWh" e `"%"` dá "1.234%", o espaço é seu. A faixa leva a unidade **uma vez**, no fim ("100 – 500 kWh"). ⚠️ **não** entra no export/CSV nem no clipboard — pra isso use ****valueFormatter****, que vence o afixo e cobre as três de uma vez. Não afeta ordenação nem filtro, que seguem no número |
+| a mesma faixa, com o valor **em R$ no chip** | operador ****between**** no `filterType: "currency"` — "R$ 10,00 → R$ 500,00". Desde a vNEXT o popover do chip abre mín/máx igual ao de número (antes abria um campo só e a faixa saía como o texto 10,500). ⚠️ o widget do chip é roteado por ****filterType****, não pelo ****type**** da coluna: moeda sem `filterType: "currency"` cai no widget de texto |
 | esconder o **builder avançado** (você tem o seu) | `toolbar.enableAdvancedFilters={false}` — não desliga os chips |
+
+⚠️ **vNEXT muda o pixel da barra de chips, em toda tabela e lista.** O chip com filtro
+valendo passa a ter borda **sólida de marca** sobre fundo de marca sutil, com o valor em
+verde; o chip **vazio** (o placeholder de ****showEmptyFilterChips****) continua tracejado e
+neutro. Antes os dois eram o mesmo pixel e só o conteúdo diferia. **Não há prop nova** —
+o estado sai do próprio chip. Medido: a borda do aplicado dá 5,06:1 contra a barra no
+claro e 7,99:1 no escuro; o vazio fica em 1,45 e 1,24. No escuro o valor segue neutro de
+propósito (o verde ali mede 4,36:1 e reprovaria o AA de texto). Não recrie esse destaque
+na mão nem passe `className` pra imitá-lo.
 
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
 sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.
@@ -234,6 +246,135 @@ código antigo.
 não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
 sem nada declarado é ordenável.
 
+### Linha que não tem o que expandir (DS **vNEXT**+)
+
+Ligou a expansão (****expandable: true**** numa coluna + ****renderRowExpansion****) e
+**toda** linha ganhava chevron — inclusive a que abre um painel vazio.
+
+| quero | uso |
+|---|---|
+| toda linha expande | **não passe nada** — é o default |
+| só a linha que tem detalhe | ****isRowExpandable={(row) => row.itens > 0}**** no `data-table` |
+
+A linha que o predicado recusa perde o chevron **e** a resposta ao clique, juntos. Isso é
+a regra, não um detalhe: **chevron que não faz nada é pior que chevron ausente** — o
+usuário clica, nada acontece, e ele não sabe se é defeito ou se não há nada ali.
+
+✅ **O alinhamento está resolvido** — o espaço do chevron fica reservado na linha
+recusada, então o texto da coluna não dança de linha pra linha. Não compense na mão com
+padding.
+
+✅ **Linha já aberta que passa a ser recusada fecha sozinha.** O predicado lê os dados da
+row, então a recusa pode chegar depois (o item foi excluído, o lote foi refetchado) — e
+painel aberto sem chevron pra fechar seria um estado sem saída. O id não é descartado: se
+a linha voltar a aceitar, ela reabre.
+
+⚠️ **Não é controle de permissão.** O predicado some com a affordance; ele não protege
+dado. Linha que o usuário não pode ver não entra em ****rows****.
+
+⚠️ Vale só pra row-expansion. Em ****groupBy**** e em ****getTreeDataPath**** quem decide
+o chevron é a própria hierarquia.
+
+### Trocar de página sem piscar (DS **vNEXT**+)
+
+Tabela em **server mode** (você passa ****fetchData**** em vez de ****rows****) troca o
+corpo **inteiro** pelo esqueleto a cada refetch — e o rodapé junto. Em tela onde o usuário
+navega muito entre páginas, isso é o "pisca".
+
+****loadingMode**** escolhe o que fica na tela durante o vôo da request:
+
+| quero | uso |
+|---|---|
+| o de sempre (esqueleto no corpo e no rodapé) | **não passe nada** — o default é ****"skeleton"**** |
+| as linhas da página **anterior** no lugar, até a próxima chegar | ****loadingMode="keep"**** no `data-table` |
+
+Com ****"keep"**** o rodapé **também** fica, navegável. E o leitor de tela continua
+avisado: a raiz ganha **aria-busy="true"** e uma região **sr-only** anuncia que as linhas
+são do resultado anterior, calando quando a resposta chega. Isso não é enfeite — no modo
+default quem avisa é o próprio esqueleto, que é uma live region; sem a compensação, o
+****"keep"**** daria **menos** sinal justamente no caminho em que a tela engana mais.
+
+✅ **A primeira carga não precisa de tratamento.** Não existe linha anterior pra manter, e
+corpo vazio seria pior que esqueleto: o ****"keep"**** cai no esqueleto sozinho nesse caso
+(e em qualquer refetch depois de uma resposta sem linhas). Não alterne a prop.
+
+⚠️ **O rodapé é otimista — e o DS já trata.** A página muda no clique, as linhas só na
+resposta. As setas e os números **não mentem**: dizem pra onde o clique leva. O **texto**
+do intervalo ("76–100 de 100") mentiria sobre o corpo, então ele some durante o vôo e
+volta na resposta. Nada a configurar — e não é defeito a "consertar" se você vir.
+
+**Vale em client mode também** (você passa ****rows**** + ****loading****, sem
+****fetchData****) — mesma tabela acima. ⚠️ **Só que aí quem guarda o lote anterior é
+VOCÊ:** continue passando as linhas antigas em ****rows**** enquanto levanta o
+****loading****. Se você zerar ****rows**** junto, não há o que manter e cai no esqueleto
+— o critério é "existe linha pra manter?", não "o modo é server?". Com react-query ou SWR,
+é o que o ****placeholderData**** / ****keepPreviousData**** já faz.
+
+⚠️ O `data-list` **não tem** essa prop.
+
+### Server mode: DOIS caminhos, escolha um (DS **vNEXT**+)
+
+A pergunta que decide é **quem dispara a request**:
+
+| sua tela | o caminho |
+|---|---|
+| **não** tem camada de dados própria — quer que a tabela busque | ****fetchData**** (sem ****rows****). O `data-table` chama a sua função a cada mudança de página/ordem/filtro/busca e renderiza a resposta |
+| **já** tem react-query / SWR / RTK-Query dono do fetch, com cache e invalidação | ****processingMode="server"**** + ****rows**** + ****rowCount****. Você busca; a tabela só mostra |
+
+Com ****processingMode="server"**** o `data-table` **não reprocessa nada**: não fatia, não
+ordena, não filtra e não busca. Ele só **avisa** — ****onPaginationModelChange****,
+****onSortModelChange****, ****onFilterModelChange****, ****onSearchChange**** — e espera
+****rows**** novas. Declare os 4 pares controlados; sem eles o usuário clica e nada
+acontece.
+
+⚠️ **Sim, ela desliga mais do que o nome diz, e é de propósito.** Paginar no servidor e
+continuar ordenando no cliente ordenaria as 25 linhas da tela como se fossem as 1.000, e o
+filtro local apagaria linhas que o ****rowCount**** continua contando — o corpo mostra 7, o
+rodapé diz "1–25 de 1.000", e nada na tela diz qual dos dois está errado.
+
+Três coisas que você **precisa** acertar:
+
+- ****rowCount**** é a única fonte do total. Sem ele o rodapé só conhece o lote que recebeu
+  ("1–N de N") e não oferece página seguinte.
+- ****initialPageSize**** tem que ser o ****pageSize**** da sua API. O texto do intervalo é
+  aritmética sobre página × tamanho, **não** uma contagem do corpo: 25 declarado com um lote
+  de 10 escreve "1–25" sob 10 linhas.
+- **Desligue o Refresh** (****enableRefresh: false**** no toolbar). Ele só fala com o
+  ****fetchData****; aqui quem recarrega é a sua tela. Sem isso sai um aviso no console em
+  DEV — botão que gira e não recarrega é pior que botão ausente.
+
+✅ Combina com ****loadingMode="keep"**** — e é o par natural do ****placeholderData**** /
+****keepPreviousData**** do react-query/SWR.
+
+⚠️ **Dois limites conhecidos — leia antes de abrir bug:**
+
+1. **O caso ESPELHADO não é atendido.** Filtrar e buscar no servidor mantendo paginação e
+   ordenação locais é válido e comum, e ****processingMode="server"**** **não serve**: ele
+   desliga os quatro de uma vez. Esse recorte sofre hoje um **double-filter silencioso**
+   (com ou sem a prop): quem passa ****filterModel**** controlado e ****rows**** já
+   filtradas vê o filtro local rodar de novo sobre o lote — no-op quando as semânticas
+   coincidem, e **perde linha** quando divergem (busca de banco acento-insensível,
+   ordenação do SQL ≠ a do JS, campo que a coluna não declara). Pendência conhecida.
+2. **Não passe ****rows**** junto com ****fetchData****.** O CSV sairia com as
+   ****rows**** locais sob um rótulo dizendo "Página atual", enquanto o corpo mostra a
+   resposta do servidor.
+
+✅ **Filtro que zera o resultado deixou de mostrar o vazio errado (DS **vNEXT**+).** Os
+três modos agora dizem a mesma coisa: "Nenhum dado encontrado" **com o botão de limpar
+filtros**, já cabeado. Antes, nos dois caminhos de server, o total ia a 0 e a tela afirmava
+"Nenhum dado cadastrado" — *"não existe nada"*, que é **falso** (existe; o filtro é que não
+casou) — e **sem a saída de limpar**, justamente quando ela é mais necessária. ⚠️ Isso
+**mudou o ****fetchData**** também**, de propósito. Sem filtro nenhum e total 0, segue
+"Nenhum dado cadastrado" nos três — esse é verdadeiro. Se você contornava alternando
+****renderEmpty**** pelo seu ****filterModel****, o contorno virou desnecessário: não
+quebra, só deixa de ser alcançado no caso filtrado.
+
+⚠️ Os dois caminhos **não se somam**: com ****fetchData**** presente o
+****processingMode**** é ignorado. E em client mode puro (sem nenhum dos dois) o
+****rowCount**** continua sendo **ignorado** — quem conta são as ****rows**** passadas.
+
+⚠️ O `data-list` **não tem** essa prop (ele não pagina).
+
 ## Layout e chrome do app
 
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo). **Embutido em container com altura** (layout com footer, aba, preview) → passe `fillHeight`; sem isso ele mede 100vh, transborda e o conteúdo fica cortado na base.
@@ -260,7 +401,11 @@ sem nada declarado é ordenável.
 ## Métrica e gráfico
 
 - `kpi` — `Kpi` / `KpiGroup` / `KpiDelta` para cards de métrica e faixas de indicadores.
-- `chart` — wrapper do Recharts (barras, linha, área, pizza, radar, radial).
+- `chart` — wrapper do Recharts (barras, linha, área, pizza, radar, radial). A altura do
+  **className** é a do GRÁFICO: a legenda é renderizada fora dessa caixa e soma por fora, então
+  legenda em 2 linhas cresce o bloco em vez de achatar a plotagem. Gráfico que carrega dado leva
+  **emptyState** (vNEXT) — o nó que aparece no lugar dos eixos vazios quando nenhum número finito
+  chega nas props **data** do gráfico e das séries (`0` é dado; sem a prop, nada muda).
 - `choropleth-map` — mapa por região colorido por valor (traz `d3-geo` como dependência).
 
 ## Blocos — composições de referência (não são componentes)
@@ -301,8 +446,10 @@ código.
 
 - `command` — paleta de comandos / busca com teclado (⌘K).
 - `markdown-text` — renderizar markdown (chat, descrições vindas de API).
-- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`.
+- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`. ⚠️ **vNEXT muda o pixel**: **hoje** passa a ser um **anel** de marca sobre fundo transparente e só o dia **selecionado** fica preenchido — antes os dois eram o mesmo disco verde, indistinguíveis. Coincidindo, o preenchido vence. Vale também no `date-picker` e nos filtros de data da `data-table` e da `data-list`. Não recrie o destaque de hoje na mão.
 - `button` — ação. Variações (cor, tamanho, ícone, loading) na própria API; ver o USAGE.
+  Botão desabilitado cujo motivo o usuário precisa saber → ****disabledReason**** (DS
+  **vNEXT**+), logo abaixo.
 
 ---
 
@@ -356,3 +503,23 @@ fora resolve conflito errado e a classe perde em silêncio.
 
 ⚠️ ****disabled** em `<a>` não existe.** O `ClickableSurface` traduz pra **aria-disabled** +
 **pointer-events-none** + `tabIndex={-1}`. Não escreva **disabled** num link na mão.
+
+## Botão desabilitado que se explica (DS **vNEXT**+)
+
+| Quando você ia escrever | Use |
+|---|---|
+| um texto de ajuda ao lado do botão cinza, ou um `tooltip` embrulhando um `<span>` só pra driblar o **pointer-events-none** | ****disabledReason**** no `button` — o motivo em uma frase |
+
+```tsx
+<Button disabled disabledReason="Preencha o CNPJ antes de salvar">Salvar</Button>
+```
+
+Com a prop, o botão desabilitado troca o atributo **disabled** por **aria-disabled**:
+volta a receber hover e foco, entra na ordem do Tab, e o motivo aparece numa tooltip.
+Sem ela, **disabled** segue idêntico (**pointer-events-none**, fora do Tab, sem
+explicação) — nada muda em botão nenhum que você já escreveu.
+
+⚠️ **Não reproduza isso na mão.** **aria-disabled** escrito direto num `<button>` é
+anúncio para o leitor de tela e **nada mais**: o clique dispara, o Enter dispara, e um
+**type="submit"** submete o formulário. O `button` do DS trava as três coisas no próprio
+handler. Um `<button aria-disabled>` seu não trava nenhuma.

@@ -55,11 +55,45 @@ Para WCAG touch target (44px), usar `size="lg"` (`min-h-form-xl`).
 | `shape` | `"rounded" \| "pill"` | `"rounded"` | Forma — `pill` força `rounded-full` (override do radius da size) |
 | `fullWidth` | `boolean` | `false` | Ocupa 100% da largura do container |
 | `disabled` | `boolean` | `false` | Estado desabilitado |
+| `disabledReason` | `string` | — | Por que está desabilitado. Troca `disabled` por `aria-disabled` e mostra o motivo numa tooltip — ver abaixo |
 | `loading` | `boolean` | `false` | Mostra spinner e desabilita |
 | `iconLeft` | `ReactNode` | — | Ícone antes do texto |
 | `iconRight` | `ReactNode` | — | Ícone após o texto |
 | `className` | `string` | — | Override de classes (tw-merge resolve conflitos) |
 | `type` | `"button" \| "submit" \| "reset"` | `"button"` | Tipo HTML — default "button" para evitar submit acidental |
+
+## `disabledReason` — quando o usuário precisa saber POR QUE
+
+Um botão só com `disabled` recebe `pointer-events-none`: sem hover e sem foco, não
+existe superfície onde caiba a explicação. Quem olha vê o cinza e não sabe o que fazer
+com ele. Se a resposta para *"por que está desligado?"* importa — falta preencher um
+campo, falta permissão, o prazo passou — passe o motivo:
+
+```tsx
+<Button disabled disabledReason="Preencha o CNPJ antes de salvar">
+  Salvar
+</Button>
+```
+
+O que muda, **só quando a prop está presente e o botão está desabilitado**:
+
+| | só `disabled` | `disabled` + `disabledReason` |
+|---|---|---|
+| atributo | `disabled` | `aria-disabled="true"` |
+| ponteiro | `pointer-events: none` | ativo, com `cursor: not-allowed` |
+| foco / Tab | fora da ordem | dentro da ordem, com anel de foco |
+| explicação | nenhuma | tooltip no hover **e** no foco |
+| clique / submit | bloqueados pelo navegador | bloqueados pelo componente |
+| opacidade | `opacity-50` | `opacity-50` (idêntica) |
+
+⚠️ **`aria-disabled` não barra nada** — é anúncio para o leitor de tela, e só. O clique,
+o Enter/Espaço e o `type="submit"` continuariam passando. Quem barra é o `onClick` do
+componente, que chama `preventDefault()` (mata o submit), `stopPropagation()` (impede o
+clique de vazar pro container clicável — com `disabled` nativo o pai nunca via evento
+nenhum) e devolve antes do seu handler. Não recrie isso na mão com `aria-disabled`
+escrito direto num `<button>`: lá a trava não existe.
+
+Sem a prop, `disabled` continua exatamente como sempre foi.
 
 ## Fazer / Não fazer
 
@@ -70,6 +104,8 @@ Para WCAG touch target (44px), usar `size="lg"` (`min-h-form-xl`).
 - Padrão de grupo: 1 filled + 1 ghost (ou outline)
 - Não usar `filled` para cancelar — usar `ghost`
 - Não usar `disabled` para esconder funcionalidade — apenas quando ação não está disponível
+- Usar `disabledReason` sempre que o usuário puder perguntar "por que está desligado?" — um
+  botão cinza sem motivo é um beco sem saída
 - Não misturar `primary` e `critical` filled no mesmo grupo
 
 ## Exemplo de uso

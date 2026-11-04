@@ -97,6 +97,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "File Upload Field", href: "file-upload-field" },
       { label: "Floating Panel", href: "floating-panel" },
       { label: "FormField", href: "form-field" },
+      { label: "HelpTip", href: "help-tip" },
       { label: "Hover Card", href: "hover-card" },
       { label: "Icon", href: "icon" },
       { label: "Input", href: "input" },
@@ -172,6 +173,7 @@ const BASE_NAV: DocNavSection[] = [
       // Exemplos do DataTable
       { label: "Example: CRUD", href: "clients-crud" },
       { label: "Example: CRUD Server", href: "clients-crud-server" },
+      { label: "Example: Server por rows", href: "clients-server-rows" },
       { label: "Example: Pre-filtered", href: "clients-pre-filtered" },
       { label: "Example: Filter chips lab", href: "filter-chips-lab" },
       { label: "Example: Virtualized (10k)", href: "clients-virtualized" },

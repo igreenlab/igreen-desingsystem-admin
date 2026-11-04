@@ -226,6 +226,33 @@ export function useDataTableController<T>(
   const isServerMode = !!props.fetchData;
   const clientRows = props.rows ?? [];
 
+  /**
+   * `processingMode="server"` — a tela buscou, filtrou, ordenou e fatiou no
+   * servidor, e `rows` é a página pronta. O DataTable não reprocessa nada;
+   * só emite os callbacks e espera `rows` novas.
+   *
+   * Os dois caminhos de server mode não se somam: com `fetchData` presente esta
+   * prop é inerte. **Duas coisas independentes seguram isso, e cada uma basta
+   * sozinha** — por isso nenhuma mutação de uma só variável a quebra:
+   *
+   *   1. o `!isServerMode` desta linha, que impede a flag de ficar `true`;
+   *   2. a **ORDEM** em `effectiveRows` e `effectiveTotal`, onde `isServerMode`
+   *      é testado PRIMEIRO — o ramo do `isServerProcessed` não é alcançado
+   *      ainda que a flag esteja `true`.
+   *
+   * Medido, com a suíte do DataTable inteira (187): tirar só o guard → 0 mortos
+   * (a ordem cobre). Inverter só a ordem → 0 mortos (o guard cobre). Tirar o
+   * guard **e** inverter → 1 morto em cada sítio, e são os dois testes de
+   * `convive com fetchData`. Quem mexer em UMA das duas segue protegido; quem
+   * mexer nas duas quebra, e aí o teste fala.
+   *
+   * ⚠️ O `rows: []` que o processor recebe abaixo **não** é uma terceira cinta —
+   * é economia de trabalho. Removê-lo não muda nada observável (0/187), nem
+   * sozinho nem junto com o guard. Esta frase já o nomeou como o mecanismo, e
+   * estava errada (I-2 da review).
+   */
+  const isServerProcessed = !isServerMode && props.processingMode === "server";
+
   /* ── Processor (client mode pipeline) ────────────────────────── */
 
   // Skip paginate quando:
@@ -250,6 +277,7 @@ export function useDataTableController<T>(
     sortModel: sort.sortModels,
     paginationModel: pagination.paginationModel,
     paginate: shouldPaginate,
+    processLocally: !isServerProcessed,
   });
 
   /* ── Query (server mode) — só executa quando fetchData presente ── */
@@ -267,11 +295,26 @@ export function useDataTableController<T>(
     externalLoading: props.loading,
   });
 
-  // Seleciona output baseado no modo
+  /* ── Seleção de saída por modo ──────────────────────────────────
+     ⚠️ A ORDEM dos dois ternários abaixo é UMA das duas cintas que fazem
+     "fetchData vence rows" valer também pro `processingMode`: `isServerMode`
+     vem PRIMEIRO, então o ramo do `isServerProcessed` não é alcançado com os
+     dois presentes. A outra cinta é o `!isServerMode` na definição da flag
+     (~:229). Medido: mexer em UMA não quebra nada (a outra cobre); mexer nas
+     DUAS mata os testes de `convive com fetchData`. Ou seja: inverter aqui é
+     seguro hoje e vira bomba-relógio se alguém "simplificar" o guard depois.
+     Não inverta. (No `totalRowsForEmpty` os dois ramos de server dão o MESMO
+     valor, então lá não há ordem a inverter.) */
   const effectiveRows = isServerMode ? query.rowsToRender : processed.rowsToRender;
+  // `rowCount` vale nos DOIS caminhos de server mode. Em client mode puro ele
+  // segue ignorado — é o que separa "aditivo" de "mudou pra quem já passa a
+  // prop". Sem `rowCount` o server mode por `rows` só conhece o lote que
+  // recebeu: "1–N de N", honesto e sem página seguinte.
   const effectiveTotal = isServerMode
     ? (props.rowCount ?? query.totalAfterFilter)
-    : processed.totalAfterFilter;
+    : isServerProcessed
+      ? (props.rowCount ?? processed.totalAfterFilter)
+      : processed.totalAfterFilter;
   const allPagesProcessed = isServerMode ? query.rowsToRender : processed.rowsAllPagesProcessed;
 
   // Clamp de página fora de range: quando o total encolhe (ex: filtro reduz
@@ -309,15 +352,47 @@ export function useDataTableController<T>(
   /* ── Estados de feedback ──────────────────────────────────────── */
 
   const isLoading = isServerMode ? query.isLoading : !!props.loading;
-  const totalRowsForEmpty = isServerMode
-    ? effectiveTotal
-    : clientRows.length;
-  const isDataEmpty = !isLoading && totalRowsForEmpty === 0 && effectiveRows.length === 0;
-  const isNoResults =
+  /* "O conjunto está vazio?" — e o vazio da PÁGINA não é o vazio do conjunto.
+     Nos DOIS caminhos de server o lote é a página, então quem responde é o
+     total. Em client mode quem responde é `rows`, que é o conjunto inteiro. */
+  const usaTotalDoServidor = isServerMode || isServerProcessed;
+  const totalRowsForEmpty = usaTotalDoServidor ? effectiveTotal : clientRows.length;
+  const temFiltroOuBusca =
+    filters.filterModel.items.length > 0 || search.debouncedValue.length > 0;
+  /**
+   * ⚠️ O `&& !(server && filtro)` é a correção do I-5 da review da T11.
+   *
+   * Em server o `totalRowsForEmpty` é o total **DEPOIS do filtro** — ele não
+   * distingue "não existe dado" de "o filtro não casou". Sem este termo,
+   * filtrar até zerar dava "Nenhum dado cadastrado" (*"não existe nada"*) e,
+   * por vencer o `isNoResults` via `!isDataEmpty`, levava junto o botão de
+   * limpar filtros: a tela afirmava algo FALSO e apagava a única saída,
+   * exatamente quando o usuário precisava dela. É a L-070.
+   *
+   * O termo é escopado ao server de propósito, e não é cosmético: em client
+   * mode `totalRowsForEmpty` é `clientRows.length`, o total ANTES do filtro,
+   * que já responde a pergunta sozinho. Aplicá-lo sem escopo mudaria o único
+   * caso em que os dois divergem — `rows: []` COM filtro ativo —, trocando um
+   * "Nenhum dado cadastrado" verdadeiro por um "limpar filtros" que não
+   * revelaria nada. A assimetria some onde ela mentia e fica onde ela acerta.
+   */
+  const isDataEmpty =
     !isLoading &&
-    !isDataEmpty &&
-    effectiveTotal === 0 &&
-    (filters.filterModel.items.length > 0 || search.debouncedValue.length > 0);
+    totalRowsForEmpty === 0 &&
+    effectiveRows.length === 0 &&
+    !(usaTotalDoServidor && temFiltroOuBusca);
+  const isNoResults =
+    !isLoading && !isDataEmpty && effectiveTotal === 0 && temFiltroOuBusca;
+
+  // `loadingMode: "keep"` — carregamento em vôo COM resultado anterior na mão.
+  // O dado nunca foi descartado (`use-data-table-query` não limpa `data` ao
+  // disparar a request); quem descartava era o render. O `.length > 0` é o que
+  // faz a PRIMEIRA carga — e qualquer refetch depois de uma resposta vazia —
+  // cair no esqueleto: sem linha anterior, manter o corpo é mostrar vazio, que
+  // é pior que o esqueleto. Quando é false, tudo abaixo segue idêntico ao de
+  // antes da prop existir.
+  const isKeepingPreviousRows =
+    props.loadingMode === "keep" && isLoading && effectiveRows.length > 0;
 
   /* ── Snapshot do estado pra getState() ───────────────────────── */
 
@@ -737,6 +812,9 @@ export function useDataTableController<T>(
   return {
     contextValue,
     isLoading,
+    /** `loadingMode: "keep"` em vôo COM linhas anteriores — o render mantém o
+     *  corpo e o rodapé no lugar do esqueleto. False = render de sempre. */
+    isKeepingPreviousRows,
     isDataEmpty,
     isNoResults,
     /** Ref ao scroll container (compartilhado entre Table.scrollRef + useColumnAutoWidth). */
@@ -755,6 +833,10 @@ export function useDataTableController<T>(
     filters,
     exporter,
     isServerMode,
+    /** `processingMode="server"` ativo — as `rows` são a página pronta e o
+     *  DataTable só tem ELA na mão (não reprocessa, não fatia, não exporta
+     *  além dela). False = client mode de sempre. */
+    isServerProcessed,
     savedViews,
     applyView,
     applyViewById,

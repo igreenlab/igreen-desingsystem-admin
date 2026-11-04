@@ -41,6 +41,32 @@ Valem para **toda** tarefa. Não repetidas nos passos.
 
 ---
 
+## ⚠️ As rodadas DESTE PLANO não são as branches — a correspondência
+
+Achado pelo implementador da Task 10, e é defeito de documentação: quem abrisse o plano
+para saber o que falta erraria por um.
+
+A Rodada 3 **nasceu** de uma auditoria que não estava no plano (o alcance compartilhado
+que o mantenedor pediu ao fechar a Rodada 2), e as tarefas que ela produziu — T7b e T7c —
+empurraram tudo que vinha depois. As branches seguiram a ordem real de execução; as seções
+abaixo seguiram a de planejamento.
+
+| seção deste plano | branch · PR | o que de fato foi | 
+|---|---|---|
+| RODADA 1 (T1–T6) | `feat/solis-rodada-1` · #355 | igual |
+| RODADA 2 (T7) | `feat/solis-rodada-2` · #356 | igual |
+| RODADA 3 (T7b, T8, T9) | `feat/solis-rodada-3` · #358 | **só T7b + T7c** (o T7c nasceu da review do T7b) |
+| — | `feat/solis-rodada-4` · #360 | **T8 + T9** |
+| RODADA 4 (T10, T11) | `feat/solis-rodada-5` | T10, e depois T11 |
+| RODADA 5 (T12–T18) | será `rodada-6` | os avulsos |
+
+**Não renumerei as seções de propósito.** Os números das Tasks estão citados em mensagens
+de commit, no ledger do SDD e nos relatórios em `.superpowers/sdd/` — renumerar quebraria
+todas essas referências para consertar uma. A tabela torna o deslocamento explícito, que
+é o que faltava.
+
+---
+
 ## Ritual de fim de rodada — OBRIGATÓRIO
 
 Nenhuma rodada fecha sem isto. Não é a review de tarefa (que é por diff); é a varredura das
@@ -110,6 +136,9 @@ documentada em lugar nenhum.
       | detector com `includes()` | casa **demais** — acusa resíduo que não existe |
       | `git checkout -- <arq>` depois de `git checkout <commit> -- <arq>` | lê do **índice**, que o primeiro comando atualizou: não restaura. Use `git checkout HEAD -- <arq>` |
       | teste verde por **outro mecanismo** | o teste do `multiSelect` passava por uma promoção inerte, e por isso parecia cobrir o registry |
+      | **`zoom` do browser** | devolve **recorte de screenshot ANTIGO** (a saída avisa: *"cropped from a screenshot, not magnified"*). Mostrou um rodapé com o texto que já tinha sumido — o **oposto** do real. Para um instante de ~500ms, **meça o DOM por JS**, não a imagem |
+      | **estilo computado após trocar o tema** | devolve o tema **anterior** por muito mais que a transição — medido **1500 ms**, 10× os 150 ms declarados, em notação `oklab(...)` (a assinatura da interpolação). Parece exatamente *"o `dark:` não aplicou"*. Injete `*{transition:none!important}` **antes** de medir; esperar mais não resolve |
+      | **restauração que falhou no `finally`** | envenena o run seguinte, **e ele reporta "restaurou: SIM"** — o snapshot do 2º run é tirado do estado já corrompido, e fecha contra si mesmo. O `git diff --stat` não denuncia. **A verificação de restauração tem que fechar contra algo EXTERNO ao run** (o HEAD, ou regerar o artefato), porque o snapshot pode ser o corrompido |
       | **placar do runner ilegível** | `--reporter=basic` não existe no Vitest 4: o script imprimiu `aplicou: SIM · restaurou: SIM` para as 6 mutações e `(placar não lido)` no resultado — **zero evidência de que algo morreu, com a aparência de uma tabela completa**. *"Não li" é indistinguível de "nada morreu"* |
 
       **Duas réguas que vieram dessas:** o script de mutação deve **lançar erro** quando
@@ -118,6 +147,23 @@ documentada em lugar nenhum.
       está commitado**, `git checkout HEAD -- <arq>` apaga a própria implementação —
       restaure do **snapshot em bytes** e confirme por **sha256**, que é régua mais
       estrita que comparar linhas.
+- [ ] **Teste novo: não use jest-dom.** `npm test` roda `tsc --noEmit` **antes** do vitest,
+      e o `vitest.setup.ts` está **fora** do `include` do `tsconfig.json` (`["src","tokens"]`).
+      Resultado: `toBeInTheDocument` / `toHaveAttribute` compilam como erro e derrubam a
+      suíte **inteira antes de rodar teste nenhum** — 30 erros de TS, nenhum deles sobre o
+      seu código. É por isso que nenhum teste do repo usa jest-dom. Use `toBeNull()` /
+      `getAttribute()`, a convenção de `simple-filter-controlado.test.tsx`.
+- [ ] **Worktree compartilhada: o alvo se move durante a medição.** Com vários agentes na
+      mesma árvore, uma base verde de segundos atrás já não vale. Um controle só conta se
+      as **duas leituras forem do mesmo instante** — medido na Rodada 5, onde um
+      experimento de controle saiu "mutação sobreviveu" e *parecia* inocentar, quando o
+      que mudou foi outro agente consertando o arquivo entre as duas leituras. E restrinja
+      o escopo da mutação a **lista explícita de arquivos**, nunca a uma pasta.
+- [ ] **Editou `src/components/shadcn/USAGE.md`? Rode `npm run cli:rebake`.** É a **única**
+      ponte entre ele e o payload do consumidor (`_claude/skills/ds-kit/shadcn-gotchas.md`,
+      via `foundational-pairs.mjs`), e **nada avisa**. Na Rodada 5 a linha de um item só
+      chegou lá por acidente, durante outra tarefa. O hook de tokens cobre `tokens/**`, não
+      este par.
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
@@ -141,6 +187,14 @@ documentada em lugar nenhum.
 ### Anotado para o `/ds-release`, não feito no PR
 
 - [ ] `registry.json` + embed (`registry:build` + `copy-registry`)
+      ⚠️ **Mas o embed tem DOIS checks, e só um é débito.** `registry-check.mjs:179`
+      (*"CONTEÚDO defasado em N/M"*) é tolerado no PR — os arquivos estão lá, só velhos.
+      `:108` (*"não contém: <item>"*) é **falha dura e bloqueia o CI**: o componente existe
+      no `registry.json` e **não** existe no embed, então `igreen:add <item>` não entrega
+      nada. **Item novo fecha o embed no PR**, não no release. Medido na Rodada 5, a
+      primeira que criou componente novo.
+      ⚠️ O `copy-registry.mjs` exige **cwd = `registry-app/`** e se recusa a escrever se o
+      `public/r` estiver velho — rode `registry:build` na raiz antes.
 - [ ] **Bump do CLI** — é o que faz o payload já escrito CHEGAR em quem instala (L-018)
 - [ ] Entrada do changelog, com ⚠️ em cada mudança observável
 
@@ -638,7 +692,7 @@ it("'keep' na PRIMEIRA carga cai no esqueleto, nao em corpo vazio", ...) // Revi
 
 ---
 
-### Task 11: `paginationMode: "server"` (item 11)
+### Task 11: `paginationMode: "server"` (item 11) — ⚠️ entregue como `processingMode`
 
 Menor do que o pedido sugere: `rowCount`, `paginationModel`, `onPaginationModelChange`,
 `onSortModelChange` e `onFilterModelChange` **já existem** (`data-table.types.ts:598, 650,
@@ -650,7 +704,15 @@ Menor do que o pedido sugere: `rowCount`, `paginationModel`, `onPaginationModelC
 - Test: `src/components/ui/DataTable/pagination-mode.test.tsx` (criar)
 
 **Interfaces:**
-- Produces: `DataTableProps.paginationMode?: "client" | "server"` — default `"client"`
+- Produces: `DataTableProps.processingMode?: "client" | "server"` — default `"client"`
+
+> ⚠️ **Renomeado na implementação, por decisão do mantenedor.** O plano pedia
+> `paginationMode`, que é o nome do **MUI** — e lá significa **só paginação** (existem
+> `sortingMode` e `filterMode` separados). Aqui a flag desliga o pipeline local inteiro,
+> então quem **reconhece** o nome é exatamente quem leria `paginationMode="server"` e
+> esperaria a ordenação local continuar valendo: a familiaridade vira passivo. O aviso da
+> JSDoc alcança quem lê; o nome alcança quem não lê. A prop nunca foi publicada, então não
+> houve migração. Nome final: **`processingMode`**.
 
 - [ ] **Step 1: Testes**
 

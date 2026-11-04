@@ -246,12 +246,27 @@ export const toolbarApplied = tv({
   },
 });
 
+/**
+ * Chip de filtro. A **borda e o fundo carregam o estado** (item 16 do Sólis):
+ *
+ *   `active: false` → tracejado neutro = slot a preencher (chip `isEmpty`)
+ *   `active: true`  → sólido de marca sobre `bg-brand-subtle` = filtro aplicado
+ *
+ * Antes os dois eram o MESMO pixel e a diferença era só o conteúdo (mais o
+ * ícone de 14px, `+` contra `X`) — numa barra com os dois tipos, não dava pra
+ * varrer com o olho quais filtros estavam valendo.
+ *
+ * ⚠️ `bg` e `border-style`/`border-color` saíram da `base` e vivem só dentro da
+ * variante, e o `hover` só nos `compoundVariants`. Não é organização: com
+ * prefixo DS o `tailwind-merge` **não** reconhece `bg-bg-surface` × `bg-bg-brand-subtle`
+ * como conflito, as duas sobreviveriam e quem decidiria seria a ordem do CSS
+ * (L-072). Declarado uma vez por ramo, não há empate pra desempatar.
+ */
 export const toolbarAppliedChip = tv({
   base: [
     "inline-flex items-center gap-gp-md",
     "h-form-md pl-pad-sm pr-pad-lg",
-    "bg-bg-surface dark:bg-bg-muted",
-    "border border-dashed border-border-input rounded-radius-lg",
+    "border rounded-radius-lg",
     "text-body-xs font-normal text-fg-default",
     "transition-[background-color,border-color] duration-150",
   ],
@@ -259,11 +274,30 @@ export const toolbarAppliedChip = tv({
     interactive: {
       true: [
         "cursor-pointer",
-        "hover:bg-bg-muted-hover hover:border-border-default",
-        "dark:hover:bg-bg-accent",
         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
       ],
+      false: "",
     },
+    active: {
+      true: "bg-bg-brand-subtle border-solid border-border-brand",
+      false: "bg-bg-surface dark:bg-bg-muted border-dashed border-border-input",
+    },
+  },
+  compoundVariants: [
+    {
+      interactive: true,
+      active: false,
+      class: "hover:bg-bg-muted-hover hover:border-border-default dark:hover:bg-bg-accent",
+    },
+    {
+      interactive: true,
+      active: true,
+      class: "hover:bg-bg-brand-subtle-hover hover:border-border-brand",
+    },
+  ],
+  defaultVariants: {
+    interactive: false,
+    active: false,
   },
 });
 
@@ -286,13 +320,39 @@ export const toolbarAppliedChipOp = tv({
   base: "text-fg-muted text-caption-sm",
 });
 
+/**
+ * Pílula do VALOR dentro do chip. `active` muda SÓ a cor do texto: no chip
+ * aplicado o valor é a informação que importa, e lê em `fg-brand`.
+ *
+ * ⚠️ O fundo da pílula continua `bg-muted` / `bg-accent` **de propósito**, e
+ * isso foi medido: tingir também a pílula (22% de marca sobre os 14% do chip)
+ * derrubava o texto para **3,14:1** no claro — reprovando o AA de 4,5:1 para
+ * texto de 12px. O verde precisa de fundo claro-neutro para ser legível; a
+ * cor de marca do chip mora na BORDA e no fundo do chip, não embaixo do texto.
+ *
+ * ⚠️ E no ESCURO o verde volta a ser `fg-default`, pelo mesmo motivo medido:
+ * o `brandContrast` sobre superfície escura dá **4,36:1** — reprova o AA por
+ * 0,14. Não é exceção inventada: o `bulkBarCount` logo abaixo já faz
+ * `text-fg-brand dark:text-fg-default` por essa razão. No escuro quem carrega
+ * o estado é a borda do chip, que mede **7,99:1** contra a barra (o chip vazio
+ * mede 1,24) — sobra sinal sem pagar com legibilidade.
+ */
 export const toolbarAppliedChipValue = tv({
   base: [
     "inline-flex items-center h-[22px] px-pad-md",
     "rounded-radius-sm",
     "bg-bg-muted dark:bg-bg-accent",
-    "text-body-xs font-medium text-fg-default",
+    "text-body-xs font-medium",
   ],
+  variants: {
+    active: {
+      true: "text-fg-brand dark:text-fg-default",
+      false: "text-fg-default",
+    },
+  },
+  defaultVariants: {
+    active: false,
+  },
 });
 
 export const toolbarAppliedClearLink = tv({

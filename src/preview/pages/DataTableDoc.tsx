@@ -92,6 +92,15 @@ const SAVED_VIEW_FIELDS: Array<{
 
 const DEMO_ROWS: ClientRow[] = CLIENTS_MOCK.slice(0, 8);
 
+/* Linha do exemplo da faixa: um número "cru" ao lado de um de moeda, pros dois chips
+   `between` ficarem visíveis lado a lado. */
+type FaixaRow = ClientRow & { consumo: number };
+
+const FAIXA_ROWS: FaixaRow[] = DEMO_ROWS.map((r, i) => ({
+  ...r,
+  consumo: 120 + i * 95,
+}));
+
 /* ── Capabilities matrix ──────────────────────────────────────── */
 
 const CAPABILITIES: Array<{ name: string; how: string }> = [
@@ -239,6 +248,21 @@ const CORE_PROPS = [
   {
     name: "simpleFilter.onOpenChange",
     type: "(open: boolean) => void — avisado quando algo pede pra abrir ou fechar o drawer. Dispara nos DOIS modos: sem `open`, só observa",
+    defaultVal: "—",
+  },
+  {
+    name: "loadingMode",
+    type: '"skeleton" | "keep" — o que o CORPO e o RODAPÉ mostram com um carregamento em vôo. "keep" mantém as linhas do resultado anterior, marca aria-busy na raiz e anuncia por live region sr-only (que cala na resposta); o range do rodapé é escondido enquanto descreveria linhas que não estão na tela. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
+    defaultVal: '"skeleton"',
+  },
+  {
+    name: "processingMode",
+    type: '"client" | "server" — quem processa as rows. "server" declara que elas já chegam prontas (a tela buscou, filtrou, ordenou e fatiou): o DataTable pula o pipeline local INTEIRO — filtro, busca, ordenação e o slice — e só emite onPaginationModelChange/onSortModelChange/onFilterModelChange/onSearchChange. Desligar só o slice ordenaria 25 linhas como se fossem 1.000. Exige rowCount (sem ele o rodapé só conhece o lote) e pageSize igual ao da API. Inerte com fetchData presente',
+    defaultVal: '"client"',
+  },
+  {
+    name: "rowCount",
+    type: "number — total NO SERVIDOR. Com fetchData é opcional (cai no total da resposta); com processingMode=\"server\" é a única fonte; em client mode puro é ignorado",
     defaultVal: "—",
   },
 ];
@@ -530,6 +554,16 @@ export function DataTableDoc() {
     ],
   });
 
+  // Faixa (`between`) pré-aplicada nos DOIS tipos numéricos, pro chip do `currency` e o
+  // do `number` ficarem lado a lado — é a paridade que o item 9b fechou.
+  const [faixas, setFaixas] = useState<FilterModel>({
+    logicOperator: "AND",
+    items: [
+      { id: "doc-faixa-valor", field: "value", operator: "between", value: [1000, 9000] },
+      { id: "doc-faixa-consumo", field: "consumo", operator: "between", value: [200, 600] },
+    ],
+  });
+
   // Interruptor do exemplo "Ações do cabeçalho" — liga/desliga `showTypeIcons` ao vivo.
   const [iconesDoTipo, setIconesDoTipo] = useState(true);
 
@@ -582,6 +616,34 @@ export function DataTableDoc() {
         })),
       },
       { field: "value", headerName: "Valor", type: "currency" },
+    ],
+    [],
+  );
+
+  const faixaColumns = useMemo<DataTableColumnDef<FaixaRow>[]>(
+    () => [
+      { field: "name", headerName: "Nome", type: "user" },
+      {
+        field: "consumo",
+        headerName: "Consumo",
+        type: "number",
+        enableColumnFilter: true,
+        filterType: "number",
+        // A unidade segue o número na CÉLULA, no CHIP e no CAMPO de filtro.
+        // A string entra literal — o espaço antes de "kWh" é escolha de quem escreve.
+        typeOptions: { suffix: " kWh" },
+      },
+      {
+        field: "value",
+        headerName: "Valor",
+        type: "currency",
+        enableColumnFilter: true,
+        // ⚠️ O roteamento do widget do CHIP lê `filterType` — não cai pro `type`.
+        // Sem esta linha o chip de uma coluna de moeda abre o widget de texto.
+        filterType: "currency",
+        // Convive com `currency`/`locale`: o Intl formata, o afixo adorna.
+        typeOptions: { suffix: " /mês" },
+      },
     ],
     [],
   );
@@ -905,12 +967,54 @@ export function DataTableDoc() {
       <SectionH2 id="server-mode" title="Server mode" />
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
-        Passe <code>fetchData</code> em vez de <code>rows</code>. O DataTable
-        re-dispara a função em mudança de filter/sort/search/page e mostra
-        spinner default durante loading. <code>ref.current.refresh()</code>
-        força refetch sem mudar params. Veja{" "}
-        <strong>Example: CRUD Server</strong> no menu lateral pro fluxo
-        completo.
+        São <strong>dois caminhos</strong>, e a diferença é quem dispara a
+        request. <strong>(1)</strong> Passe <code>fetchData</code> em vez de{" "}
+        <code>rows</code>: o DataTable re-dispara a função em mudança de
+        filter/sort/search/page, e <code>ref.current.refresh()</code> força
+        refetch sem mudar params. Veja <strong>Example: CRUD Server</strong> no
+        menu lateral pro fluxo completo.
+      </p>
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        <strong>(2)</strong> Ou passe <code>rows</code> já processadas com{" "}
+        <strong>processingMode</strong>
+        {" = "}
+        <code>"server"</code> — quando a tela já tem{" "}
+        <code>react-query</code>/SWR dono do fetch, com cache e invalidação. Aí
+        o DataTable <strong>não reprocessa nada</strong>: nem fatia, nem ordena,
+        nem filtra, nem busca. Ele só emite{" "}
+        <code>onPaginationModelChange</code>, <code>onSortModelChange</code>,{" "}
+        <code>onFilterModelChange</code> e <code>onSearchChange</code>, e espera{" "}
+        <code>rows</code> novas. Desligar só o fatiamento seria pior que não ter
+        a prop: uma tabela que pagina no servidor e continua ordenando o lote
+        ordena 25 linhas como se fossem as 1.000, e o filtro local apaga linhas
+        que o <code>rowCount</code> continua contando. Duas consequências que
+        mordem: <code>rowCount</code> vira a única fonte do total (sem ele o
+        rodapé só conhece o lote), e o <code>initialPageSize</code> tem que ser
+        o da sua API — o range do rodapé é <code>page × pageSize</code>, nunca
+        uma contagem do corpo. Com <code>fetchData</code> presente a prop é
+        ignorada. Veja <strong>Example: Server por rows</strong>, que é o mesmo
+        dado pelo outro caminho.
+      </p>
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        Enquanto a resposta não chega, o corpo e o rodapé viram{" "}
+        <strong>esqueleto</strong> — é o default, e é o que faz trocar de página
+        “piscar”. Pra manter as linhas da página anterior no lugar até a
+        próxima chegar, passe <strong>loadingMode</strong>
+        {" = "}
+        <code>"keep"</code>: o rodapé continua navegável, a raiz ganha{" "}
+        <code>aria-busy</code> e uma live region <code>sr-only</code> anuncia que
+        as linhas estão defasadas (calando na resposta — no modo default quem
+        anuncia é o próprio esqueleto, que é <code>role="status"</code>). O{" "}
+        <strong>texto do range</strong> do rodapé some durante o vôo, porque
+        seria a única parte a afirmar algo falso sobre o corpo; as setas e os
+        números ficam, já que dizem para onde o clique leva. Na primeira carga
+        não há linha anterior, e o <code>"keep"</code> cai no esqueleto sozinho —
+        não é preciso alternar a prop. Troque o modo pelo menu{" "}
+        <strong>Carregamento</strong> da toolbar em{" "}
+        <strong>Example: CRUD Server</strong> e navegue entre páginas pra ver a
+        diferença.
       </p>
 
       <pre className="px-pad-xl py-pad-lg bg-bg-subtle border border-border-subtle rounded-radius-lg text-code-sm font-mono text-fg-default overflow-x-auto scrollbar-thin mb-gp-3xl">
@@ -963,6 +1067,79 @@ export function DataTableDoc() {
           </tbody>
         </table>
       </div>
+
+      <SectionH2 id="faixa-between" title="Faixa (between) — chip e campo" />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        <code>number</code> e <code>currency</code> aceitam o operador{" "}
+        <code>between</code>, e os dois abrem a <strong>mesma faixa</strong> —
+        mín e máx — nas duas superfícies: no popover do <strong>chip</strong> e
+        no <strong>campo</strong> (funil de Filtros e builder avançado). Um chip
+        só para a faixa inteira; lado aberto lê <code>≥</code> / <code>≤</code>.
+      </p>
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        Até a <code>vNEXT</code> o <code>currency</code> tinha a faixa só no
+        campo: o chip ignorava o operador e abria um campo único, onde a tupla{" "}
+        <code>[10, 500]</code> aparecia como o texto <code>10,500</code>. É
+        paridade com o <code>number</code>, não comportamento novo — quem não
+        usa <code>between</code> não vê diferença nenhuma.
+      </p>
+
+      <SectionH2 id="unidade-afixo" title="Unidade no número (prefix / suffix)" />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        <code>number</code> e <code>currency</code> aceitam{" "}
+        <code>typeOptions.prefix</code> e <code>typeOptions.suffix</code> — a
+        unidade (<code>kWh</code>, <code>%</code>, <code>/mês</code>). Ela segue
+        o número nas <strong>três</strong> superfícies que o usuário lê: a{" "}
+        <strong>célula</strong>, o <strong>chip</strong> do filtro aplicado e o{" "}
+        <strong>campo</strong> onde ele digita. Unidade só na célula resolve
+        metade: quem está filtrando não olha a célula.
+      </p>
+
+      <ul className="list-disc pl-pad-4xl mb-gp-2xl max-w-[760px] flex flex-col gap-gp-xs text-body-md text-fg-muted">
+        <li>
+          <strong>A string entra literal.</strong> <code>" kWh"</code> vira
+          "1.234 kWh"; <code>"%"</code> vira "1.234%". O espaço é seu — injetar
+          um acertaria um caso e erraria o outro.
+        </li>
+        <li>
+          <strong>A faixa leva a unidade uma vez</strong>, no fim:
+          "100 – 500 kWh", não "100 kWh – 500 kWh".
+        </li>
+        <li>
+          <strong>
+            <code>valueFormatter</code> vence e não concatena.
+          </strong>{" "}
+          Ele é o escape hatch inteiro — quem o passa já decidiu o texto. É
+          também o único botão que alcança <strong>export e clipboard</strong>:
+          o afixo fica na tela, o CSV sai com o número.
+        </li>
+        <li>
+          <strong>É apresentação.</strong> Ordenação e filtro seguem operando
+          sobre o número — uma coluna com unidade ordena igual a uma sem.
+        </li>
+      </ul>
+
+      <ExampleSection
+        id="ex-faixa-between"
+        title="between no chip + unidade: number e currency"
+        description="As duas faixas já entram aplicadas, e as duas colunas declaram unidade (kWh e /mês). Repare que ela aparece na célula, no rótulo do chip e — ao abrir o chip ou o funil de Filtros — ao lado do campo onde se digita. Abra o chip Consumo e o chip Valor: os dois oferecem mín e máx no mesmo popover. Esvazie um dos lados e o chip passa a ler ≥ ou ≤."
+        code={CODE_FAIXA_BETWEEN}
+      >
+        <div className="h-[420px] w-full flex">
+          <DataTable<FaixaRow>
+            rows={FAIXA_ROWS}
+            columns={faixaColumns}
+            getRowId={(r) => r.id}
+            filterModel={faixas}
+            onFilterModelChange={setFaixas}
+            toolbar={{ title: "Clientes", enableFilters: true }}
+            className="max-h-full"
+          />
+        </div>
+      </ExampleSection>
 
       <SectionH2 id="custom-filter" title="Widget de filtro próprio" />
 
@@ -1287,6 +1464,39 @@ const columns = useMemo<DataTableColumnDef<ClientRow>[]>(() => [
   paginationConfig={{ enabled: true, initialPageSize: 25 }}
   selectionConfig={{ enabled: true }}
   showTotalizers
+/>`;
+
+const CODE_FAIXA_BETWEEN = `// \`between\` abre mín/máx no CHIP e no CAMPO — nos dois tipos numéricos.
+// \`typeOptions.suffix\` leva a unidade pras TRÊS superfícies: célula, chip e campo.
+const columns = [
+  { field: "consumo", headerName: "Consumo", type: "number",
+    enableColumnFilter: true, filterType: "number",
+    typeOptions: { suffix: " kWh" } },        // a string entra LITERAL (o espaço é seu)
+
+  { field: "value", headerName: "Valor", type: "currency",
+    enableColumnFilter: true,
+    // ⚠️ o widget do CHIP é roteado por \`filterType\`, não pelo \`type\`
+    filterType: "currency",
+    // convive com \`currency\`/\`locale\`: o Intl formata, o afixo adorna
+    typeOptions: { suffix: " /mês" } },
+];
+
+// Faixa pré-aplicada: UM chip por faixa, lado aberto vira ≥ / ≤
+const [faixas, setFaixas] = useState<FilterModel>({
+  logicOperator: "AND",
+  items: [
+    { id: "f1", field: "value",   operator: "between", value: [1000, 9000] },
+    { id: "f2", field: "consumo", operator: "between", value: [200, 600] },
+  ],
+});
+
+<DataTable
+  rows={rows}
+  columns={columns}
+  getRowId={(r) => r.id}
+  filterModel={faixas}
+  onFilterModelChange={setFaixas}
+  toolbar={{ title: "Clientes", enableFilters: true }}
 />`;
 
 const CODE_OWNS_MULTI = `import {

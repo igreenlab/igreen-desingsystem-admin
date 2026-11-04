@@ -4,6 +4,9 @@ import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/shadcn/checkbox";
 import { Input } from "@/components/shadcn/input";
 import { Button } from "@/components/ui/Button/button";
+// Import DIRETO do arquivo, pelo mesmo motivo do `ToolbarSegmented` abaixo:
+// barril aqui dentro é caminho de ciclo.
+import { Spinner } from "@/components/ui/Spinner/spinner";
 // Import DIRETO do part (não do barrel do TableToolbar): o barrel puxa o
 // simple-filter-drawer, que importa este column-types/index de volta —
 // ciclo que estourava TDZ ("Cannot access MultiSelectColumnType before
@@ -404,10 +407,23 @@ export function MultiSelectDropdown({
             />
           ),
         )}
+        {/* Carregamento CENTRADO (item 17v do Sólis). Era uma linha de 12px no
+            fim da lista — e o momento em que ela aparece é justamente quando a
+            lista ainda está vazia, então o popover abria com um rodapezinho
+            cinza e nada mais.
+
+            ⚠️ O respiro é `py`, nunca `min-h`: a Rodada 1 tirou daqui um piso
+            de 96px exatamente porque ele deixava um vazio quando só o
+            carregamento estava na tela. Centralizar não pode trazê-lo de volta.
+
+            ⚠️ O `Spinner` vai `aria-hidden` e quem anuncia é o texto — é a
+            receita do próprio componente; com os dois falando, o leitor de tela
+            diria "Carregando" duas vezes. */}
         {isAsync && asyncLoading && (
-          <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
-            Carregando…
-          </p>
+          <div className="flex w-full flex-col items-center justify-center gap-gp-md py-pad-2xl">
+            <Spinner size="md" aria-hidden />
+            <p className="text-body-xs font-normal text-fg-muted">Carregando…</p>
+          </div>
         )}
         {isAsync && !asyncLoading && asyncErro && (
           <div className="flex items-center gap-gp-md px-pad-md py-pad-sm">

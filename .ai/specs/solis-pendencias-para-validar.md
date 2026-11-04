@@ -201,6 +201,37 @@ aberto.
 
 ---
 
+## 5f. O que o `loadingMode` deixou em aberto (Rodada 5)
+
+| # | O quê | Estado |
+|---|---|---|
+| **P8** | **Linhas mantidas não têm sinal visual.** Nem esmaecimento, nem opacidade | ⚠️ **A rota CSS existe hoje**: `props.className` e o `aria-busy` caem no **mesmo elemento**, então `.minha-tabela[aria-busy="true"] [role="rowgroup"] { opacity:.6 }` funciona sem tocar o DS. O que **não** existe é a rota **React** — o `DataTableContextValue` não carrega a flag, e `useDataTableContext` é público. Decidir se expõe |
+| **P9** | **O rodapé segue otimista nos controles** — as setas e os números já apontam a página nova durante o vôo | O **texto do range**, que era a única afirmação falsa sobre a tela, passou a ser escondido (`hideRange`). Os controles não mentem: dizem para onde você vai. Fica como está salvo decisão em contrário |
+| **P10** | **O `DataList` não tem `loadingMode`** | ⚠️ A assimetria **é de hoje**, não condicional: o `DataList` já tem `loading?: boolean` e o repassa ao `List`, que troca o corpo por esqueletos. Com o client mode do `DataTable` agora documentado e medido, os dois divergem em capacidade equivalente |
+| **P11** | **`useDataTableQuery` devolve `error` e ninguém lê** (`:169`; grep no controller: zero) | Pré-existente e **fora** do lote. É o que torna o rodapé otimista **permanente** quando o fetch falha — nos **dois** modos, medido. Candidato a backlog próprio |
+
+> **P11 explica P9.** A divergência rodapé↔corpo que parecia nascer com o `loadingMode`
+> **já existia**: num fetch rejeitado o `isLoading` cai, os dados ficam, e o default
+> renderiza linhas antigas com o rodapé na página nova — DOM idêntico. O `keep` não
+> inventou a mentira; tornou **transitória e visível** uma que o default produz
+> **permanentemente** e em silêncio.
+
+---
+
+## 5g. O que a Rodada 5 deixou nomeado
+
+| # | O quê | Por que ficou |
+|---|---|---|
+| **P12** | **`Gantt` e `Scheduler` vão driftar do chip de filtro.** Os dois **reproduzem** a gramática do chip por cópia, sem importar (`gantt-applied-filters.tsx`, `scheduler.styles.ts:196`, que diz *"cópia da gramática do `toolbarAppliedChip`"*) | o item 16 aprovado fala de **tabela e lista**. Alinhar os dois é escopo novo e muda pixel em componentes que não estavam no pedido. **Decisão sua:** alinhar agora, ou aceitar duas peles de chip no DS |
+| **P13** | **`renderEmpty` do `DataTable` é o terceiro nome** para o slot de vazio (`emptyState` no `DataList` e no `Chart`) | renomear é **breaking**: a prop é pública. Dos três, `renderEmpty` é o mal nomeado — **soa** render-prop e recebe `ReactNode` |
+| **P14** | **`fg-brand` como TEXTO no escuro está na borda do AA** — 4,36:1 sobre superfície escura, reprova por 0,14 | resolvido **no chip** com `dark:text-fg-default` (seguindo o `bulkBarCount`, que já fazia). Mas o padrão aparece solto pelo DS (`data-[range-middle]:text-fg-brand` no `Calendar`, por exemplo) e **ninguém mede**. Candidato a gate próprio, na linha do `tooltip-contrast` que nasceu nesta rodada |
+| **P15** | **O export com `fetchData` + `rows` entrega as `rows` locais** com rótulo dizendo "Página atual" | pré-existente; o contorno (*"com `fetchData`, não passe `rows`"*) está em 4 superfícies. Consertar toca os dois caminhos de server |
+
+> **P12 é a mais urgente das quatro**, e é a única que piora com o tempo: toda tela nova de
+> `Gantt` ou `Scheduler` nasce com a pele antiga, e a diferença fica mais cara de alinhar.
+
+---
+
 ## 6. Decisões reversíveis que tomei sozinho
 
 Cada uma está no PR com o custo caso esteja errada. Listadas aqui para você discordar se

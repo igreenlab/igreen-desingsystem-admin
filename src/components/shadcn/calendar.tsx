@@ -157,9 +157,17 @@ function CalendarDayButton({
         // Range middle
         "data-[range-middle]:bg-bg-brand-subtle data-[range-middle]:text-fg-brand data-[range-middle]:rounded-none",
 
-        // Today
+        // Today — ANEL, não preenchido.
+        // O preenchido é do SELECIONADO; "hoje" usando a mesma pele deixava os
+        // dois estados indistinguíveis. O DS já tinha essa distinção no
+        // mini-calendário do `Scheduler` (`schedulerMiniDay`: *"`today` é o
+        // anel; `selected` é o preenchido"*) — aqui ela só não valia, e este é
+        // o calendário que alimenta `DatePicker` e os filtros de data.
+        // A condição é a mesma de antes: coincidindo com qualquer estado de
+        // seleção, o preenchido vence e o anel não entra (dois círculos
+        // concêntricos não informam nada).
         modifiers.today && !isSingleSelected && !isRangeStart && !isRangeEnd && !isRangeMiddle &&
-          "bg-bg-brand text-fg-on-brand font-semibold hover:bg-bg-brand",
+          "ring-1 ring-border-brand",
 
         // Outside
         modifiers.outside && "text-fg-subtle opacity-40 hover:bg-transparent",

@@ -6,8 +6,13 @@
 - vazio são DOIS casos distintos: sem dado nenhum → `renderEmpty` (CTA de criar); filtro/busca zerou → `renderNoResults` (o "limpar filtros" já vem cabeado)
 - `groupBy` tem DOIS efeitos: agrupa linhas na tabela E vira raia (swimlane) dentro de cada coluna do board kanban. Mesmo estado, dois renders — não existe prop separada pro eixo da raia
 - chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
+- unidade no número (`kWh`, `%`, `/mês`) = `typeOptions: { suffix: " kWh" }` (ou `prefix`) em `number`/`currency` — ela aparece na célula, no CHIP e no CAMPO de filtro, a string entra LITERAL (o espaço é seu) e a faixa leva a unidade UMA vez no fim. Não entra no export/clipboard: pra isso use `valueFormatter`, que vence o afixo e cobre as três superfícies de texto. Não afeta ordenação nem filtro
+- faixa numérica = operador `between` com `filterType: "number"` OU `"currency"` — nunca dois filtros (`gte` + `lte`) nem dois campos soltos acima da grade: é UM chip, com mín e máx no mesmo popover, e lado aberto lendo ≥/≤. O campo do funil/avançado mostra a mesma faixa. Coluna de moeda precisa declarar `filterType: "currency"` explicitamente — o widget do chip é roteado por `filterType`, não pelo `type`
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
+- server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ✅ Filtro/busca que zera o resultado dá "Nenhum dado encontrado" **com o botão de limpar filtros** nos três modos (corrigido na vNEXT — antes os dois caminhos de server diziam "Nenhum dado cadastrado" *sem* saída, que é falso e prende); sem filtro e total 0 segue "Nenhum dado cadastrado"
+- server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
+- linha expansível que não tem o que mostrar (sem filho, sem detalhe) → **isRowExpandable**`={(row) => row.itens > 0}`, NUNCA chevron que abre painel vazio. Recusar tira o chevron E o clique juntos (chevron inerte é pior que ausente: o usuário clica, nada acontece, e não sabe se é defeito). O espaço do chevron fica reservado, pro texto da coluna não dançar entre as linhas; linha já aberta que passa a ser recusada FECHA, e o id dela sobrevive pra reabrir se voltar a aceitar. Ausente = toda linha expande, como sempre
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.
@@ -108,6 +113,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Column types registry**       | `type: "currency"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |
 | **Formato de data**             | `type: "date"` → `14/03/2023` · `type: "datetime"` → `14/03/2023 09:30`. Outro formato? **`valueFormatter`** — ele vence o do tipo e vale na célula, no export e no clipboard. Não precisa de `render`. ⚠️ Até a v0.42.1 esses tipos formatavam **sem ano** ("14 de mar") e o `valueFormatter` **não alcançava a célula** (mudava só export/totalizador). |
 | **Formato de número / moeda**   | `type: "number"` → `1.234` · `type: "currency"` → `R$ 1.234,56`. Outro formato (`1,2 mil`, sem centavos)? **`valueFormatter`** — vence o do tipo (e o `typeOptions` do `currency`) e vale na célula, no export e no clipboard, igual ao de data. Devolver `""` deixa a célula vazia. ⚠️ Antes desta correção `number` e `currency` **ignoravam** o `valueFormatter` na célula (ele só mudava export/totalizador). |
+| **Unidade no número (`kWh`, `%`, `/mês`)** | `typeOptions: { suffix: " kWh" }` (e/ou `prefix`) em `type: "number"` ou `"currency"`. A unidade segue o número nas TRÊS superfícies que o usuário lê: **célula**, **chip** do filtro aplicado e **campo** onde ele digita (funil + builder avançado + popover do chip). A string entra **literal** — `" kWh"` dá "1.234 kWh", `"%"` dá "1.234%"; o espaço é seu. Faixa leva a unidade **uma vez**, no fim ("100 – 500 kWh"). Convive com `currency`/`locale`: o Intl formata, o afixo adorna. ⚠️ **`valueFormatter` vence e não concatena**, e é o único botão que alcança **export/clipboard** — o afixo fica na tela, o CSV sai com o número. É apresentação: ordenação e filtro seguem no número. |
 | **Coluna de ações**             | `type: "actions"` + `getActions` (ou o builder `actionColumn`). **É o `type` que dá as 3 garantias** — última coluna, ancorada à direita, largura fixa. Coluna montada na unha com botões não recebe nenhuma delas. Ver §Coluna de ações abaixo.                                                                                                                        |
 | **Inline edit**                 | `editable: true` na coluna + `onCellEditCommit`                                                                                                                                                                                                                                                                                                                      |
 | **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |
@@ -116,12 +122,14 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Ações do cabeçalho (funil, menu, ícone)** | Cada uma tem o seu interruptor: **`enableHeaderFilter: false`** na coluna esconde SÓ o funil (o menu e o filtro em si seguem) · `enableColumnMenu: false` esconde o menu INTEIRO — Fixar e Ocultar vão junto, então **não use pra tirar só o funil** · **`showTypeIcons={false}`** (prop raiz) desliga o ícone do tipo. "Ordenar" só aparece no menu de coluna ordenável. Detalhe em §Cabeçalho |
 | **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |
 | **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |
-| **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |
+| **Server mode — o DataTable busca** | passe `fetchData` em vez de `rows`. Ele chama a sua função a cada mudança de pagination/sort/filter/search e renderiza a resposta                                                                                                                                                                                                                      |
+| **Server mode — a TELA busca**  | **processingMode**`="server"` + `rows` + `rowCount`. As rows já são a página pronta: o DataTable **não** fatia, ordena, filtra nem busca — só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Use quando já existe react-query/SWR dono do fetch. Ver §Server mode |
+| **Trocar de página sem piscar** | **loadingMode**`="keep"` — durante o refetch as linhas do resultado ANTERIOR ficam no lugar (corpo **e** rodapé), com `aria-busy` + live region `sr-only` avisando, e o range do rodapé escondido. Default `"skeleton"` = o de hoje. Na primeira carga, sem linha anterior, o `"keep"` cai no esqueleto sozinho. Ver §Estados                                        |
 | **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |
 | **Virtualização**               | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais)                                                                                                                                                                                                                                                                                                    |
 | **Row grouping**                | `groupBy: "status"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form                                                                                                                                                                                                                                                               |
-| **Row expansion**               | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />`                                                                                                                                                                                                                                                                               |
+| **Row expansion**               | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />`. Linha que não tem o que mostrar: `isRowExpandable: (row) => row.itens > 0` — tira chevron e clique juntos                                                                                                                                                                                                                                                                          |
 | **Tree-data (hierarquia)**      | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente.                                                                                                                                                                                                          |
 | **Saved views**                 | `savedViewsService` (use `savedViewsMockService` em dev)                                                                                                                                                                                                                                                                                                             |
 | **State persistence**           | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
@@ -145,7 +153,7 @@ DS** — você só passa a prop pra substituir 100% do slot:
 
 | Prop | Dispara quando | Default embutido |
 |---|---|---|
-| `renderLoading` | `loading` é `true` | spinner do DS |
+| `renderLoading` | `loading` é `true`, ou um `fetchData` está em vôo | `<DataTableLoading />` — esqueleto com a silhueta da tabela (não é spinner) |
 | `renderEmpty` | o dataset não tem **nenhum** registro | `<DataTableEmpty />` — ilustração + título + descrição + ação opcional |
 | `renderNoResults` | há linhas, mas **filtro/busca zerou** o resultado | `<DataTableNoResults />` com **`onClearFilters` já cabeado** pelo DataTable (limpa `filterModel` + `search`) |
 
@@ -164,6 +172,65 @@ DS** — você só passa a prop pra substituir 100% do slot:
 CTA de **criar**; "seu filtro não achou" pede **limpar filtro** — e nesse segundo caso o
 default já entrega o botão certo, cabeado. Substituir por um `EmptyState` genérico
 **perde** esse wiring: se for substituir o `renderNoResults`, cabeie você mesmo o clear.
+
+#### `loadingMode` — manter as linhas em vez de piscar (vNEXT)
+
+Em server mode, **cada troca de página troca o corpo inteiro pelo esqueleto** e volta — é
+o default, e é o "pisca". **loadingMode** escolhe o que aparece durante o vôo:
+
+| valor | corpo | rodapé | acessibilidade |
+|---|---|---|---|
+| `"skeleton"` (default) | esqueleto | esqueleto | o esqueleto é `role="status"` — montá-lo **anuncia** o carregamento |
+| `"keep"` | as linhas do resultado **anterior** | o rodapé real e navegável, **sem o texto do range** | `aria-busy` na raiz **+** live region `sr-only` que anuncia "as linhas são do resultado anterior" e **cala** na resposta |
+
+```tsx
+<DataTable
+  fetchData={fetchClients}
+  columns={columns}
+  loadingMode="keep"   // omitir = "skeleton" = o de sempre
+/>
+```
+
+Três coisas que decidem o uso:
+
+- **A primeira carga não tem linha anterior**, e corpo vazio seria pior que esqueleto —
+  então `"keep"` **cai no esqueleto sozinho** nesse caso (e em qualquer refetch depois de
+  uma resposta sem linhas). Não alterne a prop por causa disso.
+- **O rodapé acompanha o corpo, de propósito.** O esqueleto do rodapé existe pra não
+  mostrar "1 página" enquanto não há total — com linhas mantidas há total anterior, e
+  piscar só o rodapé tiraria da mão do usuário o controle que ele acabou de clicar.
+- ⚠️ **O rodapé é otimista — mas só o range mentiria, e ele sai.** `page` e os botões
+  mudam no clique, as linhas só na resposta. Setas e números continuam **verdade**: dizem
+  pra onde o clique leva. O **texto** "76–100 de 100" é que afirmaria algo falso sobre o
+  corpo (as linhas são 1–25), então ele é escondido durante o vôo e volta na resposta.
+  Nada a configurar — o DataTable passa `hideRange` ao `FooterTable` sozinho.
+- **O anúncio não é o `aria-busy`.** `aria-busy` **anota** o container (quem navegar até
+  lá descobre); quem **anuncia** é uma live region `sr-only` montada junto com a prop.
+  Isso existe porque no modo default quem avisa é o próprio esqueleto (`role="status"`):
+  sem a live region, o `"keep"` daria **menos** sinal ao leitor de tela justamente no
+  caminho em que a tela mais engana — linha velha com cara de atual.
+- `renderLoading` continua valendo — mas só **quando o esqueleto aparece**. Com `"keep"` e
+  linhas anteriores na mão, nada substitui o corpo, então o seu slot não renderiza nesse
+  instante (ele volta na primeira carga, onde o esqueleto é o que aparece).
+
+Em server mode o dado **nunca** foi descartado: `useDataTableQuery` não limpa `data`/`total`
+ao disparar a request (nem no `catch`). O que mudou é o render parar de jogá-lo fora.
+
+**Em client mode (`rows` + `loading`) a prop vale igual** — mesma tabela, mesmo
+`aria-busy`, mesmo rodapé. ⚠️ **Com uma diferença que decide o uso: aqui quem preserva o
+resultado anterior é VOCÊ, não o DS.**
+
+```tsx
+// ✅ as linhas antigas ficam na tela enquanto o novo lote não chega
+<DataTable rows={dadosAnteriores} loading={isFetching} loadingMode="keep" … />
+
+// ❌ zerar `rows` junto com o loading = não há o que manter → cai no esqueleto
+<DataTable rows={[]} loading={isFetching} loadingMode="keep" … />
+```
+
+O guard é "existe linha pra manter?", não "o modo é server?" — então `rows` vazio tem
+exatamente o mesmo efeito que a primeira carga do server mode. Com `react-query`/SWR, é o
+que `placeholderData` / `keepPreviousData` já fazem pra você.
 
 ### Coluna de ações (editar / excluir / "…")
 
@@ -241,7 +308,92 @@ const fetchData = useCallback(
 />;
 ```
 
-`fetchData` é re-disparado quando muda `pagination | sort | filter | search`. Use ref/AbortController interno se precisar cancelar. Loading state é managed pelo controller (skeleton no body).
+`fetchData` é re-disparado quando muda `pagination | sort | filter | search`. Use ref/AbortController interno se precisar cancelar. Loading state é managed pelo controller: **por default corpo e rodapé viram esqueleto** a cada refetch — é isso que faz trocar de página "piscar". Pra manter as linhas da página anterior até a próxima chegar, veja **loadingMode** em §Estados.
+
+#### O outro caminho: `processingMode="server"` (a TELA busca)
+
+São **dois** caminhos de server mode, e o consumidor escolhe um:
+
+| | quem dispara a request | quando usar |
+|---|---|---|
+| `fetchData` | o DataTable | a tela não tem camada de dados própria |
+| **processingMode**`="server"` + `rows` | a tela | já existe `react-query`/SWR/RTK-Query dono do fetch, com cache, invalidação e `placeholderData` |
+
+```tsx
+const { data, isFetching } = useQuery({
+  queryKey: ["clients", paginationModel, sortModel, filterModel, search],
+  queryFn: () => api.get("/clients", { params: { paginationModel, sortModel, filterModel, search } }),
+  placeholderData: keepPreviousData,
+});
+
+<DataTable<Client>
+  rows={data?.items ?? []}
+  rowCount={data?.total ?? 0}
+  processingMode="server"
+  loading={isFetching}
+  loadingMode="keep"
+  columns={columns}
+  paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
+  sortModel={sortModel}             onSortModelChange={setSortModel}
+  filterModel={filterModel}         onFilterModelChange={setFilterModel}
+  search={search}                   onSearchChange={setSearch}
+  paginationConfig={{ initialPageSize: 25, pageSizeOptions: [25] }}
+  toolbar={{ enableRefresh: false }}
+/>
+```
+
+⚠️ **A prop desliga mais do que o nome diz, e é de propósito.** `"server"` pula o pipeline
+local **inteiro** — filtro, busca, ordenação **e** o slice. Desligar só o slice seria pior
+que não ter a prop: uma tabela que pagina no servidor e continua ORDENANDO o lote recebido
+ordena 25 linhas como se fossem as 1.000, e o filtro local apaga linhas que o `rowCount`
+continua contando (o corpo mostra 7, o rodapé diz "1–25 de 1.000", e nada na tela diz qual
+dos dois está errado). Fronteira de página só existe sobre um conjunto já filtrado e já
+ordenado — por isso é **uma** flag, e não três. É o mesmo que `fetchData` sempre significou
+aqui.
+
+Quatro coisas que mudam de dono junto com o processamento:
+
+- **`rowCount` vira obrigatório na prática.** Sem ele o rodapé só conhece o lote que recebeu
+  ("1–N de N") e não oferece página seguinte. Em client mode puro ele continua **ignorado**.
+- **O `pageSize` da tabela tem que ser o da sua API.** O texto do range é aritmética sobre
+  `page × pageSize`, nunca uma contagem do corpo: `initialPageSize: 25` com um lote de 10
+  escreve "1–25" sob 10 linhas. Declare `pageSizeOptions` só com valores que a API aceita.
+- **O botão Refresh e o `ref.current.refresh()` só falam com o `fetchData`.** Quem recarrega
+  aqui é a tela — passe `toolbar.enableRefresh: false` e exponha o seu próprio, ou use
+  `toolbar.customLeft`. Sem isso sai `console.warn` em DEV: um botão que gira e não
+  recarrega é pior que um ausente, porque o usuário conclui que o dado está atualizado.
+- **O export "Todos" vira "Página atual"** sozinho: o DataTable só tem o lote na mão, e
+  prometer o conjunto inteiro seria mentira.
+
+⚠️ **Três limites conhecidos deste modo — leia antes de abrir bug:**
+
+1. **O caso ESPELHADO não é atendido.** Filtrar e buscar no servidor mantendo paginação e
+   ordenação locais é legítimo e comum, e `processingMode="server"` **não serve**: ele
+   desliga os quatro de uma vez. Pior, esse recorte sofre hoje um **double-filter
+   silencioso**, com ou sem a prop — quem passa `filterModel` controlado e `rows` já
+   filtradas vê o `applyFilters` local rodar de novo sobre o lote. É no-op quando as
+   semânticas coincidem e **perde linha** quando divergem (busca de banco
+   acento-insensível, collation ≠ `localeCompare`, campo que a coluna não declara virando
+   `undefined`). Pendência conhecida; não há flag.
+2. ~~**Filtro que zera o resultado mostra o estado vazio errado.**~~ **Corrigido na `vNEXT`**
+   — os três modos dão o mesmo vazio: "Nenhum dado encontrado" **com o botão de limpar
+   filtros**. Até então, nos dois caminhos de server o total ia a 0, o `isDataEmpty` vencia
+   o `isNoResults` e a tela afirmava "Nenhum dado cadastrado" — *"não existe nada"*, falso
+   — **sem a saída de limpar**, justamente quando ela é mais necessária (L-070). A causa:
+   em server o total é o de DEPOIS do filtro, e não distingue "não existe" de "não casou".
+   ⚠️ **Mudou o `fetchData` também**, de propósito. Sem filtro e total 0, segue "Nenhum
+   dado cadastrado" nos três — esse é verdadeiro. Se você contornou isto alternando
+   `renderEmpty` pelo `filterModel`, o contorno virou redundante (não quebra; o seu
+   `renderEmpty` só deixa de aparecer no caso filtrado, que agora cai no `renderNoResults`).
+3. **Não passe `rows` junto com `fetchData`.** O rótulo do export vira "Página atual" nos
+   dois, mas o `exportCsv("all")` lê `props.rows` — com os dois presentes, o corpo mostra a
+   resposta do servidor e o CSV sai com as `rows` locais. Defeito pré-existente do
+   `fetchData`, em pendência.
+
+Com `fetchData` presente a prop é **ignorada** — `fetchData` vence `rows`, e é sobre `rows`
+que ela manda. Os dois não se somam. Demo ao vivo: **Example: Server por rows**
+(`#/clients-server-rows`), ao lado do **Example: CRUD Server** (`#/clients-crud-server`), que
+é o mesmo dado pelo caminho do `fetchData`.
 
 ### Inline edit (commit no submit / Enter)
 
@@ -349,10 +501,27 @@ const columns = [
   columns={columns}
   renderRowExpansion={({ row }) => <ClientDetailPanel client={row} />}
   singleExpand // opcional — default false (múltiplas rows abertas)
+  // opcional — quais linhas aceitam expandir. Ausente = todas (comportamento de sempre)
+  isRowExpandable={(row) => row.contratos > 0}
 />;
 ```
 
 O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
+
+#### `isRowExpandable` — linha que não tem o que mostrar (vNEXT)
+
+| | sem a prop (default) | linha que o predicado RECUSA |
+|---|---|---|
+| chevron | aparece | **não aparece** — no lugar dele, espaçador do mesmo tamanho |
+| clique na célula | abre/fecha o painel | **nada** de expansão; o clique vira clique de linha e chega no `onRowClick` |
+| `aria-expanded` / `data-expandable` | na célula | **ausentes** — nada promete expansão ao leitor de tela |
+| linha já aberta que passa a ser recusada | — | **fecha** |
+
+- **Recusar tira o chevron E o clique, sempre juntos.** Chevron que não faz nada é pior que chevron ausente: o usuário clica, nada acontece, e não sabe se é defeito ou se não há nada ali.
+- **O espaço do chevron fica reservado** na linha recusada, pra o texto da coluna não dançar entre linhas que expandem e linhas que não. Mesma escolha que o tree-data já faz pro nó-folha.
+- **Linha aberta que passa a ser recusada fecha sozinha** — o predicado lê os dados da row, então a recusa pode chegar depois da expansão (o item foi excluído, o lote foi refetchado). Manter o painel aberto sem chevron pra fechá-lo é o estado que apaga a própria saída (L-070). O id **continua** no `expandedRowIds`: se a linha voltar a aceitar, ela reabre onde estava.
+- ⚠️ **Teclado**: a expansão nunca foi operável por teclado — a célula gatilho é uma `div` com `onClick`, não um `button` (diferente do chevron do tree-data, que é `button` focável). A prop não muda isso em nenhum dos dois sentidos; só garante que a célula recusada não **anuncie** expansão que não existe. Pendência conhecida, fora desta prop.
+- Só vale pra row-expansion. Em `groupBy` e `getTreeDataPath` quem decide o chevron é a hierarquia.
 
 ### Tree-data (hierarquia multi-nível)
 
@@ -639,10 +808,10 @@ columnTypeRegistry.register(RatingColumnType);
 | Filtro sem coluna visível | `ColumnDef.hidden: true` | coluna nasce oculta; chips/funil/avançado seguem filtrando. ⚠️ Com `persistId`, snapshot salvo VENCE o default — coluna `hidden` adicionada a tela EXISTENTE nasce VISÍVEL pra quem já tem estado persistido (o usuário oculta 1× ou a tela versiona o `persistId`) |
 | Nome do filtro ≠ título | `ColumnDef.filterLabel` | usado no chip, funil e avançado |
 | Chip fixo (nunca sai) | `showEmptyFilterChips: [{ field, dismissable: false }]` | X do preenchido limpa e o chip vira ⊕ sem X; string simples = descartável (comportamento antigo) |
-| Opções do servidor | `ColumnDef.filterLoadOptions(search, page)` + `filterValueLabel(v)` | multiSelect do chip vira busca async: debounce 300ms, "Carregar mais", marcados sempre no topo com rótulo resolvido |
+| Opções do servidor | `ColumnDef.filterLoadOptions(search, page)` + `filterValueLabel(v)` | multiSelect do chip vira busca async: debounce 300ms, "Carregar mais", marcados sempre no topo com rótulo resolvido. **`vNEXT`: o carregamento é CENTRADO** — `Spinner` do DS + "Carregando…" numa caixa `items-center justify-center py-pad-2xl` (≈76px), no lugar da linha de 12px que ficava no fim de uma lista vazia. ⚠️ O respiro é `py`, não `min-h`: o piso de 96px foi tirado daqui na v0.7x porque deixava vazio, e centralizar não o traz de volta. O `Spinner` vai `aria-hidden` e quem anuncia é o texto |
 | Opção fixa no topo | `filterOptions: [{ …, pinned: true }]` | fora da busca, da rolagem e do "Selecionar todos" |
 | Incluindo/Excluindo | automático no multiSelect | segmented no topo do popover; `isNoneOf` pinta o operador do chip em danger |
-| Faixa num chip só | operador `between` no `filterType: "number"` | mín–máx juntos ("10 – 500"), vírgula aceita como decimal |
+| Faixa num chip só | operador `between` no `filterType: "number"` **ou** `"currency"` | mín–máx juntos ("10 – 500" · "R$ 10,00 → R$ 500,00"), lado aberto vira ≥/≤. O popover do chip e o campo do funil/avançado abrem a MESMA faixa nos dois tipos. `number` aceita vírgula como decimal |
 | "Limpar todos" avisa a tela | `onFiltersClearAll` | pra filtro próprio fora do filterModel (ex.: SQL avançado) |
 | Avançado separado do funil | `toolbar.enableAdvancedFilters` | default segue `enableFilters` |
 | Widget custom é DONO do chip | tipo no `columnTypeRegistry` | declare **`ownsMulti: true`** no tipo pra promoção interna não sequestrar o chip multi — o widget recebe `value` como **array sempre**; blocos públicos: `MultiSelectDropdown` (chip), `MultiSelectFieldDropdown` (modal avançado), `FastSingleSelectList`, `FILTER_FIELD_CLASS` |
@@ -781,7 +950,8 @@ operador **vazio** porque o operator não está nos `operators` do column-type.
 | `multiSelect`          | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                                                | `isAnyOf`        |
 | `select`               | `equals`, `neq`, `isEmpty`, `isNotEmpty`                                                      | `equals`         |
 | `text` (default)       | `contains`, `notContains`, `equals`, `neq`, `startsWith`, `endsWith`, `isEmpty`, `isNotEmpty` | `contains`       |
-| `number`               | `equals`, `neq`, `gt`, `lt`, `gte`, `lte`                                                     | `equals`         |
+| `number`               | `equals`, `between`, `gt`, `lt`, `gte`, `lte`, `neq`                                          | `equals`         |
+| `currency`             | `equals`, `gt`, `lt`, `gte`, `lte`, `between`                                                 | `equals`         |
 | `date`                 | `between`, `equals`, `gt`, `lt`, `gte`, `lte`                                                 | `between`        |
 | `boolean`              | `equals`                                                                                      | `equals`         |
 
@@ -861,7 +1031,9 @@ tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (n
 - `initialPageSize` (25)
 - `pageSizeOptions` ([10, 25, 50, 100])
 
-> O modo client/server **não é prop** — é derivado automaticamente de `rows` vs `fetchData`.
+> O modo client/server é derivado de `rows` vs `fetchData` — **e desde a vNEXT também pode
+> ser declarado** por **processingMode**`="server"`, pra quem passa `rows` já processadas
+> pelo servidor. Esta linha dizia *"não é prop"* até lá; ver §Server mode.
 
 ### `selectionConfig`
 

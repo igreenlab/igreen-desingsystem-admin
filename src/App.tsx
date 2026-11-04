@@ -85,6 +85,7 @@ import ListRichPreview from "./preview/pages/ListRichPreview";
 import { ModalDoc } from "./preview/pages/ModalDoc";
 import ClientsCRUDPreview from "./preview/pages/ClientsCRUDPreview";
 import ClientsCRUDServerPreview from "./preview/pages/ClientsCRUDServerPreview";
+import ClientsServerRowsPreview from "./preview/pages/ClientsServerRowsPreview";
 import ClientsPreFilteredPreview from "./preview/pages/ClientsPreFilteredPreview";
 import FilterChipsLabPreview from "./preview/pages/FilterChipsLabPreview";
 import ClientsVirtualizedPreview from "./preview/pages/ClientsVirtualizedPreview";
@@ -115,6 +116,7 @@ import { SidebarBrandIcon } from "./components/ui/MenuSidebar";
 import { MenuSidebarDoc } from "./preview/pages/MenuSidebarDoc";
 import { SingleMenuSidebarDoc } from "./preview/pages/SingleMenuSidebarDoc";
 import { KpiDoc } from "./preview/pages/KpiDoc";
+import { HelpTipDoc } from "./preview/pages/HelpTipDoc";
 import { HeaderDoc } from "./preview/pages/HeaderDoc";
 import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
@@ -351,6 +353,7 @@ const DOC_PAGES = [
   "menu-sidebar",
   "single-menu-sidebar",
   "kpi",
+  "help-tip",
   "header",
   "app-shell",
   "page-header",
@@ -375,6 +378,7 @@ const DOC_PAGES = [
   "kanban",
   "clients-crud",
   "clients-crud-server",
+  "clients-server-rows",
   "clients-pre-filtered",
   "filter-chips-lab",
   "clients-virtualized",
@@ -679,6 +683,7 @@ export function App() {
             {activePage === "clients-crud-server" && (
               <ClientsCRUDServerPreview />
             )}
+            {activePage === "clients-server-rows" && <ClientsServerRowsPreview />}
             {activePage === "clients-pre-filtered" && (
               <ClientsPreFilteredPreview />
             )}
@@ -714,6 +719,7 @@ export function App() {
             {activePage === "menu-sidebar" && <MenuSidebarDoc />}
             {activePage === "single-menu-sidebar" && <SingleMenuSidebarDoc />}
             {activePage === "kpi" && <KpiDoc />}
+            {activePage === "help-tip" && <HelpTipDoc />}
             {activePage === "header" && <HeaderDoc />}
             {activePage === "app-shell" && <AppShellDoc />}
             {activePage === "page-header" && <PageHeaderDoc />}

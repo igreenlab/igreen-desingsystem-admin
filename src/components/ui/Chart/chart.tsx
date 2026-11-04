@@ -30,7 +30,10 @@ export type ChartConfig = {
   );
 };
 
-type ChartContextProps = { config: ChartConfig };
+/** Onde a legenda é renderizada: slots FORA da caixa de altura do gráfico. */
+type LegendSlots = { top: HTMLDivElement | null; bottom: HTMLDivElement | null };
+
+type ChartContextProps = { config: ChartConfig; legendSlots: LegendSlots };
 const ChartContext = React.createContext<ChartContextProps | null>(null);
 
 function useChart() {
@@ -41,25 +44,98 @@ function useChart() {
   return ctx;
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+ * "Sem dado" — critério do `emptyState`
+ *
+ * Vazio = NENHUM número finito nas props `data` que encontramos (a do gráfico e
+ * a das séries, até 2 níveis de filhos). Em uma linha, porque cada pedaço dela
+ * foi uma decisão:
+ *
+ * - `0` É dado. Barra de altura zero é informação ("não houve consumo"), não
+ *   ausência — trocá-la pelo estado vazio apagaria um fato.
+ * - `null` / `undefined` / `NaN` / texto não são. Série que só tem a categoria
+ *   do eixo preenchida renderiza exatamente o sintoma do item 28: eixos vazios.
+ * - `data` ausente também é vazio: `data={query.data}` antes da resposta é o
+ *   caso mais comum de todos, e exigir `[]` deixaria justamente ele de fora.
+ * - Por isso olhamos os FILHOS também: `<PieChart><Pie data={…}/></PieChart>`
+ *   guarda o dado na série, e sem essa varredura um gráfico cheio viraria
+ *   estado vazio. O limite é a árvore ESCRITA: se o dado entra por um
+ *   componente seu em volta da série, o container não o enxerga (documentado
+ *   na USAGE).
+ *
+ * Limite conhecido: não distinguimos a chave de categoria da chave de valor —
+ * `[{ x: 1696118400000, y: null }]` (eixo temporal numérico, série toda nula)
+ * conta como dado por causa do `x`.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+const isPlottableValue = (value: unknown): boolean =>
+  typeof value === "number" && Number.isFinite(value);
+
+const hasPlottableValue = (data: unknown[]): boolean =>
+  data.some(
+    (row) =>
+      isPlottableValue(row) ||
+      (typeof row === "object" &&
+        row !== null &&
+        Object.values(row).some(isPlottableValue)),
+  );
+
+function collectDataProps(node: React.ReactNode, found: unknown[][], depth = 0) {
+  React.Children.forEach(node, (child) => {
+    if (!React.isValidElement(child)) return;
+    const childProps = child.props as { data?: unknown; children?: React.ReactNode };
+    if (Array.isArray(childProps.data)) found.push(childProps.data);
+    if (depth < 2) collectDataProps(childProps.children, found, depth + 1);
+  });
+}
+
+function isChartEmpty(children: React.ReactNode): boolean {
+  const found: unknown[][] = [];
+  collectDataProps(children, found);
+  return !found.some(hasPlottableValue);
+}
+
 const ChartContainer = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
     config: ChartConfig;
+    /**
+     * Conteúdo a renderizar no lugar do gráfico quando não há dado (ver o
+     * critério acima). Ausente = comportamento de hoje: o Recharts desenha os
+     * eixos vazios.
+     *
+     * O nome acompanha o `emptyState` do `DataList` — mesmo conceito, mesmo
+     * tipo. (O `renderEmpty` do `DataTable` é o terceiro nome da mesma coisa e
+     * o pior dos três: soa render-prop e recebe `ReactNode`. É público, então
+     * renomeá-lo é breaking e fica para outra rodada.)
+     */
+    emptyState?: React.ReactNode;
     children: React.ComponentProps<
       typeof RechartsPrimitive.ResponsiveContainer
     >["children"];
   }
->(({ id, className, children, config, ...props }, ref) => {
+>(({ id, className, children, config, emptyState, ...props }, ref) => {
   const uniqueId = React.useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
+  /* Slots da legenda: estado (não ref) porque o `<ChartLegend>` só sabe pra
+   * onde portar depois que o nó existe, e isso precisa disparar render. */
+  const [topSlot, setTopSlot] = React.useState<HTMLDivElement | null>(null);
+  const [bottomSlot, setBottomSlot] = React.useState<HTMLDivElement | null>(null);
+  const value = React.useMemo(
+    () => ({ config, legendSlots: { top: topSlot, bottom: bottomSlot } }),
+    [config, topSlot, bottomSlot],
+  );
+
+  const showEmpty =
+    emptyState !== undefined && emptyState !== null && isChartEmpty(children);
 
   return (
-    <ChartContext.Provider value={{ config }}>
+    <ChartContext.Provider value={value}>
       <div
         data-chart={chartId}
         ref={ref}
         className={cn(
-          "flex aspect-video justify-center text-caption-sm",
+          "text-caption-sm",
           "[&_.recharts-cartesian-axis-tick_text]:fill-fg-muted",
           "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-[var(--color-chart-grid)]",
           "[&_.recharts-curve.recharts-tooltip-cursor]:stroke-border-default",
@@ -72,14 +148,32 @@ const ChartContainer = React.forwardRef<
           "[&_.recharts-sector[stroke='#fff']]:stroke-transparent",
           "[&_.recharts-sector]:outline-none",
           "[&_.recharts-surface]:outline-none",
-          className,
         )}
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer>
-          {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        <div ref={setTopSlot} />
+        {/* A altura pedida pelo consumidor vale pra ESTA caixa — a do gráfico.
+            A legenda é irmã dela, então quebrar em 2 linhas cresce o container
+            em vez de roubar área de plotagem. */}
+        <div
+          data-chart-plot=""
+          className={cn("flex aspect-video justify-center", className)}
+        >
+          {showEmpty ? (
+            <div
+              data-chart-empty=""
+              className="flex size-full items-center justify-center text-fg-muted"
+            >
+              {emptyState}
+            </div>
+          ) : (
+            <RechartsPrimitive.ResponsiveContainer>
+              {children}
+            </RechartsPrimitive.ResponsiveContainer>
+          )}
+        </div>
+        <div ref={setBottomSlot} />
       </div>
     </ChartContext.Provider>
   );
@@ -294,7 +388,46 @@ const ChartTooltipContent = React.forwardRef<
 );
 ChartTooltipContent.displayName = "ChartTooltipContent";
 
-const ChartLegend = RechartsPrimitive.Legend;
+/**
+ * ChartLegend — a `Legend` do Recharts renderizada num slot FORA da caixa de
+ * altura do gráfico.
+ *
+ * Por quê: o Recharts mede o wrapper da legenda e desconta essa altura da área
+ * de plotagem (`appendOffsetOfLegend`). Com altura fixa, uma legenda que quebra
+ * em 2 linhas rouba o dobro — medido: `h-[250px]` com 1 linha deixa a base do
+ * eixo X em 203; com 2 linhas, em 181. O gráfico encolhe e nada na tela explica.
+ *
+ * A prop `portal` é a saída pública do Recharts: com ela o `LegendSizeDispatcher`
+ * não é montado, o tamanho da legenda fica `{0,0}` e a plotagem usa a altura
+ * inteira. O slot vive DENTRO do `[data-chart]` porque é lá que as CSS vars
+ * `--color-{série}` são declaradas — fora dele, a bolinha de cor cairia em
+ * `currentColor` (L-039).
+ *
+ * `layout="vertical"` e `verticalAlign="middle"` ficam como hoje (dentro do
+ * gráfico): ali a legenda ocupa a lateral/o meio, e empurrá-la pra baixo mudaria
+ * a composição, não só a altura.
+ */
+const ChartLegend = ({
+  layout = "horizontal",
+  verticalAlign = "bottom",
+  ...props
+}: React.ComponentProps<typeof RechartsPrimitive.Legend>) => {
+  const { legendSlots } = useChart();
+  const portal =
+    layout === "horizontal" && verticalAlign !== "middle"
+      ? legendSlots[verticalAlign]
+      : null;
+
+  return (
+    <RechartsPrimitive.Legend
+      layout={layout}
+      verticalAlign={verticalAlign}
+      portal={portal}
+      {...props}
+    />
+  );
+};
+ChartLegend.displayName = "ChartLegend";
 
 type LegendPayloadItem = {
   value?: string;
@@ -318,7 +451,10 @@ const ChartLegendContent = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex items-center justify-center gap-gp-xl",
+        /* `flex-wrap`: sem ele os itens estouram a largura em silêncio. Agora
+         * que a legenda mora fora da caixa de altura, quebrar linha cresce o
+         * container — é a opção certa, e antes não era. */
+        "flex flex-wrap items-center justify-center gap-gp-xl",
         verticalAlign === "top" ? "pb-pad-md" : "pt-pad-md",
         className,
       )}

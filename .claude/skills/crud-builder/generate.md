@@ -18,6 +18,7 @@ description: >
 | ----------------------------------------------------- | -------------------------------------------------------------- |
 | CRUD client base · bulk · totalizers · inline edit    | `src/preview/pages/ClientsCRUDPreview.tsx`                     |
 | Server mode (`fetchData`/`getRowId`) · coluna actions | `src/preview/pages/ClientsCRUDServerPreview.tsx`               |
+| Server mode pela TELA (`processingMode="server"` + `rows`/`rowCount`) | `src/preview/pages/ClientsServerRowsPreview.tsx`              |
 | Filtros pré-aplicados · showEmptyFilterChips          | `src/preview/pages/ClientsPreFilteredPreview.tsx`              |
 | Virtualização                                         | `src/preview/pages/ClientsVirtualizedPreview.tsx`              |
 | Grouping (column-aligned + free-form)                 | `src/preview/pages/ClientsGroupedPreview.tsx`                  |
@@ -145,6 +146,18 @@ todo campo substantivo leva `icon` no header.
    fora `actions` e render-custom sem valor filtrável. ⚠️ **NÃO marque só as
    badge/status** — o funil de filtros (e o drawer) só lista colunas com
    `enableColumnFilter`. Marcar só 2 = bug "filtra só 2 colunas".
+   > **Faixa de valor (mín–máx)** nasce de UM filtro com operador `between`, nunca de
+   > dois (`gte` + `lte`) nem de dois campos soltos acima da grade: o chip abre mín e
+   > máx no mesmo popover e o lado vazio lê ≥/≤. Vale em `"number"` e, desde a `vNEXT`,
+   > igual em `"currency"` — use `filterType: "currency"` quando o chip deve ler
+   > "R$ 10,00 → R$ 500,00" em vez de "10 – 500" (é o `filterType` que escolhe o widget
+   > do chip, não o `type` da coluna).
+   >
+   > **Unidade de medida** (kWh, %, /mês) → `typeOptions: { suffix: " kWh" }` (ou
+   > `prefix`) na coluna, **nunca** no `headerName` nem concatenada no `render`. Ela
+   > aparece na célula, no chip e no campo de filtro; a string entra literal (o espaço
+   > é seu) e a faixa a leva uma vez, no fim. ⚠️ Não vai pro CSV — se a unidade
+   > precisar sair no export, o botão é `valueFormatter`, que vence o afixo.
 
 2. **Coluna `actions` por ÚLTIMO** no array, `type: "actions"` (via
    `actionColumn`/`getActions`). O DataTable já **ancora à direita por default** —
@@ -230,6 +243,28 @@ Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
 Regra geral: **componente do DS sempre antes de markup manual** (Avatar, Chip,
 Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.
 
+## Row expansion: nem toda linha tem detalhe (`vNEXT`)
+
+Ao gerar `expandable: true` + `renderRowExpansion`, **pergunte se TODA linha tem o que
+mostrar**. Se não tiver — pedido sem item, cliente sem contrato, nó folha — passe
+**`isRowExpandable`**:
+
+```tsx
+<DataTable
+  isRowExpandable={(row) => row.itens.length > 0}
+  renderRowExpansion={({ row }) => <Detalhe row={row} />}
+/>
+```
+
+- A linha recusada perde o chevron **e** o clique, juntos. ⛔ **Não** gere um
+  `renderRowExpansion` que devolve `null`/painel vazio pra linha sem dado: o chevron
+  continua lá e abre uma faixa em branco — o usuário clica, "nada acontece", e não sabe se
+  é defeito. Essa é exatamente a troca que a prop existe pra evitar.
+- ⛔ **Não compense alinhamento na mão.** O espaço do chevron já fica reservado na linha
+  recusada; `padding`/espaçador extra na célula só soma duas vezes.
+- Ausente = toda linha expande, como sempre. Em `groupBy` e `getTreeDataPath` a prop não
+  se aplica — ali quem decide o chevron é a hierarquia.
+
 ## Padrões de DETAIL PANEL (quando há row click → painel)
 
 **A estrutura é o bloco `dsgreen-paneldetail-1`** (`src/blocks/paneldetail/`, renderizado em
@@ -278,6 +313,7 @@ Imports: `FloatingPanel, FloatingPanelSection, FloatingPanelField` de
 | select      | `equals`   | neq, isEmpty, isNotEmpty                                            |
 | text        | `contains` | notContains, equals, neq, startsWith, endsWith, isEmpty, isNotEmpty |
 | number      | `equals`   | neq, gt, lt, gte, lte, between                                      |
+| currency    | `equals`   | gt, lt, gte, lte, between                                           |
 | date        | `between`  | equals, gt, lt                                                      |
 | boolean     | `equals`   | —                                                                   |
 
@@ -295,7 +331,21 @@ const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTERS);
 // <DataTable filterModel={filterModel} onFilterModelChange={setFilterModel} ... />
 ```
 
-### fetchData (server mode) — Guardrail 3
+### Server mode — PERGUNTE qual dos DOIS caminhos (Guardrail 3)
+
+Existem dois, e a pergunta que decide é **quem dispara a request**. Se o blueprint
+não disser, **pergunte antes de gerar**: escolher errado ou duplica a camada de
+dados que a tela já tem, ou deixa a tabela sem como pedir a página seguinte.
+
+| a tela | o caminho | o que você gera |
+|---|---|---|
+| **não** tem camada de dados própria | `fetchData` | a função + `useCallback` |
+| **já** tem `react-query`/SWR/RTK-Query dono do fetch | `processingMode="server"` | os 4 pares controlados + `rows` + `rowCount` |
+
+Sintoma do segundo: o usuário fala "já tenho o hook", "o endpoint já devolve
+paginado", "uso react-query", ou mostra um `useQuery` que já existe.
+
+#### Caminho 1 — `fetchData` (o DataTable busca)
 
 ```tsx
 const fetchData = useCallback(async (params: GridFetchParams) => {
@@ -304,6 +354,88 @@ const fetchData = useCallback(async (params: GridFetchParams) => {
   return { data: res.items, total: res.total }; // GridFetchResult<T>
 }, []);
 ```
+
+#### Caminho 2 — `processingMode="server"` (a TELA busca)
+
+```tsx
+const { data, isFetching } = useQuery({
+  queryKey: ["<entidade>", paginationModel, sortModel, filterModel, search],
+  queryFn: () => api.get("/<entidade>", { params: { paginationModel, sortModel, filterModel, search } }),
+  placeholderData: keepPreviousData,
+});
+
+<DataTable
+  rows={data?.items ?? []}
+  rowCount={data?.total ?? 0}
+  processingMode="server"
+  loading={isFetching}
+  loadingMode="keep"
+  paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
+  sortModel={sortModel}             onSortModelChange={setSortModel}
+  filterModel={filterModel}         onFilterModelChange={setFilterModel}
+  search={search}                   onSearchChange={setSearch}
+  paginationConfig={{ initialPageSize: 25, pageSizeOptions: [25] }}
+  toolbar={{ enableRefresh: false }}
+/>
+```
+
+Aqui o DataTable **não reprocessa nada** — não fatia, não ordena, não filtra, não
+busca; só emite os 4 callbacks. Quatro coisas que têm que sair geradas junto, porque
+são as falhas prováveis:
+
+- **Os 4 pares controlados.** Sem eles o usuário clica no cabeçalho e nada acontece:
+  a tabela avisou e não havia ninguém ouvindo.
+- **`rowCount`.** É a única fonte do total. Sem ele o rodapé só conhece o lote
+  ("1–N de N") e não oferece página seguinte.
+- **`initialPageSize` = o `pageSize` da API** (e `pageSizeOptions` só com valores que
+  ela aceita). O range do rodapé é `page × pageSize`, **não** contagem do corpo: 25
+  declarado com um lote de 10 escreve "1–25" sob 10 linhas.
+- **`toolbar.enableRefresh: false`.** O botão Refresh e o `ref.current.refresh()` só
+  falam com o `fetchData`.
+
+⚠️ Os dois **não se somam**: com `fetchData` presente o `processingMode` é ignorado —
+e nesse caso **não passe `rows` junto**, porque o CSV sairia com as `rows` locais sob
+um rótulo dizendo "Página atual". E **nunca** gere `processingMode="server"` numa tela
+com os dados todos em memória: ali é client mode, e a prop desligaria a paginação, a
+ordenação e o filtro que o usuário espera que funcionem.
+
+⚠️ **O caso ESPELHADO não tem prop — e você vai encontrá-lo.** Se o usuário disser que
+o backend **filtra e busca** mas a tela recebe o lote inteiro e pagina/ordena sozinha,
+`processingMode="server"` é a resposta **errada** (desliga os quatro). Gere client mode
+normal e **avise**: passar `filterModel` controlado com `rows` já filtradas faz o filtro
+local rodar de novo sobre o lote — no-op quando as semânticas coincidem, e perde linha
+quando divergem. É pendência conhecida do DS, não algo pra contornar na tela.
+
+✅ **Filtro que zera o resultado:** desde a `vNEXT` os três modos dão "Nenhum dado
+encontrado" **com o botão de limpar filtros**, já cabeado pelo DataTable. ⛔ **Não gere
+mais o `renderEmpty` alternado** pelo `filterModel` que esta seção mandava gerar
+(`renderEmpty={temFiltro ? <NoResults/> : <Empty/>}`): virou código morto no caso filtrado
+e só adiciona um caminho a manter. `renderEmpty` segue valendo pro vazio de verdade — sem
+filtro e total 0 — que é onde mora o CTA de criar.
+
+**Toda tela de server mode leva `loadingMode="keep"`** — a não ser que o blueprint
+diga o contrário. Sem a prop, cada troca de página troca o corpo **inteiro** pelo
+esqueleto e volta: é o "pisca", e numa tela de navegação frequente é a primeira
+reclamação que chega. Com ela, as linhas da página anterior ficam no lugar até a
+próxima chegar (rodapé junto, navegável), a raiz ganha `aria-busy` e uma live
+region `sr-only` anuncia que as linhas estão defasadas.
+
+```tsx
+<DataTable
+  fetchData={fetchData}
+  loadingMode="keep"   // ⬅ default é "skeleton" (o pisca)
+  …
+/>
+```
+
+- **Não trate a primeira carga.** Sem linha anterior não há o que manter, e o
+  `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+- **Em client mode (`rows` + `loading`) a prop vale igual**, mas aí quem guarda o
+  lote anterior é a tela: continue passando as linhas antigas em `rows` enquanto
+  levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
+- Durante o vôo o **range** do rodapé some (ele descreveria linhas que não estão
+  na tela) e volta na resposta — os controles de página ficam. É esperado, não é
+  defeito a "consertar".
 
 ### presetView
 

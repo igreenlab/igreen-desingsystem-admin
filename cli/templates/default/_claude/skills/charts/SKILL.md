@@ -25,6 +25,14 @@ description: >
 - Gráfico SEMPRE em `<ChartContainer config={...}>`; cor só por token (`chart-1..5` / chaves do config). 2 séries = verde (`chart-1`) + âmbar (`chart-4`); pizza = rampa monocromática da marca.
 - Grid: `<CartesianGrid vertical={false} strokeDasharray="4 4" />` (token `chart-grid`, **sem** passar `stroke` — o `ChartContainer` reescreve via token).
 - Card do gráfico: `Panel`/`Card` + título (`title`/`heading`).
+- **A altura do `className` é a do GRÁFICO, não a do bloco** (vNEXT): a legenda é renderizada
+  fora dessa caixa e soma por fora — `h-[250px]` com legenda de 1 linha dá 272px de bloco com
+  250px de plotagem, e legenda que quebra em 2 linhas cresce o bloco em vez de achatar as
+  barras. Dimensione pelo gráfico que você quer ver, não pelo espaço total do card.
+- **Gráfico que carrega dado leva **emptyState**** (vNEXT): o nó que aparece no lugar dos eixos
+  vazios. Dispara quando nenhum número finito chega nas props **data** do gráfico e das séries
+  — `0` é dado e não dispara; sem a prop, o Recharts desenha a grade sem série nenhuma.
+  Componha com o `EmptyState` do DS (`size="sm"`).
 - **Caveats do Recharts 3 (quebram mudo):**
   1. `text-display-sm`/`display-xs` **não existem** → valor de KPI usa **`text-stat-{sm,md,lg,xl}`** (20/24/30/34px, bold, com `tabular-nums`). Nunca `display-*`/`heading-*` pra número de indicador.
   2. Pizza: sem `activeIndex`/`activeShape` → use `shape={(props,index)=><Sector/>}`.
