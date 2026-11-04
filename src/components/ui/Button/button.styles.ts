@@ -87,6 +87,21 @@ export const buttonVariants = tv({
     disabled: {
       true: "pointer-events-none opacity-50",
     },
+
+    /**
+     * Desabilitado COM explicação (`disabledReason` no `button.tsx`).
+     *
+     * Mesmo cinza do `disabled`, mas **sem `pointer-events-none`**: o botão precisa
+     * continuar recebendo hover e foco, senão não há onde a tooltip do motivo
+     * aparecer — o estado apagaria a própria explicação (L-070).
+     *
+     * ⚠️ Esta variante é só a PELE. `aria-disabled` não barra clique nem submit;
+     * quem barra é o handler do `button.tsx`. Por isso ela não é pública: o
+     * `ButtonProps` a remove de `ButtonVariantProps`.
+     */
+    ariaDisabled: {
+      true: "cursor-not-allowed opacity-50",
+    },
   },
 
   compoundVariants: [
@@ -190,6 +205,10 @@ export const buttonVariants = tv({
 
     // ── Disabled — SEMPRE por último ────────────────────────────────
     { disabled: true, class: "pointer-events-none opacity-50" },
+    // Sem par pro `ariaDisabled` de propósito: `cursor-not-allowed` já vence o
+    // `cursor-pointer` da base lá na variante (variants vêm depois do base), e
+    // nenhum compound mexe em `cursor-*`/`opacity-*`. Repetir aqui seria uma linha
+    // que nenhum teste consegue matar — e linha que não morre não está coberta.
   ],
 
   defaultVariants: {
