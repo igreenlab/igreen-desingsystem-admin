@@ -943,6 +943,32 @@ export type DataTableProps<T> = {
    *  Mutuamente exclusivo com `groupBy` (groupBy tem precedência se ambos). */
   renderRowExpansion?: (params: { row: T }) => ReactNode;
   /**
+   * Quais linhas aceitam expansão. Ausente = **todas**, que é o comportamento
+   * de sempre — a prop só existe pra tirar o chevron de linha que não tem o que
+   * mostrar (sem filho, sem detalhe).
+   *
+   * Recusar uma linha tira as DUAS coisas: o chevron **e** a resposta ao clique
+   * (`onClick`, `aria-expanded`, `data-expandable` e o cursor saem junto).
+   * Chevron que não faz nada é pior que chevron ausente — o usuário clica, nada
+   * acontece, e ele não sabe se é defeito ou se não há nada ali.
+   *
+   * O lugar do chevron continua **reservado** na célula recusada (espaçador do
+   * mesmo tamanho), pra que o texto da coluna não dance entre linhas que
+   * expandem e linhas que não. Mesma escolha que o `tree-data` já faz pro
+   * nó-folha.
+   *
+   * Uma linha já aberta que o predicado passe a recusar **fecha** — manter o
+   * painel aberto sem chevron pra fechá-lo é o estado que apaga a própria saída
+   * (L-070).
+   *
+   * Só vale pra row-expansion (`renderRowExpansion`). Em `groupBy` e em
+   * `getTreeDataPath` quem decide o chevron é a própria hierarquia.
+   *
+   * @example
+   * isRowExpandable={(row) => row.itens.length > 0}
+   */
+  isRowExpandable?: (row: T) => boolean;
+  /**
    * IDs controladas de rows expandidas. Quando passado, expansion fica
    * controlled — consumer responsável por atualizar via `onExpandedRowIdsChange`.
    * Quando omitido, primitive usa state interno (uncontrolled).

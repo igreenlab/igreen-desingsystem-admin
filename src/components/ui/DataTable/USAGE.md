@@ -11,6 +11,7 @@
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
 - server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ⚠️ Filtro que zera o resultado cai em "Nenhum dado cadastrado" **sem o botão de limpar filtros** (herdado do `fetchData`) — alterne `renderEmpty` pelo seu `filterModel`
 - server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
+- linha expansível que não tem o que mostrar (sem filho, sem detalhe) → **isRowExpandable**`={(row) => row.itens > 0}`, NUNCA chevron que abre painel vazio. Recusar tira o chevron E o clique juntos (chevron inerte é pior que ausente: o usuário clica, nada acontece, e não sabe se é defeito). O espaço do chevron fica reservado, pro texto da coluna não dançar entre as linhas; linha já aberta que passa a ser recusada FECHA, e o id dela sobrevive pra reabrir se voltar a aceitar. Ausente = toda linha expande, como sempre
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.
@@ -126,7 +127,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |
 | **Virtualização**               | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais)                                                                                                                                                                                                                                                                                                    |
 | **Row grouping**                | `groupBy: "status"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form                                                                                                                                                                                                                                                               |
-| **Row expansion**               | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />`                                                                                                                                                                                                                                                                               |
+| **Row expansion**               | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />`. Linha que não tem o que mostrar: `isRowExpandable: (row) => row.itens > 0` — tira chevron e clique juntos                                                                                                                                                                                                                                                                          |
 | **Tree-data (hierarquia)**      | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente.                                                                                                                                                                                                          |
 | **Saved views**                 | `savedViewsService` (use `savedViewsMockService` em dev)                                                                                                                                                                                                                                                                                                             |
 | **State persistence**           | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
@@ -495,10 +496,27 @@ const columns = [
   columns={columns}
   renderRowExpansion={({ row }) => <ClientDetailPanel client={row} />}
   singleExpand // opcional — default false (múltiplas rows abertas)
+  // opcional — quais linhas aceitam expandir. Ausente = todas (comportamento de sempre)
+  isRowExpandable={(row) => row.contratos > 0}
 />;
 ```
 
 O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
+
+#### `isRowExpandable` — linha que não tem o que mostrar (vNEXT)
+
+| | sem a prop (default) | linha que o predicado RECUSA |
+|---|---|---|
+| chevron | aparece | **não aparece** — no lugar dele, espaçador do mesmo tamanho |
+| clique na célula | abre/fecha o painel | **nada** de expansão; o clique vira clique de linha e chega no `onRowClick` |
+| `aria-expanded` / `data-expandable` | na célula | **ausentes** — nada promete expansão ao leitor de tela |
+| linha já aberta que passa a ser recusada | — | **fecha** |
+
+- **Recusar tira o chevron E o clique, sempre juntos.** Chevron que não faz nada é pior que chevron ausente: o usuário clica, nada acontece, e não sabe se é defeito ou se não há nada ali.
+- **O espaço do chevron fica reservado** na linha recusada, pra o texto da coluna não dançar entre linhas que expandem e linhas que não. Mesma escolha que o tree-data já faz pro nó-folha.
+- **Linha aberta que passa a ser recusada fecha sozinha** — o predicado lê os dados da row, então a recusa pode chegar depois da expansão (o item foi excluído, o lote foi refetchado). Manter o painel aberto sem chevron pra fechá-lo é o estado que apaga a própria saída (L-070). O id **continua** no `expandedRowIds`: se a linha voltar a aceitar, ela reabre onde estava.
+- ⚠️ **Teclado**: a expansão nunca foi operável por teclado — a célula gatilho é uma `div` com `onClick`, não um `button` (diferente do chevron do tree-data, que é `button` focável). A prop não muda isso em nenhum dos dois sentidos; só garante que a célula recusada não **anuncie** expansão que não existe. Pendência conhecida, fora desta prop.
+- Só vale pra row-expansion. Em `groupBy` e `getTreeDataPath` quem decide o chevron é a hierarquia.
 
 ### Tree-data (hierarquia multi-nível)
 

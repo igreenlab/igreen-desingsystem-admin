@@ -187,6 +187,15 @@ sem elas nada muda.
 | a mesma faixa, com o valor **em R$ no chip** | operador ****between**** no `filterType: "currency"` — "R$ 10,00 → R$ 500,00". Desde a vNEXT o popover do chip abre mín/máx igual ao de número (antes abria um campo só e a faixa saía como o texto 10,500). ⚠️ o widget do chip é roteado por ****filterType****, não pelo ****type**** da coluna: moeda sem `filterType: "currency"` cai no widget de texto |
 | esconder o **builder avançado** (você tem o seu) | `toolbar.enableAdvancedFilters={false}` — não desliga os chips |
 
+⚠️ **vNEXT muda o pixel da barra de chips, em toda tabela e lista.** O chip com filtro
+valendo passa a ter borda **sólida de marca** sobre fundo de marca sutil, com o valor em
+verde; o chip **vazio** (o placeholder de ****showEmptyFilterChips****) continua tracejado e
+neutro. Antes os dois eram o mesmo pixel e só o conteúdo diferia. **Não há prop nova** —
+o estado sai do próprio chip. Medido: a borda do aplicado dá 5,06:1 contra a barra no
+claro e 7,99:1 no escuro; o vazio fica em 1,45 e 1,24. No escuro o valor segue neutro de
+propósito (o verde ali mede 4,36:1 e reprovaria o AA de texto). Não recrie esse destaque
+na mão nem passe `className` pra imitá-lo.
+
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
 sempre) · `"inline"` (toolbar continua visível, barra entra numa linha abaixo) · `"none"`.
 Com `countLabel`, `clearLabel`, `totalSelected` (contagem entre páginas, vinda de você) e
@@ -234,6 +243,35 @@ código antigo.
 **"Ordenar" só aparece em coluna ordenável** — e a ordenabilidade pode vir do **tipo**,
 não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
 sem nada declarado é ordenável.
+
+### Linha que não tem o que expandir (DS **vNEXT**+)
+
+Ligou a expansão (****expandable: true**** numa coluna + ****renderRowExpansion****) e
+**toda** linha ganhava chevron — inclusive a que abre um painel vazio.
+
+| quero | uso |
+|---|---|
+| toda linha expande | **não passe nada** — é o default |
+| só a linha que tem detalhe | ****isRowExpandable={(row) => row.itens > 0}**** no `data-table` |
+
+A linha que o predicado recusa perde o chevron **e** a resposta ao clique, juntos. Isso é
+a regra, não um detalhe: **chevron que não faz nada é pior que chevron ausente** — o
+usuário clica, nada acontece, e ele não sabe se é defeito ou se não há nada ali.
+
+✅ **O alinhamento está resolvido** — o espaço do chevron fica reservado na linha
+recusada, então o texto da coluna não dança de linha pra linha. Não compense na mão com
+padding.
+
+✅ **Linha já aberta que passa a ser recusada fecha sozinha.** O predicado lê os dados da
+row, então a recusa pode chegar depois (o item foi excluído, o lote foi refetchado) — e
+painel aberto sem chevron pra fechar seria um estado sem saída. O id não é descartado: se
+a linha voltar a aceitar, ela reabre.
+
+⚠️ **Não é controle de permissão.** O predicado some com a affordance; ele não protege
+dado. Linha que o usuário não pode ver não entra em ****rows****.
+
+⚠️ Vale só pra row-expansion. Em ****groupBy**** e em ****getTreeDataPath**** quem decide
+o chevron é a própria hierarquia.
 
 ### Trocar de página sem piscar (DS **vNEXT**+)
 

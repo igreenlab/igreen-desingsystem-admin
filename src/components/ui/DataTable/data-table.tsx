@@ -1130,6 +1130,22 @@ function DataTableInternal<T>(
     return col ? String(col.field) : null;
   }, [props.columns, useRowExpansion]);
 
+  /**
+   * `isRowExpandable` — quais linhas aceitam expansão. Ausente = todas, e aí
+   * nada abaixo roda (a prop é inerte por construção, não por ramo escrito à
+   * mão).
+   *
+   * A função é chamada no render de cada linha visível, igual a
+   * `getRowClassName`. Não memoizo por id: o predicado depende dos DADOS da
+   * row, então um cache sobreviveria à atualização que deveria invalidá-lo —
+   * e é justamente esse caso (a linha perde o filho) que precisa fechar.
+   */
+  const isRowExpandable = props.isRowExpandable;
+  const canExpandRow = useCallback(
+    (row: T) => !isRowExpandable || isRowExpandable(row),
+    [isRowExpandable],
+  );
+
   /* ── Tree-data — Fase F.4c ──────────────────────────────────────────
    * Hierarquia multi-nível derivada de `getTreeDataPath`. Reconstrói a árvore
    * a partir das rows (já filtradas/ordenadas) e produz TreeRows ordenadas com
@@ -1203,7 +1219,24 @@ function DataTableInternal<T>(
     if (groupByField) return groupedRows;
     if (useTreeData && treeRows) return treeRows;
     if (useRowExpansion && expandedRowIds.size > 0) {
-      return expandRows(rowsToRender, expandedRowIds, contextValue.getRowId);
+      /* Com `isRowExpandable`, o id de uma linha recusada NÃO vira painel.
+         Não é defensividade: o predicado lê os DADOS da row, então uma linha
+         aberta pode ser recusada depois (o pedido some, o filho é excluído).
+         Sem este filtro ela ficaria aberta sem chevron pra fechar — o estado
+         que apaga a própria saída (L-070). O id continua no Set do controller;
+         se a linha voltar a aceitar, ela reabre onde estava. */
+      const idsVisiveis = isRowExpandable
+        ? new Set(
+            rowsToRender
+              .filter(
+                (row) =>
+                  expandedRowIds.has(contextValue.getRowId(row)) &&
+                  canExpandRow(row),
+              )
+              .map(contextValue.getRowId),
+          )
+        : expandedRowIds;
+      return expandRows(rowsToRender, idsVisiveis, contextValue.getRowId);
     }
     return rowsToRender;
   }, [
@@ -1215,6 +1248,8 @@ function DataTableInternal<T>(
     expandedRowIds,
     rowsToRender,
     contextValue,
+    isRowExpandable,
+    canExpandRow,
   ]);
 
   // Handlers da row via REF estável (latest-ref pattern): o objeto ref nunca
@@ -1503,6 +1538,7 @@ function DataTableInternal<T>(
                   clickable={!!props.onRowClick}
                   useRowExpansion={useRowExpansion}
                   expandableColField={expandableColField}
+                  rowExpandable={canExpandRow(row)}
                   treeColField={treeColField}
                   treeMeta={treeMeta}
                   treeShowDescendantCount={treeShowDescendantCount}

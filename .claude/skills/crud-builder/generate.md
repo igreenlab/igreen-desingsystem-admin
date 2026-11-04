@@ -237,6 +237,28 @@ Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
 Regra geral: **componente do DS sempre antes de markup manual** (Avatar, Chip,
 Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.
 
+## Row expansion: nem toda linha tem detalhe (`vNEXT`)
+
+Ao gerar `expandable: true` + `renderRowExpansion`, **pergunte se TODA linha tem o que
+mostrar**. Se não tiver — pedido sem item, cliente sem contrato, nó folha — passe
+**`isRowExpandable`**:
+
+```tsx
+<DataTable
+  isRowExpandable={(row) => row.itens.length > 0}
+  renderRowExpansion={({ row }) => <Detalhe row={row} />}
+/>
+```
+
+- A linha recusada perde o chevron **e** o clique, juntos. ⛔ **Não** gere um
+  `renderRowExpansion` que devolve `null`/painel vazio pra linha sem dado: o chevron
+  continua lá e abre uma faixa em branco — o usuário clica, "nada acontece", e não sabe se
+  é defeito. Essa é exatamente a troca que a prop existe pra evitar.
+- ⛔ **Não compense alinhamento na mão.** O espaço do chevron já fica reservado na linha
+  recusada; `padding`/espaçador extra na célula só soma duas vezes.
+- Ausente = toda linha expande, como sempre. Em `groupBy` e `getTreeDataPath` a prop não
+  se aplica — ali quem decide o chevron é a hierarquia.
+
 ## Padrões de DETAIL PANEL (quando há row click → painel)
 
 **A estrutura é o bloco `dsgreen-paneldetail-1`** (`src/blocks/paneldetail/`, renderizado em

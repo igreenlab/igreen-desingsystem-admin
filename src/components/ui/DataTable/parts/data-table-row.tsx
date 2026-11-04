@@ -75,6 +75,13 @@ export type DataTableRowProps<T> = {
   clickable: boolean;
   useRowExpansion: boolean;
   expandableColField: string | null;
+  /**
+   * Esta linha aceita expansão? Resolvido no pai (`isRowExpandable`), que é
+   * quem tem a row na mão — aqui chega como boolean pra o memo comparar.
+   * `false` tira o chevron E o clique; o ESPAÇO do chevron continua reservado
+   * (ver o espaçador abaixo).
+   */
+  rowExpandable: boolean;
   /* ── Tree-data (modo hierárquico) ─────────────────────────────── */
   /** Field da coluna primária da árvore — recebe indentação + chevron. null = sem tree. */
   treeColField: string | null;
@@ -103,6 +110,7 @@ function DataTableRowInner<T>({
   clickable,
   useRowExpansion,
   expandableColField,
+  rowExpandable,
   treeColField,
   treeMeta,
   treeShowDescendantCount,
@@ -139,8 +147,14 @@ function DataTableRowInner<T>({
         const value = isActionsCol ? undefined : applyValueGetter(row, col);
         const isEditingThisCell = editState?.field === field;
         const isEditable = !isActionsCol && col.editable === true;
-        const isExpandableCol =
+        // A coluna que CARREGA o gatilho de expansão (estrutural — vale pra
+        // linha inteira da tabela) vs. esta LINHA aceitar expandir. A primeira
+        // decide quem reserva o espaço do chevron; a segunda, se há chevron e
+        // clique. Separadas de propósito: juntá-las de volta faz a coluna
+        // perder o espaçador e o texto dançar entre linhas.
+        const isExpansionTriggerCol =
           useRowExpansion && col.expandable === true && field === expandableColField;
+        const isExpandableCol = isExpansionTriggerCol && rowExpandable;
         const isTreeCol = treeColField != null && field === treeColField && treeMeta != null;
 
         // Fallback chain de render:
@@ -231,15 +245,26 @@ function DataTableRowInner<T>({
           >
             {baseContent as ReactNode}
           </DataTableTreeToggle>
-        ) : isExpandableCol ? (
+        ) : isExpansionTriggerCol ? (
           <span className="flex items-center gap-gp-md w-full">
-            <ChevronRight
-              className={cn(
-                "shrink-0 size-icon-sm text-fg-muted transition-transform duration-150",
-                expanded && "rotate-90",
-              )}
-              aria-hidden
-            />
+            {rowExpandable ? (
+              <ChevronRight
+                className={cn(
+                  "shrink-0 size-icon-sm text-fg-muted transition-transform duration-150",
+                  expanded && "rotate-90",
+                )}
+                aria-hidden
+              />
+            ) : (
+              // Espaçador do tamanho do chevron — mantém o texto da coluna
+              // alinhado entre linhas que expandem e linhas que não. Mesma
+              // escolha do nó-folha em `DataTableTreeToggle`.
+              <span
+                className="shrink-0 size-icon-sm"
+                data-expand-spacer="true"
+                aria-hidden
+              />
+            )}
             <span className="flex-1 min-w-0">{contentWithAddons}</span>
           </span>
         ) : (
