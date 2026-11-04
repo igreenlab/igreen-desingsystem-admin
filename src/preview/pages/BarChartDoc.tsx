@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { TrendingUp } from "lucide-react";
+import { ChartColumnBig, TrendingUp } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -25,6 +25,7 @@ import {
   ChartLegendContent,
   type ChartConfig,
 } from "../../components/ui/Chart";
+import { EmptyState } from "../../components/ui/EmptyState";
 import { DocLayout, DocHeader, DocSeparator } from "../components";
 
 /* ── Mock (domínio iGreen) ──────────────────────────────────────────── */
@@ -77,6 +78,22 @@ const SALDO = [
 ];
 const configSaldo = { saldo: { label: "Saldo (kWh)" } } satisfies ChartConfig;
 
+// Legenda longa — 6 séries que não cabem numa linha dentro de um card estreito.
+const CANAIS = [
+  { month: "Jan", indicacao: 42, marketplace: 31, telemarketing: 18, parceiro: 25, organico: 14, campo: 9 },
+  { month: "Fev", indicacao: 55, marketplace: 28, telemarketing: 22, parceiro: 19, organico: 17, campo: 12 },
+  { month: "Mar", indicacao: 48, marketplace: 35, telemarketing: 15, parceiro: 30, organico: 21, campo: 8 },
+];
+
+const configCanais = {
+  indicacao: { label: "Indicação", color: "var(--color-chart-1)" },
+  marketplace: { label: "Marketplace", color: "var(--color-chart-2)" },
+  telemarketing: { label: "Telemarketing", color: "var(--color-chart-3)" },
+  parceiro: { label: "Parceiro comercial", color: "var(--color-chart-4)" },
+  organico: { label: "Orgânico", color: "var(--color-chart-5)" },
+  campo: { label: "Equipe de campo", color: "var(--color-chart-1)" },
+} satisfies ChartConfig;
+
 const CHART_CLASS = "h-[250px] w-full";
 
 const TOC = [
@@ -84,6 +101,8 @@ const TOC = [
   { id: "horizontal", label: "Horizontal" },
   { id: "multiple", label: "Multiple" },
   { id: "stacked", label: "Stacked + Legend" },
+  { id: "legend-wrap", label: "Legenda em 2 linhas" },
+  { id: "empty", label: "Sem dados (empty)" },
   { id: "label", label: "Label" },
   { id: "custom-label", label: "Custom Label" },
   { id: "mixed", label: "Mixed" },
@@ -201,6 +220,65 @@ export function BarChartDoc() {
                 <ChartLegend content={<ChartLegendContent />} />
                 <Bar dataKey="gerada" stackId="a" fill="var(--color-gerada)" radius={[0, 0, 4, 4]} />
                 <Bar dataKey="consumida" stackId="a" fill="var(--color-consumida)" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        {/* Legenda que quebra em 2 linhas — o gráfico NÃO encolhe */}
+        <Card id="legend-wrap">
+          <CardHeader>
+            <CardTitle>Bar Chart — Legenda em 2 linhas</CardTitle>
+            <CardDescription>
+              6 séries num card estreito: a legenda quebra e o card cresce. A área de
+              plotagem continua com os 250px pedidos no `className` — compare com o
+              card ao lado.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={configCanais} className={CHART_CLASS}>
+              <BarChart data={CANAIS}>
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <ChartLegend content={<ChartLegendContent />} />
+                <Bar dataKey="indicacao" stackId="a" fill="var(--color-indicacao)" />
+                <Bar dataKey="marketplace" stackId="a" fill="var(--color-marketplace)" />
+                <Bar dataKey="telemarketing" stackId="a" fill="var(--color-telemarketing)" />
+                <Bar dataKey="parceiro" stackId="a" fill="var(--color-parceiro)" />
+                <Bar dataKey="organico" stackId="a" fill="var(--color-organico)" />
+                <Bar dataKey="campo" stackId="a" fill="var(--color-campo)" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        {/* Sem dados — prop `empty` */}
+        <Card id="empty">
+          <CardHeader>
+            <CardTitle>Bar Chart — Sem dados</CardTitle>
+            <CardDescription>
+              `empty` troca os eixos vazios pelo nó que você passar. Sem a prop, o
+              Recharts desenha a grade sem nenhuma barra.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer
+              config={config}
+              className={CHART_CLASS}
+              empty={
+                <EmptyState
+                  size="sm"
+                  icon={ChartColumnBig}
+                  title="Sem geração no período"
+                  description="Nenhuma unidade consumidora registrou energia entre Janeiro e Junho."
+                />
+              }
+            >
+              <BarChart data={[]}>
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+                <Bar dataKey="gerada" fill="var(--color-gerada)" radius={6} />
               </BarChart>
             </ChartContainer>
           </CardContent>

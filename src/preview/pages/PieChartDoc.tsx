@@ -306,7 +306,7 @@ export function PieChartDoc() {
                 <Pie data={FONTES} dataKey="kwh" nameKey="fonte" />
                 <ChartLegend
                   content={<ChartLegendContent nameKey="fonte" />}
-                  className="-translate-y-2 flex-wrap gap-gp-sm *:basis-1/4 *:justify-center"
+                  className="gap-gp-sm *:basis-1/4 *:justify-center"
                 />
               </PieChart>
             </ChartContainer>
