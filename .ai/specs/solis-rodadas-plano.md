@@ -190,7 +190,7 @@ documentada em lugar nenhum.
       ⚠️ **Mas o embed tem DOIS checks, e só um é débito.** `registry-check.mjs:179`
       (*"CONTEÚDO defasado em N/M"*) é tolerado no PR — os arquivos estão lá, só velhos.
       `:108` (*"não contém: <item>"*) é **falha dura e bloqueia o CI**: o componente existe
-      no `registry.json` e **não** existe no embed, então  não entrega
+      no `registry.json` e **não** existe no embed, então `igreen:add <item>` não entrega
       nada. **Item novo fecha o embed no PR**, não no release. Medido na Rodada 5, a
       primeira que criou componente novo.
       ⚠️ O `copy-registry.mjs` exige **cwd = `registry-app/`** e se recusa a escrever se o
