@@ -146,6 +146,12 @@ todo campo substantivo leva `icon` no header.
    fora `actions` e render-custom sem valor filtrável. ⚠️ **NÃO marque só as
    badge/status** — o funil de filtros (e o drawer) só lista colunas com
    `enableColumnFilter`. Marcar só 2 = bug "filtra só 2 colunas".
+   > **Faixa de valor (mín–máx)** nasce de UM filtro com operador `between`, nunca de
+   > dois (`gte` + `lte`) nem de dois campos soltos acima da grade: o chip abre mín e
+   > máx no mesmo popover e o lado vazio lê ≥/≤. Vale em `"number"` e, desde a `vNEXT`,
+   > igual em `"currency"` — use `filterType: "currency"` quando o chip deve ler
+   > "R$ 10,00 → R$ 500,00" em vez de "10 – 500" (é o `filterType` que escolhe o widget
+   > do chip, não o `type` da coluna).
 
 2. **Coluna `actions` por ÚLTIMO** no array, `type: "actions"` (via
    `actionColumn`/`getActions`). O DataTable já **ancora à direita por default** —
@@ -279,6 +285,7 @@ Imports: `FloatingPanel, FloatingPanelSection, FloatingPanelField` de
 | select      | `equals`   | neq, isEmpty, isNotEmpty                                            |
 | text        | `contains` | notContains, equals, neq, startsWith, endsWith, isEmpty, isNotEmpty |
 | number      | `equals`   | neq, gt, lt, gte, lte, between                                      |
+| currency    | `equals`   | gt, lt, gte, lte, between                                           |
 | date        | `between`  | equals, gt, lt                                                      |
 | boolean     | `equals`   | —                                                                   |
 

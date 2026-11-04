@@ -92,6 +92,15 @@ const SAVED_VIEW_FIELDS: Array<{
 
 const DEMO_ROWS: ClientRow[] = CLIENTS_MOCK.slice(0, 8);
 
+/* Linha do exemplo da faixa: um número "cru" ao lado de um de moeda, pros dois chips
+   `between` ficarem visíveis lado a lado. */
+type FaixaRow = ClientRow & { consumo: number };
+
+const FAIXA_ROWS: FaixaRow[] = DEMO_ROWS.map((r, i) => ({
+  ...r,
+  consumo: 120 + i * 95,
+}));
+
 /* ── Capabilities matrix ──────────────────────────────────────── */
 
 const CAPABILITIES: Array<{ name: string; how: string }> = [
@@ -545,6 +554,16 @@ export function DataTableDoc() {
     ],
   });
 
+  // Faixa (`between`) pré-aplicada nos DOIS tipos numéricos, pro chip do `currency` e o
+  // do `number` ficarem lado a lado — é a paridade que o item 9b fechou.
+  const [faixas, setFaixas] = useState<FilterModel>({
+    logicOperator: "AND",
+    items: [
+      { id: "doc-faixa-valor", field: "value", operator: "between", value: [1000, 9000] },
+      { id: "doc-faixa-consumo", field: "consumo", operator: "between", value: [200, 600] },
+    ],
+  });
+
   // Interruptor do exemplo "Ações do cabeçalho" — liga/desliga `showTypeIcons` ao vivo.
   const [iconesDoTipo, setIconesDoTipo] = useState(true);
 
@@ -597,6 +616,29 @@ export function DataTableDoc() {
         })),
       },
       { field: "value", headerName: "Valor", type: "currency" },
+    ],
+    [],
+  );
+
+  const faixaColumns = useMemo<DataTableColumnDef<FaixaRow>[]>(
+    () => [
+      { field: "name", headerName: "Nome", type: "user" },
+      {
+        field: "consumo",
+        headerName: "Consumo",
+        type: "number",
+        enableColumnFilter: true,
+        filterType: "number",
+      },
+      {
+        field: "value",
+        headerName: "Valor",
+        type: "currency",
+        enableColumnFilter: true,
+        // ⚠️ O roteamento do widget do CHIP lê `filterType` — não cai pro `type`.
+        // Sem esta linha o chip de uma coluna de moeda abre o widget de texto.
+        filterType: "currency",
+      },
     ],
     [],
   );
@@ -1021,6 +1063,43 @@ export function DataTableDoc() {
         </table>
       </div>
 
+      <SectionH2 id="faixa-between" title="Faixa (between) — chip e campo" />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        <code>number</code> e <code>currency</code> aceitam o operador{" "}
+        <code>between</code>, e os dois abrem a <strong>mesma faixa</strong> —
+        mín e máx — nas duas superfícies: no popover do <strong>chip</strong> e
+        no <strong>campo</strong> (funil de Filtros e builder avançado). Um chip
+        só para a faixa inteira; lado aberto lê <code>≥</code> / <code>≤</code>.
+      </p>
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        Até a <code>vNEXT</code> o <code>currency</code> tinha a faixa só no
+        campo: o chip ignorava o operador e abria um campo único, onde a tupla{" "}
+        <code>[10, 500]</code> aparecia como o texto <code>10,500</code>. É
+        paridade com o <code>number</code>, não comportamento novo — quem não
+        usa <code>between</code> não vê diferença nenhuma.
+      </p>
+
+      <ExampleSection
+        id="ex-faixa-between"
+        title="between no chip: number e currency"
+        description="As duas faixas já entram aplicadas. Abra o chip Consumo e o chip Valor: os dois oferecem mín e máx no mesmo popover. Abra também o funil de Filtros — o campo mostra a MESMA faixa. Esvazie um dos lados e o chip passa a ler ≥ ou ≤."
+        code={CODE_FAIXA_BETWEEN}
+      >
+        <div className="h-[420px] w-full flex">
+          <DataTable<FaixaRow>
+            rows={FAIXA_ROWS}
+            columns={faixaColumns}
+            getRowId={(r) => r.id}
+            filterModel={faixas}
+            onFilterModelChange={setFaixas}
+            toolbar={{ title: "Clientes", enableFilters: true }}
+            className="max-h-full"
+          />
+        </div>
+      </ExampleSection>
+
       <SectionH2 id="custom-filter" title="Widget de filtro próprio" />
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
@@ -1344,6 +1423,35 @@ const columns = useMemo<DataTableColumnDef<ClientRow>[]>(() => [
   paginationConfig={{ enabled: true, initialPageSize: 25 }}
   selectionConfig={{ enabled: true }}
   showTotalizers
+/>`;
+
+const CODE_FAIXA_BETWEEN = `// \`between\` abre mín/máx no CHIP e no CAMPO — nos dois tipos numéricos.
+const columns = [
+  { field: "consumo", headerName: "Consumo", type: "number",
+    enableColumnFilter: true, filterType: "number" },
+
+  { field: "value", headerName: "Valor", type: "currency",
+    enableColumnFilter: true,
+    // ⚠️ o widget do CHIP é roteado por \`filterType\`, não pelo \`type\`
+    filterType: "currency" },
+];
+
+// Faixa pré-aplicada: UM chip por faixa, lado aberto vira ≥ / ≤
+const [faixas, setFaixas] = useState<FilterModel>({
+  logicOperator: "AND",
+  items: [
+    { id: "f1", field: "value",   operator: "between", value: [1000, 9000] },
+    { id: "f2", field: "consumo", operator: "between", value: [200, 600] },
+  ],
+});
+
+<DataTable
+  rows={rows}
+  columns={columns}
+  getRowId={(r) => r.id}
+  filterModel={faixas}
+  onFilterModelChange={setFaixas}
+  toolbar={{ title: "Clientes", enableFilters: true }}
 />`;
 
 const CODE_OWNS_MULTI = `import {

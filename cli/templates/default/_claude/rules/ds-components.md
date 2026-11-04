@@ -184,6 +184,7 @@ sem elas nada muda.
 | uma opção **fixa no topo** da lista (ex.: "Sem responsável") | ****pinned: true**** na opção — fica fora da busca, da rolagem e do "Selecionar todos" |
 | **avisar a tela** quando o usuário limpa tudo | ****onFiltersClearAll**** — dispara depois de limpar o filtro interno, pra você limpar o seu |
 | faixa numérica **num chip só** | operador ****between**** no `filterType: "number"` — "10 – 500", lado aberto vira ≥/≤ |
+| a mesma faixa, com o valor **em R$ no chip** | operador ****between**** no `filterType: "currency"` — "R$ 10,00 → R$ 500,00". Desde a vNEXT o popover do chip abre mín/máx igual ao de número (antes abria um campo só e a faixa saía como o texto 10,500). ⚠️ o widget do chip é roteado por ****filterType****, não pelo ****type**** da coluna: moeda sem `filterType: "currency"` cai no widget de texto |
 | esconder o **builder avançado** (você tem o seu) | `toolbar.enableAdvancedFilters={false}` — não desliga os chips |
 
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de

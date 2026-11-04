@@ -27,6 +27,69 @@ function toCurrency(value: unknown, opts?: CurrencyTypeOptions): string {
   }
 }
 
+/**
+ * Faixa [mín, máx] do operador `between` — o MESMO widget no campo (builder
+ * avançado + funil) e no popover do chip (item 9b do Sólis).
+ *
+ * O `number` já era assim: um `RangeInputs` só, usado pelas duas superfícies. O
+ * `currency` tinha a faixa só no campo — o chip ignorava o operador e renderizava um
+ * `<input>` único, onde a tupla `[10, 500]` virava o texto `10,500`. Compartilhar o
+ * widget é o que impede a divergência de voltar: quem mexer na faixa mexe nas duas.
+ *
+ * `variant` é a única diferença entre elas, e é a que já existia: no **campo** os
+ * inputs acompanham a altura do FilterField (36px via `FILTER_FIELD_SIZE`, para
+ * Campo/Operador/Valor terem a mesma linha); no **chip** valem o Input padrão, como o
+ * campo único que o popover já renderizava.
+ */
+function RangeInputs({
+  value,
+  onChange,
+  variant,
+  autoFocus,
+}: {
+  value: unknown;
+  onChange: (v: [number | null, number | null]) => void;
+  variant: "field" | "chip";
+  autoFocus?: boolean;
+}) {
+  const arr = Array.isArray(value) ? value : [null, null];
+  const minVal = toNumber(arr[0]);
+  const maxVal = toNumber(arr[1]);
+  const box =
+    variant === "field"
+      ? ({ size: "sm", className: FILTER_FIELD_SIZE } as const)
+      : ({ className: "w-[110px]" } as const);
+  /** Lado vazio emite `null`, nunca `0` — zero é um filtro de verdade. */
+  const set = (side: 0 | 1, raw: string) => {
+    const v = raw === "" ? null : Number(raw);
+    onChange(
+      (side === 0 ? [v, maxVal] : [minVal, v]) as [number | null, number | null],
+    );
+  };
+  return (
+    <div className="flex items-center gap-gp-md">
+      <Input
+        type="number"
+        {...box}
+        placeholder="min"
+        aria-label="Mínimo"
+        autoFocus={autoFocus}
+        value={minVal == null ? "" : String(minVal)}
+        onChange={(e) => set(0, e.target.value)}
+      />
+      <span className="text-fg-muted">–</span>
+      <Input
+        type="number"
+        {...box}
+        placeholder="max"
+        aria-label="Máximo"
+        value={maxVal == null ? "" : String(maxVal)}
+        onChange={(e) => set(1, e.target.value)}
+      />
+    </div>
+  );
+}
+
 export const CurrencyColumnType: ColumnTypeDefinition = {
   type: "currency",
   operators: [
@@ -39,36 +102,7 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
   ],
   renderFilterInput: ({ value, onChange, operator }) => {
     if (operator === "between") {
-      const arr = Array.isArray(value) ? value : [null, null];
-      const minVal = toNumber(arr[0]);
-      const maxVal = toNumber(arr[1]);
-      return (
-        <div className="flex items-center gap-gp-md">
-          <Input
-            type="number"
-            size="sm"
-            className={FILTER_FIELD_SIZE}
-            placeholder="min"
-            value={minVal == null ? "" : String(minVal)}
-            onChange={(e) => {
-              const v = e.target.value === "" ? null : Number(e.target.value);
-              onChange([v, maxVal] as [number | null, number | null]);
-            }}
-          />
-          <span className="text-fg-muted">–</span>
-          <Input
-            type="number"
-            size="sm"
-            className={FILTER_FIELD_SIZE}
-            placeholder="max"
-            value={maxVal == null ? "" : String(maxVal)}
-            onChange={(e) => {
-              const v = e.target.value === "" ? null : Number(e.target.value);
-              onChange([minVal, v] as [number | null, number | null]);
-            }}
-          />
-        </div>
-      );
+      return <RangeInputs variant="field" value={value} onChange={onChange} />;
     }
     return (
       <Input
@@ -81,17 +115,26 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
       />
     );
   },
-  renderFastFilterInput: ({ value, onChange }) => (
-    <div className="p-pad-md">
-      <Input
-        type="number"
-        value={value == null ? "" : String(value)}
-        onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
-        placeholder="0,00"
-        autoFocus
-      />
-    </div>
-  ),
+  // `between` chega aqui como TUPLA (caminho isTupleOperator do chip). Mesma guarda
+  // do `number`: o operador manda, e o valor em array cobre a visão salva/preset que
+  // traz a tupla antes de o operador alcançar o widget. Sem isto a tupla caía no campo
+  // único e `String([10, 500])` pintava "10,500" na tela (item 9b).
+  renderFastFilterInput: ({ value, onChange, operator }) =>
+    operator === "between" || Array.isArray(value) ? (
+      <div className="p-pad-md">
+        <RangeInputs variant="chip" value={value} onChange={onChange} autoFocus />
+      </div>
+    ) : (
+      <div className="p-pad-md">
+        <Input
+          type="number"
+          value={value == null ? "" : String(value)}
+          onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
+          placeholder="0,00"
+          autoFocus
+        />
+      </div>
+    ),
   matchesFilter: (cellValue, filterValue, operator) => {
     const cell = toNumber(cellValue);
     if (cell === null) return false;
