@@ -1,102 +1,103 @@
 ---
-titulo: Folha de decisão — as 15 pendências, com recomendação e custo de não fazer
-status: PARA DECISÃO
+titulo: Folha de decisão — o que foi feito, o que ficou e o que apareceu no caminho
+status: ATUALIZADA 2026-11-04 (pós Grupo A + P12)
 criado: 2026-11-04
 ---
 
-# Folha de decisão — o que fazer com as 15
+# Folha de decisão
 
-Tudo aqui é o **item 3** do documento das três listas: **nada foi feito**, e **nada bloqueia
-o release**.
-
-Organizado pela única pergunta que ajuda a decidir: **o que acontece se não fizer?**
+> **Atualizada depois que o Grupo A e a P12 foram feitos e mergeados.** O que era "15
+> pendências" virou: **5 feitas**, **1 adiada por decisão sua**, **9 em aberto**, e **4 novas**
+> que apareceram durante a execução.
 
 ---
 
-## 🟢 GRUPO A — recomendo fazer (4 itens, 1 rodada)
+# ✅ FEITO — já na `main`
 
-São defeitos com usuário do outro lado, e os quatro se resolvem juntos porque são o **mesmo
-motor**.
-
-| # | o defeito | se não fizer |
+| # | o quê | PR |
 |---|---|---|
-| **P1+P2** | o `DataList` combina filtros escalares do mesmo campo por **AND**; o `DataTable` por **OR**. São a mesma pergunta vista de dois lados | dois filtros no mesmo campo: a tabela devolve quem bate em qualquer um, a lista **não devolve ninguém**. Silencioso |
-| **P3** | desmarcar o último valor **desmonta o chip no meio da interação** e fecha o popover | o usuário perde o lugar no meio de uma ação. O `DataTable` já se protege disso de propósito; o `DataList` não |
-| **P11** | o `error` do `useDataTableQuery` **não é lido por ninguém** | quando o fetch falha, o rodapé fica **permanentemente** otimista — diz página 2 com as linhas da 1, e nada avisa |
+| **P1+P2** | o `DataList` combina filtros escalares por **OR**, como a tabela. Antes, dois filtros no mesmo campo **não devolviam ninguém** | #363 |
+| **P3** | desmarcar o último valor **não desmonta mais o chip** no meio da edição | #363 |
+| **P11** | a busca que falha deixa de ser muda — `onError`, e o rodapé para de mentir | #363 |
+| **P12** | o chip de filtro passa a existir **uma vez só** (`FilterChip`), consumido pelos três | #363 |
+| — | o destaque do chip e a legenda do `Chart` viraram **opt-in** | #362 |
 
-**Por que juntos:** o `DataTable` já respondeu "OR" para a P1/P2. Alinhar o `DataList` é
-copiar a resposta que já existe, e isso destrava a P3 pelo mesmo caminho. A P11 é o mesmo
-arquivo.
+**Dois detalhes que valem lembrar:**
 
-**Custo:** uma rodada, no padrão das anteriores.
-**Decisão que você precisa tomar antes:** confirmar que o **OR** do `DataTable` é a resposta
-certa — é ele que vira o padrão dos dois.
+- O grão do OR é **`field|operator`**, não `field`. OR por campo transformaria
+  `nome contains "a"` + `nome notContains "b"` em "contém a OU não contém b" — verdadeiro
+  para tudo.
+- No `FilterChip`, o **`Gantt` não mudou um pixel** e o **`Scheduler` mudou**: perdeu a borda
+  verde, ganhou o operador, e perdeu um `cursor: pointer` que mentia. ⚠️ **Vale conferir em
+  `#/scheduler`** — é a mudança visível da PR.
 
 ---
 
-## 🟡 GRUPO B — decidir, mas tem janela (2 itens)
+# 🟡 ADIADA POR DECISÃO SUA
 
-Não urgem por defeito. Urgem porque **a janela fecha**.
-
-| # | o quê | a janela |
+| # | o quê | sua decisão |
 |---|---|---|
-| **P13** | `renderEmpty` é o **terceiro** nome do slot de vazio (`emptyState` nos outros dois). Dos três, ele é o errado: **soa** render-prop e recebe `ReactNode` | renomear é **breaking** → só num major. Enquanto não houver major, fica |
-| **P12** | `Gantt` e `Scheduler` **copiam** a gramática do chip em vez de importar | piora com o tempo: toda tela nova nasce com a pele antiga, e alinhar fica mais caro a cada uma |
-
-⚠️ **A P12 diminuiu, mas não sumiu**, agora que o destaque do chip virou opt-in. Eles
-continuam com a cópia; só não divergem mais na cor por default.
+| **P13** | `renderEmpty` é o **terceiro** nome do slot de vazio (`emptyState` nos outros dois) | *"por mais que fuja do padrão, a documentação está bem alinhada, então provavelmente não haverá esse erro"*. Renomear é **breaking** → janela num major |
 
 ---
 
-## 🔵 GRUPO C — decisão de **design**, não de código (3 itens)
+# 🔵 EM ABERTO — decisão de **design**, não de código (3)
 
 Nenhum é "implementar". Os três pedem que alguém **escolha a forma** antes.
 
-| # | o quê | por que não é código |
+| # | o quê | o que precisa ser decidido |
 |---|---|---|
-| **4 tipos sem saída** (`select`, `boolean`, `badge`, `user`) | filtro posto **se troca mas não se esvazia** pelo funil. A única saída é o "Limpar todos", que apaga tudo | ⚠️ **O Radix proíbe opção vazia.** Exige escolher: item "Todos" sentinela? botão de limpar na linha? ícone no próprio Select? |
-| **P14** | `fg-brand` como **texto** no escuro mede 4,36:1 — reprova o AA por 0,14 | já resolvido **no chip**. A questão é se vira **gate** para o DS inteiro, e aí precisa decidir o limiar e o que fazer com os casos existentes |
-| **P8** | linhas mantidas no `loadingMode="keep"` não têm sinal visual | a rota **CSS** existe hoje; a **React** não. Decidir se o contexto passa a expor a flag é mudança de API pública |
+| **4 tipos sem saída** (`select`, `boolean`, `badge`, `user`) | filtro posto **se troca mas não se esvazia** pelo funil. A única saída apaga todos | ⚠️ **O Radix proíbe opção vazia.** Item "Todos" sentinela? Botão de limpar na linha? Ícone no Select? |
+| **P14** | `fg-brand` como **texto** no escuro mede 4,36:1 — reprova o AA por 0,14 | se vira **gate** para o DS inteiro, e aí o limiar e o que fazer com os casos existentes. ⚠️ **Virou mais urgente** — ver N1 abaixo |
+| **P8** | linhas mantidas no `loadingMode="keep"` sem sinal visual | a rota **CSS** existe; a **React** não. Expor a flag no contexto é mudança de API pública |
 
 ---
 
-## ⚪ GRUPO D — deixar como está, documentado (6 itens)
+# ⚪ EM ABERTO — recomendo deixar documentado (6)
 
-Recomendo **não fazer**. Os seis estão nomeados com o mecanismo, para quando alguém tropeçar.
+Nenhum nasceu no lote. Todos nomeados com o mecanismo, para quando alguém tropeçar.
 
 | # | o quê | por que deixar |
 |---|---|---|
-| **P15** | export com `fetchData` + `rows` entrega as rows locais | o contorno (*"com `fetchData`, não passe `rows`"*) está em 4 superfícies. Consertar toca os dois caminhos de server |
-| **P10** | o `DataList` não tem `loadingMode` | ele não tem `fetchData`; a assimetria só morde quando ganhar |
-| **P5** | não existe `defaultOpen` no `simpleFilter` | custa o deep-link nascendo aberto. Adição barata **quando alguém pedir** |
-| **P6** | a transição controlado⇄não-controlado não é testada | a guarda existe e funciona (medido). Falta o **teste**, não o código |
-| **P7** | deps do `useCallback` usam o valor, não um booleano | inofensivo hoje — o drawer não é memoizado |
-| **P4** | churn de UUID a cada toggle do chip | nada indexa por id (procurado e confirmado) |
+| **P15** | export com `fetchData` + `rows` entrega as rows locais | o contorno está em 4 superfícies |
+| **P10** | o `DataList` não tem `loadingMode` | ele não tem `fetchData`; só morde quando ganhar |
+| **P5** | não existe `defaultOpen` no `simpleFilter` | adição barata **quando alguém pedir** |
+| **P6** | a transição controlado⇄não-controlado não é testada | a guarda existe e funciona (medido). Falta o **teste** |
+| **P7** | deps do `useCallback` usam o valor | inofensivo — o drawer não é memoizado |
+| **P4** | churn de UUID a cada toggle | nada indexa por id |
 
 ---
 
-# O caminho que eu recomendo
+# 🆕 APARECERAM DURANTE A EXECUÇÃO (4)
 
-```
-1. RELEASE v0.71.0 agora          → o time avalia a feature
-2. Feedback deles                  → pode reordenar tudo abaixo
-3. Grupo A numa rodada             → é o que tem usuário do outro lado
-4. Grupo B e C quando houver major ou necessidade
-5. Grupo D fica documentado
-```
-
-**A razão de o release vir primeiro** não é pressa: é que o feedback do time pode mudar a
-prioridade do Grupo A. Eles usam o `DataList` todo dia; se o AND/OR não incomoda ninguém, ele
-desce na fila — e se incomoda, sobe acima do que eu imaginei.
+| # | o quê | gravidade |
+|---|---|---|
+| **N1** | ⚠️ **`bg-bg-danger-muted` + `text-fg-danger` mede 3,14:1** — reprova o AA. É pareamento **estabelecido** do DS: Badge, Chip, Button, AlertModal | **pior que a P14** (4,36), que é o que a motivou. Se o gate de contraste nascer, o `danger` é o primeiro a reprovar |
+| **N2** | o `setGroupValue` joga o grupo para o **fim** do array — o chip **pula de posição** ao editar | o `DataTable` já resolveu reconstruindo in-place, com o comentário *"visualmente confuso quando há 3+ chips"*. Receita existe |
+| **N3** | `toolbarAppliedTagClass` é **export morto** — declarado, nunca usado | limpeza; mantido como alias para não mexer em escopo alheio |
+| **N4** | `chip-multi-valor.test.tsx` é **flaky sob carga** — caiu uma vez e passou sozinho | dois testes dependem de `waitFor` sobre debounce de 250ms. Não caiu em ~8 runs depois |
 
 ---
 
-## Se você quiser atacar algo antes do release
+# O estado do lote
 
-O **Grupo A** é o único que eu faria. E, dentro dele, a decisão que destrava tudo é uma
-pergunta sua:
+```
+Rodadas 1–5          ✅ mergeadas    23 entregas
+Reversões opt-in     ✅ mergeada     PR #362
+Grupo A + P12        ✅ mergeada     PR #363
+Release v0.71.0      ⏸️  aguardando sua autorização de bump e publish
+Itens acima          ⬜ em aberto
+```
 
-> **Dois filtros escalares no mesmo campo devem combinar por AND ou por OR?**
+**Nada em aberto bloqueia o release.**
 
-O `DataTable` já faz **OR** (quem bate em qualquer um dos dois entra). Se você confirmar que
-é essa a resposta certa, o resto é alinhar o `DataList` a ela.
+---
+
+## O que eu faria a seguir, se perguntasse
+
+**Publicar.** O feedback do time pode reordenar tudo que está em aberto — eles usam o
+`DataList` todo dia, e o que me parece prioridade pode não ser a deles.
+
+Das que ficaram, a que eu levantaria primeiro é a **N1**: um pareamento de cor que o DS usa
+em quatro componentes e que reprova o contraste mínimo é mais sério que qualquer item desta
+lista, e foi achado por acaso, medindo outra coisa.

@@ -78,7 +78,14 @@ mesmo.
 **Sua hipótese estava quase certa.** As adições são todas puras — **com uma exceção**, que
 veio de carona.
 
-## 2a. Os 4 que você aprovou (categoria C)
+## 2a. Os que você aprovou (categoria C)
+
+> ⚠️ **Dois saíram desta lista em 2026-11-04**, e um entrou. O **item 16** (chip
+> destacado) virou opt-in e **não muda mais nada por default**. Em compensação, o chip
+> do **`Scheduler`** passou a mudar, pela unificação da P12 — ele perdeu a borda verde,
+> que era acidente e não decisão.
+
+> A lista viva de ⚠️ está na [folha de decisão](./solis-folha-de-decisao.md).
 
 Sabidamente mudam o pixel de todo projeto. Foi por isso que ficaram esperando sua decisão.
 
@@ -91,7 +98,17 @@ Sabidamente mudam o pixel de todo projeto. Foi por isso que ficaram esperando su
 
 Mais o **item 32** (tooltip invertido), que é correção mas muda todo tooltip do DS.
 
-## 2b. ⚠️ A exceção: uma adição que mudou pixel
+## 2b. ✅ A exceção — RESOLVIDA, virou opt-in
+
+> **Atualizado em 2026-11-04.** Isto era a exceção que quebrava a regra das adições
+> puras. Depois que você viu na tela, **as duas viraram prop** (PR #362): a legenda
+> ganhou `****keepPlotHeight****` e o destaque do chip ganhou
+> `****highlightAppliedFilterChips****`. Sem as props, **o pixel é o de antes**.
+
+> Então a sua hipótese original — *"acredito que não tenha nenhum"* — passou a estar
+> **inteiramente certa**: nenhuma adição muda comportamento de quem não a usa.
+
+O que era o problema, mantido como registro:
 
 **`Chart` — item 28 e 24 vieram no mesmo commit, e o 24 não é opt-in.**
 
