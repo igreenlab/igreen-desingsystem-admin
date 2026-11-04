@@ -313,6 +313,18 @@ date-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UT
 vira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —
 predicado e chip — pra os dois nunca divergirem.
 
+#### O chip de aplicado é o `FilterChip` compartilhado (`vNEXT`+)
+
+A anatomia (`⊗` à esquerda · nome · operador · valores) era uma **reprodução à
+mão** do chip do `TableToolbar`; agora é a mesma peça, `ui/FilterChip`. **Zero
+pixel mudou aqui** — medido no browser nos dois temas: gap 8px, padding 6/10,
+tracejado neutro, pílula de 22px, tudo igual. A reprodução estava correta; o que
+estava errado era existirem três.
+
+O que continua sendo decisão **deste** componente: os valores viram
+`"N selecionados"` **acima de 3** (não a partir de 2 — dois valores é o caso
+mais comum e caberia), e clicar no chip abre o popover de opções do campo.
+
 ### 14. As duas visões respondem perguntas diferentes
 
 | Visão | Responde | Título | `‹ ›` anda | Escala | Painel esquerdo |

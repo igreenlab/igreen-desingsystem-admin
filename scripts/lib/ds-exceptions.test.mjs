@@ -19,7 +19,16 @@ describe("DS_EXCEPTIONS", () => {
     ]) {
       expect(isException(name), name).toBe(true);
     }
-    expect(DS_EXCEPTIONS.size).toBe(8);
+  });
+
+  /* `filter-chip` entrou na P12 (2026-11-04): a gramática do chip de filtro
+     aplicado saiu de dentro do `TableToolbar` pra uma peça própria, consumida
+     pelos três (`DataTable`/`DataList`, `Gantt`, `Scheduler`). Mesmo caminho do
+     `table-toolbar`: sem item próprio, os arquivos viajam no `files[]` dos
+     itens que a usam. */
+  it("a 9ª é o filter-chip, bundlado nos três itens que o consomem", () => {
+    expect(isException("filter-chip")).toBe(true);
+    expect(DS_EXCEPTIONS.size).toBe(9);
   });
 
   it("toda exceção carrega um motivo não-vazio — lista sem motivo apodrece", () => {

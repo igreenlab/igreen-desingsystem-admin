@@ -209,6 +209,31 @@
           "path": "src/components/ui/Gantt/hooks/history-marks.ts",
           "type": "registry:ui",
           "target": "components/ui/Gantt/hooks/history-marks.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/FilterChip/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.styles.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.tsx"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.types.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/index.ts"
         }
       ],
       "meta": {
@@ -329,6 +354,31 @@
           "path": "src/components/ui/Scheduler/views/time-grid.tsx",
           "type": "registry:ui",
           "target": "components/ui/Scheduler/views/time-grid.tsx"
+        },
+        {
+          "path": "src/components/ui/FilterChip/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/FilterChip/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.styles.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.tsx"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.types.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/index.ts"
         }
       ],
       "meta": {
@@ -3221,6 +3271,31 @@
           "path": "src/components/ui/MenuSidebar/use-media-query.ts",
           "type": "registry:file",
           "target": "components/ui/MenuSidebar/use-media-query.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/FilterChip/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.styles.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.tsx"
+        },
+        {
+          "path": "src/components/ui/FilterChip/filter-chip.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/filter-chip.types.ts"
+        },
+        {
+          "path": "src/components/ui/FilterChip/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FilterChip/index.ts"
         }
       ],
       "meta": {

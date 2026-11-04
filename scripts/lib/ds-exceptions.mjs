@@ -24,6 +24,10 @@ export const DS_EXCEPTIONS = new Map([
     "table-toolbar",
     "bundlado no item `data-table` do registry (acoplamento circular); chega no consumidor via igreen:add data-table",
   ],
+  [
+    "filter-chip",
+    "peça compartilhada do chip de filtro aplicado — bundlada nos itens `data-table`, `gantt` e `scheduler` (mesmo caminho do table-toolbar). Item próprio só acrescentaria um `igreen:add` que ninguém roda sozinho; sem showcase próprio porque ela aparece nas três páginas que a usam",
+  ],
   // Internos do example-chat — distribuídos junto do exemplo, não como itens
   // avulsos, e sem showcase próprio.
   ["conversation-list-item", "interno do example-chat — distribuído junto do exemplo"],

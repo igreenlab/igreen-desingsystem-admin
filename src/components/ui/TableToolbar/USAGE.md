@@ -109,6 +109,14 @@ import {
   item sem valor, então lá não há chip vazio pra contrastar e o destaque pintaria 100% da
   barra. Por isso o `DataList` não repassa a prop hoje.
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
+- **O chip em si é o `FilterChip`** (`vNEXT`+), peça própria em `ui/FilterChip`,
+  compartilhada com `Gantt` e `Scheduler`. Os nomes `toolbarAppliedChip*` seguem
+  existindo como alias — a definição é uma só. **Zero pixel mudou aqui:** a única
+  classe que o chip ganhou é `shrink-0`, que o `<div>` em volta de cada chip já
+  aplicava (o `chip-filtro-ativo.test.tsx` nomeia essa única diferença e reprova
+  qualquer outra).
+  Precisa do chip numa tela que não usa `ToolbarApplied`? Importe `FilterChip` —
+  **não** copie a gramática. Foi copiá-la que produziu três versões divergentes.
 - **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`vNEXT`+).
   Ele não oferece escolha de operador — isso é do builder avançado — mas campo com filtro
   vigente é **desenhado e reescrito com o operador dele** (`isNoneOf`, `between`,

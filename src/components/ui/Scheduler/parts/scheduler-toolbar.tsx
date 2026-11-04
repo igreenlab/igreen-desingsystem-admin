@@ -9,7 +9,6 @@ import {
   ListFilter,
   Search,
   Square,
-  X,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -20,11 +19,9 @@ import {
 } from "@/components/shadcn/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { FilterChip } from "@/components/ui/FilterChip";
 import {
   schedulerClearLink,
-  schedulerFilterChip,
-  schedulerFilterChipName,
-  schedulerFilterChipValue,
   schedulerFilterDot,
   schedulerFilterRow,
   schedulerNavGroup,
@@ -61,8 +58,11 @@ import type {
  * gatilho diz qual view está ativa, então a informação não se perde: o que se
  * perde é ver as 3 inativas sem clicar.
  *
- * ⛔ Nada aqui é importado do `TableToolbar` — só a gramática visual foi
- * copiada (ver nota no topo de `scheduler.styles.ts`, L-049).
+ * ⚠️ Esta linha dizia *"⛔ Nada aqui é importado do `TableToolbar` — só a
+ * gramática visual foi copiada (L-049)"*. A gramática **deixou de ser
+ * copiada** em 2026-11-04: o chip de filtro aplicado é o `<FilterChip>` de
+ * `ui/FilterChip`, a mesma peça que o `TableToolbar` e o `Gantt` usam. O resto
+ * da toolbar continua próprio. Detalhe em `scheduler.styles.ts`.
  */
 
 const VIEW_ITEMS: {
@@ -301,22 +301,21 @@ export function SchedulerToolbar({
               .map((o) => o.label);
 
             return (
-              <span key={field.id} className={schedulerFilterChip({ applied: true })}>
-                <span className={schedulerFilterChipName()}>{field.label}</span>
-                <span className={schedulerFilterChipValue()}>
-                  {selectedLabels.length === 1
+              /* `active` fica FALSO de propósito: o destaque de marca existe
+                 pra contrastar com o chip VAZIO, e esta fileira não tem
+                 nenhum (ver a nota em `scheduler.styles.ts`). */
+              <FilterChip
+                key={field.id}
+                name={field.label}
+                op="é"
+                values={[
+                  selectedLabels.length === 1
                     ? selectedLabels[0]
-                    : `${selectedLabels.length} selecionados`}
-                </span>
-                <button
-                  type="button"
-                  aria-label={`Limpar filtro ${field.label}`}
-                  onClick={() => onClearField(field.id)}
-                  className="grid size-icon-sm shrink-0 place-items-center rounded-radius-full text-fg-subtle transition-colors duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
-                >
-                  <X aria-hidden="true" />
-                </button>
-              </span>
+                    : `${selectedLabels.length} selecionados`,
+                ]}
+                removeLabel={`Limpar filtro ${field.label}`}
+                onRemove={() => onClearField(field.id)}
+              />
             );
           })}
 
