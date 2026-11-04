@@ -552,8 +552,12 @@ Adapters internos pros popovers existentes:
   ColsPopover    → visibleCols Set + pinnedCols Set + onColumnsReorder
   ToolbarApplied → AppliedFilter[] com lookup label das filterOptions
                    chip APLICADO (sólido de marca + valor em fg-brand) × chip VAZIO
-                   (tracejado neutro): o estado vem do próprio `isEmpty`, sem prop nova,
-                   e vale igual no DataList, que renderiza este mesmo componente
+                   (tracejado neutro) é OPT-IN: `highlightAppliedFilterChips`, default
+                   false = o tracejado neutro de sempre em todo chip. Ligue só quando a
+                   barra tiver chip vazio (showEmptyFilterChips) — é contra ele que o
+                   destaque contrasta. Porta no DataTable: prop top-level, colada no
+                   `showEmptyFilterChips`. O DataList NÃO repassa: o `toAppliedFilters`
+                   dele descarta item sem valor, então lá não existe chip vazio
                    `between` NÃO imprime o rótulo do operador: o valor já lê como faixa
                    ("100 – 500", "desde 01/01"). Saída: opLabels={{ between: "entre" }}
 

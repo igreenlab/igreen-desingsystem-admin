@@ -52,6 +52,22 @@ export type ToolbarAppliedProps = {
   pendingOpenId?: string | null;
   /** Disparado quando o pending muda (null = popover fechado ou cleared). */
   onPendingOpenIdChange?: (next: string | null) => void;
+  /**
+   * Destaca o chip APLICADO (com valor): borda sólida de marca sobre
+   * `bg-brand-subtle`, com o valor em `fg-brand`. Default `false` — sem a prop,
+   * todo chip usa o tracejado neutro de sempre.
+   *
+   * **Ligue quando a barra tiver chip VAZIO** (o placeholder de
+   * `showEmptyFilterChips`): é contra o vazio que o destaque contrasta, e é só
+   * aí que ele paga. Numa barra onde todo chip visível já está aplicado, ele
+   * não distingue nada — só muda a cor de tudo.
+   *
+   * Por isso é opt-in e não derivado de `isEmpty`: o `DataList` **nunca**
+   * produz chip vazio (`toAppliedFilters` descarta item sem valor), e o
+   * `DataTable` só produz com `showEmptyFilterChips` ou no chip transitório do
+   * atalho de filtro do cabeçalho.
+   */
+  highlightAppliedFilterChips?: boolean;
   className?: string;
 };
 
@@ -92,6 +108,7 @@ export function ToolbarApplied({
   renderChip,
   separator = true,
   pendingOpenId,
+  highlightAppliedFilterChips = false,
   className,
 }: ToolbarAppliedProps) {
   if (filters.length === 0) return null;
@@ -103,12 +120,12 @@ export function ToolbarApplied({
     <div className={cn(toolbarApplied({ separator }), className)}>
       {filters.map((f) => {
         const isPendingOpen = pendingOpenId === f.id;
-        /* Chip APLICADO = tem valor. O estado vem do próprio `isEmpty` que o
-           adapter já calcula — não de prop nova: `DataTable` e `DataList`
-           renderizam ESTE componente, e uma prop nova obrigaria os dois a
-           passá-la pra receber o destaque (e o terceiro consumidor a
-           descobrir que existe). */
-        const aplicado = !f.isEmpty;
+        /* Destaque do chip APLICADO: tem valor **e** o consumidor pediu.
+           `isEmpty` sozinho não serve de gatilho — o destaque existe pra
+           contrastar com o chip vazio, e numa barra sem nenhum vazio ele
+           pinta 100% dos chips de marca sem distinguir nada. Ver
+           `highlightAppliedFilterChips` acima. */
+        const destacado = highlightAppliedFilterChips && !f.isEmpty;
         /* `between` NÃO imprime o rótulo do operador: o valor já é
            auto-descritivo em todos os tipos que têm faixa —
              number   `100 – 500`            · `≥ 100`       · `≤ 500`
@@ -128,7 +145,7 @@ export function ToolbarApplied({
           <span
             className={toolbarAppliedChip({
               interactive: !!renderChip,
-              active: aplicado,
+              active: destacado,
             })}
           >
             {/* removable === false → chip fixo: no lugar do X entra um "+"
@@ -178,14 +195,14 @@ export function ToolbarApplied({
                     {(f.value as ReactNode[]).map((v) => (
                       <span
                         key={String(v)}
-                        className={toolbarAppliedChipValue({ active: aplicado })}
+                        className={toolbarAppliedChipValue({ active: destacado })}
                       >
                         {v}
                       </span>
                     ))}
                   </span>
                 ) : (
-                  <span className={toolbarAppliedChipValue({ active: aplicado })}>
+                  <span className={toolbarAppliedChipValue({ active: destacado })}>
                     {f.value}
                   </span>
                 )}

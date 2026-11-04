@@ -52,6 +52,7 @@ import {
   ToolbarActions,
   ToolbarApplied,
   useToolbarFilters,
+  type AppliedFilter,
   type ToolbarFilterEntry,
 } from "../../components/ui/TableToolbar";
 import type { FilterModel } from "../../components/ui/DataTable/data-table.types";
@@ -65,6 +66,15 @@ import {
 } from "../components";
 
 const PERIODOS = ["Junho de 2026", "Maio de 2026", "Abril de 2026"];
+
+/* Os MESMOS chips nas duas barras da seção "Chip aplicado × chip vazio" — a
+   única diferença entre elas é a prop, e é isso que a seção demonstra. */
+const CHIPS_DEMO: AppliedFilter[] = [
+  { id: "status", columnLabel: "Status", op: "isAnyOf", value: "Ativo" },
+  { id: "saldo", columnLabel: "Saldo", op: "between", value: "R$ 10,00 – R$ 500,00" },
+  { id: "uf", columnLabel: "UF", op: "isAnyOf", value: [], isEmpty: true },
+  { id: "titular", columnLabel: "Titular", op: "isAnyOf", value: [], isEmpty: true },
+];
 
 /* ── API Reference — ToolbarActions ──────────────────────────────── */
 const PROPS_TOOLBAR_ACTIONS = [
@@ -446,26 +456,46 @@ export function TableToolbarDoc() {
       <ExampleSection
         id="ex-chips"
         title="Chip aplicado × chip vazio"
-        description="A barra de chips carrega o estado na BORDA e no fundo: tracejado neutro = slot a preencher (o placeholder de showEmptyFilterChips), sólido de marca com o valor em verde = filtro valendo. Até a vNEXT os dois eram o mesmo pixel e só o conteúdo diferia — numa barra com os dois tipos não dava pra varrer com o olho quais filtros estavam ativos. Não há prop nova: o estado sai do próprio `isEmpty` do chip, então DataTable e DataList recebem igual. ⚠️ No tema escuro o VALOR volta ao neutro de propósito: o verde de marca ali mede 4,36:1 e reprovaria o contraste mínimo de texto — quem carrega o estado lá é a borda, que mede 7,99:1 contra a barra (o chip vazio fica em 1,24). O chip de Saldo mostra a segunda mudança: faixa (`between`) NÃO imprime mais a palavra 'entre', porque o valor já lê como faixa — antes saía 'entre R$ 10,00 → R$ 500,00', e no lado aberto 'entre desde 01/01'. Pra ter a palavra de volta, `opLabels={{ between: 'entre' }}`."
-        code={`<ToolbarApplied
+        description="O destaque do chip APLICADO é OPT-IN: `highlightAppliedFilterChips`. Sem a prop (primeira barra) todo chip usa o tracejado neutro de sempre — é o default e o pixel de antes. Com a prop (segunda barra) o chip com valor ganha borda sólida de marca sobre fundo de marca sutil, com o valor em verde, e o chip vazio continua tracejado. ⚠️ Ligue quando a barra TIVER chip vazio (o placeholder de showEmptyFilterChips): é contra o vazio que o destaque contrasta, e é só aí que ele paga. Numa barra onde todo chip já está aplicado, ele não distingue nada — só muda a cor de tudo. O destaque nasceu automático na vNEXT e virou opt-in no mesmo ciclo, porque a maioria das telas não usa chip pré-definido. ⚠️ No tema escuro o VALOR volta ao neutro de propósito: o verde de marca ali mede 4,36:1 e reprovaria o contraste mínimo de texto — quem carrega o estado lá é a borda, que mede 7,99:1 contra a barra (o chip vazio fica em 1,24). O chip de Saldo mostra a outra mudança da vNEXT: faixa (`between`) NÃO imprime mais a palavra 'entre', porque o valor já lê como faixa — antes saía 'entre R$ 10,00 → R$ 500,00', e no lado aberto 'entre desde 01/01'. Pra ter a palavra de volta, `opLabels={{ between: 'entre' }}`."
+        code={`{/* default — sem destaque, o pixel de sempre */}
+<ToolbarApplied separator={false} onRemove={remover} filters={chips} />
+
+{/* opt-in — só vale a pena porque há chip vazio na mesma barra */}
+<ToolbarApplied
   separator={false}
-  onRemove={(id) => remover(id)}
-  filters={[
-    { id: "status", columnLabel: "Status", op: "isAnyOf", value: "Ativo" },
-    { id: "uf", columnLabel: "UF", op: "isAnyOf", value: [], isEmpty: true },
-  ]}
-/>`}
+  onRemove={remover}
+  highlightAppliedFilterChips
+  filters={chips}
+/>
+
+const chips = [
+  { id: "status", columnLabel: "Status", op: "isAnyOf", value: "Ativo" },
+  { id: "uf", columnLabel: "UF", op: "isAnyOf", value: [], isEmpty: true },
+];`}
       >
-        <ToolbarApplied
-          separator={false}
-          onRemove={() => {}}
-          filters={[
-            { id: "status", columnLabel: "Status", op: "isAnyOf", value: "Ativo" },
-            { id: "saldo", columnLabel: "Saldo", op: "between", value: "R$ 10,00 – R$ 500,00" },
-            { id: "uf", columnLabel: "UF", op: "isAnyOf", value: [], isEmpty: true },
-            { id: "titular", columnLabel: "Titular", op: "isAnyOf", value: [], isEmpty: true },
-          ]}
-        />
+        <div className="flex flex-col gap-gp-2xl">
+          <div className="flex flex-col gap-gp-md">
+            <span className="text-caption-md text-fg-subtle">
+              default — sem a prop
+            </span>
+            <ToolbarApplied
+              separator={false}
+              onRemove={() => {}}
+              filters={CHIPS_DEMO}
+            />
+          </div>
+          <div className="flex flex-col gap-gp-md">
+            <span className="text-caption-md text-fg-subtle">
+              com highlightAppliedFilterChips
+            </span>
+            <ToolbarApplied
+              separator={false}
+              onRemove={() => {}}
+              highlightAppliedFilterChips
+              filters={CHIPS_DEMO}
+            />
+          </div>
+        </div>
       </ExampleSection>
 
       <ExampleSection

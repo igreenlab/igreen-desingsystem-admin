@@ -247,14 +247,22 @@ export const toolbarApplied = tv({
 });
 
 /**
- * Chip de filtro. A **borda e o fundo carregam o estado** (item 16 do Sólis):
+ * Chip de filtro. `active` é o **destaque OPT-IN** do chip aplicado (item 16 do
+ * Sólis), ligado pela prop `highlightAppliedFilterChips` do `ToolbarApplied`:
  *
- *   `active: false` → tracejado neutro = slot a preencher (chip `isEmpty`)
+ *   `active: false` → tracejado neutro. É o **default** e o pixel de sempre:
+ *                     vale pro chip `isEmpty` SEMPRE, e pro chip com valor
+ *                     quando o consumidor não pediu o destaque
  *   `active: true`  → sólido de marca sobre `bg-brand-subtle` = filtro aplicado
+ *                     numa barra que pediu o destaque
  *
- * Antes os dois eram o MESMO pixel e a diferença era só o conteúdo (mais o
- * ícone de 14px, `+` contra `X`) — numa barra com os dois tipos, não dava pra
- * varrer com o olho quais filtros estavam valendo.
+ * ⚠️ `active` **não** é sinônimo de "tem valor", e esta linha é a correção de
+ * uma afirmação que este mesmo bloco fazia: o destaque nasceu automático
+ * (derivado só de `isEmpty`) e virou opt-in porque **só paga quando há chip
+ * vazio na mesma barra pra contrastar**. Sem chip vazio ele não distingue nada
+ * e pinta tudo de marca — que é o estado da maioria das telas, e o do `DataList`
+ * em 100% dos casos (`toAppliedFilters` descarta item sem valor antes de chegar
+ * aqui). Quem decide é o consumidor; o default é o pixel de antes.
  *
  * ⚠️ `bg` e `border-style`/`border-color` saíram da `base` e vivem só dentro da
  * variante, e o `hover` só nos `compoundVariants`. Não é organização: com
@@ -322,7 +330,9 @@ export const toolbarAppliedChipOp = tv({
 
 /**
  * Pílula do VALOR dentro do chip. `active` muda SÓ a cor do texto: no chip
- * aplicado o valor é a informação que importa, e lê em `fg-brand`.
+ * aplicado de uma barra **com o destaque ligado** (`highlightAppliedFilterChips`)
+ * o valor é a informação que importa, e lê em `fg-brand`. Sem a prop fica em
+ * `fg-default`, como sempre foi.
  *
  * ⚠️ O fundo da pílula continua `bg-muted` / `bg-accent` **de propósito**, e
  * isso foi medido: tingir também a pílula (22% de marca sobre os 14% do chip)
