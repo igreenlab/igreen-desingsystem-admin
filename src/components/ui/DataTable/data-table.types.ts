@@ -929,6 +929,23 @@ export type DataTableProps<T> = {
   loading?: boolean;
 
   /**
+   * O que o corpo mostra ENQUANTO um carregamento está em vôo.
+   *
+   * - `"skeleton"` (default) — corpo e rodapé viram esqueleto a cada carregamento.
+   * - `"keep"` — as linhas do resultado ANTERIOR continuam na tela, e a raiz ganha
+   *   `aria-busy="true"` enquanto elas estão defasadas. Tira o "pisca" de trocar
+   *   de página em server mode.
+   *
+   * ⚠️ **Sem resultado anterior não há o que manter**, e corpo vazio seria pior que
+   * esqueleto: na PRIMEIRA carga (e sempre que a última resposta veio sem linhas)
+   * o `"keep"` cai no esqueleto sozinho. Não é preciso alternar a prop.
+   *
+   * Vale nos dois modos: em server mode o dado anterior vem do `fetchData`; em
+   * client mode, de `rows` + `loading`.
+   */
+  loadingMode?: "skeleton" | "keep";
+
+  /**
    * Opt-in pra persistir estado da tabela no localStorage (schema v4 — workspace "Default").
    * Persiste: density, sortModel, pageSize, currentPage, columnWidths, pinnedColumns,
    * hiddenColumns, columnOrder, filterModel, search, viewMode, groupBy, expandedRowIds,

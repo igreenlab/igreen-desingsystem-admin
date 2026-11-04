@@ -319,6 +319,16 @@ export function useDataTableController<T>(
     effectiveTotal === 0 &&
     (filters.filterModel.items.length > 0 || search.debouncedValue.length > 0);
 
+  // `loadingMode: "keep"` — carregamento em vôo COM resultado anterior na mão.
+  // O dado nunca foi descartado (`use-data-table-query` não limpa `data` ao
+  // disparar a request); quem descartava era o render. O `.length > 0` é o que
+  // faz a PRIMEIRA carga — e qualquer refetch depois de uma resposta vazia —
+  // cair no esqueleto: sem linha anterior, manter o corpo é mostrar vazio, que
+  // é pior que o esqueleto. Quando é false, tudo abaixo segue idêntico ao de
+  // antes da prop existir.
+  const isKeepingPreviousRows =
+    props.loadingMode === "keep" && isLoading && effectiveRows.length > 0;
+
   /* ── Snapshot do estado pra getState() ───────────────────────── */
 
   const getState = useCallback((): DataTableState => ({
@@ -737,6 +747,9 @@ export function useDataTableController<T>(
   return {
     contextValue,
     isLoading,
+    /** `loadingMode: "keep"` em vôo COM linhas anteriores — o render mantém o
+     *  corpo e o rodapé no lugar do esqueleto. False = render de sempre. */
+    isKeepingPreviousRows,
     isDataEmpty,
     isNoResults,
     /** Ref ao scroll container (compartilhado entre Table.scrollRef + useColumnAutoWidth). */

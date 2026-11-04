@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   Hash, User, AtSign, Phone, CheckCircle2, Tag, Users as UsersIcon,
   DollarSign, Calendar, Type, Download, Trash2, RefreshCw,
-  Pencil, Eye, Copy, MoreHorizontal,
+  Pencil, Eye, Copy, MoreHorizontal, Loader2,
 } from "lucide-react";
 import {
   CLIENTS_MOCK,
@@ -213,11 +213,16 @@ export default function ClientsCRUDServerPreview() {
   // useCallback estável (necessário pro server mode não fazer refetch em loop)
   const fetchData = useCallback(mockFetchClients, []);
 
+  /* `loadingMode` ao vivo: a diferença só existe ENQUANTO o fetch está em vôo,
+     então mencionar a prop não demonstra nada — é preciso trocar de página nos
+     dois modos e olhar. A latência de 500ms do mock dá tempo de ver. */
+  const [loadingMode, setLoadingMode] = useState<"skeleton" | "keep">("skeleton");
+
   return (
     <ExamplePageLayout
       category="Data Table Examples"
       title="CRUD Server"
-      description="DataTable em server mode — passa fetchData em vez de rows. Sort/filter/search/pagination disparam refetch (latência 500ms simulada). Spinner default durante loading. Botão Refresh externo dispara ref.current.refresh()."
+      description="DataTable em server mode — passa fetchData em vez de rows. Sort/filter/search/pagination disparam refetch (latência 500ms simulada). Botão Refresh externo dispara ref.current.refresh(). Use o menu “Carregamento” da toolbar e troque de página: no default o corpo vira esqueleto; em “Manter linhas” as linhas anteriores ficam no lugar até a próxima página chegar."
       code={CODE}
     >
       <DataTable<ClientRow>
@@ -225,6 +230,7 @@ export default function ClientsCRUDServerPreview() {
           fetchData={fetchData}
           columns={columns}
           getRowId={(r) => r.id}
+          loadingMode={loadingMode}
           toolbar={{
             title: "Clientes",
             enableSearch: true,
@@ -232,6 +238,29 @@ export default function ClientsCRUDServerPreview() {
             enableColumns: true,
             enableDensity: true,
             enableExport: true,
+            actions: [
+              {
+                id: "loading-mode",
+                kind: "dropdown",
+                label:
+                  loadingMode === "keep"
+                    ? "Carregamento: manter linhas"
+                    : "Carregamento: esqueleto",
+                icon: <Loader2 />,
+                items: [
+                  {
+                    label: "Esqueleto (default)",
+                    active: loadingMode === "skeleton",
+                    onClick: () => setLoadingMode("skeleton"),
+                  },
+                  {
+                    label: "Manter linhas (keep)",
+                    active: loadingMode === "keep",
+                    onClick: () => setLoadingMode("keep"),
+                  },
+                ],
+              },
+            ],
           }}
           paginationConfig={{
             enabled: true,
@@ -283,6 +312,11 @@ const tableRef = useRef<DataTableRef>(null);
   fetchData={fetchClients}  // server mode — sem prop "rows"
   columns={columns}
   getRowId={(r) => r.id}
+  // Trocar de página mantém as linhas da página anterior no lugar até a
+  // próxima chegar (a raiz ganha aria-busy enquanto elas estão defasadas).
+  // Omitir = "skeleton", o comportamento de sempre. Na PRIMEIRA carga não há
+  // linha anterior, e o "keep" cai no esqueleto sozinho.
+  loadingMode="keep"
   toolbar={{
     title: "Clientes",
     enableSearch: true,

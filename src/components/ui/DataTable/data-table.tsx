@@ -164,6 +164,7 @@ function DataTableInternal<T>(
   const {
     contextValue,
     isLoading,
+    isKeepingPreviousRows,
     isDataEmpty,
     isNoResults,
     scrollContainerRef,
@@ -1656,6 +1657,11 @@ function DataTableInternal<T>(
           dataTableStyles({ fullscreen: isFullscreen }).root(),
           props.className,
         )}
+        /* `loadingMode: "keep"` — as linhas na tela são do resultado ANTERIOR.
+           O esqueleto dizia "estou carregando" por si (`DataTableLoading` tem o
+           seu próprio `aria-busy`); mantendo o corpo, quem diz é a raiz. Fora
+           desse caso o atributo não é emitido — o DOM default não muda. */
+        aria-busy={isKeepingPreviousRows || undefined}
       >
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
@@ -2238,7 +2244,7 @@ function DataTableInternal<T>(
         </div>
 
         {/* Conteúdo */}
-        {isLoading ? (
+        {isLoading && !isKeepingPreviousRows ? (
           (props.renderLoading ?? <DataTableLoading />)
         ) : isKanban ? (
           // Kanban gerencia seu próprio empty state interno (coluna sem cards).
@@ -2333,13 +2339,19 @@ function DataTableInternal<T>(
 
         {/* Footer (paginação) — só na view table.
            Durante loading mostra skeleton no lugar (mesma silhueta) pra
-           evitar paginação "1 página" enquanto fetchData responde. */}
+           evitar paginação "1 página" enquanto fetchData responde.
+
+           ⚠️ O rodapé segue o CORPO, não o `isLoading` sozinho: com
+           `loadingMode: "keep"` há resultado anterior, logo há total anterior —
+           o "1 página" que o esqueleto evita não acontece. E piscar só o rodapé
+           sob linhas reais tiraria da mão do usuário o controle que ele acabou
+           de clicar. Mesma condição do corpo, de propósito. */}
         {!isKanban &&
           (!isList ||
             (props.listConfig?.paginated && !props.listConfig?.hierarchical)) &&
           !useTreeData &&
           paginationConfig.enabled !== false &&
-          (isLoading ? (
+          (isLoading && !isKeepingPreviousRows ? (
             <div className={styles.footerWrap()}>
               <FooterTableSkeleton />
             </div>

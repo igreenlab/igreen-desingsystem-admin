@@ -55,7 +55,14 @@ const DEFAULT_FILTER_DEBOUNCE = 350;
 /**
  * Server mode fetcher. Chama `fetchData(params)` quando filter/sort/pagination/search mudam.
  *
- * - Em-vôo: `isLoading=true`. Resultado anterior continua visível.
+ * - Em-vôo: `isLoading=true` e este hook **não mexe** em `data`/`total` — o
+ *   resultado anterior segue no state até a próxima resposta chegar (ou até o
+ *   `catch`, que também os preserva). Isso é tudo que acontece AQUI: estar no
+ *   state não é estar na tela. Quem decide o que aparece é o render do
+ *   `DataTable` (`data-table.tsx`, corpo e rodapé), via `loadingMode` — default
+ *   `"skeleton"` descarta as linhas e mostra o esqueleto; `"keep"` as mantém.
+ *   ⚠️ Até 2026-11-04 esta linha dizia *"Resultado anterior continua visível"*:
+ *   verdade sobre o hook, falso sobre a tela — e não havia prop pra mudar isso.
  * - Race condition guard: requests fora de ordem são descartadas via `requestIdRef`.
  * - Refresh imperativo: bump em `refreshKey` força refetch sem mudar params.
  *

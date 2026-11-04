@@ -241,6 +241,11 @@ const CORE_PROPS = [
     type: "(open: boolean) => void — avisado quando algo pede pra abrir ou fechar o drawer. Dispara nos DOIS modos: sem `open`, só observa",
     defaultVal: "—",
   },
+  {
+    name: "loadingMode",
+    type: '"skeleton" | "keep" — o que o corpo mostra com um carregamento em vôo. "keep" mantém as linhas do resultado anterior (corpo E rodapé) e marca aria-busy na raiz enquanto elas estão defasadas. Sem resultado anterior (primeira carga) cai no esqueleto sozinho',
+    defaultVal: '"skeleton"',
+  },
 ];
 
 const TOOLBAR_PROPS = [
@@ -906,11 +911,25 @@ export function DataTableDoc() {
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
         Passe <code>fetchData</code> em vez de <code>rows</code>. O DataTable
-        re-dispara a função em mudança de filter/sort/search/page e mostra
-        spinner default durante loading. <code>ref.current.refresh()</code>
-        força refetch sem mudar params. Veja{" "}
+        re-dispara a função em mudança de filter/sort/search/page.{" "}
+        <code>ref.current.refresh()</code> força refetch sem mudar params. Veja{" "}
         <strong>Example: CRUD Server</strong> no menu lateral pro fluxo
         completo.
+      </p>
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        Enquanto a resposta não chega, o corpo e o rodapé viram{" "}
+        <strong>esqueleto</strong> — é o default, e é o que faz trocar de página
+        “piscar”. Pra manter as linhas da página anterior no lugar até a
+        próxima chegar, passe <strong>loadingMode</strong>
+        {" = "}
+        <code>"keep"</code>: a raiz ganha <code>aria-busy</code> enquanto elas
+        estão defasadas, e o rodapé continua navegável. Na primeira carga não há
+        linha anterior, e o <code>"keep"</code> cai no esqueleto sozinho — não é
+        preciso alternar a prop. Troque o modo pelo menu{" "}
+        <strong>Carregamento</strong> da toolbar em{" "}
+        <strong>Example: CRUD Server</strong> e navegue entre páginas pra ver a
+        diferença.
       </p>
 
       <pre className="px-pad-xl py-pad-lg bg-bg-subtle border border-border-subtle rounded-radius-lg text-code-sm font-mono text-fg-default overflow-x-auto scrollbar-thin mb-gp-3xl">

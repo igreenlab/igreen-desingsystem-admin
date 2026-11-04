@@ -234,6 +234,35 @@ código antigo.
 não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
 sem nada declarado é ordenável.
 
+### Trocar de página sem piscar (DS **vNEXT**+)
+
+Tabela em **server mode** (você passa ****fetchData**** em vez de ****rows****) troca o
+corpo **inteiro** pelo esqueleto a cada refetch — e o rodapé junto. Em tela onde o usuário
+navega muito entre páginas, isso é o "pisca".
+
+****loadingMode**** escolhe o que fica na tela durante o vôo da request:
+
+| quero | uso |
+|---|---|
+| o de sempre (esqueleto no corpo e no rodapé) | **não passe nada** — o default é ****"skeleton"**** |
+| as linhas da página **anterior** no lugar, até a próxima chegar | ****loadingMode="keep"**** no `data-table` |
+
+Com ****"keep"**** o rodapé **também** fica (navegável, com o total anterior) e a raiz do
+componente ganha **aria-busy="true"** enquanto as linhas estão defasadas — o leitor de
+tela precisa saber que aquilo é conteúdo velho, já que o esqueleto não está mais ali
+dizendo isso.
+
+✅ **A primeira carga não precisa de tratamento.** Não existe linha anterior pra manter, e
+corpo vazio seria pior que esqueleto: o ****"keep"**** cai no esqueleto sozinho nesse caso
+(e em qualquer refetch depois de uma resposta sem linhas). Não alterne a prop.
+
+⚠️ **O rodapé é otimista.** A página e o intervalo ("76–100 de 100") mudam no clique; as
+linhas só na resposta. Durante o vôo o rodapé pode estar à frente do corpo. É o preço de
+não piscar — e é a razão do **aria-busy**.
+
+⚠️ O `data-list` **não tem** essa prop: ele não tem server mode (sem ****fetchData****),
+então o caso não existe lá.
+
 ## Layout e chrome do app
 
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo). **Embutido em container com altura** (layout com footer, aba, preview) → passe `fillHeight`; sem isso ele mede 100vh, transborda e o conteúdo fica cortado na base.
