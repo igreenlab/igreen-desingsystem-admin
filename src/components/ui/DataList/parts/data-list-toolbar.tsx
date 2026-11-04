@@ -201,9 +201,16 @@ export function DataListToolbar({
    * (dois caminhos do mesmo componente discordando), agora no FORMATO em vez de no
    * widget. Não volte a gravar o array inteiro aqui.
    *
-   * `between` (tupla) e operadores escalares seguem com UM item e o valor inteiro:
-   * só os multi têm semântica de OR dentro do grupo. Espalhar um escalar viraria
-   * AND no motor (`for (const g of scalar)`) e nunca casaria.
+   * `between` (tupla) e operadores escalares seguem com UM item e o valor inteiro.
+   *
+   * ⚠️ Esta última linha dizia, até 2026-11-04, que espalhar um escalar "viraria AND
+   * no motor (`for (const g of scalar)`) e nunca casaria". **O motor mudou**: o
+   * `applyFilterModel` agora agrupa por `field|operator` e combina por OR dentro do
+   * grupo, como o `DataTable` sempre fez — então espalhar passou a ser *possível*.
+   * Não é feito aqui porque mudaria a FORMA que o `onQueryChange` entrega ao backend
+   * de quem usa `mode="server"` com tipo `ownsMulti` de operador escalar, e isso é
+   * mudança de contrato, não correção. O motor tolera as duas formas (achata array de
+   * operador escalar), que é o que torna o item único com array inofensivo.
    */
   const setGroupValue = (
     field: string,

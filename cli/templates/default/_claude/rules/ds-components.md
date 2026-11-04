@@ -167,6 +167,15 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    comportamento de sempre.
    ⚠️ O `data-list` **não tem** esse par — o funil dele segue só com estado interno.
 
+   **Como dois filtros no MESMO campo combinam:** itens agrupam por **campo + operador**;
+   dentro do grupo é **OU**, entre grupos é **E**. Dois ****equals**** no campo de status
+   devolvem quem bate em qualquer um dos dois; um ****contains**** mais um ****notContains****
+   no mesmo campo seguem somando condições. Vale pra `data-table` e, **desde a vNEXT**,
+   também pra `data-list` — antes dela a lista combinava os dois ****equals**** por **E**,
+   pedia que uma célula fosse dois valores ao mesmo tempo e **esvaziava em silêncio** com o
+   mesmo modelo que a tabela filtrava certo. Se você contornava isso pré-aplicando um filtro
+   por vez numa visão de lista, pode voltar a pré-aplicar vários de uma vez.
+
 > As exceções (2 e 3) são raras. Sempre que a informação já está numa coluna: **chip nativo
 > primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +
 > chip vazio de "Atribuído"). Entrevista guiada completa em `/ds-create-crud`.

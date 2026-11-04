@@ -111,9 +111,32 @@ funcionava por acidente, o que escondeu o defeito.
 
 Um modelo na forma antiga **se migra sozinho** no primeiro toque do usuário no chip.
 
-⚠️ `between` é a exceção: a tupla fica inteira num item só. E operador escalar mantém o
-valor inteiro — o motor combina escalares do mesmo campo por **AND**, então espalhar um
-`equals` em dois items faria o filtro nunca casar.
+⚠️ `between` é a exceção: a tupla fica inteira num item só — ali o array é `[lo, hi]`, não
+uma lista de valores.
+
+## Como os filtros combinam — `field|operator`, OR dentro, AND fora (`vNEXT`+)
+
+**O mesmo grão do `DataTable`.** Itens agrupam por **campo + operador**; dentro do grupo
+combinam por **OR**, entre grupos por **AND**:
+
+```tsx
+// status é "ativo" OU "pausado"  → devolve os dois
+{ field: "status", operator: "equals", value: "ativo" }
+{ field: "status", operator: "equals", value: "pausado" }
+
+// nome contém "a" E não contém "b" → operadores diferentes seguem em AND
+{ field: "nome", operator: "contains",    value: "a" }
+{ field: "nome", operator: "notContains", value: "b" }
+```
+
+⚠️ **Até a `vNEXT` os escalares combinavam por AND**, inclusive dentro do mesmo operador:
+dois `equals` no mesmo campo pediam que uma célula fosse dois valores ao mesmo tempo e a
+lista **esvaziava em silêncio** — enquanto a tabela, com o mesmo modelo, devolvia a união.
+Se você contornava isso escrevendo um filtro por vez, pode parar.
+
+Um item de operador escalar cujo `value` é um **array** vale como lista de alternativas
+(OR), igual ao multi — `{ operator: "equals", value: ["ativo","pausado"] }` casa os dois.
+Antes coagia pra `"ativo,pausado"` e não casava nada. `between` segue fora disso.
 
 **O operador que você declarar no preset sobrevive ao funil** (`vNEXT`+). Campo que já tem
 filtro é desenhado e reescrito com o operador DELE; só o campo vazio nasce com o default do
