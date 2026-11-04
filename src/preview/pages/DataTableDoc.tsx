@@ -243,7 +243,7 @@ const CORE_PROPS = [
   },
   {
     name: "loadingMode",
-    type: '"skeleton" | "keep" — o que o corpo mostra com um carregamento em vôo. "keep" mantém as linhas do resultado anterior (corpo E rodapé) e marca aria-busy na raiz enquanto elas estão defasadas. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
+    type: '"skeleton" | "keep" — o que o CORPO e o RODAPÉ mostram com um carregamento em vôo. "keep" mantém as linhas do resultado anterior, marca aria-busy na raiz e anuncia por live region sr-only (que cala na resposta); o range do rodapé é escondido enquanto descreveria linhas que não estão na tela. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
     defaultVal: '"skeleton"',
   },
 ];
@@ -923,10 +923,15 @@ export function DataTableDoc() {
         “piscar”. Pra manter as linhas da página anterior no lugar até a
         próxima chegar, passe <strong>loadingMode</strong>
         {" = "}
-        <code>"keep"</code>: a raiz ganha <code>aria-busy</code> enquanto elas
-        estão defasadas, e o rodapé continua navegável. Na primeira carga não há
-        linha anterior, e o <code>"keep"</code> cai no esqueleto sozinho — não é
-        preciso alternar a prop. Troque o modo pelo menu{" "}
+        <code>"keep"</code>: o rodapé continua navegável, a raiz ganha{" "}
+        <code>aria-busy</code> e uma live region <code>sr-only</code> anuncia que
+        as linhas estão defasadas (calando na resposta — no modo default quem
+        anuncia é o próprio esqueleto, que é <code>role="status"</code>). O{" "}
+        <strong>texto do range</strong> do rodapé some durante o vôo, porque
+        seria a única parte a afirmar algo falso sobre o corpo; as setas e os
+        números ficam, já que dizem para onde o clique leva. Na primeira carga
+        não há linha anterior, e o <code>"keep"</code> cai no esqueleto sozinho —
+        não é preciso alternar a prop. Troque o modo pelo menu{" "}
         <strong>Carregamento</strong> da toolbar em{" "}
         <strong>Example: CRUD Server</strong> e navegue entre páginas pra ver a
         diferença.

@@ -1658,9 +1658,18 @@ function DataTableInternal<T>(
           props.className,
         )}
         /* `loadingMode: "keep"` — as linhas na tela são do resultado ANTERIOR.
-           O esqueleto dizia "estou carregando" por si (`DataTableLoading` tem o
-           seu próprio `aria-busy`); mantendo o corpo, quem diz é a raiz. Fora
-           desse caso o atributo não é emitido — o DOM default não muda. */
+           `aria-busy` ANOTA o container: quem navegar até aqui descobre que o
+           conteúdo está sendo atualizado. Não ANUNCIA nada — isso é trabalho da
+           live region logo abaixo (`statusKeep`), e as duas não se substituem.
+
+           Por que na raiz e não no corpo: `TableBodyProps.rootProps` existe e
+           aceitaria o atributo no `role="rowgroup"` — a porta não está trancada.
+           A raiz foi escolhida porque engloba também o RODAPÉ, que é a parte
+           otimista (page/range andam no clique, linhas só na resposta); marcar
+           só o corpo deixaria de fora justamente o que diverge. O custo é que a
+           toolbar entra na região anotada.
+
+           Fora do keep o atributo não é emitido — o DOM default não muda. */
         aria-busy={isKeepingPreviousRows || undefined}
       >
         {/* Toolbar */}
@@ -2243,6 +2252,28 @@ function DataTableInternal<T>(
           />
         </div>
 
+        {/* Live region do `loadingMode: "keep"` — o ANÚNCIO, que o `aria-busy`
+            não faz.
+
+            No modo default o leitor de tela é avisado porque o
+            `DataTableLoading` monta com `role="status"` (live region) e a troca
+            de conteúdo dispara a fala. Mantendo o corpo esse aviso some, e o
+            usuário ficaria com MENOS sinal justamente no caminho em que a tela
+            mente mais: linha velha com cara de atual.
+
+            Montada sempre que a prop é `"keep"` (não só durante o vôo), com o
+            texto entrando e saindo: live region precisa PRÉ-EXISTIR pra que a
+            mutação seja anunciada — nascer já com texto é anúncio não-confiável
+            em parte dos leitores. Sem a prop não renderiza nada, então o DOM
+            default segue intacto. */}
+        {props.loadingMode === "keep" && (
+          <span className="sr-only" role="status" aria-atomic="true">
+            {isKeepingPreviousRows
+              ? "Atualizando a tabela. As linhas exibidas ainda são do resultado anterior."
+              : ""}
+          </span>
+        )}
+
         {/* Conteúdo */}
         {isLoading && !isKeepingPreviousRows ? (
           (props.renderLoading ?? <DataTableLoading />)
@@ -2366,6 +2397,13 @@ function DataTableInternal<T>(
                   onPageSizeChange={pagination.setPageSize}
                   pageSizeOptions={paginationConfig.pageSizeOptions}
                   selectionCount={selection.selectedCount}
+                  /* O rodapé não é bloco atômico: setas e números dizem pra ONDE
+                     você vai (verdade), o range diz o que ESTÁ na tela. Durante
+                     o keep só o range mente — `page` já andou no clique e as
+                     linhas são as de antes ("26–50" sobre as linhas 1–25). Some
+                     o texto, ficam os controles. Fora do keep é `false`, que
+                     renderiza igual a não passar nada. */
+                  hideRange={isKeepingPreviousRows}
                 />
               </div>
             )

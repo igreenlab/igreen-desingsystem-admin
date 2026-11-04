@@ -305,6 +305,30 @@ const fetchData = useCallback(async (params: GridFetchParams) => {
 }, []);
 ```
 
+**Toda tela de server mode leva `loadingMode="keep"`** — a não ser que o blueprint
+diga o contrário. Sem a prop, cada troca de página troca o corpo **inteiro** pelo
+esqueleto e volta: é o "pisca", e numa tela de navegação frequente é a primeira
+reclamação que chega. Com ela, as linhas da página anterior ficam no lugar até a
+próxima chegar (rodapé junto, navegável), a raiz ganha `aria-busy` e uma live
+region `sr-only` anuncia que as linhas estão defasadas.
+
+```tsx
+<DataTable
+  fetchData={fetchData}
+  loadingMode="keep"   // ⬅ default é "skeleton" (o pisca)
+  …
+/>
+```
+
+- **Não trate a primeira carga.** Sem linha anterior não há o que manter, e o
+  `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+- **Em client mode (`rows` + `loading`) a prop vale igual**, mas aí quem guarda o
+  lote anterior é a tela: continue passando as linhas antigas em `rows` enquanto
+  levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
+- Durante o vôo o **range** do rodapé some (ele descreveria linhas que não estão
+  na tela) e volta na resposta — os controles de página ficam. É esperado, não é
+  defeito a "consertar".
+
 ### presetView
 
 ```tsx

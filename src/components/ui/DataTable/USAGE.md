@@ -8,7 +8,7 @@
 - chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
-- server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, e a raiz ganha `aria-busy`. A primeira carga cai no esqueleto sozinha; não alterne a prop por isso
+- server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
 -->
 
 Wrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.
@@ -118,7 +118,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |
 | **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |
 | **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |
-| **Trocar de página sem piscar** | **loadingMode**`="keep"` — durante o refetch as linhas do resultado ANTERIOR ficam no lugar (corpo **e** rodapé) e a raiz ganha `aria-busy`. Default `"skeleton"` = o de hoje. Na primeira carga, sem linha anterior, o `"keep"` cai no esqueleto sozinho. Ver §Estados                                                                                               |
+| **Trocar de página sem piscar** | **loadingMode**`="keep"` — durante o refetch as linhas do resultado ANTERIOR ficam no lugar (corpo **e** rodapé), com `aria-busy` + live region `sr-only` avisando, e o range do rodapé escondido. Default `"skeleton"` = o de hoje. Na primeira carga, sem linha anterior, o `"keep"` cai no esqueleto sozinho. Ver §Estados                                        |
 | **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |
 | **Virtualização**               | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais)                                                                                                                                                                                                                                                                                                    |
@@ -172,10 +172,10 @@ default já entrega o botão certo, cabeado. Substituir por um `EmptyState` gen�
 Em server mode, **cada troca de página troca o corpo inteiro pelo esqueleto** e volta — é
 o default, e é o "pisca". **loadingMode** escolhe o que aparece durante o vôo:
 
-| valor | corpo | rodapé | `aria-busy` na raiz |
+| valor | corpo | rodapé | acessibilidade |
 |---|---|---|---|
-| `"skeleton"` (default) | esqueleto | esqueleto | não |
-| `"keep"` | as linhas do resultado **anterior** | o rodapé real, navegável | **sim**, enquanto as linhas estão defasadas |
+| `"skeleton"` (default) | esqueleto | esqueleto | o esqueleto é `role="status"` — montá-lo **anuncia** o carregamento |
+| `"keep"` | as linhas do resultado **anterior** | o rodapé real e navegável, **sem o texto do range** | `aria-busy` na raiz **+** live region `sr-only` que anuncia "as linhas são do resultado anterior" e **cala** na resposta |
 
 ```tsx
 <DataTable
@@ -193,9 +193,16 @@ Três coisas que decidem o uso:
 - **O rodapé acompanha o corpo, de propósito.** O esqueleto do rodapé existe pra não
   mostrar "1 página" enquanto não há total — com linhas mantidas há total anterior, e
   piscar só o rodapé tiraria da mão do usuário o controle que ele acabou de clicar.
-- ⚠️ **O rodapé é otimista:** o `page`/range mudam no clique, as linhas só na resposta.
-  Durante o vôo o rodapé pode dizer "76–100" com as linhas de 1–25 na tela. É o preço de
-  não piscar — e é exatamente por isso que a raiz ganha `aria-busy`.
+- ⚠️ **O rodapé é otimista — mas só o range mentiria, e ele sai.** `page` e os botões
+  mudam no clique, as linhas só na resposta. Setas e números continuam **verdade**: dizem
+  pra onde o clique leva. O **texto** "76–100 de 100" é que afirmaria algo falso sobre o
+  corpo (as linhas são 1–25), então ele é escondido durante o vôo e volta na resposta.
+  Nada a configurar — o DataTable passa `hideRange` ao `FooterTable` sozinho.
+- **O anúncio não é o `aria-busy`.** `aria-busy` **anota** o container (quem navegar até
+  lá descobre); quem **anuncia** é uma live region `sr-only` montada junto com a prop.
+  Isso existe porque no modo default quem avisa é o próprio esqueleto (`role="status"`):
+  sem a live region, o `"keep"` daria **menos** sinal ao leitor de tela justamente no
+  caminho em que a tela mais engana — linha velha com cara de atual.
 - `renderLoading` continua valendo — mas só **quando o esqueleto aparece**. Com `"keep"` e
   linhas anteriores na mão, nada substitui o corpo, então o seu slot não renderiza nesse
   instante (ele volta na primeira carga, onde o esqueleto é o que aparece).

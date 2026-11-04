@@ -29,6 +29,20 @@ Nunca gere props de memória — copie a forma do exemplo.
 - Caminho/rota conforme o blueprint (`PAGES_DIR`/`REGISTRO`).
 - Wrapper: `<div className="flex flex-col h-full min-h-0 gap-gp-2xl">` → `<PageHeader .../>` → `<DataTable className="flex-1 min-h-0" .../>`.
 - `columns` em `useMemo`; server mode ⇒ `fetchData` em `useCallback`.
+- **Server mode ⇒ `loadingMode="keep"`**, salvo se o blueprint disser o contrário.
+  Sem a prop (default `"skeleton"`) cada troca de página troca o corpo **inteiro**
+  pelo esqueleto e volta — é o "pisca", e em tela de navegação frequente é a
+  primeira reclamação que chega. Com ela as linhas da página anterior ficam no
+  lugar até a próxima chegar (rodapé junto, navegável), a raiz ganha `aria-busy` e
+  uma live region `sr-only` anuncia que as linhas estão defasadas.
+  - **Não trate a primeira carga**: sem linha anterior não há o que manter, e o
+    `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+  - **Client mode (`rows` + `loading`) também aceita**, mas aí quem guarda o lote
+    anterior é a sua tela — continue passando as linhas antigas em `rows` enquanto
+    levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
+  - Durante o vôo o **range** do rodapé ("26–50 de 100") some, porque descreveria
+    linhas que não estão na tela, e volta na resposta. Os controles de página
+    ficam. É esperado — não "conserte".
 
 ### Regras de coluna (OBRIGATÓRIO — pega bugs comuns)
 

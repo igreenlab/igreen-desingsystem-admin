@@ -929,16 +929,24 @@ export type DataTableProps<T> = {
   loading?: boolean;
 
   /**
-   * O que o corpo mostra ENQUANTO um carregamento está em vôo.
+   * O que o CORPO e o RODAPÉ mostram enquanto um carregamento está em vôo.
    *
    * - `"skeleton"` (default) — corpo e rodapé viram esqueleto a cada carregamento.
-   * - `"keep"` — as linhas do resultado ANTERIOR continuam na tela, e a raiz ganha
-   *   `aria-busy="true"` enquanto elas estão defasadas. Tira o "pisca" de trocar
+   * - `"keep"` — as linhas do resultado ANTERIOR continuam na tela e o rodapé
+   *   segue navegável. A raiz ganha `aria-busy="true"` e uma live region
+   *   `sr-only` anuncia que as linhas estão defasadas. Tira o "pisca" de trocar
    *   de página em server mode.
    *
    * ⚠️ **Sem resultado anterior não há o que manter**, e corpo vazio seria pior que
    * esqueleto: na PRIMEIRA carga (e sempre que a última resposta veio sem linhas)
    * o `"keep"` cai no esqueleto sozinho. Não é preciso alternar a prop.
+   *
+   * ⚠️ **O rodapé é OTIMISTA, e é o comportamento mais surpreendente da prop:**
+   * `page` e os botões mudam no clique, as linhas só na resposta — durante o vôo
+   * eles já apontam pra página seguinte enquanto o corpo mostra a anterior. Isso
+   * é intencional (eles dizem pra ONDE você vai, não o que está na tela), mas o
+   * TEXTO do range afirmaria algo falso sobre o corpo, então ele é escondido
+   * (`hideRange`) enquanto as linhas estão defasadas e volta na resposta.
    *
    * Vale nos dois modos — o guard é "existe linha pra manter?", não "o modo é
    * server?". Em server mode o resultado anterior é preservado pelo

@@ -247,18 +247,20 @@ navega muito entre páginas, isso é o "pisca".
 | o de sempre (esqueleto no corpo e no rodapé) | **não passe nada** — o default é ****"skeleton"**** |
 | as linhas da página **anterior** no lugar, até a próxima chegar | ****loadingMode="keep"**** no `data-table` |
 
-Com ****"keep"**** o rodapé **também** fica (navegável, com o total anterior) e a raiz do
-componente ganha **aria-busy="true"** enquanto as linhas estão defasadas — o leitor de
-tela precisa saber que aquilo é conteúdo velho, já que o esqueleto não está mais ali
-dizendo isso.
+Com ****"keep"**** o rodapé **também** fica, navegável. E o leitor de tela continua
+avisado: a raiz ganha **aria-busy="true"** e uma região **sr-only** anuncia que as linhas
+são do resultado anterior, calando quando a resposta chega. Isso não é enfeite — no modo
+default quem avisa é o próprio esqueleto, que é uma live region; sem a compensação, o
+****"keep"**** daria **menos** sinal justamente no caminho em que a tela engana mais.
 
 ✅ **A primeira carga não precisa de tratamento.** Não existe linha anterior pra manter, e
 corpo vazio seria pior que esqueleto: o ****"keep"**** cai no esqueleto sozinho nesse caso
 (e em qualquer refetch depois de uma resposta sem linhas). Não alterne a prop.
 
-⚠️ **O rodapé é otimista.** A página e o intervalo ("76–100 de 100") mudam no clique; as
-linhas só na resposta. Durante o vôo o rodapé pode estar à frente do corpo. É o preço de
-não piscar — e é a razão do **aria-busy**.
+⚠️ **O rodapé é otimista — e o DS já trata.** A página muda no clique, as linhas só na
+resposta. As setas e os números **não mentem**: dizem pra onde o clique leva. O **texto**
+do intervalo ("76–100 de 100") mentiria sobre o corpo, então ele some durante o vôo e
+volta na resposta. Nada a configurar — e não é defeito a "consertar" se você vir.
 
 **Vale em client mode também** (você passa ****rows**** + ****loading****, sem
 ****fetchData****) — mesma tabela acima. ⚠️ **Só que aí quem guarda o lote anterior é

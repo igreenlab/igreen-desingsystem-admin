@@ -163,6 +163,20 @@ const temTexto = (t: string) => screen.queryAllByText(t).length > 0;
 const ariaBusyDaRaiz = (container: HTMLElement) =>
   container.firstElementChild!.getAttribute("aria-busy");
 
+/* A live region `sr-only` do keep. Procurada pelo `.sr-only` e não por
+   `role="status"`: o esqueleto do corpo e o dnd-kit também expõem esse role, e
+   um seletor que casa três coisas não sustenta uma afirmação sobre uma. */
+const liveRegion = (container: HTMLElement) =>
+  container.querySelector('span.sr-only[role="status"]');
+/** `null` = a região nem existe · `""` = existe e está calada. */
+const textoAnunciado = (container: HTMLElement) =>
+  liveRegion(container)?.textContent ?? null;
+/** O texto "1–25 de 100 rows" do rodapé real — some durante o keep. */
+const rangeDoRodape = (container: HTMLElement) =>
+  [...container.querySelectorAll("footer span")].some((e) =>
+    /\d+\s*–\s*\d+\s+de\s+\d+/.test(e.textContent ?? ""),
+  );
+
 describe("DataTable — loadingMode", () => {
   it("sem a prop, o refetch troca o corpo pelo esqueleto, como hoje", async () => {
     const user = userEvent.setup();
@@ -265,6 +279,85 @@ describe("DataTable — loadingMode", () => {
     expect(botaoPagina(1)).not.toBeNull();
     expect(botaoPagina(2)).not.toBeNull();
     expect(screen.queryAllByLabelText("Linhas").length).toBeGreaterThan(0);
+  });
+
+  /* O rodapé NÃO é bloco atômico. Setas e números dizem pra onde o clique leva
+     — isso continua verdade durante o vôo. O TEXTO do range diz o que está na
+     tela, e aí mente: `page` já andou, as linhas não. Só ele sai. */
+
+  it("`keep` esconde o range do rodapé — e só ele", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar({ loadingMode: "keep" });
+
+    await responder(PAGINA_1);
+    expect(rangeDoRodape(container)).toBe(true);
+
+    await user.click(botaoPagina(2)!);
+
+    // O texto que afirmaria "26–50" sobre as linhas 1–2 some…
+    expect(rangeDoRodape(container)).toBe(false);
+    // …e os controles, que não mentem, ficam.
+    expect(botaoPagina(1)).not.toBeNull();
+    expect(screen.queryAllByLabelText("Linhas").length).toBeGreaterThan(0);
+
+    // Volta assim que ele descreve o que está na tela de novo.
+    await responder(PAGINA_2);
+    expect(rangeDoRodape(container)).toBe(true);
+  });
+
+  it("sem a prop, o range nunca é escondido por este caminho", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar();
+
+    await responder(PAGINA_1);
+    expect(rangeDoRodape(container)).toBe(true);
+
+    await user.click(botaoPagina(2)!);
+    // Em vôo o rodapé inteiro é esqueleto — não há range a esconder…
+    expect(rodapeEsqueleto()).not.toBeNull();
+
+    await responder(PAGINA_2);
+    // …e ele volta inteiro, com range, exatamente como antes da prop existir.
+    expect(rangeDoRodape(container)).toBe(true);
+  });
+
+  /* ── Live region (o ANÚNCIO) ────────────────────────────────────────────
+     `aria-busy` ANOTA, não ANUNCIA. No default o leitor de tela é avisado
+     porque o `DataTableLoading` é `role="status"`; mantendo o corpo esse aviso
+     sumiria, e o usuário teria MENOS sinal no caminho em que a tela mente mais.
+     A região é montada junto com a prop e fica calada fora do vôo — live region
+     que nasce com texto não é anunciada de forma confiável. */
+
+  it("`keep` anuncia que as linhas estão defasadas — e CALA na resposta", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar({ loadingMode: "keep" });
+
+    await responder(PAGINA_1);
+    // Existe (pré-montada, pra que a mutação seja anunciada) e está calada.
+    expect(liveRegion(container)).not.toBeNull();
+    expect(textoAnunciado(container)).toBe("");
+
+    await user.click(botaoPagina(2)!);
+    expect(textoAnunciado(container)).toMatch(/resultado anterior/i);
+
+    // ⚠️ O que trava a regressão de verdade: resposta chegou, anúncio LIMPO.
+    // Texto velho numa live region é relido por parte dos leitores de tela.
+    await responder(PAGINA_2);
+    expect(textoAnunciado(container)).toBe("");
+  });
+
+  it("sem a prop, não existe live region nova — o esqueleto já é o anúncio", async () => {
+    const user = userEvent.setup();
+    const { container, responder } = montar();
+
+    await responder(PAGINA_1);
+    expect(liveRegion(container)).toBeNull();
+
+    await user.click(botaoPagina(2)!);
+
+    expect(liveRegion(container)).toBeNull();
+    // O anúncio do caminho antigo é o próprio esqueleto, que é role=status.
+    expect(corpoEsqueleto()!.getAttribute("role")).toBe("status");
   });
 
   it("`skeleton` explícito é idêntico ao default", async () => {
