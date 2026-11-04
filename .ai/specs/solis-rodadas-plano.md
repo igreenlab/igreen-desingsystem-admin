@@ -187,6 +187,14 @@ documentada em lugar nenhum.
 ### Anotado para o `/ds-release`, não feito no PR
 
 - [ ] `registry.json` + embed (`registry:build` + `copy-registry`)
+      ⚠️ **Mas o embed tem DOIS checks, e só um é débito.** `registry-check.mjs:179`
+      (*"CONTEÚDO defasado em N/M"*) é tolerado no PR — os arquivos estão lá, só velhos.
+      `:108` (*"não contém: <item>"*) é **falha dura e bloqueia o CI**: o componente existe
+      no `registry.json` e **não** existe no embed, então  não entrega
+      nada. **Item novo fecha o embed no PR**, não no release. Medido na Rodada 5, a
+      primeira que criou componente novo.
+      ⚠️ O `copy-registry.mjs` exige **cwd = `registry-app/`** e se recusa a escrever se o
+      `public/r` estiver velho — rode `registry:build` na raiz antes.
 - [ ] **Bump do CLI** — é o que faz o payload já escrito CHEGAR em quem instala (L-018)
 - [ ] Entrada do changelog, com ⚠️ em cada mudança observável
 
