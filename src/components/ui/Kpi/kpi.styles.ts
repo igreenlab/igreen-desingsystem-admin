@@ -16,9 +16,11 @@ export const kpi = tv({
     label: "m-0 line-clamp-2 min-w-0 text-body-md font-semibold text-fg-default",
     iconBox:
       "grid size-form-lg shrink-0 place-items-center rounded-radius-lg [&>svg]:size-icon-md",
-    /** Botão de ajuda ao lado do rótulo (z-10 pra ficar acima do overlay de clique). */
-    helpButton:
-      "relative z-10 grid size-icon-md shrink-0 place-items-center rounded-radius-full text-fg-subtle transition-colors hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand [&>svg]:size-icon-xs",
+    // O botão de ajuda do `helperText` NÃO tem slot aqui: ele virou a peça
+    // `ui/HelpTip`, que leva o próprio estilo (inclusive o `relative z-10` que o
+    // mantém acima do overlay do `ClickableSurface`). Um slot espelho aqui seria
+    // a segunda cópia da mesma string — e duas cópias divergem na primeira
+    // mudança.
     main: "flex min-w-0 flex-col gap-gp-xs",
     valueRow: "flex flex-wrap items-center gap-gp-md",
     value:

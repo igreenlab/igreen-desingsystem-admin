@@ -1,15 +1,10 @@
 "use client";
 
 import { useContext } from "react";
-import { HelpCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ClickableSurface } from "@/components/shadcn/clickable-surface";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/shadcn/tooltip";
+import { HelpTip } from "@/components/ui/HelpTip";
 import { useTitleSeTruncado } from "@/utils/use-title-se-truncado";
 import { kpi } from "./kpi.styles";
 import { KpiSurfaceContext } from "./kpi-group";
@@ -61,19 +56,20 @@ export function Kpi({
           <h3 ref={rotulo.ref} className={s.label()} title={rotulo.title}>
             {label}
           </h3>
+          {/*
+            O "?" é a peça `HelpTip` (`ui/HelpTip`), não uma cópia local — o mesmo
+            botão acompanha título de seção e label de formulário. A extração não
+            mexeu em classe nenhuma: `kpi-help-tip-dom.test.tsx` compara o HTML
+            deste header byte a byte com o de antes dela.
+          */}
           {helperText && (
-            <Tooltip>
-              <TooltipTrigger
-                type="button"
-                className={s.helpButton()}
-                aria-label={`Ajuda sobre ${label}`}
-              >
-                <HelpCircle aria-hidden />
-              </TooltipTrigger>
-              <TooltipContent side={helperSide} className={helperMaxWidth}>
-                {helperText}
-              </TooltipContent>
-            </Tooltip>
+            <HelpTip
+              about={label}
+              side={helperSide}
+              contentClassName={helperMaxWidth}
+            >
+              {helperText}
+            </HelpTip>
           )}
         </div>
         {icon && (

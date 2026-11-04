@@ -2397,12 +2397,54 @@
       }
     },
     {
+      "name": "help-tip",
+      "type": "registry:ui",
+      "title": "HelpTip",
+      "description": "O \"?\" que explica um rótulo: botão de ícone que revela um tooltip curto. Extraído do Kpi (helperText) pra acompanhar qualquer rótulo — título de seção, cabeçalho de grupo de campos, cabeçalho de coluna.",
+      "registryDependencies": [
+        "@igreen/tooltip",
+        "@igreen/tv",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/HelpTip/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/HelpTip/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/HelpTip/help-tip.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/HelpTip/help-tip.styles.ts"
+        },
+        {
+          "path": "src/components/ui/HelpTip/help-tip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/HelpTip/help-tip.tsx"
+        },
+        {
+          "path": "src/components/ui/HelpTip/help-tip.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/HelpTip/help-tip.types.ts"
+        },
+        {
+          "path": "src/components/ui/HelpTip/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/HelpTip/index.ts"
+        }
+      ]
+    },
+    {
       "name": "kpi",
       "type": "registry:ui",
       "title": "Kpi",
       "description": "Primitivos composáveis de KPI: Kpi (card) + KpiGroup (layout columns/divided) + KpiDelta (pílula de variação). Theme-aware; sparkline via slot.",
       "registryDependencies": [
         "@igreen/chip",
+        "@igreen/help-tip",
         "@igreen/tooltip",
         "@igreen/tv",
         "@igreen/utils"

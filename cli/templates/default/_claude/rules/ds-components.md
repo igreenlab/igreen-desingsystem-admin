@@ -97,6 +97,7 @@ label, helper, erro e do `htmlFor`).
 | lista de ações a partir de um gatilho | `dropdown-menu` |
 | clique com o botão direito | `context-menu` |
 | hover: dica de 1 linha / prévia rica | `tooltip` · `hover-card` |
+| explicar um RÓTULO — o "?" ao lado de um título, de um cabeçalho de grupo de campos ou de coluna (DS **vNEXT**+) | `help-tip` — botão de ícone + tooltip, com o nome acessível pronto a partir de ****about****. O texto vai em ****children****; largura por ****contentClassName**** (o teto é 256px). ⛔ **nunca dentro de um `<label>`** (conteúdo interativo ali é HTML inválido e o clique cai no campo) — vai no cabeçalho do grupo. Dentro do `kpi`, use ****helperText**** e não monte à mão |
 | **bloqueia** a página, centralizado | `modal` (body já rola sozinho — não trate scroll no children) |
 | **bloqueia**, lateral, mais espaço que o modal | `panel` (560px default) · `sheet` · `drawer` (mobile, gesto) |
 | **não** bloqueia — coexiste com a lista atrás, resizável | `floating-panel` |

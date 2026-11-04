@@ -56,15 +56,21 @@ export interface KpiProps {
   /**
    * Texto de ajuda do indicador — vira um "?" ao lado do rótulo, com tooltip.
    * Use pra explicar COMO a métrica é calculada; não repita o rótulo.
+   *
+   * O "?" é a peça `ui/HelpTip`, que também se usa solta (título de seção, label
+   * de campo). Dentro do `Kpi`, passe `helperText` — não monte o `HelpTip` à mão.
    */
   helperText?: ReactNode;
   /** Lado do tooltip do `helperText`. Default "top". */
   helperSide?: "top" | "right" | "bottom" | "left";
   /**
-   * Largura máxima do tooltip do `helperText`. Default `max-w-tooltip-lg` (320px).
+   * Largura máxima do tooltip do `helperText`. Sem ela vale o teto do
+   * `TooltipContent`, que é `max-w-[16rem]` = **256px** — não 320px, como esta
+   * linha afirmou até 2026-11-04.
    *
    * Existe porque texto de ajuda longo num tooltip estreito vira uma coluna alta e
-   * difícil de ler — passe `max-w-page-xs` e similares pra soltar.
+   * difícil de ler — passe `max-w-tooltip-lg` (320px), `max-w-page-xs` e similares
+   * pra soltar.
    */
   helperMaxWidth?: string;
   /** Ícone (lucide etc.) — renderizado num container colorido por `tone`. */

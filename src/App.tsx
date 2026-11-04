@@ -116,6 +116,7 @@ import { SidebarBrandIcon } from "./components/ui/MenuSidebar";
 import { MenuSidebarDoc } from "./preview/pages/MenuSidebarDoc";
 import { SingleMenuSidebarDoc } from "./preview/pages/SingleMenuSidebarDoc";
 import { KpiDoc } from "./preview/pages/KpiDoc";
+import { HelpTipDoc } from "./preview/pages/HelpTipDoc";
 import { HeaderDoc } from "./preview/pages/HeaderDoc";
 import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
@@ -352,6 +353,7 @@ const DOC_PAGES = [
   "menu-sidebar",
   "single-menu-sidebar",
   "kpi",
+  "help-tip",
   "header",
   "app-shell",
   "page-header",
@@ -717,6 +719,7 @@ export function App() {
             {activePage === "menu-sidebar" && <MenuSidebarDoc />}
             {activePage === "single-menu-sidebar" && <SingleMenuSidebarDoc />}
             {activePage === "kpi" && <KpiDoc />}
+            {activePage === "help-tip" && <HelpTipDoc />}
             {activePage === "header" && <HeaderDoc />}
             {activePage === "app-shell" && <AppShellDoc />}
             {activePage === "page-header" && <PageHeaderDoc />}

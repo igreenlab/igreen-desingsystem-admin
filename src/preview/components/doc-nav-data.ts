@@ -97,6 +97,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "File Upload Field", href: "file-upload-field" },
       { label: "Floating Panel", href: "floating-panel" },
       { label: "FormField", href: "form-field" },
+      { label: "HelpTip", href: "help-tip" },
       { label: "Hover Card", href: "hover-card" },
       { label: "Icon", href: "icon" },
       { label: "Input", href: "input" },
