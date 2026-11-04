@@ -41,6 +41,32 @@ Valem para **toda** tarefa. Não repetidas nos passos.
 
 ---
 
+## ⚠️ As rodadas DESTE PLANO não são as branches — a correspondência
+
+Achado pelo implementador da Task 10, e é defeito de documentação: quem abrisse o plano
+para saber o que falta erraria por um.
+
+A Rodada 3 **nasceu** de uma auditoria que não estava no plano (o alcance compartilhado
+que o mantenedor pediu ao fechar a Rodada 2), e as tarefas que ela produziu — T7b e T7c —
+empurraram tudo que vinha depois. As branches seguiram a ordem real de execução; as seções
+abaixo seguiram a de planejamento.
+
+| seção deste plano | branch · PR | o que de fato foi | 
+|---|---|---|
+| RODADA 1 (T1–T6) | `feat/solis-rodada-1` · #355 | igual |
+| RODADA 2 (T7) | `feat/solis-rodada-2` · #356 | igual |
+| RODADA 3 (T7b, T8, T9) | `feat/solis-rodada-3` · #358 | **só T7b + T7c** (o T7c nasceu da review do T7b) |
+| — | `feat/solis-rodada-4` · #360 | **T8 + T9** |
+| RODADA 4 (T10, T11) | `feat/solis-rodada-5` | T10, e depois T11 |
+| RODADA 5 (T12–T18) | será `rodada-6` | os avulsos |
+
+**Não renumerei as seções de propósito.** Os números das Tasks estão citados em mensagens
+de commit, no ledger do SDD e nos relatórios em `.superpowers/sdd/` — renumerar quebraria
+todas essas referências para consertar uma. A tabela torna o deslocamento explícito, que
+é o que faltava.
+
+---
+
 ## Ritual de fim de rodada — OBRIGATÓRIO
 
 Nenhuma rodada fecha sem isto. Não é a review de tarefa (que é por diff); é a varredura das
@@ -118,6 +144,12 @@ documentada em lugar nenhum.
       está commitado**, `git checkout HEAD -- <arq>` apaga a própria implementação —
       restaure do **snapshot em bytes** e confirme por **sha256**, que é régua mais
       estrita que comparar linhas.
+- [ ] **Teste novo: não use jest-dom.** `npm test` roda `tsc --noEmit` **antes** do vitest,
+      e o `vitest.setup.ts` está **fora** do `include` do `tsconfig.json` (`["src","tokens"]`).
+      Resultado: `toBeInTheDocument` / `toHaveAttribute` compilam como erro e derrubam a
+      suíte **inteira antes de rodar teste nenhum** — 30 erros de TS, nenhum deles sobre o
+      seu código. É por isso que nenhum teste do repo usa jest-dom. Use `toBeNull()` /
+      `getAttribute()`, a convenção de `simple-filter-controlado.test.tsx`.
 - [ ] **Alcance compartilhado** — o que foi tocado é usado por quem mais? `TableToolbar`,
       `columnTypeRegistry` e os `column-types` **não são do `DataTable`**: o `DataList`
       consome os mesmos, e o `ToolbarSimpleFilterDrawer` é renderizado pelos dois. Antes de
