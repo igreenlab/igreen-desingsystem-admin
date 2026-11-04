@@ -9,6 +9,17 @@ relacionado:
 
 # Pendências do lote Sólis — para você validar
 
+> ## ⚠️ Este documento é o DETALHE. O estado vivo está em outro lugar.
+>
+> Em 2026-11-04, **P1, P2, P3, P11 e P12 foram feitas e mergeadas** (PRs #362 e #363), e
+> a **P13 foi adiada por decisão do mantenedor**. Quatro pendências novas apareceram
+> durante a execução.
+>
+> **Para saber o que está em aberto, leia a**
+> **[folha de decisão](./solis-folha-de-decisao.md)** — ela tem o estado de cada uma.
+> Este arquivo continua valendo como o **detalhe** de cada item (o mecanismo, a medição,
+> o porquê), mas as seções abaixo **não** marcam o que já foi feito.
+
 Tudo que ficou **de fora** das rodadas, num lugar só. Nada aqui é recusa: é coisa que
 precisa de decisão sua, porque mudaria comportamento de quem já consome o DS, ou porque
 mora no projeto do consumidor e não no sistema.
