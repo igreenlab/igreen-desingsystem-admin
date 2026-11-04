@@ -18,6 +18,7 @@ description: >
 | ----------------------------------------------------- | -------------------------------------------------------------- |
 | CRUD client base · bulk · totalizers · inline edit    | `src/preview/pages/ClientsCRUDPreview.tsx`                     |
 | Server mode (`fetchData`/`getRowId`) · coluna actions | `src/preview/pages/ClientsCRUDServerPreview.tsx`               |
+| Server mode pela TELA (`paginationMode="server"` + `rows`/`rowCount`) | `src/preview/pages/ClientsServerRowsPreview.tsx`              |
 | Filtros pré-aplicados · showEmptyFilterChips          | `src/preview/pages/ClientsPreFilteredPreview.tsx`              |
 | Virtualização                                         | `src/preview/pages/ClientsVirtualizedPreview.tsx`              |
 | Grouping (column-aligned + free-form)                 | `src/preview/pages/ClientsGroupedPreview.tsx`                  |
@@ -295,7 +296,21 @@ const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTERS);
 // <DataTable filterModel={filterModel} onFilterModelChange={setFilterModel} ... />
 ```
 
-### fetchData (server mode) — Guardrail 3
+### Server mode — PERGUNTE qual dos DOIS caminhos (Guardrail 3)
+
+Existem dois, e a pergunta que decide é **quem dispara a request**. Se o blueprint
+não disser, **pergunte antes de gerar**: escolher errado ou duplica a camada de
+dados que a tela já tem, ou deixa a tabela sem como pedir a página seguinte.
+
+| a tela | o caminho | o que você gera |
+|---|---|---|
+| **não** tem camada de dados própria | `fetchData` | a função + `useCallback` |
+| **já** tem `react-query`/SWR/RTK-Query dono do fetch | `paginationMode="server"` | os 4 pares controlados + `rows` + `rowCount` |
+
+Sintoma do segundo: o usuário fala "já tenho o hook", "o endpoint já devolve
+paginado", "uso react-query", ou mostra um `useQuery` que já existe.
+
+#### Caminho 1 — `fetchData` (o DataTable busca)
 
 ```tsx
 const fetchData = useCallback(async (params: GridFetchParams) => {
@@ -304,6 +319,49 @@ const fetchData = useCallback(async (params: GridFetchParams) => {
   return { data: res.items, total: res.total }; // GridFetchResult<T>
 }, []);
 ```
+
+#### Caminho 2 — `paginationMode="server"` (a TELA busca)
+
+```tsx
+const { data, isFetching } = useQuery({
+  queryKey: ["<entidade>", paginationModel, sortModel, filterModel, search],
+  queryFn: () => api.get("/<entidade>", { params: { paginationModel, sortModel, filterModel, search } }),
+  placeholderData: keepPreviousData,
+});
+
+<DataTable
+  rows={data?.items ?? []}
+  rowCount={data?.total ?? 0}
+  paginationMode="server"
+  loading={isFetching}
+  loadingMode="keep"
+  paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
+  sortModel={sortModel}             onSortModelChange={setSortModel}
+  filterModel={filterModel}         onFilterModelChange={setFilterModel}
+  search={search}                   onSearchChange={setSearch}
+  paginationConfig={{ initialPageSize: 25, pageSizeOptions: [25] }}
+  toolbar={{ enableRefresh: false }}
+/>
+```
+
+Aqui o DataTable **não reprocessa nada** — não fatia, não ordena, não filtra, não
+busca; só emite os 4 callbacks. Quatro coisas que têm que sair geradas junto, porque
+são as falhas prováveis:
+
+- **Os 4 pares controlados.** Sem eles o usuário clica no cabeçalho e nada acontece:
+  a tabela avisou e não havia ninguém ouvindo.
+- **`rowCount`.** É a única fonte do total. Sem ele o rodapé só conhece o lote
+  ("1–N de N") e não oferece página seguinte.
+- **`initialPageSize` = o `pageSize` da API** (e `pageSizeOptions` só com valores que
+  ela aceita). O range do rodapé é `page × pageSize`, **não** contagem do corpo: 25
+  declarado com um lote de 10 escreve "1–25" sob 10 linhas.
+- **`toolbar.enableRefresh: false`.** O botão Refresh e o `ref.current.refresh()` só
+  falam com o `fetchData`.
+
+⚠️ Os dois **não se somam**: com `fetchData` presente o `paginationMode` é ignorado.
+E **nunca** gere `paginationMode="server"` numa tela com os dados todos em memória —
+ali é client mode, e a prop desligaria a paginação, a ordenação e o filtro que o
+usuário espera que funcionem.
 
 **Toda tela de server mode leva `loadingMode="keep"`** — a não ser que o blueprint
 diga o contrário. Sem a prop, cada troca de página troca o corpo **inteiro** pelo

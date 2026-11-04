@@ -226,6 +226,18 @@ export function useDataTableController<T>(
   const isServerMode = !!props.fetchData;
   const clientRows = props.rows ?? [];
 
+  /**
+   * `paginationMode="server"` — a tela buscou, filtrou, ordenou e fatiou no
+   * servidor, e `rows` é a página pronta. O DataTable não reprocessa nada;
+   * só emite os callbacks e espera `rows` novas.
+   *
+   * O `!isServerMode` torna explícito o que já era verdade por construção: com
+   * `fetchData` presente o processor recebe `rows: []` e esta prop não teria
+   * onde atuar. Os dois caminhos de server mode não se somam — `fetchData`
+   * vence `rows`, e é sobre `rows` que o `paginationMode` manda.
+   */
+  const isServerPagination = !isServerMode && props.paginationMode === "server";
+
   /* ── Processor (client mode pipeline) ────────────────────────── */
 
   // Skip paginate quando:
@@ -250,6 +262,7 @@ export function useDataTableController<T>(
     sortModel: sort.sortModels,
     paginationModel: pagination.paginationModel,
     paginate: shouldPaginate,
+    processLocally: !isServerPagination,
   });
 
   /* ── Query (server mode) — só executa quando fetchData presente ── */
@@ -269,9 +282,15 @@ export function useDataTableController<T>(
 
   // Seleciona output baseado no modo
   const effectiveRows = isServerMode ? query.rowsToRender : processed.rowsToRender;
+  // `rowCount` vale nos DOIS caminhos de server mode. Em client mode puro ele
+  // segue ignorado — é o que separa "aditivo" de "mudou pra quem já passa a
+  // prop". Sem `rowCount` o server mode por `rows` só conhece o lote que
+  // recebeu: "1–N de N", honesto e sem página seguinte.
   const effectiveTotal = isServerMode
     ? (props.rowCount ?? query.totalAfterFilter)
-    : processed.totalAfterFilter;
+    : isServerPagination
+      ? (props.rowCount ?? processed.totalAfterFilter)
+      : processed.totalAfterFilter;
   const allPagesProcessed = isServerMode ? query.rowsToRender : processed.rowsAllPagesProcessed;
 
   // Clamp de página fora de range: quando o total encolhe (ex: filtro reduz
@@ -309,9 +328,11 @@ export function useDataTableController<T>(
   /* ── Estados de feedback ──────────────────────────────────────── */
 
   const isLoading = isServerMode ? query.isLoading : !!props.loading;
-  const totalRowsForEmpty = isServerMode
-    ? effectiveTotal
-    : clientRows.length;
+  // "O conjunto está vazio?" — e o vazio da PÁGINA não é o vazio do conjunto.
+  // Em server mode por `rows` o lote é a página, então quem responde é o total,
+  // igual ao que o `fetchData` já fazia.
+  const totalRowsForEmpty =
+    isServerMode || isServerPagination ? effectiveTotal : clientRows.length;
   const isDataEmpty = !isLoading && totalRowsForEmpty === 0 && effectiveRows.length === 0;
   const isNoResults =
     !isLoading &&
@@ -768,6 +789,10 @@ export function useDataTableController<T>(
     filters,
     exporter,
     isServerMode,
+    /** `paginationMode="server"` ativo — as `rows` são a página pronta e o
+     *  DataTable só tem ELA na mão (não reprocessa, não fatia, não exporta
+     *  além dela). False = client mode de sempre. */
+    isServerPagination,
     savedViews,
     applyView,
     applyViewById,

@@ -26,6 +26,16 @@ export type UseDataTableProcessorParams<T> = {
    *  rows filtradas/buscadas/ordenadas. Use quando paginationConfig.enabled=false
    *  ou quando virtualize=true (virtualizer cuida do "render só visível"). Default true. */
   paginate?: boolean;
+  /**
+   * Quando false, o pipeline local INTEIRO é pulado — filtro, busca, ordenação
+   * **e** o slice — e `rowsToRender` é a própria `rows`, por referência.
+   *
+   * Use quando as rows já chegam prontas do servidor (`paginationMode="server"`).
+   * Desligar só o slice não bastaria: reprocessar a PÁGINA como se fosse o
+   * conjunto inteiro ordena 25 linhas de 1.000 e deixa o filtro apagar linhas
+   * que o total do rodapé continua contando. Default true.
+   */
+  processLocally?: boolean;
 };
 
 export type UseDataTableProcessorResult<T> = {
@@ -190,32 +200,37 @@ export function useDataTableProcessor<T>({
   sortModel,
   paginationModel,
   paginate = true,
+  processLocally = true,
 }: UseDataTableProcessorParams<T>): UseDataTableProcessorResult<T> {
   // 1. Filter
   const filtered = useMemo(
-    () => applyFilters(rows, filterModel, columns),
-    [rows, filterModel, columns],
+    () => (processLocally ? applyFilters(rows, filterModel, columns) : rows),
+    [rows, filterModel, columns, processLocally],
   );
 
   // 2. Search
   const searched = useMemo(
-    () => applySearch(filtered, search, columns, searchField),
-    [filtered, search, columns, searchField],
+    () =>
+      processLocally
+        ? applySearch(filtered, search, columns, searchField)
+        : filtered,
+    [filtered, search, columns, searchField, processLocally],
   );
 
   // 3. Sort
   const sorted = useMemo(
-    () => applySort(searched, sortModel, columns),
-    [searched, sortModel, columns],
+    () => (processLocally ? applySort(searched, sortModel, columns) : searched),
+    [searched, sortModel, columns, processLocally],
   );
 
-  // 4. Paginate (skip quando paginate=false → retorna todas as rows filtradas)
+  // 4. Paginate (skip quando paginate=false → retorna todas as rows filtradas,
+  //    ou quando processLocally=false → a fatia já veio pronta do servidor)
   const paginated = useMemo(() => {
-    if (!paginate) return sorted;
+    if (!paginate || !processLocally) return sorted;
     const { page, pageSize } = paginationModel;
     const start = (page - 1) * pageSize;
     return sorted.slice(start, start + pageSize);
-  }, [sorted, paginationModel, paginate]);
+  }, [sorted, paginationModel, paginate, processLocally]);
 
   return {
     rowsToRender: paginated,

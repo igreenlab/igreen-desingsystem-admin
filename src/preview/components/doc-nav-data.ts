@@ -172,6 +172,7 @@ const BASE_NAV: DocNavSection[] = [
       // Exemplos do DataTable
       { label: "Example: CRUD", href: "clients-crud" },
       { label: "Example: CRUD Server", href: "clients-crud-server" },
+      { label: "Example: Server por rows", href: "clients-server-rows" },
       { label: "Example: Pre-filtered", href: "clients-pre-filtered" },
       { label: "Example: Filter chips lab", href: "filter-chips-lab" },
       { label: "Example: Virtualized (10k)", href: "clients-virtualized" },

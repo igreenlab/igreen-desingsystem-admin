@@ -246,6 +246,16 @@ const CORE_PROPS = [
     type: '"skeleton" | "keep" — o que o CORPO e o RODAPÉ mostram com um carregamento em vôo. "keep" mantém as linhas do resultado anterior, marca aria-busy na raiz e anuncia por live region sr-only (que cala na resposta); o range do rodapé é escondido enquanto descreveria linhas que não estão na tela. Sem resultado anterior (primeira carga, ou rows vazio em client mode) cai no esqueleto sozinho. Vale nos dois modos — em client mode quem preserva as linhas é o consumidor, que segue passando rows',
     defaultVal: '"skeleton"',
   },
+  {
+    name: "paginationMode",
+    type: '"client" | "server" — quem processa as rows. "server" declara que elas já chegam prontas (a tela buscou, filtrou, ordenou e fatiou): o DataTable pula o pipeline local INTEIRO — filtro, busca, ordenação e o slice — e só emite onPaginationModelChange/onSortModelChange/onFilterModelChange/onSearchChange. Desligar só o slice ordenaria 25 linhas como se fossem 1.000. Exige rowCount (sem ele o rodapé só conhece o lote) e pageSize igual ao da API. Inerte com fetchData presente',
+    defaultVal: '"client"',
+  },
+  {
+    name: "rowCount",
+    type: "number — total NO SERVIDOR. Com fetchData é opcional (cai no total da resposta); com paginationMode=\"server\" é a única fonte; em client mode puro é ignorado",
+    defaultVal: "—",
+  },
 ];
 
 const TOOLBAR_PROPS = [
@@ -910,11 +920,34 @@ export function DataTableDoc() {
       <SectionH2 id="server-mode" title="Server mode" />
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
-        Passe <code>fetchData</code> em vez de <code>rows</code>. O DataTable
-        re-dispara a função em mudança de filter/sort/search/page.{" "}
-        <code>ref.current.refresh()</code> força refetch sem mudar params. Veja{" "}
-        <strong>Example: CRUD Server</strong> no menu lateral pro fluxo
-        completo.
+        São <strong>dois caminhos</strong>, e a diferença é quem dispara a
+        request. <strong>(1)</strong> Passe <code>fetchData</code> em vez de{" "}
+        <code>rows</code>: o DataTable re-dispara a função em mudança de
+        filter/sort/search/page, e <code>ref.current.refresh()</code> força
+        refetch sem mudar params. Veja <strong>Example: CRUD Server</strong> no
+        menu lateral pro fluxo completo.
+      </p>
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        <strong>(2)</strong> Ou passe <code>rows</code> já processadas com{" "}
+        <strong>paginationMode</strong>
+        {" = "}
+        <code>"server"</code> — quando a tela já tem{" "}
+        <code>react-query</code>/SWR dono do fetch, com cache e invalidação. Aí
+        o DataTable <strong>não reprocessa nada</strong>: nem fatia, nem ordena,
+        nem filtra, nem busca. Ele só emite{" "}
+        <code>onPaginationModelChange</code>, <code>onSortModelChange</code>,{" "}
+        <code>onFilterModelChange</code> e <code>onSearchChange</code>, e espera{" "}
+        <code>rows</code> novas. Desligar só o fatiamento seria pior que não ter
+        a prop: uma tabela que pagina no servidor e continua ordenando o lote
+        ordena 25 linhas como se fossem as 1.000, e o filtro local apaga linhas
+        que o <code>rowCount</code> continua contando. Duas consequências que
+        mordem: <code>rowCount</code> vira a única fonte do total (sem ele o
+        rodapé só conhece o lote), e o <code>initialPageSize</code> tem que ser
+        o da sua API — o range do rodapé é <code>page × pageSize</code>, nunca
+        uma contagem do corpo. Com <code>fetchData</code> presente a prop é
+        ignorada. Veja <strong>Example: Server por rows</strong>, que é o mesmo
+        dado pelo outro caminho.
       </p>
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">

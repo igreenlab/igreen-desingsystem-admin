@@ -180,6 +180,7 @@ function DataTableInternal<T>(
     filters,
     exporter,
     isServerMode,
+    isServerPagination,
     savedViews,
     applyViewById,
     applyDefault,
@@ -1958,7 +1959,13 @@ function DataTableInternal<T>(
                             </MoreMenuItemEl>
                           );
                         }
-                        return isServerMode ? (
+                        /* Os dois caminhos de server mode só têm a PÁGINA na
+                           mão: o `exportCsv("all")` cai no fallback de
+                           `rowsAll` vazio (fetchData) ou recebe o próprio lote
+                           (paginationMode). Oferecer "Todos" prometeria as
+                           1.000 linhas e entregaria 25 — o rótulo é a única
+                           coisa que pode ser honesta aqui. */
+                        return isServerMode || isServerPagination ? (
                           <MoreMenuItemEl
                             key={fmt.id}
                             onSelect={() => exporter.exportCsv("all")}

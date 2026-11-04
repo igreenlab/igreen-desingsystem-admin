@@ -609,8 +609,59 @@ export type DataTableProps<T> = {
   /** Server mode — quando definido, o DataTable delega filter/sort/pagination ao servidor.
    *  A função deve ser estável (`useCallback`) pra evitar refetch em loop. */
   fetchData?: (params: GridFetchParams) => Promise<GridFetchResult<T>>;
-  /** Total externo (server mode opcional). Quando undefined, usa o `total` retornado por `fetchData`. */
+  /**
+   * Total de linhas NO SERVIDOR — vale nos dois caminhos de server mode.
+   *
+   * - com `fetchData`: opcional; quando ausente usa o `total` da resposta.
+   * - com `paginationMode="server"`: é a **única** fonte do total, porque não
+   *   há resposta de onde tirá-lo. Sem ele o rodapé mostra só o tamanho do
+   *   lote recebido ("1–N de N") e não oferece página seguinte.
+   * - em client mode (o default): **ignorado** — quem conta é o pipeline local.
+   */
   rowCount?: number;
+
+  /**
+   * Quem processa as `rows`: o DataTable ou o servidor. Default `"client"`.
+   *
+   * - `"client"` (default) — o pipeline local roda inteiro sobre `rows`:
+   *   filtro → busca → ordenação → fatia da página. É o comportamento de hoje.
+   * - `"server"` — **nada** disso roda. As `rows` são renderizadas na ordem e
+   *   na quantidade em que chegaram, porque já são a página pronta: a tela
+   *   buscou, filtrou, ordenou e fatiou no servidor. O DataTable vira a
+   *   superfície — emite `onFilterModelChange`, `onSearchChange`,
+   *   `onSortModelChange` e `onPaginationModelChange`, e espera `rows` novas.
+   *
+   * ⚠️ **A prop desliga mais do que o nome diz, e é de propósito.** Desligar só
+   * o `slice` seria pior que não ter a prop: uma tabela que pagina no servidor
+   * e continua ORDENANDO o lote recebido ordena 25 linhas como se fossem as
+   * 1.000, e o filtro local apaga linhas que o `rowCount` continua contando —
+   * o corpo mostra 7, o rodapé diz "1–25 de 1.000", e nada na tela indica qual
+   * dos dois está errado. Fronteira de página só existe sobre um conjunto já
+   * filtrado e já ordenado; paginar no servidor e processar no cliente não é
+   * uma combinação válida, é a mesma decisão vista de dois lados. É também o
+   * que `fetchData` já significa aqui ("delega filter/sort/pagination ao
+   * servidor"), então **"server" quer dizer a mesma coisa nos dois**.
+   *
+   * ### Qual dos dois caminhos de server mode usar
+   *
+   * | | quem dispara a request | quando |
+   * |---|---|---|
+   * | `fetchData` | o DataTable | a tela não tem camada de dados própria |
+   * | `paginationMode="server"` + `rows` | a tela | já existe react-query/SWR/RTK-Query dono do fetch, com cache e invalidação |
+   *
+   * ⚠️ **O `pageSize` da tabela tem que ser o do servidor.** O texto do range
+   * do rodapé é aritmética sobre `page × pageSize`, nunca uma contagem do
+   * corpo: com `initialPageSize: 25` e um lote de 10, ele diz "1–25" sob 10
+   * linhas. Declare `paginationConfig.initialPageSize` igual ao tamanho de
+   * página da sua API (e `pageSizeOptions` só com valores que ela aceita).
+   *
+   * Os dois **não se somam**: com `fetchData` presente o DataTable já é server
+   * mode e esta prop é ignorada (`fetchData` vence `rows`, e é sobre `rows`
+   * que ela manda). O botão Refresh da toolbar também só funciona com
+   * `fetchData` — em `paginationMode="server"` quem recarrega é a tela, então
+   * prefira `toolbar.enableRefresh: false`.
+   */
+  paginationMode?: "client" | "server";
   columns: DataTableColumnDef<T>[];
   /** Função pra extrair id da row. Default: row.id */
   getRowId?: (row: T) => GridRowId;

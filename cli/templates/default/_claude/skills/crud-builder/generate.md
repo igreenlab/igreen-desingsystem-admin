@@ -28,8 +28,50 @@ Nunca gere props de memória — copie a forma do exemplo.
 
 - Caminho/rota conforme o blueprint (`PAGES_DIR`/`REGISTRO`).
 - Wrapper: `<div className="flex flex-col h-full min-h-0 gap-gp-2xl">` → `<PageHeader .../>` → `<DataTable className="flex-1 min-h-0" .../>`.
-- `columns` em `useMemo`; server mode ⇒ `fetchData` em `useCallback`.
-- **Server mode ⇒ `loadingMode="keep"`**, salvo se o blueprint disser o contrário.
+- `columns` em `useMemo`; server mode pelo ****fetchData**** ⇒ `fetchData` em `useCallback`.
+- **Server mode tem DOIS caminhos — PERGUNTE qual, se o blueprint não disser.** A
+  pergunta que decide é *quem dispara a request*. Escolher errado ou duplica a camada
+  de dados que a tela já tem, ou deixa a tabela sem como pedir a página seguinte.
+
+  | a tela | o caminho | o que você gera |
+  |---|---|---|
+  | **não** tem camada de dados própria | ****fetchData**** | a função + `useCallback` |
+  | **já** tem react-query/SWR/RTK-Query dono do fetch | ****paginationMode="server"**** | os 4 pares controlados + ****rows**** + ****rowCount**** |
+
+  Sintoma do segundo: "já tenho o hook", "o endpoint já devolve paginado", "uso
+  react-query", ou um `useQuery` que já existe na tela.
+
+  ```tsx
+  // Caminho 2 — a TELA busca. O DataTable NÃO fatia, NÃO ordena, NÃO filtra,
+  // NÃO busca: ele só emite os 4 callbacks e espera rows novas.
+  <DataTable
+    rows={data?.items ?? []}
+    rowCount={data?.total ?? 0}
+    paginationMode="server"
+    loading={isFetching}
+    loadingMode="keep"
+    paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
+    sortModel={sortModel}             onSortModelChange={setSortModel}
+    filterModel={filterModel}         onFilterModelChange={setFilterModel}
+    search={search}                   onSearchChange={setSearch}
+    paginationConfig={{ initialPageSize: 25, pageSizeOptions: [25] }}
+    toolbar={{ enableRefresh: false }}
+  />
+  ```
+
+  No caminho 2, quatro coisas saem geradas junto — são as falhas prováveis:
+  - **Os 4 pares controlados.** Sem eles o usuário clica no cabeçalho e nada acontece.
+  - ******rowCount****.** Única fonte do total; sem ele o rodapé só conhece o lote
+    ("1–N de N") e não oferece página seguinte.
+  - ******initialPageSize**** = o `pageSize` da API.** O range é `page × pageSize`, não
+    contagem do corpo: 25 declarado com um lote de 10 escreve "1–25" sob 10 linhas.
+  - ******enableRefresh: false****.** O Refresh só fala com o ****fetchData****.
+
+  ⚠️ Os dois não se somam: com ****fetchData**** presente o ****paginationMode**** é
+  ignorado. E **nunca** gere ****paginationMode="server"**** numa tela com os dados
+  todos em memória — ali é client mode, e a prop desligaria paginação, ordenação e
+  filtro que o usuário espera que funcionem.
+- **Server mode (qualquer um dos dois) ⇒ `loadingMode="keep"`**, salvo se o blueprint disser o contrário.
   Sem a prop (default `"skeleton"`) cada troca de página troca o corpo **inteiro**
   pelo esqueleto e volta — é o "pisca", e em tela de navegação frequente é a
   primeira reclamação que chega. Com ela as linhas da página anterior ficam no

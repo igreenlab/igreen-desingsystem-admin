@@ -8,6 +8,7 @@
 - chip multi próprio (colar lista, atalhos) → tipo no `columnTypeRegistry` com `ownsMulti: true`; o `value` chega SEMPRE como array, e widget de valor único NÃO declara o flag (`isAnyOf` nos operators não dá posse). Monte com `MultiSelectDropdown` / `MultiSelectFieldDropdown`
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
+- server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **paginationMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `paginationMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData`. Com `fetchData` presente a prop é ignorada
 - server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
 -->
 
@@ -117,7 +118,8 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Ações do cabeçalho (funil, menu, ícone)** | Cada uma tem o seu interruptor: **`enableHeaderFilter: false`** na coluna esconde SÓ o funil (o menu e o filtro em si seguem) · `enableColumnMenu: false` esconde o menu INTEIRO — Fixar e Ocultar vão junto, então **não use pra tirar só o funil** · **`showTypeIcons={false}`** (prop raiz) desliga o ícone do tipo. "Ordenar" só aparece no menu de coluna ordenável. Detalhe em §Cabeçalho |
 | **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |
 | **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |
-| **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |
+| **Server mode — o DataTable busca** | passe `fetchData` em vez de `rows`. Ele chama a sua função a cada mudança de pagination/sort/filter/search e renderiza a resposta                                                                                                                                                                                                                      |
+| **Server mode — a TELA busca**  | **paginationMode**`="server"` + `rows` + `rowCount`. As rows já são a página pronta: o DataTable **não** fatia, ordena, filtra nem busca — só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Use quando já existe react-query/SWR dono do fetch. Ver §Server mode |
 | **Trocar de página sem piscar** | **loadingMode**`="keep"` — durante o refetch as linhas do resultado ANTERIOR ficam no lugar (corpo **e** rodapé), com `aria-busy` + live region `sr-only` avisando, e o range do rodapé escondido. Default `"skeleton"` = o de hoje. Na primeira carga, sem linha anterior, o `"keep"` cai no esqueleto sozinho. Ver §Estados                                        |
 | **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |
@@ -303,6 +305,65 @@ const fetchData = useCallback(
 ```
 
 `fetchData` é re-disparado quando muda `pagination | sort | filter | search`. Use ref/AbortController interno se precisar cancelar. Loading state é managed pelo controller: **por default corpo e rodapé viram esqueleto** a cada refetch — é isso que faz trocar de página "piscar". Pra manter as linhas da página anterior até a próxima chegar, veja **loadingMode** em §Estados.
+
+#### O outro caminho: `paginationMode="server"` (a TELA busca)
+
+São **dois** caminhos de server mode, e o consumidor escolhe um:
+
+| | quem dispara a request | quando usar |
+|---|---|---|
+| `fetchData` | o DataTable | a tela não tem camada de dados própria |
+| **paginationMode**`="server"` + `rows` | a tela | já existe `react-query`/SWR/RTK-Query dono do fetch, com cache, invalidação e `placeholderData` |
+
+```tsx
+const { data, isFetching } = useQuery({
+  queryKey: ["clients", paginationModel, sortModel, filterModel, search],
+  queryFn: () => api.get("/clients", { params: { paginationModel, sortModel, filterModel, search } }),
+  placeholderData: keepPreviousData,
+});
+
+<DataTable<Client>
+  rows={data?.items ?? []}
+  rowCount={data?.total ?? 0}
+  paginationMode="server"
+  loading={isFetching}
+  loadingMode="keep"
+  columns={columns}
+  paginationModel={paginationModel} onPaginationModelChange={setPaginationModel}
+  sortModel={sortModel}             onSortModelChange={setSortModel}
+  filterModel={filterModel}         onFilterModelChange={setFilterModel}
+  search={search}                   onSearchChange={setSearch}
+  paginationConfig={{ initialPageSize: 25, pageSizeOptions: [25] }}
+  toolbar={{ enableRefresh: false }}
+/>
+```
+
+⚠️ **A prop desliga mais do que o nome diz, e é de propósito.** `"server"` pula o pipeline
+local **inteiro** — filtro, busca, ordenação **e** o slice. Desligar só o slice seria pior
+que não ter a prop: uma tabela que pagina no servidor e continua ORDENANDO o lote recebido
+ordena 25 linhas como se fossem as 1.000, e o filtro local apaga linhas que o `rowCount`
+continua contando (o corpo mostra 7, o rodapé diz "1–25 de 1.000", e nada na tela diz qual
+dos dois está errado). Fronteira de página só existe sobre um conjunto já filtrado e já
+ordenado — por isso é **uma** flag, e não três. É o mesmo que `fetchData` sempre significou
+aqui.
+
+Três coisas que mudam de dono junto com o processamento:
+
+- **`rowCount` vira obrigatório na prática.** Sem ele o rodapé só conhece o lote que recebeu
+  ("1–N de N") e não oferece página seguinte. Em client mode puro ele continua **ignorado**.
+- **O `pageSize` da tabela tem que ser o da sua API.** O texto do range é aritmética sobre
+  `page × pageSize`, nunca uma contagem do corpo: `initialPageSize: 25` com um lote de 10
+  escreve "1–25" sob 10 linhas. Declare `pageSizeOptions` só com valores que a API aceita.
+- **O botão Refresh e o `ref.current.refresh()` só falam com o `fetchData`.** Quem recarrega
+  aqui é a tela — passe `toolbar.enableRefresh: false` e exponha o seu próprio, ou use
+  `toolbar.customLeft`.
+- **O export "Todos" vira "Página atual"** sozinho: o DataTable só tem o lote na mão, e
+  prometer o conjunto inteiro seria mentira.
+
+Com `fetchData` presente a prop é **ignorada** — `fetchData` vence `rows`, e é sobre `rows`
+que ela manda. Os dois não se somam. Demo ao vivo: **Example: Server por rows**
+(`#/clients-server-rows`), ao lado do **Example: CRUD Server** (`#/clients-crud-server`), que
+é o mesmo dado pelo caminho do `fetchData`.
 
 ### Inline edit (commit no submit / Enter)
 
@@ -922,7 +983,9 @@ tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (n
 - `initialPageSize` (25)
 - `pageSizeOptions` ([10, 25, 50, 100])
 
-> O modo client/server **não é prop** — é derivado automaticamente de `rows` vs `fetchData`.
+> O modo client/server é derivado de `rows` vs `fetchData` — **e desde a vNEXT também pode
+> ser declarado** por **paginationMode**`="server"`, pra quem passa `rows` já processadas
+> pelo servidor. Esta linha dizia *"não é prop"* até lá; ver §Server mode.
 
 ### `selectionConfig`
 

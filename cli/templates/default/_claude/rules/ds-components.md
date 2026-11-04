@@ -271,6 +271,45 @@ VOCÊ:** continue passando as linhas antigas em ****rows**** enquanto levanta o
 
 ⚠️ O `data-list` **não tem** essa prop.
 
+### Server mode: DOIS caminhos, escolha um (DS **vNEXT**+)
+
+A pergunta que decide é **quem dispara a request**:
+
+| sua tela | o caminho |
+|---|---|
+| **não** tem camada de dados própria — quer que a tabela busque | ****fetchData**** (sem ****rows****). O `data-table` chama a sua função a cada mudança de página/ordem/filtro/busca e renderiza a resposta |
+| **já** tem react-query / SWR / RTK-Query dono do fetch, com cache e invalidação | ****paginationMode="server"**** + ****rows**** + ****rowCount****. Você busca; a tabela só mostra |
+
+Com ****paginationMode="server"**** o `data-table` **não reprocessa nada**: não fatia, não
+ordena, não filtra e não busca. Ele só **avisa** — ****onPaginationModelChange****,
+****onSortModelChange****, ****onFilterModelChange****, ****onSearchChange**** — e espera
+****rows**** novas. Declare os 4 pares controlados; sem eles o usuário clica e nada
+acontece.
+
+⚠️ **Sim, ela desliga mais do que o nome diz, e é de propósito.** Paginar no servidor e
+continuar ordenando no cliente ordenaria as 25 linhas da tela como se fossem as 1.000, e o
+filtro local apagaria linhas que o ****rowCount**** continua contando — o corpo mostra 7, o
+rodapé diz "1–25 de 1.000", e nada na tela diz qual dos dois está errado.
+
+Três coisas que você **precisa** acertar:
+
+- ****rowCount**** é a única fonte do total. Sem ele o rodapé só conhece o lote que recebeu
+  ("1–N de N") e não oferece página seguinte.
+- ****initialPageSize**** tem que ser o ****pageSize**** da sua API. O texto do intervalo é
+  aritmética sobre página × tamanho, **não** uma contagem do corpo: 25 declarado com um lote
+  de 10 escreve "1–25" sob 10 linhas.
+- **Desligue o Refresh** (****enableRefresh: false**** no toolbar). Ele só fala com o
+  ****fetchData****; aqui quem recarrega é a sua tela.
+
+✅ Combina com ****loadingMode="keep"**** — e é o par natural do ****placeholderData**** /
+****keepPreviousData**** do react-query/SWR.
+
+⚠️ Os dois caminhos **não se somam**: com ****fetchData**** presente o
+****paginationMode**** é ignorado. E em client mode puro (sem nenhum dos dois) o
+****rowCount**** continua sendo **ignorado** — quem conta são as ****rows**** passadas.
+
+⚠️ O `data-list` **não tem** essa prop (ele não pagina).
+
 ## Layout e chrome do app
 
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo). **Embutido em container com altura** (layout com footer, aba, preview) → passe `fillHeight`; sem isso ele mede 100vh, transborda e o conteúdo fica cortado na base.
