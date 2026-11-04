@@ -395,6 +395,9 @@ BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis
 ```
 react-day-picker — selected, onSelect, mode (single | range | multiple)
 locale — default ptBR (date-fns/locale); quem passa `locale` explícito vence
+hoje  — ANEL (ring-1 ring-border-brand) sobre fundo transparente
+selec.— DISCO preenchido (bg-bg-brand + text-fg-on-brand)
+        coincidindo, o preenchido vence e o anel não entra
 ```
 
 - Fonte de verdade: `src/components/shadcn/calendar.tsx`

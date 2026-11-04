@@ -396,7 +396,7 @@ código.
 
 - `command` — paleta de comandos / busca com teclado (⌘K).
 - `markdown-text` — renderizar markdown (chat, descrições vindas de API).
-- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`.
+- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`. ⚠️ **vNEXT muda o pixel**: **hoje** passa a ser um **anel** de marca sobre fundo transparente e só o dia **selecionado** fica preenchido — antes os dois eram o mesmo disco verde, indistinguíveis. Coincidindo, o preenchido vence. Vale também no `date-picker` e nos filtros de data da `data-table` e da `data-list`. Não recrie o destaque de hoje na mão.
 - `button` — ação. Variações (cor, tamanho, ícone, loading) na própria API; ver o USAGE.
 
 ---
