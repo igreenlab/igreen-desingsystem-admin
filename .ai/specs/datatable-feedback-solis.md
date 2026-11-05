@@ -1,15 +1,15 @@
 # DataTable — feedback Sólis item a item
 
-> **Status:** ATIVA — implementada na branch `docs/showcase-filter-chips-lab`, em review no
-> PR [igreenlab/igreen-desingsystem-admin#343](https://github.com/igreenlab/igreen-desingsystem-admin/pull/343).
-> Vira `IMPLEMENTADA (<data do merge>)` quando entrar na `main`.
+> **Status:** IMPLEMENTADA (2026-10-22) — entrou na `main` pelo
+> PR [igreenlab/igreen-desingsystem-admin#343](https://github.com/igreenlab/igreen-desingsystem-admin/pull/343)
+> (merge `0a30111`). Fica como referência de decisão, não como frente aberta.
 >
-> **Para quem é este documento.** Para quem vai fazer o **segundo review** do PR sem ter
-> participado da conversa (2026-10-21 → 2026-10-22). Ele diz o que foi pedido, o que foi
-> feito, o que ficou de fora e por quê, e onde o risco mora. Leia antes da diff: várias
-> decisões só fazem sentido com o contexto.
+> **Para quem é este documento.** Escrito para o **segundo review** do PR, por quem não
+> participou da conversa (2026-10-21 → 2026-10-22). Ele diz o que foi pedido, o que foi
+> feito, o que ficou de fora e por quê, e onde o risco mora — e é por isso que ele
+> sobrevive ao merge: várias decisões só fazem sentido com o contexto.
 >
-> **Como ver funcionando:** `gh pr checkout 343 && npm install && npm run dev` →
+> **Como ver funcionando:** já está na `main` — `npm install && npm run dev` →
 > `http://localhost:3100/#/filter-chips-lab`. A página tem um **navegador flutuante** no canto
 > inferior direito com cada item e o passo exato de verificação.
 

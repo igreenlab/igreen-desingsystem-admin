@@ -2,8 +2,8 @@
 
 <!-- ds:regras
 - por default a altura do `className` é a do BLOCO e a legenda desconta dela: `h-[250px]` + legenda de 1 linha = 250px de bloco com 228px de gráfico, e 2 linhas tiram o dobro
-- `keepPlotHeight` inverte isso: a altura passa a ser a da PLOTAGEM e a legenda soma por fora — os mesmos `h-[250px]` dão 272px de bloco com 250px de gráfico. Ligue quando a legenda puder quebrar em 2 linhas
-- `emptyState` é opt-in e só troca o gráfico quando não há nenhum número finito nas props `data` (a do gráfico e a das séries). `0` é dado; `null`/`undefined`/texto não são
+- `keepPlotHeight` (`vNEXT`+) inverte isso: a altura passa a ser a da PLOTAGEM e a legenda soma por fora — os mesmos `h-[250px]` dão 272px de bloco com 250px de gráfico. Ligue quando a legenda puder quebrar em 2 linhas
+- `emptyState` (`vNEXT`+) é opt-in e só troca o gráfico quando não há nenhum número finito nas props `data` (a do gráfico e a das séries). `0` é dado; `null`/`undefined`/texto não são
 - gráfico que carrega dado (`data={query.data}`) merece `emptyState` — sem ele o Recharts desenha a grade e os eixos sem nenhuma série, e a tela parece quebrada em vez de vazia
 -->
 
@@ -57,13 +57,13 @@ const config = {
 |---|---|---|
 | `ChartContainer` | `config: ChartConfig` | mapa série → `{ label, color?, icon?, theme? }` |
 | `ChartContainer` | `className` | controle de altura/aspect. Por default é a altura do **bloco** e a legenda desconta dela; com `keepPlotHeight`, é a da **plotagem** e a legenda soma por fora |
-| `ChartContainer` | `emptyState?: ReactNode` | conteúdo a mostrar no lugar do gráfico quando não há dado. Ausente = Recharts desenha os eixos vazios |
-| `ChartContainer` | `keepPlotHeight?: boolean` | tira a legenda da caixa de altura: a plotagem fica com os pixels pedidos e o bloco cresce. Ausente (default) = a legenda desconta da plotagem, como sempre |
+| `ChartContainer` | `emptyState?: ReactNode` | **(`vNEXT`+)** conteúdo a mostrar no lugar do gráfico quando não há dado. Ausente = Recharts desenha os eixos vazios |
+| `ChartContainer` | `keepPlotHeight?: boolean` | **(`vNEXT`+)** tira a legenda da caixa de altura: a plotagem fica com os pixels pedidos e o bloco cresce. Ausente (default) = a legenda desconta da plotagem, como sempre |
 | `ChartTooltip` | `content={<ChartTooltipContent/>}` | tooltip do DS |
 | `ChartTooltipContent` | `hideLabel`, `hideIndicator`, `indicator` (`dot`/`line`/`dashed`), `labelFormatter`, `formatter`, `nameKey`, `labelKey` | customização |
 | `ChartLegend` | `content={<ChartLegendContent/>}` | legenda do DS |
 
-## Sem dados — `emptyState`
+## Sem dados — `emptyState` (`vNEXT`)
 
 ```tsx
 <ChartContainer
@@ -101,7 +101,7 @@ eixo X numérico (timestamp) com a série toda nula conta como dado.
 
 Sem a prop, nada muda: o Recharts desenha a grade e os eixos sem série.
 
-## Legenda — `keepPlotHeight` decide de quem é a altura
+## Legenda — `keepPlotHeight` decide de quem é a altura (`vNEXT`)
 
 O Recharts mede o wrapper da legenda e **desconta** essa altura da área de
 plotagem. É o default, e é o que sempre valeu: com `h-[250px]`, uma legenda de 1

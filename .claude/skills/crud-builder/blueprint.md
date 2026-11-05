@@ -19,14 +19,19 @@ Rodar e corrigir silenciosamente (ou reportar no blueprint se exigir decisão):
 2. **Colisão de page id** — id não pode existir em `DOC_PAGES`
    (`src/App.tsx`). Colisão → propor sufixo.
 3. **Kanban íntegro** — `groupByField` é select/status com `filterOptions`
-   completas; toda lane mapeia uma option (e vice-versa, ou lane "outros").
-4. **Excludências** — `virtualize` ⇒ pagination off; `groupBy` e
+   completas; toda **coluna** mapeia uma option (e vice-versa, ou coluna "outros").
+4. **Kanban com raias (2º eixo)** — a raia é o **`groupBy` do DataTable**, não uma
+   prop do `kanbanConfig`, e tem que ser um campo **DIFERENTE** do das colunas: igual
+   ao `groupByField`, é ignorado (daria uma raia por coluna com todos os cards dela).
+   ⚠️ Nos textos antigos "lane" queria dizer **coluna**; com raias no sistema, escreva
+   **coluna** e **raia** e não use "lane" pra nenhum dos dois.
+5. **Excludências** — `virtualize` ⇒ pagination off; `groupBy` e
    `renderRowExpansion` não coexistem (groupBy vence); kanban ⇒ `viewMode`
    controlado.
-5. **Memoização** — plano de geração marca `columns` useMemo + `fetchData`
+6. **Memoização** — plano de geração marca `columns` useMemo + `fetchData`
    useCallback (server).
-6. **Excluir confirma** — toda action `destructive` tem `AlertModal` no plano.
-7. **Estados definidos** — loading/vazio/sem-resultado presentes (ainda que default).
+7. **Excluir confirma** — toda action `destructive` tem `AlertModal` no plano.
+8. **Estados definidos** — loading/vazio/sem-resultado presentes (ainda que default).
 
 ## Formato do blueprint (apresentar TUDO de uma vez)
 
@@ -62,7 +67,8 @@ campos: <campo:obrigatório?:máscara?>, ... (via FormField · gap-form-gap) ·
 excluir: confirma via AlertModal
 
 ### Kanban
-<não | groupByField `<campo>` · lanes: <id(dotColor)>... · card: title=<f>,
+<não | groupByField `<campo>` (as COLUNAS) · colunas: <id(dotColor)>... ·
+raias (2º eixo, = o `groupBy` do DataTable): <não | `<campo>`> · card: title=<f>,
 chip=<f>, value=<f> · DnD <on|off>>
 
 ### Arquivos

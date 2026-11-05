@@ -52,6 +52,25 @@ description: >
 >   **`listConfig.getPath`** (caminho raiz→self) e **NÃO** passe `getTreeDataPath`
 >   (senão a tabela vira tree-data e perde a paginação). Ref real: Mapa de Rede.
 
+> 🏊 **Kanban com RAIAS (o 2º eixo do board).** As **colunas** saem de
+> `kanbanConfig.groupByField`; pra agrupar os cards DENTRO de cada coluna (por épico,
+> responsável, cliente) ligue o **`groupBy` do DataTable** — é o mesmo estado que agrupa
+> linhas na tabela, então entra no `persistId` e nas visões salvas sem código novo. **Não
+> existe prop de raia no `kanbanConfig`** além de `ungroupedLaneLabel` (rótulo dos cards
+> sem valor no `groupBy`; `null` esconde a raia).
+>
+> ```tsx
+> <DataTable groupBy="epico" viewMode="kanban"
+>   kanbanConfig={{ groupByField: "status", renderCard, ungroupedLaneLabel: "Sem épico" }} />
+> ```
+>
+> Sem `groupBy`, board plano. `groupBy` **igual** ao `groupByField` é ignorado (daria uma
+> raia por coluna com todos os cards dela). E avise o usuário: **arrastar move o card entre
+> COLUNAS, nunca entre raias** — trocar de grupo vira item do menu do card, não gesto.
+>
+> ⚠️ **Vocabulário:** nos textos antigos "lane" queria dizer **coluna**. Com raias no
+> sistema, escreva **coluna** e **raia**, e não use "lane" pra nenhum dos dois.
+
 ## 2. Esqueleto — página standalone (`ExamplePageLayout`)
 
 ```tsx
@@ -431,6 +450,12 @@ uma live region `sr-only` anuncia que as linhas estão defasadas.
 
 - **Não trate a primeira carga.** Sem linha anterior não há o que manter, e o
   `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+- **Em client mode (`rows` + `loading`) o `loadingMode` também vale**, mas aí quem
+  guarda o lote anterior é a tela: continue passando as linhas antigas em `rows`
+  enquanto levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
+- Durante o vôo o **range** do rodapé some (ele descreveria linhas que não estão
+  na tela) e volta na resposta — os controles de página ficam. É esperado, não é
+  defeito a "consertar".
 - ⛔ **Não esmaeça as linhas** pra sinalizar que estão defasadas: o DS já desenha a
   régua, e opacidade no corpo foi medida e reprovada (no tema claro, o piso pra um
   valor de célula em texto secundário continuar no AA é **0,88** — abaixo disso
@@ -456,13 +481,8 @@ e um "Tentar de novo" via `ref.current.refresh()` quando houver ref.
 - **O range do rodapé some sozinho** enquanto a busca está falha, e volta na
   resposta seguinte. Não é defeito a "consertar".
 - Só dispara pela request **corrente** (o guard de corrida descarta as superadas)
-  e nunca em client mode.
-- **Em client mode (`rows` + `loading`) a prop vale igual**, mas aí quem guarda o
-  lote anterior é a tela: continue passando as linhas antigas em `rows` enquanto
-  levanta o `loading`. Zerar `rows` junto = nada pra manter = esqueleto.
-- Durante o vôo o **range** do rodapé some (ele descreveria linhas que não estão
-  na tela) e volta na resposta — os controles de página ficam. É esperado, não é
-  defeito a "consertar".
+  e **nunca em client mode** — sem `fetchData` o controller passa um `NOOP_FETCH`
+  que sempre resolve, então não há rejeição pra avisar.
 
 ### presetView
 
@@ -531,7 +551,9 @@ Deep-link `#/<page-id>` funciona automaticamente (`ALL_VALID_PAGES` deriva de
    - [ ] Popover Filtros abre com Select de operador PREENCHIDO
    - [ ] Chips de filtros pré-aplicados visíveis e removíveis
    - [ ] Pagination/virtualização conforme blueprint
-   - [ ] Kanban: lanes = todas as options; drag respeitando canReceiveDrop
+   - [ ] Kanban: colunas = todas as options; drag respeitando canReceiveDrop
+   - [ ] Kanban com raias: `groupBy` ≠ `groupByField`, e as raias aparecem em TODAS
+         as colunas (recolher uma recolhe em todas)
    - [ ] Dark mode ok (toggle do preview)
    - [ ] Mobile: card mode + toolbar colapsada
 6. `.ai/status/pipeline-state.md` → entrada `CONCLUÍDO` com Decisões +

@@ -280,7 +280,14 @@ Oferecer a alternativa: se não precisa de controle externo do filterModel,
 - **Não** (default) → entrevista termina.
 - **Sim** → carregar `kanban-design.md` e seguir o sub-fluxo guiado. Pré-requisito:
   existir coluna select/status com `filterOptions` completas (Fase 2) pra ser o
-  `groupByField`.
+  `groupByField` — o campo das **COLUNAS** do board.
+- **Sim ⇒ pergunte o SEGUNDO eixo**: dentro de cada coluna, os cards devem ficar
+  agrupados por algo — épico, responsável, cliente? Isso são **raias (swimlanes)**,
+  e sai de graça: é o mesmo `groupBy` que agrupa linhas na tabela, então entra no
+  `persistId` e nas visões salvas sem código novo. Não há prop separada; sem
+  `groupBy`, o board é plano.
+  - Avise que **arrastar move entre COLUNAS, nunca entre raias** — se a tela precisa
+    trocar o épico de um card, isso é item do menu do card, não gesto.
 
 ---
 

@@ -115,6 +115,10 @@ em lote ("CNPJ sem copyable"). Critério completo e limites: `generate.md` item 
   - **Views do usuário**: ele cria/salva/persiste as próprias (`savedViewsService` + `persistId`).
 - Paginação (tamanho inicial, opções) ou virtualização (10k+ linhas)?
 - Totalizadores no rodapé? (`showTotalizers` + `aggregate`).
+- Linha que ABRE um detalhe (coluna `expandable` + `renderRowExpansion`, excludente com
+  `groupBy`)? **Se ligar, pergunte: TODA linha tem detalhe?** Se não (pedido sem item,
+  cliente sem contrato) → `isRowExpandable={(row) => …}`, que tira chevron e clique
+  juntos. Detalhe em `generate.md`.
 
 ## Fase 5 — Criar/editar/detalhe (drawers)
 

@@ -159,8 +159,17 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 | **toolbarActions** | ações custom no toolbar (`button`/`dropdown`/`input`, ex.: seletor de período/mês). Inline no desktop; **colapsam no ⋯ no mobile**. Oferecer quando o usuário pedir um seletor/botão extra na barra | off                                         |
 | moreActions (⋯)    | itens extras?                                                                                                                                                                                       | off                                         |
 
-`filterFields.type` ∈ text/select/boolean/number/date. Chips de filtro aplicado
-aparecem automaticamente (ToolbarApplied). Filtro abre o MESMO drawer da tabela.
+Chips de filtro aplicado aparecem automaticamente (ToolbarApplied). Filtro abre o
+MESMO drawer da tabela.
+
+**`filterFields.type` NÃO é união fechada.** Os cinco built-in são
+text/select/boolean/number/date, e o `type` aceita **também o id de um tipo que você
+registre no `columnTypeRegistry`** — inclusive um com `ownsMulti: true`, que passa a ser
+dono do chip multi (DS `vNEXT`+). Assinatura real:
+`FilterFieldType = "text" | "select" | "boolean" | "number" | "date" | (string & {})`
+(`src/components/ui/DataList/data-list.types.ts`). Receita do widget próprio:
+`src/components/ui/DataTable/USAGE.md` §"Widget custom é DONO do chip" — vale no
+`DataList` e no `DataTable`, com o mesmo registry.
 
 ---
 

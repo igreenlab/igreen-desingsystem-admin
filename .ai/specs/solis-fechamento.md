@@ -56,6 +56,10 @@ menção no plano, no ledger, na folha de decisão ou na resposta ao Sólis.
 
 ## 2. O `percentage` ficou de fora de uma correção que você aprovou
 
+> ✅ **RESOLVIDO em 2026-11-04, PR #369** (`44d955b`). Você mandou terminar: o
+> `percentage` passou a honrar o `column.valueFormatter` com a MESMA precedência dos
+> outros dois. O relato abaixo fica como o registro do achado.
+
 O **item 6** era: *"`number` e `currency` ignoram o `valueFormatter` da coluna"*. Durante o
 trabalho, ficou registrado no ledger que **o `percentage` tem o mesmo defeito** e que seria
 incluído no mesmo escopo:
@@ -109,6 +113,12 @@ ainda"* e lista só os 15 P-itens.
 > consegue montar sozinho — ou você decide agora.
 
 ## 4. O item 27 foi encerrado apontando para a prop errada
+
+> ✅ **RESOLVIDO em 2026-11-04, PR #369** (`44d955b`). A contagem do contexto de FILTRO
+> ganhou porta própria — `typeOptions.countLabel` por coluna, mesma assinatura do
+> `selectionConfig.countLabel` —, em **seis** sítios (quatro nos tipos + dois no
+> `use-filter-popover-adapter`, que é o caminho que o usuário vê num chip multi). O
+> relato abaixo fica como o registro do achado.
 
 O item 27 pedia **texto de contagem configurável**. Foi fechado no plano com *"`selectionConfig.countLabel` já existe desde a v0.69.0"*.
 
