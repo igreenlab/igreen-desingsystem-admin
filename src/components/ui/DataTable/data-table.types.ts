@@ -676,7 +676,7 @@ export type DataTableProps<T> = {
    * página da sua API (e `pageSizeOptions` só com valores que ela aceita).
    *
    * ✅ **Filtro que zera o resultado dá o mesmo vazio dos três modos** (desde
-   * `vNEXT`): "Nenhum dado encontrado" **com o botão de limpar filtros**, já
+   * `v0.71.0`): "Nenhum dado encontrado" **com o botão de limpar filtros**, já
    * cabeado. Antes, nos dois caminhos de server o total ia a 0 e a tela dizia
    * "Nenhum dado cadastrado" — *"não existe nada"* — **sem a saída de limpar**,
    * justamente quando ela é mais necessária. Em server o total é o de DEPOIS
@@ -1059,7 +1059,7 @@ export type DataTableProps<T> = {
   /**
    * Avisa a sua tela que o `fetchData` **rejeitou**. Recebe a mensagem do erro.
    *
-   * Até a `vNEXT` a falha era **invisível e permanente**: o hook guardava o erro
+   * Até a `v0.71.0` a falha era **invisível e permanente**: o hook guardava o erro
    * e ninguém o lia. Na tela, `isLoading` descia, as linhas da página anterior
    * ficavam, o rodapé seguia na página nova — e nada mudava mais, porque não há
    * nova resposta pra corrigir o estado. O usuário via uma tabela coerente

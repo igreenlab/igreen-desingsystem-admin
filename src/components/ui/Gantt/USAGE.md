@@ -313,7 +313,7 @@ date-only é parseado como **UTC** e volta um dia em fuso negativo (medido em UT
 vira 29/09 21:00). O componente usa `parseDiaISO` internamente pelos dois lados —
 predicado e chip — pra os dois nunca divergirem.
 
-#### O chip de aplicado é o `FilterChip` compartilhado (`vNEXT`+)
+#### O chip de aplicado é o `FilterChip` compartilhado (`v0.71.0`+)
 
 A anatomia (`⊗` à esquerda · nome · operador · valores) era uma **reprodução à
 mão** do chip do `TableToolbar`; agora é a mesma peça, `ui/FilterChip`. **Zero

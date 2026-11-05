@@ -84,7 +84,7 @@ import {
   `onClearAll` ("limpar todas as páginas").
 - **Chip fixo**: `AppliedFilter.removable: false` esconde o X do chip (o ToolbarApplied
   mostra um ⊕ decorativo no lugar — chip "de regra" que nunca sai).
-- **Chip de `between` não imprime o rótulo do operador** (`vNEXT`+). O valor já é
+- **Chip de `between` não imprime o rótulo do operador** (`v0.71.0`+). O valor já é
   auto-descritivo em todos os tipos que têm faixa (`100 – 500`, `R$ 10,00 → R$ 500,00`,
   `01/01 → 31/01`, e nos lados abertos `≥ 100` / `desde 01/01`), então o chip dizia o
   intervalo duas vezes — "entre 100 – 500", e no pior caso "entre desde 01/01". Pra ter a
@@ -92,7 +92,7 @@ import {
   nem `DataTable` nem `DataList` a repassam hoje — `AppliedFilter.opLabel` vem do registry
   do tipo e todos declaram "entre". `filterValueLabel` não serve: ela resolve o rótulo de
   **uma opção** e nem chega ao `renderChipValue` do `number`/`currency`.
-- **Destacar o chip APLICADO é OPT-IN** — `highlightAppliedFilterChips` (`vNEXT`+).
+- **Destacar o chip APLICADO é OPT-IN** — `highlightAppliedFilterChips` (`v0.71.0`+).
   **Sem a prop (default), todo chip é o tracejado neutro de sempre.** Com ela, o chip com
   valor ganha borda sólida de marca sobre `bg-brand-subtle` e o valor em `text-fg-brand`,
   enquanto o chip vazio (`AppliedFilter.isEmpty`) continua tracejado.
@@ -109,7 +109,7 @@ import {
   item sem valor, então lá não há chip vazio pra contrastar e o destaque pintaria 100% da
   barra. Por isso o `DataList` não repassa a prop hoje.
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
-- **O chip em si é o `FilterChip`** (`vNEXT`+), peça própria em `ui/FilterChip`,
+- **O chip em si é o `FilterChip`** (`v0.71.0`+), peça própria em `ui/FilterChip`,
   compartilhada com `Gantt` e `Scheduler`. Os nomes `toolbarAppliedChip*` seguem
   existindo como alias — a definição é uma só. **Zero pixel mudou aqui:** a única
   classe que o chip ganhou é `shrink-0`, que o `<div>` em volta de cada chip já
@@ -117,7 +117,7 @@ import {
   qualquer outra).
   Precisa do chip numa tela que não usa `ToolbarApplied`? Importe `FilterChip` —
   **não** copie a gramática. Foi copiá-la que produziu três versões divergentes.
-- **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`vNEXT`+).
+- **`<ToolbarSimpleFilterDrawer>` preserva o operador que já está no modelo** (`v0.71.0`+).
   Ele não oferece escolha de operador — isso é do builder avançado — mas campo com filtro
   vigente é **desenhado e reescrito com o operador dele** (`isNoneOf`, `between`,
   `notContains`). Só o campo **sem** filtro nasce com o default do tipo (e `multiSelect`
@@ -146,7 +146,7 @@ import {
   botão a toda linha muda pixel em todos os consumidores do drawer. Está anotado como
   pendência do mantenedor; até lá, **não** afirme que o funil esvazia qualquer campo.
 - **Tipo registrado DECLARA o operador sem valor dele** com `noValue: true` no item de
-  `operators` (`vNEXT`+) — e aí a linha dele ganha a mesma saída. O sinal é o
+  `operators` (`v0.71.0`+) — e aí a linha dele ganha a mesma saída. O sinal é o
   **operador**, não o widget: não dá pra perguntar ao `renderFilterInput` se ele trouxe
   `onChange`. `isEmpty`/`isNotEmpty` já valem sem declarar (`NO_VALUE_OPERATORS` em
   `DataTable/utils/filter-ops` é o fallback dos built-in); o campo é pro resto.
@@ -161,7 +161,7 @@ import {
   });
   ```
   ⚠️ `ColumnTypeOperator.noValue` é exportado desde sempre e era **inerte** até a
-  `vNEXT`: declarar não fazia nada, sem erro e sem aviso (L-061). Foi **ligado**, não
+  `v0.71.0`: declarar não fazia nada, sem erro e sem aviso (L-061). Foi **ligado**, não
   removido, por ser API pública — nenhum dos 16 built-in o declara, então nada mudou
   pra eles.
 

@@ -412,7 +412,7 @@ A extensão do evento é lida corretamente — o que falta é refinamento visual
 Nunca monte um form de filtro acima da grade (L-051). Passe `filterModel` e o
 chip aparece já aplicado, com o `×` pra desfazer.
 
-### 10. O chip de filtro é o `FilterChip` compartilhado (`vNEXT`+)
+### 10. O chip de filtro é o `FilterChip` compartilhado (`v0.71.0`+)
 
 ⚠️ Esta seção dizia *"Nada aqui importa de `TableToolbar` — a gramática visual
 do segmented, da busca e dos chips é **copiada**"*. Dos três, o **chip deixou de

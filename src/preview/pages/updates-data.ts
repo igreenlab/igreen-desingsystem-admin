@@ -46,6 +46,70 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.71.0",
+    date: "2026-11-05",
+    tag: "preview",
+    title: "O lote do consumidor — e a regra que o manteve honesto",
+    summary:
+      "Fecha o SOLIS-238: ~45 pedidos de um projeto que consome o DS, em 10 PRs. A regra do mantenedor guiou tudo — *não pode ter alteração que mude comportamento, só correção ou adição; se hoje clicar em X faz Y e alguém quer Z, ou vira função nova opt-in, ou não é do DS*. Dela saíram 28 entregas e 10 recusas, cada uma com motivo escrito. O achado central: o `ownsMulti`, construído na rodada anterior justamente para que comportamento de widget não virasse PR no DS, **nunca funcionou** — entregava só o primeiro valor. Consertá-lo dissolveu três pedidos em composição do consumidor. E duas correções que já tinham entrado como default **voltaram atrás e viraram prop**, depois que o mantenedor as viu na tela: daí nasceu a regra de que consertar um defeito não autoriza mudar quem não tinha o defeito.",
+    changes: [
+      {
+        type: "breaking",
+        items: [
+          "**O tooltip virou superfície invertida.** Media **1,10:1** sobre card em hover — a bolha sumia no fundo. Agora usa `bg-bg-tooltip` / `fg.on-tooltip`, tokens novos, dark-aware. Muda a aparência de **todo** tooltip do sistema; foi aprovado sabendo disso, porque o estado anterior era ilegível.",
+          "**O \"hoje\" do calendário virou anel.** Antes era preenchido, igual ao dia selecionado — os dois eram indistinguíveis quando você estava em outro mês. O selecionado continua preenchido; hoje é o anel.",
+          "**O vazio filtrado parou de mentir — e devolveu a saída.** Nos dois caminhos de server, filtrar até zerar derrubava o total e a tela dizia *\"Nenhum dado cadastrado\"* — falso: existe, o filtro é que não casou. Junto sumia o botão **Limpar filtros**, exatamente quando ele é a única saída. ⚠️ Muda o `fetchData`, que é API antiga: decisão deliberada, porque ninguém depende de um vazio que mente e prende.",
+          "**O chip de faixa parou de repetir o operador.** `Valor entre R$ 10 e R$ 50` em vez de `Valor está entre entre R$ 10 e R$ 50`.",
+          "**O carregamento do multi-select virou estado centrado.** Era uma linha de texto no topo da lista; virou estado próprio, no centro, sem empurrar as opções.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**`HelpTip`** — o \"?\" de ajuda que vivia preso ao `Kpi` virou peça reutilizável, com o card idêntico. Item próprio no registry, com `Kpi` declarando dependência dele.",
+          "**`FilterChip`** — o chip de filtro existia **três vezes** copiado (toolbar, `Gantt`, `Scheduler`) e agora existe uma. Foi a cópia não-exportada que produziu as três: peça inalcançável é peça recopiada.",
+          "**`DataTable.loadingMode=\"keep\"`** — trocar de página para de piscar: as linhas anteriores ficam enquanto a próxima carrega. E elas **dizem** que estão defasadas, por uma régua de 3px na cor de marca (5,06:1 no claro, 7,63:1 no escuro). Não é esmaecimento de propósito: `opacity` mexeria no contraste de um texto que o DS não escreve, e o piso para continuar AA é 0,88 — esmaecer 12% ninguém vê. Quem precisar de outro sinal lê **`isKeepingPreviousRows`** no contexto público.",
+          "**`DataTable.processingMode=\"client\" | \"server\"`** — a tela pagina e filtra, a tabela só mostra. Para quem já tem motor de dados próprio.",
+          "**`DataTable.onError`** — a busca que falha deixa de ser muda. Sem ele, o rodapé continuava anunciando a página nova sobre as linhas velhas, **para sempre**; agora o rodapé para de mentir mesmo sem a prop, porque só é afetado quem tem o defeito.",
+          "**`DataTable.isRowExpandable`** — a linha sem detalhe perde o chevron **e** o clique, em vez de abrir um painel vazio.",
+          "**`DataTable.showTypeIcons`** e **`enableHeaderFilter`** — controle sobre os ícones de tipo e o filtro no cabeçalho.",
+          "**`DataTable.simpleFilter.open` / `onOpenChange`** — o drawer de filtros passa a poder ser controlado pela tela.",
+          "**`DataTable.highlightAppliedFilterChips`** — o chip com valor se distingue do vazio. ⚠️ **Opt-in**: o destaque só paga quando há chip vazio na mesma barra para contrastar; numa tela onde todo chip já está aplicado, ele só muda a cor de tudo.",
+          "**`typeOptions.prefix` / `suffix`** em `number` e `currency` — a unidade (`kWh`, `m²`) no campo de filtro e no chip.",
+          "**`typeOptions.countLabel`** — o `3 selecionados` do filtro vira configurável, com a mesma assinatura do `selectionConfig.countLabel` que já existia na seleção de linhas. É **por coluna** de propósito: o substantivo é da coluna, não da tabela — uma tela com clientes e usinas precisa dos dois.",
+          "**`Chart.emptyState`** — slot de vazio no `ChartContainer`.",
+          "**`Chart.keepPlotHeight`** — legenda de 2+ linhas deixa de achatar a plotagem. ⚠️ **Opt-in**: a correção mudaria a altura de **todo** gráfico com legenda, inclusive os de 1 linha, que nunca reclamaram.",
+          "**`Button.disabledReason`** — o botão desabilitado passa a poder se explicar.",
+          "**Exports novos:** `ChartLegendContent` (usável fora do `ChartContainer`), `CardAction` e `MultiSelectFieldDropdown`.",
+          "**`between` do `currency` também no chip** — paridade com o `number`.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O `ownsMulti` entregava só o primeiro valor.** Ele existe para que comportamento específico de um widget não vire PR no DS — e estava quebrado desde que nasceu. Consertá-lo dissolveu três pedidos em composição do consumidor.",
+          "**O `DataList` combinava filtros do mesmo campo por AND; a tabela, por OR.** Dois filtros `equals` no mesmo campo não devolviam ninguém, em silêncio. ⚠️ O grão certo é `campo|operador`, não `campo`: OR por campo transformaria `contém a` + `não contém b` em algo verdadeiro para tudo.",
+          "**Desmarcar o último valor desmontava o chip no meio da edição.** O chip é a âncora do popover, então ele fechava sozinho enquanto o usuário interagia.",
+          "**Editar um chip o jogava para o fim da barra.** Com 3+ chips, a barra se reorganizava embaixo do cursor. A receita já existia no `DataTable` e faltava no `DataList`.",
+          "**O drawer reescrevia o operador ao editar o valor.** Você escolhia `começa com`, mexia no texto e voltava para `contém`.",
+          "**`valueFormatter` da coluna era ignorado** em `number`, `currency` e `percentage` — o tipo formatava por cima do que você pediu.",
+          "**Os filtros de data falavam inglês.** O `Calendar` não recebia `locale`.",
+          "**O menu do cabeçalho oferecia ordenar em coluna não-ordenável.**",
+          "**As ações do cabeçalho transbordavam em coluna estreita** — a largura mínima passou a incluir o cabeçalho inteiro.",
+          "**O `noValue` do operador era API inerte** — declarada, documentada e lida por nada.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**A regra que o lote produziu, agora escrita:** *consertar um defeito não autoriza mudar quem não tinha o defeito*. Ao consertar algo, pergunte **quem NÃO tem este defeito sente a correção?** — se sim, a correção nasce atrás de prop, e o default é o de hoje. Está no `ds-standards.md`, com os dois casos medidos que a produziram.",
+          "**As 10 recusas estão documentadas, não esquecidas.** Cada pedido que não virou código tem motivo, esforço estimado e — o que mais importa — **se o projeto do consumidor consegue montar aquilo sozinho** com as peças que o DS já exporta. De 23 itens, 17 conseguem. Em `.ai/specs/backlog-solis.md`.",
+          "**O payload do consumidor acompanhou.** As skills `crud-builder` e `list-builder` do repo e do template aprenderam as props novas, a união aberta do `filterFields.type` e as raias do kanban — que o repo não conhecia desde a v0.70.1, enquanto o consumidor já sabia.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.70.1",
     date: "2026-10-23",
     tag: "patch",

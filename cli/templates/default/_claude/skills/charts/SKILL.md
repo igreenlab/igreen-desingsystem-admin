@@ -29,11 +29,11 @@ description: >
   de 1 linha dá 250px de bloco com 228px de gráfico; 2 linhas deixam 202px. O gráfico encolhe
   e nada na tela explica.
 - **Legenda que pode quebrar em 2 linhas (muitas séries, card estreito) leva
-  **keepPlotHeight**** (vNEXT): a altura passa a ser a da PLOTAGEM e a legenda soma por fora,
+  **keepPlotHeight**** (v0.71.0): a altura passa a ser a da PLOTAGEM e a legenda soma por fora,
   então os mesmos `h-[250px]` dão 272px de bloco com 250px de gráfico e a 2ª linha cresce o
   card em vez de achatar as barras. Sem a prop, nada muda. Não tem efeito sem `<ChartLegend>`,
   nem com `layout="vertical"` / `verticalAlign="middle"`.
-- **Gráfico que carrega dado leva **emptyState**** (vNEXT): o nó que aparece no lugar dos eixos
+- **Gráfico que carrega dado leva **emptyState**** (v0.71.0): o nó que aparece no lugar dos eixos
   vazios. Dispara quando nenhum número finito chega nas props **data** do gráfico e das séries
   — `0` é dado e não dispara; sem a prop, o Recharts desenha a grade sem série nenhuma.
   Componha com o `EmptyState` do DS (`size="sm"`).

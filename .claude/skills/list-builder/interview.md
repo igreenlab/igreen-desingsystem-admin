@@ -131,7 +131,7 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 > - **Vários valores no MESMO campo pré-aplicados**: itens do `filterModel` agrupam por
 >   **campo + operador** e combinam por **OU** dentro do grupo, **E** entre grupos — mesmo
 >   grão do `DataTable`. Dois `equals` em `status` devolvem quem bate em qualquer um dos
->   dois. ⚠️ **Exige o DS vNEXT ou mais novo**: antes disso a lista combinava escalares do
+>   dois. ⚠️ **Exige o DS v0.71.0 ou mais novo**: antes disso a lista combinava escalares do
 >   mesmo campo por **E** e devolvia **zero linhas**, em silêncio, com o modelo que a tabela
 >   filtrava certo. Numa versão anterior, pré-aplique **um** valor por campo ou use
 >   `isAnyOf`, que sempre funcionou nos dois.
@@ -165,7 +165,7 @@ MESMO drawer da tabela.
 **`filterFields.type` NÃO é união fechada.** Os cinco built-in são
 text/select/boolean/number/date, e o `type` aceita **também o id de um tipo que você
 registre no `columnTypeRegistry`** — inclusive um com `ownsMulti: true`, que passa a ser
-dono do chip multi (DS `vNEXT`+). Assinatura real:
+dono do chip multi (DS `v0.71.0`+). Assinatura real:
 `FilterFieldType = "text" | "select" | "boolean" | "number" | "date" | (string & {})`
 (`src/components/ui/DataList/data-list.types.ts`). Receita do widget próprio:
 `src/components/ui/DataTable/USAGE.md` §"Widget custom é DONO do chip" — vale no
