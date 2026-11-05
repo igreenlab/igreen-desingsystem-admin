@@ -41,8 +41,8 @@ criado: 2026-11-04
 | **23** | **ranking horizontal** pronto | idem | ❌ **NÃO** — mesma decisão pendente | ADIÇÃO | **médio** | ✅ **SIM** — idem |
 | **30′** | **donut** pronto | espera **um segundo consumidor** pedir — é o teste de "serve mais de um projeto" | ❌ **NÃO** — um pedido não faz componente de DS | ADIÇÃO | **médio** | ✅ **SIM** — idem |
 | **31′** | **linha** pronta | idem | ❌ **NÃO** | ADIÇÃO | **médio** | ✅ **SIM** — idem |
-| **25** | `FilterBar` **fora** do `DataTable` | decisão de arquitetura grande: muda **onde mora** o `columnTypeRegistry`, o `ToolbarApplied` e o estado de filtro | ❌ **NÃO** — é refatoração de fundação, não item de lote | MUDA O QUE EXISTE (estrutura) | **complexo** | ⚠️ **PARCIAL** — o `FilterChip` **passou a ser exportado**, mas o motor mora dentro do `DataTable`: o projeto reconstrói a lógica de estado [³](#notas) |
-| **26** | `filterFooter` no popover de filtro | é **prop da `FilterBar`**; sem ela, vira remendo no drawer | ❌ **NÃO** — depende do 25 | ADIÇÃO | simples sozinho, **preso ao 25** | ❌ **NÃO** — o popover é interno, sem ponto de extensão |
+| **25** | a barra de filtro como **peça da tela**, não da tabela — posicionável no topo da página, governando KPIs, gráficos e a tabela juntos | o **contrato de reação é do produto, não do DS** — e, medido: **30+ projetos usam o DS e nenhum pediu** [³](#notas) | ❌ **NÃO** — e o motivo é fronteira, não custo: o DS não sabe o que "filtrado" significa para um KPI, um mapa ou um componente que o consumidor cria mês que vem. Amarrar caso a caso é o DS virando motor de configuração | MUDA O QUE EXISTE (estrutura) | **complexo** | ✅ **SIM** — a `TableToolbar` é pública e as peças de filtro também; o projeto monta o componente dele. ⚠️ compor público é barato; **copiar interno é dívida dele** [⁶](#notas) |
+| **26** | rodapé no popover de filtro — botões "Aplicar", contagem, ação extra | seria **prop da `FilterBar`**; sem ela, vira prop do `DataTable` descendo 4 níveis até um popover interno | ❌ **NÃO** — remendo enquanto o 25 não existir, e o 25 não vai existir | ADIÇÃO | simples sozinho, **preso ao 25** | ✅ **SIM no popover do chip** — quem desenha aquele conteúdo é o `renderFastFilterInput` do **tipo registrado**, e o consumidor registra o dele. ❌ **não** no painel avançado [⁷](#notas) |
 | **P5** | `defaultOpen` no filtro simples — nascer aberto **sem** assumir o controle | adição barata e opt-in, mas **ninguém pediu ainda** | ❌ **NÃO agora** — a prop nasce mais certa quando existe o caso real | ADIÇÃO (opt-in) | **simples** | ✅ **SIM** — controlar `open` no projeto. É o caminho de hoje, só com mais código |
 | **P10** | `loadingMode` no `DataList` — segurar as linhas antigas enquanto carrega | o `DataList` **não tem `fetchData`**: sem paginação por servidor, não existe "página anterior" para segurar | ❌ **NÃO** — é responder a um cenário que ainda não existe | ADIÇÃO | **médio** | ✅ **SIM** — o `loading` é do projeto; ele segura as linhas no estado dele |
 | **P15** | export com `fetchData` **e** `rows` entregar o conjunto completo | o conserto mexe nos **dois caminhos de servidor** e arrisca quem está bem | ❌ **NÃO** — conserto desproporcional ao sintoma | MUDA O QUE EXISTE (risco) | **médio** | ✅ **SIM** — não passar `rows` junto de `fetchData`, que é o que a doc já manda em 4 lugares |
@@ -58,7 +58,7 @@ criado: 2026-11-04
 
 # O que a última coluna está dizendo
 
-De 23 linhas, **15 o projeto consegue montar sozinho hoje**, consumindo peças que o DS já
+De 23 linhas, **17 o projeto consegue montar sozinho hoje**, consumindo peças que o DS já
 exporta. Isso não é acaso — é a regra que você fixou funcionando:
 
 > *O DS entrega a peça e o ponto de extensão; a composição é do consumidor. Quando o pedido
@@ -73,10 +73,16 @@ As três rotas de escape que aparecem repetidas na tabela:
 | **`ChartContainer` + Recharts** | qualquer gráfico que o DS não tenha pronto | o contêiner com tema, tokens e tooltip; o `recharts` vem junto como **dependência**, não peer |
 | **composição de primitivos** | campos compostos (range de mês, data com hora) | os dois lados já existem — falta só a regra, que é do projeto |
 
-**Uma única linha o projeto NÃO consegue contornar:** o **26** (`filterFooter`), porque o
-popover é interno e não tem ponto de extensão. O **25** fica **parcial** (a aparência dá, o
-motor não), o **34** é incógnita até alguém ler, e **5 linhas são internas** (P6, P7, P13,
-N3, N4) — não chegam à tela, então não há o que o projeto contorne.
+**Nenhuma linha fica totalmente fora do alcance do projeto.** O caso mais limitado é o **26**,
+que dá no popover do chip e **não** no painel avançado. O **34** é incógnita até alguém ler, e
+**5 linhas são internas** (P6, P7, P13, N3, N4) — não chegam à tela, então não há o que o
+projeto contorne.
+
+> ⚠️ **Esta seção foi corrigida em 2026-11-04**, depois que o mantenedor questionou as duas
+> linhas. Eu tinha marcado o 25 como "parcial" e o 26 como "não dá" — **as duas estavam
+> subestimadas**. Conferido no código: a `TableToolbar` é pública e consumida pelos dois
+> componentes, e o `renderFastFilterInput` do tipo registrado desenha o popover do chip
+> inteiro. O número subiu de 15 para 17.
 
 ---
 
@@ -93,12 +99,36 @@ conserto desnecessário: o defeito é o DS discordando de si mesmo em 1 de 3 tip
 gráfico **dentro** do `ChartContainer`, herdando tema, tokens de cor (`chart-1..5`) e grid.
 As receitas estão em `.ai/context/components/chart-patterns.md`.
 
-**³ O que o `FilterChip` resolve, e o que não resolve, no item 25.** Até hoje o chip existia
-**três vezes** copiado no código, e por isso não dava para reusar. A unificação da P12 o
-transformou em componente exportado (`src/components/index.ts:35`). Então a **aparência** de
-uma barra de filtro fora da tabela já é reusável. O que continua dentro do `DataTable` é o
-**motor**: o registro de tipos, o `ToolbarApplied` e o estado. O projeto consegue montar a
-barra — mas escreve a lógica de filtro dele.
+**³ O item 25 por inteiro — porque é o mais mal-entendido do lote.**
+
+**O que o Sólis quer:** a barra de filtro no topo da página, governando a tela toda — KPIs,
+gráficos, listas e a tabela — em vez de morar dentro do card da tabela. **É mudança de
+arquitetura de informação, não de capacidade.**
+
+**O que já funciona hoje:** o `DataTable` aceita `filterModel` **controlado** e emite
+`onFilterModelChange` (`data-table.types.ts:761-762`). A tela é dona do estado, põe a barra
+onde quiser, e a tabela obedece — nos dois sentidos. **O filtro nunca esteve preso; está
+preso só visualmente.**
+
+**O que faltaria:** a barra **pronta**. Hoje o projeto monta com `TableToolbar` +
+`ToolbarApplied` + `FilterChip` + `columnTypeRegistry`, os quatro públicos.
+
+**Por que não fazer — o argumento que vale (mantenedor, 2026-11-04):** o DS sabe desenhar o
+chip e sabe o que `Status é Ativo` significa como **dado**. Ele não sabe o que "filtrado"
+significa para um KPI, um gráfico, um mapa, ou um componente que o consumidor cria mês que
+vem. **Esse contrato é do produto.** Entregar a barra arrastaria o DS para amarração caso a
+caso — o motor de configuração que a regra proíbe.
+
+E a premissa da triagem caiu: ela afirmou *"não é necessidade só do Sólis"* **sem medir**.
+Medido: **30+ projetos consomem o DS e nenhum pediu.** O teste de "serve mais de um projeto"
+se faz com um segundo consumidor existindo, não com hipótese — a mesma régua que segura o
+donut e a linha.
+
+**O argumento de dentro de casa, que existe e não basta:** a fiação do filtro **já está
+duplicada** entre `DataTable` e `DataList`, e já divergiu — o chip que pulava de posição (PR
+#365) foi exatamente isso: a receita existia num e não no outro. **O gatilho que inverte
+não é o Sólis pedir de novo** — é alguém estar prestes a escrever a **terceira** cópia da
+fiação dentro do DS.
 
 **⁴ A ressalva do `filterType: "multiSelect"`.** Ele é **independente** do `type` da coluna, e
 troca a semântica de `equals` para `isAnyOf`. Filtrando por um valor o resultado é o mesmo,
@@ -107,6 +137,23 @@ mas é um filtro diferente — não só um widget diferente.
 **⁵ O gatilho que reabriria o contraste.** Se um dia nascer um gate de contraste no DS, o par
 `danger` é o **primeiro** a reprovar. Ou seja: criar o gate e arrumar o `danger` são, na
 prática, a mesma decisão — não duas.
+
+**⁶ Snowflake no projeto do consumidor ≠ duplicação no DS.** Três cópias do chip **dentro do
+DS** eram o defeito da P12: divergiam e **todo mundo herdava**. Uma cópia **no projeto do
+consumidor** é dele, diverge de propósito e ninguém mais herda — é o desfecho previsto pela
+regra (*"o consumidor embrulha o nosso componente no projeto dele"*).
+
+⚠️ **Mas há uma linha:** compor peça **pública** sobrevive a upgrade; **copiar interno do DS
+é dívida dele** — quando o chip mudar, a cópia não muda junto. O payload do consumidor tem
+hook que bloqueia cópia de token e internals, e a regra escrita lá é *"a IA do consumidor
+customiza na composição, nunca nos internals"* (L-033). Vale repetir isso por escrito quando
+a resposta for ao Sólis.
+
+**⁷ Por que o 26 dá no chip e não no painel avançado.** São dois renderers diferentes. O
+popover do **chip** chama `def.renderFastFilterInput(...)` (`data-table.tsx:2318`), que é do
+**tipo registrado** — o consumidor registra o tipo dele e desenha o conteúdo inteiro, rodapé
+incluso. Já o **painel avançado** chama `def.renderFilterInput(...)` só para o **campo de
+valor**, dentro de um `FilterPanel` que o DS controla — ali não há slot de rodapé.
 
 ---
 
