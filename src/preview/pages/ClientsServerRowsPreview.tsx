@@ -121,7 +121,7 @@ const DESCRICAO =
   "nem ordenar, nem filtrar, nem buscar. O total vem de rowCount. Use este caminho " +
   "quando já existe react-query/SWR dono do fetch; use fetchData quando não existe. " +
   "Ordene por Nome: a primeira linha passa a ser a menor das 100, não das 25 da tela. " +
-  'Busque por "zzzz": o vazio filtrado vem com o botão de limpar filtros — antes da vNEXT ' +
+  'Busque por "zzzz": o vazio filtrado vem com o botão de limpar filtros — antes da v0.71.0 ' +
   'os dois caminhos de server diziam "Nenhum dado cadastrado", sem saída.';
 
 /**
@@ -142,7 +142,7 @@ const DESCRICAO =
  *      só entregou 25 linhas, e prometer 100 seria mentira.
  *   4. **Buscar por algo que não existe** (ex.: "zzzz") zera o `rowCount` e dá
  *      "Nenhum dado encontrado" **com o botão de limpar filtros**. Até a
- *      `vNEXT` esta mesma tela dizia "Nenhum dado cadastrado" — *"não existe
+ *      `v0.71.0` esta mesma tela dizia "Nenhum dado cadastrado" — *"não existe
  *      nada"*, falso — e **sem** o botão: o estado que apaga a própria saída
  *      (L-070). Em server o total é o de DEPOIS do filtro, e não distingue
  *      "não existe" de "não casou".

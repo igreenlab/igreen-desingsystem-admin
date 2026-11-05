@@ -97,7 +97,7 @@ label, helper, erro e do `htmlFor`).
 | lista de ações a partir de um gatilho | `dropdown-menu` |
 | clique com o botão direito | `context-menu` |
 | hover: dica de 1 linha / prévia rica | `tooltip` · `hover-card` |
-| explicar um RÓTULO — o "?" ao lado de um título, de um cabeçalho de grupo de campos ou de coluna (DS **vNEXT**+) | `help-tip` — botão de ícone + tooltip, com o nome acessível pronto a partir de ****about****. O texto vai em ****children****; largura por ****contentClassName**** (o teto é 256px). ⛔ **nunca dentro de um `<label>`** (conteúdo interativo ali é HTML inválido e o clique cai no campo) — vai no cabeçalho do grupo. Dentro do `kpi`, use ****helperText**** e não monte à mão |
+| explicar um RÓTULO — o "?" ao lado de um título, de um cabeçalho de grupo de campos ou de coluna (DS **v0.71.0**+) | `help-tip` — botão de ícone + tooltip, com o nome acessível pronto a partir de ****about****. O texto vai em ****children****; largura por ****contentClassName**** (o teto é 256px). ⛔ **nunca dentro de um `<label>`** (conteúdo interativo ali é HTML inválido e o clique cai no campo) — vai no cabeçalho do grupo. Dentro do `kpi`, use ****helperText**** e não monte à mão |
 | **bloqueia** a página, centralizado | `modal` (body já rola sozinho — não trate scroll no children) |
 | **bloqueia**, lateral, mais espaço que o modal | `panel` (560px default) · `sheet` · `drawer` (mobile, gesto) |
 | **não** bloqueia — coexiste com a lista atrás, resizável | `floating-panel` |
@@ -151,13 +151,13 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    o que você pré-aplicou: filtro que nasce `isNoneOf` ("Excluindo"), ****between**** ou
    `notContains` continua nele depois que o usuário mexe no valor ali dentro, e aparece com o
    widget certo (faixa com dois campos, por exemplo). Só o campo **ainda sem filtro** nasce
-   com o operador default do tipo. ⚠️ **Exige o DS `vNEXT` ou mais novo**: antes disso os dois
+   com o operador default do tipo. ⚠️ **Exige o DS `v0.71.0` ou mais novo**: antes disso os dois
    lados do drawer derivavam o operador do tipo da coluna, então editar o valor rebaixava o
    operador sem avisar — e pré-aplicar "Excluindo" não parava de pé.
 
    **Um botão da SUA tela abrindo o funil** (um "Filtrar" no cabeçalho da página, um
    atalho, um deep-link que já chega filtrando): ****simpleFilter.open**** +
-   ****simpleFilter.onOpenChange**** no `data-table` (DS `vNEXT`+). Com ****open****
+   ****simpleFilter.onOpenChange**** no `data-table` (DS `v0.71.0`+). Com ****open****
    presente a prop manda — o funil da toolbar, o X, o Esc e o backdrop passam a só
    **avisar**, e quem abre e fecha é você. Sem ****open****, o drawer continua se
    virando sozinho e ****onOpenChange**** apenas **observa** (dispara nos dois modos),
@@ -171,7 +171,7 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
    **Como dois filtros no MESMO campo combinam:** itens agrupam por **campo + operador**;
    dentro do grupo é **OU**, entre grupos é **E**. Dois ****equals**** no campo de status
    devolvem quem bate em qualquer um dos dois; um ****contains**** mais um ****notContains****
-   no mesmo campo seguem somando condições. Vale pra `data-table` e, **desde a vNEXT**,
+   no mesmo campo seguem somando condições. Vale pra `data-table` e, **desde a v0.71.0**,
    também pra `data-list` — antes dela a lista combinava os dois ****equals**** por **E**,
    pedia que uma célula fosse dois valores ao mesmo tempo e **esvaziava em silêncio** com o
    mesmo modelo que a tabela filtrava certo. Se você contornava isso pré-aplicando um filtro
@@ -191,17 +191,17 @@ sem elas nada muda.
 | filtrar por um campo **sem mostrar a coluna** | ****hidden: true**** na coluna — ela nasce oculta e o filtro continua no chip, no funil e no builder. ⚠️ com `persistId`, estado salvo vence o default: coluna nova nasce visível pra quem já tem snapshot (versione o `persistId`) |
 | o chip **fixo**, que o X limpa em vez de remover | `showEmptyFilterChips={[{ field: "status", dismissable: false }]}` — array de string continua valendo |
 | nome do filtro **diferente** do título da coluna | ****filterLabel**** na coluna |
-| opções vindas do **servidor** | ****filterLoadOptions****`(busca, pagina)` → `{ options, hasMore }` + ****filterValueLabel**** pro rótulo do que já está marcado. Debounce de 300ms, resposta velha descartada, erro com "Tentar de novo". ⚠️ **vNEXT muda o pixel:** enquanto carrega, o popover mostra um indicador **centrado** (spinner + "Carregando…") no lugar da linhinha que ficava no fim da lista. É automático — não monte um spinner por fora |
+| opções vindas do **servidor** | ****filterLoadOptions****`(busca, pagina)` → `{ options, hasMore }` + ****filterValueLabel**** pro rótulo do que já está marcado. Debounce de 300ms, resposta velha descartada, erro com "Tentar de novo". ⚠️ **v0.71.0 muda o pixel:** enquanto carrega, o popover mostra um indicador **centrado** (spinner + "Carregando…") no lugar da linhinha que ficava no fim da lista. É automático — não monte um spinner por fora |
 | uma opção **fixa no topo** da lista (ex.: "Sem responsável") | ****pinned: true**** na opção — fica fora da busca, da rolagem e do "Selecionar todos" |
 | **avisar a tela** quando o usuário limpa tudo | ****onFiltersClearAll**** — dispara depois de limpar o filtro interno, pra você limpar o seu |
-| faixa numérica **num chip só** | operador ****between**** no `filterType: "number"` — "10 – 500", lado aberto vira ≥/≤. ⚠️ **vNEXT:** o chip de faixa deixou de imprimir a palavra "entre" — o valor já lê como faixa, e antes saía "entre 10 – 500" (no lado aberto, "entre desde 01/01"). Vale pra ****number****, ****currency****, ****date**** e ****datetime****, e pra qualquer tipo seu com ****between****. Pra ter a palavra de volta é ****opLabels****, e só numa toolbar montada à mão — a `data-table` e a `data-list` não repassam |
+| faixa numérica **num chip só** | operador ****between**** no `filterType: "number"` — "10 – 500", lado aberto vira ≥/≤. ⚠️ **v0.71.0:** o chip de faixa deixou de imprimir a palavra "entre" — o valor já lê como faixa, e antes saía "entre 10 – 500" (no lado aberto, "entre desde 01/01"). Vale pra ****number****, ****currency****, ****date**** e ****datetime****, e pra qualquer tipo seu com ****between****. Pra ter a palavra de volta é ****opLabels****, e só numa toolbar montada à mão — a `data-table` e a `data-list` não repassam |
 | a **unidade** junto do número (kWh, %, /mês) | ****typeOptions****`: { suffix: " kWh" }` (ou ****prefix****) numa coluna de número ou de moeda. A unidade aparece na **célula**, no **chip** do filtro aplicado e no **campo** onde se digita — as três superfícies, porque quem filtra não olha a célula. A string entra **literal**: `" kWh"` dá "1.234 kWh" e `"%"` dá "1.234%", o espaço é seu. A faixa leva a unidade **uma vez**, no fim ("100 – 500 kWh"). ⚠️ **não** entra no export/CSV nem no clipboard — pra isso use ****valueFormatter****, que vence o afixo e cobre as três de uma vez. Não afeta ordenação nem filtro, que seguem no número |
 | o rótulo **"3 selecionados"** do filtro **concordando** com o substantivo da coluna | ****typeOptions****`: { countLabel: (n) => n + " usinas selecionadas" }` na coluna. Recebe a **contagem** e devolve o rótulo **inteiro** — mesma assinatura do ****countLabel**** da barra de seleção de linhas, de propósito: é o mesmo problema, e o texto fixo tem **gênero fixo** (toda coluna de substantivo feminino nasce errada). Vale no **chip** aplicado e no **campo** (funil + builder avançado), em **qualquer** tipo de coluna. É **por coluna**, não por tabela — numa tela com "clientes" e "usinas" um texto único erraria metade. Sem a chave, o texto é o de hoje |
-| a mesma faixa, com o valor **em R$ no chip** | operador ****between**** no `filterType: "currency"` — "R$ 10,00 → R$ 500,00". Desde a vNEXT o popover do chip abre mín/máx igual ao de número (antes abria um campo só e a faixa saía como o texto 10,500). ⚠️ o widget do chip é roteado por ****filterType****, não pelo ****type**** da coluna: moeda sem `filterType: "currency"` cai no widget de texto |
+| a mesma faixa, com o valor **em R$ no chip** | operador ****between**** no `filterType: "currency"` — "R$ 10,00 → R$ 500,00". Desde a v0.71.0 o popover do chip abre mín/máx igual ao de número (antes abria um campo só e a faixa saía como o texto 10,500). ⚠️ o widget do chip é roteado por ****filterType****, não pelo ****type**** da coluna: moeda sem `filterType: "currency"` cai no widget de texto |
 | esconder o **builder avançado** (você tem o seu) | `toolbar.enableAdvancedFilters={false}` — não desliga os chips |
 
 ⚠️ **Destacar o chip de filtro APLICADO é opt-in: ****highlightAppliedFilterChips****
-(vNEXT, default desligado).** Sem a prop, a barra de chips é a de sempre — o pixel não
+(v0.71.0, default desligado).** Sem a prop, a barra de chips é a de sempre — o pixel não
 muda em tabela nenhuma. Com ela, o chip com filtro valendo ganha borda **sólida de marca**
 sobre fundo de marca sutil e o valor em verde, e o chip **vazio** (o placeholder de
 ****showEmptyFilterChips****) continua tracejado e neutro.
@@ -217,7 +217,7 @@ esse destaque na mão nem passe `className` pra imitá-lo.
 ⚠️ A ****data-list**** não tem essa prop, e é de propósito: ela descarta filtro sem valor
 antes de montar os chips, então numa barra em repouso não existe chip vazio pra contrastar.
 O único vazio dela é **transitório** — o chip que você está editando, depois de desmarcar
-tudo, segura o lugar até o popover fechar (DS `vNEXT`+; antes disso ele **sumia junto com o
+tudo, segura o lugar até o popover fechar (DS `v0.71.0`+; antes disso ele **sumia junto com o
 popover** no meio da edição).
 
 **Barra de seleção configurável:** `selectionConfig.bar` = `"replace"` (default, o de
@@ -226,11 +226,11 @@ Com `countLabel`, `clearLabel`, `totalSelected` (contagem entre páginas, vinda 
 `onClearAll`. O **estado** da seleção entre páginas continua seu; o DS só exibe.
 
 **Operador do SEU tipo que não pede valor** (um "mês corrente", um "tem anexo"):
-marque ****noValue: true**** no item de ****operators**** (DS `vNEXT`+). O funil entende que
+marque ****noValue: true**** no item de ****operators**** (DS `v0.71.0`+). O funil entende que
 aquela linha não tem o que editar e dá a ela um "Limpar" próprio, que remove só aquele
 campo — sem isso a única saída seria o "Limpar todos", que apaga os filtros de todos.
 `isEmpty`/`isNotEmpty` já valem sem declarar. ⚠️ O campo existe na tipagem há muito tempo
-mas **não fazia nada** antes da `vNEXT`: se você já declarou e não viu efeito, era isso.
+mas **não fazia nada** antes da `v0.71.0`: se você já declarou e não viu efeito, era isso.
 
 **Widget de filtro próprio:** registre um tipo no `columnTypeRegistry` com
 ****ownsMulti: true**** e o chip multi inteiro passa a ser seu (colar lista,
@@ -243,13 +243,13 @@ se o seu widget for de valor único, **não** declare o flag. Blocos públicos p
 ✅ **Vale nos DOIS** — chip do `DataTable` e chip do `DataList` — porque o registry é o
 mesmo. No `DataList` o campo declara o id do seu tipo em `filterFields[].type`.
 
-⚠️ **O ownsMulti só funcionou de verdade a partir da `vNEXT`.** Antes ele desligava o
+⚠️ **O ownsMulti só funcionou de verdade a partir da `v0.71.0`.** Antes ele desligava o
 modo multi por dentro e entregava ao seu widget **o primeiro valor**, não a lista: num
 grupo de três opções o widget abria mostrando só a primeira, desmarcá-la limpava o grupo
 inteiro, e marcar uma quarta apagava as outras duas. Se você tentou widget próprio antes
 e desistiu, era isto — não o seu código.
 
-### Ações do cabeçalho da coluna (DS `vNEXT`+)
+### Ações do cabeçalho da coluna (DS `v0.71.0`+)
 
 Três controles moram no cabeçalho — o ícone do **tipo**, o **funil** e o **menu
 3-pontos**. Desligam separadamente, e confundir os dois últimos é o erro comum:
@@ -261,14 +261,14 @@ Três controles moram no cabeçalho — o ícone do **tipo**, o **funil** e o **
 | tirar o **ícone do tipo** de TODAS as colunas | ****showTypeIcons: false**** no DataTable (prop raiz) |
 
 ⛔ **Não use ****enableColumnMenu: false**** pra tirar o funil** — leva Fixar e Ocultar
-junto. Era o único contorno possível antes da `vNEXT`, e é por isso que ele aparece em
+junto. Era o único contorno possível antes da `v0.71.0`, e é por isso que ele aparece em
 código antigo.
 
 **"Ordenar" só aparece em coluna ordenável** — e a ordenabilidade pode vir do **tipo**,
 não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
 sem nada declarado é ordenável.
 
-### Linha que não tem o que expandir (DS **vNEXT**+)
+### Linha que não tem o que expandir (DS **v0.71.0**+)
 
 Ligou a expansão (****expandable: true**** numa coluna + ****renderRowExpansion****) e
 **toda** linha ganhava chevron — inclusive a que abre um painel vazio.
@@ -297,7 +297,7 @@ dado. Linha que o usuário não pode ver não entra em ****rows****.
 ⚠️ Vale só pra row-expansion. Em ****groupBy**** e em ****getTreeDataPath**** quem decide
 o chevron é a própria hierarquia.
 
-### Trocar de página sem piscar (DS **vNEXT**+)
+### Trocar de página sem piscar (DS **v0.71.0**+)
 
 Tabela em **server mode** (você passa ****fetchData**** em vez de ****rows****) troca o
 corpo **inteiro** pelo esqueleto a cada refetch — e o rodapé junto. Em tela onde o usuário
@@ -336,11 +336,11 @@ resposta. As setas e os números **não mentem**: dizem pra onde o clique leva. 
 do intervalo ("76–100 de 100") mentiria sobre o corpo, então ele some durante o vôo e
 volta na resposta. Nada a configurar — e não é defeito a "consertar" se você vir.
 
-### Saber que a busca falhou — ****onError**** (DS **vNEXT**+)
+### Saber que a busca falhou — ****onError**** (DS **v0.71.0**+)
 
 O rodapé otimista acima é **transitório**. Numa falha, era **definitivo**: quando o
 ****fetchData**** rejeita, o carregamento desce, as linhas antigas ficam, o rodapé fica na
-página nova — e nada mais muda, porque não vem outra resposta. Até a vNEXT isso era
+página nova — e nada mais muda, porque não vem outra resposta. Até a v0.71.0 isso era
 **invisível**: o erro existia por dentro e ninguém o lia.
 
 **Passe ****onError**** em toda tabela com ****fetchData****:**
@@ -375,7 +375,7 @@ VOCÊ:** continue passando as linhas antigas em ****rows**** enquanto levanta o
 
 ⚠️ O `data-list` **não tem** essa prop.
 
-### Server mode: DOIS caminhos, escolha um (DS **vNEXT**+)
+### Server mode: DOIS caminhos, escolha um (DS **v0.71.0**+)
 
 A pergunta que decide é **quem dispara a request**:
 
@@ -422,7 +422,7 @@ Três coisas que você **precisa** acertar:
    ****rows**** locais sob um rótulo dizendo "Página atual", enquanto o corpo mostra a
    resposta do servidor.
 
-✅ **Filtro que zera o resultado deixou de mostrar o vazio errado (DS **vNEXT**+).** Os
+✅ **Filtro que zera o resultado deixou de mostrar o vazio errado (DS **v0.71.0**+).** Os
 três modos agora dizem a mesma coisa: "Nenhum dado encontrado" **com o botão de limpar
 filtros**, já cabeado. Antes, nos dois caminhos de server, o total ia a 0 e a tela afirmava
 "Nenhum dado cadastrado" — *"não existe nada"*, que é **falso** (existe; o filtro é que não
@@ -467,9 +467,9 @@ quebra, só deixa de ser alcançado no caso filtrado.
 - `chart` — wrapper do Recharts (barras, linha, área, pizza, radar, radial). A altura do
   **className** é a do BLOCO e a legenda desconta dela: `h-[250px]` com legenda de 1 linha dá
   228px de gráfico, e 2 linhas deixam 202px. Legenda que pode quebrar em 2 linhas leva
-  **keepPlotHeight** (vNEXT) — a altura passa a ser a da PLOTAGEM e a legenda soma por fora,
+  **keepPlotHeight** (v0.71.0) — a altura passa a ser a da PLOTAGEM e a legenda soma por fora,
   então o card cresce em vez de as barras encolherem (sem a prop, nada muda). Gráfico que
-  carrega dado leva **emptyState** (vNEXT) — o nó que aparece no lugar dos eixos vazios quando
+  carrega dado leva **emptyState** (v0.71.0) — o nó que aparece no lugar dos eixos vazios quando
   nenhum número finito chega nas props **data** do gráfico e das séries (`0` é dado; sem a
   prop, nada muda).
 - `choropleth-map` — mapa por região colorido por valor (traz `d3-geo` como dependência).
@@ -512,10 +512,10 @@ código.
 
 - `command` — paleta de comandos / busca com teclado (⌘K).
 - `markdown-text` — renderizar markdown (chat, descrições vindas de API).
-- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`. ⚠️ **vNEXT muda o pixel**: **hoje** passa a ser um **anel** de marca sobre fundo transparente e só o dia **selecionado** fica preenchido — antes os dois eram o mesmo disco verde, indistinguíveis. Coincidindo, o preenchido vence. Vale também no `date-picker` e nos filtros de data da `data-table` e da `data-list`. Não recrie o destaque de hoje na mão.
+- `calendar` — calendário inline; para **campo** de data use `date-picker`, para exibir EVENTOS use `scheduler`, e para CRONOGRAMA com dependência entre tarefas use `gantt`. ⚠️ **v0.71.0 muda o pixel**: **hoje** passa a ser um **anel** de marca sobre fundo transparente e só o dia **selecionado** fica preenchido — antes os dois eram o mesmo disco verde, indistinguíveis. Coincidindo, o preenchido vence. Vale também no `date-picker` e nos filtros de data da `data-table` e da `data-list`. Não recrie o destaque de hoje na mão.
 - `button` — ação. Variações (cor, tamanho, ícone, loading) na própria API; ver o USAGE.
   Botão desabilitado cujo motivo o usuário precisa saber → ****disabledReason**** (DS
-  **vNEXT**+), logo abaixo.
+  **v0.71.0**+), logo abaixo.
 
 ---
 
@@ -570,7 +570,7 @@ fora resolve conflito errado e a classe perde em silêncio.
 ⚠️ ****disabled** em `<a>` não existe.** O `ClickableSurface` traduz pra **aria-disabled** +
 **pointer-events-none** + `tabIndex={-1}`. Não escreva **disabled** num link na mão.
 
-## Botão desabilitado que se explica (DS **vNEXT**+)
+## Botão desabilitado que se explica (DS **v0.71.0**+)
 
 | Quando você ia escrever | Use |
 |---|---|

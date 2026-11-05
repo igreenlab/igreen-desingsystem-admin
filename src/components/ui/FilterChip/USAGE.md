@@ -7,7 +7,7 @@ reabrir o controle que o produziu (L-051).
 **Categoria:** peça de composição. Não é tela nem controle de entrada: ele só
 **resume** um estado de filtro que alguém já produziu.
 
-**Componente novo na `vNEXT`** — não existe em versão publicada.
+**Componente novo na `v0.71.0`** — não existe em versão publicada.
 
 > ⚠️ **Não confunda com `Chip`.** O `Chip` é a pílula genérica de status, tag e
 > seleção. O `FilterChip` tem anatomia fixa (`⊗ · nome · operador · valor…`) e

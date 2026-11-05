@@ -12,7 +12,7 @@
 - faixa numérica = operador `between` com `filterType: "number"` OU `"currency"` — nunca dois filtros (`gte` + `lte`) nem dois campos soltos acima da grade: é UM chip, com mín e máx no mesmo popover, e lado aberto lendo ≥/≤. O campo do funil/avançado mostra a mesma faixa. Coluna de moeda precisa declarar `filterType: "currency"` explicitamente — o widget do chip é roteado por `filterType`, não pelo `type`
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
-- server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ✅ Filtro/busca que zera o resultado dá "Nenhum dado encontrado" **com o botão de limpar filtros** nos três modos (corrigido na vNEXT — antes os dois caminhos de server diziam "Nenhum dado cadastrado" *sem* saída, que é falso e prende); sem filtro e total 0 segue "Nenhum dado cadastrado"
+- server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ✅ Filtro/busca que zera o resultado dá "Nenhum dado encontrado" **com o botão de limpar filtros** nos três modos (corrigido na v0.71.0 — antes os dois caminhos de server diziam "Nenhum dado cadastrado" *sem* saída, que é falso e prende); sem filtro e total 0 segue "Nenhum dado cadastrado"
 - server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com régua de 3px na cor de marca no topo do cartão (o sinal pra quem ENXERGA) + `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A régua não esmaece as linhas de propósito — opacidade que se note rebaixa o contraste da célula abaixo do AA; pra outro sinal, leia **isKeepingPreviousRows** do contexto ou mire `[aria-busy="true"]` no CSS. A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
 - `fetchData` que REJEITA é silencioso e PERMANENTE: o loading desce, as linhas antigas ficam e o rodapé segue na página nova pra sempre. Passe **onError**`={(msg) => toast.error(msg)}` em TODA tabela com `fetchData` — o estado de erro na tela é seu (toast/banner/botão de tentar de novo via `ref.current.refresh()`); não existe `renderError`. O range do rodapé some sozinho enquanto a busca está falha, e volta na resposta seguinte
 - linha expansível que não tem o que mostrar (sem filho, sem detalhe) → **isRowExpandable**`={(row) => row.itens > 0}`, NUNCA chevron que abre painel vazio. Recusar tira o chevron E o clique juntos (chevron inerte é pior que ausente: o usuário clica, nada acontece, e não sabe se é defeito). O espaço do chevron fica reservado, pro texto da coluna não dançar entre as linhas; linha já aberta que passa a ser recusada FECHA, e o id dela sobrevive pra reabrir se voltar a aceitar. Ausente = toda linha expande, como sempre
@@ -108,7 +108,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Filter chip rápido**          | `enableColumnFilter: true` + `filterType: "text"\|"number"\|"date"\|"select"\|"multiSelect"\|"boolean"`                                                                                                                                                                                                                                                              |
 | **Filter avançado (AND/OR)**    | Habilitado por default se houver coluna com `enableColumnFilter`                                                                                                                                                                                                                                                                                                     |
 | **Filter chips placeholder**    | `showEmptyFilterChips={["status", "categoria"]}` — chips nativos visíveis desde o load inicial, mesmo sem valor preenchido (user clica e preenche)                                                                                                                                                                                                                   |
-| **Destaque do chip aplicado**   | `highlightAppliedFilterChips` (`vNEXT`+, default `false`) — o chip COM valor ganha borda sólida de marca e o valor em verde; o vazio continua tracejado. **Só vale com `showEmptyFilterChips` ligado**: é contra o chip vazio que o destaque contrasta. Sem chip vazio na barra ele não distingue nada e repinta tudo — por isso é opt-in                              |
+| **Destaque do chip aplicado**   | `highlightAppliedFilterChips` (`v0.71.0`+, default `false`) — o chip COM valor ganha borda sólida de marca e o valor em verde; o vazio continua tracejado. **Só vale com `showEmptyFilterChips` ligado**: é contra o chip vazio que o destaque contrasta. Sem chip vazio na barra ele não distingue nada e repinta tudo — por isso é opt-in                              |
 | **Search global**               | `toolbar.enableSearch: true` (default). Client mode busca em todos os fields; server mode recebe `search` (debounced) + `searchField?` no `GridFetchParams`                                                                                                                                                                                                          |
 | **Pagination**                  | `paginationConfig.enabled: true` (default)                                                                                                                                                                                                                                                                                                                           |
 | **Selection (bulk)**            | `selectionConfig.enabled: true`                                                                                                                                                                                                                                                                                                                                      |
@@ -116,7 +116,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Density toggle**              | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop                                                                                                                                                                                                                                                                                      |
 | **Column types registry**       | `type: "currency"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |
 | **Formato de data**             | `type: "date"` → `14/03/2023` · `type: "datetime"` → `14/03/2023 09:30`. Outro formato? **`valueFormatter`** — ele vence o do tipo e vale na célula, no export e no clipboard. Não precisa de `render`. ⚠️ Até a v0.42.1 esses tipos formatavam **sem ano** ("14 de mar") e o `valueFormatter` **não alcançava a célula** (mudava só export/totalizador). |
-| **Formato de número / moeda / %** | `type: "number"` → `1.234` · `type: "currency"` → `R$ 1.234,56` · `type: "percentage"` → `87%`. Outro formato (`1,2 mil`, sem centavos, `87 de 100`)? **`valueFormatter`** — vence o do tipo **e** o `typeOptions` dele (`currency`/`locale` na moeda, `decimals`/`locale` na porcentagem) e vale na célula, no export e no clipboard, igual ao de data. Devolver `""` deixa a célula vazia. ⚠️ Antes desta correção `number` e `currency` **ignoravam** o `valueFormatter` na célula (ele só mudava export/totalizador); o `percentage` ficou de fora dessa primeira rodada e só foi alinhado na **`vNEXT`** — a partir dela os três se comportam igual. |
+| **Formato de número / moeda / %** | `type: "number"` → `1.234` · `type: "currency"` → `R$ 1.234,56` · `type: "percentage"` → `87%`. Outro formato (`1,2 mil`, sem centavos, `87 de 100`)? **`valueFormatter`** — vence o do tipo **e** o `typeOptions` dele (`currency`/`locale` na moeda, `decimals`/`locale` na porcentagem) e vale na célula, no export e no clipboard, igual ao de data. Devolver `""` deixa a célula vazia. ⚠️ Antes desta correção `number` e `currency` **ignoravam** o `valueFormatter` na célula (ele só mudava export/totalizador); o `percentage` ficou de fora dessa primeira rodada e só foi alinhado na **`v0.71.0`** — a partir dela os três se comportam igual. |
 | **Rótulo "3 selecionados" do filtro** | `typeOptions: { countLabel: (n) => n + " usinas selecionadas" }` na coluna. Recebe a **contagem** e devolve o rótulo **inteiro** — mesma assinatura do `selectionConfig.countLabel` da barra de seleção, porque é o mesmo problema (texto fixo, em português, com gênero fixo: toda coluna de substantivo feminino nasce errada). Vale nas duas superfícies do filtro — **chip** aplicado e **campo** (funil + builder avançado) — e em **qualquer** tipo de coluna, inclusive `select`/`text`/custom. É **por coluna** de propósito: o substantivo é da coluna, não da tabela. Sem a chave, o texto é `N selecionados`, byte por byte. |
 | **Unidade no número (`kWh`, `%`, `/mês`)** | `typeOptions: { suffix: " kWh" }` (e/ou `prefix`) em `type: "number"` ou `"currency"`. A unidade segue o número nas TRÊS superfícies que o usuário lê: **célula**, **chip** do filtro aplicado e **campo** onde ele digita (funil + builder avançado + popover do chip). A string entra **literal** — `" kWh"` dá "1.234 kWh", `"%"` dá "1.234%"; o espaço é seu. Faixa leva a unidade **uma vez**, no fim ("100 – 500 kWh"). Convive com `currency`/`locale`: o Intl formata, o afixo adorna. ⚠️ **`valueFormatter` vence e não concatena**, e é o único botão que alcança **export/clipboard** — o afixo fica na tela, o CSV sai com o número. É apresentação: ordenação e filtro seguem no número. |
 | **Coluna de ações**             | `type: "actions"` + `getActions` (ou o builder `actionColumn`). **É o `type` que dá as 3 garantias** — última coluna, ancorada à direita, largura fixa. Coluna montada na unha com botões não recebe nenhuma delas. Ver §Coluna de ações abaixo.                                                                                                                        |
@@ -179,7 +179,7 @@ CTA de **criar**; "seu filtro não achou" pede **limpar filtro** — e nesse seg
 default já entrega o botão certo, cabeado. Substituir por um `EmptyState` genérico
 **perde** esse wiring: se for substituir o `renderNoResults`, cabeie você mesmo o clear.
 
-#### `loadingMode` — manter as linhas em vez de piscar (vNEXT)
+#### `loadingMode` — manter as linhas em vez de piscar (v0.71.0)
 
 Em server mode, **cada troca de página troca o corpo inteiro pelo esqueleto** e volta — é
 o default, e é o "pisca". **loadingMode** escolhe o que aparece durante o vôo:
@@ -241,12 +241,12 @@ Três coisas que decidem o uso:
 Em server mode o dado **nunca** foi descartado: `useDataTableQuery` não limpa `data`/`total`
 ao disparar a request (nem no `catch`). O que mudou é o render parar de jogá-lo fora.
 
-#### `onError` — quando o `fetchData` rejeita (vNEXT)
+#### `onError` — quando o `fetchData` rejeita (v0.71.0)
 
 **O rodapé otimista acima é transitório. Numa falha, ele era DEFINITIVO.** Quando o
 `fetchData` rejeita, o loading desce, as linhas da página anterior ficam, o rodapé fica na
 página nova — e nada mais muda, porque não há próxima resposta pra corrigir o estado. Até a
-`vNEXT` isso acontecia **em silêncio**: o erro era guardado e ninguém o lia.
+`v0.71.0` isso acontecia **em silêncio**: o erro era guardado e ninguém o lia.
 
 ```tsx
 <DataTable
@@ -427,7 +427,7 @@ Quatro coisas que mudam de dono junto com o processamento:
    semânticas coincidem e **perde linha** quando divergem (busca de banco
    acento-insensível, collation ≠ `localeCompare`, campo que a coluna não declara virando
    `undefined`). Pendência conhecida; não há flag.
-2. ~~**Filtro que zera o resultado mostra o estado vazio errado.**~~ **Corrigido na `vNEXT`**
+2. ~~**Filtro que zera o resultado mostra o estado vazio errado.**~~ **Corrigido na `v0.71.0`**
    — os três modos dão o mesmo vazio: "Nenhum dado encontrado" **com o botão de limpar
    filtros**. Até então, nos dois caminhos de server o total ia a 0, o `isDataEmpty` vencia
    o `isNoResults` e a tela afirmava "Nenhum dado cadastrado" — *"não existe nada"*, falso
@@ -560,7 +560,7 @@ const columns = [
 
 O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
 
-#### `isRowExpandable` — linha que não tem o que mostrar (vNEXT)
+#### `isRowExpandable` — linha que não tem o que mostrar (v0.71.0)
 
 | | sem a prop (default) | linha que o predicado RECUSA |
 |---|---|---|
@@ -860,7 +860,7 @@ columnTypeRegistry.register(RatingColumnType);
 | Filtro sem coluna visível | `ColumnDef.hidden: true` | coluna nasce oculta; chips/funil/avançado seguem filtrando. ⚠️ Com `persistId`, snapshot salvo VENCE o default — coluna `hidden` adicionada a tela EXISTENTE nasce VISÍVEL pra quem já tem estado persistido (o usuário oculta 1× ou a tela versiona o `persistId`) |
 | Nome do filtro ≠ título | `ColumnDef.filterLabel` | usado no chip, funil e avançado |
 | Chip fixo (nunca sai) | `showEmptyFilterChips: [{ field, dismissable: false }]` | X do preenchido limpa e o chip vira ⊕ sem X; string simples = descartável (comportamento antigo) |
-| Opções do servidor | `ColumnDef.filterLoadOptions(search, page)` + `filterValueLabel(v)` | multiSelect do chip vira busca async: debounce 300ms, "Carregar mais", marcados sempre no topo com rótulo resolvido. **`vNEXT`: o carregamento é CENTRADO** — `Spinner` do DS + "Carregando…" numa caixa `items-center justify-center py-pad-2xl` (≈76px), no lugar da linha de 12px que ficava no fim de uma lista vazia. ⚠️ O respiro é `py`, não `min-h`: o piso de 96px foi tirado daqui na v0.7x porque deixava vazio, e centralizar não o traz de volta. O `Spinner` vai `aria-hidden` e quem anuncia é o texto |
+| Opções do servidor | `ColumnDef.filterLoadOptions(search, page)` + `filterValueLabel(v)` | multiSelect do chip vira busca async: debounce 300ms, "Carregar mais", marcados sempre no topo com rótulo resolvido. **`v0.71.0`: o carregamento é CENTRADO** — `Spinner` do DS + "Carregando…" numa caixa `items-center justify-center py-pad-2xl` (≈76px), no lugar da linha de 12px que ficava no fim de uma lista vazia. ⚠️ O respiro é `py`, não `min-h`: o piso de 96px foi tirado daqui na v0.7x porque deixava vazio, e centralizar não o traz de volta. O `Spinner` vai `aria-hidden` e quem anuncia é o texto |
 | Opção fixa no topo | `filterOptions: [{ …, pinned: true }]` | fora da busca, da rolagem e do "Selecionar todos" |
 | Incluindo/Excluindo | automático no multiSelect | segmented no topo do popover; `isNoneOf` pinta o operador do chip em danger |
 | Faixa num chip só | operador `between` no `filterType: "number"` **ou** `"currency"` | mín–máx juntos ("10 – 500" · "R$ 10,00 → R$ 500,00"), lado aberto vira ≥/≤. O popover do chip e o campo do funil/avançado abrem a MESMA faixa nos dois tipos. `number` aceita vírgula como decimal |
@@ -919,7 +919,7 @@ A toolbar separa dois níveis de filtro, sempre disponíveis (gated por
   já está no `filterModel`: campo com filtro vigente é desenhado e reescrito com o
   operador dele (`isNoneOf` do chip "Excluindo", `between` de uma faixa, `notContains`
   do builder); campo ainda **sem** filtro nasce com o default do tipo (multiSelect →
-  isAnyOf, text → contains, date → between). Até a `vNEXT` os dois lados derivavam do
+  isAnyOf, text → contains, date → between). Até a `v0.71.0` os dois lados derivavam do
   tipo: a faixa aparecia como campo único e editar o valor rebaixava "Excluindo" pra
   "Incluindo" em silêncio. Um filtro em `isEmpty`/`isNotEmpty` fica sem o que editar
   (o widget devolve "(sem valor)") e por isso **essa linha, só ela, ganha um "Limpar"
@@ -952,12 +952,12 @@ A prop `simpleFilter` é **opcional** — só customiza o drawer do funil:
 | `simpleFilter.hiddenFields` | `string[]`                     | `[]`                        | Fields que NÃO aparecem no drawer do funil (só no avançado). Útil pra filtros técnicos |
 | `simpleFilter.title`        | `string`                       | `"Filtros"`                 | Override do título do header do drawer                                                 |
 | `simpleFilter.size`         | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` (400px)              | Use `"lg"` (560px) se há muitos campos com widgets largos (dates/multi-select)         |
-| `simpleFilter.open`         | `boolean`                      | — (ausente = estado interno) | Abertura **controlada** — quando algo FORA da tabela precisa abrir o funil (`vNEXT`)   |
-| `simpleFilter.onOpenChange` | `(open: boolean) => void`      | —                           | Avisado quando algo pede pra abrir/fechar. Dispara nos **dois** modos (`vNEXT`)        |
+| `simpleFilter.open`         | `boolean`                      | — (ausente = estado interno) | Abertura **controlada** — quando algo FORA da tabela precisa abrir o funil (`v0.71.0`)   |
+| `simpleFilter.onOpenChange` | `(open: boolean) => void`      | —                           | Avisado quando algo pede pra abrir/fechar. Dispara nos **dois** modos (`v0.71.0`)        |
 
-#### Abrir o funil por fora (controlado) — `vNEXT`
+#### Abrir o funil por fora (controlado) — `v0.71.0`
 
-Até a `vNEXT` o estado do drawer era privado do `DataTable`: só o botão de funil da
+Até a `v0.71.0` o estado do drawer era privado do `DataTable`: só o botão de funil da
 própria toolbar abria. Um botão "Filtrar" no cabeçalho da página, um atalho de teclado
 ou um deep-link não tinham porta.
 
@@ -1083,7 +1083,7 @@ tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (n
 - `initialPageSize` (25)
 - `pageSizeOptions` ([10, 25, 50, 100])
 
-> O modo client/server é derivado de `rows` vs `fetchData` — **e desde a vNEXT também pode
+> O modo client/server é derivado de `rows` vs `fetchData` — **e desde a v0.71.0 também pode
 > ser declarado** por **processingMode**`="server"`, pra quem passa `rows` já processadas
 > pelo servidor. Esta linha dizia *"não é prop"* até lá; ver §Server mode.
 

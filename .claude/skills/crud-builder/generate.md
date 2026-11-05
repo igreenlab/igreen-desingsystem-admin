@@ -167,7 +167,7 @@ todo campo substantivo leva `icon` no header.
    `enableColumnFilter`. Marcar só 2 = bug "filtra só 2 colunas".
    > **Faixa de valor (mín–máx)** nasce de UM filtro com operador `between`, nunca de
    > dois (`gte` + `lte`) nem de dois campos soltos acima da grade: o chip abre mín e
-   > máx no mesmo popover e o lado vazio lê ≥/≤. Vale em `"number"` e, desde a `vNEXT`,
+   > máx no mesmo popover e o lado vazio lê ≥/≤. Vale em `"number"` e, desde a `v0.71.0`,
    > igual em `"currency"` — use `filterType: "currency"` quando o chip deve ler
    > "R$ 10,00 → R$ 500,00" em vez de "10 – 500" (é o `filterType` que escolhe o widget
    > do chip, não o `type` da coluna).
@@ -242,7 +242,7 @@ todo campo substantivo leva `icon` no header.
 
 **Formato de célula.** `type: "date"` renderiza `14/03/2023` e `type: "datetime"` renderiza `14/03/2023 09:30` — **com ano** (lib 0.43.0+). Precisa de outro formato (mês escrito, relativo, ISO)? Passe **`valueFormatter`** na coluna: ele vence o formato do tipo e vale na célula, no export e no clipboard. **NÃO** escreva `render` próprio só pra formatar. ⚠️ Até a 0.42.1 esses tipos mostravam a data **sem ano** e o `valueFormatter` não chegava na célula — se você viu `render` de data em código antigo, era contorno disso.
 
-⚠️ **`number`, `currency` e `percentage` só passaram a respeitar o `valueFormatter` na `vNEXT`.** Antes o tipo formatava por cima e a função era ignorada **em silêncio** — nada avisava, nem no build nem em runtime. O DS discordava de si mesmo: `date` e `datetime` respeitavam, os outros três não. `render` em coluna numérica de código antigo costuma ser contorno disso e pode voltar a ser `valueFormatter`. ⚠️ O `percentage` ficou para trás quando os outros dois foram corrigidos e só foi alinhado depois — hoje os três são iguais, e nos três o formatter vence também as `typeOptions` de formatação (`currency`/`locale`, `decimals`/`locale`).
+⚠️ **`number`, `currency` e `percentage` só passaram a respeitar o `valueFormatter` na `v0.71.0`.** Antes o tipo formatava por cima e a função era ignorada **em silêncio** — nada avisava, nem no build nem em runtime. O DS discordava de si mesmo: `date` e `datetime` respeitavam, os outros três não. `render` em coluna numérica de código antigo costuma ser contorno disso e pode voltar a ser `valueFormatter`. ⚠️ O `percentage` ficou para trás quando os outros dois foram corrigidos e só foi alinhado depois — hoje os três são iguais, e nos três o formatter vence também as `typeOptions` de formatação (`currency`/`locale`, `decimals`/`locale`).
 
 
 ## Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
@@ -262,7 +262,7 @@ Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
 Regra geral: **componente do DS sempre antes de markup manual** (Avatar, Chip,
 Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.
 
-## Row expansion: nem toda linha tem detalhe (`vNEXT`)
+## Row expansion: nem toda linha tem detalhe (`v0.71.0`)
 
 Ao gerar `expandable: true` + `renderRowExpansion`, **pergunte se TODA linha tem o que
 mostrar**. Se não tiver — pedido sem item, cliente sem contrato, nó folha — passe
@@ -425,7 +425,7 @@ normal e **avise**: passar `filterModel` controlado com `rows` já filtradas faz
 local rodar de novo sobre o lote — no-op quando as semânticas coincidem, e perde linha
 quando divergem. É pendência conhecida do DS, não algo pra contornar na tela.
 
-✅ **Filtro que zera o resultado:** desde a `vNEXT` os três modos dão "Nenhum dado
+✅ **Filtro que zera o resultado:** desde a `v0.71.0` os três modos dão "Nenhum dado
 encontrado" **com o botão de limpar filtros**, já cabeado pelo DataTable. ⛔ **Não gere
 mais o `renderEmpty` alternado** pelo `filterModel` que esta seção mandava gerar
 (`renderEmpty={temFiltro ? <NoResults/> : <Empty/>}`): virou código morto no caso filtrado

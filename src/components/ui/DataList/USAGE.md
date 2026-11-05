@@ -103,9 +103,9 @@ items: [
 items: [{ id: "a", field: "status", operator: "isAnyOf", value: ["ativo", "pausado"] }]
 ```
 
-A segunda forma **é aceita na leitura** (`vNEXT`+) — tem que ser, porque existe estado
+A segunda forma **é aceita na leitura** (`v0.71.0`+) — tem que ser, porque existe estado
 assim salvo em `localStorage` de quem usou o componente antes, e `persistKey` não migra
-nada. Mas ela **esvaziava a lista** até a `vNEXT`: o motor comparava o `value` do item
+nada. Mas ela **esvaziava a lista** até a `v0.71.0`: o motor comparava o `value` do item
 como um todo, e `["ativo","pausado"]` não casava com célula nenhuma. Com um valor só
 funcionava por acidente, o que escondeu o defeito.
 
@@ -114,7 +114,7 @@ Um modelo na forma antiga **se migra sozinho** no primeiro toque do usuário no 
 ⚠️ `between` é a exceção: a tupla fica inteira num item só — ali o array é `[lo, hi]`, não
 uma lista de valores.
 
-## Como os filtros combinam — `field|operator`, OR dentro, AND fora (`vNEXT`+)
+## Como os filtros combinam — `field|operator`, OR dentro, AND fora (`v0.71.0`+)
 
 **O mesmo grão do `DataTable`.** Itens agrupam por **campo + operador**; dentro do grupo
 combinam por **OR**, entre grupos por **AND**:
@@ -129,7 +129,7 @@ combinam por **OR**, entre grupos por **AND**:
 { field: "nome", operator: "notContains", value: "b" }
 ```
 
-⚠️ **Até a `vNEXT` os escalares combinavam por AND**, inclusive dentro do mesmo operador:
+⚠️ **Até a `v0.71.0` os escalares combinavam por AND**, inclusive dentro do mesmo operador:
 dois `equals` no mesmo campo pediam que uma célula fosse dois valores ao mesmo tempo e a
 lista **esvaziava em silêncio** — enquanto a tabela, com o mesmo modelo, devolvia a união.
 Se você contornava isso escrevendo um filtro por vez, pode parar.
@@ -138,7 +138,7 @@ Um item de operador escalar cujo `value` é um **array** vale como lista de alte
 (OR), igual ao multi — `{ operator: "equals", value: ["ativo","pausado"] }` casa os dois.
 Antes coagia pra `"ativo,pausado"` e não casava nada. `between` segue fora disso.
 
-**O operador que você declarar no preset sobrevive ao funil** (`vNEXT`+). Campo que já tem
+**O operador que você declarar no preset sobrevive ao funil** (`v0.71.0`+). Campo que já tem
 filtro é desenhado e reescrito com o operador DELE; só o campo vazio nasce com o default do
 tipo. Antes o drawer derivava o operador do tipo nos dois lados, e mexer no valor rebaixava
 um `isNoneOf` do preset pra `isAnyOf` em silêncio.
@@ -150,10 +150,10 @@ um `isNoneOf` do preset pra `isAnyOf` em silêncio.
   só no layout `standard`.
 - **Modo server:** o DataList NÃO filtra localmente — emite `onQueryChange({search, filters})`
   (debounce no search) e renderiza o que vier em `items` (use `loading`/`total`).
-  ⚠️ **O que sai é só filtro COM valor** (`vNEXT`+): item sem valor nunca chega ao
+  ⚠️ **O que sai é só filtro COM valor** (`v0.71.0`+): item sem valor nunca chega ao
   `onQueryChange`, e pôr/tirar um não dispara request repetida. Mesma regra do
   `useDataTableQuery` — "filtro incompleto não dispara nada".
-- **Editar o chip e desmarcar TUDO não fecha o popover** (`vNEXT`+). O grupo fica no
+- **Editar o chip e desmarcar TUDO não fecha o popover** (`v0.71.0`+). O grupo fica no
   `filterModel` com **um item sem valor** enquanto o popover está aberto — ele é a âncora
   do popover, e removê-lo desmontava o chip no meio da interação. O item é inerte (não
   filtra, não vai pro servidor) e sai sozinho quando o popover fecha. Só aparece no

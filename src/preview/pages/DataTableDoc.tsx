@@ -1098,7 +1098,7 @@ export function DataTableDoc() {
       </p>
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
-        Até a <code>vNEXT</code> o <code>currency</code> tinha a faixa só no
+        Até a <code>v0.71.0</code> o <code>currency</code> tinha a faixa só no
         campo: o chip ignorava o operador e abria um campo único, onde a tupla{" "}
         <code>[10, 500]</code> aparecia como o texto <code>10,500</code>. É
         paridade com o <code>number</code>, não comportamento novo — quem não
