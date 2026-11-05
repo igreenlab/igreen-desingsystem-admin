@@ -73,16 +73,20 @@ const COLUNAS: DataTableColumnDef<Row>[] = [
 
 type SimpleFilterProp = NonNullable<DataTableProps<Row>["simpleFilter"]>;
 
-function montar(simpleFilter?: SimpleFilterProp) {
-  return render(
+function tabela(simpleFilter?: SimpleFilterProp) {
+  return (
     <DataTable
       rows={ROWS}
       columns={COLUNAS}
       getRowId={(r) => r.id}
       toolbar={{ enableFilters: true }}
       simpleFilter={simpleFilter}
-    />,
+    />
   );
+}
+
+function montar(simpleFilter?: SimpleFilterProp) {
+  return render(tabela(simpleFilter));
 }
 
 /** O botão funil da toolbar — `ToolbarFilterButton`, `aria-label="Filtros"`. */
@@ -249,5 +253,77 @@ describe("simpleFilter — abertura controlada do drawer do funil", () => {
       .map((c) => String(c[0]))
       .filter((m) => m.includes("não é renderizado"));
     expect(avisos).toEqual([]);
+  });
+});
+
+/**
+ * P6 — a TRANSIÇÃO entre os dois modos no meio da vida do componente.
+ *
+ * O par controlado/não-controlado tem uma guarda que os testes acima não exercitam:
+ * `setV2FilterOpen` só escreve no estado interno **quando `open` está ausente**
+ * (`data-table.tsx`, `if (simpleFilterOpenProp === undefined) setV2FilterOpenLocal(...)`).
+ * Enquanto a prop manda, os cliques do usuário viram notificação e nada mais.
+ *
+ * Isso é invisível nos dois modos puros — `v2FilterOpen = prop ?? local`, e enquanto a
+ * prop existe ela ganha de qualquer valor que `local` tenha. A guarda só aparece **no
+ * momento em que a prop é largada**: o componente volta a ler `local`, e a pergunta é se
+ * `local` guarda o estado de ANTES da fase controlada ou o último clique que a prop
+ * recusou. Com a guarda, é o de antes — a fase controlada não deixa rastro.
+ *
+ * Não há aviso de console aqui, e é deliberado: seria o terceiro aviso deste componente,
+ * para um cenário sem evidência de acontecer na prática. Aviso que ninguém precisa é
+ * aviso que todo mundo ignora — a decisão foi travar o comportamento com teste, que custa
+ * zero em runtime.
+ *
+ * ⚠️ Estes testes nasceram VERDES (a guarda já existia e já funcionava), então foram
+ * validados por mutação: removida a condição `simpleFilterOpenProp === undefined`, os
+ * dois `it` de transição reprovam. Sem essa prova eles seriam verde vazio.
+ */
+describe("simpleFilter — transição controlado ⇄ não-controlado no meio da vida", () => {
+  it("não-controlado → controlado → largou: volta ao estado de ANTES, não ao clique recusado", async () => {
+    const onOpenChange = vi.fn();
+    const { rerender } = render(tabela());
+
+    // Fase 1 — não-controlado: o clique abre de verdade e grava `local = true`.
+    await userEvent.click(funil());
+    expect(drawerAberto()).toBe(true);
+
+    // Fase 2 — vira controlado com a prop dizendo aberto.
+    rerender(tabela({ open: true, onOpenChange }));
+    expect(drawerAberto()).toBe(true);
+
+    // O usuário clica no X: a prop manda, o drawer não fecha — e o estado interno
+    // NÃO pode registrar esse `false`, senão a fase controlada vaza pra depois dela.
+    await userEvent.click(fecharX());
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(drawerAberto()).toBe(true);
+
+    // Fase 3 — o consumidor larga o `open` e volta pro modo não-controlado.
+    rerender(tabela());
+    expect(drawerAberto()).toBe(true);
+
+    // E o modo não-controlado volta a funcionar — não ficou preso no valor herdado.
+    await userEvent.click(fecharX());
+    expect(drawerAberto()).toBe(false);
+  });
+
+  it("controlado desde o início → largou: o estado interno é o inicial, não o clique recusado", async () => {
+    const onOpenChange = vi.fn();
+    const { rerender } = render(tabela({ open: false, onOpenChange }));
+    expect(drawerAberto()).toBe(false);
+
+    // Clique no funil com `open: false`: avisa a intenção, mas não abre nada...
+    await userEvent.click(funil());
+    expect(onOpenChange).toHaveBeenCalledWith(true);
+    expect(drawerAberto()).toBe(false);
+
+    // ...e tampouco grava `true` no estado interno: largar a prop não pode "entregar"
+    // uma abertura que o consumidor recusou enquanto mandava.
+    rerender(tabela());
+    expect(drawerAberto()).toBe(false);
+
+    // O modo não-controlado assume a partir daqui, normalmente.
+    await userEvent.click(funil());
+    expect(drawerAberto()).toBe(true);
   });
 });

@@ -73,9 +73,23 @@ export const PercentageColumnType: ColumnTypeDefinition = {
   },
   renderChipValue: (value) => toPercent(value),
 
+  // `column.valueFormatter` vence o formato do tipo — mesmo escape hatch do
+  // `number`/`currency`/`date`/`datetime`.
+  //
+  // Vence também as `typeOptions` deste tipo (`decimals`/`locale`): o formatter é o escape
+  // hatch INTEIRO, e quem o passa já decidiu o texto. A precedência é por EXISTÊNCIA do
+  // formatter, não pelo que ele devolve — "" quer a célula vazia, não o valor formatado
+  // pelo tipo. O valor chega ao formatter cru, sem passar pelo `toPercent`.
+  //
+  // Sem `valueFormatter` nada mudou: `decimals`/`locale` seguem mandando, e valor
+  // vazio/inválido segue saindo em branco.
   renderCell: ({ value, column }) => {
     const opts = column?.typeOptions as PercentageTypeOptions | undefined;
-    return <span className="tabular-nums">{toPercent(value, opts)}</span>;
+    return (
+      <span className="tabular-nums">
+        {column?.valueFormatter ? column.valueFormatter(value) : toPercent(value, opts)}
+      </span>
+    );
   },
   formatValue: (v) => toPercent(v),
   defaultAlign: "right",

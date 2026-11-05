@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
+import { resolveCountLabel } from "../_shared";
 import type {
   ColumnTypeDefinition,
   FastFilterInputProps,
@@ -464,18 +465,18 @@ export function MultiSelectDropdown({
  *  use o `MultiSelectDropdown`) e `renderFilterInput` (modal avançado, sem popover
  *  em volta: use este). Sem ele, o widget próprio do chip fica sem par no avançado. */
 export function MultiSelectFieldDropdown(props: FilterInputProps) {
-  const { value, options = [] } = props;
+  const { value, options = [], typeOptions } = props;
   const selected = toArray(value);
   const labels = selected.map((v) => {
     const opt = options.find((o) => String(o.value) === String(v));
     return opt?.label ?? String(v);
   });
-  const display =
+  const display: ReactNode =
     labels.length === 0
       ? ""
       : labels.length <= 2
         ? labels.join(", ")
-        : `${labels.length} selecionados`;
+        : resolveCountLabel(labels.length, typeOptions);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -538,7 +539,7 @@ export const MultiSelectColumnType: ColumnTypeDefinition = {
     }
     return null;
   },
-  renderChipValue: (value, options) => {
+  renderChipValue: (value, options, typeOptions) => {
     const arr = Array.isArray(value)
       ? (value as Array<string | number>)
       : value == null
@@ -549,6 +550,6 @@ export const MultiSelectColumnType: ColumnTypeDefinition = {
       options?.find((o) => String(o.value) === String(v))?.label ?? String(v);
     if (arr.length === 1) return labelOf(arr[0]);
     if (arr.length === 2) return `${labelOf(arr[0])}, ${labelOf(arr[1])}`;
-    return `${arr.length} selecionados`;
+    return resolveCountLabel(arr.length, typeOptions);
   },
 };

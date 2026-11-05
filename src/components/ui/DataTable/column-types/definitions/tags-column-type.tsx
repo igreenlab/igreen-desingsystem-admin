@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Tags, ChevronDown } from "lucide-react";
 import { Chip } from "../../../Chip/chip";
 import { Checkbox } from "@/components/shadcn/checkbox";
@@ -8,7 +9,12 @@ import {
 } from "@/components/shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
-import { resolveChipColor, findOption, toStringArray } from "../_shared";
+import {
+  resolveChipColor,
+  findOption,
+  toStringArray,
+  resolveCountLabel,
+} from "../_shared";
 
 export const TagsColumnType: ColumnTypeDefinition = {
   type: "tags",
@@ -21,7 +27,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
      rico que o checkbox-list daqui (busca a partir de 10 opções, segmented
      Incluindo/Excluindo, "Selecionar todos", opções fixas). O `renderFastFilterInput`
      abaixo segue valendo pro operador `contains`, que é single. */
-  renderFilterInput: ({ value, onChange, options }) => {
+  renderFilterInput: ({ value, onChange, options, typeOptions }) => {
     const selected = new Set(toStringArray(value));
     const toggle = (v: string) => {
       const next = new Set(selected);
@@ -33,12 +39,12 @@ export const TagsColumnType: ColumnTypeDefinition = {
       const opt = findOption(v, options);
       return opt?.label ?? v;
     });
-    const display =
+    const display: ReactNode =
       labels.length === 0
         ? ""
         : labels.length <= 2
           ? labels.join(", ")
-          : `${labels.length} selecionados`;
+          : resolveCountLabel(labels.length, typeOptions);
     return (
       <Popover>
         <PopoverTrigger asChild>
@@ -101,14 +107,14 @@ export const TagsColumnType: ColumnTypeDefinition = {
     if (operator === "contains") return filter.every((f) => cell.includes(f));
     return null;
   },
-  renderChipValue: (value, options) => {
+  renderChipValue: (value, options, typeOptions) => {
     const arr = toStringArray(value);
     if (arr.length === 0) return "";
     const labels = arr.map(
       (v) => findOption(v, options)?.label ?? v,
     );
     if (labels.length <= 2) return labels.join(", ");
-    return `${labels.length} selecionados`;
+    return resolveCountLabel(labels.length, typeOptions);
   },
 
   renderCell: ({ value, options }) => {

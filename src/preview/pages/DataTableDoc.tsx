@@ -1150,6 +1150,42 @@ export function DataTableDoc() {
         </div>
       </ExampleSection>
 
+      <SectionH2
+        id="contagem-filtro"
+        title="Rótulo da contagem no filtro (countLabel)"
+      />
+
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
+        A partir de três valores marcados, o chip e o campo colapsam a lista em{" "}
+        <code>"3 selecionados"</code>. O texto é masculino e fixo, então toda
+        coluna de substantivo feminino lê errado — "3 usinas selecionados". Pra
+        corrigir, a coluna passa{" "}
+        <code>typeOptions: {'{ countLabel: (n) => `${n} usinas selecionadas` }'}</code>
+        . A função recebe a <strong>contagem</strong> e devolve o rótulo{" "}
+        <strong>inteiro</strong> — mesma assinatura do{" "}
+        <code>selectionConfig.countLabel</code> da barra de seleção de linhas,
+        de propósito: é o mesmo problema, e dois desenhos pro mesmo problema no
+        mesmo componente é a armadilha maior.
+      </p>
+
+      <ul className="list-disc pl-pad-4xl mb-gp-2xl max-w-[760px] flex flex-col gap-gp-xs text-body-md text-fg-muted">
+        <li>
+          <strong>É por coluna, não por tabela.</strong> O substantivo é da
+          coluna: numa tela com "clientes" e "usinas", um texto único erraria
+          metade.
+        </li>
+        <li>
+          <strong>Vale nas duas superfícies do filtro</strong> — o chip aplicado
+          e o campo (funil e builder avançado) — e em{" "}
+          <strong>qualquer</strong> tipo de coluna, inclusive{" "}
+          <code>select</code>, <code>text</code> e tipos registrados por você.
+        </li>
+        <li>
+          <strong>Ausente = o texto de hoje</strong>, byte por byte. Não é
+          personalização de estilo: é i18n, e o default não muda.
+        </li>
+      </ul>
+
       <SectionH2 id="custom-filter" title="Widget de filtro próprio" />
 
       <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">

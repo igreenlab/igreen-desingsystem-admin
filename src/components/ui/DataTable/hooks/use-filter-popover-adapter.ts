@@ -7,6 +7,7 @@ import type {
 } from "../../TableToolbar";
 import { columnTypeRegistry } from "../column-types";
 import type { ColumnOption } from "../column-types";
+import { resolveCountLabel } from "../column-types/_shared";
 import type {
   DataTableColumnDef,
   FilterItem,
@@ -293,12 +294,17 @@ export function useFilterPopoverAdapter<T>({
           const filteredChips = chipValues.filter(
             (v) => v != null && v !== "",
           );
+          // ⚠️ É AQUI que a contagem colapsa no uso normal, não no `renderChipValue` do
+          // tipo: um chip multi chega como N items de 1 valor cada, então o tipo formata
+          // cada valor e quem conta é este branch. `typeOptions.countLabel` (item 27)
+          // passa pelos dois pelo mesmo helper — corrigir só o tipo deixaria a prop
+          // quase inerte no caminho principal.
           const value: ReactNode | ReactNode[] =
             filteredChips.length === 1
               ? filteredChips[0]
               : filteredChips.length <= 2
                 ? (filteredChips as ReactNode[])
-                : `${filteredChips.length} selecionados`;
+                : resolveCountLabel(filteredChips.length, col?.typeOptions);
           return {
             id: g.key,
             columnLabel,
@@ -319,8 +325,12 @@ export function useFilterPopoverAdapter<T>({
             allValues.push(labelOf(item.value));
           }
         }
+        // Mesma contagem, caminho do tipo SEM `renderChipValue` (`select`, `text`,
+        // `email`, `phone`, `url`) — `select` é o mais comum de todos.
         const value: ReactNode | ReactNode[] =
-          allValues.length <= 2 ? allValues : `${allValues.length} selecionados`;
+          allValues.length <= 2
+            ? allValues
+            : resolveCountLabel(allValues.length, col?.typeOptions);
         return {
           id: g.key,
           columnLabel,

@@ -50,6 +50,9 @@ export type FilterInputProps = {
    * `renderCell` já recebia. É o que leva `prefix`/`suffix` (item 9a) pro campo:
    * sem ela a unidade só existiria na célula, e quem está filtrando não vê a
    * célula — vê o campo e o chip.
+   *
+   * Leva também `countLabel` (item 27), o rótulo de "N selecionados" — ver
+   * `resolveCountLabel` em `_shared`.
    */
   typeOptions?: Record<string, unknown>;
 };
@@ -173,6 +176,12 @@ export type ColumnTypeDefinition = {
    * O 3º argumento é o `column.typeOptions` da coluna (item 9a): é por ele que a
    * unidade chega ao chip — "100 – 500 kWh" em vez de "100 – 500", que foi o pedido
    * original. Opcional, e tipo que o ignora segue idêntico.
+   *
+   * O mesmo 3º argumento leva `countLabel` (item 27), o rótulo da CONTAGEM — use
+   * `resolveCountLabel(n, typeOptions)` do `_shared` em vez de escrever
+   * "N selecionados" na mão, senão o tipo fica com gênero fixo. ⚠️ No chip multi quem
+   * colapsa a contagem costuma ser o `use-filter-popover-adapter` (N items de 1 valor);
+   * o tipo só colapsa quando um item sozinho traz um array de 3+.
    */
   renderChipValue?: (
     value: FilterValue,
