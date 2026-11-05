@@ -263,9 +263,6 @@ export function DataListToolbar({
     operator: string,
     value: FilterValue,
   ) => {
-    const rest = filterModel.items.filter(
-      (i) => !(i.field === field && i.operator === operator),
-    );
     const op = operator as FilterOperator;
     const novos: FilterItem[] = isEmptyVal(value)
       ? []
@@ -289,7 +286,38 @@ export function DataListToolbar({
     if (novos.length === 0) {
       novos.push({ id: genFilterId(), field, operator: op, value: undefined });
     }
-    onFilterModelChange({ ...filterModel, items: [...rest, ...novos] });
+    /* Preserva a POSIÇÃO ORIGINAL do grupo no array. Até 2026-11-04 isto era
+     * `[...rest, ...novos]` — tudo que não era o grupo, mais o grupo no FIM — e
+     * com 3+ chips editar o do MEIO o jogava pro fim e puxava os outros pra
+     * esquerda: a barra se reorganizava embaixo do cursor. A ordem dos chips vem
+     * da ordem de PRIMEIRA OCORRÊNCIA aqui (o `toAppliedFilters` agrupa num
+     * `Map`, que preserva inserção), então mover o grupo no array move o chip na
+     * tela. Vale também pro item vazio acima: nascendo no fim, o popover ficaria
+     * aberto sobre outro ponto da barra — o mesmo salto, no pior instante.
+     *
+     * Mesma reconstrução do `updateGroupValue` do `DataTable`
+     * (`hooks/use-filter-popover-adapter.ts`), que já tinha o conserto. A
+     * adaptação é só no identificador: lá o grupo é um `Set` de ids resolvido
+     * pelo `appliedGroups`, aqui é o par `field` + `operator`.
+     *
+     * Só a ORDEM muda: quantos items saem e com que valores é byte por byte o de
+     * antes — o `onQueryChange` de quem usa `mode="server"` recebe a mesma forma. */
+    const reconstruido: FilterItem[] = [];
+    let inserido = false;
+    for (const item of filterModel.items) {
+      if (item.field === field && item.operator === operator) {
+        if (!inserido) {
+          reconstruido.push(...novos);
+          inserido = true;
+        }
+        continue; // demais items do grupo: já entraram no spread acima
+      }
+      reconstruido.push(item);
+    }
+    /* Grupo ainda não existia no model (chip recém-criado por outro caminho):
+     * entra no fim, que é o comportamento de sempre. */
+    if (!inserido) reconstruido.push(...novos);
+    onFilterModelChange({ ...filterModel, items: reconstruido });
   };
 
   /**
