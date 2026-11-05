@@ -1,5 +1,15 @@
 # Pedidos do Sólis — plano de implementação (A + B)
 
+> **Status:** IMPLEMENTADA (2026-11-04) — as 5 rodadas fecharam (PRs #355, #356, #358,
+> #360, #361) e o lote foi encerrado. Fica como referência do plano e do ritual, não
+> como frente aberta.
+>
+> ⚠️ **Os 103 checkboxes deste arquivo nunca foram marcados.** Não leia a ausência de
+> `[x]` como trabalho pendente: o estado real do lote está em
+> [`solis-fechamento.md`](./solis-fechamento.md), que é o documento único — tudo que foi
+> pedido contra tudo que aconteceu, conferido contra o código da `main` e o histórico do
+> git por uma auditoria independente.
+
 > **Para executores:** SUB-SKILL OBRIGATÓRIA — use `superpowers:subagent-driven-development`
 > (recomendada) ou `superpowers:executing-plans` para implementar tarefa a tarefa.
 > Os passos usam checkbox (`- [ ]`) para rastreio.

@@ -21,7 +21,8 @@ gera código de memória e NÃO toca em arquivo antes do gate ser aprovado.
 - ✅ **Kanban / board / funil (pipeline de vendas)** caem AQUI: kanban é uma
   `viewMode` do DataTable — mesmos dados/colunas/filtros, só muda a exibição pra
   board. "Quero um kanban/funil" → esta skill (a Fase 5 + `kanban-design.md`
-  configuram as lanes pela coluna de status/etapa). Funil = board agrupado por etapa.
+  configuram as COLUNAS do board pelo campo de status/etapa, e perguntam o 2º eixo —
+  as **raias**, que são o `groupBy` do DataTable). Funil = board agrupado por etapa.
 - ⛔ **Lista de cards** (DataList) → skill IRMÃ `list-builder/` (`/ds-create-list`).
   Se o caso for card/feed/árvore/agrupamento visual e NÃO grade de colunas, PARAR
   e mandar pra lá. Front-door que desambigua: `/ds-create-screen`.
@@ -113,7 +114,8 @@ Se você (IA) chegou aqui por um prompt assim:
 4. `virtualize: true` ⇒ `paginationConfig: { enabled: false }` + container com
    altura definida (`ExamplePageLayout` já resolve via `h-screen` + `min-h-0`).
 5. `groupBy` ativo ⇒ pagination é desligada automaticamente (avisar, não duplicar).
-6. Kanban ⇒ `viewMode` controlado + toda lane mapeia uma option do groupByField.
+6. Kanban ⇒ `viewMode` controlado + toda COLUNA mapeia uma option do `groupByField`;
+   raia (2º eixo) é o `groupBy` do DataTable e tem que ser campo DIFERENTE.
 7. Forms em drawers/modais usam `<FormField>` — nunca `<label>` raw (L-023).
 8. Spacing entre fields de form = `gap-form-gap` (L-024).
 9. Classes DS antes de Tailwind literal (`gap-gp-*`, `px-pad-*`,

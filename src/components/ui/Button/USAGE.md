@@ -55,14 +55,14 @@ Para WCAG touch target (44px), usar `size="lg"` (`min-h-form-xl`).
 | `shape` | `"rounded" \| "pill"` | `"rounded"` | Forma — `pill` força `rounded-full` (override do radius da size) |
 | `fullWidth` | `boolean` | `false` | Ocupa 100% da largura do container |
 | `disabled` | `boolean` | `false` | Estado desabilitado |
-| `disabledReason` | `string` | — | Por que está desabilitado. Troca `disabled` por `aria-disabled` e mostra o motivo numa tooltip — ver abaixo |
+| `disabledReason` | `string` | — | Por que está desabilitado (`vNEXT`+). Troca `disabled` por `aria-disabled` e mostra o motivo numa tooltip — ver abaixo |
 | `loading` | `boolean` | `false` | Mostra spinner e desabilita |
 | `iconLeft` | `ReactNode` | — | Ícone antes do texto |
 | `iconRight` | `ReactNode` | — | Ícone após o texto |
 | `className` | `string` | — | Override de classes (tw-merge resolve conflitos) |
 | `type` | `"button" \| "submit" \| "reset"` | `"button"` | Tipo HTML — default "button" para evitar submit acidental |
 
-## `disabledReason` — quando o usuário precisa saber POR QUE
+## `disabledReason` — quando o usuário precisa saber POR QUE (`vNEXT`)
 
 Um botão só com `disabled` recebe `pointer-events-none`: sem hover e sem foco, não
 existe superfície onde caiba a explicação. Quem olha vê o cinza e não sabe o que fazer

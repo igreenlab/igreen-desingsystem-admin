@@ -50,6 +50,7 @@ import {
   LoaderCircle,
   Inbox,
   MessageSquare,
+  HelpCircle,
   ChevronRight,
   AppWindow,
   ArrowLeftRight,
@@ -189,6 +190,7 @@ const CATALOG: CompGroup[] = [
       { name: "Spinner", href: "spinner", desc: "Indicador de loading", icon: LoaderCircle },
       { name: "Empty State", href: "empty-state", desc: "Estado vazio (ícone + CTA)", icon: Inbox },
       { name: "Tooltip", href: "tooltip", desc: "Dica no hover/foco", icon: MessageSquare },
+      { name: "HelpTip", href: "help-tip", desc: 'O "?" que explica um rótulo', icon: HelpCircle },
     ],
   },
   {

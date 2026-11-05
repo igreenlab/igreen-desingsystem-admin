@@ -8,7 +8,8 @@
 -->
 
 **O que é** — O "?" que explica um rótulo: botão de ícone discreto que revela um
-tooltip curto. **Categoria**: iGreen (tv()). Doc viva: `#/help-tip`.
+tooltip curto. **Categoria**: iGreen (tv()). **Componente novo na `vNEXT`** — não
+existe em versão publicada. Doc viva: `#/help-tip`.
 
 Nasceu dentro do `Kpi` (prop `helperText`) e saiu de lá para acompanhar qualquer
 rótulo.

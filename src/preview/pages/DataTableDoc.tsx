@@ -265,6 +265,16 @@ const CORE_PROPS = [
     type: "number — total NO SERVIDOR. Com fetchData é opcional (cai no total da resposta); com processingMode=\"server\" é a única fonte; em client mode puro é ignorado",
     defaultVal: "—",
   },
+  {
+    name: "onError",
+    type: "(message: string) => void — dispara quando o fetchData REJEITA. Sem ela a falha é invisível E permanente: o loading desce, as linhas antigas ficam e o rodapé segue na página nova, sem próxima resposta pra corrigir. O estado de erro na tela é seu (toast/banner + ref.current.refresh()); não existe renderError. Só a request CORRENTE avisa (o guard de corrida descarta as superadas) e nunca em client mode. Sem prop nenhuma, o DS já esconde o TEXTO do range do rodapé enquanto a última busca está falha, e o devolve na resposta seguinte",
+    defaultVal: "—",
+  },
+  {
+    name: "isRowExpandable",
+    type: "(row: T) => boolean — linha que não tem o que mostrar não ganha chevron NEM clique (os dois saem juntos: chevron inerte é pior que ausente — o usuário clica, nada acontece e não sabe se é defeito). O espaço do chevron fica reservado, pro texto da coluna gatilho não dançar entre as linhas. Linha já ABERTA que passa a ser recusada fecha, e o id sobrevive pra reabrir se voltar a aceitar. Não confundir com a opção de COLUNA `expandable`, que escolhe qual célula é o gatilho",
+    defaultVal: "— (toda linha expande)",
+  },
 ];
 
 const TOOLBAR_PROPS = [
@@ -350,7 +360,7 @@ const COLUMN_DEF_PROPS = [
   { name: "render", type: "({ row, value }) => ReactNode", defaultVal: "—" },
   {
     name: "valueGetter / valueFormatter",
-    type: "(row) => any / (value) => string",
+    type: "(row) => any / (value) => string — o valueFormatter vence o formato do tipo e as typeOptions de formatação, e vale na célula, no export e no clipboard. Nos TRÊS tipos numéricos (number, currency e percentage) o comportamento é o mesmo: a precedência é por EXISTÊNCIA do formatter, então devolver '' deixa a célula vazia e o valor chega cru",
     defaultVal: "—",
   },
   { name: "editable", type: "boolean", defaultVal: "false" },
@@ -362,7 +372,7 @@ const COLUMN_DEF_PROPS = [
   { name: "readMore", type: "boolean | { lines?, label? } — trunca + popover 'Ler mais'", defaultVal: "false" },
   {
     name: "expandable",
-    type: "boolean (trigger row expansion)",
+    type: "boolean — marca ESTA coluna como o gatilho da expansão da linha (par de renderRowExpansion). Quais linhas podem expandir é a prop-raiz isRowExpandable, outra coisa",
     defaultVal: "false",
   },
   {
