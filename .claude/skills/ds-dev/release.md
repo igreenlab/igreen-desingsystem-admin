@@ -441,7 +441,43 @@ os 4 canais (npm · copy-in/registry · scaffold · submódulo) são de primeira
 canal estava morto (corrigido em 2026-08-08); descreva a **ordem de publicação**, não uma
 hierarquia de suporte.
 
-### ⛔ 7.0 — Esta conta exige 2FA. Leia ANTES de pedir qualquer credencial.
+### 🔑 7.0a — Os dois erros que MENTEM. Decodifique antes de agir.
+
+> Medido três vezes nesta conta (v0.39.0, v0.70.0, v0.71.0). Os dois erros mais comuns do
+> publish **dizem uma coisa e significam outra**, e cada vez custou de 20 minutos a uma
+> sessão inteira. Esta tabela abre o Passo 7 porque é onde o erro aparece — na v0.71.0 a
+> explicação do `E409` **já existia** 80 linhas abaixo, e ninguém chegou nela a tempo.
+
+| o erro diz | significa de verdade | o que fazer |
+|---|---|---|
+| **`E404 Not Found - PUT`** | **você não está autenticado.** Para pacote com escopo o npm responde 404 em vez de 403, pra não revelar se um pacote privado existe | `npm whoami`. Se der erro → 7.0b |
+| **`E409 ... previously staged version`** | **já subiu e está processando.** Não é fila de aprovação | **não repita o publish.** Espere e confirme por 7.4 |
+| **`E403 ... (E_STAGE_REQUIRED)`** | token staging-only | fluxo em dois tempos, abaixo |
+
+### ⛔ 7.0b — `.npmrc` existir NÃO é estar logado (a armadilha da v0.71.0)
+
+O ritual previa `ENEEDAUTH`, que é o caso de **não ter token**. O caso que de fato aconteceu
+foi outro: **token morto no `~/.npmrc`**. O arquivo está lá, com a chave
+`//registry.npmjs.org/:_authToken`, parece configurado — e o registro recusa.
+
+```bash
+npm whoami          # esperado: snksergio
+```
+
+| resposta | diagnóstico |
+|---|---|
+| `snksergio` | autenticado, siga |
+| **`E401 Unauthorized`** | **token morto.** O `npm login` sobrescreve |
+| `ENEEDAUTH` | nunca logou nesta máquina |
+
+Nos dois últimos: `npm login` **no terminal do mantenedor** (é interativo, abre o navegador,
+e o shell da IA tem stdin fechado), depois `npm whoami` pra confirmar.
+
+⚠️ **É por isso que o publish parecia aleatório** (*"tem hora que autoriza, tem hora que
+não"*): o token envelhece em silêncio e nada no `.npmrc` muda de aparência. **Rode o
+`whoami` sempre**, mesmo que "ontem funcionou".
+
+### ⛔ 7.0c — Esta conta exige 2FA. Leia ANTES de pedir qualquer credencial.
 
 **Token clássico NÃO publica aqui.** O `npm publish` sai com:
 
@@ -520,7 +556,13 @@ li como "o stage list mente". Os dois sinais juntos (E409 + fila vazia) signific
 **publicado, processando**.
 
 O tamanho decide a espera: o CLI (279 kB, 77 arquivos) ficou disponível na hora; a lib
-(7,4 MB, 2784 arquivos) levou **~2 min**. Espere e confirme pelo endpoint da versão
+(7,4 MB, 2784 arquivos) levou **~2 min**.
+
+**Confirmado na v0.71.0, com os carimbos do registro:** CLI `0.25.41` em **13:21:19**, lib
+`0.71.0` em **13:23:51** — **2min32s** de diferença. O segundo `npm publish` rodou às
+13:21:59, dentro dessa janela, e por isso devolveu `E409`. ⚠️ **Ver o CLI publicado e a lib
+ainda não é o comportamento NORMAL**, não meio-publish: são dois pacotes, de tamanhos
+muito diferentes, no mesmo pipeline assíncrono. Espere e confirme pelo endpoint da versão
 exata, que responde 404 até terminar:
 
 ```bash
