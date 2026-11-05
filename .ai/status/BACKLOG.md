@@ -1,10 +1,15 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-08-21
+> Última revisão: 2026-11-04
 
 ---
 
+> 📌 **O lote Sólis (SOLIS-238) tem backlog próprio**, para não se misturar com o deste
+> arquivo: [`.ai/specs/backlog-solis.md`](../specs/backlog-solis.md) — tudo que não foi feito,
+> com motivo, recomendação, impacto, esforço e se o projeto consegue montar sozinho.
+
+---
 ## ⛔ Reorganizar as skills do consumidor — DESCARTADO em 2026-08-21, com gatilho
 
 > Registrado **pela decisão**, não pelo conserto. Sem isto, em três meses isso volta como
