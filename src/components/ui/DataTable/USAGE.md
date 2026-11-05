@@ -12,7 +12,7 @@
 - operador pré-aplicado em `defaultViews`/`presetView`/`filterModel` (`isNoneOf`, `between`, `notContains`) SOBREVIVE à edição no funil — o drawer preserva o operador do campo que já tem filtro e só deriva o default pro campo vazio
 - botão da TELA abrindo o funil → `simpleFilter={{ open, onOpenChange }}`; com `open` presente a prop manda e o funil/X/Esc/backdrop só avisam. `onOpenChange` dispara nos dois modos (sem `open`, só observa). Nunca passe `open` sem `onOpenChange`: o drawer fica sem saída
 - server mode tem DOIS caminhos e você escolhe um: `fetchData` (o DataTable dispara a request) ou **processingMode**`="server"` + `rows` + `rowCount` (a TELA dispara — use quando já existe react-query/SWR). Com `processingMode="server"` o DataTable NÃO fatia, NÃO ordena, NÃO filtra e NÃO busca: ele só emite `onPaginationModelChange`/`onSortModelChange`/`onFilterModelChange`/`onSearchChange` e espera `rows` novas. Sem `rowCount` o rodapé só conhece o lote ("1–N de N", sem página seguinte), e `paginationConfig.initialPageSize` TEM que ser o `pageSize` da API (o range é `page × pageSize`, não contagem do corpo). Passe `toolbar.enableRefresh: false` — o botão Refresh só fala com o `fetchData` (sem isso, `console.warn` em DEV). Com `fetchData` presente a prop é ignorada, e **não passe `rows` junto** (o CSV sairia com as rows locais sob o rótulo "Página atual"). ⚠️ O caso ESPELHADO — filtrar/buscar no servidor com paginação e ordenação locais — é válido e esta prop **não** atende: ela desliga os quatro juntos, e esse recorte sofre double-filter silencioso (pendência). ✅ Filtro/busca que zera o resultado dá "Nenhum dado encontrado" **com o botão de limpar filtros** nos três modos (corrigido na vNEXT — antes os dois caminhos de server diziam "Nenhum dado cadastrado" *sem* saída, que é falso e prende); sem filtro e total 0 segue "Nenhum dado cadastrado"
-- server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
+- server mode (`fetchData`) PISCA a cada troca de página — corpo e rodapé viram esqueleto. Em tela onde o usuário navega muito, passe **loadingMode**`="keep"`: as linhas anteriores ficam no lugar até a próxima página chegar, com régua de 3px na cor de marca no topo do cartão (o sinal pra quem ENXERGA) + `aria-busy` + live region `sr-only` avisando que estão defasadas e o range do rodapé escondido (só ele mentiria). A régua não esmaece as linhas de propósito — opacidade que se note rebaixa o contraste da célula abaixo do AA; pra outro sinal, leia **isKeepingPreviousRows** do contexto ou mire `[aria-busy="true"]` no CSS. A primeira carga cai no esqueleto sozinha; não alterne a prop por isso. Vale em client mode (`rows` + `loading`) também, mas aí quem guarda o lote anterior é a tela — zerar `rows` junto = esqueleto
 - `fetchData` que REJEITA é silencioso e PERMANENTE: o loading desce, as linhas antigas ficam e o rodapé segue na página nova pra sempre. Passe **onError**`={(msg) => toast.error(msg)}` em TODA tabela com `fetchData` — o estado de erro na tela é seu (toast/banner/botão de tentar de novo via `ref.current.refresh()`); não existe `renderError`. O range do rodapé some sozinho enquanto a busca está falha, e volta na resposta seguinte
 - linha expansível que não tem o que mostrar (sem filho, sem detalhe) → **isRowExpandable**`={(row) => row.itens > 0}`, NUNCA chevron que abre painel vazio. Recusar tira o chevron E o clique juntos (chevron inerte é pior que ausente: o usuário clica, nada acontece, e não sabe se é defeito). O espaço do chevron fica reservado, pro texto da coluna não dançar entre as linhas; linha já aberta que passa a ser recusada FECHA, e o id dela sobrevive pra reabrir se voltar a aceitar. Ausente = toda linha expande, como sempre
 -->
@@ -182,10 +182,10 @@ default já entrega o botão certo, cabeado. Substituir por um `EmptyState` gen�
 Em server mode, **cada troca de página troca o corpo inteiro pelo esqueleto** e volta — é
 o default, e é o "pisca". **loadingMode** escolhe o que aparece durante o vôo:
 
-| valor | corpo | rodapé | acessibilidade |
+| valor | corpo | rodapé | sinal |
 |---|---|---|---|
-| `"skeleton"` (default) | esqueleto | esqueleto | o esqueleto é `role="status"` — montá-lo **anuncia** o carregamento |
-| `"keep"` | as linhas do resultado **anterior** | o rodapé real e navegável, **sem o texto do range** | `aria-busy` na raiz **+** live region `sr-only` que anuncia "as linhas são do resultado anterior" e **cala** na resposta |
+| `"skeleton"` (default) | esqueleto | esqueleto | o próprio esqueleto, que é `role="status"` — montá-lo **anuncia** o carregamento |
+| `"keep"` | as linhas do resultado **anterior** | o rodapé real e navegável, **sem o texto do range** | régua de 3px na cor de marca no topo do cartão **+** `aria-busy` na raiz **+** live region `sr-only` que anuncia "as linhas são do resultado anterior" e **cala** na resposta |
 
 ```tsx
 <DataTable
@@ -208,6 +208,25 @@ Três coisas que decidem o uso:
   pra onde o clique leva. O **texto** "76–100 de 100" é que afirmaria algo falso sobre o
   corpo (as linhas são 1–25), então ele é escondido durante o vôo e volta na resposta.
   Nada a configurar — o DataTable passa `hideRange` ao `FooterTable` sozinho.
+- **Quem ENXERGA também recebe um sinal: uma régua de 3px na cor de marca** no topo do
+  cartão, enquanto as linhas são do lote anterior. Nasce junto com `"keep"` — não há
+  segunda prop: ela só aparece quando há linha defasada na tela, e isso **só acontece**
+  com `loadingMode="keep"`, que já é opt-in. Quem não passa a prop não vê diferença
+  nenhuma, byte por byte.
+  ⚠️ **Ela não esmaece as linhas, e isso é medido, não gosto.** `opacity` no corpo mexe no
+  contraste de texto que o DS não escreve (a célula vem do seu `render`): no tema claro,
+  o piso pra `text-fg-muted` — que é o VALOR da célula num `type: "date"` — continuar AA
+  é opacidade **0,88** (0,80 já dá 3,83:1). Esmaecer 12% não é sinal; o que é sinal
+  reprova. A régua mede 5,06:1 (claro) e 7,63:1 (escuro) contra `bg-bg-table`, acima do
+  piso de 3:1 de objeto gráfico, e não toca em texto nenhum. Também não é `disabled`: sem
+  `pointer-events-none`, a linha defasada continua clicável e selecionável.
+- **Quer outro sinal?** Duas rotas, as duas sem fork do componente. **CSS:** `className` e
+  o `aria-busy` caem no MESMO elemento, então
+  `.minha-tabela[aria-busy="true"] [role="grid"]::before { display: none }` apaga a régua
+  e `…[aria-busy="true"] [role="rowgroup"] { opacity: .6 }` põe o esmaecimento no lugar
+  (assumindo o custo de contraste acima). **React:** `useDataTableContext()` passou a
+  expor **isKeepingPreviousRows** — um componente seu dentro da tabela (célula, toolbar
+  slot) lê a flag e desenha o que quiser.
 - **O anúncio não é o `aria-busy`.** `aria-busy` **anota** o container (quem navegar até
   lá descobre); quem **anuncia** é uma live region `sr-only` montada junto com a prop.
   Isso existe porque no modo default quem avisa é o próprio esqueleto (`role="status"`):

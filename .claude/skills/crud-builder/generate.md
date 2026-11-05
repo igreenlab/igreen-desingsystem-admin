@@ -417,8 +417,9 @@ filtro e total 0 — que é onde mora o CTA de criar.
 diga o contrário. Sem a prop, cada troca de página troca o corpo **inteiro** pelo
 esqueleto e volta: é o "pisca", e numa tela de navegação frequente é a primeira
 reclamação que chega. Com ela, as linhas da página anterior ficam no lugar até a
-próxima chegar (rodapé junto, navegável), a raiz ganha `aria-busy` e uma live
-region `sr-only` anuncia que as linhas estão defasadas.
+próxima chegar (rodapé junto, navegável), uma **régua de 3px na cor de marca**
+acende no topo do cartão — o sinal pra quem enxerga — a raiz ganha `aria-busy` e
+uma live region `sr-only` anuncia que as linhas estão defasadas.
 
 ```tsx
 <DataTable
@@ -430,6 +431,11 @@ region `sr-only` anuncia que as linhas estão defasadas.
 
 - **Não trate a primeira carga.** Sem linha anterior não há o que manter, e o
   `"keep"` cai no esqueleto sozinho. Alternar a prop por isso é erro.
+- ⛔ **Não esmaeça as linhas** pra sinalizar que estão defasadas: o DS já desenha a
+  régua, e opacidade no corpo foi medida e reprovada (no tema claro, o piso pra um
+  valor de célula em texto secundário continuar no AA é **0,88** — abaixo disso
+  reprova, acima disso ninguém vê). Outro sinal se resolve por composição:
+  `useDataTableContext()` expõe `isKeepingPreviousRows`.
 
 **Toda tela com `fetchData` leva `onError` também.** Quando a request rejeita, o
 loading desce, as linhas antigas ficam e o rodapé fica na página nova — e nada

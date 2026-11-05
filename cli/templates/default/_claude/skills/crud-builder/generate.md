@@ -100,6 +100,12 @@ Nunca gere props de memória — copie a forma do exemplo.
   - Durante o vôo o **range** do rodapé ("26–50 de 100") some, porque descreveria
     linhas que não estão na tela, e volta na resposta. Os controles de página
     ficam. É esperado — não "conserte".
+  - ⛔ **Não gere esmaecimento nas linhas** pra "mostrar que estão defasadas". O DS
+    já desenha o sinal visual (régua de 3px na cor de marca no topo do cartão), e
+    opacidade no corpo foi medida e reprovada: no tema claro, o piso pra um valor
+    de célula em texto secundário continuar no AA é **0,88** — esmaecer menos que
+    isso ninguém vê, mais que isso reprova o contraste. Precisa de outro sinal?
+    `useDataTableContext()` expõe ****isKeepingPreviousRows****.
 - **`fetchData` ⇒ `onError` SEMPRE.** Request que rejeita é silenciosa e
   **permanente**: o loading desce, as linhas antigas ficam, o rodapé fica na página
   nova e nada mais muda. Gere um toast (ou o banner da tela) e, havendo ref, um

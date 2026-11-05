@@ -812,6 +812,7 @@ export function useDataTableController<T>(
     density: density.density,
     search: search.inputValue,
     filterModel: filters.filterModel,
+    isKeepingPreviousRows,
     getRowId,
   }), [
     clientRows,
@@ -829,6 +830,7 @@ export function useDataTableController<T>(
     density.density,
     search.inputValue,
     filters.filterModel,
+    isKeepingPreviousRows,
     getRowId,
   ]);
 

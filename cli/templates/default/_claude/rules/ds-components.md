@@ -308,11 +308,22 @@ navega muito entre páginas, isso é o "pisca".
 | o de sempre (esqueleto no corpo e no rodapé) | **não passe nada** — o default é ****"skeleton"**** |
 | as linhas da página **anterior** no lugar, até a próxima chegar | ****loadingMode="keep"**** no `data-table` |
 
-Com ****"keep"**** o rodapé **também** fica, navegável. E o leitor de tela continua
-avisado: a raiz ganha **aria-busy="true"** e uma região **sr-only** anuncia que as linhas
-são do resultado anterior, calando quando a resposta chega. Isso não é enfeite — no modo
-default quem avisa é o próprio esqueleto, que é uma live region; sem a compensação, o
-****"keep"**** daria **menos** sinal justamente no caminho em que a tela engana mais.
+Com ****"keep"**** o rodapé **também** fica, navegável. E **todo mundo** fica avisado de
+que aquelas linhas são velhas: quem enxerga vê uma **régua de 3px na cor de marca** acender
+no topo do cartão durante o vôo, e o leitor de tela recebe **aria-busy="true"** na raiz mais
+uma região **sr-only** que anuncia o resultado anterior e cala quando a resposta chega. Isso
+não é enfeite — no modo default quem avisa é o próprio esqueleto, que é uma live region; sem
+a compensação, o ****"keep"**** daria **menos** sinal justamente no caminho em que a tela
+engana mais.
+
+⚠️ **Não esmaeça as linhas por conta própria.** É o primeiro reflexo e foi medido: no tema
+claro, a opacidade mínima pra um valor de célula em texto secundário continuar passando no
+AA é **0,88** — esmaecer 12% ninguém nota, e o que se nota reprova o contraste, inclusive
+em célula que **você** renderizou. A régua não toca em texto nenhum. Se mesmo assim quiser
+outro sinal, há duas rotas sem fork do componente: no **CSS**, a sua classe e o
+**aria-busy="true"** caem no MESMO elemento (a raiz), então um seletor seu alcança tudo que
+está dentro; no **React**, o hook **useDataTableContext** expõe
+****isKeepingPreviousRows**** pra um componente seu dentro da tabela desenhar o que quiser.
 
 ✅ **A primeira carga não precisa de tratamento.** Não existe linha anterior pra manter, e
 corpo vazio seria pior que esqueleto: o ****"keep"**** cai no esqueleto sozinho nesse caso
