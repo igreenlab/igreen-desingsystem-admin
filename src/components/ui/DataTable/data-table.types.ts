@@ -390,8 +390,16 @@ export type DataTableColumnDef<T> = {
   /** Opções específicas do `type` — Fase G.2/G.3. Estrutura depende do tipo:
    *  - `user`: { users: Record<id, { name, avatar?, initials? }> }
    *  - `currency`: { currency?: "BRL" | "USD" | ..., locale?: string }
+   *  - `percentage`: { decimals?: number, locale?: string }
    *  - `date`/`datetime`: { format?: "short" | "long" | Intl options }
-   *  - custom types: o que o tipo definir */
+   *  - `number`/`currency`: { prefix?: string, suffix?: string } — a unidade (item 9a)
+   *  - QUALQUER tipo, no filtro: { countLabel?: (count: number) => ReactNode } — o
+   *    rótulo "3 selecionados" do chip e do campo (item 27). Mesma assinatura do
+   *    `selectionConfig.countLabel`; default = `${count} selecionados`.
+   *  - custom types: o que o tipo definir
+   *
+   *  ⚠️ `valueFormatter` da coluna VENCE o `typeOptions` de formatação em `number`,
+   *  `currency`, `percentage`, `date` e `datetime` — é o escape hatch inteiro. */
   typeOptions?: Record<string, unknown>;
 
   /** Read-more — célula "Ler mais". Quando ativo, o conteúdo é truncado

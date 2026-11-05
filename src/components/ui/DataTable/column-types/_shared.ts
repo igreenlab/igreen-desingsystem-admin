@@ -13,6 +13,7 @@
  *                   badge + tags.
  *  - lookups      — `findOption`, `toStringArray`.
  */
+import type { ReactNode } from "react";
 import type { ColumnOption } from "./column-types.types";
 
 /* ── Number ──────────────────────────────────────────────────────── */
@@ -54,6 +55,44 @@ export function readAffix(typeOptions?: Record<string, unknown>): AffixOptions |
   const prefix = typeof typeOptions.prefix === "string" ? typeOptions.prefix : undefined;
   const suffix = typeof typeOptions.suffix === "string" ? typeOptions.suffix : undefined;
   return prefix || suffix ? { prefix, suffix } : undefined;
+}
+
+/* ── Contagem ("3 selecionados") ─────────────────────────────────── */
+
+/**
+ * Rótulo de contagem do contexto de filtro — "3 selecionados" — com escape hatch
+ * por coluna em `typeOptions.countLabel`. Item 27 do Sólis.
+ *
+ * **Por que existe.** O texto era literal, em português e **com gênero fixo**. Isso não é
+ * personalização e sim defeito de i18n: qualquer coluna de substantivo feminino já nasce
+ * errada ("3 usinas selecionadas"), e não havia porta pra corrigir — nem traduzindo, nem
+ * concordando o gênero.
+ *
+ * **A forma é a do `selectionConfig.countLabel`** da barra de seleção de linhas
+ * (`TableToolbar/parts/bulk-actions-bar.tsx`), que resolve o MESMO problema no MESMO
+ * componente: recebe a contagem e devolve o rótulo INTEIRO — não um sufixo e não um par
+ * singular/plural, porque idioma nenhum garante que o número fique na frente. Dois
+ * desenhos diferentes pro mesmo problema seria a armadilha maior.
+ *
+ * **A rota é `column.typeOptions`** — a bag POR COLUNA que o item 9a já usa pra levar
+ * `prefix`/`suffix` até o campo e o chip — e não uma prop do `DataTable`: o substantivo é
+ * da coluna, não da tabela. Uma tabela com "clientes" e "usinas" precisa dos dois ao
+ * mesmo tempo, e uma prop única só saberia dizer um.
+ *
+ * Lê-se defensivo (`typeof === "function"`) pelo mesmo motivo do `readAffix`:
+ * `typeOptions` é `Record<string, unknown>` e chega sem checagem do TS.
+ *
+ * Default = o texto de hoje, byte por byte. Sem `countLabel`, nada muda.
+ */
+export function resolveCountLabel(
+  count: number,
+  typeOptions?: Record<string, unknown>,
+): ReactNode {
+  const custom = typeOptions?.countLabel;
+  if (typeof custom === "function") {
+    return (custom as (count: number) => ReactNode)(count);
+  }
+  return `${count} selecionados`;
 }
 
 /* ── Date ────────────────────────────────────────────────────────── */

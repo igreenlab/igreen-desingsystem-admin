@@ -2,12 +2,14 @@ import { describe, it, expect, beforeAll, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { NumberColumnType } from "./definitions/number-column-type";
 import { CurrencyColumnType } from "./definitions/currency-column-type";
+import { PercentageColumnType } from "./definitions/percentage-column-type";
 import type { ColumnTypeDefinition } from "./column-types.types";
 import { DataTable } from "../data-table";
 import type { DataTableColumnDef } from "../data-table.types";
 
 /**
- * `column.valueFormatter` alcança a célula também em `type: "number"` e `type: "currency"`.
+ * `column.valueFormatter` alcança a célula também em `type: "number"`, `"currency"` e
+ * `"percentage"`.
  *
  * Os tipos `date` e `datetime` já respeitavam o formatter da coluna (`date-format.test.tsx`).
  * `number` e `currency` não: a cadeia de render é
@@ -17,6 +19,14 @@ import type { DataTableColumnDef } from "../data-table.types";
  * discordava de si mesmo: três tipos com o escape hatch, dois sem.
  *
  * Referência de uso real: abreviar "1.234" para "1,2 mil" numa coluna de métrica.
+ *
+ * ⚠️ **O `percentage` ficou para trás na primeira rodada** (2026-11, item 6 do Sólis):
+ * `number` e `currency` foram corrigidos e o terceiro tipo numérico não, o que só trocou
+ * a discordância de lugar — "corrigir 2 de 3 deixa o DS discordando de si mesmo no
+ * terceiro". Os testes de `percentage` abaixo são o fecho desse item e seguem a MESMA
+ * precedência já decidida nos outros dois: o `valueFormatter` é o escape hatch inteiro e
+ * fica ACIMA de `typeOptions` (`decimals`/`locale`), e a precedência é por EXISTÊNCIA do
+ * formatter, não pelo que ele devolve.
  */
 
 function textoDaCelula(
@@ -150,6 +160,76 @@ describe("type: currency — column.valueFormatter vence o formato do tipo", () 
   });
 });
 
+describe("type: percentage — column.valueFormatter vence o formato do tipo", () => {
+  it("percentage usa column.valueFormatter quando há", () => {
+    const txt = textoDaCelula(PercentageColumnType, 12.5, {
+      column: { valueFormatter: (v: unknown) => `${v} p.p.` },
+    });
+    expect(txt).toBe("12.5 p.p.");
+  });
+
+  it("recebe o valor cru (não o texto já formatado pelo tipo)", () => {
+    const recebidos: unknown[] = [];
+    textoDaCelula(PercentageColumnType, 12.5, {
+      column: {
+        valueFormatter: (v: unknown) => {
+          recebidos.push(v);
+          return "x";
+        },
+      },
+    });
+    expect(recebidos).toEqual([12.5]);
+  });
+
+  /* CAMINHO ANTIGO — o que não pode mudar pra quem não usa valueFormatter. */
+  it("sem valueFormatter, o formato do TIPO continua valendo", () => {
+    expect(textoDaCelula(PercentageColumnType, 87)).toBe("87%");
+    expect(textoDaCelula(PercentageColumnType, 87, { column: {} })).toBe("87%");
+    expect(
+      textoDaCelula(PercentageColumnType, 87, { column: { field: "meta" } }),
+    ).toBe("87%");
+  });
+
+  /* As `PercentageTypeOptions` (`decimals`/`locale`) são próprias deste tipo —
+     `number` e `currency` não as têm. Elas seguem valendo quando NÃO há formatter. */
+  it("sem valueFormatter, typeOptions (decimals/locale) continuam mandando", () => {
+    expect(
+      textoDaCelula(PercentageColumnType, 12.5, {
+        column: { typeOptions: { decimals: 1 } },
+      }),
+    ).toBe("12,5%");
+    expect(
+      textoDaCelula(PercentageColumnType, 12.5, {
+        column: { typeOptions: { decimals: 1, locale: "en-US" } },
+      }),
+    ).toBe("12.5%");
+  });
+
+  it("sem valueFormatter, valor vazio/inválido segue sem texto", () => {
+    expect(textoDaCelula(PercentageColumnType, null, { column: {} })).toBe("");
+    expect(textoDaCelula(PercentageColumnType, "abc", { column: {} })).toBe("");
+  });
+
+  /* A precedência é por EXISTÊNCIA do formatter, não pelo retorno.
+     Implementação com `formatter(v) || toPercent(v)` reprova aqui. */
+  it("valueFormatter que devolve string vazia renderiza vazio, não o valor formatado", () => {
+    const txt = textoDaCelula(PercentageColumnType, 87, {
+      column: { valueFormatter: () => "" },
+    });
+    expect(txt).toBe("");
+  });
+
+  it("o formatter vence typeOptions também (é o escape hatch inteiro)", () => {
+    const txt = textoDaCelula(PercentageColumnType, 12.5, {
+      column: {
+        valueFormatter: () => "custom",
+        typeOptions: { decimals: 2, locale: "en-US" },
+      },
+    });
+    expect(txt).toBe("custom");
+  });
+});
+
 /* O teste unitário acima prova o `renderCell`; este prova o CAMINHO: coluna declarada
    no DataTable real → `data-table-row` → registry → célula. É onde o defeito aparecia
    pro consumidor, e onde um refactor da cadeia de fallback o reabriria. */
@@ -172,8 +252,8 @@ describe("pelo DataTable real", () => {
     }));
   });
 
-  type Row = { id: string; kwh: number; valor: number };
-  const ROWS: Row[] = [{ id: "1", kwh: 1234, valor: 1234.56 }];
+  type Row = { id: string; kwh: number; valor: number; meta: number };
+  const ROWS: Row[] = [{ id: "1", kwh: 1234, valor: 1234.56, meta: 87 }];
 
   function monta(colunas: DataTableColumnDef<Row>[]) {
     return render(
@@ -186,7 +266,7 @@ describe("pelo DataTable real", () => {
     );
   }
 
-  it("a célula number e a currency mostram o que o formatter da coluna devolve", () => {
+  it("a célula number, a currency e a percentage mostram o que o formatter da coluna devolve", () => {
     monta([
       { field: "kwh", headerName: "kWh", type: "number", valueFormatter: abreviar },
       {
@@ -195,20 +275,30 @@ describe("pelo DataTable real", () => {
         type: "currency",
         valueFormatter: (v) => `R$ ${abreviar(v)}`,
       },
+      {
+        field: "meta",
+        headerName: "Meta",
+        type: "percentage",
+        valueFormatter: (v) => `${v} de 100`,
+      },
     ]);
     expect(screen.getByText("1,2 mil")).toBeTruthy();
     expect(screen.getByText("R$ 1,2 mil")).toBeTruthy();
+    expect(screen.getByText("87 de 100")).toBeTruthy();
     // E o formato do tipo NÃO aparece junto.
     expect(screen.queryByText("1.234")).toBeNull();
     expect(screen.queryByText(BRL_1234_56_NO_DOM)).toBeNull();
+    expect(screen.queryByText("87%")).toBeNull();
   });
 
   it("sem valueFormatter nas colunas, o DataTable mostra o formato do tipo (caminho antigo)", () => {
     monta([
       { field: "kwh", headerName: "kWh", type: "number" },
       { field: "valor", headerName: "Valor", type: "currency" },
+      { field: "meta", headerName: "Meta", type: "percentage" },
     ]);
     expect(screen.getByText("1.234")).toBeTruthy();
     expect(screen.getByText(BRL_1234_56_NO_DOM)).toBeTruthy();
+    expect(screen.getByText("87%")).toBeTruthy();
   });
 });
