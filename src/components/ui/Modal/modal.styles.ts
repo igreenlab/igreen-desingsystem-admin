@@ -111,8 +111,13 @@ export const body = tv({
   // `min-h-0` é o que permite o flex item encolher e a rolagem acontecer aqui,
   // em vez de o conteúdo empurrar o container para fora da tela. Sem ele,
   // `overflow-y-auto` não tem efeito nenhum dentro de um flex column.
+  //
+  // `relative` faz do corpo o bloco de contenção do que é `absolute` lá dentro —
+  // em especial o controle nativo oculto do Radix (Select, Checkbox, Switch).
+  // Sem ele, esses controles se posicionam pelo diálogo, passam da altura dele e o
+  // próprio diálogo rola: o header some para cima e sobra branco abaixo do rodapé.
   base: [
-    "flex flex-col gap-[18px] px-pad-4xl py-[22px]",
+    "relative flex flex-col gap-[18px] px-pad-4xl py-[22px]",
     "min-h-0 flex-1 overflow-y-auto",
   ],
 });
