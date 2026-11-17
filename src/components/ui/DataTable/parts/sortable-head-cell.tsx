@@ -9,6 +9,13 @@ export type DataTableSortableHeadCellProps = TableHeadCellProps & {
   sortableId: string;
   /** Quando true, desabilita drag (usado pra coluna actions). */
   disableDrag?: boolean;
+  /**
+   * Quando true, o cabeçalho não recebe os `attributes` do dnd-kit (`role="button"`,
+   * `tabIndex=0`, `aria-roledescription="sortable"`, `aria-describedby`). Usado pelo
+   * `enableColumnReorder={false}`: sem arrasto, esses atributos só anunciariam uma ação
+   * que não existe e tornariam todo cabeçalho uma parada de Tab sem função.
+   */
+  omitDndAttributes?: boolean;
   children?: ReactNode;
 };
 
@@ -28,6 +35,7 @@ export type DataTableSortableHeadCellProps = TableHeadCellProps & {
 export function DataTableSortableHeadCell({
   sortableId,
   disableDrag = false,
+  omitDndAttributes = false,
   children,
   ...headCellProps
 }: DataTableSortableHeadCellProps) {
@@ -72,8 +80,8 @@ export function DataTableSortableHeadCell({
       ref={setNodeRef}
       style={dragStyle}
       rootProps={{
-        ...attributes,
-        ...listeners,
+        ...(omitDndAttributes ? undefined : attributes),
+        ...(omitDndAttributes ? undefined : listeners),
       }}
     >
       {children}

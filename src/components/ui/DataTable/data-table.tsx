@@ -873,11 +873,20 @@ function DataTableInternal<T>(
    * KeyboardSensor permite reordenar via teclado (Space/Enter pra "pegar",
    * Setas pra mover, Space/Enter pra soltar, Esc pra cancelar).
    */
+  const enableColumnReorder = props.enableColumnReorder !== false;
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: { distance: 5 },
+  });
+  const keyboardSensor = useSensor(KeyboardSensor, {
+    coordinateGetter: sortableKeyboardCoordinates,
+  });
+  // `enableColumnReorder={false}`: sem sensor nenhum o DndContext não tem como
+  // iniciar arrasto (mouse nem teclado) — e o Espaço/Enter do cabeçalho fica
+  // livre, porque o KeyboardSensor é quem os capturava. `useSensors` descarta
+  // `undefined`, então a lista nunca muda de tamanho entre renders.
   const dndSensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    enableColumnReorder ? pointerSensor : undefined,
+    enableColumnReorder ? keyboardSensor : undefined,
   );
 
   const handleColumnDragEnd = (event: DragEndEvent) => {
@@ -1352,7 +1361,8 @@ function DataTableInternal<T>(
                 <DataTableSortableHeadCell
                   key={field}
                   sortableId={field}
-                  disableDrag={isActions}
+                  disableDrag={isActions || !enableColumnReorder}
+                  omitDndAttributes={!enableColumnReorder}
                   field={field}
                   width={cols.columnWidths[field]}
                   pinned={col.pinned}
