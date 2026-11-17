@@ -268,7 +268,7 @@ código antigo.
 não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
 sem nada declarado é ordenável.
 
-### Quem decide a ordem das colunas (DS **vNEXT**+)
+### Quem decide a ordem das colunas (DS **v0.72.0**+)
 
 Arrastar o cabeçalho reordena as colunas — **é o default e continua sendo**. Desligue só
 quando a ordem já é decidida **fora** da grade (um painel "Colunas e ordem" da sua tela,

@@ -116,7 +116,7 @@ documentada em lugar nenhum.
       consumidor compõe entra na skill que a ensina (`skills/crud-builder/generate.md` e
       irmãs). ⚠️ Duas armadilhas medidas: **(a)** prop vai em `****negrito****`, NUNCA em
       crase — o gate `vocab-surface` lê todo termo em crase como nome de componente e
-      reprova prop como "componente inexistente"; **(b)** versão se cita como `vNEXT`, que
+      reprova prop como "componente inexistente"; **(b)** versão se cita como `v0.72.0`, que
       o `version-claims-check` reprova no `release:check` — assim o placeholder morre no
       `/ds-release` por construção, em vez de virar número errado.
 - [ ] **Prova vermelha: o check não pode ser mais frouxo que a alegação.** Rode `git diff --stat <arquivo>`

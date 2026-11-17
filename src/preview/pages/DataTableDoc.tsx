@@ -237,7 +237,7 @@ const CORE_PROPS = [
   },
   {
     name: "enableColumnReorder",
-    type: "boolean (vNEXT) — arrastar o cabeçalho (mouse) ou Espaço/Enter + setas (teclado) reordena as colunas. false desliga SÓ o arrasto: nenhum cabeçalho arrasta, o cursor não indica arrasto, o cabeçalho sai da ordem de Tab e o clique segue ordenando. Independente de toolbar.enableColumns — use false quando a ordem é decidida fora da grade",
+    type: "boolean (v0.72.0) — arrastar o cabeçalho (mouse) ou Espaço/Enter + setas (teclado) reordena as colunas. false desliga SÓ o arrasto: nenhum cabeçalho arrasta, o cursor não indica arrasto, o cabeçalho sai da ordem de Tab e o clique segue ordenando. Independente de toolbar.enableColumns — use false quando a ordem é decidida fora da grade",
     defaultVal: "true",
   },
   {

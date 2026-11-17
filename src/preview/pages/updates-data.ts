@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.72.0",
+    date: "2026-11-17",
+    tag: "preview",
+    title: "Quatro correções, e o que a falta de review deixou passar",
+    summary:
+      "Três PRs entraram no mesmo dia — `Modal`, `DatePicker` e `DataTable` —, todos abertos e mergeados pelos próprios autores, sem review. Auditados um a um: **o código dos três está certo e nenhum default mudou**. O que a ausência de gate deixou passar não foi bug de lógica, foi o resto: uma correção que consertou um defeito e **gerou outro** (o calendário abrindo num mês onde nada é clicável), uma prop nova que não chegou ao vocabulário do consumidor que a pediu, e nenhuma das duas APIs com marca de versão — o que as publicaria sem dizer de quando são. Esta release leva os quatro fixes e as superfícies fechadas.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`DataTable.enableColumnReorder`** — desliga o arrasto que reordena colunas pelo cabeçalho (mouse e teclado). ⚠️ **Default `true`**: sem a prop, nada muda. Use quando a ordem é decidida fora da grade — painel próprio, salva por usuário, vinda do backend. É **independente** de `toolbar.enableColumns`: aquele governa o popover \"Colunas\", este só o arrasto; esconder o popover e não passar `false` aqui deixava o arrasto ativo, e foi esse o defeito que motivou a prop. Não confundir com **redimensionar**, que é outro mecanismo e continua em `ColumnDef.resizable`.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O calendário do `DatePicker` abria sempre no mês de hoje**, não no da data marcada. Com o vencimento em outubro e hoje em novembro, clicar um dia sem navegar gravava **a data certa no mês errado**, sem aviso. Agora abre no mês do valor — `single`: `value` · `range`: `value.from` · `multiple`: a primeira data. Sem data, segue no mês de hoje.",
+          "**E o mês de abertura passou a ser preso dentro de `minValue`/`maxValue`.** A correção acima, sozinha, criava um segundo defeito: com a data marcada **fora dos limites que o próprio consumidor declarou**, o calendário abria numa grade com **zero dia clicável** e nada explicando por quê. Medido A/B, limite `1–30/nov`: valor `15/jan` abria em janeiro com **0 de 35** dias disponíveis, contra 30 antes. Agora abre no limite mais próximo. ⚠️ O clamp move a **janela**, nunca o **valor** — o dia marcado continua fora do alcance e não-selecionável.",
+          "**O `Modal` rolava o diálogo inteiro** porque o corpo não continha o controle oculto do Radix.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**As superfícies que os três PRs deixaram abertas, fechadas.** As duas APIs novas ganharam marca de versão — sem ela o passo que carimba a release não acha nada, e a API sai publicada sem dizer de quando é. O `enableColumnReorder` chegou ao **vocabulário do consumidor**, onde tinha zero ocorrências: a prop existe por causa de um consumidor específico, e era justamente ele que não ia descobrir. E as skills que geram tabela passaram a conhecê-la — como **nota de geração**, não pergunta de entrevista, porque o defeito que a motivou foi de geração: a tela já tinha ordem própria e a grade gerada continuou arrastando.",
+          "**Duas entradas do audit log afirmavam \"não toca registry, tokens nem CLI\" — e as duas eram falsas.** Os dois PRs tocaram `cli/templates/**`. Quem rodasse a release leria que não havia nada de CLI a fazer. Retificadas com nota datada, sem apagar o registro original.",
+          "**O `check-foundationals` entrou no `release:check`.** Ele rodava **só no CI**, então dava para cortar e publicar uma release com o pareamento DS↔consumidor quebrado — foi o que aconteceu na v0.71.0, e a `main` ficou vermelha sem ninguém ver. É a classe de defeito em que a proteção existe e está inerte justamente onde importaria.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.71.0",
     date: "2026-11-05",
     tag: "preview",
