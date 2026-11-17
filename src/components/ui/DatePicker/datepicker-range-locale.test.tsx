@@ -21,10 +21,11 @@ import { DatePicker } from "./datepicker";
  */
 
 /**
- * O calendário abre no mês de HOJE, não no mês de `value` — medido: o DatePicker não
- * expõe `month`/`defaultMonth`, então o react-day-picker cai no `today`. Sem fixar o
- * relógio, os dias clicados saem de um mês diferente a cada execução e a grade muda de
- * formato junto.
+ * O calendário abre no mês do `value` (SOLIS-395; antes abria no mês de HOJE, porque o
+ * DatePicker não passava `defaultMonth`). Aqui o `value` está no mesmo mês de `HOJE`,
+ * então fixar o relógio continua necessário: sem ele os dias clicados saem de um mês
+ * diferente a cada execução e a grade muda de formato junto. O caso de `value` em OUTRO
+ * mês está em `datepicker-mes-aberto.test.tsx`.
  *
  * É a mesma raiz que quebrou o `datepicker-limits.test.tsx` em novembro/2026 (dois
  * gridcell com o texto "5", "Found multiple elements", `npm test` e a CI reprovados
