@@ -30,6 +30,12 @@ Antes abria sempre no mês de hoje, e clicar um dia sem navegar gravava a data n
 Vale a cada abertura (o conteúdo do popover é desmontado ao fechar), inclusive depois de
 trocar o `value` com o popover fechado.
 
+⚠️ **O mês de abertura é preso dentro de `minValue`/`maxValue`.** Se a data marcada cair
+fora dos limites que você mesmo declarou, o calendário abre no **limite mais próximo**, não
+no mês da data — senão a grade abriria com **zero dia clicável** e sem nada explicando por
+quê. O clamp move a **janela**, nunca o **valor**: o dia marcado continua fora do alcance e
+continua não-selecionável. Sem data, nada muda — abre no mês de hoje, como sempre.
+
 Comportamento de fechamento do popover por modo:
 - `single`: fecha ao clicar numa data.
 - `range`: só fecha quando `from` **e** `to` estão preenchidos (clique único no primeiro dia não fecha).
