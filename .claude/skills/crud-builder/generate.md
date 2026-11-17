@@ -240,7 +240,7 @@ todo campo substantivo leva `icon` no header.
    preservados). **Não precisa configurar** — só passe `grabToScroll={false}` se, por
    algum motivo, quiser desabilitar.
 6. **Arrasto de cabeçalho: desligue quando a ordem das colunas é da TELA**
-   (`enableColumnReorder`, default `true`, `vNEXT`). Reordenar arrastando o cabeçalho é
+   (`enableColumnReorder`, default `true`, `v0.72.0`). Reordenar arrastando o cabeçalho é
    nativo e **no caso normal não se configura**. Passe `enableColumnReorder={false}`
    quando o pedido disser que a ordem é decidida **fora** da grade — painel "Colunas e
    ordem" da própria tela, ordem salva no perfil do usuário, ordem vinda do backend, ou
