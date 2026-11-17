@@ -139,6 +139,17 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       return m.length ? m : undefined;
     }, [minValue, maxValue]);
 
+    // Mês em que o calendário ABRE: o da data marcada (single: `value`; range: `value.from`;
+    // multiple: a primeira data do array). Sem data, cai no mês de hoje (default do RDP).
+    //
+    // Antes nenhum modo passava `defaultMonth`, então o calendário abria SEMPRE no mês de
+    // hoje: com o valor em 10/10 e hoje em novembro, clicar o dia 22 sem navegar gravava
+    // 22/11 — a data certa no mês errado, sem nenhum aviso (SOLIS-395).
+    //
+    // `defaultMonth` só vale na MONTAGEM do `DayPicker`. Funciona a cada abertura porque o
+    // `PopoverContent` do Radix desmonta o conteúdo ao fechar (sem `forceMount`), então o
+    // calendário é montado de novo e lê o valor ATUAL. Se alguém passar a manter o conteúdo
+    // montado, isto deixa de valer e o mês antigo reaparece — há teste cobrindo a reabertura.
     let label: string | null = null;
     let calendar: React.ReactNode;
 
@@ -155,6 +166,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths ?? 2}
+          defaultMonth={v?.from}
           selected={v}
           onSelect={(range) => {
             props.onValueChange?.(range);
@@ -189,6 +201,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths}
+          defaultMonth={v?.[0]}
           selected={v}
           onSelect={(dates) => props.onValueChange?.(dates)}
           autoFocus
@@ -203,6 +216,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths}
+          defaultMonth={v}
           selected={v}
           onSelect={(date) => {
             props.onValueChange?.(date);

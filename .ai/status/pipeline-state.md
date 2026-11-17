@@ -5782,3 +5782,11 @@ preservar a declaração não preserva o pixel.
 - Assumption: nenhum consumidor posiciona filho do corpo em `absolute` contando com o diálogo como referência. Se aparecer, a saída é o consumidor pôr o elemento fora do `children` (ex.: `footer` custom), não tirar o `relative`.
 - Lições novas: nenhuma (L-064 cobre: o defeito só aparece medindo no browser).
 - Pendente pro `/ds-release`: changelog e bump. Registry não muda de lista de arquivos.
+
+### [2026-11-17] | DS DEV | DatePicker: o calendário abre no mês da data marcada (SOLIS-395) | CONCLUÍDO
+- Input: defeito achado no Sólis (consumidor `DatePickerIso`). Com o vencimento em 10/10 e hoje em novembro, abrir o campo e clicar o dia 22 sem navegar gravava 22/11. O `Calendar` não recebia `defaultMonth` em nenhum modo e o react-day-picker cai no mês de hoje.
+- Output: `defaultMonth` nos três modos em `datepicker.tsx` (`single`: `value`; `range`: `value.from`; `multiple`: `value[0]`). Sem data, continua no mês de hoje. Teste novo `datepicker-mes-aberto.test.tsx` (11 casos, incluindo reabrir depois de trocar a data). Comentários dos dois testes antigos que afirmavam "abre no mês de hoje" corrigidos; USAGE atualizado.
+- Decisões: (1) `defaultMonth` e não `month` controlado: `month` travaria a navegação do usuário. (2) `defaultMonth` só vale na montagem; a cada abertura funciona porque o `PopoverContent` do Radix desmonta o conteúdo ao fechar (sem `forceMount`), o que os testes de reabertura travam. (3) `multiple` usa a primeira data do array (ordem de seleção), não a mais antiga.
+- Assumption: ninguém passa `forceMount` no conteúdo do popover do DatePicker. Se passar a manter o calendário montado, o mês fica preso na primeira montagem e o teste de reabertura reprova.
+- Lições novas: nenhuma (o comentário que dizia "abre no mês de hoje, medido" descrevia a ausência da prop como se fosse comportamento do componente; está corrigido no ponto de uso).
+- Pendente pro `/ds-release`: changelog (`updates-data.ts`) e bump. Não toca registry, tokens nem CLI.

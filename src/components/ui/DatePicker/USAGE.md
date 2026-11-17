@@ -24,6 +24,12 @@ import type { DatePickerProps, DateRange } from "@/components/ui/DatePicker";
 | `"range"` | sim (`mode: "range"`) | `DateRange \| undefined` (`{ from: Date \| undefined; to?: Date }`, reexportado de `react-day-picker`) | `(value: DateRange \| undefined) => void` | 2 |
 | `"multiple"` | sim (`mode: "multiple"`) | `Date[] \| undefined` | `(value: Date[] \| undefined) => void` | 1 |
 
+Mês em que o calendário **abre** (SOLIS-395): o da data marcada — `single`: `value`;
+`range`: `value.from`; `multiple`: a primeira data do array. Sem data, o mês de hoje.
+Antes abria sempre no mês de hoje, e clicar um dia sem navegar gravava a data no mês errado.
+Vale a cada abertura (o conteúdo do popover é desmontado ao fechar), inclusive depois de
+trocar o `value` com o popover fechado.
+
 Comportamento de fechamento do popover por modo:
 - `single`: fecha ao clicar numa data.
 - `range`: só fecha quando `from` **e** `to` estão preenchidos (clique único no primeiro dia não fecha).

@@ -11,10 +11,10 @@ import { DatePicker } from "./datepicker";
  */
 
 /**
- * O calendário abre no mês de HOJE, não no mês de `value` — medido: o DatePicker não
- * expõe `month`/`defaultMonth`, então o react-day-picker cai no `today`. Era por isso
- * que a versão anterior montava a janela com `new Date()`: sem fixar a data não havia
- * como saber que mês ia abrir.
+ * O calendário abre no mês do `value` (SOLIS-395; antes abria no mês de HOJE, porque o
+ * DatePicker não passava `defaultMonth` ao Calendar). Aqui o `value` está no mesmo mês
+ * de `hoje`, então o relógio fixado continua sendo o que decide qual grade aparece.
+ * Era por isso que a versão anterior montava a janela com `new Date()`.
  *
  * O preço era depender do calendário real, e ele cobrou em 2026-11: a grade de
  * novembro/2026 termina com 1–5 de dezembro como dias de fora, então passaram a
