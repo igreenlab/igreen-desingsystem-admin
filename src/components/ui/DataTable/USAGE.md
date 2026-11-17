@@ -113,6 +113,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Pagination**                  | `paginationConfig.enabled: true` (default)                                                                                                                                                                                                                                                                                                                           |
 | **Selection (bulk)**            | `selectionConfig.enabled: true`                                                                                                                                                                                                                                                                                                                                      |
 | **Visibility / pin / reorder**  | `toolbar.enableColumns: true` (default)                                                                                                                                                                                                                                                                                                                              |
+| **Arrasto de cabeçalho (reordenar)**| Default ativo: arrastar o cabeçalho (mouse) ou Espaço/Enter + setas (teclado) reordena as colunas. `enableColumnReorder={false}` desliga SÓ isso — use quando a ordem é decidida fora da grade (painel próprio, salvo por usuário). Independente de `toolbar.enableColumns`. Ver §`enableColumnReorder`.                                                             |
 | **Density toggle**              | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop                                                                                                                                                                                                                                                                                      |
 | **Column types registry**       | `type: "currency"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |
 | **Formato de data**             | `type: "date"` → `14/03/2023` · `type: "datetime"` → `14/03/2023 09:30`. Outro formato? **`valueFormatter`** — ele vence o do tipo e vale na célula, no export e no clipboard. Não precisa de `render`. ⚠️ Até a v0.42.1 esses tipos formatavam **sem ano** ("14 de mar") e o `valueFormatter` **não alcançava a célula** (mudava só export/totalizador). |
@@ -1176,6 +1177,23 @@ Grab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralme
 ```tsx
 {/* nativo — nada a fazer. Pra desligar: */}
 <DataTable rows={rows} columns={cols} grabToScroll={false} />
+```
+
+### `enableColumnReorder?: boolean` (default `true`)
+
+Arrastar o cabeçalho pra reordenar as colunas. **Já vem ligado** (mouse: arrasto além de 5px; teclado: Espaço/Enter pega a coluna, setas movem, Espaço/Enter solta, Esc cancela). Passe `false` quando a ordem das colunas é decidida **fora** da grade — por exemplo, um painel "Colunas e ordem" da própria tela, salvo por usuário. Sem isso a grade vira uma segunda fonte de ordem: o usuário reordena por um lado e o outro desfaz.
+
+Com `false`: nenhum cabeçalho arrasta (mouse nem teclado), o cursor não indica arrasto, Espaço/Enter no cabeçalho não "pegam" a coluna, e o cabeçalho deixa de ser parada de Tab (os atributos do dnd-kit — `tabindex`, `aria-roledescription="sortable"` — saem junto, senão anunciariam uma ação que não existe). **O clique continua ordenando** a coluna `sortable`.
+
+⚠️ **É independente de `toolbar.enableColumns`.** Aquele governa o popover "Colunas" (visibilidade, fixar, ordem por lista); este governa só o arrasto no cabeçalho. Esconder o popover (`enableColumns: false`) e não passar `enableColumnReorder={false}` deixa o arrasto ativo — foi o defeito que motivou a prop. Tela com ordem própria passa as duas.
+
+```tsx
+<DataTable
+  rows={rows}
+  columns={colunasNaOrdemDoUsuario}   {/* a ordem vem da tela */}
+  toolbar={{ enableColumns: false }}   {/* sem o popover do DS */}
+  enableColumnReorder={false}          {/* e sem o arrasto no cabeçalho */}
+/>
 ```
 
 ### `persistId?: string` (workspace "Default" persistente — schema v4)

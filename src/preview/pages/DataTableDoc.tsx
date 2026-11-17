@@ -236,6 +236,11 @@ const CORE_PROPS = [
     defaultVal: "true",
   },
   {
+    name: "enableColumnReorder",
+    type: "boolean — arrastar o cabeçalho (mouse) ou Espaço/Enter + setas (teclado) reordena as colunas. false desliga SÓ o arrasto: nenhum cabeçalho arrasta, o cursor não indica arrasto, o cabeçalho sai da ordem de Tab e o clique segue ordenando. Independente de toolbar.enableColumns — use false quando a ordem é decidida fora da grade",
+    defaultVal: "true",
+  },
+  {
     name: "showTypeIcons",
     type: "boolean — mostra o ícone do tipo no cabeçalho (o do tipo registrado OU o `icon` da coluna). false desliga os dois e os 21px que reservavam no autoFit",
     defaultVal: "true",

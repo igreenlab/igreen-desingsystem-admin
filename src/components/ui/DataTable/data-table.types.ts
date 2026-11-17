@@ -710,6 +710,26 @@ export type DataTableProps<T> = {
   grabToScroll?: boolean;
 
   /**
+   * Arrastar o cabeçalho pra reordenar as colunas. **Default `true`** — com ele,
+   * o DataTable se comporta exatamente como sempre: qualquer cabeçalho (menos o
+   * da coluna `actions`) arrasta com o mouse, e Espaço/Enter "pega" a coluna
+   * pelo teclado.
+   *
+   * Passe `false` quando a ordem das colunas é decidida **fora** da grade (um
+   * painel próprio da tela, salvo por usuário). Aí a grade deixa de ser uma
+   * segunda fonte de ordem: nenhum cabeçalho arrasta (mouse nem teclado), o
+   * cursor não indica arrasto, Espaço/Enter no cabeçalho não pegam a coluna e o
+   * cabeçalho deixa de ser parada de Tab. O clique continua ordenando a coluna
+   * (`sortable`).
+   *
+   * É independente de `toolbar.enableColumns`: aquele liga/desliga o popover
+   * "Colunas" (visibilidade, fixar, ordem por lista); este só governa o arrasto
+   * no cabeçalho. Quem esconde o popover e não passa `false` aqui continua com
+   * o arrasto ativo.
+   */
+  enableColumnReorder?: boolean;
+
+  /**
    * Auto-fit das colunas ao container. Quando true (default), o DataTable
    * observa o container via ResizeObserver e:
    *   1) Mede o conteúdo das primeiras N rows (canvas) pra calcular width ideal
