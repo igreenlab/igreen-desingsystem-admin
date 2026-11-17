@@ -24,13 +24,13 @@ import type { DatePickerProps, DateRange } from "@/components/ui/DatePicker";
 | `"range"` | sim (`mode: "range"`) | `DateRange \| undefined` (`{ from: Date \| undefined; to?: Date }`, reexportado de `react-day-picker`) | `(value: DateRange \| undefined) => void` | 2 |
 | `"multiple"` | sim (`mode: "multiple"`) | `Date[] \| undefined` | `(value: Date[] \| undefined) => void` | 1 |
 
-Mês em que o calendário **abre** (SOLIS-395): o da data marcada — `single`: `value`;
+Mês em que o calendário **abre** (`vNEXT`, SOLIS-395): o da data marcada — `single`: `value`;
 `range`: `value.from`; `multiple`: a primeira data do array. Sem data, o mês de hoje.
 Antes abria sempre no mês de hoje, e clicar um dia sem navegar gravava a data no mês errado.
 Vale a cada abertura (o conteúdo do popover é desmontado ao fechar), inclusive depois de
 trocar o `value` com o popover fechado.
 
-⚠️ **O mês de abertura é preso dentro de `minValue`/`maxValue`.** Se a data marcada cair
+⚠️ **O mês de abertura é preso dentro de `minValue`/`maxValue`** (`vNEXT`). Se a data marcada cair
 fora dos limites que você mesmo declarou, o calendário abre no **limite mais próximo**, não
 no mês da data — senão a grade abriria com **zero dia clicável** e sem nada explicando por
 quê. O clamp move a **janela**, nunca o **valor**: o dia marcado continua fora do alcance e

@@ -239,6 +239,19 @@ todo campo substantivo leva `icon` no header.
    já rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px, clique/seleção
    preservados). **Não precisa configurar** — só passe `grabToScroll={false}` se, por
    algum motivo, quiser desabilitar.
+6. **Arrasto de cabeçalho: desligue quando a ordem das colunas é da TELA**
+   (`enableColumnReorder`, default `true`, `vNEXT`). Reordenar arrastando o cabeçalho é
+   nativo e **no caso normal não se configura**. Passe `enableColumnReorder={false}`
+   quando o pedido disser que a ordem é decidida **fora** da grade — painel "Colunas e
+   ordem" da própria tela, ordem salva no perfil do usuário, ordem vinda do backend, ou
+   ordem fixa que o produto não quer que o usuário mexa. Sem isso a grade vira uma
+   SEGUNDA fonte de ordem: o usuário reordena de um lado e o outro desfaz.
+   ⚠️ **Não é o mesmo que `toolbar.enableColumns: false`, e um não implica o outro** —
+   aquele esconde o popover "Colunas", este desliga o arrasto no cabeçalho. Tela com
+   ordem própria passa **as duas**; esconder só o popover deixa o arrasto vivo, e foi
+   exatamente esse o defeito que criou a prop. Com `false` o clique **continua
+   ordenando**, e o cabeçalho sai da ordem de Tab.
+   **Declare no gate** quando inferir — é decisão que o usuário pode recusar.
 
 **Formato de célula.** `type: "date"` renderiza `14/03/2023` e `type: "datetime"` renderiza `14/03/2023 09:30` — **com ano** (lib 0.43.0+). Precisa de outro formato (mês escrito, relativo, ISO)? Passe **`valueFormatter`** na coluna: ele vence o formato do tipo e vale na célula, no export e no clipboard. **NÃO** escreva `render` próprio só pra formatar. ⚠️ Até a 0.42.1 esses tipos mostravam a data **sem ano** e o `valueFormatter` não chegava na célula — se você viu `render` de data em código antigo, era contorno disso.
 

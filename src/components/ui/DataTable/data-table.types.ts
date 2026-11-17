@@ -710,7 +710,7 @@ export type DataTableProps<T> = {
   grabToScroll?: boolean;
 
   /**
-   * Arrastar o cabeçalho pra reordenar as colunas. **Default `true`** — com ele,
+   * Arrastar o cabeçalho pra reordenar as colunas (`vNEXT`). **Default `true`** — com ele,
    * o DataTable se comporta exatamente como sempre: qualquer cabeçalho (menos o
    * da coluna `actions`) arrasta com o mouse, e Espaço/Enter "pega" a coluna
    * pelo teclado.

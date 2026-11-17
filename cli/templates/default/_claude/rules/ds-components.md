@@ -268,6 +268,26 @@ código antigo.
 não só do que você escreveu na coluna: telefone, tags e URL nascem não-ordenáveis. Coluna
 sem nada declarado é ordenável.
 
+### Quem decide a ordem das colunas (DS **vNEXT**+)
+
+Arrastar o cabeçalho reordena as colunas — **é o default e continua sendo**. Desligue só
+quando a ordem já é decidida **fora** da grade (um painel "Colunas e ordem" da sua tela,
+salvo por usuário): senão a grade vira uma SEGUNDA fonte de ordem, o usuário reordena de
+um lado e o outro desfaz.
+
+| quero | uso |
+|---|---|
+| arrastar o cabeçalho reordena (o de sempre) | **não passe nada** — o default é ****true**** |
+| a ordem é da minha tela, a grade não mexe | ****enableColumnReorder={false}**** no `data-table` |
+
+⚠️ **Não confunda com ****toolbar.enableColumns****.** Aquele governa o popover "Colunas"
+(ver, fixar, ordenar por lista); este governa **só o arrasto no cabeçalho**. Esconder o
+popover **não** desliga o arrasto — tela com ordem própria passa **as duas**. Foi exatamente
+esse o defeito que criou a prop.
+
+Com ****false****: nenhum cabeçalho arrasta (mouse nem teclado), o cursor não indica arrasto
+e o cabeçalho sai da ordem de Tab. **O clique continua ordenando.**
+
 ### Linha que não tem o que expandir (DS **v0.71.0**+)
 
 Ligou a expansão (****expandable: true**** numa coluna + ****renderRowExpansion****) e
