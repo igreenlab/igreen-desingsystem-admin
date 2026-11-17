@@ -319,7 +319,7 @@ export function DatePickerDoc() {
       <ExampleSection
         id="ex-limites"
         title="Limites e limpar"
-        description="\`maxValue\` desabilita os dias fora da janela no próprio calendário — sem isso, “não deixar escolher data futura” virava validação DEPOIS do clique. \`clearable\` mostra o × quando há valor; ele é um \`<span role=button>\`, porque o trigger do popover já é um botão."
+        description="\`maxValue\` desabilita os dias fora da janela no próprio calendário — sem isso, “não deixar escolher data futura” virava validação DEPOIS do clique. O calendário abre no mês da data marcada, e se ela cair FORA dos limites abre no limite mais próximo: a grade nunca abre com zero dia clicável. O clamp move a janela, nunca o valor — o dia fora segue não-selecionável. \`clearable\` mostra o × quando há valor; ele é um \`<span role=button>\`, porque o trigger do popover já é um botão."
         code={`<DatePicker
   value={data}
   onValueChange={setData}

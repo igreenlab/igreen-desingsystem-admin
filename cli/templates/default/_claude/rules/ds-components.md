@@ -535,7 +535,7 @@ você estava contornando algum destes na unha, pare de contornar.
 | um `×` no texto do chip, com o chip inteiro removendo | **`<Chip onRemove>`** — o × ganha alvo próprio, com `removeLabel` para nomeá-lo |
 | `onClick` numa `<div>` de card | **`<Card onClick surfaceLabel>`** — vira alvo com foco e teclado; `onClick` na div não é alcançável |
 | **react-select** para escolher vários | **`<Combobox multiple>`** — **value** vira `string[]`, o dropdown não fecha a cada escolha |
-| validar data depois do clique | **`minValue`/`maxValue`** no `DatePicker` — desabilita o dia no calendário. E ****clearable**** para o × de limpar |
+| validar data depois do clique | **`minValue`/`maxValue`** no `DatePicker` — desabilita o dia no calendário, e o mês de abertura fica preso dentro deles (data fora dos limites abre no limite mais próximo, nunca numa grade sem dia clicável). E ****clearable**** para o × de limpar |
 | `<table>` cru para "nenhum resultado" | **`<TableSpanRow>`** — linha de largura total (o `colSpan` que um grid de **div** não tem) |
 | `className="font-normal"` num `<Label>` | **`weight="regular"`** — para rótulo de OPÇÃO em grupo (checkbox, radio, switch) |
 | anular o **min-h** do `<Textarea>` | ****rows**** — agora encolhe de verdade |

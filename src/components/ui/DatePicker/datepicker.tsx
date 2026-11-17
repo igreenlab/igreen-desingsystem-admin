@@ -94,6 +94,41 @@ const formatShort = (date: Date) =>
     year: "numeric",
   });
 
+
+/**
+ * Mês em que o calendário ABRE, preso dentro de `minValue`/`maxValue`.
+ *
+ * A data marcada manda — foi o que o SOLIS-395 consertou. O que esta função acrescenta é
+ * o caso em que ela **contradiz os próprios limites** que o consumidor declarou: aí abrir
+ * nela entrega uma grade onde NADA é clicável.
+ *
+ * Medido A/B, com `value=15/jan` e limite `1–30/nov`:
+ *
+ * | | abre em | dias clicáveis |
+ * |---|---|---|
+ * | antes do SOLIS-395 | mês de hoje | 30 de 35 (quando hoje ∈ limites) |
+ * | depois do SOLIS-395 | janeiro | **0 de 35** |
+ * | com este clamp | novembro | 30 de 35 |
+ *
+ * Abrir no limite mais próximo mantém a tela utilizável **e** não mente sobre a data: o dia
+ * marcado continua fora do alcance, como tem que continuar — o clamp move a JANELA, nunca
+ * o valor. Quem quiser que a contradição seja notada, o lugar é um aviso em dev; tela vazia
+ * não diz "seus dados se contradizem", diz "parece quebrado".
+ *
+ * ⚠️ Sem data, devolve `undefined` e o react-day-picker cai no mês de hoje — o
+ * comportamento de sempre, byte por byte.
+ */
+const mesDeAbertura = (
+  data: Date | undefined,
+  minValue: Date | undefined,
+  maxValue: Date | undefined,
+): Date | undefined => {
+  if (!data) return undefined;
+  if (minValue && data < minValue) return minValue;
+  if (maxValue && data > maxValue) return maxValue;
+  return data;
+};
+
 /**
  * DatePicker — seletor de data(s) num trigger no estilo input do DS + Popover.
  * Suporta os modos do Calendar via `mode` (default `"single"`):
@@ -166,7 +201,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths ?? 2}
-          defaultMonth={v?.from}
+          defaultMonth={mesDeAbertura(v?.from, minValue, maxValue)}
           selected={v}
           onSelect={(range) => {
             props.onValueChange?.(range);
@@ -201,7 +236,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths}
-          defaultMonth={v?.[0]}
+          defaultMonth={mesDeAbertura(v?.[0], minValue, maxValue)}
           selected={v}
           onSelect={(dates) => props.onValueChange?.(dates)}
           autoFocus
@@ -216,7 +251,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
           locale={locale}
           disabled={desabilitados}
           numberOfMonths={props.numberOfMonths}
-          defaultMonth={v}
+          defaultMonth={mesDeAbertura(v, minValue, maxValue)}
           selected={v}
           onSelect={(date) => {
             props.onValueChange?.(date);
