@@ -17,6 +17,11 @@ export type UseDataTableSearchResult = {
   debouncedValue: string;
   /** Update — atualiza input + agenda update do debounced. */
   setInputValue: (value: string) => void;
+  /**
+   * Atualiza input e debounced juntos, sem debounce — troca de visão e Default.
+   * Com `search` controlado e sem `onSearchChange` não faz nada: a prop manda.
+   */
+  setValueNow: (value: string) => void;
   /** Force apply imediato (pra Enter, blur). */
   flush: () => void;
 };
@@ -62,10 +67,21 @@ export function useDataTableSearch({
     [isControlled, onSearchChange],
   );
 
+  const setValueNow = useCallback(
+    (value: string) => {
+      if (isControlled && !onSearchChange) return;
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (!isControlled) setUncontrolled(value);
+      setDebouncedValue(value);
+      onSearchChange?.(value);
+    },
+    [isControlled, onSearchChange],
+  );
+
   const flush = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setDebouncedValue(inputValue);
   }, [inputValue]);
 
-  return { inputValue, debouncedValue, setInputValue, flush };
+  return { inputValue, debouncedValue, setInputValue, setValueNow, flush };
 }

@@ -804,7 +804,9 @@ import { savedViewsMockService } from "@/components/ui/DataTable";
 />;
 ```
 
-Service contract em `services/saved-views.types.ts` — `list / save / delete` (todos recebem `persistId` como primeiro arg). Persiste o `DataTableSavedViewState` (filterModel, sortModel, density, layout de colunas, viewMode, groupBy, expandedRowIds) como JSON — `search` e paginação são voláteis e NÃO entram na view.
+Service contract em `services/saved-views.types.ts` — `list / save / delete` (todos recebem `persistId` como primeiro arg). Persiste o `DataTableSavedViewState` (filterModel, sortModel, density, layout de colunas, viewMode, groupBy, expandedRowIds, search) como JSON — só a paginação fica de fora (volátil, não entra na view).
+
+**A busca entra na view.** O save grava o texto que o usuário vê no campo (`""` quando vazio); aplicar a view devolve esse texto ao campo e a busca roda na hora, sem o debounce de quem digita (filtra as linhas em client mode, chega ao `fetchData` em server mode já com o filtro da view). Voltar ao Default restaura a busca dele do mesmo jeito. `search` é **opcional** no tipo, e a ausência é o que mantém a compatibilidade: view salva antes do campo existir, ou preset que não declara `search`, **não mexe** na busca atual; view salva com a busca vazia **limpa** a busca ao ser aplicada.
 
 **`allowCreateView` (v0.23.0)** — `allowCreateView={false}` esconde o botão "+" das visões (exibe SÓ os `defaultViews` + Default, read-only; o usuário não cria/salva visões). Default `true`.
 

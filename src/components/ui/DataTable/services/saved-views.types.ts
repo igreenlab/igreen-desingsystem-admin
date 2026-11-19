@@ -16,9 +16,9 @@ import type { ColumnPinned, TableDensity } from "../../Table";
  * - viewMode — tabela OU kanban (quando integração viewMode ativa)
  * - groupBy — agrupamento por field (quando feature ativa)
  * - expandedRowIds — rows expandidas (quando feature ativa)
+ * - search — texto da busca como o usuário vê (`""` quando vazia)
  *
  * **Não capturado** (volátil/sessão):
- * - search — limpa entre views
  * - paginationModel — page reseta ao aplicar filtros
  * - selectionModel — sessão; não tem sentido persistir
  * - virtualize/totalizers/etc — config-time, não state
@@ -43,6 +43,11 @@ export type DataTableSavedViewState = {
   groupBy?: string;
   /** IDs de rows expandidas (Fase F.4b). `undefined`/`[]` = todas colapsadas. */
   expandedRowIds?: GridRowId[];
+  /**
+   * Texto da busca. `""` limpa a busca ao aplicar. `undefined` (view salva antes
+   * do campo existir, ou preset que não declara) mantém a busca atual.
+   */
+  search?: string;
 };
 
 /**

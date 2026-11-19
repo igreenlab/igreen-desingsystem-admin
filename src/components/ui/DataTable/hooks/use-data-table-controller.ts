@@ -550,6 +550,7 @@ export function useDataTableController<T>(
    *  - viewMode → "table" (default histórico)
    *  - groupBy → undefined (sem agrupamento)
    *  - expandedRowIds → [] (todas colapsadas)
+   *  - search → mantém a busca atual (view salva antes do campo existir)
    *
    * Comportamento idêntico pra saved view e preset view (mesmo shape de state).
    */
@@ -575,9 +576,10 @@ export function useDataTableController<T>(
       if (state.viewMode !== undefined) setViewMode(state.viewMode);
       setGroupBy(state.groupBy);
       setExpandedRowIds(state.expandedRowIds ?? []);
+      if (state.search !== undefined) search.setValueNow(state.search);
       savedViews.setCurrentViewId(id);
     },
-    [density, sort, filters, cols, setViewMode, setGroupBy, setExpandedRowIds, savedViews],
+    [density, sort, filters, cols, setViewMode, setGroupBy, setExpandedRowIds, search, savedViews],
   );
 
   const applyView = useCallback(
@@ -657,6 +659,7 @@ export function useDataTableController<T>(
           viewMode,
           groupBy,
           expandedRowIds,
+          search: search.inputValue,
         },
         opts,
       );
@@ -673,6 +676,7 @@ export function useDataTableController<T>(
       viewMode,
       groupBy,
       expandedRowIds,
+      search.inputValue,
     ],
   );
 
@@ -706,7 +710,7 @@ export function useDataTableController<T>(
       setExpandedRowIds(snapshot.expandedRowIds ?? []);
       // v4 — restaura filters/search/page do workspace Default
       filters.setFilterModel(snapshot.filterModel ?? { items: [], logicOperator: "AND" });
-      search.setInputValue(snapshot.search ?? "");
+      search.setValueNow(snapshot.search ?? "");
       pagination.setPaginationModel({
         page: snapshot.currentPage ?? 1,
         pageSize: snapshot.pageSize ?? pagination.paginationModel.pageSize,
@@ -725,7 +729,7 @@ export function useDataTableController<T>(
       setGroupBy(undefined);
       setExpandedRowIds([]);
       filters.setFilterModel({ items: [], logicOperator: "AND" });
-      search.setInputValue("");
+      search.setValueNow("");
     }
 
     savedViews.setCurrentViewId(null);
