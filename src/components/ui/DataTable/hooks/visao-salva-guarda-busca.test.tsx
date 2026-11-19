@@ -15,9 +15,14 @@
  * o snapshot do Default (que lê o valor debounced) gravava a busca da visão anterior
  * quando a troca era mais rápida que 500 ms, e o server mode buscava com o filtro novo
  * e a busca antiga antes de acertar.
+ *
+ * Com `search` controlado, quem manda no campo é a prop. Sem `onSearchChange` o pai não
+ * tem como aceitar a busca da visão, então o valor aplicado não pode filtrar as linhas
+ * enquanto o campo mostra outro.
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, renderHook, waitFor } from "@testing-library/react";
+import { useState } from "react";
 import { useDataTableController } from "./use-data-table-controller";
 import type {
   DataTableColumnDef,
@@ -213,5 +218,70 @@ describe("visão salva guarda a busca", () => {
     const chamadas = fetchData.mock.calls.map(([p]) => ({ search: p.search, filtros: p.filters.items.length }));
     expect(chamadas.length).toBeGreaterThan(0);
     expect(chamadas.filter((c) => c.search !== "Beta" || c.filtros !== 1)).toEqual([]);
+  });
+
+  it("search controlado sem onSearchChange: aplicar visão não separa o campo das linhas", async () => {
+    const persistId = "visao-busca-controlado-sem-callback";
+    semear(persistId, [visaoComBusca("A", "Alfa")]);
+    const { result } = montar({ rows: ROWS, columns: COLUNAS, getRowId: (r) => r.id, persistId, search: "Gama" });
+    await waitFor(() => expect(result.current.savedViews.views).toHaveLength(1));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Gama"]), ESPERA);
+
+    act(() => result.current.applyViewById("A"));
+    expect(result.current.savedViews.currentViewId).toBe("A");
+    await pausa(700);
+    expect(result.current.search.inputValue).toBe("Gama");
+    expect(nomes(result.current.rowsToRender)).toEqual(["Gama"]);
+  });
+
+  it("search controlado sem onSearchChange: aplicar visão logo depois de a prop mudar não trava a busca nova", async () => {
+    const persistId = "visao-busca-controlado-prop-nova";
+    semear(persistId, [visaoComBusca("A", "Alfa")]);
+    const { result, rerender } = renderHook(
+      ({ busca }: { busca: string }) =>
+        useDataTableController<Row>({ rows: ROWS, columns: COLUNAS, getRowId: (r) => r.id, persistId, search: busca }, null),
+      { initialProps: { busca: "Gama" } },
+    );
+    await waitFor(() => expect(result.current.savedViews.views).toHaveLength(1));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Gama"]), ESPERA);
+
+    rerender({ busca: "Beta" });
+    act(() => result.current.applyViewById("A"));
+    await pausa(700);
+    expect(result.current.search.inputValue).toBe("Beta");
+    expect(nomes(result.current.rowsToRender)).toEqual(["Beta"]);
+  });
+
+  it("search controlado com onSearchChange: aplicar visão avisa o pai uma vez e campo e linhas andam juntos", async () => {
+    const persistId = "visao-busca-controlado-com-callback";
+    semear(persistId, [visaoComBusca("A", "Alfa")]);
+    const avisos = vi.fn();
+    const { result } = renderHook(() => {
+      const [busca, setBusca] = useState("Gama");
+      return useDataTableController<Row>(
+        {
+          rows: ROWS,
+          columns: COLUNAS,
+          getRowId: (r) => r.id,
+          persistId,
+          search: busca,
+          onSearchChange: (v) => {
+            avisos(v);
+            setBusca(v);
+          },
+        },
+        null,
+      );
+    });
+    await waitFor(() => expect(result.current.savedViews.views).toHaveLength(1));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Gama"]), ESPERA);
+
+    act(() => result.current.applyViewById("A"));
+    expect(result.current.search.inputValue).toBe("Alfa");
+    expect(nomes(result.current.rowsToRender)).toEqual(["Alfa"]);
+    await pausa(700);
+    expect(avisos.mock.calls).toEqual([["Alfa"]]);
+    expect(result.current.search.inputValue).toBe("Alfa");
+    expect(nomes(result.current.rowsToRender)).toEqual(["Alfa"]);
   });
 });
