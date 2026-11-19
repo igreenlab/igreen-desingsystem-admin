@@ -10,6 +10,11 @@
  *   - aplicar visão com `search` repõe a busca e a busca chega ao resultado (linhas em
  *     client mode, `fetchData` em server mode), não só ao campo;
  *   - visão salva antes do campo existir (sem `search`) não mexe na busca atual.
+ *
+ * A troca de visão aplica a busca NA HORA, sem o debounce de quem digita. Com debounce,
+ * o snapshot do Default (que lê o valor debounced) gravava a busca da visão anterior
+ * quando a troca era mais rápida que 500 ms, e o server mode buscava com o filtro novo
+ * e a busca antiga antes de acertar.
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, renderHook, waitFor } from "@testing-library/react";
@@ -50,6 +55,13 @@ function visaoAntiga(id: string): SavedView {
     },
   };
 }
+
+function visaoComBusca(id: string, search: string): SavedView {
+  const base = visaoAntiga(id);
+  return { ...base, name: id, state: { ...base.state, search } };
+}
+
+const pausa = (ms: number) => act(() => new Promise<void>((r) => setTimeout(r, ms)));
 
 function semear(persistId: string, views: SavedView[]) {
   window.localStorage.setItem(`igreen-datatable-views:${persistId}`, JSON.stringify(views));
@@ -149,5 +161,57 @@ describe("visão salva guarda a busca", () => {
     act(() => result.current.applyViewById(salva!.id));
     await waitFor(() => expect(fetchData).toHaveBeenLastCalledWith(expect.objectContaining({ search: "Beta" })), ESPERA);
     await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Beta"]), ESPERA);
+  });
+
+  it("a busca de uma visão não vaza para o Default quando a troca é mais rápida que o debounce", async () => {
+    const persistId = "visao-busca-default";
+    semear(persistId, [visaoComBusca("A", "Alfa"), visaoAntiga("B")]);
+    const { result } = montar({ rows: ROWS, columns: COLUNAS, getRowId: (r) => r.id, persistId });
+    await waitFor(() => expect(result.current.savedViews.views).toHaveLength(2));
+
+    act(() => result.current.search.setInputValue("Gama"));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Gama"]), ESPERA);
+
+    act(() => result.current.applyViewById("A"));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Alfa"]), ESPERA);
+
+    act(() => result.current.applyDefault());
+    await pausa(100);
+    act(() => result.current.applyViewById("B"));
+    await pausa(700);
+    act(() => result.current.applyDefault());
+
+    expect(result.current.search.inputValue).toBe("Gama");
+    expect(nomes(result.current.rowsToRender)).toEqual(["Gama"]);
+    await pausa(1000);
+    const gravado = JSON.parse(window.localStorage.getItem(`igreen-datatable:${persistId}`) ?? "{}");
+    expect(gravado.search).toBe("Gama");
+  });
+
+  it("em server mode aplicar visão com filtro e busca não busca com a busca antiga", async () => {
+    const persistId = "visao-busca-server-filtro";
+    const comFiltro = visaoComBusca("F", "Beta");
+    comFiltro.state.filterModel = {
+      items: [{ id: "f1", field: "nome", operator: "contains", value: "a" }],
+      logicOperator: "AND",
+    };
+    semear(persistId, [comFiltro]);
+    const fetchData = vi.fn(async (params: GridFetchParams) => {
+      const data = ROWS.filter((r) => r.nome.includes(params.search));
+      return { data, total: data.length };
+    });
+    const { result } = montar({ fetchData, columns: COLUNAS, getRowId: (r) => r.id, persistId });
+    await waitFor(() => expect(result.current.savedViews.views).toHaveLength(1));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toHaveLength(3), ESPERA);
+    await pausa(600);
+    fetchData.mockClear();
+
+    act(() => result.current.applyViewById("F"));
+    await waitFor(() => expect(nomes(result.current.rowsToRender)).toEqual(["Beta"]), ESPERA);
+    await pausa(800);
+
+    const chamadas = fetchData.mock.calls.map(([p]) => ({ search: p.search, filtros: p.filters.items.length }));
+    expect(chamadas.length).toBeGreaterThan(0);
+    expect(chamadas.filter((c) => c.search !== "Beta" || c.filtros !== 1)).toEqual([]);
   });
 });
