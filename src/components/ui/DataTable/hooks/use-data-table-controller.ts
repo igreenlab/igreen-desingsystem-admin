@@ -550,6 +550,7 @@ export function useDataTableController<T>(
    *  - viewMode → "table" (default histórico)
    *  - groupBy → undefined (sem agrupamento)
    *  - expandedRowIds → [] (todas colapsadas)
+   *  - search → mantém a busca atual (view salva antes do campo existir)
    *
    * Comportamento idêntico pra saved view e preset view (mesmo shape de state).
    */
@@ -575,9 +576,10 @@ export function useDataTableController<T>(
       if (state.viewMode !== undefined) setViewMode(state.viewMode);
       setGroupBy(state.groupBy);
       setExpandedRowIds(state.expandedRowIds ?? []);
+      if (state.search !== undefined) search.setInputValue(state.search);
       savedViews.setCurrentViewId(id);
     },
-    [density, sort, filters, cols, setViewMode, setGroupBy, setExpandedRowIds, savedViews],
+    [density, sort, filters, cols, setViewMode, setGroupBy, setExpandedRowIds, search, savedViews],
   );
 
   const applyView = useCallback(
@@ -657,6 +659,7 @@ export function useDataTableController<T>(
           viewMode,
           groupBy,
           expandedRowIds,
+          search: search.inputValue,
         },
         opts,
       );
@@ -673,6 +676,7 @@ export function useDataTableController<T>(
       viewMode,
       groupBy,
       expandedRowIds,
+      search.inputValue,
     ],
   );
 
