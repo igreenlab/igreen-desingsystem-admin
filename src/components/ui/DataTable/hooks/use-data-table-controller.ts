@@ -476,7 +476,7 @@ export function useDataTableController<T>(
       if (state.viewMode !== undefined) setViewMode(state.viewMode);
       setGroupBy(state.groupBy);
       setExpandedRowIds(state.expandedRowIds ?? []);
-      if (state.search !== undefined) search.setInputValue(state.search);
+      if (state.search !== undefined) search.setValueNow(state.search);
       savedViews.setCurrentViewId(id);
     },
     [density, sort, filters, cols, setViewMode, setGroupBy, setExpandedRowIds, search, savedViews],
@@ -610,7 +610,7 @@ export function useDataTableController<T>(
       setExpandedRowIds(snapshot.expandedRowIds ?? []);
       // v4 — restaura filters/search/page do workspace Default
       filters.setFilterModel(snapshot.filterModel ?? { items: [], logicOperator: "AND" });
-      search.setInputValue(snapshot.search ?? "");
+      search.setValueNow(snapshot.search ?? "");
       pagination.setPaginationModel({
         page: snapshot.currentPage ?? 1,
         pageSize: snapshot.pageSize ?? pagination.paginationModel.pageSize,
@@ -629,7 +629,7 @@ export function useDataTableController<T>(
       setGroupBy(undefined);
       setExpandedRowIds([]);
       filters.setFilterModel({ items: [], logicOperator: "AND" });
-      search.setInputValue("");
+      search.setValueNow("");
     }
 
     savedViews.setCurrentViewId(null);
