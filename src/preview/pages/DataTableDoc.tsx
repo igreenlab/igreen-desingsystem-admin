@@ -66,7 +66,7 @@ const SAVED_VIEW_FIELDS: Array<{
   { field: "viewMode", type: "'table' | 'kanban' | 'list'", captured: "✅ NOVO" },
   { field: "groupBy", type: "string | undefined", captured: "✅ NOVO" },
   { field: "expandedRowIds", type: "GridRowId[]", captured: "✅ NOVO" },
-  { field: "search", type: "string", captured: "❌ Volátil (sessão)" },
+  { field: "search", type: "string", captured: "✅ Sempre (view sem o campo mantém a busca)" },
   {
     field: "paginationModel",
     type: "{ page, pageSize }",
